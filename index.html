@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html manifest="savegame-editors.appcache">
+<head>
+	<title>HTML5 Savegame Editors</title>
+	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content="A compilation of game savegame editors, made with my own small library save-editor.js"/>
+	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, 3ds, wii u, hyrule warriors, kid icarus uprising, picross 3d round 2, rhythm paradise megamix, rhythm heaven megamix, streetpass mii plaza, unlock, amiibo, materials, experience, weapon"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="shortcut icon" href="./savegame-editors.png"/>
+	<link type="text/css" rel="stylesheet" href="./savegame-editors.css" media="all"/>
+	<script type="text/javascript" src="./savegame-editors.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+	<h1>HTML5 Savegame Editors</h1>
+	<h2>
+		by <a href="/" class="author">Marc Robledo</a>
+		<a href="https://github.com/marcrobledo/savegame-editors/" target="_blank" class="button"><span class="sprite github"></span> See on GitHub</a>
+		<a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow" class="donate button"><span class="sprite heart"></span> Donate</a>
+	</h2>
+</div>
+
+
+
+<!-- CARDS -->
+<div id="cards">
+	<div class="card card-warning text-center" id="card-warning">
+		Use this tool at your own risk.<br/>
+		By using it, you are responsible of any data lost.
+	</div>
+
+	<div class="card text-center" id="card-home">
+		<div id="loading-message">
+			Loading editors...
+		</div>
+		<div id="file-loader" style="display:none">
+			Load your savegame file: <input type="file" id="file-load" onchange="loadSavegameFromInput(this)"/>
+		</div>
+
+		<hr/>
+		Supported games:
+
+		<div id="games">
+			<div class="row">
+				<div class="four columns"><div id="thumb-hyrule-warriors"></div><b>Filename:</b> APP.BIN<br/>Edit materials &amp; characters!<br/>Create weapons!</div>
+				<div class="four columns"><div id="thumb-kid-icarus-uprising"></div><b>Filename:</b> 0X.sav<br/>Edit stats &amp; create weapons!</div>
+				<div class="four columns"><div id="thumb-picross-3d-round-2"></div><b>Filename:</b> SAVEDATA<br/>Unlock amiibo puzzles!</div>
+			</div>
+			<div class="row">
+				<div class="four columns"><div id="thumb-pokemon-picross"></div><b>Filename:</b> all.dat<br/>Get picrites!</div>
+				<div class="four columns"><div id="thumb-pokemon-shuffle"></div><b>Filename:</b> savedata.bin<br/>Get jewels and other items!</div>
+				<div class="four columns"><div id="thumb-rhythm-paradise-megamix"></div><b>Filename:</b> savedataArc.txt<br/>Get coins, flow balls and onions!</div>
+			</div>
+			<div class="row">
+				<div class="four columns end"><div id="thumb-streetpass-mii-plaza"></div><b>Filename:</b> meet.dat<br/>Get tickets and unlock hats!</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="card card-notice hidden text-center" id="card-savechanges">
+		Editing savegame for <b id="savegame-name">none</b>.
+		<button class="button colored blue with-icon icon9" onclick="saveSavegame()">Save changes</button>
+	</div>
+
+
+
+	<!-- HYRULE WARRIORS -->
+	<div id="HyruleWarriorsEditor" class="hidden">
+		<!-- MATERIALS -->
+		<div class="card card-red">
+			<h3>Materials</h3>
+			<div class="row" id="container-materials">
+				<div class="four columns"><label for="input-rupees">Rupees</label></div>
+				<div class="two columns"><input id="input-rupees" class="input" type="number" min="0" max="9999999"/></div>
+			</div>
+			<button class="button" id="button-discover-materials" onclick="SavegameEditor.discoverMaterials()">Discover all materials</button>
+		</div>
+
+		<!-- CHARACTERS -->
+		<div class="card card-green">
+			<h3>Characters</h3>
+			<div class="row">
+				<div class="three columns">&nbsp;</div>
+				<div class="three columns">Damage</div>
+				<div class="three columns">Level</div>
+				<div class="three columns">Experience</div>
+			</div>
+			<div id="characters"></div>
+		</div>
+
+		<!-- MAPS -->
+		<div class="card card-yellow">
+			<h3>Maps</h3>
+			<label for="select-map">Map</label> <span id="container-select-map"></span>
+			<hr/>
+			<div id="maps"></div>
+		</div>
+
+		<!-- WEAPONS -->
+		<div class="card card-red">
+			<h3>Weapons</h3>
+			<label for="select-weapon">Weapon slot</label> <span id="hw-container-select-weapon"></span>
+			<hr/>
+			<div class="row">
+				<div class="three columns">Weapon type</div><div class="three columns mono" id="container-weapon-type"></div>
+				<div class="three columns">Weapon ID</div><div class="three columns mono" id="container-weapon-id"></div>
+				<div class="three columns">Base Power</div><div class="three columns mono" id="container-weapon-base-power"></div>
+				<div class="three columns">Stars</div><div class="three columns mono" id="container-weapon-stars"></div>
+			</div>
+			<hr/>
+			<div class="row">
+				<div class="three columns"><label for="select-weapon-skill0">Skill 1</label></div>
+				<div class="three columns" id="container-weapon-skill0"></div>
+				<div class="three columns"><label for="input-weapon-koskill0">KOs to unlock</label></div>
+				<div class="three columns" id="container-weapon-koskill0"></div>
+				<div class="three columns"><label for="select-weapon-skill1">Skill 2</label></div>
+				<div class="three columns" id="container-weapon-skill1"></div>
+				<div class="three columns"><label for="input-weapon-koskill1">KOs to unlock</label></div>
+				<div class="three columns" id="container-weapon-koskill1"></div>
+				<div class="three columns"><label for="select-weapon-skill2">Skill 3</label></div>
+				<div class="three columns" id="container-weapon-skill2"></div>
+				<div class="three columns"><label for="input-weapon-koskill2">KOs to unlock</label></div>
+				<div class="three columns" id="container-weapon-koskill2"></div>
+				<div class="three columns"><label for="select-weapon-skill3">Skill 4</label></div>
+				<div class="three columns" id="container-weapon-skill3"></div>
+				<div class="three columns"><label for="input-weapon-koskill3">KOs to unlock</label></div>
+				<div class="three columns" id="container-weapon-koskill3"></div>
+				<div class="three columns"><label for="select-weapon-skill4">Skill 5</label></div>
+				<div class="three columns" id="container-weapon-skill4"></div>
+				<div class="three columns"><label for="input-weapon-koskill4">KOs to unlock</label></div>
+				<div class="three columns" id="container-weapon-koskill4"></div>
+				<div class="three columns"><label for="select-weapon-skill5">Skill 6</label></div>
+				<div class="three columns" id="container-weapon-skill5"></div>
+				<div class="three columns"><label for="input-weapon-koskill5">KOs to unlock</label></div>
+				<div class="three columns" id="container-weapon-koskill5"></div>
+				<div class="three columns"><label for="select-weapon-skill6">Skill 7</label></div>
+				<div class="three columns" id="container-weapon-skill6"></div>
+				<div class="three columns"><label for="input-weapon-koskill60">KOs to unlock</label></div>
+				<div class="three columns" id="container-weapon-koskill6"></div>
+				<div class="three columns"><label for="select-weapon-skill7">Skill 8</label></div>
+				<div class="three columns" id="container-weapon-skill7"></div>
+				<div class="three columns"><label for="input-weapon-koskill7">KOs to unlock</label></div>
+				<div class="three columns end" id="container-weapon-koskill7"></div>
+			</div>
+			<hr/>
+			<div class="row">
+				<div class="three columns">Approximate power</div>
+				<div class="three columns end" id="weapon-power"></div>
+			</div>
+			
+		</div>
+	</div>
+
+
+
+
+
+
+	<!-- KID ICARUS UPRISING -->
+	<div id="KidIcarusUprisingEditor" class="hidden">
+		<!-- HEARTS -->
+		<div class="card card-red">
+			<h3>Hearts</h3>
+			<div class="row">
+				<div class="five columns">Current hearts</div>
+				<div class="three columns"><input id="input-kiu-hearts" class="input" type="number" min="0" max="9999999"/></div>
+			</div>
+			<div class="row">
+				<div class="five columns">Hearts offered to Palutena</div>
+				<div class="three columns"><input id="input-hearts-for-palutena" class="input" type="number" min="0" max="9999999"/></div>
+			</div>
+			<div class="row">
+				<div class="five columns">Hearts offered to Viridi</div>
+				<div class="three columns"><input id="input-hearts-for-viridi" class="input" type="number" /></div>
+			</div>
+			<div class="row">
+				<div class="five columns">Unlock unreleased trophies</div>
+				<div class="three columns"><button id="button-unlock-trophies" onclick="KidIcarusUprising.unlockTrophies()">Unlock</button></div>
+			</div>
+		</div>
+
+		<!-- STATS -->
+		<div class="card card-green">
+			<h3>Stats</h3>
+			<div id="kiu-stats" class="row"></div>
+		</div>
+
+		<!-- WEAPONS -->
+		<div class="card card-yellow">
+			<h3>Weapons</h3>
+			<label for="select-weapon">Weapon slot</label> <span id="kiu-container-select-weapon"></span>
+			<div class="row">
+				<div class="three columns"><label for="weapon-type">Weapon type</label></div>
+				<div class="three columns end">
+					<select id="select-weapon-type" class="select" onchange="SavegameEditor._writeWeapon()">
+						<optgroup label="Blades">
+							<option value="fa2000">1. First Blade</option>
+							<option value="f9a880">2. Burst Blade</option>
+							<option value="5b2100">3. Viper Blade</option>
+							<option value="7a6180">4. Crusader Blade</option>
+							<option value="79e200">5. Royal Blade</option>
+							<option value="84e280">6. Optical Blade</option>
+							<option value="66e300">7. Samurai Blade</option>
+							<option value="926380">8. Bullet Blade</option>
+							<option value="9cec00">9. Aquarius Blade</option>
+							<option value="88ec80">10. Aurum Blade</option>
+							<option value="876500">11. Palutena Blade</option>
+							<option value="94ed80">12. Gaol Blade</option>
+						</optgroup>
+						<optgroup label="Staves">
+							<option value="49c804">1. Insight Staff</option>
+							<option value="7c4084">2. Orb Staff</option>
+							<option value="4d4904">3. Rose Staff</option>
+							<option value="684184">4. Knuckle Staff</option>
+							<option value="944204">5. Ancient Staff</option>
+							<option value="934284">6. Lancer Staff</option>
+							<option value="93c304">7. Flintlock Staff</option>
+							<option value="9bcb84">8. Somewhat Staff</option>
+							<option value="f98c04">9. Scorpio Staff</option>
+							<option value="bd8c84">10. Laser Staff</option>
+							<option value="5a0504">11. Dark Pit Staff</option>
+							<option value="fa0d84">12. Thanatos Staff</option>
+						</optgroup>
+						<optgroup label="Claws">
+							<option value="9f0888">1. Tiger Claws</option>
+							<option value="9f0888">2. Wolf Claws</option>
+							<option value="a30908">3. Bear Claws</option>
+							<option value="a2c988">4. Brawler Claws</option>
+							<option value="9e8a08">5. Stealth Claws</option>
+							<option value="9e0a88">6. Hedgehog Claws</option>
+							<option value="8d4b08">7. Raptor Claws</option>
+							<option value="7f0388">8. Artillery Claws</option>
+							<option value="f9cc08">9. Cancer Claws</option>
+							<option value="d50c88">10. Beam Claws</option>
+							<option value="a3cd08">11. Viridi Claws</option>
+							<option value="a38c88">12. Pandora Claws</option>
+						</optgroup>
+						<optgroup label="Bows">
+							<option value="af080c">1. Fortune Bow</option>
+							<option value="81c08c">2. Silver Bow</option>
+							<option value="f9c90c">3. Meteor Bow</option>
+							<option value="96498c">4. Divine Bow</option>
+							<option value="89ca0c">5. Darkness Bow</option>
+							<option value="acca8c">6. Crystal Bow</option>
+							<option value="95cb0c">7. Angel Bow</option>
+							<option value="abcb8c">8. Hawkeye Bow</option>
+							<option value="af4c0c">9. Sagittarius Bow</option>
+							<option value="4ccc8c">10. Aurum Bow</option>
+							<option value="67c50c">11. Palutena Bow</option>
+							<option value="50cd8c">12. Phrosphora Bow</option>
+						</optgroup>
+						<optgroup label="Palms">
+							<option value="fa0810">1. Violet Palm</option>
+							<option value="f98890">2. Burning Palm</option>
+							<option value="87c910">3. Needle Palm</option>
+							<option value="914190">4. Midnight Palm</option>
+							<option value="a9ca10">5. Cursed Palm</option>
+							<option value="af4a90">6. Cutter Palm</option>
+							<option value="514310">7. Pudgy Palm</option>
+							<option value="aa4b90">8. Ninja Palm (Weeaboo Palm)</option>
+							<option value="674410">9. Virgo Palm</option>
+							<option value="924490">10. Aurum Palm</option>
+							<option value="99c510">11. Viridi Palm</option>
+							<option value="aecd90">12. Great Reaper Palm</option>
+						</optgroup>
+						<optgroup label="Clubs">
+							<option value="a60814">1. Ore Club</option>
+							<option value="9d8894">2. Babel Club</option>
+							<option value="9e0914">3. Skyscraper Club</option>
+							<option value="65c994">4. Atlas Club</option>
+							<option value="f9c214">5. Earthmaul Club</option>
+							<option value="a48A94">6. Ogre Club</option>
+							<option value="884b14">7. Halo Club</option>
+							<option value="a58b94">8. Black Club</option>
+							<option value="a68c14">9. Capricorn Club</option>
+							<option value="834494">10. Aurum Club</option>
+							<option value="874514">11. Hewdraw Club</option>
+							<option value="a50d94">12. Magnus Club</option>
+						</optgroup>
+						<optgroup label="Cannons">
+							<option value="aa4818">1. EZ Cannon</option>
+							<option value="a1c098">2. Ball Cannon</option>
+							<option value="f9c918">3. Predator Cannon</option>
+							<option value="51c198">4. Poseidon Cannon</option>
+							<option value="ae8a18">5. Fireworks Cannon</option>
+							<option value="4aca98">6. Rail Cannon</option>
+							<option value="aecb18">7. Dynamo Cannon</option>
+							<option value="634b98">8. Doom Cannon</option>
+							<option value="9bc418">9. Leo Cannon</option>
+							<option value="5b0498">10. Sonic Cannon</option>
+							<option value="864518">11. Twinbellows Cannon</option>
+							<option value="84c598">12. Cragalanche Cannon</option>
+						</optgroup>
+						<optgroup label="Orbitars">
+							<option value="fa081c">1. Standard Orbitars</option>
+							<option value="85809c">2. Guardian Orbitars</option>
+							<option value="53a91c">3. Shock Orbitars</option>
+							<option value="4d899c">4. Eyetrack Orbitars</option>
+							<option value="534a1c">5. Fairy Orbitars</option>
+							<option value="68829c">6. Paw Pad Orbitars</option>
+							<option value="7f831c">7. Jetstream Orbitars</option>
+							<option value="69039c">8. Boom Orbitars</option>
+							<option value="898c1c">9. Gemini Orbitars</option>
+							<option value="7e049c">10. Aurum Orbitars</option>
+							<option value="7e851c">11. Centurion Orbitars</option>
+							<option value="f98d9c">12. Arlon Orbitars</option>
+						</optgroup>
+						<optgroup label="Arms">
+							<option value="9a4020">1. Crusher Arm</option>
+							<option value="8b48a0">2. Compact Arm</option>
+							<option value="f9c920">3. Electroshock Arm</option>
+							<option value="a949a0">4. Volcano Arm</option>
+							<option value="484a20">5. Drill Arm</option>
+							<option value="914aa0">6. Bomber Arm</option>
+							<option value="478b20">7. Bowl Arm</option>
+							<option value="a98ba0">8. End-All Arm</option>
+							<option value="79c420">9. Taurus Arm</option>
+							<option value="8044a0">10. Upperdash Arm</option>
+							<option value="844520">11. Kraken Arm</option>
+							<option value="83c5a0">12. Phoenix Arm</option>
+						</optgroup>
+						<option value="000000" id="weapon-unknown">???</option>
+					</select>
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="three columns"><label for="weapon-stars-ranged">Ranged stars</label></div><div class="three columns mono" id="container-weapon-stars-ranged"></div>
+				<div class="three columns"><label for="weapon-stars-melee">Melee stars</label></div><div class="three columns mono" id="container-weapon-stars-melee"></div>
+			</div>
+			<hr/>
+			<div class="row">
+				<div class="six columns"><label for="select-weapon-modifier0">Modifier 1</label></div>
+				<div class="six columns" id="container-weapon-modifier0"></div>
+				<div class="six columns"><label for="select-weapon-modifier1">Modifier 2</label></div>
+				<div class="six columns" id="container-weapon-modifier1"></div>
+				<div class="six columns"><label for="select-weapon-modifier2">Modifier 3</label></div>
+				<div class="six columns" id="container-weapon-modifier2"></div>
+				<div class="six columns"><label for="select-weapon-modifier3">Modifier 4</label></div>
+				<div class="six columns" id="container-weapon-modifier3"></div>
+				<div class="six columns"><label for="select-weapon-modifier4">Modifier 5</label></div>
+				<div class="six columns" id="container-weapon-modifier4"></div>
+				<div class="six columns"><label for="select-weapon-modifier5">Modifier 6</label></div>
+				<div class="six columns" id="container-weapon-modifier5"></div>
+			</div>
+			Approximate value: <span id="weapon-value"></span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<!-- PICROSS 3D ROUND 2 -->
+	<div id="Picross3DRound2Editor" class="hidden">
+		<div class="card">
+			You have unlocked <span id="picross3d2-amiibocount"></span><small>/9</small> amiibo puzzles.
+			<button onclick="SavegameEditor.unlockAmiiboPuzzles()">Unlock missing amiibo puzzles</button>
+		</div>
+	</div>
+
+
+
+
+
+
+	<!-- POKEMON PICROSS -->
+	<div id="PokemonPicrossEditor" class="hidden">
+		<div class="card">
+			<div class="row">
+				<div class="six columns center"><label for="input-picrites">Picrites</label></div>
+				<div class="four columns center"><input id="input-picrites" class="input" type="number" min="0" max="999" /></div>
+			</div>
+			<!--<div class="row">
+				<div class="six columns center"><label for="input-boughtpicrites">Bought picrites</label></div>
+				<div class="four columns center"><input id="input-boughtpicrites" class="input" type="number" min="0" max="5000" /></div>
+			</div>-->
+		</div>
+	</div>
+
+
+
+
+
+
+	<!-- POKEMON SHUFFLE -->
+	<div id="PokemonShuffleEditor" class="hidden">
+		<div class="card card-green">
+			<div class="row">
+				<div class="four columns center"><label for="input-hearts">Hearts</label></div>
+				<div class="four columns center"><label for="input-coins">Coins</label></div>
+				<div class="four columns center"><label for="input-jewels">Jewels</label></div>
+			</div>
+			<div class="row">
+				<div class="four columns center"><input id="input-hearts" class="input" type="number" min="0" max="99" /></div>
+				<div class="four columns center"><input id="input-coins" class="input" type="number" min="0" max="99999" /></div>
+				<div class="four columns center"><input id="input-jewels" class="input" type="number" min="0" max="150" /></div>
+			</div>
+		</div>
+		<div class="card card-yellow">
+			<h3>Items</h3>
+			<div class="row">
+				<div class="three columns"><label for="input-item0">Moves +5</label></div>
+				<div class="three columns"><input id="input-item0" class="input mini" type="number" min="0" max="99"/></div>
+
+				<div class="three columns"><label for="input-item4">Complexity -1</label></div>
+				<div class="three columns"><input id="input-item4" class="input mini" type="number" min="0" max="99"/></div>
+
+				<div class="three columns"><label for="input-item1">Time +10</label></div>
+				<div class="three columns"><input id="input-item1" class="input mini" type="number" min="0" max="99"/></div>
+
+				<div class="three columns"><label for="input-item5">Disruption Delay</label></div>
+				<div class="three columns"><input id="input-item5" class="input mini" type="number" min="0" max="99"/></div>
+
+				<div class="three columns"><label for="input-item2">Exp. *1.5</label></div>
+				<div class="three columns"><input id="input-item2" class="input mini" type="number" min="0" max="99"/></div>
+
+				<div class="three columns"><label for="input-item6">Attack up</label></div>
+				<div class="three columns"><input id="input-item6" class="input mini" type="number" min="0" max="99"/></div>
+
+				<div class="three columns"><label for="input-item3">Mega start</label></div>
+				<div class="three columns end"><input id="input-item3" class="input mini" type="number" min="0" max="99"/></div>
+			</div>
+		</div>
+		<div class="card card-red">
+			<h3>Enhancements</h3>
+			<div class="row">
+				<div class="three columns"><label for="input-enhancement0">Mega speedup</label></div>
+				<div class="three columns"><input id="input-enhancement0" class="input mini" type="number" min="0" max="99"/></div>
+
+				<div class="three columns"><label for="input-enhancement5">Exp. Booster L</label></div>
+				<div class="three columns"><input id="input-enhancement5" class="input mini" type="number" min="0" max="99"/></div>
+
+				<div class="three columns"><label for="input-enhancement1">Raise Max Level</label></div>
+				<div class="three columns"><input id="input-enhancement1" class="input mini" type="number" min="0" max="99"/></div>
+
+				<div class="three columns"><label for="input-enhancement6">Skill Booster S</label></div>
+				<div class="three columns"><input id="input-enhancement6" class="input mini" type="number" min="0" max="99"/></div>
+
+				<div class="three columns"><label for="input-enhancement2">Level Up</label></div>
+				<div class="three columns"><input id="input-enhancement2" class="input mini" type="number" min="0" max="99"/></div>
+
+				<div class="three columns"><label for="input-enhancement7">Skill Booster M</label></div>
+				<div class="three columns"><input id="input-enhancement7" class="input mini" type="number" min="0" max="99"/></div>
+
+				<div class="three columns"><label for="input-enhancement3">Exp. Booster S</label></div>
+				<div class="three columns"><input id="input-enhancement3" class="input mini" type="number" min="0" max="99"/></div>
+
+				<div class="three columns"><label for="input-enhancement8">Skill Booster L</label></div>
+				<div class="three columns"><input id="input-enhancement8" class="input mini" type="number" min="0" max="99"/></div>
+
+				<div class="three columns"><label for="input-enhancement4">Exp. Booster M</label></div>
+				<div class="three columns"><input id="input-enhancement4" class="input mini" type="number" min="0" max="99"/></div>
+
+				<div class="three columns"><label for="input-enhancement9">Skill Swapper</label></div>
+				<div class="three columns"><input id="input-enhancement9" class="input mini" type="number" min="0" max="99"/></div>
+			</div>
+		</div>
+		<div class="card card-green">
+			<h3>Other</h3>
+			<div class="row">
+				<div class="nine columns"><label for="input-scalationlvl">Current scalation battle level</label></div>
+				<div class="three columns"><input id="input-scalationlvl" class="input mini" type="number" min="1" max="999"/></div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+	<!-- RHYTHM HEAVEN/PARADISE MEGAMIX -->
+	<div id="RhythmParadiseMegamixEditor" class="hidden">
+		<div class="card">
+			<div class="row">
+				<div class="three columns"><label for="input-rhythmcoins">Coins</label></div>
+				<div class="three columns"><input id="input-rhythmcoins" class="input" type="number" min="0" max="9999" /></div>
+				<div class="three columns"><label for="input-onions1">Onions</label></div>
+				<div class="three columns"><input id="input-onions1" class="input" type="number" min="0" max="255" /></div>
+				<div class="three columns"><label for="input-flowballs">Flow balls</label></div>
+				<div class="three columns"><input id="input-flowballs" class="input" type="number" min="0" max="255" /></div>
+				<div class="three columns"><label for="input-onions2">Silver onions</label></div>
+				<div class="three columns"><input id="input-onions2" class="input" type="number" min="0" max="255" /></div>
+				<div class="three columns">&nbsp;</div>
+				<div class="three columns">&nbsp;</div>
+				<div class="three columns"><label for="input-onions3">Gold onions</label></div>
+				<div class="three columns"><input id="input-onions3" class="input" type="number" min="0" max="255" /></div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+	<!-- STREETPASS MII PLAZA -->
+	<div id="StreetPassMiiPlazaEditor" class="hidden">
+		<div class="card">
+			<div class="row">
+				<div class="eight columns"><label for="input-sptags">Streetpass Tags</label></div>
+				<div class="four columns"><input id="input-sptags" class="input" type="number" min="0" max="65535"/></div>
+
+				<div class="eight columns"><label for="input-tickets">Tickets</label></div>
+				<div class="four columns"><input id="input-tickets" class="input" type="number" min="0" max="156"/></div>
+
+				<div class="eight columns"><label for="input-fantastic">Fantastic ratings</label></div>
+				<div class="four columns"><input id="input-fantastic" class="input" type="number" min="0" max="65535"/></div>
+
+				<div class="eight columns"><label for="button-unlockticketshop">Unlock ticket shop</label></div>
+				<div class="four columns"><button id="button-unlockticketshop" onclick="SavegameEditor._unlockTicketShop()">Unlock</button></div>
+
+				<div class="eight columns"><label for="button-unlockspeechbubbles">Unlock speech bubbles (first 16)</label></div>
+				<div class="four columns"><button id="button-unlockspeechbubbles" onclick="SavegameEditor._unlockSpeechBubbles()">Unlock</button></div>
+
+				<div class="eight columns"><label for="button-unlockspeechbubbles2">Unlock speech bubbles (last 6)</label></div>
+				<div class="four columns"><button id="button-unlockspeechbubbles2" onclick="SavegameEditor._unlockSpeechBubbles2()">Unlock</button></div>
+
+				<div class="eight columns"><label for="button-unlockhats2">Unlock hats (pack 2)</label></div>
+				<div class="four columns"><button id="button-unlockhats2"onclick="SavegameEditor._unlockHats2()">Unlock</button></div>
+
+				<div class="eight columns"><label for="button-unlockhats3">Unlock hats (pack 3)</label></div>
+				<div class="four columns"><button id="button-unlockhats3" onclick="SavegameEditor._unlockHats3()">Unlock</button></div>
+
+				<!--
+				<div class="eight columns"><label for="button-unlockhatsgame0">Unlock hats (game 0: )</label></div>
+				<div class="four columns"><input id="button-unlockhatsgame0" class="button" type="button" value="Unlock" onclick="SavegameEditor._unlockHatsGame(0)"/></div>
+				<div class="eight columns"><label for="button-unlockhatsgame1">Unlock hats (game 1: )</label></div>
+				<div class="four columns"><input id="button-unlockhatsgame1" class="button" type="button" value="Unlock" onclick="SavegameEditor._unlockHatsGame(1)"/></div>
+				<div class="eight columns"><label for="button-unlockhatsgame2">Unlock hats (game 2: )</label></div>
+				<div class="four columns"><input id="button-unlockhatsgame2" class="button" type="button" value="Unlock" onclick="SavegameEditor._unlockHatsGame(2)"/></div>
+				<div class="eight columns"><label for="button-unlockhatsgame3">Unlock hats (game 3: )</label></div>
+				<div class="four columns"><input id="button-unlockhatsgame3" class="button" type="button" value="Unlock" onclick="SavegameEditor._unlockHatsGame(3)"/></div>
+				<div class="eight columns"><label for="button-unlockhatsgame4">Unlock hats (game 4: Monster Manor)</label></div>
+				<div class="four columns"><input id="button-unlockhatsgame4" class="button" type="button" value="Unlock" onclick="SavegameEditor._unlockHatsGame(4)"/></div>
+				<div class="eight columns"><label for="button-unlockhatsgame5">Unlock hats (game 5: Ultimate Angler)</label></div>
+				<div class="four columns"><input id="button-unlockhatsgame5" class="button" type="button" value="Unlock" onclick="SavegameEditor._unlockHatsGame(5)"/></div>
+				<div class="eight columns"><label for="button-unlockhatsgame6">Unlock hats (game 6: Slot Car Rivals)</label></div>
+				<div class="four columns"><input id="button-unlockhatsgame6" class="button" type="button" value="Unlock" onclick="SavegameEditor._unlockHatsGame(6)"/></div>
+				<div class="eight columns"><label for="button-unlockhatsgame7">Unlock hats (game 7: )</label></div>
+				<div class="four columns"><input id="button-unlockhatsgame7" class="button" type="button" value="Unlock" onclick="SavegameEditor._unlockHatsGame(7)"/></div>
+				<div class="eight columns"><label for="button-unlockhatsgame8">Unlock hats (game 8: Feed Mii)</label></div>
+				<div class="four columns"><input id="button-unlockhatsgame8" class="button" type="button" value="Unlock" onclick="SavegameEditor._unlockHatsGame(8)"/></div>
+				<div class="eight columns"><label for="button-unlockhatsgame9">Unlock hats (game 9: Mii Trek)</label></div>
+				<div class="four columns"><input id="button-unlockhatsgame9" class="button" type="button" value="Unlock" onclick="SavegameEditor._unlockHatsGame(9)"/></div>
+				<div class="eight columns"><label for="button-unlockhatsgame10">Unlock hats (game 10: )</label></div>
+				<div class="four columns"><input id="button-unlockhatsgame10" class="button" type="button" value="Unlock" onclick="SavegameEditor._unlockHatsGame(10)"/></div>
+				-->
+			</div>
+	</div>
+	<div class="card card-red">
+		<div class="row">
+			<h3>Puzzle swap</h3>
+			<label for="select-panel">Panel:</label> <span id="container-select-panel"></span><br/>
+			Pieces: <span id="container-pieces"></span>
+			<button onclick="SavegameEditor._setPiecesFromCurrentPanel(true)">All</button>
+			<button onclick="SavegameEditor._setPiecesFromCurrentPanel(-1)">All but one</button>
+			<button onclick="SavegameEditor._setPiecesFromCurrentPanel(false)">None</button>
+		</div>
+	</div>
+	
+</div>
+
+</body>
+</html>
