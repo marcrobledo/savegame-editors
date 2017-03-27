@@ -1,0 +1,27 @@
+CACHE MANIFEST
+# last update 2017-03-27c
+# these belong to the CACHE block
+index.html
+savegame-editors.css
+savegame-editors.js
+savegame-editors.png
+editors/hyrule-warriors.jpg
+editors/hyrule-warriors.js
+editors/kid-icarus-uprising.jpg
+editors/kid-icarus-uprising.js
+editors/picross-3d-round-2.jpg
+editors/picross-3d-round-2.js
+editors/pokemon-picross.jpg
+editors/pokemon-picross.js
+editors/pokemon-shuffle.jpg
+editors/pokemon-shuffle.js
+editors/rhythm-paradise-megamix.jpg
+editors/rhythm-paradise-megamix.js
+editors/streetpass-mii-plaza.jpg
+editors/streetpass-mii-plaza.js
+editors/zelda-botw.jpg
+editors/zelda-botw.js
+
+# force these files to be loaded in network
+NETWORK:
+*
