@@ -3,7 +3,7 @@
 	by Marc Robledo 2016
 */
 
-SavegameEditors.StreetPassMiiPlaza={
+SavegameEditor={
 	Name:'Streetpass Mii Plaza',
 	Filename:'meet.dat',
 
@@ -14,17 +14,14 @@ SavegameEditors.StreetPassMiiPlaza={
 		ALL_HATS2:[0xef,0xfb,0xff,0xff,0xff,0xff,0xff,0xff],
 		ALL_HATS3:[0xff,0xff,0xff,0x7f,0x00,0xfe,0x3f,0xfc,0x01],
 
-	//Battleground Z
-	
-	//Mii Force
-	//Flower Town
-	//Warrior's Way
-	
-	//Market Crashers
-	//Ninja Launcher
-	
-	//
 		HATS_GAMES:[
+			//Battleground Z?
+			//Mii Force?
+			//Flower Town?
+			//Warrior's Way?
+			//Market Crashers?
+			//Ninja Launcher?
+
 			[0x05b348, 0xc0],
 			[0x05b348, 0x30],	
 			[0x05b348, 0x0c],	
@@ -137,20 +134,20 @@ SavegameEditors.StreetPassMiiPlaza={
 	/* private functions */
 	_getPanelOffset:function(){
 		var panelOffset,panelSize,panelId;
-		if(m('#select-panel').get().selectedIndex<=6){
+		if(m('#select-miiplaza-panel').get().selectedIndex<=6){
 			panelOffset=SavegameEditor.Offsets.PANELS;
 			panelSize=SavegameEditor.Offsets.PANEL_SIZE;
-			panelId=getSelect('panel');
+			panelId=getValue('miiplaza-panel');
 		}else{
 			panelOffset=SavegameEditor.Offsets.SPOTPASS_PANELS;
 			panelSize=SavegameEditor.Offsets.SPOTPASS_PANEL_SIZE;
-			panelId=getSelect('panel')-7;
+			panelId=getValue('miiplaza-panel')-7;
 		}
 		
 		return panelOffset+parseInt(panelId)*panelSize;
 	},
 	_countCurrentPanelPieces:function(){
-		var panelSize=SavegameEditor.Constants.PANELS[getSelect('panel')].Size;
+		var panelSize=SavegameEditor.Constants.PANELS[getValue('miiplaza-panel')].Size;
 		var offset=SavegameEditor._getPanelOffset();
 
 
@@ -184,8 +181,9 @@ SavegameEditors.StreetPassMiiPlaza={
 		}else{
 			color='initial';
 		}
-		
-		m('#container-pieces').html(count).css('color',color);
+
+		setValue('miiplaza-pieces',count);
+		getField('miiplaza-pieces').style.color=color;
 		
 	},
 	_setPiecesFromCurrentPanel:function(status){
@@ -197,10 +195,10 @@ SavegameEditors.StreetPassMiiPlaza={
 		}else{
 			arrayStr='ALL_PIECES_';
 		}
-		if(m('#select-panel').get().selectedIndex>=7){
+		if(m('#select-miiplaza-panel').get().selectedIndex>=7){
 			arrayStr+='SPOTPASS_';
 		}
-		arrayStr+=SavegameEditor.Constants.PANELS[parseInt(getSelect('panel'))].Size;
+		arrayStr+=SavegameEditor.Constants.PANELS[parseInt(getValue('miiplaza-panel'))].Size;
 
 		tempFile.writeBytes(SavegameEditor._getPanelOffset(), SavegameEditor.Constants[arrayStr]);
 
@@ -210,28 +208,28 @@ SavegameEditors.StreetPassMiiPlaza={
 		var originalByte=tempFile.readByte(this.Offsets.SHOP_UNLOCKED);
 		if(!(originalByte & 0x01)){
 			tempFile.writeByte(this.Offsets.SHOP_UNLOCKED, originalByte+0x01);
-			m('#button-unlockticketshop').get().disabled=true;
+			getField('button-miiplaza-unlockticketshop').disabled=true;
 			MarcDialogs.alert('Ticket shop is open now.');
 		}
 	},
 	_unlockSpeechBubbles:function(){
 		tempFile.writeBytes(this.Offsets.SPEECH_BUBBLES, this.Constants.ALL_SPEECH_BUBBLES);
-		m('#button-unlockspeechbubbles').get().disabled=true;
+		getField('button-miiplaza-unlockspeechbubbles').disabled=true;
 		MarcDialogs.alert('Speech bubbles 1-16 were unlocked.');
 	},
 	_unlockSpeechBubbles2:function(){
 		tempFile.writeBytes(this.Offsets.SPEECH_BUBBLES2, this.Constants.ALL_SPEECH_BUBBLES2);
-		m('#button-unlockspeechbubbles2').get().disabled=true;
+		getField('button-miiplaza-unlockspeechbubbles2').disabled=true;
 		MarcDialogs.alert('Speech bubbles 17-22 were unlocked.');
 	},
 	_unlockHats2:function(){
 		tempFile.writeBytes(this.Offsets.HATS2, this.Constants.ALL_HATS2);
-		m('#button-unlockhats2').get().disabled=true;
+		getField('button-miiplaza-unlockhats2').disabled=true;
 		MarcDialogs.alert('All hats (pack 2) were unlocked.');
 	},
 	_unlockHats3:function(){
 		tempFile.writeBytes(this.Offsets.HATS3, this.Constants.ALL_HATS3);
-		m('#button-unlockhats3').get().disabled=true;
+		getField('button-miiplaza-unlockhats3').disabled=true;
 		MarcDialogs.alert('All hats (pack 3) were unlocked.');
 	},
 	_unlockHatsGame:function(i){
@@ -242,7 +240,7 @@ SavegameEditors.StreetPassMiiPlaza={
 
 			tempFile.writeByte(offset, (byteRead & ~mask)+mask);
 		}
-		m('#button-unlockhatsgame'+i).get().disabled=true;
+		getField('button-unlockhatsgame'+i).disabled=true;
 		MarcDialogs.alert('Game '+i+' hats were unlocked.');
 	},
 
@@ -256,20 +254,21 @@ SavegameEditors.StreetPassMiiPlaza={
 	load:function(){
 		tempFile.littleEndian=true;
 
-		updateInput('sptags', tempFile.readInt(this.Offsets.STREETPASS_TAGS));
-		updateInput('tickets', tempFile.readShort(this.Offsets.TICKETS));
-		updateInput('fantastic', tempFile.readShort(this.Offsets.FANTASTIC_RATINGS));
+		setValue('miiplaza-sptags', tempFile.readInt(this.Offsets.STREETPASS_TAGS), 0, 65535);
+		setValue('miiplaza-tickets', tempFile.readShort(this.Offsets.TICKETS), 0, 156);
+		setValue('miiplaza-fantastic', tempFile.readShort(this.Offsets.FANTASTIC_RATINGS), 0, 65535);
 
 		var panels=[];
 		for(var i=0; i<this.Constants.PANELS.length; i++)
 			panels.push((i+1)+'. '+this.Constants.PANELS[i].Name);
-		m('#container-select-panel').append(select('panel',panels).css('width','auto').addEvent('change', this._countCurrentPanelPieces));
 
-		m('#button-unlockticketshop').get().disabled=(tempFile.readByte(this.Offsets.SHOP_UNLOCKED) & 0x01);
-		m('#button-unlockspeechbubbles').get().disabled=(compareBytes(this.Offsets.SPEECH_BUBBLES, this.Constants.ALL_SPEECH_BUBBLES));
-		m('#button-unlockspeechbubbles2').get().disabled=(compareBytes(this.Offsets.SPEECH_BUBBLES2, this.Constants.ALL_SPEECH_BUBBLES2));
-		m('#button-unlockhats2').get().disabled=(compareBytes(this.Offsets.HATS2, this.Constants.ALL_HATS2));
-		m('#button-unlockhats3').get().disabled=(compareBytes(this.Offsets.HATS3, this.Constants.ALL_HATS3));
+		m('#container-select-panel').append(m([create('select','miiplaza-panel',panels)]).css('width','auto').addEvent('change', this._countCurrentPanelPieces));
+
+		getField('button-miiplaza-unlockticketshop').disabled=(tempFile.readByte(this.Offsets.SHOP_UNLOCKED) & 0x01);
+		getField('button-miiplaza-unlockspeechbubbles').disabled=(compareBytes(this.Offsets.SPEECH_BUBBLES, this.Constants.ALL_SPEECH_BUBBLES));
+		getField('button-miiplaza-unlockspeechbubbles2').disabled=(compareBytes(this.Offsets.SPEECH_BUBBLES2, this.Constants.ALL_SPEECH_BUBBLES2));
+		getField('button-miiplaza-unlockhats2').disabled=(compareBytes(this.Offsets.HATS2, this.Constants.ALL_HATS2));
+		getField('button-miiplaza-unlockhats3').disabled=(compareBytes(this.Offsets.HATS3, this.Constants.ALL_HATS3));
 
 		/*for(var i=0; i<11; i++){
 			var enabled=this.Constants.HATS_GAMES[i].length/2;
@@ -290,8 +289,8 @@ SavegameEditors.StreetPassMiiPlaza={
 
 	/* save function */
 	save:function(){
-		tempFile.writeInt(this.Offsets.STREETPASS_TAGS, getInputNumber('sptags'));
-		tempFile.writeShort(this.Offsets.TICKETS, getInputNumber('tickets'));
-		tempFile.writeShort(this.Offsets.FANTASTIC_RATINGS, getInputNumber('fantastic'));
+		tempFile.writeInt(this.Offsets.STREETPASS_TAGS, getValue('miiplaza-sptags'));
+		tempFile.writeShort(this.Offsets.TICKETS, getValue('miiplaza-tickets'));
+		tempFile.writeShort(this.Offsets.FANTASTIC_RATINGS, getValue('miiplaza-fantastic'));
 	}
 }

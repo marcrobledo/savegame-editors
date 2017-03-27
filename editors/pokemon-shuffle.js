@@ -3,7 +3,7 @@
 	by Marc Robledo 2016
 */
 
-SavegameEditors.PokemonShuffle={
+SavegameEditor={
 	Name:'Pokémon Shuffle',
 	Filename:'savedata.bin',
 	Offsets:{
@@ -95,12 +95,12 @@ SavegameEditors.PokemonShuffle={
 		tempFile.littleEndian=true;
 		tempFile.fileName='savedata.bin';
 
-		updateInput('coins', this._readVariable(this.Offsets.Coins, 0));
-		updateInput('jewels', this._readVariable(this.Offsets.Jewels, 0));
-		updateInput('hearts', this._readVariable(this.Offsets.Hearts, 0));
+		setValue('poke-shuffle-coins', this._readVariable(this.Offsets.Coins, 0), 0, 99999);
+		setValue('poke-shuffle-jewels', this._readVariable(this.Offsets.Jewels, 0), 0, 150);
+		setValue('poke-shuffle-hearts', this._readVariable(this.Offsets.Hearts, 0), 0, 99);
 
 		for(var i=0; i<7; i++)
-			updateInput('item'+i, this._readVariable(this.Offsets.Items, i));
+			setValue('poke-shuffle-item'+i, this._readVariable(this.Offsets.Items, i), 0, 99);
 
 		var maxEnhancements;
 		if(tempFile.fileSize==42039)
@@ -108,20 +108,20 @@ SavegameEditors.PokemonShuffle={
 		else if(tempFile.fileSize==74807)
 			maxEnhancements=10;
 		for(var i=0; i<maxEnhancements; i++)
-			updateInput('enhancement'+i, this._readVariable(this.Offsets.Enhancements, i));
+			setValue('poke-shuffle-enhancement'+i, this._readVariable(this.Offsets.Enhancements, i), 0, 99);
 
-		updateInput('scalationlvl', this._readVariable(this.Offsets.CurrentScalationLevel, 0));
+		setValue('poke-shuffle-scalationlvl', this._readVariable(this.Offsets.CurrentScalationLevel, 0), 1, 999);
 	},
 
 
 	/* save function */
 	save:function(){
-		 this._storeVariable(this.Offsets.Coins, 0, getInputNumber('coins', 0, 99999));
-		 this._storeVariable(this.Offsets.Jewels, 0, getInputNumber('jewels', 0, 150));
-		 this._storeVariable(this.Offsets.Hearts, 0, getInputNumber('hearts', 0, 99));
+		 this._storeVariable(this.Offsets.Coins, 0, getValue('poke-shuffle-coins'));
+		 this._storeVariable(this.Offsets.Jewels, 0, getValue('poke-shuffle-jewels'));
+		 this._storeVariable(this.Offsets.Hearts, 0, getValue('poke-shuffle-hearts'));
 
 		for(var i=0; i<7; i++)
-			 this._storeVariable(this.Offsets.Items, i, getInputNumber('item'+i, 0, 99));
+			 this._storeVariable(this.Offsets.Items, i, getValue('poke-shuffle-item'+i));
 
 		var maxEnhancements;
 		if(tempFile.fileSize==42039)
@@ -129,8 +129,8 @@ SavegameEditors.PokemonShuffle={
 		else if(tempFile.fileSize==74807)
 			maxEnhancements=10;
 		for(var i=0; i<maxEnhancements; i++)
-			this._storeVariable(this.Offsets.Enhancements, i, getInputNumber('enhancement'+i, 0, 99));
+			this._storeVariable(this.Offsets.Enhancements, i, getValue('poke-shuffle-enhancement'+i));
 
-		this._storeVariable(this.Offsets.CurrentScalationLevel, 0, getInputNumber('scalationlvl', 1, 999));
+		this._storeVariable(this.Offsets.CurrentScalationLevel, 0, getValue('poke-shuffle-scalationlvl'));
 	}
 }

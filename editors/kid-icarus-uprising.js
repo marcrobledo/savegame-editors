@@ -4,7 +4,7 @@
 */
 
 var currentWeapon=0
-SavegameEditors.KidIcarusUprising={
+SavegameEditor={
 	Name:'Kid Icarus: Uprising',
 	Filename:'0x.sav',
 
@@ -302,16 +302,16 @@ SavegameEditors.KidIcarusUprising={
 			-3.3, -5, -6.6 /* Heart Bonus- */
 		],
 		STAR_RANGED_VALUES:[
-			0.0, 14.9, 23.2, 31.5, 39.8, 48.1, 56.4, 64.7, 73.0, 81.3, 89.6, 98.2, 106.2
+			0.0, 14.9, 23.2, 31.5, 39.8, 48.1, 56.4, 64.7, 73.0, 81.3, 89.6, 98.2, 106.2, -11.75, -23.5, -35.25, -47.0
 		],
 		STAR_MELEE_VALUES:[
-			0.0, 9.4, 15.2, 21.0, 26.8, 32.6, 38.4, 44.2, 50.0, 55.8, 61.6, 67.4, 73.2
+			0.0, 9.4, 15.2, 21.0, 26.8, 32.6, 38.4, 44.2, 50.0, 55.8, 61.6, 67.4, 73.2, -8.5, -17, -25.5, -34
 		],
 		DEFAULT_MODIFIERS:[
 			0x4a, 0x86, 0x8e, 0x1c, 0xbe, 0xdc
 		],
 		STARS:[
-			'0=-',
+			'-',
 			'☆',
 			'★',
 			'★☆',
@@ -323,7 +323,11 @@ SavegameEditors.KidIcarusUprising={
 			'★★★★☆',
 			'★★★★★',
 			'★★★★★☆',
-			'★★★★★★'
+			'★★★★★★',
+			'-☆',
+			'-★',
+			'-★☆',
+			'-★★'
 		],
 		STATS:[
 			/* BASIC */
@@ -409,6 +413,134 @@ SavegameEditors.KidIcarusUprising={
 			'UNKNOWN_6',
 			'Weapons fused from gems',
 			'Hearts acquired by gems'
+		],
+		WEAPON_TYPES:[
+			{name:'Blades', weapons:[
+				{id:0xfa2000,name:'First Blade'},
+				{id:0xf9a880,name:'Burst Blade'},
+				{id:0x5b2100,name:'Viper Blade'},
+				{id:0x7a6180,name:'Crusader Blade'},
+				{id:0x79e200,name:'Royal Blade'},
+				{id:0x84e280,name:'Optical Blade'},
+				{id:0x66e300,name:'Samurai Blade'},
+				{id:0x926380,name:'Bullet Blade'},
+				{id:0x9cec00,name:'Aquarius Blade'},
+				{id:0x88ec80,name:'Aurum Blade'},
+				{id:0x876500,name:'Palutena Blade'},
+				{id:0x94ed80,name:'Gaol Blade'}
+			]},
+			{name:'Staves', weapons:[
+				{id:0x49c804,name:'Insight Staff'},
+				{id:0x7c4084,name:'Orb Staff'},
+				{id:0x4d4904,name:'Rose Staff'},
+				{id:0x684184,name:'Knuckle Staff'},
+				{id:0x944204,name:'Ancient Staff'},
+				{id:0x934284,name:'Lancer Staff'},
+				{id:0x93c304,name:'Flintlock Staff'},
+				{id:0x9bcb84,name:'Somewhat Staff'},
+				{id:0xf98c04,name:'Scorpio Staff'},
+				{id:0xbd8c84,name:'Laser Staff'},
+				{id:0x5a0504,name:'Dark Pit Staff'},
+				{id:0xfa0d84,name:'Thanatos Staff'}
+			]},
+			{name:'Claws', weapons:[
+				{id:0x9f0888,name:'Tiger Claws'},
+				{id:0x9f0888,name:'Wolf Claws'},
+				{id:0xa30908,name:'Bear Claws'},
+				{id:0xa2c988,name:'Brawler Claws'},
+				{id:0x9e8a08,name:'Stealth Claws'},
+				{id:0x9e0a88,name:'Hedgehog Claws'},
+				{id:0x8d4b08,name:'Raptor Claws'},
+				{id:0x7f0388,name:'Artillery Claws'},
+				{id:0xf9cc08,name:'Cancer Claws'},
+				{id:0xd50c88,name:'Beam Claws'},
+				{id:0xa3cd08,name:'Viridi Claws'},
+				{id:0xa38c88,name:'Pandora Claws'}
+			]},
+			{name:'Bows', weapons:[
+				{id:0xaf080c,name:'Fortune Bow'},
+				{id:0x81c08c,name:'Silver Bow'},
+				{id:0xf9c90c,name:'Meteor Bow'},
+				{id:0x96498c,name:'Divine Bow'},
+				{id:0x89ca0c,name:'Darkness Bow'},
+				{id:0xacca8c,name:'Crystal Bow'},
+				{id:0x95cb0c,name:'Angel Bow'},
+				{id:0xabcb8c,name:'Hawkeye Bow'},
+				{id:0xaf4c0c,name:'Sagittarius Bow'},
+				{id:0x4ccc8c,name:'Aurum Bow'},
+				{id:0x67c50c,name:'Palutena Bow'},
+				{id:0x50cd8c,name:'Phrosphora Bow'}
+			]},
+			{name:'Palms', weapons:[
+				{id:0xfa0810,name:'Violet Palm'},
+				{id:0xf98890,name:'Burning Palm'},
+				{id:0x87c910,name:'Needle Palm'},
+				{id:0x914190,name:'Midnight Palm'},
+				{id:0xa9ca10,name:'Cursed Palm'},
+				{id:0xaf4a90,name:'Cutter Palm'},
+				{id:0x514310,name:'Pudgy Palm'},
+				{id:0xaa4b90,name:'Ninja Palm (Weeaboo Palm)'},
+				{id:0x674410,name:'Virgo Palm'},
+				{id:0x924490,name:'Aurum Palm'},
+				{id:0x99c510,name:'Viridi Palm'},
+				{id:0xaecd90,name:'Great Reaper Palm'}
+			]},
+			{name:'Clubs', weapons:[
+				{id:0xa60814,name:'Ore Club'},
+				{id:0x9d8894,name:'Babel Club'},
+				{id:0x9e0914,name:'Skyscraper Club'},
+				{id:0x65c994,name:'Atlas Club'},
+				{id:0xf9c214,name:'Earthmaul Club'},
+				{id:0xa48A94,name:'Ogre Club'},
+				{id:0x884b14,name:'Halo Club'},
+				{id:0xa58b94,name:'Black Club'},
+				{id:0xa68c14,name:'Capricorn Club'},
+				{id:0x834494,name:'Aurum Club'},
+				{id:0x874514,name:'Hewdraw Club'},
+				{id:0xa50d94,name:'Magnus Club'}
+			]},
+			{name:'Cannons', weapons:[
+				{id:0xaa4818,name:'EZ Cannon'},
+				{id:0xa1c098,name:'Ball Cannon'},
+				{id:0xf9c918,name:'Predator Cannon'},
+				{id:0x51c198,name:'Poseidon Cannon'},
+				{id:0xae8a18,name:'Fireworks Cannon'},
+				{id:0x4aca98,name:'Rail Cannon'},
+				{id:0xaecb18,name:'Dynamo Cannon'},
+				{id:0x634b98,name:'Doom Cannon'},
+				{id:0x9bc418,name:'Leo Cannon'},
+				{id:0x5b0498,name:'Sonic Cannon'},
+				{id:0x864518,name:'Twinbellows Cannon'},
+				{id:0x84c598,name:'Cragalanche Cannon'}
+			]},
+			{name:'Orbitars', weapons:[
+				{id:0xfa081c,name:'Standard Orbitars'},
+				{id:0x85809c,name:'Guardian Orbitars'},
+				{id:0x53a91c,name:'Shock Orbitars'},
+				{id:0x4d899c,name:'Eyetrack Orbitars'},
+				{id:0x534a1c,name:'Fairy Orbitars'},
+				{id:0x68829c,name:'Paw Pad Orbitars'},
+				{id:0x7f831c,name:'Jetstream Orbitars'},
+				{id:0x69039c,name:'Boom Orbitars'},
+				{id:0x898c1c,name:'Gemini Orbitars'},
+				{id:0x7e049c,name:'Aurum Orbitars'},
+				{id:0x7e851c,name:'Centurion Orbitars'},
+				{id:0xf98d9c,name:'Arlon Orbitars'}
+			]},
+			{name:'Arms', weapons:[
+				{id:0x9a4020,name:'Crusher Arm'},
+				{id:0x8b48a0,name:'Compact Arm'},
+				{id:0xf9c920,name:'Electroshock Arm'},
+				{id:0xa949a0,name:'Volcano Arm'},
+				{id:0x484a20,name:'Drill Arm'},
+				{id:0x914aa0,name:'Bomber Arm'},
+				{id:0x478b20,name:'Bowl Arm'},
+				{id:0xa98ba0,name:'End-All Arm'},
+				{id:0x79c420,name:'Taurus Arm'},
+				{id:0x8044a0,name:'Upperdash Arm'},
+				{id:0x844520,name:'Kraken Arm'},
+				{id:0x83c5a0,name:'Phoenix Arm'}
+			]}
 		]
 	},
 	Offsets:{
@@ -439,8 +571,8 @@ SavegameEditors.KidIcarusUprising={
 		return missing
 	},
 	_disableUnlockUnreleasedTrophiesButton:function(){
-		m('#button-unlock-trophies').get().disabled=true;
-		m('#button-unlock-trophies').get().value='OK!';
+		m('#button-kiu-unlock-trophies').get().disabled=true;
+		m('#button-kiu-unlock-trophies').get().value='OK!';
 	},
 	_getWeaponOffset:function(){
 		return this.Offsets.WEAPONS+currentWeapon*this.Constants.WEAPON_SIZE
@@ -450,9 +582,9 @@ SavegameEditors.KidIcarusUprising={
 		var offset=this._getWeaponOffset();
 
 		var weaponType=(tempFile.readByte(offset+0x05)<<16)+(tempFile.readByte(offset+0x06)<<8)+tempFile.readByte(offset+0x07);
-		m('#weapon-unknown').html('0x'+weaponType.toString(16)).get().value=weaponType;
+		m('#kiu-weapon-unknown').html('0x'+weaponType.toString(16)).get().value=weaponType;
 
-		m('#select-weapon-type').get().value=weaponType;
+		m('#select-kiu-weapon-type').get().value=weaponType;
 
 		var starsRanged=tempFile.readShort(offset+0x08);
 		var starsMelee=tempFile.readShort(offset+0x0a);
@@ -463,11 +595,11 @@ SavegameEditors.KidIcarusUprising={
 			starsMelee=starsRanged-0x06;
 			starsRanged=starsRanged-0x16;
 		}
-		m('#select-weapon-stars-ranged').get().value=starsRanged;
-		m('#select-weapon-stars-melee').get().value=starsMelee;
+		m('#select-kiu-weapon-stars-ranged').get().value=starsRanged;
+		m('#select-kiu-weapon-stars-melee').get().value=starsMelee;
 
 		for(var i=0; i<6; i++){
-			m('#select-weapon-modifier'+i).get().value=tempFile.readShort(offset+0x14+i*2);
+			m('#select-kiu-weapon-modifier'+i).get().value=tempFile.readShort(offset+0x14+i*2);
 		}
 
 		this._calculateWeaponValue();
@@ -475,33 +607,33 @@ SavegameEditors.KidIcarusUprising={
 	_writeWeapon:function(){
 		var offset=SavegameEditor._getWeaponOffset();
 
-		var weaponType=parseInt(getSelect('weapon-type'));
+		var weaponType=parseInt(getValue('kiu-weapon-type'));
 		tempFile.writeInt(offset+0x05, (weaponType & 0xff0000) >> 16);
 		tempFile.writeInt(offset+0x06, (weaponType & 0x00ff00) >> 8);
 		tempFile.writeInt(offset+0x07, (weaponType & 0x0000ff) >> 0);
 
-		tempFile.writeShort(offset+0x08, getSelect('weapon-stars-ranged'));
-		tempFile.writeShort(offset+0x0a, getSelect('weapon-stars-melee'));
+		tempFile.writeShort(offset+0x08, getValue('kiu-weapon-stars-ranged'));
+		tempFile.writeShort(offset+0x0a, getValue('kiu-weapon-stars-melee'));
 
 		for(var i=0; i<6; i++)
-			tempFile.writeShort(offset+0x14+i*2, getSelect('weapon-modifier'+i));
+			tempFile.writeShort(offset+0x14+i*2, getValue('kiu-weapon-modifier'+i));
 
 		SavegameEditor._calculateWeaponValue();
 	},
 	_calculateWeaponValue:function(){
 		var val=100;
 		for(var i=0; i<6; i++){
-			val+=this.Constants.MODIFIERS_VALUES[m('#select-weapon-modifier'+i).get().value];
+			val+=this.Constants.MODIFIERS_VALUES[m('#select-kiu-weapon-modifier'+i).get().value];
 		}
-		val+=this.Constants.STAR_RANGED_VALUES[m('#select-weapon-stars-ranged').get().selectedIndex];
-		val+=this.Constants.STAR_MELEE_VALUES[m('#select-weapon-stars-melee').get().selectedIndex];
+		val+=this.Constants.STAR_RANGED_VALUES[m('#select-kiu-weapon-stars-ranged').get().selectedIndex];
+		val+=this.Constants.STAR_MELEE_VALUES[m('#select-kiu-weapon-stars-melee').get().selectedIndex];
 
 		//val=parseInt(val);
 		val=Math.ceil(val);
 		if(val<351){
-			m('#weapon-value').css('color','initial').html(val);
+			m('#kiu-weapon-value').css('color','initial').html(val);
 		}else{
-			m('#weapon-value').css('color','red').html(val+' (invalid weapon!)');
+			m('#kiu-weapon-value').css('color','red').html(val+' (invalid weapon!)');
 		}
 	},
 
@@ -512,42 +644,86 @@ SavegameEditors.KidIcarusUprising={
 
 
 	/* load function */
-	load:function(){
-		var opts=m('#select-weapon-type option').getAll();
-		for(var i=0; i<opts.length; i++){
-			opts[i].value=parseInt(opts[i].value, 16);
-		}
-	
+	load:function(){	
 		tempFile.littleEndian=true;
 
-		updateInput('kiu-hearts', tempFile.readInt(this.Offsets.CURRENT_HEARTS));
-		updateInput('hearts-for-palutena', tempFile.readInt(this.Offsets.HEARTS_OFFERED_TO_PALUTENA));
-		updateInput('hearts-for-viridi', tempFile.readInt(this.Offsets.HEARTS_OFFERED_TO_VIRIDI));
+		setValue('kiu-hearts', tempFile.readInt(this.Offsets.CURRENT_HEARTS), 0, 9999999);
+		setValue('kiu-hearts-for-palutena', tempFile.readInt(this.Offsets.HEARTS_OFFERED_TO_PALUTENA), 0, 9999999);
+		setValue('kiu-hearts-for-viridi', tempFile.readInt(this.Offsets.HEARTS_OFFERED_TO_VIRIDI), 0, 9999999);
 
 		if(!this._checkIfMissingAnyUnreleasedTrophy())
 			this._disableUnlockUnreleasedTrophiesButton();
 
 		/* STATS */
 		for(var i=0; i<this.Constants.STATS.length; i++){
-			m('#kiu-stats').append(col(8, label('stat'+i, this.Constants.STATS[i])));
-			var val;
+			var val,input;
 			if(i==24 || i==25){
 				val=tempFile.readFloat32(this.Offsets.STATS+i*4);
-				m('#kiu-stats').append(col(4, inputFloat('stat'+i, 0.0, 9.0, val)));
+				console.log((this.Offsets.STATS+i*4).toString(16));
+				input=create('float','kiu-stat'+i, 0.0, 9.0, val);
 			}else{
 				val=tempFile.readInt(this.Offsets.STATS+i*4);
-				m('#kiu-stats').append(col(4, inputNumber('stat'+i, 0, 0xffffffff, val)));
+				input=create('number','kiu-stat'+i, 0, 0xffffffff, val);
 			}
+
+			document.getElementById('kiu-stats').appendChild(
+				row(
+					[8,4],
+					create('label', 'kiu-stat'+i, this.Constants.STATS[i]),
+					input
+				)
+			);
 		}
 
 
-
 		/* WEAPONS */
-		m('#kiu-container-select-weapon').append(select('weapon', genRange(0,this.Constants.NUM_WEAPONS-1)).addClass('medium').addEvent('change', function(){SavegameEditor._readWeapon(this.value)}, true));
-		select('weapon-stars-ranged', this.Constants.STARS).appendTo(m('#container-weapon-stars-ranged')).addEvent('change', this._writeWeapon);
-		select('weapon-stars-melee', this.Constants.STARS, 0x10).appendTo(m('#container-weapon-stars-melee')).addEvent('change', this._writeWeapon);
+		var selectWeaponType=m('#select-kiu-weapon-type');
+		for(var i=0; i<this.Constants.WEAPON_TYPES.length; i++){
+			var GROUP=this.Constants.WEAPON_TYPES[i];
+			var optGroup=mCreate('optgroup',{label:GROUP.name}).appendTo(selectWeaponType);
+			for(var j=0; j<GROUP.weapons.length; j++){
+				var WEAPON=GROUP.weapons[j];
+				var option=mCreate('option',{value:WEAPON.id,html:(j+1)+'. '+WEAPON.name}).appendTo(optGroup);
+			}
+		}
+		var option=mCreate('option',{value:0x000000,html:'???',id:'kiu-weapon-unknown'}).appendTo(selectWeaponType);
+
+		var validWeapons=[];
+		for(var i=0; i<this.Constants.NUM_WEAPONS; i++){
+			currentWeapon=i;
+			var offset=this._getWeaponOffset();
+			if((tempFile.readByte(offset+0x05)<<16)+(tempFile.readByte(offset+0x06)<<8)+tempFile.readByte(offset+0x07)!==0x000000)
+				validWeapons.push(i);
+		}
+
+		var selectWeapon=create('select','kiu-weapon', validWeapons);
+		selectWeapon.className+=' medium';
+		selectWeapon.addEventListener('change', function(){SavegameEditor._readWeapon(this.value)}, false);
+
+		m('#kiu-container-select-weapon').append(selectWeapon);
+
+		currentWeapon=m('#select-kiu-weapon').children().first().get().value;
+
+		var selectStarsRanged=create('select','kiu-weapon-stars-ranged', this.Constants.STARS);
+		selectStarsRanged.addEventListener('change', this._writeWeapon, false);
+		m('#container-kiu-weapon-stars-ranged').append(selectStarsRanged);
+
+		var MELEE_STARS=[];
+		for(var i=0; i<this.Constants.STARS.length; i++){
+			if(i==0){
+				MELEE_STARS.push({value:0x00, name:'-'});
+			}else{
+				MELEE_STARS.push({value:0x10+i, name:this.Constants.STARS[i]});
+			}
+		}
+		var selectStarsMelee=create('select','kiu-weapon-stars-melee', MELEE_STARS);		
+		selectStarsMelee.addEventListener('change', this._writeWeapon, false);
+		m('#container-kiu-weapon-stars-melee').append(selectStarsMelee);
+
 		for(var i=0; i<6; i++){
-			select('weapon-modifier'+i, this.Constants.MODIFIERS).appendTo(m('#container-weapon-modifier'+i)).addEvent('change', this._writeWeapon);
+			var selectWeaponModifier=create('select','kiu-weapon-modifier'+i, this.Constants.MODIFIERS);
+			selectWeaponModifier.addEventListener('change', this._writeWeapon, false);
+			m('#container-kiu-weapon-modifier'+i).append(selectWeaponModifier);
 		}
 		this._readWeapon(0);
 	},
@@ -555,16 +731,16 @@ SavegameEditors.KidIcarusUprising={
 
 	/* save function */
 	save:function(){
-		tempFile.writeInt(this.Offsets.CURRENT_HEARTS, getInputNumber('kiu-hearts'));
-		tempFile.writeInt(this.Offsets.HEARTS_OFFERED_TO_PALUTENA, getInputNumber('hearts-for-palutena'));
-		tempFile.writeInt(this.Offsets.HEARTS_OFFERED_TO_VIRIDI, getInputNumber('hearts-for-viridi'));
+		tempFile.writeInt(this.Offsets.CURRENT_HEARTS, getValue('kiu-hearts'));
+		tempFile.writeInt(this.Offsets.HEARTS_OFFERED_TO_PALUTENA, getValue('kiu-hearts-for-palutena'));
+		tempFile.writeInt(this.Offsets.HEARTS_OFFERED_TO_VIRIDI, getValue('kiu-hearts-for-viridi'));
 
 		/* STATS */
 		for(var i=0; i<this.Constants.STATS.length; i++){
 			if(i==24 || i==25){
-				tempFile.writeFloat32(this.Offsets.STATS+i*4, getInputFloat('stat'+i));
+				tempFile.writeFloat32(this.Offsets.STATS+i*4, getValue('kiu-stat'+i));
 			}else{
-				tempFile.writeInt(this.Offsets.STATS+i*4, getInputNumber('stat'+i));
+				tempFile.writeInt(this.Offsets.STATS+i*4, getValue('kiu-stat'+i));
 			}
 		}
 	}

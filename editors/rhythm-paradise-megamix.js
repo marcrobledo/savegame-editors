@@ -3,7 +3,7 @@
 	by Marc Robledo 2017
 */
 
-SavegameEditors.RhythmParadiseMegamix={
+SavegameEditor={
 	Name:'Rhythm Heaven/Paradise Megamix',
 	Filename:'savedataArc.txt',
 
@@ -26,20 +26,20 @@ SavegameEditors.RhythmParadiseMegamix={
 		tempFile.littleEndian=true;
 		tempFile.fileName='savedataArc.txt';
 
-		updateInput('rhythmcoins', tempFile.readShort(this.Offsets.COINS));
-		updateInput('flowballs', tempFile.readShort(this.Offsets.FLOWBALLS));
-		updateInput('onions1', tempFile.readByte(this.Offsets.ONIONS1));
-		updateInput('onions2', tempFile.readByte(this.Offsets.ONIONS2));
-		updateInput('onions3', tempFile.readByte(this.Offsets.ONIONS3));
+		setValue('rhythm-megamix-coins', tempFile.readShort(this.Offsets.COINS), 0, 9999);
+		setValue('rhythm-megamix-flowballs', tempFile.readShort(this.Offsets.FLOWBALLS), 0, 255);
+		setValue('rhythm-megamix-onions1', tempFile.readByte(this.Offsets.ONIONS1), 0, 255);
+		setValue('rhythm-megamix-onions2', tempFile.readByte(this.Offsets.ONIONS2), 0, 255);
+		setValue('rhythm-megamix-onions3', tempFile.readByte(this.Offsets.ONIONS3), 0, 255);
 	},
 
 
 	/* save function */
 	save:function(){
-		tempFile.writeShort(this.Offsets.COINS, getInputNumber('coins'));
-		tempFile.writeShort(this.Offsets.FLOWBALLS, getInputNumber('flowballs'));
-		tempFile.writeByte(this.Offsets.ONIONS1, getInputNumber('onions1'));
-		tempFile.writeByte(this.Offsets.ONIONS2, getInputNumber('onions2'));
-		tempFile.writeByte(this.Offsets.ONIONS3, getInputNumber('onions3'));
+		tempFile.writeShort(this.Offsets.COINS, getValue('rhythm-megamix-coins'));
+		tempFile.writeShort(this.Offsets.FLOWBALLS, getValue('rhythm-megamix-flowballs'));
+		tempFile.writeByte(this.Offsets.ONIONS1, getValue('rhythm-megamix-onions1'));
+		tempFile.writeByte(this.Offsets.ONIONS2, getValue('rhythm-megamix-onions2'));
+		tempFile.writeByte(this.Offsets.ONIONS3, getValue('rhythm-megamix-onions3'));
 	}
 }

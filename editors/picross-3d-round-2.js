@@ -3,7 +3,7 @@
 	by Marc Robledo 2016
 */
 
-SavegameEditors.Picross3DRound2={
+SavegameEditor={
 	Name:'Picross 3D: round 2',
 	Filename:'SAVEDATA',
 

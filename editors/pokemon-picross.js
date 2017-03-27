@@ -3,7 +3,7 @@
 	by Marc Robledo 2017
 */
 
-SavegameEditors.PokemonPicross={
+SavegameEditor={
 	Name:'Pokémon Picross',
 	Filename:'all.dat',
 
@@ -23,15 +23,15 @@ SavegameEditors.PokemonPicross={
 	load:function(){
 		tempFile.fileName='all.dat';
 
-		updateInput('picrites', tempFile.readShort(this.Offsets.PICRITES));
-		updateInput('boughtpicrites', tempFile.readShort(this.Offsets.BOUGHTPICRITES));
+		setValue('pokemonpicross-picrites', tempFile.readShort(this.Offsets.PICRITES), 0, 9999);
+		setValue('pokemonpicross-boughtpicrites', tempFile.readShort(this.Offsets.BOUGHTPICRITES), 0, 5000);
 	},
 
 
 	/* save function */
 	save:function(){
-		tempFile.writeShort(this.Offsets.PICRITES, getInputNumber('picrites'));
-		var boughtPicrites=getInputNumber('boughtpicrites');
+		tempFile.writeShort(this.Offsets.PICRITES, getValue('pokemonpicross-picrites'));
+		var boughtPicrites=getValue('pokemonpicross-boughtpicrites');
 		tempFile.writeShort(this.Offsets.BOUGHTPICRITES, boughtPicrites);
 		var unlockedShopByte=tempFile.readByte(this.Offsets.UNLOCKEDSHOPFLAG) & ~0x01;
 		tempFile.writeByte(this.Offsets.UNLOCKEDSHOPFLAG, unlockedShopByte+(boughtPicrites>=5000)?0x01:0x00);

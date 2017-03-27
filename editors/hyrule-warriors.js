@@ -8,7 +8,7 @@ var currentWeapon=0;
 var weaponFilters=[
 	null
 ];
-SavegameEditors.HyruleWarriors={
+SavegameEditor={
 	Name:'Hyrule Warriors',
 	Filename:'APP.BIN',
 
@@ -251,19 +251,19 @@ SavegameEditors.HyruleWarriors={
 		WEAPONS_OFFSET:0x8d74c,
 		WEAPON_SIZE:0x4c,
 		WEAPON_TYPES:[
-			'0=(no weapon)',
-			'1=Normal weapon (blank?)',
-			'2=Normal weapon (NEW)',
-			'3=Normal weapon',
-			'9=Master Sword (blank?)',
-			'10=Master sword (NEW)',
-			'11=Master sword',
-			'17=Legendary skill (blank?)',
-			'18=Legendary skill (NEW)',
-			'19=Legendary skill',
-			'25=MS+LS (hack, blank?)',
-			'26=MS+LS (hack, NEW)',
-			'27=MS+LS (hack)'
+			{value:0, name:'(no weapon)'},
+			{value:1, name:'Normal weapon (blank?)'},
+			{value:2, name:'Normal weapon (NEW)'},
+			{value:3, name:'Normal weapon'},
+			{value:9, name:'Master Sword (blank?)'},
+			{value:10, name:'Master sword (NEW)'},
+			{value:11, name:'Master sword'},
+			{value:17, name:'Legendary skill (blank?)'},
+			{value:18, name:'Legendary skill (NEW)'},
+			{value:19, name:'Legendary skill'},
+			{value:25, name:'MS+LS (hack, blank?)'},
+			{value:26, name:'MS+LS (hack, NEW)'},
+			{value:27, name:'MS+LS (hack)'}
 		],
 		WEAPON_IDS:[
 			'Knight\'s Sword (Link - Hylian Sword Level 1)',
@@ -419,7 +419,7 @@ SavegameEditors.HyruleWarriors={
 			'Unknown (Unk - Unk Level 1)',
 			'Unknown (Unk - Unk Level 2)',
 			'Unknown (Unk - Unk Level 3)',
-			'4294967295=-'
+			{value:4294967295,name:'-'}
 		],
 		WEAPON_SKILLS:[
 			'(blank)',
@@ -471,7 +471,7 @@ SavegameEditors.HyruleWarriors={
 			'Heart-strong',
 			'Focus Spirit+',
 			'Hasty Attacks',
-			'4294967295=-'
+			{value:4294967295,name:'-'}
 		]
 	},
 
@@ -490,44 +490,44 @@ SavegameEditors.HyruleWarriors={
 		currentWeapon=i;
 
 		var offset=this._getWeaponOffset();
-		m('#select-weapon-type').get().value=tempFile.readByte(offset+0x00);
-		m('#select-weapon-id').get().value=tempFile.readInt(offset+0x04);
-		m('#select-weapon-base-power').get().value=tempFile.readShort(offset+0x08);
-		m('#select-weapon-stars').get().value=tempFile.readShort(offset+0x0a);
+		setValue('hw-weapon-type', tempFile.readByte(offset+0x00));
+		setValue('hw-weapon-id', tempFile.readInt(offset+0x04));
+		setValue('hw-weapon-base-power', tempFile.readShort(offset+0x08));
+		setValue('hw-weapon-stars', tempFile.readShort(offset+0x0a));
 		for(var i=0; i<8; i++){
-			m('#select-weapon-skill'+i).get().value=tempFile.readInt(offset+0x0c+0x04*i);
-			m('#input-weapon-koskill'+i).get().value=tempFile.readInt(offset+0x2c+0x04*i);
+			setValue('hw-weapon-skill'+i, tempFile.readInt(offset+0x0c+0x04*i));
+			setValue('hw-weapon-koskill'+i, tempFile.readInt(offset+0x2c+0x04*i));
 		}
 
 		SavegameEditor._calculateWeaponPower();
 	},
 	_writeWeapon:function(){
 		var offset=SavegameEditor._getWeaponOffset();
-		tempFile.writeByte(offset+0x00, getSelect('weapon-type'));
-		tempFile.writeInt(offset+0x04, getSelect('weapon-id'));
-		tempFile.writeShort(offset+0x08, getSelect('weapon-base-power'));
-		tempFile.writeShort(offset+0x0a, getSelect('weapon-stars'));
+		tempFile.writeByte(offset+0x00, getValue('hw-weapon-type'));
+		tempFile.writeInt(offset+0x04, getValue('hw-weapon-id'));
+		tempFile.writeShort(offset+0x08, getValue('hw-weapon-base-power'));
+		tempFile.writeShort(offset+0x0a, getValue('hw-weapon-stars'));
 		for(var i=0; i<8; i++){
-			tempFile.writeInt(offset+0x0c+0x04*i, getSelect('weapon-skill'+i));
-			tempFile.writeInt(offset+0x2c+0x04*i, getInputNumber('weapon-koskill'+i));
+			tempFile.writeInt(offset+0x0c+0x04*i, getValue('hw-weapon-skill'+i));
+			tempFile.writeInt(offset+0x2c+0x04*i, getValue('hw-weapon-koskill'+i));
 		}
 
 		SavegameEditor._calculateWeaponPower();
 	},
 	_calculateWeaponPower:function(){
-		var legendaryType=getSelect('weapon-type') & 0x10;
+		var legendaryType=getValue('hw-weapon-type') & 0x10;
 		var legendarySkill=false;
-		var evilsBane=getSelect('weapon-type') & 0x20;
+		var evilsBane=getValue('hw-weapon-type') & 0x20;
 		var evilsBaneSkill=false;
 		for(var i=0;i<8;i++){
-			if(getSelect('weapon-skill'+i)==0x2a && getInputNumber('weapon-koskill'+i)==0){
+			if(getValue('hw-weapon-skill'+i)==0x2a && getInputNumber('hw-weapon-koskill'+i)==0){
 				legendarySkill=true;
-			}else if(getSelect('weapon-skill'+i)==0x29 && getInputNumber('weapon-koskill'+i)==0){
+			}else if(getValue('hw-weapon-skill'+i)==0x29 && getInputNumber('hw-weapon-koskill'+i)==0){
 				evilsBaneSkill=true;
 			}
 		}
 		var actualBasePower=0;
-		var basePower=parseInt(getSelect('weapon-base-power'));
+		var basePower=parseInt(getValue('hw-weapon-base-power'));
 
 		if(legendaryType && legendarySkill){
 			actualBasePower=300
@@ -535,7 +535,7 @@ SavegameEditors.HyruleWarriors={
 			actualBasePower=basePower
 		}
 
-		var stars=parseInt(getSelect('weapon-stars'));
+		var stars=parseInt(getValue('hw-weapon-stars'));
 		var starBonus=actualBasePower/10;
 
 		if(evilsBane && evilsBaneSkill){
@@ -543,7 +543,7 @@ SavegameEditors.HyruleWarriors={
 		}
 		var finalPower = Math.ceil(actualBasePower+(starBonus*stars))
 
-		m('#weapon-power').html(finalPower);
+		setValue('hw-weapon-power', finalPower);
 	},
 
 	/* check if savegame is valid */
@@ -559,12 +559,12 @@ SavegameEditors.HyruleWarriors={
 
 
 		/* MATERIALS */
-		updateInput('rupees', tempFile.readInt(this.Constants.RUPEES_OFFSET));
+		setValue('hw-rupees', tempFile.readInt(this.Constants.RUPEES_OFFSET), 0, 9999999);
 		for(var i=0; i<this.Constants.MATERIALS.length; i++){
-			m('#container-materials').append(
-				col(4, label('input-material'+i, this.Constants.MATERIALS[i]))
+			m('#row-hw-materials').append(
+				col(4, create('label','number-hw-material'+i, this.Constants.MATERIALS[i]))
 			).append(
-				col(2, inputNumber('material'+i, 0, 999, tempFile.readShort(this.Constants.MATERIALS_OFFSET+i*2)).addClass('small'))
+				col(2, create('number', 'hw-material'+i, 0, 999, tempFile.readShort(this.Constants.MATERIALS_OFFSET+i*2)))
 			);
 		}
 
@@ -579,12 +579,12 @@ SavegameEditors.HyruleWarriors={
 				if(level==0xf00){
 					this.Constants.CHARACTER_PACKS[i].Names[j]=null; //set this character to null, so it won't be updated on saving
 				}else if(names[j]){
-					m('#characters').append(
+					m('#row-hw-characters').append(
 						row([3,3,3,3],
-							span(names[j]),
-							inputNumber('characters'+i+'_damage'+j, 0, 99999999, tempFile.readShort(offset)),
-							inputNumber('characters'+i+'_level'+j, 1, 255, level+1).addClass('mini'),
-							inputNumber('characters'+i+'_exp'+j, 0, 12842457, tempFile.readInt(offset+this.Constants.CHARACTER_EXP_OFFSET))
+							create('span',names[j]),
+							create('number', 'hw-characters'+i+'_damage'+j, 0, 99999999, tempFile.readShort(offset)),
+							create('number', 'hw-characters'+i+'_level'+j, 1, 255, level+1),
+							create('number', 'hw-characters'+i+'_exp'+j, 0, 12842457, tempFile.readInt(offset+this.Constants.CHARACTER_EXP_OFFSET))
 						)
 					);
 
@@ -607,43 +607,46 @@ SavegameEditors.HyruleWarriors={
 			var map=this.Constants.MAPS[i];
 			maps.push(map.Title);
 
-			var mapDiv=mCreate('div', {class:'row map',id:'map'+i}).appendTo('#maps').hide();
+			var mapDiv=mCreate('div', {class:'row map',id:'hw-map'+i}).appendTo('#hw-maps').hide();
 			
 			for(var j=0; j<map.Items.length; j++){
 				if(map.Items[j]){
 					mapDiv.append(
-						col(4, label('input-map'+i+'-item'+j, map.Items[j]))
+						col(4, create('label','number-hw-map'+i+'-item'+j, map.Items[j]))
 					).append(
-						col(2, inputNumber('map'+i+'-item'+j, 0, 5, tempFile.readByte(map.Offset+j)).addClass('small'))
+						col(2, create('number','hw-map'+i+'-item'+j, 0, 5, tempFile.readByte(map.Offset+j)))
 					);
 				}
 			}
 		}
-		m('#container-select-map').append(select('map', maps).addEvent('change', function(){m('div.map').hide();m('#map'+this.value).show()}, true));
-		m('#map0').show();
+		m('#container-hw-select-map').append(create('select','hw-map', maps, function(){m('div.map').hide();m('#hw-map'+this.value).show()}));
+		m('#hw-map0').show();
 
 		/* WEAPONS */
-		m('#hw-container-select-weapon').append(select('weapon', genRange(0,this.Constants.MAX_WEAPONS-1)).addClass('medium').addEvent('change', function(){SavegameEditor._selectWeapon(this.value)}, true));
-		select('weapon-type', this.Constants.WEAPON_TYPES)
-			.addEvent('change', this._writeWeapon)
-			.appendTo(m('#container-weapon-type'));
-		select('weapon-id', this.Constants.WEAPON_IDS)
-			.addEvent('change', this._writeWeapon)
-			.appendTo(m('#container-weapon-id'));
-		select('weapon-base-power', ['0=-', '80=Level 1 (80)', '150=Level 2 (150)', '280=Level 3 (280)', '300=Master Sword (300)'])
-			.addEvent('change', this._writeWeapon)
-			.appendTo(m('#container-weapon-base-power'));
-		select('weapon-stars', genRange(0,5))
-			.addEvent('change', this._writeWeapon)
-			.appendTo(m('#container-weapon-stars'));
 		for(var i=0; i<8; i++){
-			select('weapon-skill'+i, this.Constants.WEAPON_SKILLS)
-				.addEvent('change', this._writeWeapon)
-				.appendTo(m('#container-weapon-skill'+i));
-			inputNumber('weapon-koskill'+i, 0, 9999999).addClass('medium')
-				.addEvent('change', this._writeWeapon)
-				.appendTo(m('#container-weapon-koskill'+i));
+			var KOsToUnlockInput=create('number','hw-weapon-koskill'+i, 0, 9999999);
+			KOsToUnlockInput.addEventListener('change', this._writeWeapon, false);
+
+			document.getElementById('hw-weapons-skills-container').appendChild(
+				row(
+					[3,3,3,3],
+					create('label','hw-weapon-skill'+i, 'Skill '+(i+1)),
+					create('select','hw-weapon-skill'+i, this.Constants.WEAPON_SKILLS, this._writeWeapon),
+					create('label','hw-weapon-koskill'+i, 'KOs to unlock'),
+					KOsToUnlockInput
+				)
+			);
 		}
+		m('#hw-container-select-weapon').append(m(create('select', 'weapon', genRange(0,this.Constants.MAX_WEAPONS-1), function(){SavegameEditor._selectWeapon(this.value)})).addClass('medium'));
+		m(create('select', 'hw-weapon-type', this.Constants.WEAPON_TYPES, this._writeWeapon))
+			.appendTo(m('#container-hw-weapon-type'));
+		m(create('select', 'hw-weapon-id', this.Constants.WEAPON_IDS, this._writeWeapon))
+			.appendTo(m('#container-hw-weapon-id'));
+		m(create('select', 'hw-weapon-base-power', ['-', {value:80,name:'Level 1 (80)'}, {value:150,name:'Level 2 (150)'}, {value:280,name:'Level 3 (280)'}, {value:300,name:'Master Sword (300)'}], this._writeWeapon))
+			.appendTo(m('#container-hw-weapon-base-power'));
+		m(create('select', 'hw-weapon-stars', genRange(0,5), this._writeWeapon))
+			.appendTo(m('#container-hw-weapon-stars'));
+
 		this._selectWeapon(0);
 	},
 
@@ -651,9 +654,9 @@ SavegameEditors.HyruleWarriors={
 	/* save function */
 	save:function(){
 		/* MATERIALS */
-		tempFile.writeInt(this.Constants.RUPEES_OFFSET, getInputNumber('rupees'));
+		tempFile.writeInt(this.Constants.RUPEES_OFFSET, getValue('hw-rupees'));
 		for(var i=0; i<this.Constants.MATERIALS.length; i++){
-			tempFile.writeShort(this.Constants.MATERIALS_OFFSET+i*2, getInputNumber('material'+i));
+			tempFile.writeShort(this.Constants.MATERIALS_OFFSET+i*2, getValue('hw-material'+i));
 		}
 
 
@@ -664,9 +667,9 @@ SavegameEditors.HyruleWarriors={
 				if(names[j]){
 					var offset=this.Constants.CHARACTER_PACKS[i].Offset+j*this.Constants.CHARACTER_SIZE;
 
-					tempFile.writeShort(offset, getInputNumber('characters'+i+'_damage'+j));
-					tempFile.writeByte(offset+this.Constants.CHARACTER_LEVEL_OFFSET, getInputNumber('characters'+i+'_level'+j)-1);
-					tempFile.writeInt(offset+this.Constants.CHARACTER_EXP_OFFSET, getInputNumber('characters'+i+'_exp'+j));
+					tempFile.writeShort(offset, getValue('hw-characters'+i+'_damage'+j));
+					tempFile.writeByte(offset+this.Constants.CHARACTER_LEVEL_OFFSET, getValue('hw-characters'+i+'_level'+j)-1);
+					tempFile.writeInt(offset+this.Constants.CHARACTER_EXP_OFFSET, getValue('hw-characters'+i+'_exp'+j));
 				}
 			}
 		}
@@ -679,7 +682,7 @@ SavegameEditors.HyruleWarriors={
 			
 			for(var j=0; j<map.Items.length; j++){
 				if(map.Items[j]){
-					tempFile.writeByte(map.Offset+j, getInputNumber('map'+i+'-item'+j));
+					tempFile.writeByte(map.Offset+j, getValue('hw-map'+i+'-item'+j));
 				}
 			}
 		}
