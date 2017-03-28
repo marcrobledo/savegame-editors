@@ -3,10 +3,7 @@
 	by Marc Robledo 2017
 */
 
-var currentWeapon=0;
-var weaponFilters=[
-	null
-];
+var currentBOTWItem=0;
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
 	Filename:'game_data.sav',
@@ -20,12 +17,11 @@ SavegameEditor={
 		ITEMS:0x0528d8,
 		ITEMS_QUANTITY:0x0633f0,
 	},
-	Translations:{
+	Translations:[
 /*
 	item list extracted from https://github.com/joffnerd/botw-trainer/blob/master/items.json , thank you!
 */
-
-/* weapons */
+{id:'weapons',items:{
 Weapon_Sword_001:"Traveler's Sword",
 Weapon_Sword_002:"Soldier's Broadsword",
 Weapon_Sword_003:"Knight's Broadsword",
@@ -39,7 +35,7 @@ Weapon_Sword_013:"Guardian Sword",
 Weapon_Sword_014:"Guardian Sword+",
 Weapon_Sword_015:"Guardian Sword++",
 Weapon_Sword_016:"Lynel Sword",
-Weapon_Sword_017:"MIghty Lynel Sword",
+Weapon_Sword_017:"Mighty Lynel Sword",
 Weapon_Sword_018:"Savage Lynel Sword",
 Weapon_Sword_019:"Bokoblin Arm",
 Weapon_Sword_020:"Lizalfos Arm",
@@ -156,9 +152,10 @@ Weapon_Spear_037:"Serpentine Spear",
 Weapon_Spear_038:"Fishing Harpoon",
 Weapon_Spear_047:"Royal Guard's Spear",
 Weapon_Spear_049:"Ceremonial Trident",
-Weapon_Spear_050:"Lightscale Trident",
+Weapon_Spear_050:"Lightscale Trident"
+}},
 
-/* bows+arrows */
+{id:'bows',items:{
 Weapon_Bow_001:"Traveler's Bow",
 Weapon_Bow_002:"Soldier's Bow",
 Weapon_Bow_003:"Spiked Boko Bow",
@@ -190,9 +187,10 @@ FireArrow:"Fire Arrow",
 IceArrow:"Ice Arrow",
 ElectricArrow:"Shock Arrow",
 BombArrow_A:"Bomb Arrow",
-AncientArrow:"Ancient Arrow",
+AncientArrow:"Ancient Arrow"
+}},
 
-/* shields */
+{id:'shields',items:{
 Weapon_Shield_001:"Wooden Shield",
 Weapon_Shield_002:"Soldier's Shield",
 Weapon_Shield_003:"Knight's Shield",
@@ -225,9 +223,10 @@ Weapon_Shield_038:"Ancient Shield",
 Weapon_Shield_040:"Pot Lid",
 Weapon_Shield_041:"Shield of the Mind's Eye",
 Weapon_Shield_042:"Kite Shield",
-Weapon_Shield_070:"Hero's Shield (Wind Waker)",
+Weapon_Shield_070:"Hero's Shield (Wind Waker)"
+}},
 
-/* clothes */
+{id:'clothes',items:{
 Armor_001_Head:"Hylian Hood",
 Armor_001_Upper:"Hylian Tunic",
 Armor_001_Lower:"Hylian Trousers",
@@ -582,9 +581,10 @@ Armor_234_Lower:"Trousers of the Hero ****",
 Armor_500_Upper:"Mini?",
 Armor_501_Lower:"Mini?",
 Armor_501_Upper:"Mini?",
-Armor_502_Upper:"Mini?",
+Armor_502_Upper:"Mini?"
+}},
 
-/* materials */
+{id:'materials',items:{
 Item_Fruit_A:"Apple",
 Item_Fruit_B:"Wildberry",
 Item_Fruit_C:"Voltfruit",
@@ -784,9 +784,10 @@ Item_Ore_F:"Amber",
 Item_Ore_G:"Luminous Stone",
 Item_Ore_H:"Rock Salt",
 Item_Ore_I:"Flint",
-Item_Ore_J:"Star Fragment",
+Item_Ore_J:"Star Fragment"
+}},
 
-/* food */
+{id:'food',items:{
 Item_Boiled_01:"Hard-Boiled Egg",
 Item_ChilledFish_01:"Frozen Bass",
 Item_ChilledFish_02:"Frozen Hearty Salmon",
@@ -967,9 +968,10 @@ Item_Cook_P_01:"Fragrant Mushroom Sauté",
 Item_Cook_P_02:"Herb Sauté",
 Item_Cook_P_03:" Spiced Meat Skewer",
 Item_Cook_P_04:"Prime Spiced Meat Skewer",
-Item_Cook_P_05:"Gourmet Spiced Meat Skewer",
+Item_Cook_P_05:"Gourmet Spiced Meat Skewer"
+}},
 
-/* key+other */
+{id:'other',items:{
 Obj_DungeonClearSeal:"Spirit Orb",
 Obj_KorokNuts:"Korok Seed",
 PlayerStole2:"Paraglider",
@@ -1014,9 +1016,22 @@ Obj_Mineral_A_01:"Mineral Deposit",
 Obj_Mineral_B_01:"Rare Mineral Deposit",
 Obj_Mineral_C_01:"Luminous Stone Deposit",
 Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
-	},
+}}
+],
 
 	/* private functions */
+	_getItemTranslation:function(itemId){
+		for(var i=0; i<this.Translations.length; i++)
+			if(this.Translations[i].items[itemId])
+				return this.Translations[i].items[itemId];
+		return '<span style="color:red">'+itemId+'</span>'
+	},
+	_getItemCategory:function(itemId){
+		for(var i=0; i<this.Translations.length; i++)
+			if(this.Translations[i].items[itemId])
+				return this.Translations[i].id;
+		return 'other'
+	},
 	_loadItemName:function(i){
 		var offset=this.Offsets.ITEMS+i*0x80;
 		var txt='';
@@ -1026,8 +1041,31 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 		}
 		return txt
 	},
+	_writeItemName:function(i,newItemNameId){
+		var offset=this.Offsets.ITEMS+i*0x80;
+		for(var j=0; j<16; j++){
+			tempFile.writeBytes(offset,[0,0,0,0]);
+			var fourBytes=newItemNameId.substr(j*4, 4);
+			for(k=0; k<fourBytes.length; k++){
+				tempFile.writeByte(offset+k, fourBytes.charCodeAt(k));
+			}
+			offset+=8;
+		}
+		document.getElementById('bow-item-name'+i).innerHTML=this._getItemTranslation(newItemNameId);
+	},
 	_getItemQuantityOffset:function(i){
 		return this.Offsets.ITEMS_QUANTITY+i*0x08;
+	},
+
+	editItem:function(i){
+		currentBOTWItem=i;
+		document.getElementById('select-botw-item').value=this._loadItemName(i);
+		MarcDialogs.open('botw-item');
+	},
+
+	editItemAccept:function(){
+		this._writeItemName(currentBOTWItem, getValue('botw-item'))
+		MarcDialogs.close();
 	},
 
 	/* check if savegame is valid */
@@ -1041,6 +1079,27 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 		tempFile.littleEndian=false;
 		tempFile.fileName='game_data.sav';
 
+		/* prepare HTML */
+		for(var i=0; i<this.Translations.length; i++){
+			var optGroup=document.createElement('optgroup');
+			optGroup.id='select-botw-item-'+this.Translations[i].id;
+			optGroup.label=this.Translations[i].id;
+			document.getElementById('select-botw-item').appendChild(optGroup);
+
+			for(var item in this.Translations[i].items){
+				var opt=document.createElement('option');
+				opt.value=item;
+				opt.innerHTML=this.Translations[i].items[item];
+				optGroup.appendChild(opt);
+			}
+		}
+		for(var i=0; i<this.Translations.length; i++){
+			m('#editor-zelda-botw')
+				.append(mCreate('div',{class:'card card-green'})
+					.append(mCreate('h3',{html:this.Translations[i].id}))
+					.append(mCreate('div', {class:'row', id:'row-botw-'+this.Translations[i].id}))
+			);
+		}
 
 		/* RUPEES */
 		setValue('botw-rupees', tempFile.readInt(this.Offsets.RUPEES), 0, 99999);
@@ -1049,23 +1108,14 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 		/* ITEMS */
 		for(var i=0; i<this.Constants.MAX_ITEMS; i++){
 			var itemNameId=this._loadItemName(i);
-			var container;
-			if(itemNameId===''){
+			if(itemNameId==='')
 				break;
-			}else if(itemNameId.startsWith('Weapon_') || itemNameId.startsWith('Shield_') || itemNameId.endsWith('Arrow') || itemNameId.endsWith('Arrow_A')){
-				container='weapons';
-			}else if(itemNameId.startsWith('Armor')){
-				container='clothes';
-			}else if(itemNameId.startsWith('Item_Fruit_') || itemNameId.startsWith('Item_Mushroom') || itemNameId.startsWith('Item_Plant') || itemNameId.startsWith('Item_Meat_') || itemNameId.startsWith('Item_Material') || itemNameId.startsWith('Item_Fish') || itemNameId.startsWith('Item_Insect') || itemNameId.startsWith('Item_Ore_') || itemNameId.startsWith('Item_Enemy_') || itemNameId.startsWith('Animal_') || itemNameId==='BeeHome' || itemNameId==='Obj_FireWoodBundle'){
-				container='materials';
-			}else if(itemNameId.startsWith('Item_Cook_') || itemNameId.startsWith('Item_Roast') || itemNameId.startsWith('Item_Chilled_')){
-				container='food';
-			}else{
-				container='other';
-			}
-			var itemName=this.Translations[itemNameId] || '<span style="color:red">!!! '+itemNameId+' !!!</span>';
 
-			document.getElementById('row-botw-'+container).appendChild(row([10,2], create('label','number-botw-item'+i,'<b class="mono"><small>#'+i+'</small> </b>'+itemName), create('number', 'botw-item'+i, 0, 4294967295, tempFile.readInt(this._getItemQuantityOffset(i)))));
+			var button=document.createElement('button');
+			button.className='colored transparent';
+			
+			
+			document.getElementById('row-botw-'+this._getItemCategory(itemNameId)).appendChild(row([10,2], create('label','number-botw-item'+i,'<b class="mono"><small>#'+i+'</small> </b><span id="bow-item-name'+i+'">'+this._getItemTranslation(itemNameId)+'</span> <button class="with-icon icon10 colored transparent" onclick="SavegameEditor.editItem('+i+')"></button>'), create('number', 'botw-item'+i, 0, 4294967295, tempFile.readInt(this._getItemQuantityOffset(i)))));
 		}
 
 
