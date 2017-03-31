@@ -520,9 +520,9 @@ SavegameEditor={
 		var evilsBane=getValue('hw-weapon-type') & 0x20;
 		var evilsBaneSkill=false;
 		for(var i=0;i<8;i++){
-			if(getValue('hw-weapon-skill'+i)==0x2a && getInputNumber('hw-weapon-koskill'+i)==0){
+			if(getValue('hw-weapon-skill'+i)==0x2a && getValue('hw-weapon-koskill'+i)==0){
 				legendarySkill=true;
-			}else if(getValue('hw-weapon-skill'+i)==0x29 && getInputNumber('hw-weapon-koskill'+i)==0){
+			}else if(getValue('hw-weapon-skill'+i)==0x29 && getValue('hw-weapon-koskill'+i)==0){
 				evilsBaneSkill=true;
 			}
 		}
