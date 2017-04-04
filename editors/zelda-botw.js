@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild v20170327
+	The legend of Zelda: Breath of the wild v20170331
 	by Marc Robledo 2017
 */
 
@@ -12,15 +12,19 @@ SavegameEditor={
 	Constants:{
 		MAX_ITEMS:256
 	},
-	Offsets:{
+	Offsets1_0:{
+		RUPEES:0xe0a0,
+		ITEMS:0x52988,
+		ITEMS_QUANTITY:0x063358,
+	},
+	Offsets1_1:{
 		RUPEES:0xe110,
 		ITEMS:0x0528d8,
 		ITEMS_QUANTITY:0x0633f0,
 	},
+
+	/* item list extracted from https://github.com/joffnerd/botw-trainer/blob/master/items.json , thank you! */
 	Translations:[
-/*
-	item list extracted from https://github.com/joffnerd/botw-trainer/blob/master/items.json , thank you!
-*/
 {id:'weapons',items:{
 Weapon_Sword_001:"Traveler's Sword",
 Weapon_Sword_002:"Soldier's Broadsword",
@@ -223,258 +227,258 @@ Weapon_Shield_038:"Ancient Shield",
 Weapon_Shield_040:"Pot Lid",
 Weapon_Shield_041:"Shield of the Mind's Eye",
 Weapon_Shield_042:"Kite Shield",
-Weapon_Shield_070:"Hero's Shield (Wind Waker)"
+Weapon_Shield_057:"Hero's Shield (Wind Waker)"
 }},
 
 {id:'clothes',items:{
 Armor_001_Head:"Hylian Hood",
-Armor_001_Upper:"Hylian Tunic",
-Armor_001_Lower:"Hylian Trousers",
 Armor_002_Head:"Hylian Hood ★",
-Armor_002_Upper:"Hylian Tunic ★",
-Armor_002_Lower:"Hylian Trousers ★",
 Armor_003_Head:"Hylian Hood ★★",
-Armor_003_Upper:"Hylian Tunic ★★",
-Armor_003_Lower:"Hylian Trousers ★★",
 Armor_004_Head:"Hylian Hood ★★★",
-Armor_004_Upper:"Hylian Tunic ★★★",
-Armor_004_Lower:"Hylian Trousers ★★★",
-Armor_005_Head:"Cap of the Wild",
-Armor_005_Upper:"Tunic of the Wild",
-Armor_005_Lower:"Trousers of the Wild",
-Armor_006_Head:"Zora Helm",
-Armor_006_Upper:"Zora Armor",
-Armor_006_Lower:"Zora Greaves",
-Armor_007_Head:"Zora Helm ★",
-Armor_007_Upper:"Zora Armor ★",
-Armor_007_Lower:"Zora Greaves ★",
-Armor_008_Head:"Desert Voe Headband",
-Armor_008_Upper:"Desert Voe Spaulder",
-Armor_008_Lower:"Desert Voe Trousers",
-Armor_009_Head:"Snowquill Headdress",
-Armor_009_Upper:"Snowquill Tunic",
-Armor_009_Lower:"Snowquill Trousers",
-Armor_011_Head:"Flamebreaker Helm",
-Armor_011_Upper:"Flamebreaker Armor",
-Armor_011_Lower:"Flamebreaker Boots",
-Armor_012_Head:"Stealth Mask",
-Armor_012_Upper:"Stealth Chest Guard",
-Armor_012_Lower:"Stealth Tights",
-Armor_014_Head:"Climber's Bandanna",
-Armor_014_Upper:"Climbing Gear",
-Armor_014_Lower:"Climbing Boots",
 Armor_015_Head:"Hylian Hood ★★★★",
+Armor_001_Upper:"Hylian Tunic",
+Armor_002_Upper:"Hylian Tunic ★",
+Armor_003_Upper:"Hylian Tunic ★★",
+Armor_004_Upper:"Hylian Tunic ★★★",
 Armor_015_Upper:"Hylian Tunic ★★★★",
+Armor_001_Lower:"Hylian Trousers",
+Armor_002_Lower:"Hylian Trousers ★",
+Armor_003_Lower:"Hylian Trousers ★★",
+Armor_004_Lower:"Hylian Trousers ★★★",
 Armor_015_Lower:"Hylian Trousers ★★★★",
-Armor_017_Head:"Radiant Mask",
-Armor_017_Upper:"Radiant Shirt",
-Armor_017_Lower:"Radiant Tights",
-Armor_020_Head:"Soldier's Helm",
-Armor_020_Upper:"Soldier's Armor",
-Armor_020_Lower:"Soldier's Greaves",
-Armor_021_Head:"Ancient Helm",
-Armor_021_Upper:"Ancient Cuirass",
-Armor_021_Lower:"Ancient Greaves",
-Armor_022_Head:"Bokoblin Mask",
-Armor_024_Head:"Diamond Circlet",
-Armor_025_Head:"Ruby Circlet",
-Armor_026_Head:"Sapphire Circlet",
-Armor_027_Head:"Topaz Earrings",
-Armor_028_Head:"Opal Earrings",
-Armor_029_Head:"Amber Earrings",
+Armor_005_Head:"Cap of the Wild",
 Armor_035_Head:"Cap of the Wild ★",
-Armor_035_Upper:"Tunic of the Wild ★",
-Armor_035_Lower:"Trousers of the Wild ★",
-Armor_036_Head:"Snowquill Headdress ★",
-Armor_036_Upper:"Snowquill Tunic ★",
-Armor_036_Lower:"Snowquill Trousers ★",
-Armor_037_Head:"Flamebreaker Helm ★",
-Armor_037_Upper:"Flamebreaker Armor ★",
-Armor_037_Lower:"Flamebreaker Boots ★",
 Armor_039_Head:"Cap of the Wild ★★",
+Armor_060_Head:"Cap of the Wild ★★★",
+Armor_061_Head:"Cap of the Wild ★★★★",
+Armor_005_Upper:"Tunic of the Wild",
+Armor_035_Upper:"Tunic of the Wild ★",
 Armor_039_Upper:"Tunic of the Wild ★★",
+Armor_060_Upper:"Tunic of the Wild ★★★",
+Armor_061_Upper:"Tunic of the Wild ★★★★",
+Armor_005_Lower:"Trousers of the Wild",
+Armor_035_Lower:"Trousers of the Wild ★",
 Armor_039_Lower:"Trousers of the Wild ★★",
+Armor_060_Lower:"Trousers of the Wild ★★★",
+Armor_061_Lower:"Trousers of the Wild ★★★★",
+Armor_006_Head:"Zora Helm",
+Armor_007_Head:"Zora Helm ★",
+Armor_062_Head:"Zora Helm ★★",
+Armor_063_Head:"Zora Helm ★★★",
+Armor_064_Head:"Zora Helm ★★★★",
+Armor_006_Upper:"Zora Armor",
+Armor_007_Upper:"Zora Armor ★",
+Armor_062_Upper:"Zora Armor ★★",
+Armor_063_Upper:"Zora Armor ★★★",
+Armor_064_Upper:"Zora Armor ★★★★",
+Armor_006_Lower:"Zora Greaves",
+Armor_007_Lower:"Zora Greaves ★",
+Armor_062_Lower:"Zora Greaves ★★",
+Armor_063_Lower:"Zora Greaves ★★★",
+Armor_064_Lower:"Zora Greaves ★★★★",
+Armor_008_Head:"Desert Voe Headband",
 Armor_040_Head:"Desert Voe Headband ★",
+Armor_065_Head:"Desert Voe Headband ★★",
+Armor_066_Head:"Desert Voe Headband ★★★",
+Armor_067_Head:"Desert Voe Headband ★★★★",
+Armor_008_Upper:"Desert Voe Spaulder",
 Armor_040_Upper:"Desert Voe Spaulder ★",
+Armor_065_Upper:"Desert Voe Spaulder ★★",
+Armor_066_Upper:"Desert Voe Spaulder ★★★",
+Armor_067_Upper:"Desert Voe Spaulder ★★★★",
+Armor_008_Lower:"Desert Voe Trousers",
 Armor_040_Lower:"Desert Voe Trousers ★",
+Armor_065_Lower:"Desert Voe Trousers ★★",
+Armor_066_Lower:"Desert Voe Trousers ★★★",
+Armor_067_Lower:"Desert Voe Trousers ★★★★",
+Armor_009_Head:"Snowquill Headdress",
+Armor_036_Head:"Snowquill Headdress ★",
+Armor_071_Head:"Snowquill Headdress ★★",
+Armor_072_Head:"Snowquill Headdress ★★★",
+Armor_073_Head:"Snowquill Headdress ★★★★",
+Armor_009_Upper:"Snowquill Tunic",
+Armor_036_Upper:"Snowquill Tunic ★",
+Armor_071_Upper:"Snowquill Tunic ★★",
+Armor_072_Upper:"Snowquill Tunic ★★★",
+Armor_073_Upper:"Snowquill Tunic ★★★★",
+Armor_009_Lower:"Snowquill Trousers",
+Armor_036_Lower:"Snowquill Trousers ★",
+Armor_071_Lower:"Snowquill Trousers ★★",
+Armor_072_Lower:"Snowquill Trousers ★★★",
+Armor_073_Lower:"Snowquill Trousers ★★★★",
+Armor_011_Head:"Flamebreaker Helm",
+Armor_037_Head:"Flamebreaker Helm ★",
+Armor_074_Head:"Flamebreaker Helm ★★",
+Armor_075_Head:"Flamebreaker Helm ★★★",
+Armor_076_Head:"Flamebreaker Helm ★★★★",
+Armor_011_Upper:"Flamebreaker Armor",
+Armor_037_Upper:"Flamebreaker Armor ★",
+Armor_074_Upper:"Flamebreaker Armor ★★",
+Armor_075_Upper:"Flamebreaker Armor ★★★",
+Armor_076_Upper:"Flamebreaker Armor ★★★★",
+Armor_011_Lower:"Flamebreaker Boots",
+Armor_037_Lower:"Flamebreaker Boots ★",
+Armor_074_Lower:"Flamebreaker Boots ★★",
+Armor_075_Lower:"Flamebreaker Boots ★★★",
+Armor_076_Lower:"Flamebreaker Boots ★★★★",
+Armor_012_Head:"Stealth Mask",
 Armor_042_Head:"Stealth Mask ★",
+Armor_077_Head:"Stealth Mask ★★",
+Armor_078_Head:"Stealth Mask ★★★",
+Armor_079_Head:"Stealth Mask ★★★★",
+Armor_012_Upper:"Stealth Chest Guard",
 Armor_042_Upper:"Stealth Chest Guard ★",
+Armor_077_Upper:"Stealth Chest Guard ★★",
+Armor_078_Upper:"Stealth Chest Guard ★★★",
+Armor_079_Upper:"Stealth Chest Guard ★★★★",
+Armor_012_Lower:"Stealth Tights",
 Armor_042_Lower:"Stealth Tights ★",
+Armor_077_Lower:"Stealth Tights ★★",
+Armor_078_Lower:"Stealth Tights ★★★",
+Armor_079_Lower:"Stealth Tights ★★★★",
+Armor_014_Head:"Climber's Bandanna",
+Armor_083_Head:"Climber's Bandanna ★",
+Armor_084_Head:"Climber's Bandanna ★★",
+Armor_085_Head:"Climber's Bandanna ★★★",
+Armor_086_Head:"Climber's Bandanna ★★★★",
+Armor_014_Upper:"Climbing Gear",
+Armor_083_Upper:"Climbing Gear ★",
+Armor_084_Upper:"Climbing Gear ★★",
+Armor_085_Upper:"Climbing Gear ★★★",
+Armor_086_Upper:"Climbing Gear ★★★★",
+Armor_014_Lower:"Climbing Boots",
+Armor_083_Lower:"Climbing Boots ★",
+Armor_084_Lower:"Climbing Boots ★★",
+Armor_085_Lower:"Climbing Boots ★★★",
+Armor_086_Lower:"Climbing Boots ★★★★",
+Armor_017_Head:"Radiant Mask",
+Armor_087_Head:"Radiant Mask ★",
+Armor_088_Head:"Radiant Mask ★★",
+Armor_089_Head:"Radiant Mask ★★★",
+Armor_090_Head:"Radiant Mask ★★★★",
+Armor_017_Upper:"Radiant Shirt",
+Armor_087_Upper:"Radiant Shirt ★",
+Armor_088_Upper:"Radiant Shirt ★★",
+Armor_089_Upper:"Radiant Shirt ★★★",
+Armor_090_Upper:"Radiant Shirt ★★★★",
+Armor_017_Lower:"Radiant Tights",
+Armor_087_Lower:"Radiant Tights ★",
+Armor_088_Lower:"Radiant Tights ★★",
+Armor_089_Lower:"Radiant Tights ★★★",
+Armor_090_Lower:"Radiant Tights ★★★★",
+Armor_020_Head:"Soldier's Helm",
+Armor_095_Head:"Soldier's Helm ★",
+Armor_096_Head:"Soldier's Helm ★★",
+Armor_097_Head:"Soldier's Helm ★★★",
+Armor_098_Head:"Soldier's Helm ★★★★",
+Armor_020_Upper:"Soldier's Armor",
+Armor_095_Upper:"Soldier's Armor ★",
+Armor_096_Upper:"Soldier's Armor ★★",
+Armor_097_Upper:"Soldier's Armor ★★★",
+Armor_098_Upper:"Soldier's Armor ★★★★",
+Armor_020_Lower:"Soldier's Greaves",
+Armor_095_Lower:"Soldier's Greaves ★",
+Armor_096_Lower:"Soldier's Greaves ★★",
+Armor_097_Lower:"Soldier's Greaves ★★★",
+Armor_098_Lower:"Soldier's Greaves ★★★★",
+Armor_021_Head:"Ancient Helm",
+Armor_099_Head:"Ancient Helm ★",
+Armor_100_Head:"Ancient Helm ★★",
+Armor_101_Head:"Ancient Helm ★★★",
+Armor_102_Head:"Ancient Helm ★★★★",
+Armor_021_Upper:"Ancient Cuirass",
+Armor_099_Upper:"Ancient Cuirass ★",
+Armor_100_Upper:"Ancient Cuirass ★★",
+Armor_101_Upper:"Ancient Cuirass ★★★",
+Armor_102_Upper:"Ancient Cuirass ★★★★",
+Armor_021_Lower:"Ancient Greaves",
+Armor_099_Lower:"Ancient Greaves ★",
+Armor_100_Lower:"Ancient Greaves ★★",
+Armor_101_Lower:"Ancient Greaves ★★★",
+Armor_102_Lower:"Ancient Greaves ★★★★",
+Armor_022_Head:"Bokoblin Mask",
 Armor_043_Upper:"Old Shirt",
 Armor_043_Lower:"Well-Worn Trousers",
 Armor_044_Upper:"Warm Doublet",
 Armor_045_Head:"Moblin Mask",
 Armor_046_Head:"Rubber Helm",
+Armor_103_Head:"Rubber Helm ★",
+Armor_104_Head:"Rubber Helm ★★",
+Armor_105_Head:"Rubber Helm ★★★",
+Armor_106_Head:"Rubber Helm ★★★★",
 Armor_046_Upper:"Rubber Armor",
+Armor_103_Upper:"Rubber Armor ★",
+Armor_104_Upper:"Rubber Armor ★★",
+Armor_105_Upper:"Rubber Armor ★★★",
+Armor_106_Upper:"Rubber Armor ★★★★",
 Armor_046_Lower:"Rubber Tights",
+Armor_103_Lower:"Rubber Tights ★",
+Armor_104_Lower:"Rubber Tights ★★",
+Armor_105_Lower:"Rubber Tights ★★★",
+Armor_106_Lower:"Rubber Tights ★★★★",
 Armor_048_Head:"Barbarian Helm",
+Armor_111_Head:"Barbarian Helm ★",
+Armor_112_Head:"Barbarian Helm ★★",
+Armor_113_Head:"Barbarian Helm ★★★",
+Armor_114_Head:"Barbarian Helm ★★★★",
 Armor_048_Upper:"Barbarian Armor",
+Armor_111_Upper:"Barbarian Armor ★",
+Armor_112_Upper:"Barbarian Armor ★★",
+Armor_113_Upper:"Barbarian Armor ★★★",
+Armor_114_Upper:"Barbarian Armor ★★★★",
 Armor_048_Lower:"Barbarian Wraps",
-Armor_049_Lower:"Sand Boots",
+Armor_111_Lower:"Barbarian Wraps ★",
+Armor_112_Lower:"Barbarian Wraps ★★",
+Armor_113_Lower:"Barbarian Wraps ★★★",
+Armor_114_Lower:"Barbarian Wraps ★★★★",
 Armor_053_Head:"Gerudo Veil",
 Armor_053_Upper:"Gerudo Top",
 Armor_053_Lower:"Gerudo Sirwal",
 Armor_055_Head:"Lizalfos Mask",
 Armor_056_Head:"Lynel Mask",
-Armor_060_Head:"Cap of the Wild ★★★",
-Armor_060_Upper:"Tunic of the Wild ★★★",
-Armor_060_Lower:"Trousers of the Wild ★★★",
-Armor_061_Head:"Cap of the Wild ★★★★",
-Armor_061_Upper:"Tunic of the Wild ★★★★",
-Armor_061_Lower:"Trousers of the Wild ★★★★",
-Armor_062_Head:"Zora Helm ★★",
-Armor_062_Upper:"Zora Armor ★★",
-Armor_062_Lower:"Zora Greaves ★★",
-Armor_063_Head:"Zora Helm ★★★",
-Armor_063_Upper:"Zora Armor ★★★",
-Armor_063_Lower:"Zora Greaves ★★★",
-Armor_064_Head:"Zora Helm ★★★★",
-Armor_064_Upper:"Zora Armor ★★★★",
-Armor_064_Lower:"Zora Greaves ★★★★",
-Armor_065_Head:"Desert Voe Headband ★★",
-Armor_065_Upper:"Desert Voe Spaulder ★★",
-Armor_065_Lower:"Desert Voe Trousers ★★",
-Armor_066_Head:"Desert Voe Headband ★★★",
-Armor_066_Upper:"Desert Voe Spaulder ★★★",
-Armor_066_Lower:"Desert Voe Trousers ★★★",
-Armor_067_Head:"Desert Voe Headband ★★★★",
-Armor_067_Upper:"Desert Voe Spaulder ★★★★",
-Armor_067_Lower:"Desert Voe Trousers ★★★★",
-Armor_071_Head:"Snowquill Headdress ★★",
-Armor_071_Upper:"Snowquill Tunic ★★",
-Armor_071_Lower:"Snowquill Trousers ★★",
-Armor_072_Head:"Snowquill Headdress ★★★",
-Armor_072_Upper:"Snowquill Tunic ★★★",
-Armor_072_Lower:"Snowquill Trousers ★★★",
-Armor_073_Head:"Snowquill Headdress ★★★★",
-Armor_073_Upper:"Snowquill Tunic ★★★★",
-Armor_073_Lower:"Snowquill Trousers ★★★★",
-Armor_074_Head:"Flamebreaker Helm ★★",
-Armor_074_Upper:"Flamebreaker Armor ★★",
-Armor_074_Lower:"Flamebreaker Boots ★★",
-Armor_075_Head:"Flamebreaker Helm ★★★",
-Armor_075_Upper:"Flamebreaker Armor ★★★",
-Armor_075_Lower:"Flamebreaker Boots ★★★",
-Armor_076_Head:"Flamebreaker Helm ★★★★",
-Armor_076_Upper:"Flamebreaker Armor ★★★★",
-Armor_076_Lower:"Flamebreaker Boots ★★★★",
-Armor_077_Head:"Stealth Mask ★★",
-Armor_077_Upper:"Stealth Chest Guard ★★",
-Armor_077_Lower:"Stealth Tights ★★",
-Armor_078_Head:"Stealth Mask ★★★",
-Armor_078_Upper:"Stealth Chest Guard ★★★",
-Armor_078_Lower:"Stealth Tights ★★★",
-Armor_079_Head:"Stealth Mask ★★★★",
-Armor_079_Upper:"Stealth Chest Guard ★★★★",
-Armor_079_Lower:"Stealth Tights ★★★★",
-Armor_083_Head:"Climber's Bandanna ★",
-Armor_083_Upper:"Climbing Gear ★",
-Armor_083_Lower:"Climbing Boots ★",
-Armor_084_Head:"Climber's Bandanna ★★",
-Armor_084_Upper:"Climbing Gear ★★",
-Armor_084_Lower:"Climbing Boots ★★",
-Armor_085_Head:"Climber's Bandanna ★★★",
-Armor_085_Upper:"Climbing Gear ★★★",
-Armor_085_Lower:"Climbing Boots ★★★",
-Armor_086_Head:"Climber's Bandanna ★★★★",
-Armor_086_Upper:"Climbing Gear ★★★★",
-Armor_086_Lower:"Climbing Boots ★★★★",
-Armor_087_Head:"Radiant Mask ★",
-Armor_087_Upper:"Radiant Shirt ★",
-Armor_087_Lower:"Radiant Tights ★",
-Armor_088_Head:"Radiant Mask ★★",
-Armor_088_Upper:"Radiant Shirt ★★",
-Armor_088_Lower:"Radiant Tights ★★",
-Armor_089_Head:"Radiant Mask ★★★",
-Armor_089_Upper:"Radiant Shirt ★★★",
-Armor_089_Lower:"Radiant Tights ★★★",
-Armor_090_Head:"Radiant Mask ★★★★",
-Armor_090_Upper:"Radiant Shirt ★★★★",
-Armor_090_Lower:"Radiant Tights ★★★★",
-Armor_095_Head:"Soldier's Helm ★",
-Armor_095_Upper:"Soldier's Armor ★",
-Armor_095_Lower:"Soldier's Greaves ★",
-Armor_096_Head:"Soldier's Helm ★★",
-Armor_096_Upper:"Soldier's Armor ★★",
-Armor_096_Lower:"Soldier's Greaves ★★",
-Armor_097_Head:"Soldier's Helm ★★★",
-Armor_097_Upper:"Soldier's Armor ★★★",
-Armor_097_Lower:"Soldier's Greaves ★★★",
-Armor_098_Head:"Soldier's Helm ★★★★",
-Armor_098_Upper:"Soldier's Armor ★★★★",
-Armor_098_Lower:"Soldier's Greaves ★★★★",
-Armor_099_Head:"Ancient Helm ★",
-Armor_099_Upper:"Ancient Cuirass ★",
-Armor_099_Lower:"Ancient Greaves ★",
-Armor_100_Head:"Ancient Helm ★★",
-Armor_100_Upper:"Ancient Cuirass ★★",
-Armor_100_Lower:"Ancient Greaves ★★",
-Armor_101_Head:"Ancient Helm ★★★",
-Armor_101_Upper:"Ancient Cuirass ★★★",
-Armor_101_Lower:"Ancient Greaves ★★★",
-Armor_102_Head:"Ancient Helm ★★★★",
-Armor_102_Upper:"Ancient Cuirass ★★★★",
-Armor_102_Lower:"Ancient Greaves ★★★★",
-Armor_103_Head:"Rubber Helm ★",
-Armor_103_Upper:"Rubber Armor ★",
-Armor_103_Lower:"Rubber Tights ★",
-Armor_104_Head:"Rubber Helm ★★",
-Armor_104_Upper:"Rubber Armor ★★",
-Armor_104_Lower:"Rubber Tights ★★",
-Armor_105_Head:"Rubber Helm ★★★",
-Armor_105_Upper:"Rubber Armor ★★★",
-Armor_105_Lower:"Rubber Tights ★★★",
-Armor_106_Head:"Rubber Helm ★★★★",
-Armor_106_Upper:"Rubber Armor ★★★★",
-Armor_106_Lower:"Rubber Tights ★★★★",
-Armor_111_Head:"Barbarian Helm ★",
-Armor_111_Upper:"Barbarian Armor ★",
-Armor_111_Lower:"Barbarian Wraps ★",
-Armor_112_Head:"Barbarian Helm ★★",
-Armor_112_Upper:"Barbarian Armor ★★",
-Armor_112_Lower:"Barbarian Wraps ★★",
-Armor_113_Head:"Barbarian Helm ★★★",
-Armor_113_Upper:"Barbarian Armor ★★★",
-Armor_113_Lower:"Barbarian Wraps ★★★",
-Armor_114_Head:"Barbarian Helm ★★★★",
-Armor_114_Upper:"Barbarian Armor ★★★★",
-Armor_114_Lower:"Barbarian Wraps ★★★★",
 Armor_115_Head:"Thunder Helm",
-Armor_116_Upper:"Champion's Tunic",
+Armor_024_Head:"Diamond Circlet",
 Armor_117_Head:"Diamond Circlet ★",
 Armor_118_Head:"Diamond Circlet ★★",
 Armor_119_Head:"Diamond Circlet ★★★",
 Armor_120_Head:"Diamond Circlet ★★★★",
+Armor_025_Head:"Ruby Circlet",
 Armor_121_Head:"Ruby Circlet ★",
 Armor_122_Head:"Ruby Circlet ★★",
 Armor_123_Head:"Ruby Circlet ★★★",
 Armor_124_Head:"Ruby Circlet ★★★★",
+Armor_026_Head:"Sapphire Circlet",
 Armor_125_Head:"Sapphire Circlet ★",
 Armor_126_Head:"Sapphire Circlet ★★",
 Armor_127_Head:"Sapphire Circlet ★★★",
 Armor_128_Head:"Sapphire Circlet ★★★★",
+Armor_027_Head:"Topaz Earrings",
 Armor_129_Head:"Topaz Earrings ★",
 Armor_130_Head:"Topaz Earrings ★★",
 Armor_131_Head:"Topaz Earrings ★★★",
 Armor_132_Head:"Topaz Earrings ★★★★",
+Armor_028_Head:"Opal Earrings",
 Armor_133_Head:"Opal Earrings ★",
 Armor_134_Head:"Opal Earrings ★★",
 Armor_135_Head:"Opal Earrings ★★★",
 Armor_136_Head:"Opal Earrings ★★★★",
+Armor_029_Head:"Amber Earrings",
 Armor_137_Head:"Amber Earrings ★",
 Armor_138_Head:"Amber Earrings ★★",
 Armor_139_Head:"Amber Earrings ★★★",
 Armor_140_Head:"Amber Earrings ★★★★",
-Armor_140_Lower:"Snow Boots",
-Armor_141_Lower:"Snow Boots",
+Armor_116_Upper:"Champion's Tunic",
 Armor_148_Upper:"Champion's Tunic ★",
 Armor_149_Upper:"Champion's Tunic ★★",
 Armor_150_Upper:"Champion's Tunic ★★★",
 Armor_151_Upper:"Champion's Tunic ★★★★",
+Armor_049_Lower:"Sand Boots",
 Armor_152_Lower:"Sand Boots ★",
 Armor_153_Lower:"Sand Boots ★★",
 Armor_154_Lower:"Sand Boots ★★★",
 Armor_155_Lower:"Sand Boots ★★★★",
+Armor_140_Lower:"Snow Boots",
+Armor_141_Lower:"Snow Boots",
 Armor_156_Lower:"Snow Boots ★",
 Armor_157_Lower:"Snow Boots ★★",
 Armor_158_Lower:"Snow Boots ★★★",
@@ -484,64 +488,64 @@ Armor_160_Upper:"Dark Tunic",
 Armor_160_Lower:"Dark Trousers",
 Armor_170_Upper:"Nintendo Switch Shirt",
 Armor_200_Head:"Cap of Time",
-Armor_200_Upper:"Tunic of Time",
-Armor_200_Lower:"Trousers of Time",
 Armor_201_Head:"Cap of Time ★",
-Armor_201_Upper:"Tunic of Time ★",
-Armor_201_Lower:"Trousers of Time ★",
 Armor_202_Head:"Cap of Time ★★",
-Armor_202_Upper:"Tunic of Time ★★",
-Armor_202_Lower:"Trousers of Time ★★",
 Armor_203_Head:"Cap of Time ★★★",
-Armor_203_Upper:"Tunic of Time ★★★",
-Armor_203_Lower:"Trousers of Time ★★★",
 Armor_204_Head:"Cap of Time ★★★★",
+Armor_200_Upper:"Tunic of Time",
+Armor_201_Upper:"Tunic of Time ★",
+Armor_202_Upper:"Tunic of Time ★★",
+Armor_203_Upper:"Tunic of Time ★★★",
 Armor_204_Upper:"Tunic of Time ★★★★",
+Armor_200_Lower:"Trousers of Time",
+Armor_201_Lower:"Trousers of Time ★",
+Armor_202_Lower:"Trousers of Time ★★",
+Armor_203_Lower:"Trousers of Time ★★★",
 Armor_204_Lower:"Trousers of Time ★★★★",
 Armor_205_Head:"Cap of Wind",
-Armor_205_Upper:"Tunic of Wind",
-Armor_205_Lower:"Trousers of Wind",
 Armor_206_Head:"Cap of Wind ★",
-Armor_206_Upper:"Tunic of Wind ★",
-Armor_206_Lower:"Trousers of Wind ★",
 Armor_207_Head:"Cap of Wind ★★",
-Armor_207_Upper:"Tunic of Wind ★★",
-Armor_207_Lower:"Trousers of Wind ★★",
 Armor_208_Head:"Cap of Wind ★★★",
-Armor_208_Upper:"Tunic of Wind ★★★",
-Armor_208_Lower:"Trousers of Wind ★★★",
 Armor_209_Head:"Cap of Wind ★★★★",
+Armor_205_Upper:"Tunic of Wind",
+Armor_206_Upper:"Tunic of Wind ★",
+Armor_207_Upper:"Tunic of Wind ★★",
+Armor_208_Upper:"Tunic of Wind ★★★",
 Armor_209_Upper:"Tunic of Wind ★★★★",
+Armor_205_Lower:"Trousers of Wind",
+Armor_206_Lower:"Trousers of Wind ★",
+Armor_207_Lower:"Trousers of Wind ★★",
+Armor_208_Lower:"Trousers of Wind ★★★",
 Armor_209_Lower:"Trousers of Wind ★★★★",
 Armor_210_Head:"Cap of Twilight",
-Armor_210_Upper:"Tunic of Twilight",
-Armor_210_Lower:"Trousers of Twilight",
 Armor_211_Head:"Cap of Twilight ★",
-Armor_211_Upper:"Tunic of Twilight ★",
-Armor_211_Lower:"Trousers of Twilight ★",
 Armor_212_Head:"Cap of Twilight ★★",
-Armor_212_Upper:"Tunic of Twilight ★★",
-Armor_212_Lower:"Trousers of Twilight ★★",
 Armor_213_Head:"Cap of Twilight ★★★",
-Armor_213_Upper:"Tunic of Twilight ★★★",
-Armor_213_Lower:"Trousers of Twilight ★★★",
 Armor_214_Head:"Cap of Twilight ★★★★",
+Armor_210_Upper:"Tunic of Twilight",
+Armor_211_Upper:"Tunic of Twilight ★",
+Armor_212_Upper:"Tunic of Twilight ★★",
+Armor_213_Upper:"Tunic of Twilight ★★★",
 Armor_214_Upper:"Tunic of Twilight ★★★★",
+Armor_210_Lower:"Trousers of Twilight",
+Armor_211_Lower:"Trousers of Twilight ★",
+Armor_212_Lower:"Trousers of Twilight ★★",
+Armor_213_Lower:"Trousers of Twilight ★★★",
 Armor_214_Lower:"Trousers of Twilight ★★★★",
 Armor_215_Head:"Cap of the Sky",
-Armor_215_Upper:"Tunic of the Sky",
-Armor_215_Lower:"Trousers of the Sky",
 Armor_216_Head:"Cap of the Sky ★",
-Armor_216_Upper:"Tunic of the Sky ★",
-Armor_216_Lower:"Trousers of the Sky ★",
 Armor_217_Head:"Cap of the Sky ★★",
-Armor_217_Upper:"Tunic of the Sky ★★",
-Armor_217_Lower:"Trousers of the Sky ★★",
 Armor_218_Head:"Cap of the Sky ★★★",
-Armor_218_Upper:"Tunic of the Sky ★★★",
-Armor_218_Lower:"Trousers of the Sky ★★★",
 Armor_219_Head:"Cap of the Sky ★★★★",
+Armor_215_Upper:"Tunic of the Sky",
+Armor_216_Upper:"Tunic of the Sky ★",
+Armor_217_Upper:"Tunic of the Sky ★★",
+Armor_218_Upper:"Tunic of the Sky ★★★",
 Armor_219_Upper:"Tunic of the Sky ★★★★",
+Armor_215_Lower:"Trousers of the Sky",
+Armor_216_Lower:"Trousers of the Sky ★",
+Armor_217_Lower:"Trousers of the Sky ★★",
+Armor_218_Lower:"Trousers of the Sky ★★★",
 Armor_219_Lower:"Trousers of the Sky ★★★★",
 Armor_220_Head:"Sheik's Mask",
 Armor_221_Head:"Sheik's Mask ★",
@@ -549,34 +553,34 @@ Armor_222_Head:"Sheik's Mask ★★",
 Armor_223_Head:"Sheik's Mask ★★★",
 Armor_224_Head:"Sheik's Mask ★★★★",
 Armor_225_Head:"Fierce Deity's Mask",
-Armor_225_Upper:"Fierce Deity's Armor",
-Armor_225_Lower:"Fierce Deity's Boots",
 Armor_226_Head:"Fierce Deity's Mask ★",
-Armor_226_Upper:"Fierce Deity's Armor ★",
-Armor_226_Lower:"Fierce Deity's Boots ★",
 Armor_227_Head:"Fierce Deity's Mask ★★",
-Armor_227_Upper:"Fierce Deity's Armor ★★",
-Armor_227_Lower:"Fierce Deity's Boots ★★",
 Armor_228_Head:"Fierce Deity's Mask ★★★",
-Armor_228_Upper:"Fierce Deity's Armor ★★★",
-Armor_228_Lower:"Fierce Deity's Boots ★★★",
 Armor_229_Head:"Fierce Deity's Mask ★★★★",
+Armor_225_Upper:"Fierce Deity's Armor",
+Armor_226_Upper:"Fierce Deity's Armor ★",
+Armor_227_Upper:"Fierce Deity's Armor ★★",
+Armor_228_Upper:"Fierce Deity's Armor ★★★",
 Armor_229_Upper:"Fierce Deity's Armor ★★★★",
+Armor_225_Lower:"Fierce Deity's Boots",
+Armor_226_Lower:"Fierce Deity's Boots ★",
+Armor_227_Lower:"Fierce Deity's Boots ★★",
+Armor_228_Lower:"Fierce Deity's Boots ★★★",
 Armor_229_Lower:"Fierce Deity's Boots ★★★★",
 Armor_230_Head:"Cap of the Hero",
-Armor_230_Upper:"Tunic of the Hero",
-Armor_230_Lower:"Trousers of the Hero",
 Armor_231_Head:"Cap of the Hero ★",
-Armor_231_Upper:"Tunic of the Hero ★",
-Armor_231_Lower:"Trousers of the Hero ★",
 Armor_232_Head:"Cap of the Hero ★★",
-Armor_232_Upper:"Tunic of the Hero ★★",
-Armor_232_Lower:"Trousers of the Hero ★★",
 Armor_233_Head:"Cap of the Hero ★★★",
-Armor_233_Upper:"Tunic of the Hero ★★★",
-Armor_233_Lower:"Trousers of the Hero ★★★",
 Armor_234_Head:"Cap of the Hero ★★★★",
+Armor_230_Upper:"Tunic of the Hero",
+Armor_231_Upper:"Tunic of the Hero ★",
+Armor_232_Upper:"Tunic of the Hero ★★",
+Armor_233_Upper:"Tunic of the Hero ★★★",
 Armor_234_Upper:"Tunic of the Hero ★★★★",
+Armor_230_Lower:"Trousers of the Hero",
+Armor_231_Lower:"Trousers of the Hero ★",
+Armor_232_Lower:"Trousers of the Hero ★★",
+Armor_233_Lower:"Trousers of the Hero ★★★",
 Armor_234_Lower:"Trousers of the Hero ★★★★",
 Armor_500_Upper:"Mini?",
 Armor_501_Lower:"Mini?",
@@ -1051,10 +1055,49 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 			}
 			offset+=8;
 		}
-		document.getElementById('bow-item-name'+i).innerHTML=this._getItemTranslation(newItemNameId);
+	},
+	_getItemMaximumQuantity:function(itemId){
+		var cat=this._getItemCategory(itemId);
+		if(itemId.endsWith('Arrow') || itemId.endsWith('Arrow_A') || cat==='materials' || cat==='food'){
+			return 999;
+		}else if(cat==='weapons' || cat==='bows' || cat==='shields'){
+			return 6553500;
+		}else if(itemId==='Obj_DungeonClearSeal'){
+			return 120
+		}else{
+			return 0xffffffff;
+		}
 	},
 	_getItemQuantityOffset:function(i){
 		return this.Offsets.ITEMS_QUANTITY+i*0x08;
+	},
+	_getItemRow(i){
+		return getField('number-botw-item'+i).parentElement.parentElement
+	},
+	_createItemRow(i){
+		//var editButtonFunction=function(){
+		//	SavegameEditor.editItem(this.itemId);
+		//};
+		//var editButton=button('Edit', 'colored transparent with-icon icon10', editButtonFunction);
+		//editButton.itemId=i;
+
+		var itemNameId=this._loadItemName(i);
+		return row([10,2],
+			label('number-botw-item'+i,'<b class="mono"><small>#'+i+'</small> </b><span id="botw-item-name'+i+'">'+this._getItemTranslation(itemNameId)+'</span> <button class="with-icon icon10 colored transparent" onclick="SavegameEditor.editItem('+i+')"></button>'),
+			inputNumber('botw-item'+i, 0, this._getItemMaximumQuantity(itemNameId), tempFile.readInt(this._getItemQuantityOffset(i)))
+		)
+	},
+
+	addItem:function(){
+		var i=0;
+		while(document.getElementById('number-botw-item'+i)){
+			i++;
+		}
+		if(i<this.Constants.MAX_ITEMS){
+			this._writeItemName(i,'Item_Fruit_A');
+			document.getElementById('card-materials').appendChild(row([10,2], create('label','number-botw-item'+i,'<b class="mono"><small>#'+i+'</small> </b><span id="botw-item-name'+i+'">?</span> <button class="with-icon icon10 colored transparent" onclick="SavegameEditor.editItem('+i+')"></button>'), create('number', 'botw-item'+i, 0, 4294967295, 100)));
+			this.editItem(i);
+		}
 	},
 
 	editItem:function(i){
@@ -1063,14 +1106,23 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 		MarcDialogs.open('botw-item');
 	},
 
-	editItemAccept:function(){
-		this._writeItemName(currentBOTWItem, getValue('botw-item'))
-		MarcDialogs.close();
+	editItem2:function(i,nameId){
+		var oldCat=this._getItemCategory(this._loadItemName(i));
+		var newCat=this._getItemCategory(nameId);
+
+		if(oldCat!==newCat){
+			var row=this._getItemRow(i);
+			row.parentElement.removeChild(row);
+			document.getElementById('card-'+newCat.clean()).appendChild(row);
+		}
+		this._writeItemName(i, nameId);
+		document.getElementById('botw-item-name'+i).innerHTML=this._getItemTranslation(nameId);
+		document.getElementById('number-botw-item'+i).maxValue=this._getItemMaximumQuantity(nameId);
 	},
 
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
-		return (tempFile.fileSize==897160)
+		return (tempFile.fileSize===896976 || tempFile.fileSize===897160)
 	},
 
 
@@ -1079,66 +1131,63 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 		tempFile.littleEndian=false;
 		tempFile.fileName='game_data.sav';
 
-		/* prepare HTML */
+		/* check if savegame is v1.0 or v1.1 */
+		this.Offsets=(tempFile.fileSize===896976)?this.Offsets1_0:this.Offsets1_1;
+
+		/* prepare edit item dialog */
+		var optGroups=[];
 		for(var i=0; i<this.Translations.length; i++){
-			var optGroup=document.createElement('optgroup');
-			optGroup.id='select-botw-item-'+this.Translations[i].id;
-			optGroup.label=this.Translations[i].id;
-			document.getElementById('select-botw-item').appendChild(optGroup);
+			optGroups.push(document.createElement('optgroup'));
+			optGroups[i].label=this.Translations[i].id;
 
 			for(var item in this.Translations[i].items){
 				var opt=document.createElement('option');
 				opt.value=item;
 				opt.innerHTML=this.Translations[i].items[item];
-				optGroup.appendChild(opt);
+				optGroups[i].appendChild(opt);
 			}
 		}
-
-		var CARD_COLORS=['green','yellow','red'];
-		for(var i=0; i<this.Translations.length; i++){
-			m('#editor-zelda-botw')
-				.append(mCreate('div',{class:'card card-'+CARD_COLORS[i%3]})
-					.append(mCreate('h3',{html:this.Translations[i].id}))
-					.append(mCreate('div', {class:'row', id:'row-botw-'+this.Translations[i].id}))
-			);
-		}
-		var addItemButton=mCreate('button',{class:'with-icon icon1',html:'Add item'}).addEvent('click', function(){
-			var i=0;
-			while(document.getElementById('number-botw-item'+i)){
-				i++;
-			}
-			if(i<SavegameEditor.Constants.MAX_ITEMS){
-				document.getElementById('row-botw-new').appendChild(row([10,2], create('label','number-botw-item'+i,'<b class="mono"><small>#'+i+'</small> </b><span id="bow-item-name'+i+'">?</span> <button class="with-icon icon10 colored transparent" onclick="SavegameEditor.editItem('+i+')"></button>'), create('number', 'botw-item'+i, 0, 4294967295, 100)));
-				SavegameEditor._writeItemName(i,'Item_Fruit_A');
-			}
-		});
-		m('#editor-zelda-botw')
-			.append(mCreate('div',{class:'card card-'+CARD_COLORS[i%3]})
-				.append(mCreate('h3',{html:'new'}))
-				.append(mCreate('div', {class:'row', id:'row-botw-new'}))
-				.append(mCreate('div', {class:'text-center'}).append(addItemButton))
+		dialog('botw-item',
+			select('botw-item', optGroups),
+			div('buttons',
+				button('Change item',false,function(){
+					SavegameEditor.editItem2(currentBOTWItem, getValue('botw-item'));
+					MarcDialogs.close();
+				})
+			)
 		);
 
-		/* RUPEES */
-		setValue('botw-rupees', tempFile.readInt(this.Offsets.RUPEES), 0, 99999);
 
+		/* prepare editor */
+		card('Rupees',
+			row([9,3],
+				label('number-botw-rupees', 'Rupees'),
+				inputNumber('botw-rupees', 0, 999999, tempFile.readInt(this.Offsets.RUPEES))
+			)
+		);
 
-		/* ITEMS */
+		/* items */
+		for(var i=0; i<this.Translations.length; i++){
+			card(this.Translations[i].id);
+		}
 		for(var i=0; i<this.Constants.MAX_ITEMS; i++){
 			var itemNameId=this._loadItemName(i);
 			if(itemNameId==='')
 				break;
 
-			var button=document.createElement('button');
-			button.className='colored transparent';
-			
-			
-			document.getElementById('row-botw-'+this._getItemCategory(itemNameId)).appendChild(row([10,2], create('label','number-botw-item'+i,'<b class="mono"><small>#'+i+'</small> </b><span id="bow-item-name'+i+'">'+this._getItemTranslation(itemNameId)+'</span> <button class="with-icon icon10 colored transparent" onclick="SavegameEditor.editItem('+i+')"></button>'), create('number', 'botw-item'+i, 0, 4294967295, tempFile.readInt(this._getItemQuantityOffset(i)))));
+			document.getElementById('card-'+this._getItemCategory(itemNameId).clean()).appendChild(
+				this._createItemRow(i)
+			);
 		}
 
-
+		/* add new item card */
+		card(
+			div(
+				'text-center',
+				button('Add item', 'with-icon icon1', function(){SavegameEditor.addItem()})
+			)
+		);
 	},
-
 
 	/* save function */
 	save:function(){

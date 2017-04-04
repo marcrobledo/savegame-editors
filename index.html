@@ -36,9 +36,7 @@
 	</div>
 
 	<div class="card text-center" id="card-home">
-		<div id="file-loader">
-			Load your savegame file: <input type="file" id="file-load" onchange="loadSavegameFromInput(this)"/>
-		</div>
+		Load your savegame file: <input type="file" id="file-load" onchange="loadSavegameFromInput(this)"/>
 
 		<hr/>
 		Supported games:
@@ -67,6 +65,11 @@
 		Editing savegame for <b id="savegame-name">none</b>.
 		<button class="button colored blue with-icon icon9" onclick="saveChanges()">Save changes</button>
 	</div>
+
+
+
+	<!-- GLOBAL EDITOR -->
+	<div id="the-editor" class="hidden"></div>
 
 
 
@@ -132,23 +135,7 @@
 
 
 	<!-- ZELDA: BOTW -->
-	<div id="editor-zelda-botw" class="hidden">
-		<!-- RUPEES -->
-		<div class="card card-red">
-			<h3>Rupees</h3>
-			<div class="row">
-				<div class="four columns"><label for="number-botw-rupees">Rupees</label></div>
-				<div class="two columns"><input id="number-botw-rupees" type="text" /></div>
-			</div>
-		</div>
-			
-	</div>
-	<div id="dialog-botw-item" class="dialog">
-		<select id="select-botw-item" class="full"></select>
-		<div class="buttons">
-			<button onclick="SavegameEditor.editItemAccept()">Change item</button>
-		</div>
-	</div>
+	<div id="editor-zelda-botw" class="hidden"></div>
 
 
 
