@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild v20170331
+	The legend of Zelda: Breath of the wild v20170404
 	by Marc Robledo 2017
 */
 
@@ -10,7 +10,7 @@ SavegameEditor={
 
 	/* Constants */
 	Constants:{
-		MAX_ITEMS:256
+		MAX_ITEMS:410
 	},
 	Offsets1_0:{
 		RUPEES:0xe0a0,
@@ -1072,7 +1072,7 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 		return this.Offsets.ITEMS_QUANTITY+i*0x08;
 	},
 	_getItemRow(i){
-		return getField('number-botw-item'+i).parentElement.parentElement
+		return getField('number-item'+i).parentElement.parentElement
 	},
 	_createItemRow(i){
 		//var editButtonFunction=function(){
@@ -1083,27 +1083,27 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 
 		var itemNameId=this._loadItemName(i);
 		return row([10,2],
-			label('number-botw-item'+i,'<b class="mono"><small>#'+i+'</small> </b><span id="botw-item-name'+i+'">'+this._getItemTranslation(itemNameId)+'</span> <button class="with-icon icon10 colored transparent" onclick="SavegameEditor.editItem('+i+')"></button>'),
-			inputNumber('botw-item'+i, 0, this._getItemMaximumQuantity(itemNameId), tempFile.readInt(this._getItemQuantityOffset(i)))
+			label('number-item'+i,'<b class="mono"><small>#'+i+'</small> </b><span id="item-name'+i+'">'+this._getItemTranslation(itemNameId)+'</span> <button class="with-icon icon10 colored transparent" onclick="SavegameEditor.editItem('+i+')"></button>'),
+			inputNumber('item'+i, 0, this._getItemMaximumQuantity(itemNameId), tempFile.readInt(this._getItemQuantityOffset(i)))
 		)
 	},
 
 	addItem:function(){
 		var i=0;
-		while(document.getElementById('number-botw-item'+i)){
+		while(document.getElementById('number-item'+i)){
 			i++;
 		}
 		if(i<this.Constants.MAX_ITEMS){
 			this._writeItemName(i,'Item_Fruit_A');
-			document.getElementById('card-materials').appendChild(row([10,2], create('label','number-botw-item'+i,'<b class="mono"><small>#'+i+'</small> </b><span id="botw-item-name'+i+'">?</span> <button class="with-icon icon10 colored transparent" onclick="SavegameEditor.editItem('+i+')"></button>'), create('number', 'botw-item'+i, 0, 4294967295, 100)));
+			document.getElementById('card-materials').appendChild(this._createItemRow(i));
 			this.editItem(i);
 		}
 	},
 
 	editItem:function(i){
 		currentBOTWItem=i;
-		document.getElementById('select-botw-item').value=this._loadItemName(i);
-		MarcDialogs.open('botw-item');
+		document.getElementById('select-item').value=this._loadItemName(i);
+		MarcDialogs.open('item');
 	},
 
 	editItem2:function(i,nameId){
@@ -1116,8 +1116,8 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 			document.getElementById('card-'+newCat.clean()).appendChild(row);
 		}
 		this._writeItemName(i, nameId);
-		document.getElementById('botw-item-name'+i).innerHTML=this._getItemTranslation(nameId);
-		document.getElementById('number-botw-item'+i).maxValue=this._getItemMaximumQuantity(nameId);
+		document.getElementById('item-name'+i).innerHTML=this._getItemTranslation(nameId);
+		document.getElementById('number-item'+i).maxValue=this._getItemMaximumQuantity(nameId);
 	},
 
 	/* check if savegame is valid */
@@ -1147,11 +1147,11 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 				optGroups[i].appendChild(opt);
 			}
 		}
-		dialog('botw-item',
-			select('botw-item', optGroups),
+		dialog('item',
+			select('item', optGroups),
 			div('buttons',
 				button('Change item',false,function(){
-					SavegameEditor.editItem2(currentBOTWItem, getValue('botw-item'));
+					SavegameEditor.editItem2(currentBOTWItem, getValue('item'));
 					MarcDialogs.close();
 				})
 			)
@@ -1161,8 +1161,8 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 		/* prepare editor */
 		card('Rupees',
 			row([9,3],
-				label('number-botw-rupees', 'Rupees'),
-				inputNumber('botw-rupees', 0, 999999, tempFile.readInt(this.Offsets.RUPEES))
+				label('number-rupees', 'Rupees'),
+				inputNumber('rupees', 0, 999999, tempFile.readInt(this.Offsets.RUPEES))
 			)
 		);
 
@@ -1192,12 +1192,12 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 	/* save function */
 	save:function(){
 		/* RUPEES */
-		tempFile.writeInt(this.Offsets.RUPEES, getValue('botw-rupees'));
+		tempFile.writeInt(this.Offsets.RUPEES, getValue('rupees'));
 
 		/* ITEMS */
 		for(var i=0; i<this.Constants.MAX_ITEMS; i++){
-			if(document.getElementById('number-botw-item'+i))
-				tempFile.writeInt(this._getItemQuantityOffset(i), getValue('botw-item'+i));
+			if(document.getElementById('number-item'+i))
+				tempFile.writeInt(this._getItemQuantityOffset(i), getValue('item'+i));
 			else
 				break;
 		}
