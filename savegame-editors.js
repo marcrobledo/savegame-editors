@@ -1,5 +1,5 @@
 /*
-	HTML5 Savegame Editor v20170327
+	HTML5 Savegame Editor v20170413
 	by Marc Robledo 2016-2017
 */
 
@@ -174,7 +174,15 @@ function inputFloat(id,min,max,def){
 	input.maxValue=max;
 	input.value=def;
 	input.addEventListener('change', fixNumericFieldValueEvent, false);
-	return input;
+	return input
+}
+function input(id,def){
+	var input=document.createElement('input');
+	input.id='input-'+id;
+	input.className='full-width';
+	input.type='text';
+	input.value=def;
+	return input
 }
 function select(id,options,func){
 	var select=document.createElement('select');
@@ -337,7 +345,7 @@ function getValue(f){
 		fixNumericFieldValue(field);
 		return parseFloat(field.value);
 
-	}else if(field.id.startsWith('select-')){
+	}else if(field.id.startsWith('input-') || field.id.startsWith('select-')){
 		return field.value
 	}else if(field.id.startsWith('span-')){
 		return field.innerHTML
@@ -345,7 +353,7 @@ function getValue(f){
 }
 
 function getField(field){
-	return document.getElementById('number-'+field) || document.getElementById('float-'+field) || document.getElementById('select-'+field) || document.getElementById('span-'+field) || document.getElementById(field)
+	return document.getElementById('input-'+field) || document.getElementById('number-'+field) || document.getElementById('float-'+field) || document.getElementById('select-'+field) || document.getElementById('span-'+field) || document.getElementById(field)
 }
 function setValue(f,val){
 	var field=getField(f);

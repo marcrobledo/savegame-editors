@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild v20170404
+	The legend of Zelda: Breath of the wild v20170408
 	by Marc Robledo 2017
 */
 
@@ -10,17 +10,88 @@ SavegameEditor={
 
 	/* Constants */
 	Constants:{
-		MAX_ITEMS:410
+		MAX_ITEMS:410,
+
+		STRING_SIZE:0x80,
+
+		HORSE_REINS:[
+			'GameRomHorseReins_00',
+			'GameRomHorseReins_01',
+			'GameRomHorseReins_02',
+			'GameRomHorseReins_03',
+			'GameRomHorseReins_04',
+			'GameRomHorseReins_05',
+			'GameRomHorseReins_06', /* Epona? */
+			'GameRomHorseReins_00L'
+		],
+		HORSE_SADDLES:[
+			'GameRomHorseSaddle_00',
+			'GameRomHorseSaddle_01',
+			'GameRomHorseSaddle_02',
+			'GameRomHorseSaddle_03',
+			'GameRomHorseSaddle_04',
+			'GameRomHorseSaddle_05',
+			'GameRomHorseSaddle_06', /* Epona? */
+			'GameRomHorseSaddle_00L',
+			'GameRomHorseSaddle_00S',
+		],
+		HORSE_TYPES:[
+			'GameRomHorse00',
+			'GameRomHorse01',
+			'GameRomHorse02',
+			'GameRomHorse03',
+			'GameRomHorse04',
+			'GameRomHorse05',
+			'GameRomHorse06',
+			'GameRomHorse07',
+			'GameRomHorse08',
+			'GameRomHorse09',
+			'GameRomHorse10',
+			'GameRomHorse11',
+			'GameRomHorse12',
+			'GameRomHorse13',
+			'GameRomHorse14',
+			'GameRomHorse15',
+			'GameRomHorse16',
+			'GameRomHorse17',
+			'GameRomHorse18',
+			'GameRomHorse19',
+			'GameRomHorse20',
+			'GameRomHorse21',
+			'GameRomHorse22',
+			'GameRomHorse23',
+			'GameRomHorseEpona',
+			'GameRomHorseZelda',
+			'GameRomHorse00L',
+			'GameRomHorseNushi',
+			'GameRomHorseBone'
+		],
 	},
 	Offsets1_0:{
 		RUPEES:0xe0a0,
+		MONS:0x0bc480,
 		ITEMS:0x52988,
 		ITEMS_QUANTITY:0x063358,
+
+		HORSE_SADDLES:0x3d0e8,
+		HORSE_REINS:0x60508,
+		HORSE_NAMES:0x70320,
+		HORSE_MANES:0xa6478,
+		HORSE_TYPES:0xb46f8,
+		HORSE_BONDS:0xc3670,
 	},
 	Offsets1_1:{
 		RUPEES:0xe110,
+		MONS:0x0bc558,
 		ITEMS:0x0528d8,
 		ITEMS_QUANTITY:0x0633f0,
+
+		HORSE_SADDLES:0x3d190,
+		HORSE_REINS:0x605b8,
+		HORSE_NAMES:0x703c0,
+		HORSE_MANES:0xa6538,
+		HORSE_TYPES:0xb47d8,
+		HORSE_BONDS:0xc3738, /* max=0x3f80 */
 	},
 
 	/* item list extracted from https://github.com/joffnerd/botw-trainer/blob/master/items.json , thank you! */
@@ -993,16 +1064,16 @@ Obj_ProofGolemKiller:"Medal of Honor: Talus",
 KeySmall:"Small Key",
 Obj_Armor_115_Head:"Thunder Helm",
 GameRomHorseReins_00:"Stable Bridle",
-GameRomHorseSaddle_00:"Stable Saddle",
 GameRomHorseReins_01:"Traveler's Bridle",
-GameRomHorseSaddle_01:"Traveler's Saddle",
-GameRomHorseSaddle_02:"Royal Saddle",
 GameRomHorseReins_02:"Royal Reins",
 GameRomHorseReins_03:"Knight's Bridle",
-GameRomHorseSaddle_03:"Knight's Saddle",
 GameRomHorseReins_04:"Monster Bridle",
-GameRomHorseSaddle_04:"Monster Saddle",
 GameRomHorseReins_05:"Extravagant Bridle",
+GameRomHorseSaddle_00:"Stable Saddle",
+GameRomHorseSaddle_01:"Traveler's Saddle",
+GameRomHorseSaddle_02:"Royal Saddle",
+GameRomHorseSaddle_03:"Knight's Saddle",
+GameRomHorseSaddle_04:"Monster Saddle",
 GameRomHorseSaddle_05:"Extravagant Saddle",
 
 GameRomHorse00S:"Donkey",
@@ -1036,8 +1107,18 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 				return this.Translations[i].id;
 		return 'other'
 	},
-	_loadItemName:function(i){
-		var offset=this.Offsets.ITEMS+i*0x80;
+
+	_writeString:function(offset,str){
+		for(var j=0; j<16; j++){
+			tempFile.writeBytes(offset,[0,0,0,0]);
+			var fourBytes=str.substr(j*4, 4);
+			for(k=0; k<fourBytes.length; k++){
+				tempFile.writeByte(offset+k, fourBytes.charCodeAt(k));
+			}
+			offset+=8;
+		}
+	},
+	_readString:function(offset){
 		var txt='';
 		for(var j=0; j<16; j++){
 			txt+=tempFile.readString(offset,4);
@@ -1045,16 +1126,12 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 		}
 		return txt
 	},
+
+	_loadItemName:function(i){
+		return this._readString(this.Offsets.ITEMS+i*0x80);
+	},
 	_writeItemName:function(i,newItemNameId){
-		var offset=this.Offsets.ITEMS+i*0x80;
-		for(var j=0; j<16; j++){
-			tempFile.writeBytes(offset,[0,0,0,0]);
-			var fourBytes=newItemNameId.substr(j*4, 4);
-			for(k=0; k<fourBytes.length; k++){
-				tempFile.writeByte(offset+k, fourBytes.charCodeAt(k));
-			}
-			offset+=8;
-		}
+		this._writeString(this.Offsets.ITEMS+i*0x80, newItemNameId);
 	},
 	_getItemMaximumQuantity:function(itemId){
 		var cat=this._getItemCategory(itemId);
@@ -1075,12 +1152,6 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 		return getField('number-item'+i).parentElement.parentElement
 	},
 	_createItemRow(i){
-		//var editButtonFunction=function(){
-		//	SavegameEditor.editItem(this.itemId);
-		//};
-		//var editButton=button('Edit', 'colored transparent with-icon icon10', editButtonFunction);
-		//editButton.itemId=i;
-
 		var itemNameId=this._loadItemName(i);
 		return row([10,2],
 			label('number-item'+i,'<b class="mono"><small>#'+i+'</small> </b><span id="item-name'+i+'">'+this._getItemTranslation(itemNameId)+'</span> <button class="with-icon icon10 colored transparent" onclick="SavegameEditor.editItem('+i+')"></button>'),
@@ -1105,7 +1176,6 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 		document.getElementById('select-item').value=this._loadItemName(i);
 		MarcDialogs.open('item');
 	},
-
 	editItem2:function(i,nameId){
 		var oldCat=this._getItemCategory(this._loadItemName(i));
 		var newCat=this._getItemCategory(nameId);
@@ -1118,6 +1188,33 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 		this._writeItemName(i, nameId);
 		document.getElementById('item-name'+i).innerHTML=this._getItemTranslation(nameId);
 		document.getElementById('number-item'+i).maxValue=this._getItemMaximumQuantity(nameId);
+	},
+
+	editHorse:function(i){
+		currentBOTWItem=i;
+		setValue('horse-name',this._readString(this.Offsets.HORSE_NAMES+this.Constants.STRING_SIZE*i));
+		setValue('horse-saddles',this._readString(this.Offsets.HORSE_SADDLES+this.Constants.STRING_SIZE*i));
+		setValue('horse-reins',this._readString(this.Offsets.HORSE_REINS+this.Constants.STRING_SIZE*i));
+		setValue('horse-type',this._readString(this.Offsets.HORSE_TYPES+this.Constants.STRING_SIZE*i));
+		MarcDialogs.open('horse');
+	},
+	editHorse2:function(i,name,saddles,reins,type){
+		this._writeString(this.Offsets.HORSE_NAMES+this.Constants.STRING_SIZE*i, getValue('horse-name'));
+		this._writeString(this.Offsets.HORSE_SADDLES+this.Constants.STRING_SIZE*i, getValue('horse-saddles'));
+		this._writeString(this.Offsets.HORSE_REINS+this.Constants.STRING_SIZE*i, getValue('horse-reins'));
+		this._writeString(this.Offsets.HORSE_TYPES+this.Constants.STRING_SIZE*i, getValue('horse-type'));
+
+		if(getValue('horse-type')==='GameRomHorse00L'){
+			this._writeString(this.Offsets.HORSE_MANES+this.Constants.STRING_SIZE*i, 'Horse_Link_Mane_00L');
+		}
+	},
+
+	_arrayToSelectOpts:function(arr){
+		var arr2=[];
+		for(var i=0; i<arr.length; i++){
+			arr2.push({name:arr[i], value:arr[i]});
+		}
+		return arr2;
 	},
 
 	/* check if savegame is valid */
@@ -1156,13 +1253,36 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 				})
 			)
 		);
+		dialog('horse',
+			label('input-horse-name', 'Name:'),
+			input('horse-name',''),
 
+			label('select-horse-saddles', 'Saddles:'),
+			select('horse-saddles', this._arrayToSelectOpts(this.Constants.HORSE_SADDLES)),
+
+			label('select-horse-reins', 'Reins:'),
+			select('horse-reins', this._arrayToSelectOpts(this.Constants.HORSE_REINS)),
+
+			label('select-horse-type', 'Type:'),
+			select('horse-type', this._arrayToSelectOpts(this.Constants.HORSE_TYPES)),
+
+			div('buttons',
+				button('Change horse',false,function(){
+					SavegameEditor.editHorse2(currentBOTWItem, getValue('horse-name'), getValue('horse-saddles'), getValue('horse-reins'), getValue('horse-type'));
+					MarcDialogs.close();
+				})
+			)
+		);
 
 		/* prepare editor */
 		card('Rupees',
 			row([9,3],
 				label('number-rupees', 'Rupees'),
 				inputNumber('rupees', 0, 999999, tempFile.readInt(this.Offsets.RUPEES))
+			),
+			row([9,3],
+				label('number-mons', 'Mons'),
+				inputNumber('mons', 0, 999999, tempFile.readInt(this.Offsets.MONS))
 			)
 		);
 
@@ -1187,12 +1307,38 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 				button('Add item', 'with-icon icon1', function(){SavegameEditor.addItem()})
 			)
 		);
+
+		/* add new item card */
+		card(
+			'Horses',
+			div(
+				'text-center',
+				button('Edit horse 0', 'with-icon icon10', function(){SavegameEditor.editHorse(0)})
+			),
+			div(
+				'text-center',
+				button('Edit horse 1', 'with-icon icon10', function(){SavegameEditor.editHorse(1)})
+			),
+			div(
+				'text-center',
+				button('Edit horse 2', 'with-icon icon10', function(){SavegameEditor.editHorse(2)})
+			),
+			div(
+				'text-center',
+				button('Edit horse 3', 'with-icon icon10', function(){SavegameEditor.editHorse(3)})
+			),
+			div(
+				'text-center',
+				button('Edit horse 4', 'with-icon icon10', function(){SavegameEditor.editHorse(4)})
+			)
+		);
 	},
 
 	/* save function */
 	save:function(){
 		/* RUPEES */
 		tempFile.writeInt(this.Offsets.RUPEES, getValue('rupees'));
+		tempFile.writeInt(this.Offsets.MONS, getValue('mons'));
 
 		/* ITEMS */
 		for(var i=0; i<this.Constants.MAX_ITEMS; i++){
