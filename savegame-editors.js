@@ -11,7 +11,8 @@ var EDITORS=[
 	{id:'pokemon-picross', isValid:function(){return tempFile.fileSize===14920}},
 	{id:'pokemon-shuffle', isValid:function(){return (tempFile.fileSize===42039 || tempFile.fileSize===74807)}},
 	{id:'rhythm-paradise-megamix', isValid:function(){return tempFile.fileSize===30040}},
-	{id:'streetpass-mii-plaza', isValid:function(){return tempFile.fileSize===393216}}
+	{id:'streetpass-mii-plaza', isValid:function(){return tempFile.fileSize===393216}},
+	{id:'team-kirby-clash-dx', isValid:function(){return tempFile.fileSize===8464}}
 ];
 
 /* LIBRARIES */
