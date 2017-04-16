@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild v20170416
+	The legend of Zelda: Breath of the wild v20170416b
 	by Marc Robledo 2017
 */
 
@@ -86,6 +86,8 @@ SavegameEditor={
 		HORSE_MANES:0xa6478,
 		HORSE_TYPES:0xb46f8,
 		HORSE_BONDS:0xc3670,
+
+		KOROK_SEED_COUNTER:0x76148
 	},
 	Offsets1_1:{
 		RUPEES:0xe110,
@@ -106,6 +108,8 @@ SavegameEditor={
 		HORSE_MANES:0xa6538,
 		HORSE_TYPES:0xb47d8,
 		HORSE_BONDS:0xc3738, /* max=0x3f80 */
+
+		KOROK_SEED_COUNTER:0x761f8
 	},
 
 	/* item list extracted from https://github.com/joffnerd/botw-trainer/blob/master/items.json , thank you! */
@@ -1333,7 +1337,7 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 					{value:0x80000080, name:'(Shield only) Shield surf up ★'},
 					{value:0x00000100, name:'(Shield only) Shield guard up'},
 					{value:0x80000100, name:'(Shield only) Shield guard up ★'},
-				]),
+				])
 			),
 			row([4,8],
 				label('number-modifier-value', 'Value'),
