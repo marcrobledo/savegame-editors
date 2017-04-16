@@ -1,5 +1,5 @@
 /*
-	HTML5 Savegame Editor v20170413
+	HTML5 Savegame Editor v20170416
 	by Marc Robledo 2016-2017
 */
 
@@ -185,6 +185,14 @@ function input(id,def){
 	input.value=def;
 	return input
 }
+function checkbox(id,val){
+	var input=document.createElement('input');
+	input.id='checkbox-'+id;
+	input.type='checkbox';
+	if(val)
+		input.value=val;
+	return input
+}
 function select(id,options,func){
 	var select=document.createElement('select');
 	select.id='select-'+id;
@@ -354,7 +362,7 @@ function getValue(f){
 }
 
 function getField(field){
-	return document.getElementById('input-'+field) || document.getElementById('number-'+field) || document.getElementById('float-'+field) || document.getElementById('select-'+field) || document.getElementById('span-'+field) || document.getElementById(field)
+	return document.getElementById('input-'+field) || document.getElementById('number-'+field) || document.getElementById('float-'+field) || document.getElementById('checkbox-'+field) || document.getElementById('select-'+field) || document.getElementById('span-'+field) || document.getElementById(field)
 }
 function setValue(f,val){
 	var field=getField(f);

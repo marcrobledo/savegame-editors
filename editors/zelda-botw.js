@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild v20170408
+	The legend of Zelda: Breath of the wild v20170416
 	by Marc Robledo 2017
 */
 
@@ -73,6 +73,13 @@ SavegameEditor={
 		ITEMS:0x52988,
 		ITEMS_QUANTITY:0x063358,
 
+		MOD_WEAPON_TYPES:0x050328,
+		MOD_WEAPON_VALUES:0x0a9ca8,
+		MOD_BOW_TYPES:0x45f0,
+		MOD_BOW_VALUES:0x0a8e0,
+		MOD_SHIELD_TYPES:0x0b5810,
+		MOD_SHIELD_VALUES:0x063218,
+
 		HORSE_SADDLES:0x3d0e8,
 		HORSE_REINS:0x60508,
 		HORSE_NAMES:0x70320,
@@ -86,6 +93,13 @@ SavegameEditor={
 		ITEMS:0x0528d8,
 		ITEMS_QUANTITY:0x0633f0,
 
+		MOD_WEAPON_TYPES:0x0503d8,
+		MOD_WEAPON_VALUES:0x0a9d78,
+		MOD_BOW_TYPES:0x45f8,
+		MOD_BOW_VALUES:0x0a940,
+		MOD_SHIELD_TYPES:0x0b58e8,
+		MOD_SHIELD_VALUES:0x0632c8,
+		
 		HORSE_SADDLES:0x3d190,
 		HORSE_REINS:0x605b8,
 		HORSE_NAMES:0x703c0,
@@ -1190,6 +1204,48 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 		document.getElementById('number-item'+i).maxValue=this._getItemMaximumQuantity(nameId);
 	},
 
+	_getModifierOffset1:function(type){
+		if(type==='bows')
+			return this.Offsets.MOD_BOW_TYPES;
+		else if(type==='shields')
+			return this.Offsets.MOD_SHIELD_TYPES;
+		else
+			return this.Offsets.MOD_WEAPON_TYPES;
+	},
+	_getModifierOffset2:function(type){
+		if(type==='bows')
+			return this.Offsets.MOD_BOW_VALUES;
+		else if(type==='shields')
+			return this.Offsets.MOD_SHIELD_VALUES;
+		else
+			return this.Offsets.MOD_WEAPON_VALUES;
+	},
+	editModifier:function(type,i){
+		currentBOTWItem={type:type,order:i};
+
+		var offset1=this._getModifierOffset1(type);
+		var offset2=this._getModifierOffset2(type);
+
+		getField('modifier').children[0].value=0xffffffff;
+		getField('modifier').children[0].innerHTML='unknown';
+
+		var modifier=tempFile.readInt(offset1+i*0x08);
+		setValue('modifier', modifier);
+		setValue('modifier-value', tempFile.readInt(offset2+i*0x08));
+
+		getField('modifier').children[0].value=modifier;
+		getField('modifier').children[0].innerHTML='unknown 0x'+modifier.toString(16);
+
+		if(getValue('modifier')==='')
+			setValue('modifier', modifier);
+
+		MarcDialogs.open('modifier');
+	},
+	editModifier2:function(type,i,modifier,val){
+		tempFile.writeInt(this._getModifierOffset1(type)+i*0x08, modifier);
+		tempFile.writeInt(this._getModifierOffset2(type)+i*0x08, val);
+	},
+
 	editHorse:function(i){
 		currentBOTWItem=i;
 		setValue('horse-name',this._readString(this.Offsets.HORSE_NAMES+this.Constants.STRING_SIZE*i));
@@ -1253,18 +1309,69 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 				})
 			)
 		);
+		dialog('modifier',
+			row([4,8],
+				label('select-modifier', 'Modifier flag'),
+				select('modifier', [
+					{value:0xffffffff, name:'unknown'},
+					{value:0x00000000, name:'(none)'},
+					{value:0x00000001, name:'Attack up'},
+					{value:0x80000001, name:'Attack up ★'},
+					{value:0x00000002, name:'Durability up'},
+					{value:0x80000002, name:'Durability up ★'},
+					{value:0x00000004, name:'Critical hit up'},
+					{value:0x80000004, name:'Critical hit up ★'},
+					{value:0x00000008, name:'(Weapon only) Long throw'},
+					{value:0x80000008, name:'(Weapon only) Long throw ★'},
+					{value:0x00000010, name:'(Bow only) unknown 1?'},
+					{value:0x80000010, name:'(Bow only) unknown 1? ★'},
+					{value:0x00000020, name:'(Bow only) unknown 2?'},
+					{value:0x80000020, name:'(Bow only) unknown 2? ★'},
+					{value:0x00000040, name:'(Bow only) Quick shot'},
+					{value:0x80000040, name:'(Bow only) Quick shot ★'},
+					{value:0x00000080, name:'(Shield only) Shield surf up'},
+					{value:0x80000080, name:'(Shield only) Shield surf up ★'},
+					{value:0x00000100, name:'(Shield only) Shield guard up'},
+					{value:0x80000100, name:'(Shield only) Shield guard up ★'},
+				]),
+			),
+			row([4,8],
+				label('number-modifier-value', 'Value'),
+				inputNumber('modifier-value', 0, 0xffffffff, 0)
+			),
+
+			div('buttons',
+				button('Save changes',false,function(){
+					SavegameEditor.editModifier2(
+						currentBOTWItem.type,
+						currentBOTWItem.order,
+						getValue('modifier'),
+						getValue('modifier-value')
+					);
+					MarcDialogs.close();
+				})
+			)
+		);
 		dialog('horse',
-			label('input-horse-name', 'Name:'),
-			input('horse-name',''),
+			row([4,8],
+				label('input-horse-name', 'Name:'),
+				input('horse-name','')
+			),
 
-			label('select-horse-saddles', 'Saddles:'),
-			select('horse-saddles', this._arrayToSelectOpts(this.Constants.HORSE_SADDLES)),
+			row([4,8],
+				label('select-horse-saddles', 'Saddles:'),
+				select('horse-saddles', this._arrayToSelectOpts(this.Constants.HORSE_SADDLES))
+			),
 
-			label('select-horse-reins', 'Reins:'),
-			select('horse-reins', this._arrayToSelectOpts(this.Constants.HORSE_REINS)),
+			row([4,8],
+				label('select-horse-reins', 'Reins:'),
+				select('horse-reins', this._arrayToSelectOpts(this.Constants.HORSE_REINS))
+			),
 
-			label('select-horse-type', 'Type:'),
-			select('horse-type', this._arrayToSelectOpts(this.Constants.HORSE_TYPES)),
+			row([4,8],
+				label('select-horse-type', 'Type:'),
+				select('horse-type', this._arrayToSelectOpts(this.Constants.HORSE_TYPES))
+			),
 
 			div('buttons',
 				button('Change horse',false,function(){
@@ -1300,6 +1407,45 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 			);
 		}
 
+		/* modifier buttons */
+		var editModifierFunc=function(){SavegameEditor.editModifier(this.weaponType,this.weaponOrder);}
+		var sortedWeapons=0;
+		var sortedBows=0;
+		var sortedShields=0;
+		for(var i=0; i<60; i++){
+			var itemName=this._loadItemName(i);
+			var cat=this._getItemCategory(itemName);
+
+			if(cat==='weapons'){
+				sortedWeapons++;
+			}else if(cat==='bows' && !(itemName.endsWith('Arrow') || itemName.endsWith('Arrow_A'))){
+				sortedBows++;
+			}else if(cat==='shields'){
+				sortedShields++;
+			}
+		}
+		for(var i=0; i<sortedWeapons; i++){
+			var b=button('', 'colored transparent with-icon icon1', editModifierFunc);
+			b.weaponType='weapons';
+			b.weaponOrder=i;
+			document.getElementById('card-weapons').children[i+1].children[0].appendChild(b);
+		}
+		for(var i=0; i<sortedBows; i++){
+			var b=button('', 'colored transparent with-icon icon1', editModifierFunc);
+			b.weaponType='bows';
+			b.weaponOrder=i;
+			document.getElementById('card-bows').children[i+1].children[0].appendChild(b);
+		}
+		for(var i=0; i<sortedShields; i++){
+			var b=button('', 'colored transparent with-icon icon1', editModifierFunc);
+			b.weaponType='shields';
+			b.weaponOrder=i;
+			document.getElementById('card-shields').children[i+1].children[0].appendChild(b);
+		}
+		
+
+
+
 		/* add new item card */
 		card(
 			div(
@@ -1308,7 +1454,7 @@ Dm_Npc_Zelda_Sibyl :"Zelda NPC (White Dress)"
 			)
 		);
 
-		/* add new item card */
+		/* horse editor card */
 		card(
 			'Horses',
 			div(
