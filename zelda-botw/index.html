@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html manifest="savegame-editor.appcache">
+<head>
+	<title>Savegame Editor &ndash; The legend of Zelda: Breath of the wild</title>
+	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content="A savegame editor for The legend of Zelda: Breath of the wild. It can edit: items, weapon durability, modifiers and more!"/>
+	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, wii u, zelda, breath of the wild, botw, weapon, durability, modifier, horse, dlc, amiibo"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="shortcut icon" href="../savegame-editor.png"/>
+	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
+	<script type="text/javascript" src="../savegame-editor.js"></script>
+	<script type="text/javascript" src="./zelda-botw.js"></script>
+	<script type="text/javascript" src="./zelda-botw.data.js"></script>
+	<!-- <script type="text/javascript" src="./zelda-botw.koroks.js"></script> -->
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+	<div id="header-top">
+		<div class="row wrapper padding-vertical">
+			<h1 class="six columns text-left"><img src="../favicon.png" /> Savegame Editor <small>for The legend of Zelda: BOTW</small></h1>
+			<div class="six columns text-right header-buttons">
+				by <a href="/" class="author">Marc Robledo</a>
+				<a href="https://github.com/marcrobledo/savegame-editors/tree/master/zelda-botw" target="_blank" class="button"><span class="sprite github"></span> See on GitHub</a>
+				<a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow" class="donate button"><span class="sprite heart"></span> Donate</a>
+			</div>
+		</div>
+	</div>
+	<div id="toolbar" class="hidden padding-vertical">
+		<div class="row wrapper">
+			<div class="twelve columns text-center">
+				<span id="span-version"></span> | <button class="with-icon icon1" onclick="SavegameEditor.addItem()">Add item</button>
+				| <button class="button with-icon icon3" onclick="closeFile()">Close file</button>
+				<button class="button colored blue with-icon icon9" onclick="saveChanges()">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- THE EDITOR -->
+<div id="the-editor" class="wrapper hidden">
+	<!-- DEBUG -->
+	<div id="debug"></div>
+	
+	<!-- RUPEES -->
+	<h3 class="border-red">Rupees</h3>
+	<div id="card-rupees">
+		<div class="row">
+			<div class="nine columns"><label for="number-rupees">Rupees</label></div>
+			<div class="three columns"><input id="number-rupees" type="text" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="number-mons">Mons</label></div>
+			<div class="three columns"><input id="number-mons" type="text" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="number-koroks">Korok counter</label></div>
+			<div class="three columns"><input type="text" id="number-koroks" disabled /></div>
+		</div>
+	</div>
+
+	<!-- ITEMS -->
+	<div id="card-items"></div>
+
+	<!-- HORSES -->
+	<h3 class="border-blue">Horses</h3>
+	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(0)">Edit horse 0</button></div>
+	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(1)">Edit horse 1</button></div>
+	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(2)">Edit horse 2</button></div>
+	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(3)">Edit horse 3</button></div>
+	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(4)">Edit horse 4</button></div>
+	<div class="text-center"><button class="with-icon icon6" onclick="SavegameEditor.cheatEpona()">Set untammed horse to Epona</button></div>
+</div>
+
+
+
+<!-- DIALOGS -->
+<div id="dialog-item" class="dialog">
+	<div class="text-center">
+		<select id="select-item"></select>
+	</div>
+	<div class="buttons">
+		<button onclick="SavegameEditor.editItem2(currentEditingItem, getValue('item'));MarcDialogs.close();">Change item</button>
+	</div>
+</div>
+
+<div id="dialog-modifier" class="dialog">
+	<div class="row">
+		<div class="four columns"><label for="select-modifier">Modifier flag</label></div>
+		<div class="eight columns"><select id="select-modifier"></select></div>
+	</div>
+	<div class="row">
+		<div class="four columns"><label for="number-modifier-value">Value</label></div>
+		<div class="eight columns"><select id="number-modifier-value"></select></div>
+	</div>
+	<div class="buttons">
+		<button onclick="SavegameEditor.editModifier2(currentEditingItem.type, currentEditingItem.order, getValue('modifier'), getValue('modifier-value'));MarcDialogs.close();">Save changes</button>
+	</div>
+</div>
+
+<div id="dialog-horse" class="dialog">
+	<div class="row">
+		<div class="four columns"><label for="input-horse-name">Name</label></div>
+		<div class="eight columns"><input type="text" id="input-horse-name" /></div>
+	</div>
+	<div class="row">
+		<div class="four columns"><label for="select-horse-saddles">Saddles</label></div>
+		<div class="eight columns"><select id="select-horse-saddles"></select></div>
+	</div>
+	<div class="row">
+		<div class="four columns"><label for="select-horse-reins">Reins</label></div>
+		<div class="eight columns"><select id="select-horse-reins"></select></div>
+	</div>
+	<div class="row">
+		<div class="four columns"><label for="select-horse-type">Type</label></div>
+		<div class="eight columns"><select id="select-horse-type"></select></div>
+	</div>
+	<div class="buttons">
+		<button onclick="SavegameEditor.editHorse2(currentEditingItem, getValue('horse-name'), getValue('horse-saddles'), getValue('horse-reins'), getValue('horse-type'));MarcDialogs.close();">Change horse</button>
+	</div>
+</div>
+
+
+
+</body>
+</html>
