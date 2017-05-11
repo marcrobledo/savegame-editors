@@ -1,9 +1,10 @@
 CACHE MANIFEST
-# last update 2017-05-08
+# last update 2017-05-11
 #CACHE:
 index.html
 zelda-botw.js
 zelda-botw.data.js
+zelda-botw.koroks.js
 ../savegame-editor.css
 ../savegame-editor.js
 ../favicon.png

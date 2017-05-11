@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./zelda-botw.js"></script>
 	<script type="text/javascript" src="./zelda-botw.data.js"></script>
-	<!-- <script type="text/javascript" src="./zelda-botw.koroks.js"></script> -->
+	<script type="text/javascript" src="./zelda-botw.koroks.js"></script>
 </head>
 <body>
 
@@ -57,7 +57,10 @@
 		</div>
 		<div class="row">
 			<div class="nine columns"><label for="number-koroks">Korok counter</label></div>
-			<div class="three columns"><input type="text" id="number-koroks" disabled /></div>
+			<div class="three columns">
+				<input type="text" id="number-koroks" disabled />
+				<button onclick="unlockKoroks()">Unlock all</button>
+			</div>
 		</div>
 	</div>
 
@@ -93,7 +96,7 @@
 	</div>
 	<div class="row">
 		<div class="four columns"><label for="number-modifier-value">Value</label></div>
-		<div class="eight columns"><select id="number-modifier-value"></select></div>
+		<div class="eight columns"><input type="text" id="number-modifier-value" /></div>
 	</div>
 	<div class="buttons">
 		<button onclick="SavegameEditor.editModifier2(currentEditingItem.type, currentEditingItem.order, getValue('modifier'), getValue('modifier-value'));MarcDialogs.close();">Save changes</button>
