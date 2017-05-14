@@ -1,12 +1,15 @@
 /*
-	The legend of Zelda: Breath of the wild v20170508
+	The legend of Zelda: Breath of the wild v20170514
 	by Marc Robledo 2017
 */
 
 var currentEditingItem=0;
+var currentEditingItem2=0;
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
 	Filename:'game_data.sav',
+	Version:20170514,
+
 
 	/* Constants */
 	Constants:{
@@ -17,7 +20,7 @@ SavegameEditor={
 	/* Offsets */
 	OffsetsAll:{
 		FILESIZE:				[896976, 897160, 897112],
-		/*						 header      v1.0      v1.1      v1.2    */
+		/*						 hash        v1.0      v1.1      v1.2    */
 		RUPEES:					[0x23149bf8, 0x00e0a0, 0x00e110, 0x00e110],
 		MONS:					[0xce7afed3, 0x0bc480, 0x0bc558, 0x0bc538],
 		ITEMS:					[0x5f283289, 0x052828, 0x0528d8, 0x0528c0],
@@ -43,11 +46,16 @@ SavegameEditor={
 
 
 	/* private functions */
-	_searchHeader:function(hdr){
-		for(var i=0x14; i<tempFile.fileSize; i+=8){
-			if(hdr===tempFile.readInt(i))
-				return i+4;
-		}
+	_searchHash:function(hash){
+		for(var i=0x0c; i<tempFile.fileSize; i+=8)
+			if(hash===tempFile.readInt(i))
+				return i;
+		return false;
+	},
+	_readFromHash:function(hash){
+		var offset=this._searchHash(hash);
+		if(typeof offset === 'number')
+			return tempFile.readInt(offset+4);
 		return false;
 	},
 	_getOffsets(v){
@@ -59,7 +67,7 @@ SavegameEditor={
 		}else{ /* unknown version */
 			var textarea=document.createElement('textarea');
 			for(prop in this.OffsetsAll){
-				var offset=this._searchHeader(this.OffsetsAll[prop][0]);
+				var offset=this._searchHash(this.OffsetsAll[prop][0]);
 				if(offset){
 					textarea.value+=prop+':0x'+(offset+4).toString(16)+',\n';
 					this.Offsets[prop]=offset+4;
@@ -149,7 +157,62 @@ SavegameEditor={
 	editItem:function(i){
 		currentEditingItem=i;
 		document.getElementById('select-item').value=this._loadItemName(i);
+
+		currentEditingItem2=false;
+		/* check if has modifier (weapons/bows/shields) */
+		if(i<60){
+			var itemName=this._loadItemName(i);
+			var itemCat=this._getItemCategory(itemName);
+			if(
+				(itemCat==='weapons') || 
+				(itemCat==='bows' && !(itemName.endsWith('Arrow') || itemName.endsWith('Arrow_A'))) ||
+				(itemCat==='shields')
+			){
+				var catStartsAt=0;
+				if(itemCat==='bows' || itemCat==='shields'){
+					for(var j=0; j<40; j++){ /* 20 weapons + 14 bows + 6 arrows */
+						if(this._getItemCategory(this._loadItemName(j))===itemCat){
+							catStartsAt=j;
+							break;
+						}
+					}
+				}
+				var pos=i-catStartsAt;
+				if(
+					(itemCat==='weapons' && pos<20) ||
+					(itemCat==='bows' && pos<16) ||
+					(itemCat==='shields' && pos<20)
+				){
+					currentEditingItem2={type:itemCat,order:pos};
+
+					var offset1=this._getModifierOffset1(itemCat);
+					var offset2=this._getModifierOffset2(itemCat);
+
+					getField('modifier').children[0].value=0xffffffff;
+					getField('modifier').children[0].innerHTML='unknown';
+
+					var modifier=tempFile.readInt(offset1+pos*0x08);
+					setValue('modifier', modifier);
+					setValue('modifier-value', tempFile.readInt(offset2+pos*0x08));
+
+					getField('modifier').children[0].value=modifier;
+					getField('modifier').children[0].innerHTML='unknown 0x'+modifier.toString(16);
+
+					if(getValue('modifier')==='')
+						setValue('modifier', modifier);
+				}
+			}
+		}
+
+		if(currentEditingItem2){
+			show('row-modifier');
+		}else{
+			hide('row-modifier');
+		}
+
+
 		MarcDialogs.open('item');
+
 	},
 	editItem2:function(i,nameId){
 		var oldCat=this._getItemCategory(this._loadItemName(i));
@@ -181,27 +244,7 @@ SavegameEditor={
 		else
 			return this.Offsets.MOD_WEAPON_VALUES;
 	},
-	editModifier:function(type,i){
-		currentEditingItem={type:type,order:i};
 
-		var offset1=this._getModifierOffset1(type);
-		var offset2=this._getModifierOffset2(type);
-
-		getField('modifier').children[0].value=0xffffffff;
-		getField('modifier').children[0].innerHTML='unknown';
-
-		var modifier=tempFile.readInt(offset1+i*0x08);
-		setValue('modifier', modifier);
-		setValue('modifier-value', tempFile.readInt(offset2+i*0x08));
-
-		getField('modifier').children[0].value=modifier;
-		getField('modifier').children[0].innerHTML='unknown 0x'+modifier.toString(16);
-
-		if(getValue('modifier')==='')
-			setValue('modifier', modifier);
-
-		MarcDialogs.open('modifier');
-	},
 	editModifier2:function(type,i,modifier,val){
 		tempFile.writeInt(this._getModifierOffset1(type)+i*0x08, modifier);
 		tempFile.writeInt(this._getModifierOffset2(type)+i*0x08, val);
@@ -209,35 +252,39 @@ SavegameEditor={
 
 	editHorse:function(i){
 		currentEditingItem=i;
-		setValue('horse-name',this._readString(this.Offsets.HORSE_NAMES+this.Constants.STRING_SIZE*i));
-		setValue('horse-saddles',this._readString(this.Offsets.HORSE_SADDLES+this.Constants.STRING_SIZE*i));
-		setValue('horse-reins',this._readString(this.Offsets.HORSE_REINS+this.Constants.STRING_SIZE*i));
+		if(currentEditingItem==5){ /* untamed horse */
+			hide('row-tamed-horse');
+			if(!this._readString(this.Offsets.HORSE_TYPES+this.Constants.STRING_SIZE*5).startsWith('GameRomHorse')){
+				MarcDialogs.alert('Error: this will only work if your savegame has Link on an untamed horse.');
+				return false;
+			}
+		}else{
+			show('row-tamed-horse');
+			setValue('horse-name',this._readString(this.Offsets.HORSE_NAMES+this.Constants.STRING_SIZE*i));
+			setValue('horse-saddles',this._readString(this.Offsets.HORSE_SADDLES+this.Constants.STRING_SIZE*i));
+			setValue('horse-reins',this._readString(this.Offsets.HORSE_REINS+this.Constants.STRING_SIZE*i));
+		}
 		setValue('horse-type',this._readString(this.Offsets.HORSE_TYPES+this.Constants.STRING_SIZE*i));
 		MarcDialogs.open('horse');
 	},
 	editHorse2:function(i,name,saddles,reins,type){
-		this._writeString(this.Offsets.HORSE_NAMES+this.Constants.STRING_SIZE*i, getValue('horse-name'));
-		this._writeString(this.Offsets.HORSE_SADDLES+this.Constants.STRING_SIZE*i, getValue('horse-saddles'));
-		this._writeString(this.Offsets.HORSE_REINS+this.Constants.STRING_SIZE*i, getValue('horse-reins'));
+		if(currentEditingItem<5){
+			this._writeString(this.Offsets.HORSE_NAMES+this.Constants.STRING_SIZE*i, getValue('horse-name'));
+			this._writeString(this.Offsets.HORSE_SADDLES+this.Constants.STRING_SIZE*i, getValue('horse-saddles'));
+			this._writeString(this.Offsets.HORSE_REINS+this.Constants.STRING_SIZE*i, getValue('horse-reins'));
+		}
 		this._writeString(this.Offsets.HORSE_TYPES+this.Constants.STRING_SIZE*i, getValue('horse-type'));
 
 		if(getValue('horse-type')==='GameRomHorse00L'){
 			this._writeString(this.Offsets.HORSE_MANES+this.Constants.STRING_SIZE*i, 'Horse_Link_Mane_00L');
 		}
 	},
-	cheatEpona:function(i){
-		if(this._readString(this.Offsets.HORSE_TYPES+this.Constants.STRING_SIZE*5).startsWith('GameRomHorse')){
-			this._writeString(this.Offsets.HORSE_TYPES+this.Constants.STRING_SIZE*5, 'GameRomHorseEpona');
-			MarcDialogs.alert('Untammed horse has been changed to Epona. Go to any stable to get it legitly.');
-		}else{
-			MarcDialogs.alert('Error: this will only work if your savegame has Link on an untammed horse.');
-		}
-	},
 
 	_arrayToSelectOpts:function(arr){
 		var arr2=[];
 		for(var i=0; i<arr.length; i++){
-			arr2.push({name:arr[i], value:arr[i]});
+			var name=BOTW_Data.Translations[6].items[arr[i]] || arr[i];
+			arr2.push({name:name, value:arr[i]});
 		}
 		return arr2;
 	},
@@ -316,10 +363,12 @@ SavegameEditor={
 		}
 
 
+
 		/* prepare editor */
 		setValue('rupees', tempFile.readInt(this.Offsets.RUPEES));
 		setValue('mons', tempFile.readInt(this.Offsets.MONS));
 		setValue('koroks', tempFile.readInt(this.Offsets.KOROK_SEED_COUNTER));
+		empty('ul-locations');
 		
 
 		/* items */
@@ -341,48 +390,6 @@ SavegameEditor={
 				this._createItemRow(i)
 			);
 		}
-
-		/* modifier buttons */
-		var editModifierFunc=function(){SavegameEditor.editModifier(this.weaponType,this.weaponOrder);}
-		var sortedWeapons=0;
-		var sortedBows=0;
-		var sortedShields=0;
-		for(var i=0; i<60; i++){
-			var itemName=this._loadItemName(i);
-			var cat=this._getItemCategory(itemName);
-
-			if(cat==='weapons'){
-				sortedWeapons++;
-			}else if(cat==='bows' && !(itemName.endsWith('Arrow') || itemName.endsWith('Arrow_A'))){
-				sortedBows++;
-			}else if(cat==='shields'){
-				sortedShields++;
-			}
-		}
-		for(var i=0; i<sortedWeapons; i++){
-			var b=button('', 'colored transparent with-icon icon1', editModifierFunc);
-			b.weaponType='weapons';
-			b.weaponOrder=i;
-			document.getElementById('card-weapons').children[i+1].children[0].appendChild(b);
-		}
-		for(var i=0; i<sortedBows; i++){
-			var b=button('', 'colored transparent with-icon icon1', editModifierFunc);
-			b.weaponType='bows';
-			b.weaponOrder=i;
-			document.getElementById('card-bows').children[i+1].children[0].appendChild(b);
-		}
-		for(var i=0; i<sortedShields; i++){
-			var b=button('', 'colored transparent with-icon icon1', editModifierFunc);
-			b.weaponType='shields';
-			b.weaponOrder=i;
-			document.getElementById('card-shields').children[i+1].children[0].appendChild(b);
-		}
-
-
-		/* koroks */
-		if(typeof korokDebug !== 'undefined'){
-			korokDebug();
-		}
 	},
 
 	/* save function */
@@ -390,6 +397,8 @@ SavegameEditor={
 		/* RUPEES */
 		tempFile.writeInt(this.Offsets.RUPEES, getValue('rupees'));
 		tempFile.writeInt(this.Offsets.MONS, getValue('mons'));
+
+		tempFile.writeInt(this.Offsets.KOROK_SEED_COUNTER, getValue('koroks'));
 
 		/* ITEMS */
 		for(var i=0; i<this.Constants.MAX_ITEMS; i++){

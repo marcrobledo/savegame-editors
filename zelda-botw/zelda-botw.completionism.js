@@ -1,9 +1,10 @@
 /*
-	The legend of Zelda: Breath of the wild Savegame Editor - Korok Module - v20170511
+	The legend of Zelda: Breath of the wild Savegame Editor - Completionism Module - v20170514
 	by Marc Robledo 2017
 
-	korok hashes were datamined by MrCheeze:
+	data datamined by MrCheeze:
 	https://raw.githubusercontent.com/MrCheeze/botw-tools/master/gamedata.json
+	https://github.com/MrCheeze/botw-waypoint-map/blob/gh-pages/map_locations.js
 */
 
 
@@ -124,16 +125,251 @@ var HASHES_KOROKS=[ /* TYPE: boolean - IDS: Npc_HiddenKorokGround, Npc_HiddenKor
 ];
 
 
+var LOCATIONS=[
+0xbd432e2b,"Deya Village Ruins",
+0x4c2a4c64,"Akkala Span",
+0xc982b698,"Akkala Parade Ground Ruins",
+0xceec3555,"Akkala Citadel Ruins",
+0x5ccee1d1,"Akkala Bridge Ruins",
+0xe03f8aa7,"Akkala Ancient Tech Lab",
+0xba8fa3ec,"Yiga Clan Hideout",
+0xab69ff8d,"Big Twin Bridge",
+0x852308c6,"Ancient Tree Stump",
+0x1855d45c,"Spring of Courage",
+0x7b7427f3,"Warbler's Nest",
+0x73fcf871,"Sacred Ground Ruins",
+0xf4b71776,"Exchange Ruins",
+0xd9393ccd,"Goponga Village Ruins",
+0x95db306c,"Eventide Island",
+0x629dcd44,"Korok Forest",
+0xf70a4075,"Coliseum Ruins",
+0x237a4d8a,"Foothill Stable",
+0xba52d9e9,"Maw of Death Mountain",
+0x2a87cd61,"Luto's Crossing",
+0x1e4224f7,"Dragon Bone Mire",
+0xd3d4fe4d,"East Reservoir Lake",
+0x4edc4932,"East Gerudo Ruins",
+0x90efa510,"East Post Ruins",
+0x93c23bdf,"Castle Town Prison",
+0x3dee43cc,"Eagus Bridge",
+0xda0163d5,"Dueling Peaks Stable",
+0xad065343,"Lakeside Stable",
+0x340f02f9,"Highland Stable",
+0x382af36e,"Faron Woods",
+0x8d8982b9,"Goflam's Secret Hot Spring",
+0xdbe04653,"Floria Bridge",
+0x5b3d301c,"Floret Sandbar",
+0x42d8f1bb,"Woodland Stable",
+0x3046920f,"Gatepost Town Ruins",
+0xc17f8588,"Pondo's Lodge",
+0xdcbf49ee,"Tanagar Canyon Course",
+0x37d054d1,"Gut Check Rock",
+0xede11b4b,"Footrace Check-In",
+0x13df032f,"Selmie's Spot",
+0xb444af7f,"Mounted Archery Camp",
+0xb07ff371,"Sand-Seal Rally",
+0x86377b7e,"Shadow Hamlet Ruins",
+0xc7d9e847,"Kolomo Garrison Ruins",
+0x7e6ac510,"Gerudo Town",
+0x11ca12b8,"Gerudo Canyon Pass",
+0x3cb06c8d,"Gerudo Desert Gateway",
+0x8470bba5,"Gerudo Great Skeleton",
+0x84b55727,"Gerudo Canyon Stable",
+0xeb962ee5,"Goron City",
+0x6b3090c4,"Stolock Bridge",
+0xf105fc93,"Guchini Plain Barrows",
+0x61ecf5d8,"Owlan Bridge",
+0xb91ec523,"Hateno Village",
+0x5b065726,"Fort Hateno",
+0x704a8cee,"Hateno Ancient Tech Lab",
+0x3ba1e6cd,"Hebra Great Skeleton",
+0xb46d4340,"Hebra Trailhead Lodge",
+0xa4e25e17,"Great Plateau",
+0x506d96b6,"Bridge of Hylia",
+0xcb844395,"Hyrule Castle",
+0x47cf0ce2,"Hyrule Castle Town Ruins",
+0xf579c518,"Sanctum",
+0x827ef58e,"Second Gatehouse",
+0x1b77a434,"First Gatehouse",
+0xfb739f5d,"Observation Room",
+0x8c74afcb,"Dining Hall",
+0xf8e1b0b6,"East Passage",
+0x8fe68020,"West Passage",
+0x157dfe71,"Guards' Chamber",
+0x627acee7,"Library",
+0x8b196bd2,"Lockup",
+0x12103a68,"Princess Zelda's Room",
+0x65170afe,"Docks",
+0xf5a8176f,"Princess Zelda's Study",
+0x82af27f9,"King's Study",
+0xefc46622,"Central Square",
+0x30dce738,"Outskirt Stable",
+0x05768b36,"Hyrule Garrison Ruins",
+0x29693cd5,"Hyrule Kingdom",
+0xc19b4064,"Royal Ancient Lab Ruins",
+0x96fb7e0b,"Hyrule Forest Park",
+0x5c4d1750,"Military Training Camp",
+0x97185f06,"Hyrule Cathedral",
+0x765ae3fd,"Castle Town Watchtower",
+0xd3635047,"Water Reservoir",
+0xcab23d6f,"Serenne Stable",
+0x2e573fa2,"Northern Icehouse",
+0x0ea2f805,"Rebonae Bridge",
+0x9aa32eca,"Proxim Bridge",
+0xd8b7a1e2,"Kakariko Village",
+0x384fc3a6,"Sage Temple Ruins",
+0x1e278d65,"Forgotten Temple",
+0xc1d8c92c,"Sherfin's Secret Hot Spring",
+0xb58d951c,"Kakariko Bridge",
+0x94e41520,"Sturnida Secret Hot Spring",
+0xcb7f8efb,"Aquame Bridge",
+0x64556cdf,"Lanayru Road - East Gate",
+0x34af6c3e,"Lanayru Road - West Gate",
+0xd3acb37d,"Jeddo Bridge",
+0x658ed94c,"Thundra Plateau",
+0x791c7d90,"Little Twin Bridge",
+0x9f1ff60d,"Lomei Labyrinth Island",
+0x5fb1238c,"Lost Woods",
+0x40f556e8,"Hebra Tower",
+0xd9fc0752,"Tabantha Tower",
+0xaefb37c4,"Gerudo Tower",
+0x309fa267,"Wasteland Tower",
+0x479892f1,"Woodland Tower",
+0xde91c34b,"Central Tower",
+0xa996f3dd,"Great Plateau Tower",
+0x3929ee4c,"Dueling Peaks Tower",
+0x4e2ededa,"Lake Tower",
+0x2ee9573f,"Eldin Tower",
+0x59ee67a9,"Akkala Tower",
+0xc0e73613,"Lanayru Tower",
+0xb7e00685,"Hateno Tower",
+0x29849326,"Faron Tower",
+0x5e83a3b0,"Ridgeland Tower",
+0x9510e305,"Malanya Spring",
+0x7cf7d4ad,"Maritta Exchange Ruins",
+0xa89c3e9d,"Moat Bridge",
+0x33dedaf1,"Sokkala Bridge",
+0x894e01b7,"East Sokkala Bridge",
+0x7457367f,"West Sokkala Bridge",
+0xfae08218,"Abandoned North Mine",
+0x8367f7f5,"South Lomei Labyrinth",
+0x7939d480,"Gleeok Bridge",
+0x5c907154,"Wetland Stable",
+0x0fa7b37f,"Kara Kara Bazaar",
+0x1a1649a5,"Bridge of Eldin",
+0xd865cfa4,"Eldin Great Skeleton",
+0xf1cab1a7,"Helmhead Bridge",
+0x6360e32f,"Outpost Ruins",
+0x1cc23004,"Spring of Power",
+0x18f92f82,"Divine Beast Vah Naboris",
+0x8ad5ef4a,"Divine Beast Vah Rudania",
+0x66336893,"Divine Beast Vah Ruta",
+0xf300b27b,"Divine Beast Vah Medoh",
+0xd451777c,"Oren Bridge",
+0xa262d614,"Rito Village",
+0x79431cd8,"Rito Stable",
+0xa313005e,"Riverside Stable",
+0x8f067283,"Mabe Village Ruins",
+0x80f9fd06,"North Lomei Labyrinth",
+0x71a002e7,"Sarjon Bridge",
+0xe12f0afe,"Horwell Bridge",
+0x4e798832,"Lanayru Promenade",
+0x57c1e588,"Orsedd Bridge",
+0x40060961,"Rauru Settlement Ruins",
+0xa31a50aa,"Statue of the Eighth Heroine",
+0x8ae6edd7,"Sanidin Park Ruins",
+0x46f6e384,"Manhala Bridge",
+0xd8e21026,"Arbiter's Grounds",
+0xd8f19a2a,"Southern Mine",
+0xc409b5e2,"Shrine of Resurrection",
+0x0fe7e6ab,"Ancient Columns",
+0x94ddf95c,"Inogo Bridge",
+0x2fa52b7e,"Tabantha Great Bridge",
+0x62fffa64,"Tabantha Bridge Stable",
+0x8c8e9401,"Gisa Crater",
+0xed1341fd,"Snowfield Stable",
+0x99277060,"Tabantha Village Ruins",
+0x16b9c598,"East Akkala Stable",
+0xe4171cbe,"South Akkala Stable",
+0x1a2cadf2,"Thims Bridge",
+0x4695d38c,"Lurelin Village",
+0x095288b6,"Temple of Time",
+0x6c034b60,"Boneyard Bridge",
+0x8b62694a,"Carok Bridge",
+0xd78f2eac,"Horse God Bridge",
+0x26daeef2,"Tarrey Town",
+0x3187bba5,"UMiiVillageShopBougu",
+0x3b930e2c,"UMiiVillageShopJewel",
+0xd2180ce8,"UMiiVillageShopYadoya",
+0x29ad3d74,"UMiiVillageShopYorozu",
+0x1f4bc09c,"Flight Range",
+0xbfdd2802,"Great Fairy Fountain",
+0x298b03fe,"Great Fairy Fountain",
+0x5e8c3368,"Great Fairy Fountain",
+0xc0e8a6cb,"Great Fairy Fountain",
+0x3f3d559e,"Moor Garrison Ruins",
+0xff6f7ae4,"Zora's Domain",
+0xea6e852b,"Spring of Wisdom",
+0x2cd6f581,"Digdogg Suspension Bridge",
+0x5c7246c7,"Palmorae Ruins",
+0x4a46741a,"Zonai Ruins",
+
+
+/* unused? */
+/*0x01459d59,"*unused?* AnoleTunnel",
+0x763a58d2,"*unused?* BlindForest",
+0xa8c3e430,"*unused?* DragonAltar",
+0x25c12f63,"*unused?* DungeonMush",
+0xe27ea0e4,"*unused?* FirstColony",
+0x8a36f4dd,"*unused?* FrozenCave",
+0xb5bacc44,"*unused?* Hatago001",
+0xfaab284d,"*unused?* HebraBottomRemains",
+0xe66f047b,"*unused?* HebraRemains",
+0xfc1e5b44,"*unused?* HyruleCastle_Room_4",
+0x493163ed,"*unused?* IceLake",
+0xd8ce1bad,"*unused?* LakeFloria",
+0xb106e3d2,"*unused?* LakeHylia",*/
+];
+
+
+function searchMissingLocations(){
+	empty('ul-locations');
+
+	var missingLocations=0;
+	for(var i=0;i<LOCATIONS.length; i+=2){
+		var offset=SavegameEditor._searchHash(LOCATIONS[i]);
+		if(offset && !tempFile.readInt(offset+4)){
+			var li=document.createElement('li');
+			li.innerHTML+=(LOCATIONS[i+1]);
+			get('ul-locations').appendChild(li);
+			missingLocations++;
+		}
+	}
+
+	var li=document.createElement('li');
+	li.innerHTML+='<hr/>missing locations: '+missingLocations;
+	if(missingLocations){
+		li.innerHTML+='<br/><a href=\"http://www.zeldadungeon.net/breath-of-the-wild-interactive-map/\" target=\"_blank\">search locations</a>';
+		get('ul-locations').appendChild(li);
+	}else{
+		MarcDialogs.alert('You have discovered all locations.');
+	}
+}
+
+
+
 function unlockKoroks(){
 	var unlockedKoroks=0;
 	for(var i=0;i<HASHES_KOROKS.length; i++){
-		var offset=SavegameEditor._searchHeader(HASHES_KOROKS[i]);
-		if(offset && !tempFile.readInt(offset)){
-			tempFile.writeInt(offset, 1);
-			setValue('koroks', getValue('koroks')+1);
+		var offset=SavegameEditor._searchHash(HASHES_KOROKS[i]);
+		if(offset && !tempFile.readInt(offset+4)){
+			tempFile.writeInt(offset+4, 1);
 			unlockedKoroks++;
 		}
 	}
+	setValue('koroks', 900);
+	var offset=SavegameEditor._searchHash(0x64622a86); //HiddenKorok_Complete
+	tempFile.writeInt(offset+4, 1);
 
 	//search korok seeds in inventory
 	for(var i=0; i<SavegameEditor.Constants.MAX_ITEMS; i++){
