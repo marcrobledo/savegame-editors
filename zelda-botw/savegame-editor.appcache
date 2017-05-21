@@ -1,14 +1,22 @@
 CACHE MANIFEST
-# last update 2017-05-14
+# last update 2017-05-21
 #CACHE:
 index.html
+zelda-botw.css
 zelda-botw.js
 zelda-botw.data.js
-zelda-botw.completionism.js
+zelda-botw.icons.js
 favicon.png
-../savegame-editor.css
+assets/_blank.png
+assets/logo.png
+assets/bg_black.jpg
+assets/bg_white.jpg
 ../savegame-editor.js
 
 # force these files to be loaded in network
 NETWORK:
-*
+game_data.sav
+assets/*
+
+FALLBACK:
+assets/* _blank.png

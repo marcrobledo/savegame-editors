@@ -7,11 +7,11 @@
 	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, wii u, zelda, breath of the wild, botw, weapon, durability, modifier, horse, epona, korok, unlocker, dlc, amiibo"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 	<link rel="shortcut icon" href="./favicon.png"/>
-	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
+	<link type="text/css" rel="stylesheet" href="./zelda-botw.css" media="all"/>
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./zelda-botw.js"></script>
 	<script type="text/javascript" src="./zelda-botw.data.js"></script>
-	<script type="text/javascript" src="./zelda-botw.completionism.js"></script>
+	<script type="text/javascript" src="./zelda-botw.icons.js"></script>
 	<!-- <script type="text/javascript" src="./zelda-botw.hashes.js"></script> -->
 </head>
 <body>
@@ -20,7 +20,8 @@
 <div id="header">
 	<div id="header-top">
 		<div class="row wrapper padding-vertical">
-			<h1 class="six columns text-left"><img src="./favicon.png" /> Savegame Editor <small>for The legend of Zelda: BOTW</small></h1>
+			<h1>Savegame Editor for The legend of Zelda: BOTW</h1>
+			<div class="six columns text-left"><img src="./assets/logo.png" style="max-width:90%"/></div>
 			<div class="six columns text-right header-buttons">
 				by <a href="/" class="author">Marc Robledo</a>
 				<a href="https://github.com/marcrobledo/savegame-editors/tree/master/zelda-botw" target="_blank" class="button"><span class="sprite github"></span> See on GitHub</a>
@@ -46,20 +47,40 @@
 	<div id="debug"></div>
 	
 	<!-- RUPEES -->
-	<h3 class="border-red">Rupees</h3>
-	<div id="card-rupees">
-		<div class="row">
-			<div class="ten columns"><label for="number-rupees">Rupees</label></div>
-			<div class="two columns"><input id="number-rupees" class="full-width" type="text" /></div>
-		</div>
-		<div class="row">
-			<div class="ten columns"><label for="number-mons">Mons</label></div>
-			<div class="two columns"><input id="number-mons" class="full-width" type="text" /></div>
-		</div>
+	<h3 class="border-red">Stats</h3>
+	<div class="row">
+		<div class="ten columns"><label for="number-rupees">Rupees</label></div>
+		<div class="two columns"><input id="number-rupees" class="full-width" type="text" /></div>
+	</div>
+	<div class="row">
+		<div class="ten columns"><label for="number-mons">Mons</label></div>
+		<div class="two columns"><input id="number-mons" class="full-width" type="text" /></div>
+	</div>
+	<div class="row">
+		<div class="ten columns"><label for="number-relic-gerudo">Gerudo relic remaining uses</label></div>
+		<div class="two columns text-right"><input id="number-relic-gerudo" class="small" type="text" /></div>
+	</div>
+	<div class="row">
+		<div class="ten columns"><label for="number-relic-goron">Goron relic remaining uses</label></div>
+		<div class="two columns text-right"><input id="number-relic-goron" class="small" type="text" /></div>
+	</div>
+	<div class="row">
+		<div class="ten columns"><label for="number-relic-rito">Rito relic remaining uses</label></div>
+		<div class="two columns text-right"><input id="number-relic-rito" class="small" type="text" /></div>
+	</div>
+	<div class="row">
+		<div class="ten columns"><label for="number-playtime">Playtime</label></div>
+		<div class="two columns"><input type="text" id="number-playtime" class="text-right full-width" disabled /></div>
 	</div>
 
 	<!-- ITEMS -->
-	<div id="card-items"></div>
+	<h3>Weapons</h3><div id="container-weapons"></div>
+	<h3>Bows</h3><div id="container-bows"></div>
+	<h3>Shields</h3><div id="container-shields"></div>
+	<h3>Clothes</h3><div id="container-clothes"></div>
+	<h3>Materials</h3><div id="container-materials"></div>
+	<h3>Food</h3><div id="container-food"></div>
+	<h3>Other</h3><div id="container-other"></div>
 
 	<!-- HORSES -->
 	<h3 class="border-blue">Horses</h3>
@@ -73,17 +94,45 @@
 	<!-- COMPLETIONISM -->
 	<h3 class="border-green">Completionism</h3>
 	<div class="row">
-		<div class="nine columns"><label for="number-koroks">Korok counter</label></div>
-		<div class="three columns">
-			<input type="text" id="number-koroks" disabled />
-			<button onclick="unlockKoroks()">Unlock all</button>
+		<div class="nine columns"><label for="number-koroks">Korok seeds</label></div>
+		<div class="three columns text-right">
+			<input type="text" id="number-koroks" style="width:50px" disabled />
+			<button onclick="unlockKoroks()">Get all</button>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="nine columns"><label for="number-defeated-hinox">Defeated Hinox</label></div>
+		<div class="three columns text-right">
+			<input type="text" id="number-defeated-hinox" style="width:50px" disabled />
+			<button onclick="defeatAllHinox()">Defeat all</button>
 		</div>
 	</div>
 	<div class="row">
-		<div class="nine columns">Missing locations</div>
-		<div class="three columns"><button onclick="searchMissingLocations()">See</button></div>
+		<div class="nine columns"><label for="number-defeated-talus">Defeated Talus</label></div>
+		<div class="three columns text-right">
+			<input type="text" id="number-defeated-talus" style="width:50px" disabled />
+			<button onclick="defeatAllTalus()">Defeat all</button>
+		</div>
 	</div>
-	<ul id="ul-locations"></ul>
+	<div class="row">
+		<div class="nine columns"><label for="number-defeated-molduga">Defeated Molduga</label></div>
+		<div class="three columns text-right">
+			<input type="text" id="number-defeated-molduga" style="width:50px" disabled />
+			<button onclick="defeatAllMolduga()">Defeat all</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="nine columns"><label for="number-defeated-molduga">Hyrule Compendium</label></div>
+		<div class="three columns text-right">
+			<button onclick="setCompendiumToStock()">Set to stock</button>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="nine columns">Known locations</div>
+		<div class="three columns text-right"><button onclick="visitAllLocations()">Visit all</button></div>
+	</div>
 </div>
 
 
@@ -93,19 +142,8 @@
 	<div class="text-center">
 		<select id="select-item"></select>
 	</div>
-	<div id="row-modifier">
-		<hr/>
-		<div class="row">
-			<div class="four columns"><label for="select-modifier">Modifier flag</label></div>
-			<div class="eight columns"><select id="select-modifier"></select></div>
-		</div>
-		<div class="row">
-			<div class="four columns"><label for="number-modifier-value">Value</label></div>
-			<div class="eight columns"><input type="text" id="number-modifier-value" /></div>
-		</div>
-	</div>
 	<div class="buttons">
-		<button onclick="SavegameEditor.editItem2(currentEditingItem, getValue('item'));if(currentEditingItem2)SavegameEditor.editModifier2(currentEditingItem2.type, currentEditingItem2.order, getValue('modifier'), getValue('modifier-value'));MarcDialogs.close();">Save chages</button>
+		<button onclick="SavegameEditor.editItem2(currentEditingItem, getValue('item'));MarcDialogs.close();">Save chages</button>
 	</div>
 </div>
 
@@ -133,5 +171,7 @@
 	</div>
 </div>
 
+<ul id="caca">
+</ul>
 </body>
 </html>
