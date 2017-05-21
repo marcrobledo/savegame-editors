@@ -218,12 +218,12 @@ SavegameEditor={
 
 	addItem:function(){
 		var i=0;
-		while(document.getElementById('number-item'+i)){
+		while(document.getElementById('number-item'+i) || document.getElementById('select-item'+i)){
 			i++;
 		}
 		if(i<this.Constants.MAX_ITEMS){
 			this._writeItemName(i,'Item_Fruit_A');
-			document.getElementById('card-materials').appendChild(this._createItemRow(i, false));
+			document.getElementById('container-materials').appendChild(this._createItemRow(i, false));
 			this.editItem(i);
 		}
 	},
