@@ -15,7 +15,7 @@ SavegameEditor={
 
 	/* load function */
 	load:function(){
-		window.location.href = 'www.marcrobledo.com/savegame-editors/zelda-botw/';
+		window.location.href = 'http://www.marcrobledo.com/savegame-editors/zelda-botw/';
 	},
 
 	/* save function */
