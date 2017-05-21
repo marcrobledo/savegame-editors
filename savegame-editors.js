@@ -5,7 +5,7 @@
 
 var EDITORS=[
 	{id:'hyrule-warriors', isValid:function(){return tempFile.fileSize===3145728}},
-	{id:'zelda-botw', isValid:function(){return tempFile.fileSize===897160 || tempFile.fileSize===896976}},
+	{id:'zelda-botw', isValid:function(){return tempFile.fileSize===897160 || tempFile.fileSize===896976 || tempFile.fileSize===897112}},
 	{id:'kid-icarus-uprising', isValid:function(){return tempFile.fileSize===66296}},
 	{id:'picross-3d-round-2', isValid:function(){return tempFile.fileSize===45688}},
 	{id:'pokemon-picross', isValid:function(){return tempFile.fileSize===14920}},
