@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# last update 2017-05-21b
+#v20170522
 #CACHE:
 index.html
 zelda-botw.css
@@ -15,8 +15,7 @@ assets/bg_white.jpg
 
 # force these files to be loaded in network
 NETWORK:
-game_data.sav
-assets/*
+*
 
 FALLBACK:
-assets/* _blank.png
+assets/ assets/_blank.png
