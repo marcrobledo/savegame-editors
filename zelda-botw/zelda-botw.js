@@ -2,19 +2,12 @@
 	The legend of Zelda: Breath of the wild v20170521
 	by Marc Robledo 2017
 */
-
-
-/*
-	TO-DO LIST:
-		* name editor?
-		* character position editor?
-*/
 var currentEditingItem=0;
 
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
 	Filename:'game_data.sav',
-	Version:20170521,
+	Version:20170522,
 
 
 	/* Constants */
@@ -41,9 +34,6 @@ SavegameEditor={
 		FLAGSV_BOW:				[0x1e3fd294, 0x00a8e0, 0x00a940, 0x00a940],
 		FLAGS_SHIELD:			[0xc5238d2b, 0x0b5810, 0x0b58e8, 0x0b58c8],
 		FLAGSV_SHIELD:			[0x69f17e8a, 0x063218, 0x0632c8, 0x0632b0],
-		//PORCH_WEAPONS:			[0x8c270c56, 0x0767e8, 0x076898, 0x076880],
-		//PORCH_BOWS:				[0xe7ce4453, 0x0c6e84, 0x0c6f50, 0x0c6f28],
-		//PORCH_SHIELDS:			[0x2fc0d2ab, 0x03be98, 0x03bf40, 0x03bf40],
 
 		HORSE_SADDLES:			[0x333aa6e5, 0x03d0e8, 0x03d190, 0x03d190],
 		HORSE_REINS:			[0x6150c6be, 0x060508, 0x0605b8, 0x0605a0],
@@ -459,7 +449,7 @@ SavegameEditor={
 
 		/* ITEMS */
 		for(var i=0; i<this.Constants.MAX_ITEMS; i++){
-			if(document.getElementById('number-item'+i))
+			if(document.getElementById('number-item'+i) || document.getElementById('select-item'+i))
 				tempFile.writeInt(this._getItemQuantityOffset(i), getValue('item'+i));
 			else
 				break;
