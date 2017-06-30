@@ -91,7 +91,7 @@ SavegameEditor={
 
 	_getOffsets(v){
 		this.Offsets={};
-		if(v<=2){
+		if(v<=3){
 			for(prop in this.OffsetsAll){
 				this.Offsets[prop]=this.OffsetsAll[prop][v+1];
 			}
