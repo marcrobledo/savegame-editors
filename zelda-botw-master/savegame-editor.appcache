@@ -1,0 +1,12 @@
+CACHE MANIFEST
+#v20170705
+#CACHE:
+index.html
+zelda-botw-master.css
+zelda-botw-master.js
+favicon.png
+../savegame-editor.js
+
+# force these files to be loaded in network
+NETWORK:
+*

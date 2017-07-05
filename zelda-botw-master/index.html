@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html manifest="savegame-editor.appcache">
+<head>
+	<title>Savegame Editor &ndash; The legend of Zelda: Breath of the wild (Master editor)</title>
+	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content="A savegame editor for The legend of Zelda: Breath of the wild. This master version allows you to edit everything in the savegame."/>
+	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, wii u, zelda, breath of the wild, botw, weapon, durability, modifier, horse, epona, korok, unlocker, dlc, amiibo"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="shortcut icon" href="./favicon.png"/>
+	<link type="text/css" rel="stylesheet" href="./zelda-botw-master.css" media="all"/>
+	<script type="text/javascript" src="../savegame-editor.js"></script>
+	<script type="text/javascript" src="./zelda-botw-master.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+	<div id="header-top">
+		<div class="row wrapper padding-vertical">
+			<h1>Savegame Editor for The legend of Zelda: BOTW (Master Editor)</h1>
+			<div class="six columns text-left">Zelda: BOTW Savegame Master Editor</div>
+			<div class="six columns text-right header-buttons">
+				by <a href="/" class="author">Marc Robledo</a>
+				<a href="https://github.com/marcrobledo/savegame-editors/tree/master/zelda-botw-master" target="_blank" class="button"><span class="sprite github"></span> See on GitHub</a>
+				<a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow" class="donate button"><span class="sprite heart"></span> Donate</a>
+			</div>
+		</div>
+	</div>
+	<div id="toolbar" class="hidden padding-vertical">
+		<div class="row wrapper">
+			<div class="twelve columns text-center">
+				<span id="span-version"></span> | <button class="with-icon icon1" onclick="SavegameEditor.addItem()">Add item</button>
+				| <button class="button with-icon icon3" onclick="closeFile()">Close file</button>
+				<button class="button colored blue with-icon icon9" onclick="saveChanges()">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- THE EDITOR -->
+<div id="the-editor" class="wrapper hidden"></div>
+
+</body>
+</html>
