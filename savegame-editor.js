@@ -118,8 +118,6 @@ function _tempFileLoadFunction(){
 		if(SavegameEditor.preload && !hasBeenLoaded){
 			SavegameEditor.preload();
 			hasBeenLoaded=true;
-
-			document.getElementById('warning').className+=' visible';
 		}
 		SavegameEditor.load();
 		show('the-editor');
@@ -132,9 +130,14 @@ function _tempFileLoadFunction(){
 function loadSavegameFromInput(input){
 	tempFile=new MarcBinFile(input.files[0], _tempFileLoadFunction);
 }
+
 function saveChanges(){
-	SavegameEditor.save();
-	tempFile.save();
+	if(decodeURIComponent(document.cookie).indexOf('hideWarningMessage=1')>=0){
+		SavegameEditor.save();
+		tempFile.save();
+	}else{
+		MarcDialogs.open('warning');
+	}
 }
 
 function closeFileConfirm(){
@@ -172,7 +175,7 @@ window.addEventListener('load', function(){
 	dragZone.className='wrapper';
 	var dragMessage=document.createElement('div');
 	dragMessage.id='dragzone-message';
-	dragMessage.innerHTML='Drop your <u>'+getSavegameAllNames()+'</u> here or <button class="with-icon file-load" onclick="document.getElementById(\'file-load\').click()">open it</button>';
+	dragMessage.innerHTML='<button class="close" onclick="document.getElementById(\'file-load\').click()"><i class=\"icon disk\"></i> Browse '+getSavegameAllNames()+'</button> or drop it here';
 
 	var inputFile=document.createElement('input');
 	inputFile.type='file';
@@ -199,27 +202,29 @@ window.addEventListener('load', function(){
 		tempFile=new MarcBinFile(droppedFiles[0], _tempFileLoadFunction);
 	});
 
-	//var warningMessage=mCreate('div', {id:'warning',class:'clickable padding-vertical'});
-	var warningMessage=document.createElement('div');
-	warningMessage.id='warning';
-	warningMessage.className='clickable padding-vertical';
-	warningMessage.addEventListener('click', function(){
-		this.className=this.className.replace(' visible','');
-	},false);
-	var wrapper=document.createElement('div');
-	wrapper.className='wrapper text-center';
-	wrapper.innerHTML='Use this tool at your own risk. By using it, you are responsible of any data lost. <u>I understand</u>';
-	warningMessage.appendChild(wrapper);
-	document.body.appendChild(warningMessage);
 
-
-
-
-
-
-
-
+	var warningDialog=document.createElement('div');
+	warningDialog.className='dialog';
+	warningDialog.id='dialog-warning';
+	warningDialog.innerHTML='Use this tool at your own risk. By using it, you are responsible of any data lost.';
+	var divButtons=document.createElement('div');
+	divButtons.className='buttons';
+	var understandButton=document.createElement('button');
+	understandButton.innerHTML='I understand';
+	understandButton.addEventListener('click',function(){
+		var EXPIRE_DAYS=3;
+		var d=new Date();
+		d.setTime(d.getTime()+(EXPIRE_DAYS*24*60*60*1000));
+		document.cookie="hideWarningMessage=1;expires="+d.toUTCString();//+";path=./";
+		MarcDialogs.close();
+		saveChanges();
+	}, false);
+	divButtons.appendChild(understandButton);
+	warningDialog.appendChild(divButtons);
+	document.body.appendChild(warningDialog);
 }, false);
+
+
 
 
 /* binary and other helpers */
