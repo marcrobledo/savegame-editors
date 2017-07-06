@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html manifest="savegame-editor.appcache">
+<head>
+	<title>Savegame Editor &ndash; StreetPass Mii Plaza</title>
+	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content="A savegame editor for StreetPass Mii Plaza. It can edit your Puzzle Swap pieces, unlock DLC hats and more!"/>
+	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, 3ds, streetpass, mii, plaza, puzzle, swap, panel, pieces, free, tickets, dlc, unlock, hats, speech, bubbles"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="shortcut icon" href="favicon.png"/>
+	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
+	<script type="text/javascript" src="../savegame-editor.js"></script>
+	<script type="text/javascript" src="./streetpass-mii-plaza.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+	<div id="header-top">
+		<div class="row wrapper">
+			<h1 class="six columns text-left"><img src="favicon.png" /> Savegame Editor <small>for StreetPass Mii Plaza</small></h1>
+			<div class="six columns header-buttons text-right">
+				by <a href="/">Marc Robledo</a>
+				<i class="icon github"></i> <a href="https://github.com/marcrobledo/savegame-editors/tree/master/streetpass-mii-plaza" target="_blank">See on GitHub</a>
+				<i class="icon heart"></i> <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
+			</div>
+		</div>
+		<div class="hidden row wrapper" id="toolbar">
+			<div class="twelve columns text-center">
+				<button class="close" onclick="closeFile()"><i class="icon close"></i> Close file</button>
+				<button class="colored" onclick="saveChanges()"><i class="icon accept"></i> Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- THE EDITOR -->
+<div id="the-editor" class="wrapper hidden">
+	<!-- BASIC -->
+	<h3 class="orange">Basic</h3>
+	<div class="container">
+		<div class="row">
+			<div class="eight columns"><label for="number-sptags">Streetpass Tags</label></div>
+			<div class="four columns"><input id="number-sptags" type="text" class="fw" /></div>
+
+			<div class="eight columns"><label for="number-tickets">Tickets</label></div>
+			<div class="four columns"><input id="number-tickets" type="text" class="fw" /></div>
+
+			<div class="eight columns"><label for="number-fantastic">Fantastic ratings</label></div>
+			<div class="four columns"><input id="number-fantastic" type="text" class="fw" /></div>
+		</div>
+	</div>
+
+
+	<!-- DLC UNLOCK -->
+	<h3 class="red">Unlock DLC</h3>
+	<div class="container">
+		<div class="row">
+			<div class="eight columns"><label for="button-unlockticketshop">Unlock ticket shop</label></div>
+			<div class="four columns"><button id="button-unlockticketshop" onclick="SavegameEditor._unlockTicketShop()">Unlock</button></div>
+
+			<div class="eight columns"><label for="button-unlockspeechbubbles">Unlock speech bubbles (first 16)</label></div>
+			<div class="four columns"><button id="button-unlockspeechbubbles" onclick="SavegameEditor._unlockSpeechBubbles()">Unlock</button></div>
+
+			<div class="eight columns"><label for="button-unlockspeechbubbles2">Unlock speech bubbles (last 6)</label></div>
+			<div class="four columns"><button id="button-unlockspeechbubbles2" onclick="SavegameEditor._unlockSpeechBubbles2()">Unlock</button></div>
+
+			<div class="eight columns"><label for="button-unlockhats2">Unlock hats (pack 2)</label></div>
+			<div class="four columns"><button id="button-unlockhats2"onclick="SavegameEditor._unlockHats2()">Unlock</button></div>
+
+			<div class="eight columns"><label for="button-unlockhats3">Unlock hats (pack 3)</label></div>
+			<div class="four columns"><button id="button-unlockhats3" onclick="SavegameEditor._unlockHats3()">Unlock</button></div>
+		</div>
+	</div>
+
+
+	<!-- PUZZLE SWAP -->
+	<h3 class="green">Puzzle Swap</h3>
+	<div class="container">
+		<label for="select-panel">Panel:</label> <span id="container-select-panel"></span>
+		Pieces: <span id="span-pieces"></span><br/>
+		<button onclick="SavegameEditor._setPiecesFromCurrentPanel(true)"><i class="icon accept"></i> All</button>
+		<button onclick="SavegameEditor._setPiecesFromCurrentPanel(-1)">All but one</button>
+		<button onclick="SavegameEditor._setPiecesFromCurrentPanel(false)"><i class="icon reset"></i> None</button>
+	</div>
+
+</div>
+
+</body>
+</html>

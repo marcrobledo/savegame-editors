@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html manifest="savegame-editor.appcache">
+<head>
+	<title>Savegame Editor &ndash; Pokémon Shuffle</title>
+	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content="A savegame editor for Pokémon Shuffle. It can edit values for your hearts, jewels, coins, items and more!"/>
+	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, 3ds, pokemon, shuffle, free, jewels, hearts, coins, items, enhancements"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="shortcut icon" href="favicon.png"/>
+	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
+	<script type="text/javascript" src="../savegame-editor.js"></script>
+	<script type="text/javascript" src="./pokemon-shuffle.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+	<div id="header-top">
+		<div class="row wrapper">
+			<h1 class="six columns text-left"><img src="favicon.png" /> Savegame Editor <small>for Pokémon Shuffle</small></h1>
+			<div class="six columns header-buttons text-right">
+				by <a href="/">Marc Robledo</a>
+				<i class="icon github"></i> <a href="https://github.com/marcrobledo/savegame-editors/tree/master/pokemon-shuffle" target="_blank">See on GitHub</a>
+				<i class="icon heart"></i> <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
+			</div>
+		</div>
+		<div class="hidden row wrapper" id="toolbar">
+			<div class="twelve columns text-center">
+				<button class="close" onclick="closeFile()"><i class="icon close"></i> Close file</button>
+				<button class="colored" onclick="saveChanges()"><i class="icon accept"></i> Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- THE EDITOR -->
+<div id="the-editor" class="wrapper hidden">
+	<!-- CONSUMABLES -->
+	<h3 class="orange">Consumables</h3>
+	<div class="container">
+		<div class="row">
+			<div class="four columns center"><label for="number-hearts">Hearts</label></div>
+			<div class="four columns center"><label for="number-coins">Coins</label></div>
+			<div class="four columns center"><label for="number-jewels">Jewels</label></div>
+		</div>
+		<div class="row">
+			<div class="four columns center"><input id="number-hearts" type="text" /></div>
+			<div class="four columns center"><input id="number-coins" type="text"/></div>
+			<div class="four columns center"><input id="number-jewels" type="text"/></div>
+		</div>
+	</div>
+
+	<!-- CONSUMABLES -->
+	<h3 class="red">Items</h3>
+	<div class="container">
+		<div class="row">
+			<div class="three columns"><label for="number-item0">Moves +5</label></div>
+			<div class="three columns"><input id="number-item0" class="small" type="text"/></div>
+
+			<div class="three columns"><label for="number-item4">Complexity -1</label></div>
+			<div class="three columns"><input id="number-item4" class="small" type="text"/></div>
+
+			<div class="three columns"><label for="number-item1">Time +10</label></div>
+			<div class="three columns"><input id="number-item1" class="small" type="text"/></div>
+
+			<div class="three columns"><label for="number-item5">Disruption Delay</label></div>
+			<div class="three columns"><input id="number-item5" class="small" type="text"/></div>
+
+			<div class="three columns"><label for="number-item2">Exp. *1.5</label></div>
+			<div class="three columns"><input id="number-item2" class="small" type="text"/></div>
+
+			<div class="three columns"><label for="number-item6">Attack up</label></div>
+			<div class="three columns"><input id="number-item6" class="small" type="text"/></div>
+
+			<div class="three columns"><label for="number-item3">Mega start</label></div>
+			<div class="three columns"><input id="number-item3" class="small" type="text"/></div>
+
+			<div class="three columns"></div>
+			<div class="three columns"></div>
+		</div>
+	</div>
+
+	<!-- Enhancements -->
+	<h3 class="green">Enhancements</h3>
+	<div class="container">
+		<div class="row">
+			<div class="three columns"><label for="number-enhancement0">Mega speedup</label></div>
+			<div class="three columns"><input id="number-enhancement0" class="small" type="text"/></div>
+
+			<div class="three columns"><label for="number-enhancement5">Exp. Booster L</label></div>
+			<div class="three columns"><input id="number-enhancement5" class="small" type="text"/></div>
+
+			<div class="three columns"><label for="number-enhancement1">Raise Max Level</label></div>
+			<div class="three columns"><input id="number-enhancement1" class="small" type="text"/></div>
+
+			<div class="three columns"><label for="number-enhancement6">Skill Booster S</label></div>
+			<div class="three columns"><input id="number-enhancement6" class="small" type="text"/></div>
+
+			<div class="three columns"><label for="number-enhancement2">Level Up</label></div>
+			<div class="three columns"><input id="number-enhancement2" class="small" type="text"/></div>
+
+			<div class="three columns"><label for="number-enhancement7">Skill Booster M</label></div>
+			<div class="three columns"><input id="number-enhancement7" class="small" type="text"/></div>
+
+			<div class="three columns"><label for="number-enhancement3">Exp. Booster S</label></div>
+			<div class="three columns"><input id="number-enhancement3" class="small" type="text"/></div>
+
+			<div class="three columns"><label for="number-enhancement8">Skill Booster L</label></div>
+			<div class="three columns"><input id="number-enhancement8" class="small" type="text"/></div>
+
+			<div class="three columns"><label for="number-enhancement4">Exp. Booster M</label></div>
+			<div class="three columns"><input id="number-enhancement4" class="small" type="text"/></div>
+
+			<div class="three columns"><label for="number-enhancement9">Skill Swapper</label></div>
+			<div class="three columns"><input id="number-enhancement9" class="small" type="text"/></div>
+		</div>
+	</div>
+
+	<!-- Other -->
+	<h3 class="blue">Other</h3>
+	<div class="container">
+		<div class="row">
+			<div class="nine columns"><label for="number-scalationlvl">Current scalation battle level</label></div>
+			<div class="three columns"><input id="number-scalationlvl" class="small" type="text"/></div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

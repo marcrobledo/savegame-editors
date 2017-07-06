@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html manifest="savegame-editor.appcache">
+<head>
+	<title>Savegame Editor &ndash; Kid Icarus: Uprising</title>
+	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content="A savegame editor for Kid Icarus: Uprising. It can edit values for your apple and materials."/>
+	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, 3ds, Kid Icarus: Uprising, free, apples"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="shortcut icon" href="favicon.png"/>
+	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
+	<script type="text/javascript" src="../savegame-editor.js"></script>
+	<script type="text/javascript" src="./kid-icarus-uprising.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+	<div id="header-top">
+		<div class="row wrapper">
+			<h1 class="six columns text-left"><img src="favicon.png" /> Savegame Editor <small>for Kid Icarus: Uprising</small></h1>
+			<div class="six columns header-buttons text-right">
+				by <a href="/">Marc Robledo</a>
+				<i class="icon github"></i> <a href="https://github.com/marcrobledo/savegame-editors/tree/master/kid-icarus-uprising" target="_blank">See on GitHub</a>
+				<i class="icon heart"></i> <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
+			</div>
+		</div>
+		<div class="hidden row wrapper" id="toolbar">
+			<div class="twelve columns text-center">
+				<button class="close" onclick="closeFile()"><i class="icon close"></i> Close file</button>
+				<button class="colored" onclick="saveChanges()"><i class="icon accept"></i> Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- THE EDITOR -->
+<div id="the-editor" class="wrapper hidden">
+	<!-- HEARTS -->
+	<h3 class="orange">Hearts</h3>
+	<div class="container">
+		<div class="row">
+			<div class="five columns"><label for="number-hearts">Current hearts</label></div>
+			<div class="three columns"><input id="number-hearts" type="text" /></div>
+		</div>
+		<div class="row">
+			<div class="five columns"><label for="number-hearts-for-palutena">Hearts offered to Palutena</label></div>
+			<div class="three columns"><input id="number-hearts-for-palutena" type="text" /></div>
+		</div>
+		<div class="row">
+			<div class="five columns"><label for="number-hearts-for-viridi">Hearts offered to Viridi</label></div>
+			<div class="three columns"><input id="number-hearts-for-viridi" type="text" /></div>
+		</div>
+		<div class="row">
+			<div class="five columns">Unlock unreleased trophies</div>
+			<div class="three columns"><button id="button-unlock-trophies" onclick="KidIcarusUprising.unlockTrophies()">Unlock</button></div>
+		</div>
+	</div>
+
+	<!-- STATS -->
+	<h3 class="red">Stats</h3>
+	<div class="container" id="stats"></div>
+
+	<!-- WEAPONS -->
+	<h3 class="green">Weapons</h3>
+	<div class="container">
+		<label for="select-weapon">Weapon slot</label> <span id="container-select-weapon"></span>
+		<hr/>
+		<div class="row">
+			<div class="three columns"><label for="weapon-type">Weapon type</label></div>
+			<div class="three columns end">
+				<select id="select-weapon-type" disabled="disabled" onchange="SavegameEditor._writeWeapon()"></select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="three columns"><label for="weapon-stars-ranged">Ranged stars</label></div><div class="three columns mono" id="container-weapon-stars-ranged"></div>
+			<div class="three columns"><label for="weapon-stars-melee">Melee stars</label></div><div class="three columns mono" id="container-weapon-stars-melee"></div>
+		</div>
+		<hr/>
+		<div class="row">
+			<div class="six columns"><label for="select-weapon-modifier0">Modifier 1</label></div>
+			<div class="six columns" id="container-weapon-modifier0"></div>
+			<div class="six columns"><label for="select-weapon-modifier1">Modifier 2</label></div>
+			<div class="six columns" id="container-weapon-modifier1"></div>
+			<div class="six columns"><label for="select-weapon-modifier2">Modifier 3</label></div>
+			<div class="six columns" id="container-weapon-modifier2"></div>
+			<div class="six columns"><label for="select-weapon-modifier3">Modifier 4</label></div>
+			<div class="six columns" id="container-weapon-modifier3"></div>
+			<div class="six columns"><label for="select-weapon-modifier4">Modifier 5</label></div>
+			<div class="six columns" id="container-weapon-modifier4"></div>
+			<div class="six columns"><label for="select-weapon-modifier5">Modifier 6</label></div>
+			<div class="six columns" id="container-weapon-modifier5"></div>
+		</div>
+		Approximate value: <span id="weapon-value"></span>
+	</div>
+</div>
+
+</body>
+</html>
