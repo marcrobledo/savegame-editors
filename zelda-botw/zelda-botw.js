@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild v20170630
+	The legend of Zelda: Breath of the wild v20170707
 	by Marc Robledo 2017
 */
 var currentEditingItem=0;
@@ -7,8 +7,7 @@ var currentEditingItem=0;
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
 	Filename:'game_data.sav',
-	Version:20170630,
-
+	Version:20170707,
 
 	/* Constants */
 	Constants:{
@@ -308,10 +307,20 @@ SavegameEditor={
 		for(var i=0; i<this.Constants.FILESIZE.length; i++){
 			if(tempFile.fileSize===this.Constants.FILESIZE[i] && tempFile.readInt(0)===this.Constants.HEADER[i] && tempFile.readInt(4)===0xffffffff){
 				this._getOffsets(i);
-				setValue('version', 'v1.'+i+'.x');
+				setValue('version', 'v1.'+i+'.x (Wii U)');
 				return true;
 			}
 		}
+
+		tempFile.littleEndian=true;
+		for(var i=0; i<this.Constants.FILESIZE.length; i++){
+			if(tempFile.fileSize===this.Constants.FILESIZE[i] && tempFile.readInt(0)===this.Constants.HEADER[i] && tempFile.readInt(4)===0xffffffff){
+				this._getOffsets(i);
+				setValue('version', 'v1.'+i+'.x (Switch)');
+				return true;
+			}
+		}
+
 		return false
 	},
 
@@ -353,7 +362,6 @@ SavegameEditor={
 
 	/* load function */
 	load:function(){
-		tempFile.littleEndian=false;
 		tempFile.fileName='game_data.sav';
 
 

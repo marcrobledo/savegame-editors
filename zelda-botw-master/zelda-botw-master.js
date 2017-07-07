@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild - Master editor v20170705
+	The legend of Zelda: Breath of the wild - Master editor v20170707
 	by Marc Robledo 2017
 */
 var currentEditingItem=0;
@@ -7,7 +7,7 @@ var currentEditingItem=0;
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild (Master editor)',
 	Filename:'game_data.sav',
-	Version:20170705,
+	Version:20170707,
 
 
 	/* Constants */
@@ -55,7 +55,14 @@ SavegameEditor={
 		tempFile.littleEndian=false;
 		for(var i=0; i<this.Constants.FILESIZE.length; i++){
 			if(tempFile.fileSize===this.Constants.FILESIZE[i] && tempFile.readInt(0)===this.Constants.HEADER[i] && tempFile.readInt(4)===0xffffffff){
-				setValue('version', 'v1.'+i+'.x');
+				setValue('version', 'v1.'+i+'.x (Wii U)');
+				return true;
+			}
+		}
+		tempFile.littleEndian=true;
+		for(var i=0; i<this.Constants.FILESIZE.length; i++){
+			if(tempFile.fileSize===this.Constants.FILESIZE[i] && tempFile.readInt(0)===this.Constants.HEADER[i] && tempFile.readInt(4)===0xffffffff){
+				setValue('version', 'v1.'+i+'.x (Switch)');
 				return true;
 			}
 		}
