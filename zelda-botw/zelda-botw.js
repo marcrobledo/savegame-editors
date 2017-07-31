@@ -507,12 +507,7 @@ function setValueByHash(hash, val){
 function setBooleans(hashTable, counterElement){
 	var counter=0;
 	for(var i=0;i<hashTable.length; i++){
-		var hash = hashTable[i];
-		// handle plain array of hashes, or objects with hash property 'H'
-		if (typeof hash === 'object' && hash.H){
-			hash = hash.H
-		}
-		var offset=SavegameEditor._searchHash(hash);
+		var offset=SavegameEditor._searchHash(hashTable[i]);
 		if(offset && !tempFile.readInt(offset+4)){
 			tempFile.writeInt(offset+4, 1);
 			counter++;
@@ -672,22 +667,29 @@ function addToMap(data, icon){
 		py = tempFile.readFloat32(off+12)
 		pz = tempFile.readFloat32(off+20)
 	}
-	console.log(px,py,pz)
+	var points = [];
+	for (var i = 0; i<data.length; i++){
+		var l = BOTW_Data.LOCATIONS["0x"+data[i].toString(16)]
+		if (l){
+		   points.push({H:data[i], L:l})
+		}
+	}
 	// fill closest first
-	data.sort(function(a,b){
+	points.sort(function(a,b){
 		aDist = dist(px,py,pz,a.L);
 		bDist = dist(px,py,pz,b.L);
 		return aDist - bDist
 	})
 	var count = 0;
-	for (var i = 0; i<data.length; i++){
+	for (var i = 0; i<points.length; i++){
 		if(mapPinCount >= maxMapPins){
 			break;		
 		}
-		var hash = data[i].H;
+		var pt = points[i]
+		var hash = pt.H;
 		var offset=SavegameEditor._searchHash(hash);
-		if(offset){
-			addMapPin(icon, data[i].L)
+		if(offset && !tempFile.readInt(offset + 4)){
+			addMapPin(icon, pt.L)
 			count++;
 			mapPinCount++;
 		}

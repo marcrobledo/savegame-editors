@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./zelda-botw.js"></script>
 	<script type="text/javascript" src="./zelda-botw.data.js"></script>
-	<script type="text/javascript" src="./koroks.js"></script>
+	<script type="text/javascript" src="./zelda-locations.js"></script>
 	<script type="text/javascript" src="./zelda-botw.icons.js"></script>
 	<!-- <script type="text/javascript" src="./zelda-botw.hashes.js"></script> -->
 </head>
@@ -44,53 +44,6 @@
 
 <!-- THE EDITOR -->
 <div id="the-editor" class="wrapper hidden">
-	<!-- DEBUG -->
-	<div id="debug"></div>
-	
-	<!-- RUPEES -->
-	<h3 class="border-red">Stats</h3>
-	<div class="row">
-		<div class="ten columns"><label for="number-rupees">Rupees</label></div>
-		<div class="two columns"><input id="number-rupees" class="full-width" type="text" /></div>
-	</div>
-	<div class="row">
-		<div class="ten columns"><label for="number-mons">Mons</label></div>
-		<div class="two columns"><input id="number-mons" class="full-width" type="text" /></div>
-	</div>
-	<div class="row">
-		<div class="ten columns"><label for="number-relic-gerudo">Gerudo relic remaining uses</label></div>
-		<div class="two columns text-right"><input id="number-relic-gerudo" class="small" type="text" /></div>
-	</div>
-	<div class="row">
-		<div class="ten columns"><label for="number-relic-goron">Goron relic remaining uses</label></div>
-		<div class="two columns text-right"><input id="number-relic-goron" class="small" type="text" /></div>
-	</div>
-	<div class="row">
-		<div class="ten columns"><label for="number-relic-rito">Rito relic remaining uses</label></div>
-		<div class="two columns text-right"><input id="number-relic-rito" class="small" type="text" /></div>
-	</div>
-	<div class="row">
-		<div class="ten columns"><label for="number-playtime">Playtime</label></div>
-		<div class="two columns"><input type="text" id="number-playtime" class="text-right full-width" disabled /></div>
-	</div>
-
-	<!-- ITEMS -->
-	<h3>Weapons</h3><div id="container-weapons"></div>
-	<h3>Bows</h3><div id="container-bows"></div>
-	<h3>Shields</h3><div id="container-shields"></div>
-	<h3>Clothes</h3><div id="container-clothes"></div>
-	<h3>Materials</h3><div id="container-materials"></div>
-	<h3>Food</h3><div id="container-food"></div>
-	<h3>Other</h3><div id="container-other"></div>
-
-	<!-- HORSES -->
-	<h3 class="border-blue">Horses</h3>
-	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(0)">Edit horse 0</button></div>
-	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(1)">Edit horse 1</button></div>
-	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(2)">Edit horse 2</button></div>
-	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(3)">Edit horse 3</button></div>
-	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(4)">Edit horse 4</button></div>
-	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(5)">Edit untamed horse</button></div>
 
 	<!-- COMPLETIONISM -->
 	<h3 class="border-green">Completionism</h3>
@@ -143,6 +96,55 @@
 			<button onclick="clearMapPins()">Clear</button>
 		</div>
 	</div>
+	<!-- DEBUG -->
+	<div id="debug"></div>
+	
+	<!-- RUPEES -->
+	<h3 class="border-red">Stats</h3>
+	<div class="row">
+		<div class="ten columns"><label for="number-rupees">Rupees</label></div>
+		<div class="two columns"><input id="number-rupees" class="full-width" type="text" /></div>
+	</div>
+	<div class="row">
+		<div class="ten columns"><label for="number-mons">Mons</label></div>
+		<div class="two columns"><input id="number-mons" class="full-width" type="text" /></div>
+	</div>
+	<div class="row">
+		<div class="ten columns"><label for="number-relic-gerudo">Gerudo relic remaining uses</label></div>
+		<div class="two columns text-right"><input id="number-relic-gerudo" class="small" type="text" /></div>
+	</div>
+	<div class="row">
+		<div class="ten columns"><label for="number-relic-goron">Goron relic remaining uses</label></div>
+		<div class="two columns text-right"><input id="number-relic-goron" class="small" type="text" /></div>
+	</div>
+	<div class="row">
+		<div class="ten columns"><label for="number-relic-rito">Rito relic remaining uses</label></div>
+		<div class="two columns text-right"><input id="number-relic-rito" class="small" type="text" /></div>
+	</div>
+	<div class="row">
+		<div class="ten columns"><label for="number-playtime">Playtime</label></div>
+		<div class="two columns"><input type="text" id="number-playtime" class="text-right full-width" disabled /></div>
+	</div>
+
+	<!-- ITEMS -->
+	<h3>Weapons</h3><div id="container-weapons"></div>
+	<h3>Bows</h3><div id="container-bows"></div>
+	<h3>Shields</h3><div id="container-shields"></div>
+	<h3>Clothes</h3><div id="container-clothes"></div>
+	<h3>Materials</h3><div id="container-materials"></div>
+	<h3>Food</h3><div id="container-food"></div>
+	<h3>Other</h3><div id="container-other"></div>
+
+	<!-- HORSES -->
+	<h3 class="border-blue">Horses</h3>
+	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(0)">Edit horse 0</button></div>
+	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(1)">Edit horse 1</button></div>
+	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(2)">Edit horse 2</button></div>
+	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(3)">Edit horse 3</button></div>
+	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(4)">Edit horse 4</button></div>
+	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(5)">Edit untamed horse</button></div>
+
+	
 </div>
 
 <!-- DIALOGS -->
