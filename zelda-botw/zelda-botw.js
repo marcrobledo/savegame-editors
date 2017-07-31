@@ -17,6 +17,11 @@ SavegameEditor={
 		/*						 v1.0    v1.1    v1.2    v1.3  */
 		FILESIZE:				[896976, 897160, 897112, 907824],
 		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0],
+
+		MAP_ICONS: 0x9383490e,
+		MAP_POS: 0xea9def3f,
+		PLAYER_LOCATION: 0xa40ba103,
+		ICON_TYPES:{SWORD: 27, BOW:28, SHIELD:29, POT:30, STAR:31, CHEST:32,SKULL:33,LEAF:34,TOWER:35}
 	},
 
 	/* Offsets */
@@ -379,6 +384,8 @@ SavegameEditor={
 		setValue('defeated-molduga', tempFile.readInt(this.Offsets.DEFEATED_MOLDUGA_COUNTER));
 		setValue('playtime',this._timeToString(tempFile.readInt(this.Offsets.PLAYTIME)));		
 
+		loadMapPins()
+
 		/* items */
 		empty('container-weapons');
 		empty('container-bows');
@@ -500,7 +507,12 @@ function setValueByHash(hash, val){
 function setBooleans(hashTable, counterElement){
 	var counter=0;
 	for(var i=0;i<hashTable.length; i++){
-		var offset=SavegameEditor._searchHash(hashTable[i]);
+		var hash = hashTable[i];
+		// handle plain array of hashes, or objects with hash property 'H'
+		if (typeof hash === 'object' && hash.H){
+			hash = hash.H
+		}
+		var offset=SavegameEditor._searchHash(hash);
 		if(offset && !tempFile.readInt(offset+4)){
 			tempFile.writeInt(offset+4, 1);
 			counter++;
@@ -558,6 +570,164 @@ function setCompendiumToStock(){
 	MarcDialogs.alert(setToStock+' pics were reseted to stock.<br/>You can now safely remove all .jpg files under <u>pict_book</u> folder.');
 }
 
+var mapPinCount = 0;
+var maxMapPins = 100;
+function loadMapPins(){
+	// Read Pin Types
+	var count = 0;
+	iterateMapPins(function(val){
+		if (val == 0xffffffff){
+			return false;
+		}
+		count++;
+		//console.log(count, val)
+		return true;
+	})
+	// to debug saved locations
+	// var i = 0;
+	// iterateMapPinLocations(function(val, offset){
+	// 	if (i % 3 == 0){
+	// 		console.log("-----")
+	// 		if (val == -100000){
+	// 			return false;
+	// 		}
+	// 	}
+	// 	i++
+	// 	console.log(val)
+	// 	return true
+	// })
+	mapPinCount = count;
+	setValue('number-map-pins', count);
+}
+
+function clearMapPins(){
+	// types
+	var count = 0;
+	iterateMapPins(function(val,offset){
+		if (val != 0xffffffff){
+			count++;
+			tempFile.writeInt(offset, 0xffffffff)
+		}
+		return true;
+	})
+
+	var count2 =0; 
+	var i = 0;
+	iterateMapPinLocations(function(val, offset){
+		var expect = i % 3 == 0 ? -100000 : 0;
+		i++;
+		if (val != expect){
+			count2++
+			tempFile.writeFloat32(offset, expect)
+		}
+		return true
+	})
+	if (count2 / 3 > count){
+		count = count2 / 3
+	}
+	mapPinCount = 0;
+	setValue('number-map-pins', 0);
+	MarcDialogs.alert(count+' map pins removed');
+}
+
+function iterateMapPins(f){
+	var offset = SavegameEditor._searchHash(SavegameEditor.Constants.MAP_ICONS)
+	for (var i = 0;; i++){
+		var base = offset + (8 * i)
+		var hdr = tempFile.readInt(base)
+		var val = tempFile.readInt(base + 4)
+		if (hdr != SavegameEditor.Constants.MAP_ICONS){
+			break
+		}
+		if (!f(val,base+4)){
+			break
+		}
+	}
+}
+function iterateMapPinLocations(f){
+	offset = SavegameEditor._searchHash(SavegameEditor.Constants.MAP_POS)
+	for (var i = 0;; i++){
+		var base = offset + (8 * i)
+		var hdr = tempFile.readInt(base)
+		var val = tempFile.readFloat32(base + 4)
+		if (hdr != SavegameEditor.Constants.MAP_POS){
+			break
+		}
+		if(!f(val,base+4)){
+			break
+		}
+	}
+}
+
+function dist(px,py,pz,l){
+	// 2d seems to work better than 3d
+	return Math.sqrt((Math.pow(l[0]-px,2))+(Math.pow(l[2]-pz,2)))
+}
+
+function addToMap(data, icon){
+	var px = 0, py = 0, pz = 0;
+	var off = SavegameEditor._searchHash(SavegameEditor.Constants.PLAYER_LOCATION);
+	if (off){
+		px = tempFile.readFloat32(off+4)
+		py = tempFile.readFloat32(off+12)
+		pz = tempFile.readFloat32(off+20)
+	}
+	console.log(px,py,pz)
+	// fill closest first
+	data.sort(function(a,b){
+		aDist = dist(px,py,pz,a.L);
+		bDist = dist(px,py,pz,b.L);
+		return aDist - bDist
+	})
+	var count = 0;
+	for (var i = 0; i<data.length; i++){
+		if(mapPinCount >= maxMapPins){
+			break;		
+		}
+		var hash = data[i].H;
+		var offset=SavegameEditor._searchHash(hash);
+		if(offset){
+			addMapPin(icon, data[i].L)
+			count++;
+			mapPinCount++;
+		}
+	}
+	setValue('number-map-pins', mapPinCount);
+	return count;
+}
+
+function addMapPin(icon, location){
+	// add pin to next availible location.
+	iterateMapPins(function(val,offset){
+		if (val == 0xffffffff){
+			tempFile.writeInt(offset, icon)
+			return false
+		}
+		return true;
+	})
+	var i = 0;
+	var added = false;
+	iterateMapPinLocations(function(val, offset){
+		if (i%3 != 0){
+			i++
+			return true;
+		}
+		i++
+		if (val == -100000){
+			added = true;
+			tempFile.writeFloat32(offset,location[0])
+			tempFile.writeFloat32(offset+8,location[1])
+			tempFile.writeFloat32(offset+16,location[2])
+			return false;
+		}
+		return true;
+	})
+}
+
+function addKoroksToMap(){
+	var n = addToMap(BOTW_Data.KOROKS, SavegameEditor.Constants.ICON_TYPES.LEAF);
+	MarcDialogs.alert(n+' missing seeds added to map');
+}
 
 /* MarcTooltips.js v20170518 - Marc Robledo 2014-2017 - http://www.marcrobledo.com/license */
 var MarcTooltips=function(){return{add:function(a,b,c){var d=document.createElement("div");d.className="tooltip",d.style.position="absolute",d.style.zIndex="9000",d.style.top="0",d.style.left="0",d.innerHTML=b,document.body.appendChild(d);var e="down",f="center";c&&c.position&&/^(up|down|left|right)$/i.test(c.position)&&(e=c.position.toLowerCase()),c&&c.align&&/^(top|bottom|left|right)$/i.test(c.align)&&(("up"!==e&&"down"!==e||"left"!==c.align&&"right"!==c.align)&&("left"!==e&&"right"!==e||"top"!==c.align&&"bottom"!==c.align)||(f=c.align.toLowerCase()));var h=document.createElement("div");h.className="arrow",d.className+=" position-"+e+" align-"+f,d.className+="left"===e||"right"===e?" position-horizontal":" position-vertical",d.appendChild(h);var i=function(){var a=document.documentElement,b=(window.pageXOffset||a.scrollLeft)-(a.clientLeft||0),c=(window.pageYOffset||a.scrollTop)-(a.clientTop||0),g=this.getBoundingClientRect(),h=d.getBoundingClientRect();d.style.top="up"===e?parseInt(g.top+c-h.height)+"px":"down"===e?parseInt(g.top+c+g.height)+"px":"top"===f?parseInt(g.top+c)+"px":"bottom"===f?parseInt(g.top+c-(h.height-g.height))+"px":parseInt(g.top+c-parseInt((h.height-g.height)/2))+"px",d.style.left="up"===e||"down"===e?"left"===f?parseInt(g.left+b)+"px":"right"===f?parseInt(g.left+b-(h.width-g.width))+"px":parseInt(g.left+b-parseInt((h.width-g.width)/2))+"px":"left"===e?parseInt(g.left+b-h.width)+"px":parseInt(g.left+b+g.width)+"px",d.className+=" visible"},j=function(){d.className=d.className.replace(" visible","")};"string"==typeof a&&(a=[a]);for(var k=0;k<a.length;k++)if("string"==typeof a[k])if(/^#[0-9a-zA-Z_\-]+$/.test(a[k])){var l=document.getElementById(a[k].replace("#",""));l.addEventListener("mouseover",i,!1),l.addEventListener("mouseout",j,!1)}else for(var m=document.querySelectorAll(a[k]),n=0;n<m.length;n++)m[n].addEventListener("mouseover",i,!1),m[n].addEventListener("mouseout",j,!1);else a[k].addEventListener("mouseover",i,!1),a[k].addEventListener("mouseout",j,!1)}}}();

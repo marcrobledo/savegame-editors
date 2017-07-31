@@ -11,6 +11,7 @@
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./zelda-botw.js"></script>
 	<script type="text/javascript" src="./zelda-botw.data.js"></script>
+	<script type="text/javascript" src="./koroks.js"></script>
 	<script type="text/javascript" src="./zelda-botw.icons.js"></script>
 	<!-- <script type="text/javascript" src="./zelda-botw.hashes.js"></script> -->
 </head>
@@ -94,10 +95,11 @@
 	<!-- COMPLETIONISM -->
 	<h3 class="border-green">Completionism</h3>
 	<div class="row">
-		<div class="nine columns"><label for="number-koroks">Korok seeds</label></div>
-		<div class="three columns text-right">
+		<div class="seven columns"><label for="number-koroks">Korok seeds</label></div>
+		<div class="five columns text-right">
 			<input type="text" id="number-koroks" style="width:50px" disabled />
 			<button onclick="unlockKoroks()">Get all</button>
+			<button onclick="addKoroksToMap()">Add To Map</button>
 		</div>
 	</div>
 
@@ -133,9 +135,15 @@
 		<div class="nine columns">Known locations</div>
 		<div class="three columns text-right"><button onclick="visitAllLocations()">Visit all</button></div>
 	</div>
+
+	<div class="row">
+		<div class="nine columns">Map Pins</div>
+		<div class="three columns text-right">
+			<input type="text" id="number-map-pins" style="width:50px" disabled />
+			<button onclick="clearMapPins()">Clear</button>
+		</div>
+	</div>
 </div>
-
-
 
 <!-- DIALOGS -->
 <div id="dialog-item" class="dialog">
