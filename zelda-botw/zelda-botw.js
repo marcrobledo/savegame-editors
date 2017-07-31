@@ -669,7 +669,7 @@ function addToMap(data, icon){
 	}
 	var points = [];
 	for (var i = 0; i<data.length; i++){
-		var l = BOTW_Data.LOCATIONS["0x"+data[i].toString(16)]
+		var l = BOTW_Data.COORDS["0x"+data[i].toString(16)]
 		if (l){
 		   points.push({H:data[i], L:l})
 		}
@@ -744,6 +744,11 @@ function addTalusToMap(){
 function addMoldugaToMap(){
 	var n = addToMap(BOTW_Data.DEFEATED_MOLDUGA, SavegameEditor.Constants.ICON_TYPES.CHEST);
 	MarcDialogs.alert(n+' missing molduga added to map');
+}
+
+function addLocationsToMap(){
+	var n = addToMap(BOTW_Data.LOCATIONS, SavegameEditor.Constants.ICON_TYPES.STAR);
+	MarcDialogs.alert(n+' missing locations added to map');
 }
 
 
