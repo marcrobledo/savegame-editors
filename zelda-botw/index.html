@@ -11,6 +11,7 @@
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./zelda-botw.js"></script>
 	<script type="text/javascript" src="./zelda-botw.data.js"></script>
+	<script type="text/javascript" src="./zelda-locations.js"></script>
 	<script type="text/javascript" src="./zelda-botw.icons.js"></script>
 	<!-- <script type="text/javascript" src="./zelda-botw.hashes.js"></script> -->
 </head>
@@ -94,32 +95,36 @@
 	<!-- COMPLETIONISM -->
 	<h3 class="border-green">Completionism</h3>
 	<div class="row">
-		<div class="nine columns"><label for="number-koroks">Korok seeds</label></div>
-		<div class="three columns text-right">
+		<div class="seven columns"><label for="number-koroks">Korok seeds</label></div>
+		<div class="five columns text-right">
 			<input type="text" id="number-koroks" style="width:50px" disabled />
 			<button onclick="unlockKoroks()">Get all</button>
+			<button onclick="addKoroksToMap()">Add To Map</button>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="nine columns"><label for="number-defeated-hinox">Defeated Hinox</label></div>
-		<div class="three columns text-right">
+		<div class="seven columns"><label for="number-defeated-hinox">Defeated Hinox</label></div>
+		<div class="five columns text-right">
 			<input type="text" id="number-defeated-hinox" style="width:50px" disabled />
 			<button onclick="defeatAllHinox()">Defeat all</button>
+			<button onclick="addHinoxToMap()">Add To Map</button>
 		</div>
 	</div>
 	<div class="row">
-		<div class="nine columns"><label for="number-defeated-talus">Defeated Talus</label></div>
-		<div class="three columns text-right">
+		<div class="seven columns"><label for="number-defeated-talus">Defeated Talus</label></div>
+		<div class="five columns text-right">
 			<input type="text" id="number-defeated-talus" style="width:50px" disabled />
 			<button onclick="defeatAllTalus()">Defeat all</button>
+			<button onclick="addTalusToMap()">Add To Map</button>
 		</div>
 	</div>
 	<div class="row">
-		<div class="nine columns"><label for="number-defeated-molduga">Defeated Molduga</label></div>
-		<div class="three columns text-right">
+		<div class="seven columns"><label for="number-defeated-molduga">Defeated Molduga</label></div>
+		<div class="five columns text-right">
 			<input type="text" id="number-defeated-molduga" style="width:50px" disabled />
 			<button onclick="defeatAllMolduga()">Defeat all</button>
+			<button onclick="addMoldugaToMap()">Add To Map</button>
 		</div>
 	</div>
 	<div class="row">
@@ -130,12 +135,22 @@
 	</div>
 
 	<div class="row">
-		<div class="nine columns">Known locations</div>
-		<div class="three columns text-right"><button onclick="visitAllLocations()">Visit all</button></div>
+		<div class="seven columns">Known locations</div>
+		<div class="five columns text-right">
+			<button onclick="visitAllLocations()">Visit all</button>
+			<button onclick="addLocationsToMap()">Add To Map</button>
+		</div>
 	</div>
+
+	<div class="row">
+		<div class="nine columns">Map Pins</div>
+		<div class="three columns text-right">
+			<input type="text" id="number-map-pins" style="width:50px" disabled />
+			<button onclick="clearMapPins()">Clear</button>
+		</div>
+	</div>
+	
 </div>
-
-
 
 <!-- DIALOGS -->
 <div id="dialog-item" class="dialog">
