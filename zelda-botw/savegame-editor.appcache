@@ -1,11 +1,12 @@
 CACHE MANIFEST
-#v20170713
+#v20170802
 #CACHE:
 index.html
 zelda-botw.css
 zelda-botw.js
 zelda-botw.data.js
 zelda-botw.icons.js
+zelda-botw.locations.js
 favicon.png
 assets/_blank.png
 assets/logo.png

@@ -669,7 +669,7 @@ function addToMap(data, icon){
 	}
 	var points = [];
 	for (var i = 0; i<data.length; i++){
-		var l = BOTW_Data.COORDS["0x"+data[i].toString(16)]
+		var l = BOTW_Data.COORDS[data[i]]
 		if (l){
 		   points.push({H:data[i], L:l})
 		}
@@ -728,27 +728,27 @@ function addMapPin(icon, location){
 
 function addKoroksToMap(){
 	var n = addToMap(BOTW_Data.KOROKS, SavegameEditor.Constants.ICON_TYPES.LEAF);
-	MarcDialogs.alert(n+' missing seeds added to map');
+	MarcDialogs.alert(n+' pins for missing Korok seeds added to map');
 }
 
 function addHinoxToMap(){
 	var n = addToMap(BOTW_Data.DEFEATED_HINOX, SavegameEditor.Constants.ICON_TYPES.SKULL);
-	MarcDialogs.alert(n+' missing hinox added to map');
+	MarcDialogs.alert(n+' pins for missing Hinox added to map');
 }
 
 function addTalusToMap(){
 	var n = addToMap(BOTW_Data.DEFEATED_TALUS, SavegameEditor.Constants.ICON_TYPES.SHIELD);
-	MarcDialogs.alert(n+' missing talus added to map');
+	MarcDialogs.alert(n+' pins for missing Talus added to map');
 }
 
 function addMoldugaToMap(){
 	var n = addToMap(BOTW_Data.DEFEATED_MOLDUGA, SavegameEditor.Constants.ICON_TYPES.CHEST);
-	MarcDialogs.alert(n+' missing molduga added to map');
+	MarcDialogs.alert(n+' pins for missing Molduga added to map');
 }
 
 function addLocationsToMap(){
 	var n = addToMap(BOTW_Data.LOCATIONS, SavegameEditor.Constants.ICON_TYPES.STAR);
-	MarcDialogs.alert(n+' missing locations added to map');
+	MarcDialogs.alert(n+' pins for missing locations added to map');
 }
 
 
