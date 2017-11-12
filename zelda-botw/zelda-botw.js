@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild v20170707
+	The legend of Zelda: Breath of the wild v20171112
 	by Marc Robledo 2017
 */
 var currentEditingItem=0;
@@ -7,16 +7,17 @@ var currentEditingItem=0;
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
 	Filename:'game_data.sav',
-	Version:20170707,
+	Version:20171110,
 
 	/* Constants */
 	Constants:{
 		MAX_ITEMS:410,
 		STRING_SIZE:0x80,
 
-		/*						 v1.0    v1.1    v1.2    v1.3  */
-		FILESIZE:				[896976, 897160, 897112, 907824],
-		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0],
+		/*						 v1.0    v1.1    v1.2    v1.3    v1.3.3   */
+		FILESIZE:				[896976, 897160, 897112, 907824, 1020648],
+		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x3ef8],
+		VERSION:				['1.0',  '1.1',  '1.2',  '1.3', '1.3.3'],
 
 		MAP_ICONS: 0x9383490e,
 		MAP_POS: 0xea9def3f,
@@ -26,36 +27,36 @@ SavegameEditor={
 
 	/* Offsets */
 	OffsetsAll:{
-		/*						 hash        v1.0      v1.1      v1.2      v1.3    */
-		RUPEES:					[0x23149bf8, 0x00e0a0, 0x00e110, 0x00e110, 0x00e678],
-		MONS:					[0xce7afed3, 0x0bc480, 0x0bc558, 0x0bc538, 0x0be728],
-		ITEMS:					[0x5f283289, 0x052828, 0x0528d8, 0x0528c0, 0x053890],
-		ITEMS_QUANTITY:			[0x6a09fc59, 0x063340, 0x0633f0, 0x0633d8, 0x064550],
+		/*						 hash        v1.0      v1.1      v1.2      v1.3      v1.3.3 */
+		RUPEES:					[0x23149bf8, 0x00e0a0, 0x00e110, 0x00e110, 0x00e678, 0x00e730],
+		MONS:					[0xce7afed3, 0x0bc480, 0x0bc558, 0x0bc538, 0x0be728, 0x0d6ac8],
+		ITEMS:					[0x5f283289, 0x052828, 0x0528d8, 0x0528c0, 0x053890, 0x05fa48],
+		ITEMS_QUANTITY:			[0x6a09fc59, 0x063340, 0x0633f0, 0x0633d8, 0x064550, 0x070730],
 
-		FLAGS_WEAPON:			[0x57ee221d, 0x050328, 0x0503d8, 0x0503c0, 0x051270],
-		FLAGSV_WEAPON:			[0xa6d926bc, 0x0a9ca8, 0x0a9d78, 0x0a9d58, 0x0ab8d0],
-		FLAGS_BOW:				[0x0cbf052a, 0x0045f0, 0x0045f8, 0x0045f8, 0x0047e8],
-		FLAGSV_BOW:				[0x1e3fd294, 0x00a8e0, 0x00a940, 0x00a940, 0x00ae08],
-		FLAGS_SHIELD:			[0xc5238d2b, 0x0b5810, 0x0b58e8, 0x0b58c8, 0x0b7910],
-		FLAGSV_SHIELD:			[0x69f17e8a, 0x063218, 0x0632c8, 0x0632b0, 0x064420],
+		FLAGS_WEAPON:			[0x57ee221d, 0x050328, 0x0503d8, 0x0503c0, 0x051270, 0x05d420],
+		FLAGSV_WEAPON:			[0xa6d926bc, 0x0a9ca8, 0x0a9d78, 0x0a9d58, 0x0ab8d0, 0x0c3bd8],
+		FLAGS_BOW:				[0x0cbf052a, 0x0045f0, 0x0045f8, 0x0045f8, 0x0047e8, 0x004828],
+		FLAGSV_BOW:				[0x1e3fd294, 0x00a8e0, 0x00a940, 0x00a940, 0x00ae08, 0x00ae90],
+		FLAGS_SHIELD:			[0xc5238d2b, 0x0b5810, 0x0b58e8, 0x0b58c8, 0x0b7910, 0x0cfc70],
+		FLAGSV_SHIELD:			[0x69f17e8a, 0x063218, 0x0632c8, 0x0632b0, 0x064420, 0x070600],
 
-		HORSE_SADDLES:			[0x333aa6e5, 0x03d0e8, 0x03d190, 0x03d190, 0x03d9d8],
-		HORSE_REINS:			[0x6150c6be, 0x060508, 0x0605b8, 0x0605a0, 0x0615d0],
-		HORSE_NAMES:			[0x7b74e117, 0x070320, 0x0703c0, 0x0703a8, 0x071820],
-		HORSE_MANES:			[0x9c6cfd3f, 0x0a6478, 0x0a6538, 0x0a6520, 0x0a7f18],
-		HORSE_TYPES:			[0xc247b696, 0x0b46f8, 0x0b47d8, 0x0b47b8, 0x0b6780],
-		HORSE_BONDS:			[0xe1a0ca54, 0x0c3670, 0x0c3738, 0x0c3710, 0x0c5bb0], /* max=0x3f80 */
+		HORSE_SADDLES:			[0x333aa6e5, 0x03d0e8, 0x03d190, 0x03d190, 0x03d9d8, 0x049ab8],
+		HORSE_REINS:			[0x6150c6be, 0x060508, 0x0605b8, 0x0605a0, 0x0615d0, 0x06d7a0],
+		HORSE_NAMES:			[0x7b74e117, 0x070320, 0x0703c0, 0x0703a8, 0x071820, 0x07da30],
+		HORSE_MANES:			[0x9c6cfd3f, 0x0a6478, 0x0a6538, 0x0a6520, 0x0a7f18, 0x0c01c0],
+		HORSE_TYPES:			[0xc247b696, 0x0b46f8, 0x0b47d8, 0x0b47b8, 0x0b6780, 0x0cead8],
+		HORSE_BONDS:			[0xe1a0ca54, 0x0c3670, 0x0c3738, 0x0c3710, 0x0c5bb0, 0x0de2a0], /* max=0x3f80 */
 
-		KOROK_SEED_COUNTER:		[0x8a94e07a, 0x076148, 0x0761f8, 0x0761e0, 0x0778f8],
-		DEFEATED_HINOX_COUNTER:	[0x54679940, 0x04d2b8, 0x04d368, 0x04d358, 0x04e158],
-		DEFEATED_TALUS_COUNTER:	[0x698266be, 0x063010, 0x0630c0, 0x0630a8, 0x064218],
-		DEFEATED_MOLDUGA_COUNTER:[0x441b7231, 0x0466d0, 0x046788, 0x046780, 0x0472a8],
+		KOROK_SEED_COUNTER:		[0x8a94e07a, 0x076148, 0x0761f8, 0x0761e0, 0x0778f8, 0x083b60],
+		DEFEATED_HINOX_COUNTER:	[0x54679940, 0x04d2b8, 0x04d368, 0x04d358, 0x04e158, 0x05a2f0],
+		DEFEATED_TALUS_COUNTER:	[0x698266be, 0x063010, 0x0630c0, 0x0630a8, 0x064218, 0x0703f0],
+		DEFEATED_MOLDUGA_COUNTER:[0x441b7231, 0x0466d0, 0x046788, 0x046780, 0x0472a8, 0x0533e8],
 
-		PLAYTIME:				[0x73c29681, 0x067888, 0x067920, 0x067908, 0x068c40],
+		PLAYTIME:				[0x73c29681, 0x067888, 0x067920, 0x067908, 0x068c40, 0x074e40],
 
-		RELIC_GERUDO:			[0x97f925c3, 0x07adc0, 0x07ae80, 0x07ae68, 0x07c7e0],
-		RELIC_GORON:			[0xf1cf4807, 0x0cb3c0, 0x0cb488, 0x0cb460, 0x0cdbf8],
-		RELIC_RITO:				[0xfda0cde4, 0x0da0d8, 0x0da190, 0x0da160, 0x0dcac0]
+		RELIC_GERUDO:			[0x97f925c3, 0x07adc0, 0x07ae80, 0x07ae68, 0x07c7e0, 0x088a60],
+		RELIC_GORON:			[0xf1cf4807, 0x0cb3c0, 0x0cb488, 0x0cb460, 0x0cdbf8, 0x0e6340],
+		RELIC_RITO:				[0xfda0cde4, 0x0da0d8, 0x0da190, 0x0da160, 0x0dcac0, 0x0f8370]
 	},
 
 
@@ -95,7 +96,7 @@ SavegameEditor={
 
 	_getOffsets(v){
 		this.Offsets={};
-		if(v<=3){
+		if(v<this.Constants.FILESIZE.length){
 			for(prop in this.OffsetsAll){
 				this.Offsets[prop]=this.OffsetsAll[prop][v+1];
 			}
@@ -312,7 +313,7 @@ SavegameEditor={
 		for(var i=0; i<this.Constants.FILESIZE.length; i++){
 			if(tempFile.fileSize===this.Constants.FILESIZE[i] && tempFile.readInt(0)===this.Constants.HEADER[i] && tempFile.readInt(4)===0xffffffff){
 				this._getOffsets(i);
-				setValue('version', 'v1.'+i+'.x (Wii U)');
+				setValue('version', this.Constants.VERSION[i]+' (Wii U)');
 				return true;
 			}
 		}
@@ -321,7 +322,7 @@ SavegameEditor={
 		for(var i=0; i<this.Constants.FILESIZE.length; i++){
 			if(tempFile.fileSize===this.Constants.FILESIZE[i] && tempFile.readInt(0)===this.Constants.HEADER[i] && tempFile.readInt(4)===0xffffffff){
 				this._getOffsets(i);
-				setValue('version', 'v1.'+i+'.x (Switch)');
+				setValue('version', this.Constants.VERSION[i]+' (Switch)');
 				return true;
 			}
 		}
