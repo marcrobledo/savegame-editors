@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild - Master editor v20171110
+	The legend of Zelda: Breath of the wild - Master editor v20171209
 	by Marc Robledo 2017
 */
 var currentEditingItem=0;
@@ -14,9 +14,9 @@ SavegameEditor={
 	Constants:{
 		STRING_SIZE:0x80,
 
-		/*						 v1.0    v1.1    v1.2    v1.3    v1.3.3   */
-		FILESIZE:				[896976, 897160, 897112, 907824, 1020648],
-		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x3ef8],
+		/*						 v1.0    v1.1    v1.2    v1.3    v1.3.3   v1.4 */
+		FILESIZE:				[896976, 897160, 897112, 907824, 1020648, 1027208],
+		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x3ef8,  0x471a],
 	},
 
 	Hashes:[],
