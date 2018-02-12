@@ -1,22 +1,22 @@
 /*
-	The legend of Zelda: Breath of the wild - Master editor v20171209
-	by Marc Robledo 2017
+	The legend of Zelda: Breath of the wild - Master editor vv20181202
+	by Marc Robledo 2017-2018
 */
 var currentEditingItem=0;
 
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild (Master editor)',
 	Filename:'game_data.sav',
-	Version:20171110,
+	Version:20181202,
 
 
 	/* Constants */
 	Constants:{
 		STRING_SIZE:0x80,
 
-		/*						 v1.0    v1.1    v1.2    v1.3    v1.3.3   v1.4 */
-		FILESIZE:				[896976, 897160, 897112, 907824, 1020648, 1027208],
-		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x3ef8,  0x471a],
+		/*						 v1.0    v1.1    v1.2    v1.3    v1.3.3   v1.4     v1.5 */
+		FILESIZE:				[896976, 897160, 897112, 907824, 1020648, 1027208, 1027208],
+		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x3ef8,  0x471a,  0x471b],
 	},
 
 	Hashes:[],
