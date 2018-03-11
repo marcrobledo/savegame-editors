@@ -7,7 +7,7 @@ var currentEditingItem=0;
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
 	Filename:'game_data.sav',
-	Version:20181202,
+	Version:20180311,
 
 	/* Constants */
 	Constants:{
@@ -518,8 +518,8 @@ SavegameEditor={
 			tempFile.writeFloat32(off+20, getValue('pos-z'))
 		}
 		// map, maptype
-		this.writeString(this.Offsets.MAP, getValue('pos-map'))
-		this.writeString(this.Offsets.MAPTYPE, getValue('pos-maptype'))
+		this._writeString(this.Offsets.MAP, getValue('pos-map'))
+		this._writeString(this.Offsets.MAPTYPE, getValue('pos-maptype'))
 		// horse
 		off = undefined
 		off = this.Offsets.HORSE_POSITION
