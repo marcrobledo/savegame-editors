@@ -662,6 +662,54 @@ function loadMapPins(){
 	setValue('number-map-pins', count);
 }
 
+function guessMainFieldGrid() {
+	if (getValue('pos-maptype') == "MainField")
+		setValue("pos-map",guessMainFieldGridInternal(getValue("pos-x"), getValue("pos-z")))
+	else
+		MarcDialogs.alert("This only applies for MainField, not trials or divine beasts.")
+}
+
+function fixPCCoords() {
+	let dungeon = getValue('pos-map')
+	if (dungeon == "RemainsFire") {
+		setValue('pos-x', 0)
+		setValue('pos-y',16.8)
+		setValue('pos-z',69.5)
+	} else if (dungeon == "RemainsWater") {
+		setValue('pos-x',47.7)
+		setValue('pos-y',6.05)
+		setValue('pos-z',6.3)
+	} else if (dungeon == "RemainsWind") {
+		setValue('pos-x',0)
+		setValue('pos-y',3.4)
+		setValue('pos-z',-77.7)
+	} else if (dungeon == "RemainsElectric") {
+		setValue('pos-x',0)
+		setValue('pos-y',71.9)
+		setValue('pos-z',3.7)
+	} else if (dungeon == "FinalTrial") {
+		setValue('pos-x',0)
+		setValue('pos-y',-0.4)
+		setValue('pos-z',64.5)
+	}
+}
+
+function guessMainFieldGridInternal(xpos, zpos) {
+	// A1 = -4974.629, -3974.629
+	// J8 =  4974.629,  3974.629
+	// X and letter part of grid: west/east
+	// Z and number part of grid: north/south
+
+	// grid also visible at https://mrcheeze.github.io/botw-object-map/
+
+	// idea: Take position fraction out of the whole grid and divide equally.
+
+	let gridvalX = Math.min(10, Math.max(1, Math.trunc((xpos + 4974.629) / 9949.258 * 10 + 1)))
+	let gridvalZ = Math.min( 8, Math.max(1, Math.trunc((zpos + 3974.629) / 7949.258 * 8  + 1)))
+
+	return String.fromCharCode(64 + gridvalX) + '-' + gridvalZ
+}
+
 function clearMapPins(){
 	// types
 	var count = 0;
