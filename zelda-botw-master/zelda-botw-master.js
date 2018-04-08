@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild - Master editor vv20181202
+	The legend of Zelda: Breath of the wild - Master editor v20180408
 	by Marc Robledo 2017-2018
 */
 var currentEditingItem=0;
@@ -17,6 +17,7 @@ SavegameEditor={
 		/*						 v1.0    v1.1    v1.2    v1.3    v1.3.3   v1.4     v1.5 */
 		FILESIZE:				[896976, 897160, 897112, 907824, 1020648, 1027208, 1027208],
 		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x3ef8,  0x471a,  0x471b],
+		VERSION:				['v1.0', 'v1.1', 'v1.2', 'v1.3', 'v1.3.3','v1.4',  'v1.5']
 	},
 
 	Hashes:[],
@@ -51,22 +52,24 @@ SavegameEditor={
 
 
 	/* check if savegame is valid */
-	checkValidSavegame:function(){
-		tempFile.littleEndian=false;
+	_checkValidSavegameByConsole:function(switchMode){
+		var CONSOLE=switchMode?'Switch':'Wii U';
+		tempFile.littleEndian=switchMode;
 		for(var i=0; i<this.Constants.FILESIZE.length; i++){
-			if(tempFile.fileSize===this.Constants.FILESIZE[i] && tempFile.readInt(0)===this.Constants.HEADER[i] && tempFile.readInt(4)===0xffffffff){
-				setValue('version', 'v1.'+i+'.x (Wii U)');
+			var versionHash=tempFile.readInt(0);
+			if(versionHash===0x2a46) //v1.3.0 switch?
+				versionHash=0x29c0;
+
+			if(tempFile.fileSize===this.Constants.FILESIZE[i] && versionHash===this.Constants.HEADER[i] && tempFile.readInt(4)===0xffffffff){
+				setValue('version', this.Constants.VERSION[i]+' ('+CONSOLE+')');
 				return true;
 			}
 		}
-		tempFile.littleEndian=true;
-		for(var i=0; i<this.Constants.FILESIZE.length; i++){
-			if(tempFile.fileSize===this.Constants.FILESIZE[i] && tempFile.readInt(0)===this.Constants.HEADER[i] && tempFile.readInt(4)===0xffffffff){
-				setValue('version', 'v1.'+i+'.x (Switch)');
-				return true;
-			}
-		}
+
 		return false
+	},
+	checkValidSavegame:function(){
+		return this._checkValidSavegameByConsole(false) || this._checkValidSavegameByConsole(true);
 	},
 
 
