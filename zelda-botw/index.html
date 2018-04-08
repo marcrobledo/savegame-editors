@@ -77,6 +77,51 @@
 		<div class="ten columns"><label for="number-playtime">Playtime</label></div>
 		<div class="two columns"><input type="text" id="number-playtime" class="text-right full-width" disabled /></div>
 	</div>
+	
+	<!-- Coordinates (Requires a memory editor) -->
+	<h3 class="border-green">Coordinates</h3>
+	<div class="row">
+		<div class="six columns"><label for="float-pos-x">X</label></div>
+		<div class="three columns text-right">
+			<button onclick="fixPCCoords()">Fix for Dungeon</button>
+	</div>
+		<div class="three columns">
+				<input id="float-pos-x" class="full-width" type="text" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="nine columns"><label for="float-pos-y">Y</label></div>
+		<div class="three columns"><input id="float-pos-y" class="full-width" type="text" /></div>
+	</div>
+	<div class="row">
+		<div class="nine columns"><label for="float-pos-z">Z</label></div>
+		<div class="three columns"><input id="float-pos-z" class="full-width" type="text" /></div>
+	</div>
+	<div class="row">
+		<div class="seven columns"><label for="input-pos-map">Map (44A0)</label></div>
+		<div class="two columns text-right">
+			<button onclick="guessMainFieldGrid()">Guess</button>
+		</div>
+		<div class="three columns">
+			<input id="input-pos-map" class="full-width" type="text" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="nine columns"><label for="input-pos-maptype">Map Type (DC658)</label></div>
+		<div class="three columns"><input id="input-pos-maptype" class="full-width" type="text" /></div>
+	</div>
+	<div class="row">
+		<div class="nine columns"><label for="float-pos-x-horse">Horse X</label></div>
+		<div class="three columns"><input id="float-pos-x-horse" class="full-width" type="text" /></div>
+	</div>
+	<div class="row">
+		<div class="nine columns"><label for="float-pos-y-horse">Horse Y</label></div>
+		<div class="three columns"><input id="float-pos-y-horse" class="full-width" type="text" /></div>
+	</div>
+	<div class="row">
+		<div class="nine columns"><label for="float-pos-z-horse">Horse Z</label></div>
+		<div class="three columns"><input id="float-pos-z-horse" class="full-width" type="text" /></div>
+	</div>
 
 	<!-- ITEMS -->
 	<h3>Weapons</h3><div id="container-weapons"></div>
@@ -95,6 +140,7 @@
 	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(3)">Edit horse 3</button></div>
 	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(4)">Edit horse 4</button></div>
 	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(5)">Edit untamed horse</button></div>
+
 
 	<!-- COMPLETIONISM -->
 	<h3 class="border-green">Completionism</h3>

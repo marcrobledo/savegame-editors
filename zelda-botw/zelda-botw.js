@@ -7,7 +7,7 @@ var currentEditingItem=0;
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
 	Filename:'game_data.sav',
-	Version:20181202,
+	Version:20180311,
 
 	/* Constants */
 	Constants:{
@@ -58,7 +58,11 @@ SavegameEditor={
 		RELIC_GORON:			[0xf1cf4807, 0x0cb3c0, 0x0cb488, 0x0cb460, 0x0cdbf8, 0x0e6340, 0x0e7ba0, 0x0e7ba0],
 		RELIC_RITO:				[0xfda0cde4, 0x0da0d8, 0x0da190, 0x0da160, 0x0dcac0, 0x0f8370, 0x0f9cc8, 0x0f9cc8],
 
-		MOTORCYCLE:				[0xc9328299, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x0d2660, 0x0d2660] /* IsGet_Obj_Motorcycle */
+		MOTORCYCLE:				[0xc9328299, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x0d2660, 0x0d2660], /* IsGet_Obj_Motorcycle */
+		HORSE_POSITION:			[0x00000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x089a7C, 0x089a7C],
+		MAP:                    [0x00000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x0044A0, 0x0044A0],
+		MAPTYPE:                [0x00000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x0dc658, 0x0dc658],
+
 	},
 
 
@@ -395,6 +399,32 @@ SavegameEditor={
 			document.getElementById('row-motorcycle').style.display='none';
 		}
 
+		// Coordinates
+		var px = 0, py = 0, pz = 0;
+		var off = SavegameEditor._searchHash(SavegameEditor.Constants.PLAYER_LOCATION);
+		if (off){
+			px = tempFile.readFloat32(off+4)
+			py = tempFile.readFloat32(off+12)
+			pz = tempFile.readFloat32(off+20)
+		}
+		setValue('pos-x',px)
+		setValue('pos-y',py)
+		setValue('pos-z',pz)
+		// map, maptype
+		setValue('pos-map',this._readString(this.Offsets.MAP))
+		setValue('pos-maptype',this._readString(this.Offsets.MAPTYPE))
+		// horse
+		off = undefined
+		off = this.Offsets.HORSE_POSITION
+		if (off){
+			px = tempFile.readFloat32(off+4)
+			py = tempFile.readFloat32(off+12)
+			pz = tempFile.readFloat32(off+20)
+		}
+		setValue('pos-x-horse',px) // cx
+		setValue('pos-y-horse',py)
+		setValue('pos-z-horse',pz)
+
 		loadMapPins()
 
 		/* items */
@@ -477,6 +507,26 @@ SavegameEditor={
 		/* MOTORCYCLE */
 		if(this.Offsets.MOTORCYCLE){
 			tempFile.writeInt(this.Offsets.MOTORCYCLE, getField('checkbox-motorcycle').checked?1:0);
+		}
+		
+		// position
+		var px = 0, py = 0, pz = 0;
+		var off = SavegameEditor._searchHash(SavegameEditor.Constants.PLAYER_LOCATION);
+		if (off){
+			tempFile.writeFloat32(off+4, getValue('pos-x'))
+			tempFile.writeFloat32(off+12, getValue('pos-y'))
+			tempFile.writeFloat32(off+20, getValue('pos-z'))
+		}
+		// map, maptype
+		this._writeString(this.Offsets.MAP, getValue('pos-map'))
+		this._writeString(this.Offsets.MAPTYPE, getValue('pos-maptype'))
+		// horse
+		off = undefined
+		off = this.Offsets.HORSE_POSITION
+		if (off){
+			tempFile.writeFloat32(off+4, getValue('pos-x-horse'))
+			tempFile.writeFloat32(off+12, getValue('pos-y-horse'))
+			tempFile.writeFloat32(off+20, getValue('pos-z-horse'))
 		}
 
 		/* ITEMS */
@@ -612,6 +662,54 @@ function loadMapPins(){
 	setValue('number-map-pins', count);
 }
 
+function guessMainFieldGrid() {
+	if (getValue('pos-maptype') == "MainField")
+		setValue("pos-map",guessMainFieldGridInternal(getValue("pos-x"), getValue("pos-z")))
+	else
+		MarcDialogs.alert("This only applies for MainField, not trials or divine beasts.")
+}
+
+function fixPCCoords() {
+	let dungeon = getValue('pos-map')
+	if (dungeon == "RemainsFire") {
+		setValue('pos-x', 0)
+		setValue('pos-y',16.8)
+		setValue('pos-z',69.5)
+	} else if (dungeon == "RemainsWater") {
+		setValue('pos-x',47.7)
+		setValue('pos-y',6.05)
+		setValue('pos-z',6.3)
+	} else if (dungeon == "RemainsWind") {
+		setValue('pos-x',0)
+		setValue('pos-y',3.4)
+		setValue('pos-z',-77.7)
+	} else if (dungeon == "RemainsElectric") {
+		setValue('pos-x',0)
+		setValue('pos-y',71.9)
+		setValue('pos-z',3.7)
+	} else if (dungeon == "FinalTrial") {
+		setValue('pos-x',0)
+		setValue('pos-y',-0.4)
+		setValue('pos-z',64.5)
+	}
+}
+
+function guessMainFieldGridInternal(xpos, zpos) {
+	// A1 = -4974.629, -3974.629
+	// J8 =  4974.629,  3974.629
+	// X and letter part of grid: west/east
+	// Z and number part of grid: north/south
+
+	// grid also visible at https://mrcheeze.github.io/botw-object-map/
+
+	// idea: Take position fraction out of the whole grid and divide equally.
+
+	let gridvalX = Math.min(10, Math.max(1, Math.trunc((xpos + 4974.629) / 9949.258 * 10 + 1)))
+	let gridvalZ = Math.min( 8, Math.max(1, Math.trunc((zpos + 3974.629) / 7949.258 * 8  + 1)))
+
+	return String.fromCharCode(64 + gridvalX) + '-' + gridvalZ
+}
+
 function clearMapPins(){
 	// types
 	var count = 0;
@@ -675,6 +773,8 @@ function dist(px,py,pz,l){
 	// 2d seems to work better than 3d
 	return Math.sqrt((Math.pow(l[0]-px,2))+(Math.pow(l[2]-pz,2)))
 }
+
+
 
 function addToMap(data, icon){
 	var px = 0, py = 0, pz = 0;
