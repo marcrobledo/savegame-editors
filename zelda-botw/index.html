@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="savegame-editor.appcache">
+<html>
 <head>
 	<title>Savegame Editor &ndash; The legend of Zelda: Breath of the wild</title>
 	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
@@ -81,46 +81,16 @@
 	<!-- Coordinates (Requires a memory editor) -->
 	<h3 class="border-green">Coordinates</h3>
 	<div class="row">
-		<div class="six columns"><label for="float-pos-x">X</label></div>
-		<div class="three columns text-right">
-			<button onclick="fixPCCoords()">Fix for Dungeon</button>
+		<div class="six columns"><label for="float-pos-x">Current Link coordinates (XYZ)</label></div>
+		<div class="two columns"><input id="float-pos-x" onchange="guessMainFieldGrid()" class="full-width" type="text" /></div>
+		<div class="two columns"><input id="float-pos-y" onchange="guessMainFieldGrid()" class="full-width" type="text" /></div>
+		<div class="two columns"><input id="float-pos-z" onchange="guessMainFieldGrid()" class="full-width" type="text" /></div>
 	</div>
-		<div class="three columns">
-				<input id="float-pos-x" class="full-width" type="text" />
-		</div>
-	</div>
+
 	<div class="row">
-		<div class="nine columns"><label for="float-pos-y">Y</label></div>
-		<div class="three columns"><input id="float-pos-y" class="full-width" type="text" /></div>
-	</div>
-	<div class="row">
-		<div class="nine columns"><label for="float-pos-z">Z</label></div>
-		<div class="three columns"><input id="float-pos-z" class="full-width" type="text" /></div>
-	</div>
-	<div class="row">
-		<div class="seven columns"><label for="input-pos-map">Map (44A0)</label></div>
-		<div class="two columns text-right">
-			<button onclick="guessMainFieldGrid()">Guess</button>
-		</div>
-		<div class="three columns">
-			<input id="input-pos-map" class="full-width" type="text" />
-		</div>
-	</div>
-	<div class="row">
-		<div class="nine columns"><label for="input-pos-maptype">Map Type (DC658)</label></div>
-		<div class="three columns"><input id="input-pos-maptype" class="full-width" type="text" /></div>
-	</div>
-	<div class="row">
-		<div class="nine columns"><label for="float-pos-x-horse">Horse X</label></div>
-		<div class="three columns"><input id="float-pos-x-horse" class="full-width" type="text" /></div>
-	</div>
-	<div class="row">
-		<div class="nine columns"><label for="float-pos-y-horse">Horse Y</label></div>
-		<div class="three columns"><input id="float-pos-y-horse" class="full-width" type="text" /></div>
-	</div>
-	<div class="row">
-		<div class="nine columns"><label for="float-pos-z-horse">Horse Z</label></div>
-		<div class="three columns"><input id="float-pos-z-horse" class="full-width" type="text" /></div>
+		<div class="six columns"><label for="select-pos-maptype">Map</label></div>
+		<div class="three columns"><select id="select-pos-maptype"></select></div>
+		<div class="three columns"><select id="select-pos-map"></select></div>
 	</div>
 
 	<!-- ITEMS -->
@@ -134,12 +104,20 @@
 
 	<!-- HORSES -->
 	<h3 class="border-blue">Horses</h3>
-	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(0)">Edit horse 0</button></div>
-	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(1)">Edit horse 1</button></div>
-	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(2)">Edit horse 2</button></div>
-	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(3)">Edit horse 3</button></div>
-	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(4)">Edit horse 4</button></div>
-	<div class="text-center"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(5)">Edit untamed horse</button></div>
+	<div class="row">
+		<div class="four columns"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(0)">Edit horse 0</button></div>
+		<div class="four columns"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(1)">Edit horse 1</button></div>
+		<div class="four columns"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(2)">Edit horse 2</button></div>
+		<div class="four columns"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(3)">Edit horse 3</button></div>
+		<div class="four columns"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(4)">Edit horse 4</button></div>
+		<div class="four columns"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(5)">Edit untamed horse</button></div>
+	</div>
+	<div class="row">
+		<div class="six columns"><label for="float-pos-x-horse">Current horse coordinates (XYZ)</label></div>
+		<div class="two columns"><input id="float-pos-x-horse" class="full-width" type="text" /></div>
+		<div class="two columns"><input id="float-pos-y-horse" class="full-width" type="text" /></div>
+		<div class="two columns"><input id="float-pos-z-horse" class="full-width" type="text" /></div>
+	</div>
 
 
 	<!-- COMPLETIONISM -->

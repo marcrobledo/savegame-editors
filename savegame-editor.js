@@ -1,8 +1,8 @@
 /*
-	savegame-editor.js v201705011
+	savegame-editor.js v20180408
 	A library that lets you create easily a savegame editor. Made with vanilla JS.
 
-	by Marc Robledo 2016-2017
+	by Marc Robledo 2016-2018
 	http://www.marcrobledo.com/license
 */
 
@@ -271,7 +271,7 @@ function fixNumericFieldValue(field){
 	
 
 	if(isNaN(val) || val<field.minValue){
-		val=field.minValue;
+		val=field.minValue || 0;
 	}else if(val > field.maxValue){
 		val=field.maxValue;
 	}

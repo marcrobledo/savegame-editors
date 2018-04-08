@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild v20181202
+	The legend of Zelda: Breath of the wild v20180408
 	by Marc Robledo 2017-2018
 */
 var currentEditingItem=0;
@@ -7,7 +7,7 @@ var currentEditingItem=0;
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
 	Filename:'game_data.sav',
-	Version:20180311,
+	Version:20180408,
 
 	/* Constants */
 	Constants:{
@@ -21,7 +21,6 @@ SavegameEditor={
 
 		MAP_ICONS: 0x9383490e,
 		MAP_POS: 0xea9def3f,
-		PLAYER_LOCATION: 0xa40ba103,
 		ICON_TYPES:{SWORD: 27, BOW:28, SHIELD:29, POT:30, STAR:31, CHEST:32,SKULL:33,LEAF:34,TOWER:35}
 	},
 
@@ -46,6 +45,7 @@ SavegameEditor={
 		HORSE_MANES:			[0x9c6cfd3f, 0x0a6478, 0x0a6538, 0x0a6520, 0x0a7f18, 0x0c01c0, 0x0c1168, 0x0c1168],
 		HORSE_TYPES:			[0xc247b696, 0x0b46f8, 0x0b47d8, 0x0b47b8, 0x0b6780, 0x0cead8, 0x0cfe40, 0x0cfe40],
 		HORSE_BONDS:			[0xe1a0ca54, 0x0c3670, 0x0c3738, 0x0c3710, 0x0c5bb0, 0x0de2a0, 0x0df960, 0x0df960], /* max=0x3f80 */
+		HORSE_POSITION:			[0x982ba201, 0x07aed0, 0x07af90, 0x07af78, 0x07c8f8, 0x088b78, 0x089a80, 0x089a80],
 
 		KOROK_SEED_COUNTER:		[0x8a94e07a, 0x076148, 0x0761f8, 0x0761e0, 0x0778f8, 0x083b60, 0x084908, 0x084908],
 		DEFEATED_HINOX_COUNTER:	[0x54679940, 0x04d2b8, 0x04d368, 0x04d358, 0x04e158, 0x05a2f0, 0x05ab78, 0x05ab78],
@@ -59,12 +59,11 @@ SavegameEditor={
 		RELIC_RITO:				[0xfda0cde4, 0x0da0d8, 0x0da190, 0x0da160, 0x0dcac0, 0x0f8370, 0x0f9cc8, 0x0f9cc8],
 
 		MOTORCYCLE:				[0xc9328299, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x0d2660, 0x0d2660], /* IsGet_Obj_Motorcycle */
-		HORSE_POSITION:			[0x00000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x089a7C, 0x089a7C],
-		MAP:                    [0x00000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x0044A0, 0x0044A0],
-		MAPTYPE:                [0x00000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x0dc658, 0x0dc658],
 
+		PLAYER_POSITION:		[0xa40ba103, 0x0a8cd8, 0x0a8da8, 0x0a8d90, 0x0aa8a8, 0x0c2b98, 0x0c3bf0, 0x0c3bf0],
+		MAP:                    [0x0bee9e46, 0x004128, 0x004130, 0x004130, 0x004310, 0x004348, 0x0044a0, 0x0044a0],
+		MAPTYPE:                [0xd913b769, 0x0c0588, 0x0c0658, 0x0c0630, 0x0c29b0, 0x0db080, 0x0dc658, 0x0dc658]
 	},
-
 
 
 	/* private functions */
@@ -73,6 +72,16 @@ SavegameEditor={
 	_writeValue:function(offset,val,arrayPos){if(arrayPos)tempFile.writeInt(offset+8*i,val);else tempFile.writeInt(offset,val)},
 	_writeString:function(offset,str){
 		for(var i=0; i<16; i++){
+			tempFile.writeBytes(offset,[0,0,0,0]);
+			var fourBytes=str.substr(i*4, 4);
+			for(j=0; j<fourBytes.length; j++){
+				tempFile.writeByte(offset+j, fourBytes.charCodeAt(j));
+			}
+			offset+=8;
+		}
+	},
+	_writeStringShort:function(offset,str){
+		for(var i=0; i<8; i++){
 			tempFile.writeBytes(offset,[0,0,0,0]);
 			var fourBytes=str.substr(i*4, 4);
 			for(j=0; j<fourBytes.length; j++){
@@ -314,26 +323,25 @@ SavegameEditor={
 
 
 	/* check if savegame is valid */
-	checkValidSavegame:function(){
-		tempFile.littleEndian=false;
+	_checkValidSavegameByConsole:function(switchMode){
+		var CONSOLE=switchMode?'Switch':'Wii U';
+		tempFile.littleEndian=switchMode;
 		for(var i=0; i<this.Constants.FILESIZE.length; i++){
-			if(tempFile.fileSize===this.Constants.FILESIZE[i] && tempFile.readInt(0)===this.Constants.HEADER[i] && tempFile.readInt(4)===0xffffffff){
-				this._getOffsets(i);
-				setValue('version', this.Constants.VERSION[i]+' (Wii U)');
-				return true;
-			}
-		}
+			var versionHash=tempFile.readInt(0);
+			if(versionHash===0x2a46) //v1.3.0 switch?
+				versionHash=0x29c0;
 
-		tempFile.littleEndian=true;
-		for(var i=0; i<this.Constants.FILESIZE.length; i++){
-			if(tempFile.fileSize===this.Constants.FILESIZE[i] && tempFile.readInt(0)===this.Constants.HEADER[i] && tempFile.readInt(4)===0xffffffff){
+			if(tempFile.fileSize===this.Constants.FILESIZE[i] && versionHash===this.Constants.HEADER[i] && tempFile.readInt(4)===0xffffffff){
 				this._getOffsets(i);
-				setValue('version', this.Constants.VERSION[i]+' (Switch)');
+				setValue('version', this.Constants.VERSION[i]+' ('+CONSOLE+')');
 				return true;
 			}
 		}
 
 		return false
+	},
+	checkValidSavegame:function(){
+		return this._checkValidSavegameByConsole(false) || this._checkValidSavegameByConsole(true);
 	},
 
 
@@ -357,7 +365,56 @@ SavegameEditor={
 			}
 			get('select-item').appendChild(optGroup);
 		}
-		
+
+		/* map position selectors */
+		select(
+			'pos-maptype',
+			[
+				'?',
+				{value:'MainField',name:'MainField'},
+				{value:'MainFieldDungeon',name:'MainFieldDungeon'}
+			],
+			function(){
+				if(this.value==='MainField'){
+					setValue('pos-map','A-1');
+				}else if(this.value==='MainFieldDungeon'){
+					setValue('pos-map','RemainsElectric');
+					fixDungeonCoordinates();
+				}
+			}
+		);
+
+		var maps=['?'];
+		for(var i=0; i<10; i++){
+			for(var j=0; j<8; j++){
+				var map=(String.fromCharCode(65+i))+'-'+(j+1);
+				maps.push({value:map,name:map});
+			}
+		}
+		for(var i=0; i<120; i++){
+			var map='Dungeon'
+			if(i<100)
+				map+='0';
+			if(i<10)
+				map+='0';
+			map+=i;
+			maps.push({value:map,name:map});
+		}
+		maps.push({value:'RemainsElectric',name:'RemainsElectric'});
+		maps.push({value:'RemainsFire',name:'RemainsFire'});
+		maps.push({value:'RemainsWater',name:'RemainsWater'});
+		maps.push({value:'RemainsWind',name:'RemainsWind'});
+		select('pos-map', maps, function(){
+			if(/^.-\d$/.test(this.value)){
+				setValue('pos-maptype','MainField');
+			}else if(/^Remains/.test(this.value)){
+				setValue('pos-maptype','MainFieldDungeon');
+				fixDungeonCoordinates();
+			}else if(/^Dungeon/.test(this.value)){
+				setValue('pos-maptype','MainFieldDungeon');
+			}
+		});
+
 		/* dialogs */
 		select('horse-saddles', this._arrayToSelectOpts(BOTW_Data.HORSE_SADDLES));
 		select('horse-reins', this._arrayToSelectOpts(BOTW_Data.HORSE_REINS));
@@ -391,6 +448,7 @@ SavegameEditor={
 		setValue('defeated-molduga', tempFile.readInt(this.Offsets.DEFEATED_MOLDUGA_COUNTER));
 		setValue('playtime',this._timeToString(tempFile.readInt(this.Offsets.PLAYTIME)));
 
+
 		/* motorcycle */
 		document.getElementById('checkbox-motorcycle').checked=!!tempFile.readInt(this.Offsets.MOTORCYCLE);
 		if(this.Offsets.MOTORCYCLE){
@@ -399,33 +457,29 @@ SavegameEditor={
 			document.getElementById('row-motorcycle').style.display='none';
 		}
 
-		// Coordinates
-		var px = 0, py = 0, pz = 0;
-		var off = SavegameEditor._searchHash(SavegameEditor.Constants.PLAYER_LOCATION);
-		if (off){
-			px = tempFile.readFloat32(off+4)
-			py = tempFile.readFloat32(off+12)
-			pz = tempFile.readFloat32(off+20)
-		}
-		setValue('pos-x',px)
-		setValue('pos-y',py)
-		setValue('pos-z',pz)
-		// map, maptype
-		setValue('pos-map',this._readString(this.Offsets.MAP))
-		setValue('pos-maptype',this._readString(this.Offsets.MAPTYPE))
-		// horse
-		off = undefined
-		off = this.Offsets.HORSE_POSITION
-		if (off){
-			px = tempFile.readFloat32(off+4)
-			py = tempFile.readFloat32(off+12)
-			pz = tempFile.readFloat32(off+20)
-		}
-		setValue('pos-x-horse',px) // cx
-		setValue('pos-y-horse',py)
-		setValue('pos-z-horse',pz)
 
+		/* coordinates */
+		setValue('pos-x', tempFile.readFloat32(this.Offsets.PLAYER_POSITION));
+		setValue('pos-y', tempFile.readFloat32(this.Offsets.PLAYER_POSITION+8));
+		setValue('pos-z', tempFile.readFloat32(this.Offsets.PLAYER_POSITION+16));
+
+		var map=this._readString(this.Offsets.MAP);
+		var mapType=this._readString(this.Offsets.MAPTYPE);
+		getField('pos-map').children[0].value=map;
+		getField('pos-map').children[0].innerHTML='* '+map+' *';
+		getField('pos-maptype').children[0].value=mapType;
+		getField('pos-maptype').children[0].innerHTML='* '+mapType+' *';
+		setValue('pos-map',map)
+		setValue('pos-maptype',mapType)
+
+		setValue('pos-x-horse', tempFile.readFloat32(this.Offsets.HORSE_POSITION));
+		setValue('pos-y-horse', tempFile.readFloat32(this.Offsets.HORSE_POSITION+8));
+		setValue('pos-z-horse', tempFile.readFloat32(this.Offsets.HORSE_POSITION+16));
+
+
+		/* map pins */
 		loadMapPins()
+
 
 		/* items */
 		empty('container-weapons');
@@ -508,26 +562,21 @@ SavegameEditor={
 		if(this.Offsets.MOTORCYCLE){
 			tempFile.writeInt(this.Offsets.MOTORCYCLE, getField('checkbox-motorcycle').checked?1:0);
 		}
+
+
+
+		/* COORDINATES */
+		tempFile.writeFloat32(this.Offsets.PLAYER_POSITION, getValue('pos-x'));
+		tempFile.writeFloat32(this.Offsets.PLAYER_POSITION+8, getValue('pos-y'));
+		tempFile.writeFloat32(this.Offsets.PLAYER_POSITION+16, getValue('pos-z'));
 		
-		// position
-		var px = 0, py = 0, pz = 0;
-		var off = SavegameEditor._searchHash(SavegameEditor.Constants.PLAYER_LOCATION);
-		if (off){
-			tempFile.writeFloat32(off+4, getValue('pos-x'))
-			tempFile.writeFloat32(off+12, getValue('pos-y'))
-			tempFile.writeFloat32(off+20, getValue('pos-z'))
-		}
-		// map, maptype
-		this._writeString(this.Offsets.MAP, getValue('pos-map'))
-		this._writeString(this.Offsets.MAPTYPE, getValue('pos-maptype'))
-		// horse
-		off = undefined
-		off = this.Offsets.HORSE_POSITION
-		if (off){
-			tempFile.writeFloat32(off+4, getValue('pos-x-horse'))
-			tempFile.writeFloat32(off+12, getValue('pos-y-horse'))
-			tempFile.writeFloat32(off+20, getValue('pos-z-horse'))
-		}
+		this._writeStringShort(this.Offsets.MAP, getValue('pos-map'))
+		this._writeStringShort(this.Offsets.MAPTYPE, getValue('pos-maptype'))
+
+		tempFile.writeFloat32(this.Offsets.HORSE_POSITION, getValue('pos-x-horse'));
+		tempFile.writeFloat32(this.Offsets.HORSE_POSITION+8, getValue('pos-y-horse'));
+		tempFile.writeFloat32(this.Offsets.HORSE_POSITION+16, getValue('pos-z-horse'));
+
 
 		/* ITEMS */
 		for(var i=0; i<this.Constants.MAX_ITEMS; i++){
@@ -633,7 +682,7 @@ function setCompendiumToStock(){
 }
 
 var mapPinCount = 0;
-var maxMapPins = 100;
+var MAX_MAP_PINS = 100;
 function loadMapPins(){
 	// Read Pin Types
 	var count = 0;
@@ -665,12 +714,10 @@ function loadMapPins(){
 function guessMainFieldGrid() {
 	if (getValue('pos-maptype') == "MainField")
 		setValue("pos-map",guessMainFieldGridInternal(getValue("pos-x"), getValue("pos-z")))
-	else
-		MarcDialogs.alert("This only applies for MainField, not trials or divine beasts.")
 }
 
-function fixPCCoords() {
-	let dungeon = getValue('pos-map')
+function fixDungeonCoordinates() {
+	var dungeon = getValue('pos-map')
 	if (dungeon == "RemainsFire") {
 		setValue('pos-x', 0)
 		setValue('pos-y',16.8)
@@ -704,8 +751,8 @@ function guessMainFieldGridInternal(xpos, zpos) {
 
 	// idea: Take position fraction out of the whole grid and divide equally.
 
-	let gridvalX = Math.min(10, Math.max(1, Math.trunc((xpos + 4974.629) / 9949.258 * 10 + 1)))
-	let gridvalZ = Math.min( 8, Math.max(1, Math.trunc((zpos + 3974.629) / 7949.258 * 8  + 1)))
+	var gridvalX = Math.min(10, Math.max(1, Math.trunc((xpos + 4974.629) / 9949.258 * 10 + 1)))
+	var gridvalZ = Math.min( 8, Math.max(1, Math.trunc((zpos + 3974.629) / 7949.258 * 8  + 1)))
 
 	return String.fromCharCode(64 + gridvalX) + '-' + gridvalZ
 }
@@ -777,13 +824,10 @@ function dist(px,py,pz,l){
 
 
 function addToMap(data, icon){
-	var px = 0, py = 0, pz = 0;
-	var off = SavegameEditor._searchHash(SavegameEditor.Constants.PLAYER_LOCATION);
-	if (off){
-		px = tempFile.readFloat32(off+4)
-		py = tempFile.readFloat32(off+12)
-		pz = tempFile.readFloat32(off+20)
-	}
+	var px=tempFile.readFloat32(this.Offsets.PLAYER_POSITION);
+	var py=tempFile.readFloat32(this.Offsets.PLAYER_POSITION+8);
+	var pz=tempFile.readFloat32(this.Offsets.PLAYER_POSITION+16);
+
 	var points = [];
 	for (var i = 0; i<data.length; i++){
 		var l = BOTW_Data.COORDS[data[i]]
@@ -798,10 +842,7 @@ function addToMap(data, icon){
 		return aDist - bDist
 	})
 	var count = 0;
-	for (var i = 0; i<points.length; i++){
-		if(mapPinCount >= maxMapPins){
-			break;		
-		}
+	for (var i = 0; i<points.length && mapPinCount<MAX_MAP_PINS; i++){
 		var pt = points[i]
 		var hash = pt.H;
 		var offset=SavegameEditor._searchHash(hash);
@@ -885,5 +926,9 @@ function onScroll(){
 }
 
 window.addEventListener('load',function(){
+	/* service worker */
+	if('serviceWorker' in navigator)
+		navigator.serviceWorker.register('_cache_service_worker.js');
+
 	window.addEventListener('scroll',onScroll,false);
 }, false);
