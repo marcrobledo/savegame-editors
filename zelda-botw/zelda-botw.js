@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild v20180408
+	The legend of Zelda: Breath of the wild v20180412
 	by Marc Robledo 2017-2018
 */
 var currentEditingItem=0;
@@ -824,9 +824,9 @@ function dist(px,py,pz,l){
 
 
 function addToMap(data, icon){
-	var px=tempFile.readFloat32(this.Offsets.PLAYER_POSITION);
-	var py=tempFile.readFloat32(this.Offsets.PLAYER_POSITION+8);
-	var pz=tempFile.readFloat32(this.Offsets.PLAYER_POSITION+16);
+	var px=tempFile.readFloat32(SavegameEditor.Offsets.PLAYER_POSITION);
+	var py=tempFile.readFloat32(SavegameEditor.Offsets.PLAYER_POSITION+8);
+	var pz=tempFile.readFloat32(SavegameEditor.Offsets.PLAYER_POSITION+16);
 
 	var points = [];
 	for (var i = 0; i<data.length; i++){
