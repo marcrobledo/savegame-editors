@@ -927,6 +927,8 @@ function onScroll(){
 
 window.addEventListener('load',function(){
 	/* service worker */
+	if(location.protocol==='http:')
+		location.href=window.location.href.replace('http:','https:');
 	if('serviceWorker' in navigator)
 		navigator.serviceWorker.register('_cache_service_worker.js');
 
