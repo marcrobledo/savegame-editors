@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild v20180412
+	The legend of Zelda: Breath of the wild v20180512
 	by Marc Robledo 2017-2018
 */
 var currentEditingItem=0;
@@ -179,7 +179,7 @@ SavegameEditor={
 	},
 	_createItemRow(i,itemCat){
 		var itemNameId=this._loadItemName(i);
-		var itemVal=tempFile.readInt(this._getItemQuantityOffset(i));
+		var itemVal=itemCat===false?1:tempFile.readInt(this._getItemQuantityOffset(i));
 
 		var img=new Image();
 		img.id='icon'+i;
@@ -232,9 +232,14 @@ SavegameEditor={
 			i++;
 		}
 		if(i<this.Constants.MAX_ITEMS){
-			this._writeItemName(i,'Item_Fruit_A');
-			document.getElementById('container-materials').appendChild(this._createItemRow(i, false));
-			this.editItem(i);
+			getField('select-item').selectedIndex++;
+			var itemNameId=getValue('select-item');
+			this._writeItemName(i,itemNameId);
+			var row=this._createItemRow(i, false);
+			document.getElementById('container-'+this._getItemCategory(itemNameId)).appendChild(row);
+			
+			(row.previousElementSibling || row).scrollIntoView({block:'start', behavior:'smooth'});
+			//this.editItem(i);
 		}
 	},
 
@@ -252,6 +257,7 @@ SavegameEditor={
 			var row=this._getItemRow(i);
 			row.parentElement.removeChild(row);
 			document.getElementById('container-'+newCat).appendChild(row);
+			(row.previousElementSibling || row).scrollIntoView({block:'start', behavior:'smooth'});
 		}
 		this._writeItemName(i, nameId);
 		document.getElementById('item-name'+i).innerHTML=this._getItemTranslation(nameId);
@@ -365,6 +371,7 @@ SavegameEditor={
 			}
 			get('select-item').appendChild(optGroup);
 		}
+		setValue('select-item','Armor_180_Lower');
 
 		/* map position selectors */
 		select(
