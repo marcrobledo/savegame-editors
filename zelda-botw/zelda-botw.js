@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild v20180512
+	The legend of Zelda: Breath of the wild v20180517
 	by Marc Robledo 2017-2018
 */
 var currentEditingItem=0;
@@ -29,6 +29,8 @@ SavegameEditor={
 		/*						 hash        v1.0      v1.1      v1.2      v1.3      v1.3.3    v1.4      v1.5 */
 		RUPEES:					[0x23149bf8, 0x00e0a0, 0x00e110, 0x00e110, 0x00e678, 0x00e730, 0x00eaf8, 0x00eaf8],
 		MONS:					[0xce7afed3, 0x0bc480, 0x0bc558, 0x0bc538, 0x0be728, 0x0d6ac8, 0x0d7fa8, 0x0d7fa8],
+		MAX_HEARTS:				[0x2906f327, 0x00fd28, 0x00fdb8, 0x00fdb8, 0x010438, 0x010508, 0x010970, 0x010970],
+		MAX_STAMINA:			[0x3adff047, 0x043208, 0x0432c0, 0x0432c0, 0x043c98, 0x04fdb0, 0x0503c8, 0x0503c8],
 		ITEMS:					[0x5f283289, 0x052828, 0x0528d8, 0x0528c0, 0x053890, 0x05fa48, 0x060408, 0x060408],
 		ITEMS_QUANTITY:			[0x6a09fc59, 0x063340, 0x0633f0, 0x0633d8, 0x064550, 0x070730, 0x0711c8, 0x0711c8],
 
@@ -150,6 +152,14 @@ SavegameEditor={
 		}
 		return txt
 	},
+	_readStringShort:function(offset){
+		var txt='';
+		for(var j=0; j<8; j++){
+			txt+=tempFile.readString(offset,4);
+			offset+=8;
+		}
+		return txt
+	},
 
 	_loadItemName:function(i){
 		return this._readString(this.Offsets.ITEMS+i*0x80);
@@ -174,21 +184,17 @@ SavegameEditor={
 	_getItemQuantityOffset:function(i){
 		return this.Offsets.ITEMS_QUANTITY+i*0x08;
 	},
-	_getItemRow(i){
+	_getItemRow:function(i){
 		return getField('number-item'+i).parentElement.parentElement
 	},
-	_createItemRow(i,itemCat){
+	_createItemRow:function(i,itemCat){
 		var itemNameId=this._loadItemName(i);
 		var itemVal=itemCat===false?1:tempFile.readInt(this._getItemQuantityOffset(i));
 
 		var img=new Image();
 		img.id='icon'+i;
-		img.className='clickable';
 		img.src=BOTW_Icons.getBlankIcon();
 
-		img.addEventListener('click', function(){
-			SavegameEditor.editItem(i);
-		}, false);
 		/*img.addEventListener('error', function(){
 			img.src=BOTW_Icons.getBlankIcon();
 		}, false);*/
@@ -198,8 +204,12 @@ SavegameEditor={
 		itemNumber.innerHTML='#'+i;
 
 		var span=document.createElement('span');
+		span.className='item-name clickable';
 		span.id='item-name'+i;
 		span.innerHTML=this._getItemTranslation(itemNameId);
+		span.addEventListener('click', function(){
+			SavegameEditor.editItem(i);
+		}, false);
 
 
 		var input;
@@ -232,22 +242,23 @@ SavegameEditor={
 			i++;
 		}
 		if(i<this.Constants.MAX_ITEMS){
-			getField('select-item').selectedIndex++;
-			var itemNameId=getValue('select-item');
+			this.selectItem.selectedIndex++;
+			var itemNameId=this.selectItem.value;
 			this._writeItemName(i,itemNameId);
 			var row=this._createItemRow(i, false);
 			document.getElementById('container-'+this._getItemCategory(itemNameId)).appendChild(row);
 			
 			(row.previousElementSibling || row).scrollIntoView({block:'start', behavior:'smooth'});
-			//this.editItem(i);
+			this.editItem(i);
 		}
 	},
 
 	editItem:function(i){
 		currentEditingItem=i;
-		document.getElementById('select-item').value=this._loadItemName(i);
-
-		MarcDialogs.open('item');
+		this.selectItem.value=this._loadItemName(i);
+		document.getElementById('item-name'+i).innerHTML='';
+		document.getElementById('item-name'+i).parentElement.appendChild(this.selectItem);
+		this.selectItem.focus();
 	},
 	editItem2:function(i,nameId){
 		var oldCat=this._getItemCategory(this._loadItemName(i));
@@ -296,11 +307,15 @@ SavegameEditor={
 				MarcDialogs.alert('Error: this will only work if your savegame has Link on an untamed horse.');
 				return false;
 			}
+			getField('horse-type').children[27].disabled=false;
+			getField('horse-type').children[28].disabled=false;
 		}else{
 			show('row-tamed-horse');
 			setValue('horse-name',this._readString(this.Offsets.HORSE_NAMES+this.Constants.STRING_SIZE*i));
 			setValue('horse-saddles',this._readString(this.Offsets.HORSE_SADDLES+this.Constants.STRING_SIZE*i));
 			setValue('horse-reins',this._readString(this.Offsets.HORSE_REINS+this.Constants.STRING_SIZE*i));
+			getField('horse-type').children[27].disabled=true;
+			getField('horse-type').children[28].disabled=true;
 		}
 		setValue('horse-type',this._readString(this.Offsets.HORSE_TYPES+this.Constants.STRING_SIZE*i));
 		MarcDialogs.open('horse');
@@ -352,6 +367,14 @@ SavegameEditor={
 
 
 	preload:function(){
+		this.selectItem=document.createElement('select');
+		this.selectItem.addEventListener('blur', function(){
+			//console.log('blur');
+			SavegameEditor.editItem2(currentEditingItem, this.value);
+			this.parentElement.removeChild(this);
+			currentEditingItem=null;
+		}, false);
+
 		setNumericRange('rupees', 0, 999999);
 		setNumericRange('mons', 0, 999999);
 		setNumericRange('relic-gerudo', 0, 99);
@@ -369,9 +392,9 @@ SavegameEditor={
 				opt.innerHTML=BOTW_Data.Translations[i].items[item];
 				optGroup.appendChild(opt);
 			}
-			get('select-item').appendChild(optGroup);
+			this.selectItem.appendChild(optGroup);
 		}
-		setValue('select-item','Armor_180_Lower');
+		this.selectItem.value='Armor_180_Lower';
 
 		/* map position selectors */
 		select(
@@ -444,6 +467,8 @@ SavegameEditor={
 		/* prepare editor */
 		setValue('rupees', tempFile.readInt(this.Offsets.RUPEES));
 		setValue('mons', tempFile.readInt(this.Offsets.MONS));
+		setValue('max-hearts', tempFile.readInt(this.Offsets.MAX_HEARTS));
+		setValue('max-stamina', tempFile.readInt(this.Offsets.MAX_STAMINA));
 
 		setValue('relic-gerudo', tempFile.readInt(this.Offsets.RELIC_GERUDO));
 		setValue('relic-goron', tempFile.readInt(this.Offsets.RELIC_GORON));
@@ -470,8 +495,8 @@ SavegameEditor={
 		setValue('pos-y', tempFile.readFloat32(this.Offsets.PLAYER_POSITION+8));
 		setValue('pos-z', tempFile.readFloat32(this.Offsets.PLAYER_POSITION+16));
 
-		var map=this._readString(this.Offsets.MAP);
-		var mapType=this._readString(this.Offsets.MAPTYPE);
+		var map=this._readStringShort(this.Offsets.MAP);
+		var mapType=this._readStringShort(this.Offsets.MAPTYPE);
 		getField('pos-map').children[0].value=map;
 		getField('pos-map').children[0].innerHTML='* '+map+' *';
 		getField('pos-maptype').children[0].value=mapType;
@@ -554,6 +579,8 @@ SavegameEditor={
 		/* STATS */
 		tempFile.writeInt(this.Offsets.RUPEES, getValue('rupees'));
 		tempFile.writeInt(this.Offsets.MONS, getValue('mons'));
+		tempFile.writeInt(this.Offsets.MAX_HEARTS, getValue('max-hearts'));
+		tempFile.writeInt(this.Offsets.MAX_STAMINA, getValue('max-stamina'));
 
 		tempFile.writeInt(this.Offsets.RELIC_GERUDO, getValue('relic-gerudo'));
 		tempFile.writeInt(this.Offsets.RELIC_GORON, getValue('relic-goron'));
@@ -937,7 +964,7 @@ window.addEventListener('load',function(){
 	if(location.protocol==='http:')
 		location.href=window.location.href.replace('http:','https:');
 	if('serviceWorker' in navigator)
-		navigator.serviceWorker.register('_cache_service_worker.js');
+		navigator.serviceWorker.register('zelda-botw/_cache_service_worker.js');
 
 	window.addEventListener('scroll',onScroll,false);
 }, false);

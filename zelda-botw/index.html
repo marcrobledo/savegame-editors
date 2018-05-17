@@ -13,6 +13,7 @@
 	<script type="text/javascript" src="./zelda-botw.data.js"></script>
 	<script type="text/javascript" src="./zelda-botw.locations.js"></script>
 	<script type="text/javascript" src="./zelda-botw.icons.js"></script>
+	<!-- <script type="text/javascript" src="./zelda-botw.hashes.js"></script> -->
 </head>
 <body>
 
@@ -75,6 +76,61 @@
 	<div class="row">
 		<div class="ten columns"><label for="number-playtime">Playtime</label></div>
 		<div class="two columns"><input type="text" id="number-playtime" class="text-right full-width" disabled /></div>
+	</div>
+	<div class="row">
+		<div class="ten columns"><label for="select-max-hearts">Max. hearts</label></div>
+		<div class="two columns">
+			<select id="select-max-hearts" class="full-width">
+				<option value="4">1</option>
+				<option value="8">2 hearts</option>
+				<option value="12">3 hearts</option>
+				<option value="16">4 hearts</option>
+				<option value="20">5 hearts</option>
+				<option value="24">6 hearts</option>
+				<option value="28">7 hearts</option>
+				<option value="32">8 hearts</option>
+				<option value="36">9 hearts</option>
+				<option value="40">10 hearts</option>
+				<option value="44">11 hearts</option>
+				<option value="48">12 hearts</option>
+				<option value="52">13 hearts</option>
+				<option value="56">14 hearts</option>
+				<option value="60">15 hearts</option>
+				<option value="64">16 hearts</option>
+				<option value="68">17 hearts</option>
+				<option value="72">18 hearts</option>
+				<option value="76">19 hearts</option>
+				<option value="80">20 hearts</option>
+				<option value="84">21 hearts</option>
+				<option value="88">22 hearts</option>
+				<option value="92">23 hearts</option>
+				<option value="96">24 hearts</option>
+				<option value="100">25 hearts</option>
+				<option value="104">26 hearts</option>
+				<option value="108">27 hearts</option>
+				<option value="112">28 hearts</option>
+				<option value="116">29 hearts</option>
+				<option value="120">30 hearts</option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="ten columns"><label for="select-max-stamina">Max. stamina </label></div>
+		<div class="two columns">
+			<select id="select-max-stamina" class="full-width">
+				<option value="1148846080">1 wheel</option>
+				<option value="1150681088">1 wheel+1/5</option>
+				<option value="1152319488">1 wheel+2/5</option>
+				<option value="1153957888">1 wheel+3/5</option>
+				<option value="1155596288">1 wheel+4/5</option>
+				<option value="1157234688">2 wheels</option>
+				<option value="1158250496">2 wheels+1/5</option>
+				<option value="1159069696">2 wheels+2/5</option>
+				<option value="1159888896">2 wheels+3/5</option>
+				<option value="1160708096">2 wheels+4/5</option>
+				<option value="1161527296">3 wheels</option>
+			</select>
+		</div>
 	</div>
 	
 	<!-- Coordinates (Requires a memory editor) -->
@@ -180,15 +236,6 @@
 </div>
 
 <!-- DIALOGS -->
-<div id="dialog-item" class="dialog">
-	<div class="text-center">
-		<select id="select-item"></select>
-	</div>
-	<div class="buttons">
-		<button onclick="SavegameEditor.editItem2(currentEditingItem, getValue('item'));MarcDialogs.close();">Save changes</button>
-	</div>
-</div>
-
 <div id="dialog-horse" class="dialog">
 	<div id="row-tamed-horse">
 		<div class="row">
@@ -213,7 +260,6 @@
 	</div>
 </div>
 
-<ul id="caca">
-</ul>
+<ul id="caca"></ul>
 </body>
 </html>

@@ -42,7 +42,7 @@ body{
 	padding:10px;
 }
 .row-items img{max-width:100%}
-.row-items img:hover{background-color:#222}
+.row-items .item-name:hover{text-decoration:underline}
 .item-number{position:absolute;top:0;left:0; color:#444;font-family:monospace;font-size:80%}
 .tiles span{display:block}
 
@@ -260,7 +260,7 @@ input[type=text].error,input[type=number].error,select.error{
 input[type=text].small,input[type=number].small,select.small{width:70px}
 input[type=text].medium,input[type=number].medium,select.medium{width:130px}
 .full-width{width:100% !important;max-width:100% !important}
-
+optgroup{background-color:black}
 
 #the-editor input[type=text],#the-editor input[type=number],#the-editor select{
 	border:1px solid #444;
