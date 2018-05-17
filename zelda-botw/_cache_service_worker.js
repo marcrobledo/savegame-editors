@@ -12,20 +12,20 @@ limitations under the License.
 mod by marcrobledo, original from: https://github.com/GoogleChrome/samples/blob/gh-pages/service-worker/basic/service-worker.js
 */
 
-const PRECACHE_ID='v20180517c';
+const PRECACHE_ID='v20180517d';
 const PRECACHE_FILES=[
-'zelda-botw/index.html','./',
-'zelda-botw/zelda-botw.css',
-'zelda-botw/zelda-botw.js',
-'zelda-botw/zelda-botw.data.js',
-'zelda-botw/zelda-botw.icons.js',
-'zelda-botw/zelda-botw.locations.js',
-'zelda-botw/favicon.png',
-'zelda-botw/assets/_blank.png',
-'zelda-botw/assets/logo.png',
-'zelda-botw/assets/bg_black.jpg',
-'zelda-botw/assets/bg_white.jpg',
-'savegame-editor.js'
+'index.html','./',
+'zelda-botw.css',
+'zelda-botw.js',
+'zelda-botw.data.js',
+'zelda-botw.icons.js',
+'zelda-botw.locations.js',
+'favicon.png',
+'assets/_blank.png',
+'assets/logo.png',
+'assets/bg_black.jpg',
+'assets/bg_white.jpg',
+'../savegame-editor.js'
 ];
 
 self.addEventListener('install',event=>{event.waitUntil(caches.open(PRECACHE_ID).then(cache=>cache.addAll(PRECACHE_FILES)).then(self.skipWaiting()))});self.addEventListener('activate',event=>{const currentCaches=[PRECACHE_ID,'runtime'];event.waitUntil(caches.keys().then(cacheNames=>{return cacheNames.filter(cacheName=>!currentCaches.includes(cacheName));}).then(cachesToDelete=>{return Promise.all(cachesToDelete.map(cacheToDelete=>{return caches.delete(cacheToDelete);}))}).then(()=>self.clients.claim()))});self.addEventListener('fetch',event=>{if(event.request.url.startsWith(self.location.origin))event.respondWith(caches.match(event.request).then(cachedResponse=>{if(cachedResponse)return cachedResponse;return caches.open('runtime').then(cache=>{return fetch(event.request).then(response=>{return cache.put(event.request,response.clone()).then(()=>{return response})})})}))})

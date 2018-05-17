@@ -964,7 +964,7 @@ window.addEventListener('load',function(){
 	if(location.protocol==='http:')
 		location.href=window.location.href.replace('http:','https:');
 	if('serviceWorker' in navigator)
-		navigator.serviceWorker.register('zelda-botw/_cache_service_worker.js');
+		navigator.serviceWorker.register('_cache_service_worker.js');
 
 	window.addEventListener('scroll',onScroll,false);
 }, false);
