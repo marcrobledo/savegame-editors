@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="savegame-editor.appcache">
+<html>
 <head>
 	<title>Savegame Editor &ndash; The legend of Zelda: Breath of the wild (Master editor)</title>
 	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
@@ -10,6 +10,7 @@
 	<link type="text/css" rel="stylesheet" href="./zelda-botw-master.css" media="all"/>
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./zelda-botw-master.js"></script>
+	<script type="text/javascript" src="./hashes.js"></script>
 </head>
 <body>
 
@@ -29,8 +30,7 @@
 	<div id="toolbar" class="hidden padding-vertical">
 		<div class="row wrapper">
 			<div class="twelve columns text-center">
-				<span id="span-version"></span> | <button class="with-icon icon1" onclick="SavegameEditor.addItem()">Add item</button>
-				| <button class="button with-icon icon3" onclick="closeFile()">Close file</button>
+				<span id="span-version"></span> | <button class="button with-icon icon3" onclick="closeFile()">Close file</button>
 				<button class="button colored blue with-icon icon9" onclick="saveChanges()">Save changes</button>
 			</div>
 		</div>
@@ -39,7 +39,9 @@
 
 
 <!-- THE EDITOR -->
-<div id="the-editor" class="wrapper hidden"></div>
+<div id="the-editor" class="wrapper hidden">
+	<table id="table"></table>
+</div>
 
 </body>
 </html>

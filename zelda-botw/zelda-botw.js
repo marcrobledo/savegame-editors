@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild v20180517
+	The legend of Zelda: Breath of the wild v20180520
 	by Marc Robledo 2017-2018
 */
 var currentEditingItem=0;
@@ -7,7 +7,7 @@ var currentEditingItem=0;
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
 	Filename:'game_data.sav',
-	Version:20180408,
+	Version:20180520,
 
 	/* Constants */
 	Constants:{
@@ -17,7 +17,7 @@ SavegameEditor={
 		/*						 v1.0    v1.1    v1.2    v1.3    v1.3.3   v1.4     v1.5 */
 		FILESIZE:				[896976, 897160, 897112, 907824, 1020648, 1027208, 1027208],
 		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x3ef8,  0x471a,  0x471b],
-		VERSION:				['1.0',  '1.1',  '1.2',  '1.3', '1.3.3',  'v1.4',  'v1.5'],
+		VERSION:				['v1.0', 'v1.1', 'v1.2', 'v1.3', 'v1.3.3','v1.4',  'v1.5'],
 
 		MAP_ICONS: 0x9383490e,
 		MAP_POS: 0xea9def3f,
@@ -351,6 +351,8 @@ SavegameEditor={
 			var versionHash=tempFile.readInt(0);
 			if(versionHash===0x2a46) //v1.3.0 switch?
 				versionHash=0x29c0;
+			if(versionHash===0x3ef9) //v1.3.3 switch?
+				versionHash=0x3ef8;
 
 			if(tempFile.fileSize===this.Constants.FILESIZE[i] && versionHash===this.Constants.HEADER[i] && tempFile.readInt(4)===0xffffffff){
 				this._getOffsets(i);

@@ -13,6 +13,12 @@ body{
 	color:#f9f5da;
 }
 
+table{
+  border-collapse:collapse;
+}
+tr{border-bottom:1px solid #452e2e}
+tr:hover{background-color:#250e0e}
+
 /* flex box */
 .row{
 	display:flex;

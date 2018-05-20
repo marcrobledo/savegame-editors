@@ -15,16 +15,10 @@ mod by marcrobledo, original from: https://github.com/GoogleChrome/samples/blob/
 const PRECACHE_ID='v20180520';
 const PRECACHE_FILES=[
 'index.html','./',
-'zelda-botw.css',
-'zelda-botw.js',
-'zelda-botw.data.js',
-'zelda-botw.icons.js',
-'zelda-botw.locations.js',
+'zelda-botw-master.css',
+'zelda-botw-master.js',
+'hashes.js',
 'favicon.png',
-'assets/_blank.png',
-'assets/logo.png',
-'assets/bg_black.jpg',
-'assets/bg_white.jpg',
 '../savegame-editor.js'
 ];
 
