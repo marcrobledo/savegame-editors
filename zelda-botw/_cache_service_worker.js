@@ -12,7 +12,7 @@ limitations under the License.
 mod by marcrobledo, original from: https://github.com/GoogleChrome/samples/blob/gh-pages/service-worker/basic/service-worker.js
 */
 
-const PRECACHE_ID='v20180520';
+const PRECACHE_ID='v20180526';
 const PRECACHE_FILES=[
 'index.html','./',
 'zelda-botw.css',
