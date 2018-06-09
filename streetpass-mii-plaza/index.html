@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html manifest="savegame-editor.appcache">
 <head>
-	<title>Savegame Editor &ndash; StreetPass Mii Plaza</title>
+	<title>Editor Salvataggi &ndash; Piazza Mii Streetpass</title>
 	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
-	<meta name="description" content="A savegame editor for StreetPass Mii Plaza. It can edit your Puzzle Swap pieces, unlock DLC hats and more!"/>
+	<meta name="description" content="Un editor salvataggi per la Piazza Mii Streetpass. Può modificare i puzzle di pazzi per i pezzi, sbloccare cappelli e altro!"/>
 	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, 3ds, streetpass, mii, plaza, puzzle, swap, panel, pieces, free, tickets, dlc, unlock, hats, speech, bubbles"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 	<link rel="shortcut icon" href="favicon.png"/>
@@ -17,17 +17,17 @@
 <div id="header">
 	<div id="header-top">
 		<div class="row wrapper">
-			<h1 class="six columns text-left"><img src="favicon.png" /> Savegame Editor <small>for StreetPass Mii Plaza</small></h1>
+			<h1 class="six columns text-left"><img src="favicon.png" /> Editor Salvataggi <small>Per Piazza Mii Streetpass</small></h1>
 			<div class="six columns header-buttons text-right">
-				by <a href="/">Marc Robledo</a>
-				<i class="icon github"></i> <a href="https://github.com/marcrobledo/savegame-editors/tree/master/streetpass-mii-plaza" target="_blank">See on GitHub</a>
-				<i class="icon heart"></i> <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
+				Creato da <a href="/">Marc Robledo</a> Modificato da <a href="/">Creeperiano99</a><br>
+				<i class="icon github"></i> <a href="https://github.com/marcrobledo/savegame-editors/tree/master/streetpass-mii-plaza" target="_blank">Vedi su Github</a>
+				<i class="icon heart"></i> <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Dona al creatore</a> <i class="icon heart"></i> <a href="https://www.paypal.me/Creeperiano99/5" target="_blank" rel="nofollow">Dona a Creeperiano99</a>
 			</div>
 		</div>
 		<div class="hidden row wrapper" id="toolbar">
 			<div class="twelve columns text-center">
-				<button class="close" onclick="closeFile()"><i class="icon close"></i> Close file</button>
-				<button class="colored" onclick="saveChanges()"><i class="icon accept"></i> Save changes</button>
+				<button class="close" onclick="closeFile()"><i class="icon close"></i> Chiudi File</button>
+				<button class="colored" onclick="saveChanges()"><i class="icon accept"></i> Salva le modifiche</button>
 			</div>
 		</div>
 	</div>
@@ -37,51 +37,60 @@
 <!-- THE EDITOR -->
 <div id="the-editor" class="wrapper hidden">
 	<!-- BASIC -->
-	<h3 class="orange">Basic</h3>
+	<h3 class="orange">Base</h3>
 	<div class="container">
 		<div class="row">
-			<div class="eight columns"><label for="number-sptags">Streetpass Tags</label></div>
+			<div class="eight columns"><label for="number-sptags">Incontri Streetpass</label></div>
 			<div class="four columns"><input id="number-sptags" type="text" class="fw" /></div>
 
-			<div class="eight columns"><label for="number-tickets">Tickets</label></div>
+			<div class="eight columns"><label for="number-tickets">Coupon</label></div>
 			<div class="four columns"><input id="number-tickets" type="text" class="fw" /></div>
 
-			<div class="eight columns"><label for="number-fantastic">Fantastic ratings</label></div>
+			<div class="eight columns"><label for="number-fantastic">Voti Fantastico</label></div>
 			<div class="four columns"><input id="number-fantastic" type="text" class="fw" /></div>
+			
+			<div class="eight columns"><label for="button-unlockmap">Sblocca le mappe</label></div>
+			<div class="four columns"><button id="button-unlockmap" onclick="SavegameEditor._unlockMap()">Sblocca</button></div>
+			
+			<div class="eight columns"><label for="button-unlockbirthdays">Sblocca i compleanni</label></div>
+			<div class="four columns"><button id="button-unlockbirthdays" onclick="SavegameEditor._unlockBirthdays()">Sblocca</button></div>
+			
+			<div class="eight columns"><label for="button-unlockaccomplishments">Sblocca le Imprese</label></div>
+			<div class="four columns"><button id="button-unlockaccomplishments" onclick="SavegameEditor._unlockAccomplishments()">Sblocca</button></div>
 		</div>
 	</div>
 
 
 	<!-- DLC UNLOCK -->
-	<h3 class="red">Unlock DLC</h3>
+	<h3 class="red">Sblocca i DLC</h3>
 	<div class="container">
 		<div class="row">
-			<div class="eight columns"><label for="button-unlockticketshop">Unlock ticket shop</label></div>
-			<div class="four columns"><button id="button-unlockticketshop" onclick="SavegameEditor._unlockTicketShop()">Unlock</button></div>
+			<div class="eight columns"><label for="button-unlockticketshop">Sblocca chiosco premi</label></div>
+			<div class="four columns"><button id="button-unlockticketshop" onclick="SavegameEditor._unlockTicketShop()">Sblocca</button></div>
 
-			<div class="eight columns"><label for="button-unlockspeechbubbles">Unlock speech bubbles (first 16)</label></div>
-			<div class="four columns"><button id="button-unlockspeechbubbles" onclick="SavegameEditor._unlockSpeechBubbles()">Unlock</button></div>
+			<div class="eight columns"><label for="button-unlockspeechbubbles">Sblocca i Fumetti (Primi 16)</label></div>
+			<div class="four columns"><button id="button-unlockspeechbubbles" onclick="SavegameEditor._unlockSpeechBubbles()">Sblocca</button></div>
 
-			<div class="eight columns"><label for="button-unlockspeechbubbles2">Unlock speech bubbles (last 6)</label></div>
-			<div class="four columns"><button id="button-unlockspeechbubbles2" onclick="SavegameEditor._unlockSpeechBubbles2()">Unlock</button></div>
+			<div class="eight columns"><label for="button-unlockspeechbubbles2">Sblocca i Fumetti (Ultimi 6)</label></div>
+			<div class="four columns"><button id="button-unlockspeechbubbles2" onclick="SavegameEditor._unlockSpeechBubbles2()">Sblocca</button></div>
 
-			<div class="eight columns"><label for="button-unlockhats2">Unlock hats (pack 2)</label></div>
-			<div class="four columns"><button id="button-unlockhats2"onclick="SavegameEditor._unlockHats2()">Unlock</button></div>
+			<div class="eight columns"><label for="button-unlockhats2">Sblocca Cappelli (Pacchetto 2)</label></div>
+			<div class="four columns"><button id="button-unlockhats2"onclick="SavegameEditor._unlockHats2()">Sblocca</button></div>
 
-			<div class="eight columns"><label for="button-unlockhats3">Unlock hats (pack 3)</label></div>
-			<div class="four columns"><button id="button-unlockhats3" onclick="SavegameEditor._unlockHats3()">Unlock</button></div>
+			<div class="eight columns"><label for="button-unlockhats3">Sblocca Cappelli (Pacchetto 3)</label></div>
+			<div class="four columns"><button id="button-unlockhats3" onclick="SavegameEditor._unlockHats3()">Sblocca</button></div>
 		</div>
 	</div>
 
 
 	<!-- PUZZLE SWAP -->
-	<h3 class="green">Puzzle Swap</h3>
+	<h3 class="green">Pazzi per i pezzi</h3>
 	<div class="container">
-		<label for="select-panel">Panel:</label> <span id="container-select-panel"></span>
-		Pieces: <span id="span-pieces"></span><br/>
-		<button onclick="SavegameEditor._setPiecesFromCurrentPanel(true)"><i class="icon accept"></i> All</button>
-		<button onclick="SavegameEditor._setPiecesFromCurrentPanel(-1)">All but one</button>
-		<button onclick="SavegameEditor._setPiecesFromCurrentPanel(false)"><i class="icon reset"></i> None</button>
+		<label for="select-panel">Pannello:</label> <span id="container-select-panel"></span>
+		Pezzi: <span id="span-pieces"></span><br/>
+		<button onclick="SavegameEditor._setPiecesFromCurrentPanel(true)"><i class="icon accept"></i> Tutto</button>
+		<button onclick="SavegameEditor._setPiecesFromCurrentPanel(-1)">Tutto tranne uno</button>
+		<button onclick="SavegameEditor._setPiecesFromCurrentPanel(false)"><i class="icon reset"></i> Nessuno</button>
 	</div>
 
 </div>
