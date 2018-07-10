@@ -1,9 +1,0 @@
-CACHE MANIFEST
-# last update 20170711
-#CACHE:
-index.html
-thumb.png
-
-# force these files to be loaded in network
-NETWORK:
-*

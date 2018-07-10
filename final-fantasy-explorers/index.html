@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Savegame Editor &ndash; Final Fantasy Explorers</title>
+	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content="A savegame editor for Final Fantasy Explorers. It can edit values for your coins, flow balls and onions."/>
+	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, 3ds, final, fantasy, explorers, gil, cp, materials"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="shortcut icon" href="favicon.png"/>
+	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
+	<script type="text/javascript" src="../savegame-editor.js"></script>
+	<script type="text/javascript" src="./final-fantasy-explorers.js"></script>
+	<script type="text/javascript" src="./database.js"></script>
+	<style type="text/css"><!--
+.fficon{
+	display:inline-block;
+	vertical-align: middle;
+	width:16px;height:16px;
+	background-image:url(icons.png);
+}
+.fficon.fficon0{background-position: 0px -0px}
+.fficon.fficon1{background-position: 0px -16px}
+.fficon.fficon2{background-position: 0px -32px}
+.fficon.fficon3{background-position: 0px -48px}
+.fficon.fficon4{background-position: 0px -64px}
+.fficon.fficon5{background-position: 0px -80px}
+.fficon.fficon6{background-position: 0px -96px}
+.fficon.fficon7{background-position: 0px -112px}
+.fficon.fficon8{background-position: 0px -128px}
+.fficon.fficon9{background-position: 0px -144px}
+.fficon.fficon10{background-position: 0px -160px}
+.fficon.fficon11{background-position: 0px -176px}
+.fficon.fficon12{background-position: 0px -192px}
+.fficon.fficon13{background-position: 0px -208px}
+.fficon.fficon14{background-position: 0px -224px}
+.fficon.fficon15{background-position: 0px -240px}
+.fficon.fficon16{background-position: 0px -256px}
+.fficon.fficon17{background-position: 0px -272px}
+.fficon.fficon18{background-position: 0px -288px}
+.fficon.fficon19{background-position: 0px -304px}
+.fficon.fficon20{background-position: 0px -320px}
+.fficon.fficon21{background-position: 0px -336px}
+.fficon.fficon22{background-position: 0px -352px}
+.fficon.fficon23{background-position: 0px -368px}
+.fficon.fficon24{background-position: 0px -384px}
+	--></style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+	<div id="header-top">
+		<div class="row wrapper">
+			<h1 class="six columns text-left"><img src="favicon.png" /> Savegame Editor <small>for Final Fantasy Explorers</small></h1>
+			<div class="six columns header-buttons text-right">
+				by <a href="/">Marc Robledo</a>
+				<i class="icon github"></i> <a href="https://github.com/marcrobledo/savegame-editors/tree/master/final-fantasy-explorers" target="_blank">See on GitHub</a>
+				<i class="icon heart"></i> <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
+			</div>
+		</div>
+		<div class="hidden row wrapper" id="toolbar">
+			<div class="twelve columns text-center">
+				<button class="close" onclick="closeFile()"><i class="icon close"></i> Close file</button>
+				<button class="colored" onclick="saveChanges()"><i class="icon accept"></i> Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- THE EDITOR -->
+<div id="the-editor" class="wrapper hidden">
+	<!-- BASIC -->
+	<h3 class="orange">Basic</h3>
+	<div class="container">
+		<div class="row">
+			<div class="ten columns"><label for="number-gil"><span class="fficon fficon23"></span> Gil</label></div>
+			<div class="two columns"><input id="number-gil" type="text" class="fw" /></div>
+			<div class="ten columns"><label for="number-cp"><span class="fficon fficon24"></span> CP</label></div>
+			<div class="two columns"><input id="number-cp" type="text" class="fw" /></div>
+		</div>
+	</div>
+
+	<!-- WEAPONS -->
+	<!-- <h3 class="blue"><span class="fficon fficon2"></span> Weapons</h3> -->
+
+	<!-- SHIELDS -->
+	<!-- <h3 class="green"><span class="fficon fficon3"></span> Shields</h3> -->
+
+	<!-- HEAD -->
+	<!-- <h3 class="red"><span class="fficon fficon4"></span> Head</h3> -->
+
+	<!-- ARMOR -->
+	<!-- <h3 class="orange"><span class="fficon fficon5"></span> Armor</h3> -->
+
+	<!-- MATERIALS -->
+	<h3 class="blue"><span class="fficon fficon1"></span> Materials</h3>
+	<div class="container" id="container-materials"></div>
+
+	<!-- ATMATLITHS -->
+	<h3 class="green"><span class="fficon fficon1"></span> Atmatliths</h3>
+	<div class="container" id="container-atmaliths"></div>
+
+	<!-- ITEMS -->
+	<h3 class="red"><span class="fficon fficon0"></span> Items</h3>
+	<div class="container" id="container-items"></div>
+
+</div>
+
+</body>
+</html>
