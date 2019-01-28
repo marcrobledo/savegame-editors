@@ -1,13 +1,13 @@
 /*
-	The legend of Zelda: Breath of the wild v20180520
-	by Marc Robledo 2017-2018
+	The legend of Zelda: Breath of the wild v20190128
+	by Marc Robledo 2017-2019
 */
 var currentEditingItem=0;
 
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
 	Filename:'game_data.sav',
-	Version:20180520,
+	Version:20190128,
 
 	/* Constants */
 	Constants:{
@@ -111,7 +111,7 @@ SavegameEditor={
 			this._writeValue(offset+4,val);
 	},
 
-	_getOffsets(v){
+	_getOffsets:function(v){
 		this.Offsets={};
 		if(v<this.OffsetsAll.RUPEES.length){
 			for(prop in this.OffsetsAll){
@@ -970,3 +970,14 @@ window.addEventListener('load',function(){
 
 	window.addEventListener('scroll',onScroll,false);
 }, false);
+
+if(typeof String.endsWith==='undefined'){
+	String.prototype.endsWith=function(search){
+        return (new RegExp(search+'$')).test(this)
+    };
+}
+if(typeof String.startsWith==='undefined'){
+	String.prototype.startsWith=function(search){
+        return (new RegExp('^'+search)).test(this)
+    };
+}

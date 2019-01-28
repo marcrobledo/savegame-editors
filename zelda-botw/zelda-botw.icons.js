@@ -1,7 +1,7 @@
 /*
-	The legend of Zelda: Breath of the wild Savegame Editor (Icons) v20171113
+	The legend of Zelda: Breath of the wild Savegame Editor (Icons) v20190128
 
-	by Marc Robledo 2017
+	by Marc Robledo 2017-2019
 
 
 	icons extracted from https://www.spriters-resource.com/wii_u/thelegendofzeldabreathofthewild/
@@ -95,7 +95,7 @@ var BOTW_Icons=(function(){
 			}
 		},
 
-		_getItemIcon(itemNameId, clothesColor){
+		_getItemIcon:function(itemNameId, clothesColor){
 			var fileName,id,match;
 			if(match=itemNameId.match(/^Armor_([0-9]{3})_(Head|Upper|Lower)(_Dye[0-9]{2})?/)){
 				fileName='Armor_'+match[2];
