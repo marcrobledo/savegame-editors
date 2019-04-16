@@ -14,15 +14,14 @@ limitations under the License.
 */
 
 
-const PRECACHE = 'precache-editor-zeldabotwmaster-v1';
+const PRECACHE = 'precache-editor-rhythmheavenmix-v1';
 const RUNTIME = 'runtime';
 const PRECACHE_URLS = [
 	'index.html','./',
-	'zelda-botw-master.css',
-	'zelda-botw-master.js',
-	'hashes.js',
 	'favicon.png',
-	'../savegame-editor.js'
+	'rhythm-paradise-megamix.js',
+	'../savegame-editor.js',
+	'../savegame-editor.css'
 ];
 
 

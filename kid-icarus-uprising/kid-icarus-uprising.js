@@ -1,6 +1,6 @@
 /*
-	Kid Icarus: Uprising for HTML5 Save Editor v20170706
-	by Marc Robledo 2016-2017
+	Kid Icarus: Uprising for HTML5 Save Editor v20190411
+	by Marc Robledo 2016-2019
 */
 
 var currentWeapon=0
@@ -564,7 +564,7 @@ SavegameEditor={
 	_checkIfMissingAnyUnreleasedTrophy:function(){
 		var missing=false;
 		for(var i=404; i<412 && !missing; i++){
-			if(tempFile.readByte(this.Offsets.TROPHIES+i)==0){
+			if(tempFile.readU8(this.Offsets.TROPHIES+i)==0){
 				missing=true;
 			}
 		}
@@ -581,14 +581,14 @@ SavegameEditor={
 		currentWeapon=i;
 		var offset=this._getWeaponOffset();
 
-		var weaponType=(tempFile.readByte(offset+0x05)<<16)+(tempFile.readByte(offset+0x06)<<8)+tempFile.readByte(offset+0x07);
+		var weaponType=(tempFile.readU8(offset+0x05)<<16)+(tempFile.readU8(offset+0x06)<<8)+tempFile.readU8(offset+0x07);
 		get('weapon-unknown').innerHTML='0x'+weaponType.toString(16);
 		get('weapon-unknown').value=weaponType;
 
 		get('select-weapon-type').value=weaponType;
 
-		var starsRanged=tempFile.readShort(offset+0x08);
-		var starsMelee=tempFile.readShort(offset+0x0a);
+		var starsRanged=tempFile.readU16(offset+0x08);
+		var starsMelee=tempFile.readU16(offset+0x0a);
 		if((starsRanged>=0x11 && starsRanged<=0x16) && starsMelee==0x00){ /* unknown fix for some weapons? */
 			starsMelee=starsRanged;
 			starsRanged=0;
@@ -600,7 +600,7 @@ SavegameEditor={
 		get('select-weapon-stars-melee').value=starsMelee;
 
 		for(var i=0; i<6; i++){
-			get('select-weapon-modifier'+i).value=tempFile.readShort(offset+0x14+i*2);
+			get('select-weapon-modifier'+i).value=tempFile.readU16(offset+0x14+i*2);
 		}
 
 		this._calculateWeaponValue();
@@ -609,15 +609,15 @@ SavegameEditor={
 		var offset=SavegameEditor._getWeaponOffset();
 
 		var weaponType=parseInt(getValue('weapon-type'));
-		tempFile.writeInt(offset+0x05, (weaponType & 0xff0000) >> 16);
-		tempFile.writeInt(offset+0x06, (weaponType & 0x00ff00) >> 8);
-		tempFile.writeInt(offset+0x07, (weaponType & 0x0000ff) >> 0);
+		tempFile.writeU8(offset+0x05, (weaponType & 0xff0000) >> 16);
+		tempFile.writeU8(offset+0x06, (weaponType & 0x00ff00) >> 8);
+		tempFile.writeU8(offset+0x07, (weaponType & 0x0000ff) >> 0);
 
-		tempFile.writeShort(offset+0x08, getValue('weapon-stars-ranged'));
-		tempFile.writeShort(offset+0x0a, getValue('weapon-stars-melee'));
+		tempFile.writeU16(offset+0x08, getValue('weapon-stars-ranged'));
+		tempFile.writeU16(offset+0x0a, getValue('weapon-stars-melee'));
 
 		for(var i=0; i<6; i++)
-			tempFile.writeShort(offset+0x14+i*2, getValue('weapon-modifier'+i));
+			tempFile.writeU16(offset+0x14+i*2, getValue('weapon-modifier'+i));
 
 		SavegameEditor._calculateWeaponValue();
 	},
@@ -632,7 +632,7 @@ SavegameEditor={
 		//val=parseInt(val);
 		val=Math.ceil(val);
 		if(val<351){
-			get('weapon-value').style.color='initial';
+			get('weapon-value').style.color='default';
 			get('weapon-value').innerHTML=val;
 		}else{
 			get('weapon-value').style.color='red';
@@ -658,9 +658,9 @@ SavegameEditor={
 	load:function(){	
 		tempFile.littleEndian=true;
 
-		setValue('hearts', tempFile.readInt(this.Offsets.CURRENT_HEARTS));
-		setValue('hearts-for-palutena', tempFile.readInt(this.Offsets.HEARTS_OFFERED_TO_PALUTENA));
-		setValue('hearts-for-viridi', tempFile.readInt(this.Offsets.HEARTS_OFFERED_TO_VIRIDI));
+		setValue('hearts', tempFile.readU32(this.Offsets.CURRENT_HEARTS));
+		setValue('hearts-for-palutena', tempFile.readU32(this.Offsets.HEARTS_OFFERED_TO_PALUTENA));
+		setValue('hearts-for-viridi', tempFile.readU32(this.Offsets.HEARTS_OFFERED_TO_VIRIDI));
 
 		if(!this._checkIfMissingAnyUnreleasedTrophy())
 			this._disableUnlockUnreleasedTrophiesButton();
@@ -669,11 +669,11 @@ SavegameEditor={
 		for(var i=0; i<this.Constants.STATS.length; i++){
 			var val,input;
 			if(i==24 || i==25){
-				val=tempFile.readFloat32(this.Offsets.STATS+i*4);
+				val=tempFile.readF32(this.Offsets.STATS+i*4);
 				//console.log((this.Offsets.STATS+i*4).toString(16));
 				input=inputFloat('stat'+i, 0.0, 9.0, val);
 			}else{
-				val=tempFile.readInt(this.Offsets.STATS+i*4);
+				val=tempFile.readU32(this.Offsets.STATS+i*4);
 				input=inputNumber('stat'+i, 0, 0xffffffff, val);
 			}
 
@@ -712,7 +712,7 @@ SavegameEditor={
 		for(var i=0; i<this.Constants.NUM_WEAPONS; i++){
 			currentWeapon=i;
 			var offset=this._getWeaponOffset();
-			if((tempFile.readByte(offset+0x05)<<16)+(tempFile.readByte(offset+0x06)<<8)+tempFile.readByte(offset+0x07)!==0x000000)
+			if((tempFile.readU8(offset+0x05)<<16)+(tempFile.readU8(offset+0x06)<<8)+tempFile.readU8(offset+0x07)!==0x000000)
 				validWeapons.push(i);
 		}
 
@@ -752,16 +752,16 @@ SavegameEditor={
 
 	/* save function */
 	save:function(){
-		tempFile.writeInt(this.Offsets.CURRENT_HEARTS, getValue('hearts'));
-		tempFile.writeInt(this.Offsets.HEARTS_OFFERED_TO_PALUTENA, getValue('hearts-for-palutena'));
-		tempFile.writeInt(this.Offsets.HEARTS_OFFERED_TO_VIRIDI, getValue('hearts-for-viridi'));
+		tempFile.writeU32(this.Offsets.CURRENT_HEARTS, getValue('hearts'));
+		tempFile.writeU32(this.Offsets.HEARTS_OFFERED_TO_PALUTENA, getValue('hearts-for-palutena'));
+		tempFile.writeU32(this.Offsets.HEARTS_OFFERED_TO_VIRIDI, getValue('hearts-for-viridi'));
 
 		/* STATS */
 		for(var i=0; i<this.Constants.STATS.length; i++){
 			if(i==24 || i==25){
-				tempFile.writeFloat32(this.Offsets.STATS+i*4, getValue('stat'+i));
+				tempFile.writeF32(this.Offsets.STATS+i*4, getValue('stat'+i));
 			}else{
-				tempFile.writeInt(this.Offsets.STATS+i*4, getValue('stat'+i));
+				tempFile.writeU32(this.Offsets.STATS+i*4, getValue('stat'+i));
 			}
 		}
 	}

@@ -11,6 +11,16 @@
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./final-fantasy-explorers.js"></script>
 	<script type="text/javascript" src="./database.js"></script>
+	<script type="text/javascript"><!--
+		/* service worker */
+		var FORCE_HTTPS=true;
+		window.addEventListener('load',function(){
+			if(location.protocol==='http:' && FORCE_HTTPS)
+				location.href=window.location.href.replace('http:','https:');
+			else if(location.protocol==='https:' && 'serviceWorker' in navigator)
+				navigator.serviceWorker.register('_cache_service_worker.js');
+		}, false);
+	--></script>
 	<style type="text/css"><!--
 .fficon{
 	display:inline-block;

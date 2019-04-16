@@ -14,6 +14,16 @@
 	<script type="text/javascript" src="./zelda-botw.locations.js"></script>
 	<script type="text/javascript" src="./zelda-botw.icons.js"></script>
 	<!-- <script type="text/javascript" src="./zelda-botw.hashes.js"></script> -->
+	<script type="text/javascript"><!--
+		/* service worker */
+		var FORCE_HTTPS=true;
+		window.addEventListener('load',function(){
+			if(location.protocol==='http:' && FORCE_HTTPS)
+				location.href=window.location.href.replace('http:','https:');
+			else if(location.protocol==='https:' && 'serviceWorker' in navigator)
+				navigator.serviceWorker.register('_cache_service_worker.js');
+		}, false);
+	--></script>
 </head>
 <body>
 
@@ -33,7 +43,7 @@
 	<div id="toolbar" class="hidden padding-vertical">
 		<div class="row wrapper">
 			<div class="twelve columns text-center">
-				<span id="span-version"></span> | <button class="with-icon icon1" onclick="SavegameEditor.addItem()">Add item</button>
+				<span class="clickable" onclick="SavegameEditor.changeEndianess()" id="span-version"></span> | <button class="with-icon icon1" onclick="SavegameEditor.addItem()">Add item</button>
 				| <button class="button with-icon icon3" onclick="closeFile()">Close file</button>
 				<button class="button colored blue with-icon icon9" onclick="saveChanges()">Save changes</button>
 			</div>

@@ -54,11 +54,11 @@ SavegameEditor={
 	_readBytes(address, numBytes){
 		var num;
 		if(numBytes==4){
-			num=tempFile.readInt(address);
+			num=tempFile.readU32(address);
 		}else if(numBytes==2){
-			num=tempFile.readShort(address);
+			num=tempFile.readU16(address);
 		}else{
-			num=tempFile.readByte(address);
+			num=tempFile.readU8(address);
 		}
 		return num;
 	},
@@ -76,11 +76,11 @@ SavegameEditor={
 		var newValue=(originalBytes & inverseMask) + (parseInt(newValInput) << v.BITOFFSET) >>> 0;
 		
 		if(v.NBYTES==4){
-			tempFile.writeInt(v.ADDRESS+addOffset, newValue);
+			tempFile.writeU32(v.ADDRESS+addOffset, newValue);
 		}else if(v.NBYTES==2){
-			tempFile.writeShort(v.ADDRESS+addOffset, newValue);
+			tempFile.writeU16(v.ADDRESS+addOffset, newValue);
 		}else{
-			tempFile.writeByte(v.ADDRESS+addOffset, newValue);
+			tempFile.writeU8(v.ADDRESS+addOffset, newValue);
 		}
 	},
 

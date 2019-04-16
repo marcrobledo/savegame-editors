@@ -1,13 +1,13 @@
 /*
-	The legend of Zelda: Breath of the wild - Master editor v20180520
-	by Marc Robledo 2017-2018
+	The legend of Zelda: Breath of the wild - Master editor v20190416
+	by Marc Robledo 2017-2019
 */
 var currentEditingItem=0;
 
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild (Master editor)',
 	Filename:'game_data.sav',
-	Version:20180520,
+	Version:20190416,
 
 
 	/* Constants */
@@ -15,11 +15,25 @@ SavegameEditor={
 		STRING_SIZE:0x20,
 		STRING64_SIZE:0x80,
 
-		/*						 v1.0    v1.1    v1.2    v1.3    v1.3.3   v1.4     v1.5 */
-		FILESIZE:				[896976, 897160, 897112, 907824, 1020648, 1027208, 1027208],
-		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x3ef8,  0x471a,  0x471b],
-		VERSION:				['v1.0', 'v1.1', 'v1.2', 'v1.3', 'v1.3.3','v1.4',  'v1.5']
+		/*						 v1.0    v1.1    v1.2    v1.3    kiosk    v1.3.3   v1.4/v1.5    */
+		FILESIZE:				[896976, 897160, 897112, 907824, 916576,  1020648, 1027208],
+		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x2f8e,  0x3ef8,  0x471a],
+		VERSION:				['v1.0', 'v1.1', 'v1.2', 'v1.3', 'Kiosk', 'v1.3.3','v1.4/v1.5'],
 	},
+	
+	HashFilters:[
+		['Amiibo',				/WolfLink_|Amiibo/],
+		['Display flag names',	/_DispNameFlag$/],
+		['DLC1',				/100enemy/],
+		['DLC2',				/Motorcycle/],
+		['Horses',				/Horse_/],
+		['Defeated enemies',	/Defeat_Enemy_|Defeated.+Num/],
+		['Items',				/Porch|Cook/],
+		['Get flags',			/IsGet_/],
+		['Korok',				/HiddenKorok|OldKorok_/],
+		['Visited locations',	/^Location_/],
+		['Compendium',			/AlbumPicture|PictureBook/]
+	],
 
 	Hashes:[],
 
@@ -27,14 +41,15 @@ SavegameEditor={
 
 	/* private functions */
 	_toHexInt:function(i){var s=i.toString(16);while(s.length<8)s='0'+s;return '0x'+s},
-	_writeBoolean:function(offset,val,arrayPos){if(arrayPos)tempFile.writeInt(offset+8*arrayPos,val?1:0);else tempFile.writeInt(offset,val?1:0)},
-	_writeValue:function(offset,val,arrayPos){if(arrayPos)tempFile.writeInt(offset+8*arrayPos,val);else tempFile.writeInt(offset,val)},
+	_writeBoolean:function(offset,val,arrayPos){if(arrayPos)tempFile.writeU32(offset+8*arrayPos,val?1:0);else tempFile.writeU32(offset,val?1:0)},
+	_writeValue:function(offset,val,arrayPos){if(arrayPos)tempFile.writeU32(offset+8*arrayPos,val);else tempFile.writeU32(offset,val)},
+	_writeFloat32:function(offset,val,arrayPos){if(arrayPos)tempFile.writeF32(offset+8*arrayPos,val);else tempFile.writeF32(offset,val)},
 	_writeString:function(offset,str){
 		for(var i=0; i<8; i++){
 			tempFile.writeBytes(offset,[0,0,0,0]);
 			var fourBytes=str.substr(i*4, 4);
 			for(j=0; j<fourBytes.length; j++){
-				tempFile.writeByte(offset+j, fourBytes.charCodeAt(j));
+				tempFile.writeU8(offset+j, fourBytes.charCodeAt(j));
 			}
 			offset+=8;
 		}
@@ -44,7 +59,7 @@ SavegameEditor={
 			tempFile.writeBytes(offset,[0,0,0,0]);
 			var fourBytes=str.substr(i*4, 4);
 			for(j=0; j<fourBytes.length; j++){
-				tempFile.writeByte(offset+j, fourBytes.charCodeAt(j));
+				tempFile.writeU8(offset+j, fourBytes.charCodeAt(j));
 			}
 			offset+=8;
 		}
@@ -68,18 +83,33 @@ SavegameEditor={
 	},
 
 
+	changeEndianess:function(){
+		var tempFileByteSwapped=new MarcFile(tempFile.fileSize);
+		tempFileByteSwapped.fileType=tempFile.fileType;
+		tempFileByteSwapped.fileName=tempFile.fileName;
+		tempFileByteSwapped.littleEndian=!tempFile.littleEndian;
+		for(var i=0; i<tempFile.fileSize; i+=4){
+			tempFileByteSwapped.writeU32(i, tempFile.readU32(i));
+		}
+		tempFile=tempFileByteSwapped;
+		this.checkValidSavegame();
+	},
+
+
 	/* check if savegame is valid */
 	_checkValidSavegameByConsole:function(switchMode){
 		var CONSOLE=switchMode?'Switch':'Wii U';
 		tempFile.littleEndian=switchMode;
 		for(var i=0; i<this.Constants.FILESIZE.length; i++){
-			var versionHash=tempFile.readInt(0);
+			var versionHash=tempFile.readU32(0);
 			if(versionHash===0x2a46) //v1.3.0 switch?
 				versionHash=0x29c0;
-			if(versionHash===0x3ef9) //v1.3.3 switch?
+			else if(versionHash===0x3ef9) //v1.3.3 switch?
 				versionHash=0x3ef8;
+			else if(versionHash===0x471b) //v1.5 is the same as 1.4
+				versionHash=0x471a;
 
-			if(tempFile.fileSize===this.Constants.FILESIZE[i] && versionHash===this.Constants.HEADER[i] && tempFile.readInt(4)===0xffffffff){
+			if(tempFile.fileSize===this.Constants.FILESIZE[i] && versionHash===this.Constants.HEADER[i] && tempFile.readU32(4)===0xffffffff){
 				setValue('version', this.Constants.VERSION[i]+' ('+CONSOLE+')');
 				return true;
 			}
@@ -93,48 +123,76 @@ SavegameEditor={
 
 
 	preload:function(){
+		for(var i=0; i<this.HashFilters.length; i++){
+			var option=document.createElement('option');
+			option.value=i;
+			option.innerHTML=this.HashFilters[i][0];
+			document.getElementById('select-filters').appendChild(option);
+		}
 	},
 
 
-	/* load function */
-	load:function(){
-		tempFile.fileName='game_data.sav';
-
+	showHashes:function(regexFilter, page){
+		var findHashesIn;
+		empty('table');
 		this.Hashes=[];
 
-		//var textarea=document.createElement('textarea');
-		//document.body.appendChild(textarea);
+		if(regexFilter===-1){
+			findHashesIn=HASHES;
+		}else if(regexFilter>-1){
+			findHashesIn={};
+			for(var hash in HASHES){
+				if(this.HashFilters[regexFilter][1].test(HASHES[hash][1])){
+					findHashesIn[hash]=true;
+				}
+			}
+
+		}
+
 		var previousHashValue=0;
 		for(var i=0x0c; i<tempFile.fileSize-4; i+=8){
-			var hashValue=tempFile.readInt(i);
+			var hashValue=tempFile.readU32(i);
+
 			if(hashValue===previousHashValue)
 				continue;
+			previousHashValue=hashValue;
 
-			if(HASHES[hashValue]){
+			if(findHashesIn[hashValue]){
 				this.Hashes.push({
 					type:HASHES[hashValue][0],
 					id:HASHES[hashValue][1],
 					offset:i
 				});
-			}else{
+			}else if(regexFilter===-1){
 				this.Hashes.push({
 					id:'* '+this._toHexInt(hashValue)
 				});
 			}
-			previousHashValue=hashValue;
-
-			/*if(/ \(NEW!\)/.test(hashId)){
-				textarea.value+=this._toHexInt(hashValue)+',\"'+hashId+'\",//'+hashType+'\n';
-			}*/
 		}
 		this.Hashes.sort(function(a,b){
-		if(a.id<b.id)return -1;
-		if(a.id>b.id)return 1;
-		return 0;
+			if(a.id<b.id)return -1;
+			if(a.id>b.id)return 1;
+			return 0;
 		});
+
 		
-		empty('table');
-		var placeholder=document.createElement('div');
+		var HASHES_PER_PAGE=100;
+		var nPages=parseInt(this.Hashes.length/HASHES_PER_PAGE);
+		if(this.Hashes.length%HASHES_PER_PAGE!==0){
+			nPages++;
+		}
+
+		empty('select-page');
+		for(var i=0; i<nPages; i++){
+			var option=document.createElement('option');
+			option.value=i;
+			option.innerHTML=i+1;
+			document.getElementById('select-page').appendChild(option);
+		}
+		document.getElementById('select-page').selectedIndex=page;
+		
+		this.Hashes=this.Hashes.splice(page*HASHES_PER_PAGE, HASHES_PER_PAGE);
+		var placeholder=document.createElement('tbody');
 		for(var i=0; i<this.Hashes.length; i++){
 			var hash=this.Hashes[i];
 
@@ -145,6 +203,14 @@ SavegameEditor={
 			}
 		}
 		get('table').appendChild(placeholder);
+
+	},
+
+	/* load function */
+	load:function(){
+		tempFile.fileName='game_data.sav';
+		this.showHashes(-1, 0);
+		document.getElementById('select-filters').value=-1;
 	},
 
 	/* save function */
@@ -156,6 +222,7 @@ function addEditorRow(container, left, right){
 	tr.appendChild(document.createElement('td'));
 	tr.appendChild(document.createElement('td'));
 
+	tr.children[1].className='text-right';
 	if(right){
 		tr.children[0].appendChild(label(right.id, left));
 		tr.children[1].appendChild(right);
@@ -169,14 +236,31 @@ function createHashInput(container, hashId, type, offset){
 		var c=checkbox(hashId);
 		c.offset=offset+4;
 		c.addEventListener('change', setBoolean);
-		if(tempFile.readInt(offset+4))
+		if(tempFile.readU32(offset+4))
 			c.checked=true;
 		addEditorRow(container, hashId, c);
 	}else if(type===S32){
-		var inp=inputNumber(hashId, 0, 0xffffffff, tempFile.readInt(offset+4));
+		var inp=inputNumber(hashId, 0, 0xffffffff, tempFile.readU32(offset+4));
 		inp.offset=offset+4;
 		inp.addEventListener('change', setS32);
 		addEditorRow(container, hashId, inp);
+	}else if(type===F32){
+		var inp=inputNumber(hashId, 0, 0xffffffff, tempFile.readF32(offset+4));
+		inp.offset=offset+4;
+		inp.addEventListener('change', setF32);
+		addEditorRow(container, hashId, inp);
+	}else if(type===VECTOR2F){
+		createHashInput(container, hashId+'[0]', F32, offset);
+		createHashInput(container, hashId+'[1]', F32, offset+8);
+	}else if(type===VECTOR3F){
+		createHashInput(container, hashId+'[0]', F32, offset);
+		createHashInput(container, hashId+'[1]', F32, offset+8);
+		createHashInput(container, hashId+'[2]', F32, offset+16);
+	}else if(type===VECTOR4F){
+		createHashInput(container, hashId+'[0]', F32, offset);
+		createHashInput(container, hashId+'[1]', F32, offset+8);
+		createHashInput(container, hashId+'[2]', F32, offset+16);
+		createHashInput(container, hashId+'[3]', F32, offset+24);
 	}else if(type===STRING){
 		var inp=input(hashId, SavegameEditor._readString(offset+4));
 		inp.offset=offset+4;
@@ -190,36 +274,83 @@ function createHashInput(container, hashId, type, offset){
 		inp.addEventListener('change', setString64);
 		addEditorRow(container, hashId, inp);
 	}else if(type===BOOL_ARRAY){
-		var hash=tempFile.readInt(offset);
+		var hash=tempFile.readU32(offset);
 		var nextHash=hash;
 		var i=0;
 		while(nextHash===hash){
 			createHashInput(container, hashId+'['+i+']', BOOL, offset+i*8);
 			i++;
-			nextHash=tempFile.readInt(offset+i*8);
+			nextHash=tempFile.readU32(offset+i*8);
 		}
 	}else if(type===S32_ARRAY){
-		var hash=tempFile.readInt(offset);
+		var hash=tempFile.readU32(offset);
 		var nextHash=hash;
 		var i=0;
 		while(nextHash===hash){
 			createHashInput(container, hashId+'['+i+']', S32, offset+i*8);
 			i++;
-			nextHash=tempFile.readInt(offset+i*8);
+			nextHash=tempFile.readU32(offset+i*8);
+		}
+	}else if(type===F32_ARRAY){
+		var hash=tempFile.readU32(offset);
+		var nextHash=hash;
+		var i=0;
+		while(nextHash===hash){
+			createHashInput(container, hashId+'['+i+']', F32, offset+i*8);
+			i++;
+			nextHash=tempFile.readU32(offset+i*8);
+		}
+	}else if(type===VECTOR2F_ARRAY){
+		var hash=tempFile.readU32(offset);
+		var nextHash=hash;
+		var i=0;
+		while(nextHash===hash){
+			createHashInput(container, hashId+'['+i+']', VECTOR2F, offset+i*16);
+			i++;
+			nextHash=tempFile.readU32(offset+i*16);
+		}
+	}else if(type===VECTOR3F_ARRAY){
+		var hash=tempFile.readU32(offset);
+		var nextHash=hash;
+		var i=0;
+		while(nextHash===hash){
+			createHashInput(container, hashId+'['+i+']', VECTOR3F, offset+i*24);
+			i++;
+			nextHash=tempFile.readU32(offset+i*24);
 		}
 	}else if(type===STRING64_ARRAY){
-		var hash=tempFile.readInt(offset);
+		var hash=tempFile.readU32(offset);
 		var nextHash=hash;
 		var i=0;
 		while(nextHash===hash){
 			createHashInput(container, hashId+'['+i+']', STRING64, offset+i*128);
 			i++;
-			nextHash=tempFile.readInt(offset+i*128);
+			nextHash=tempFile.readU32(offset+i*128);
 		}
 	}else{
 		addEditorRow(container, hashId+' ('+DATA_TYPES[type]+')');
 	}
 }
+
+
+
+
+function setBoolean(){
+	SavegameEditor._writeBoolean(this.offset, this.checked, 0);
+}
+function setS32(){
+	SavegameEditor._writeValue(this.offset, this.value, 0);
+}
+function setF32(){
+	SavegameEditor._writeFloat32(this.offset, this.value, 0);
+}
+function setString(){
+	SavegameEditor._writeString(this.offset, this.value);
+}
+function setString64(){
+	SavegameEditor._writeString64(this.offset, this.value);
+}
+
 
 
 
@@ -233,30 +364,4 @@ function onScroll(){
 		document.getElementById('header').style.top='0px';
 	}
 }
-
-window.addEventListener('load',function(){
-	/* service worker */
-	if(location.protocol==='http:')
-		location.href=window.location.href.replace('http:','https:');
-	if('serviceWorker' in navigator)
-		navigator.serviceWorker.register('_cache_service_worker.js');
-
-	window.addEventListener('scroll',onScroll,false);
-}, false);
-
-
-
-
-
-function setBoolean(){
-	SavegameEditor._writeBoolean(this.offset, this.checked, 0);
-}
-function setS32(){
-	SavegameEditor._writeValue(this.offset, this.value, 0);
-}
-function setString(){
-	SavegameEditor._writeString(this.offset, this.value);
-}
-function setString64(){
-	SavegameEditor._writeString64(this.offset, this.value);
-}
+window.addEventListener('scroll', onScroll, false);

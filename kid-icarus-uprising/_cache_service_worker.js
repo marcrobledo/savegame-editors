@@ -14,15 +14,15 @@ limitations under the License.
 */
 
 
-const PRECACHE = 'precache-editor-zeldabotwmaster-v1';
+const PRECACHE = 'precache-editor-kiuprising-v1';
 const RUNTIME = 'runtime';
 const PRECACHE_URLS = [
 	'index.html','./',
-	'zelda-botw-master.css',
-	'zelda-botw-master.js',
-	'hashes.js',
 	'favicon.png',
-	'../savegame-editor.js'
+	'kid-icarus-uprising.js',
+	'icons.png',
+	'../savegame-editor.js',
+	'../savegame-editor.css'
 ];
 
 

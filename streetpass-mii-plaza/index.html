@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="savegame-editor.appcache">
+<html>
 <head>
 	<title>Savegame Editor &ndash; StreetPass Mii Plaza</title>
 	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
@@ -10,6 +10,16 @@
 	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./streetpass-mii-plaza.js"></script>
+	<script type="text/javascript"><!--
+		/* service worker */
+		var FORCE_HTTPS=true;
+		window.addEventListener('load',function(){
+			if(location.protocol==='http:' && FORCE_HTTPS)
+				location.href=window.location.href.replace('http:','https:');
+			else if(location.protocol==='https:' && 'serviceWorker' in navigator)
+				navigator.serviceWorker.register('_cache_service_worker.js');
+		}, false);
+	--></script>
 </head>
 <body>
 
@@ -48,15 +58,6 @@
 
 			<div class="eight columns"><label for="number-fantastic">Fantastic ratings</label></div>
 			<div class="four columns"><input id="number-fantastic" type="text" class="fw" /></div>
-			
-			<div class="eight columns"><label for="button-unlockmap">Unlock maps</label></div>
-			<div class="four columns"><button id="button-unlockmap" onclick="SavegameEditor._unlockMap()">Unlock</button></div>
-			
-			<div class="eight columns"><label for="button-unlockbirthdays">Unlock birthdays</label></div>
-			<div class="four columns"><button id="button-unlockbirthdays" onclick="SavegameEditor._unlockBirthdays()">Unlock</button></div>
-			
-			<div class="eight columns"><label for="button-unlockaccomplishments">Unlock accomplishments</label></div>
-			<div class="four columns"><button id="button-unlockaccomplishments" onclick="SavegameEditor._unlockAccomplishments()">Unlock</button></div>
 		</div>
 	</div>
 

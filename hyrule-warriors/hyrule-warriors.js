@@ -479,7 +479,7 @@ SavegameEditor={
 	discoverMaterials:function(){
 		hide('button-discover-materials'); 	
 		for(var i=0; i<this.Constants.MATERIALS_DISCOVERED_ALL.length; i++){
-			tempFile.writeByte(this.Constants.MATERIALS_DISCOVERED+i, this.Constants.MATERIALS_DISCOVERED_ALL[i]);
+			tempFile.writeU8(this.Constants.MATERIALS_DISCOVERED+i, this.Constants.MATERIALS_DISCOVERED_ALL[i]);
 		}
 		MarcDialogs.alert('All materials are now discovered (won\'t appear as ??? in-game)');
 	},
@@ -490,26 +490,26 @@ SavegameEditor={
 		currentWeapon=i;
 
 		var offset=this._getWeaponOffset();
-		setValue('weapon-type', tempFile.readByte(offset+0x00));
-		setValue('weapon-id', tempFile.readInt(offset+0x04));
-		setValue('weapon-base-power', tempFile.readShort(offset+0x08));
-		setValue('weapon-stars', tempFile.readShort(offset+0x0a));
+		setValue('weapon-type', tempFile.readU8(offset+0x00));
+		setValue('weapon-id', tempFile.readU32(offset+0x04));
+		setValue('weapon-base-power', tempFile.readU16(offset+0x08));
+		setValue('weapon-stars', tempFile.readU16(offset+0x0a));
 		for(var i=0; i<8; i++){
-			setValue('weapon-skill'+i, tempFile.readInt(offset+0x0c+0x04*i));
-			setValue('weapon-koskill'+i, tempFile.readInt(offset+0x2c+0x04*i));
+			setValue('weapon-skill'+i, tempFile.readU32(offset+0x0c+0x04*i));
+			setValue('weapon-koskill'+i, tempFile.readU32(offset+0x2c+0x04*i));
 		}
 
 		SavegameEditor._calculateWeaponPower();
 	},
 	_writeWeapon:function(){
 		var offset=SavegameEditor._getWeaponOffset();
-		tempFile.writeByte(offset+0x00, getValue('weapon-type'));
-		tempFile.writeInt(offset+0x04, getValue('weapon-id'));
-		tempFile.writeShort(offset+0x08, getValue('weapon-base-power'));
-		tempFile.writeShort(offset+0x0a, getValue('weapon-stars'));
+		tempFile.writeU8(offset+0x00, getValue('weapon-type'));
+		tempFile.writeU32(offset+0x04, getValue('weapon-id'));
+		tempFile.writeU16(offset+0x08, getValue('weapon-base-power'));
+		tempFile.writeU16(offset+0x0a, getValue('weapon-stars'));
 		for(var i=0; i<8; i++){
-			tempFile.writeInt(offset+0x0c+0x04*i, getValue('weapon-skill'+i));
-			tempFile.writeInt(offset+0x2c+0x04*i, getValue('weapon-koskill'+i));
+			tempFile.writeU32(offset+0x0c+0x04*i, getValue('weapon-skill'+i));
+			tempFile.writeU32(offset+0x2c+0x04*i, getValue('weapon-koskill'+i));
 		}
 
 		SavegameEditor._calculateWeaponPower();
@@ -559,10 +559,10 @@ SavegameEditor={
 
 
 		/* MATERIALS */
-		setValue('rupees', tempFile.readInt(this.Constants.RUPEES_OFFSET), 0, 9999999);
+		setValue('rupees', tempFile.readU32(this.Constants.RUPEES_OFFSET), 0, 9999999);
 		for(var i=0; i<this.Constants.MATERIALS.length; i++){
 			get('row-materials').appendChild(col(3, label('number-material'+i, this.Constants.MATERIALS[i])));
-			get('row-materials').appendChild(col(1, inputNumber('material'+i, 0, 999, tempFile.readShort(this.Constants.MATERIALS_OFFSET+i*2))));
+			get('row-materials').appendChild(col(1, inputNumber('material'+i, 0, 999, tempFile.readU16(this.Constants.MATERIALS_OFFSET+i*2))));
 		}
 
 
@@ -572,7 +572,7 @@ SavegameEditor={
 
 			for(var j=0; j<names.length; j++){
 				var offset=this.Constants.CHARACTER_PACKS[i].Offset+j*this.Constants.CHARACTER_SIZE;
-				var level=tempFile.readByte(offset+this.Constants.CHARACTER_LEVEL_OFFSET);
+				var level=tempFile.readU8(offset+this.Constants.CHARACTER_LEVEL_OFFSET);
 				if(level==0xf00){
 					this.Constants.CHARACTER_PACKS[i].Names[j]=null; //set this character to null, so it won't be updated on saving
 				}else if(names[j]){
@@ -580,13 +580,13 @@ SavegameEditor={
 						col(3, span(names[j]))
 					);
 					get('row-characters').appendChild(
-						col(3, inputNumber('characters'+i+'_damage'+j, 0, 99999999, tempFile.readShort(offset)))
+						col(3, inputNumber('characters'+i+'_damage'+j, 0, 99999999, tempFile.readU16(offset)))
 					);
 					get('row-characters').appendChild(
 						col(3, inputNumber('characters'+i+'_level'+j, 1, 255, level+1))
 					);
 					get('row-characters').appendChild(
-						col(3, inputNumber('characters'+i+'_exp'+j, 0, 12842457, tempFile.readInt(offset+this.Constants.CHARACTER_EXP_OFFSET)))
+						col(3, inputNumber('characters'+i+'_exp'+j, 0, 12842457, tempFile.readU32(offset+this.Constants.CHARACTER_EXP_OFFSET)))
 					);
 
 					var regexName=new RegExp(' \\('+names[j]+' - ');
@@ -616,7 +616,7 @@ SavegameEditor={
 			for(var j=0; j<map.Items.length; j++){
 				if(map.Items[j]){
 					mapDiv.appendChild(col(4, label('number-map'+i+'-item'+j, map.Items[j])));
-					mapDiv.appendChild(col(2, inputNumber('map'+i+'-item'+j, 0, 5, tempFile.readByte(map.Offset+j))));
+					mapDiv.appendChild(col(2, inputNumber('map'+i+'-item'+j, 0, 5, tempFile.readU8(map.Offset+j))));
 				}
 			}
 		}
@@ -658,9 +658,9 @@ SavegameEditor={
 	/* save function */
 	save:function(){
 		/* MATERIALS */
-		tempFile.writeInt(this.Constants.RUPEES_OFFSET, getValue('rupees'));
+		tempFile.writeU32(this.Constants.RUPEES_OFFSET, getValue('rupees'));
 		for(var i=0; i<this.Constants.MATERIALS.length; i++){
-			tempFile.writeShort(this.Constants.MATERIALS_OFFSET+i*2, getValue('material'+i));
+			tempFile.writeU16(this.Constants.MATERIALS_OFFSET+i*2, getValue('material'+i));
 		}
 
 
@@ -671,9 +671,9 @@ SavegameEditor={
 				if(names[j]){
 					var offset=this.Constants.CHARACTER_PACKS[i].Offset+j*this.Constants.CHARACTER_SIZE;
 
-					tempFile.writeShort(offset, getValue('characters'+i+'_damage'+j));
-					tempFile.writeByte(offset+this.Constants.CHARACTER_LEVEL_OFFSET, getValue('characters'+i+'_level'+j)-1);
-					tempFile.writeInt(offset+this.Constants.CHARACTER_EXP_OFFSET, getValue('characters'+i+'_exp'+j));
+					tempFile.writeU16(offset, getValue('characters'+i+'_damage'+j));
+					tempFile.writeU8(offset+this.Constants.CHARACTER_LEVEL_OFFSET, getValue('characters'+i+'_level'+j)-1);
+					tempFile.writeU32(offset+this.Constants.CHARACTER_EXP_OFFSET, getValue('characters'+i+'_exp'+j));
 				}
 			}
 		}
@@ -686,7 +686,7 @@ SavegameEditor={
 			
 			for(var j=0; j<map.Items.length; j++){
 				if(map.Items[j]){
-					tempFile.writeByte(map.Offset+j, getValue('map'+i+'-item'+j));
+					tempFile.writeU8(map.Offset+j, getValue('map'+i+'-item'+j));
 				}
 			}
 		}

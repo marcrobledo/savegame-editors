@@ -11,6 +11,16 @@
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./zelda-botw-master.js"></script>
 	<script type="text/javascript" src="./hashes.js"></script>
+	<script type="text/javascript"><!--
+		/* service worker */
+		var FORCE_HTTPS=true;
+		window.addEventListener('load',function(){
+			if(location.protocol==='http:' && FORCE_HTTPS)
+				location.href=window.location.href.replace('http:','https:');
+			else if(location.protocol==='https:' && 'serviceWorker' in navigator)
+				navigator.serviceWorker.register('_cache_service_worker.js');
+		}, false);
+	--></script>
 </head>
 <body>
 
@@ -30,7 +40,18 @@
 	<div id="toolbar" class="hidden padding-vertical">
 		<div class="row wrapper">
 			<div class="twelve columns text-center">
-				<span id="span-version"></span> | <button class="button with-icon icon3" onclick="closeFile()">Close file</button>
+				<span class="clickable" onclick="SavegameEditor.changeEndianess()" id="span-version"></span> | 
+
+				<label for="select-filters">Filter: </label>
+				<select id="select-filters" onchange="SavegameEditor.showHashes(parseInt(this.value), 0)">
+					<option value="-1">- All -</option>
+				</select>
+				<label for="select-page">Page: </label>
+				<button id="page-prev" onclick="if(document.getElementById('select-page').selectedIndex>0)SavegameEditor.showHashes(parseInt(document.getElementById('select-filters').value), parseInt(document.getElementById('select-page').value)-1)">&laquo;</button>
+				<select id="select-page" onchange="SavegameEditor.showHashes(parseInt(document.getElementById('select-filters').value), parseInt(this.value))"></select>
+				<button id="page-next" onclick="if(document.getElementById('select-page').selectedIndex<document.getElementById('select-page').children.length-1)SavegameEditor.showHashes(parseInt(document.getElementById('select-filters').value), parseInt(document.getElementById('select-page').value)+1)">&raquo;</button> | 
+
+				<button class="button with-icon icon3" onclick="closeFile()">Close file</button>
 				<button class="button colored blue with-icon icon9" onclick="saveChanges()">Save changes</button>
 			</div>
 		</div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="savegame-editor.appcache">
+<html>
 <head>
 	<title>Savegame Editor &ndash; Hyrule Warriors</title>
 	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
@@ -10,6 +10,16 @@
 	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./hyrule-warriors.js"></script>
+	<script type="text/javascript"><!--
+		/* service worker */
+		var FORCE_HTTPS=true;
+		window.addEventListener('load',function(){
+			if(location.protocol==='http:' && FORCE_HTTPS)
+				location.href=window.location.href.replace('http:','https:');
+			else if(location.protocol==='https:' && 'serviceWorker' in navigator)
+				navigator.serviceWorker.register('_cache_service_worker.js');
+		}, false);
+	--></script>
 </head>
 <body>
 
@@ -73,7 +83,7 @@
 	<div class="container">
 		<label for="select-weapon">Weapon slot</label>
 		<span id="container-select-weapon"></span>
-		<span class="bg-light-gray round" style="padding: 3px 12px">Approximate power: <span id="span-weapon-power"></span></span>
+		<span class="bg-dark-gray round" style="padding: 3px 12px">Approximate power: <span id="span-weapon-power"></span></span>
 		<hr/>
 		<div class="row">
 			<div class="three columns">Weapon type</div><div class="three columns" id="container-weapon-type"></div>

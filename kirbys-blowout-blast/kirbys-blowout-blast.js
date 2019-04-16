@@ -11,8 +11,8 @@ SavegameEditor={
 
 	unlockAmiiboPuzzles:function(){
 		for(var i=0; i<5; i++)
-			tempFile.writeByte(this.StatuesOffset+i*2, 0x01);
-		tempFile.writeByte(this.StatuesOffset+1, 0x01);
+			tempFile.writeU8(this.StatuesOffset+i*2, 0x01);
+		tempFile.writeU8(this.StatuesOffset+1, 0x01);
 		setValue('amiibocount', 5);
 	},
 
@@ -27,7 +27,7 @@ SavegameEditor={
 
 		var unlockedStatues=0;
 		for(var i=0; i<5; i++){
-			if(tempFile.readByte(this.StatuesOffset+i*2))
+			if(tempFile.readU8(this.StatuesOffset+i*2))
 				unlockedStatues++;
 		}
 		setValue('amiibocount', unlockedStatues);

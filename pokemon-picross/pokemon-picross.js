@@ -16,7 +16,7 @@ SavegameEditor={
 
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
-		return (tempFile.fileSize==14920)
+		return (tempFile.fileSize===14920)
 	},
 
 	/* preload function */
@@ -29,16 +29,16 @@ SavegameEditor={
 	load:function(){
 		tempFile.fileName='all.dat';
 
-		setValue('picrites', tempFile.readShort(this.Offsets.PICRITES));
-		setValue('boughtpicrites', tempFile.readShort(this.Offsets.BOUGHTPICRITES));
+		setValue('picrites', tempFile.readU16(this.Offsets.PICRITES));
+		setValue('boughtpicrites', tempFile.readU16(this.Offsets.BOUGHTPICRITES));
 	},
 
 	/* save function */
 	save:function(){
-		tempFile.writeShort(this.Offsets.PICRITES, getValue('picrites'));
+		tempFile.writeU16(this.Offsets.PICRITES, getValue('picrites'));
 		var boughtPicrites=getValue('boughtpicrites');
-		tempFile.writeShort(this.Offsets.BOUGHTPICRITES, boughtPicrites);
-		var unlockedShopByte=tempFile.readByte(this.Offsets.UNLOCKEDSHOPFLAG) & ~0x01;
-		tempFile.writeByte(this.Offsets.UNLOCKEDSHOPFLAG, unlockedShopByte+(boughtPicrites>=5000)?0x01:0x00);
+		tempFile.writeU16(this.Offsets.BOUGHTPICRITES, boughtPicrites);
+		var unlockedShopByte=tempFile.readU8(this.Offsets.UNLOCKEDSHOPFLAG) & ~0x01;
+		tempFile.writeU8(this.Offsets.UNLOCKEDSHOPFLAG, unlockedShopByte+(boughtPicrites>=5000)?0x01:0x00);
 	}
 }

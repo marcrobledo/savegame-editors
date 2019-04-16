@@ -17,7 +17,7 @@ SavegameEditor={
 
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
-		return (tempFile.fileSize==201816)
+		return (tempFile.fileSize===201816)
 	},
 
 
@@ -36,8 +36,8 @@ SavegameEditor={
 		tempFile.littleEndian=true;
 		tempFile.fileName='game0';
 
-		setValue('gil', tempFile.readThreeBytes(this.Offsets.GIL), 0, 9999999);
-		setValue('cp', tempFile.readThreeBytes(this.Offsets.CP), 0, 9999999);
+		setValue('gil', tempFile.readU24(this.Offsets.GIL), 0, 9999999);
+		setValue('cp', tempFile.readU24(this.Offsets.CP), 0, 9999999);
 
 		readInventoryFromTable('material', MATERIALS, this.Offsets.MATERIALS);
 		readInventoryFromTable('atmalith', ATMALITHS, this.Offsets.ATMALITHS);
@@ -47,9 +47,8 @@ SavegameEditor={
 
 	/* save function */
 	save:function(){
-		tempFile.writeThreeBytes(this.Offsets.GIL, getValue('gil'));
-		tempFile.writeThreeBytes(this.Offsets.CP, getValue('cp'));
-
+		tempFile.writeU24(this.Offsets.GIL, getValue('gil'));
+		tempFile.writeU24(this.Offsets.CP, getValue('cp'));
 
 		writeToInventory('material', MATERIALS, this.Offsets.MATERIALS);
 		writeToInventory('atmalith', ATMALITHS, this.Offsets.ATMALITHS);
@@ -58,22 +57,16 @@ SavegameEditor={
 }
 
 
-/* Implement 3-byte reader/writer in MarcBinFile */
-MarcBinFile.prototype.readThreeBytes=function(offset){return (this.readByte(offset+2) << 16)+(this.readByte(offset+1) << 8)+(this.readByte(offset+0))}
-MarcBinFile.prototype.writeThreeBytes=function(offset,val){this.writeBytes(offset, [(val & 0x0000ff) >> 0, (val & 0x00ff00) >> 8, (val & 0xff0000) >> 16])}
-
-
-
 
 function readInventoryFromTable(container, table, offset){
 	for(var i=0; i<table.length; i++){
-		setValue(container+table[i][0], tempFile.readByte(offset+table[i][0]));
+		setValue(container+table[i][0], tempFile.readU8(offset+table[i][0]));
 		checkQuantity(getField(container+table[i][0]));
 	}
 }
 function writeToInventory(container, table, offset){
 	for(var i=0; i<table.length; i++){
-		tempFile.writeByte(offset+table[i][0], getValue(container+table[i][0]))
+		tempFile.writeU8(offset+table[i][0], getValue(container+table[i][0]))
 	}
 }
 function createInventoryTable(container, table){
@@ -115,18 +108,3 @@ function Weapon(offset){
 	this.trait=tempFile.readInt(offset+14);
 	this.traitValue=tempFile.readInt(offset+18);
 }*/
-
-
-
-
-
-
-
-
-window.addEventListener('load',function(){
-	/* service worker */
-	if(location.protocol==='http:')
-		location.href=window.location.href.replace('http:','https:');
-	if('serviceWorker' in navigator)
-		navigator.serviceWorker.register('_cache_service_worker.js');
-}, false);

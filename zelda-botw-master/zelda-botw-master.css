@@ -178,7 +178,9 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 #toolbar{
 	padding:8px
 }
-
+#span-version:hover{text-decoration:underline}
+#toolbar select{width:initial !important}
+#page-prev,#page-next{min-width:initial !important}
 #header h1{display:none}
 #header h1 img{vertical-align:middle}
 
@@ -234,7 +236,6 @@ h3{
 }
 
 table{width:100%}
-tbody tr:nth-child(even){background-color:#f2f2f2}
 th{background-color:#d4d4d4}
 
 
@@ -466,14 +467,15 @@ button.no-text.with-icon:before{margin-right:0px}
 }
 #demo{
 	text-decoration:none;
-	background-color:#5271e7;
-	color:black;
 	padding:4px 16px;
 	border-radius:3px;
-	clear:both
+	clear:both;
+	position:relative;
+	top:80px;
 }
 #demo:hover{
-	background-color:#8a9eea;
+	background-color:#bbb;
+	color:#000
 }
 
 #warning{

@@ -1,20 +1,37 @@
 /*
-	savegame-editor.js v20180408
+	savegame-editor.js v20190411
 	A library that lets you create easily a savegame editor. Made with vanilla JS.
 
-	by Marc Robledo 2016-2018
+	by Marc Robledo 2016-2019
 	http://www.marcrobledo.com/license
 */
 
 /* LIBRARIES */
-/* MarcBinFile.js v2016 */
-function MarcBinFile(a,b){if("function"!=typeof window.FileReader)throw console.error("MarcBinFile.js: Browser doesn't support FileReader."),"Invalid browser";if("object"==typeof a&&a.name&&a.size)this.file=a,this.fileName=this.file.name,this.fileSize=this.file.size,this.fileType=a.type;else if("object"==typeof a&&a.files){if(1!=a.files.length){for(var c=[],d=a.files.length,e=function(){d--,0==d&&b&&b.call()},f=0;f<a.files.length;f++)c.push(new MarcBinFile(a.files[f],e));return c}this.file=a.files[0],this.fileName=this.file.name,this.fileSize=this.file.size,this.fileType=this.file.type}else{if("number"!=typeof a)throw console.error("MarcBinFile.js: Invalid type of file."),"Invalid file.";this.file=!1,this.fileName="newfile.hex",this.fileSize=a,this.fileType="application/octet-stream"}this.littleEndian=function(){var a=new ArrayBuffer(2);return new DataView(a).setInt16(0,256,!0),256===new Int16Array(a)[0]}(),this.file?(this.fileReader=new FileReader,this.fileReader.addEventListener("load",function(){this.dataView=new DataView(this.result)},!1),b&&this.fileReader.addEventListener("load",b,!1),this.fileReader.readAsArrayBuffer(this.file)):(this.fileReader=new ArrayBuffer(this.fileSize),this.fileReader.dataView=new DataView(this.fileReader),b&&b.call())}MarcBinFile.prototype.isReady=function(){return 2==this.fileReader.readyState},MarcBinFile.prototype.save=function(){var a;try{a=new Blob([this.fileReader.dataView],{type:this.fileType});}catch(e){if(e.name==="InvalidStateError"){var bb=new MSBlobBuilder();bb.append(this.fileReader.dataView.buffer);a=bb.getBlob('application/octet-stream')}}saveAs(a,this.fileName)},MarcBinFile.prototype.readByte=function(a){return this.fileReader.dataView.getUint8(a)},MarcBinFile.prototype.readByteSigned=function(a){return this.fileReader.dataView.getInt8(a)},MarcBinFile.prototype.readBytes=function(a,b){for(var c=new Array(b),d=0;d<b;d++)c[d]=this.readByte(a+d);return c},MarcBinFile.prototype.readShort=function(a){return this.fileReader.dataView.getUint16(a,this.littleEndian)},MarcBinFile.prototype.readShortSigned=function(a){return this.fileReader.dataView.getInt16(a,this.littleEndian)},MarcBinFile.prototype.readInt=function(a){return this.fileReader.dataView.getUint32(a,this.littleEndian)},MarcBinFile.prototype.readIntSigned=function(a){return this.fileReader.dataView.getInt32(a,this.littleEndian)},MarcBinFile.prototype.readFloat32=function(a){return this.fileReader.dataView.getFloat32(a,this.littleEndian)},MarcBinFile.prototype.readFloat64=function(a){return this.fileReader.dataView.getFloat64(a,this.littleEndian)},MarcBinFile.prototype.readString=function(a,b){for(var c=this.readBytes(a,b),d="",e=0;e<b&&c[e]>0;e++)d+=String.fromCharCode(c[e]);return d},MarcBinFile.prototype.writeByte=function(a,b){this.fileReader.dataView.setUint8(a,b,this.littleEndian)},MarcBinFile.prototype.writeByteSigned=function(a,b){this.fileReader.dataView.setInt8(a,b,this.littleEndian)},MarcBinFile.prototype.writeBytes=function(a,b){for(var c=0;c<b.length;c++)this.writeByte(a+c,b[c])},MarcBinFile.prototype.writeShort=function(a,b){this.fileReader.dataView.setUint16(a,b,this.littleEndian)},MarcBinFile.prototype.writeShortSigned=function(a,b){this.fileReader.dataView.setInt16(a,b,this.littleEndian)},MarcBinFile.prototype.writeInt=function(a,b){this.fileReader.dataView.setUint32(a,b,this.littleEndian)},MarcBinFile.prototype.writeIntSigned=function(a,b){this.fileReader.dataView.setInt32(a,b,this.littleEndian)},MarcBinFile.prototype.writeFloat32=function(a,b){this.fileReader.dataView.setFloat32(a,b,this.littleEndian)},MarcBinFile.prototype.writeFloat64=function(a,b){this.fileReader.dataView.setFloat64(a,b,this.littleEndian)},MarcBinFile.prototype.writeString=function(a,b,c){for(var d=0;d<c;d++)this.writeByte(a+d,0);for(var d=0;d<b.length&&d<c;d++)this.writeByte(a+d,b.charCodeAt(d))};
+/* MODDED VERSION OF MarcFile.js v20181020 - Marc Robledo 2014-2018 - http://www.marcrobledo.com/license */
+function MarcFile(a,b){"object"==typeof a&&a.files&&(a=a.files[0]);var c=!1;if("object"==typeof a&&a.name&&a.size){if("function"!=typeof window.FileReader)throw new Error("Incompatible Browser");c=!0,this.fileName=a.name,this.fileType=a.type,this.fileSize=a.size}else if("number"==typeof a)this.fileName="file.bin",this.fileType="application/octet-stream",this.fileSize=a;else throw new Error("Invalid source");if(this.littleEndian=!1,c)this._fileReader=new FileReader,this._fileReader.marcFile=this,this._fileReader.addEventListener("load",function(){this.marcFile._u8array=new Uint8Array(this.result),this.marcFile._dataView=new DataView(this.result),b&&b.call()},!1),this._fileReader.readAsArrayBuffer(a);else if(0<a){var d=new ArrayBuffer(a);this._u8array=new Uint8Array(d),this._dataView=new DataView(d),b&&b.call()}}MarcFile.prototype.IS_MACHINE_LITTLE_ENDIAN=function(){var a=new ArrayBuffer(2);return new DataView(a).setInt16(0,256,!0),256===new Int16Array(a)[0]}(),MarcFile.prototype.save=function(){var a;try{a=new Blob([this._u8array],{type:this.fileType})}catch(c){if(window.BlobBuilder=window.BlobBuilder||window.WebKitBlobBuilder||window.MozBlobBuilder||window.MSBlobBuilder,"InvalidStateError"===c.name&&window.BlobBuilder){var b=new BlobBuilder;b.append(this._u8array.buffer),a=b.getBlob(this.fileType)}else{throw new Error("Incompatible Browser")}}saveAs(a,this.fileName)},MarcFile.prototype.readU8=function(a){return this._u8array[a]},MarcFile.prototype.readU16=function(a){return this.littleEndian?this._u8array[a]+(this._u8array[a+1]<<8)>>>0:(this._u8array[a]<<8)+this._u8array[a+1]>>>0},MarcFile.prototype.readU24=function(a){return this.littleEndian?this._u8array[a]+(this._u8array[a+1]<<8)+(this._u8array[a+2]<<16)>>>0:(this._u8array[a]<<16)+(this._u8array[a+1]<<8)+this._u8array[a+2]>>>0},MarcFile.prototype.readU32=function(a){return this.littleEndian?this._u8array[a]+(this._u8array[a+1]<<8)+(this._u8array[a+2]<<16)+(this._u8array[a+3]<<24)>>>0:(this._u8array[a]<<24)+(this._u8array[a+1]<<16)+(this._u8array[a+2]<<8)+this._u8array[a+3]>>>0},MarcFile.prototype.readS8=function(a){return this._dataView.getInt8(a,this.littleEndian)},MarcFile.prototype.readS16=function(a){return this._dataView.getInt16(a,this.littleEndian)},MarcFile.prototype.readS32=function(a){return this._dataView.getInt32(a,this.littleEndian)},MarcFile.prototype.readF32=function(a){return this._dataView.getFloat32(a,this.littleEndian)},MarcFile.prototype.readF64=function(a){return this._dataView.getFloat64(a,this.littleEndian)},MarcFile.prototype.readBytes=function(a,b){for(var c=Array(b),d=0;d<b;d++)c[d]=this._u8array[a+d];return c},MarcFile.prototype.readString=function(a,b){for(var c="",d=0;d<b&&a+d<this.fileSize&&0<this._u8array[a+d];d++)c+=String.fromCharCode(this._u8array[a+d]);return c},MarcFile.prototype.writeU8=function(a,b){this._u8array[a]=b},MarcFile.prototype.writeU16=function(a,b){this.littleEndian?(this._u8array[a]=255&b,this._u8array[a+1]=b>>8):(this._u8array[a]=b>>8,this._u8array[a+1]=255&b)},MarcFile.prototype.writeU24=function(a,b){this.littleEndian?(this._u8array[a]=255&b,this._u8array[a+1]=(65280&b)>>8,this._u8array[a+2]=(16711680&b)>>16):(this._u8array[a]=(16711680&b)>>16,this._u8array[a+1]=(65280&b)>>8,this._u8array[a+2]=255&b)},MarcFile.prototype.writeU32=function(a,b){this.littleEndian?(this._u8array[a]=255&b,this._u8array[a+1]=(65280&b)>>8,this._u8array[a+2]=(16711680&b)>>16,this._u8array[a+3]=(4278190080&b)>>24):(this._u8array[a]=(4278190080&b)>>24,this._u8array[a+1]=(16711680&b)>>16,this._u8array[a+2]=(65280&b)>>8,this._u8array[a+3]=255&b)},MarcFile.prototype.writeS8=function(a,b){this._dataView.setInt8(a,b,this.littleEndian)},MarcFile.prototype.writeS16=function(a,b){this._dataView.setInt16(a,b,this.littleEndian)},MarcFile.prototype.writeS32=function(a,b){this._dataView.setInt32(a,b,this.littleEndian)},MarcFile.prototype.writeF32=function(a,b){this._dataView.setFloat32(a,b,this.littleEndian)},MarcFile.prototype.writeF64=function(a,b){this._dataView.setFloat64(a,b,this.littleEndian)},MarcFile.prototype.writeBytes=function(b,c){for(var a=0;a<c.length;a++)this._u8array[b+a]=c[a]},MarcFile.prototype.writeString=function(a,b,c){c=c||b.length;for(var d=0;d<b.length&&d<c;d++)this._u8array[a+d]=b.charCodeAt(d);for(;d<c;d++)this._u8array[a+d]=0};
+/* implement U16 string in MarcFile (PROVISIONAL!) */
+MarcFile.prototype.readU16String=function(pos,maxLength){
+	var cs=new Array(maxLength);
+	var str='';
+	for(var i=0;i<maxLength && this.readU16(pos+i*2)!=0;i++)
+		str+=String.fromCharCode(this.readU16(pos+i*2));
+		//cs[i]=this.readU16(pos+i*2);
+	return str
+}
+MarcFile.prototype.writeU16String=function(pos,maxLength,str){
+	for(var i=0;i<str.length && i<maxLength-1;i++)
+		this.writeU16(pos+i*2,str.charCodeAt(i));
+	for(;i<maxLength;i++)
+		this.writeU16(pos+i*2,0)
+}
+
+
+
+
 /* FileSaver.js by eligrey - https://github.com/eligrey/FileSaver.js */
-var saveAs=saveAs||function(e){"use strict";if(typeof e==="undefined"||typeof navigator!=="undefined"&&/MSIE [1-9]\./.test(navigator.userAgent)){return}var t=e.document,n=function(){return e.URL||e.webkitURL||e},r=t.createElementNS("http://www.w3.org/1999/xhtml","a"),o="download"in r,a=function(e){var t=new MouseEvent("click");e.dispatchEvent(t)},i=/constructor/i.test(e.HTMLElement)||e.safari,f=/CriOS\/[\d]+/.test(navigator.userAgent),u=function(t){(e.setImmediate||e.setTimeout)(function(){throw t},0)},s="application/octet-stream",d=1e3*40,c=function(e){var t=function(){if(typeof e==="string"){n().revokeObjectURL(e)}else{e.remove()}};setTimeout(t,d)},l=function(e,t,n){t=[].concat(t);var r=t.length;while(r--){var o=e["on"+t[r]];if(typeof o==="function"){try{o.call(e,n||e)}catch(a){u(a)}}}},p=function(e){if(/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(e.type)){return new Blob([String.fromCharCode(65279),e],{type:e.type})}return e},v=function(t,u,d){if(!d){t=p(t)}var v=this,w=t.type,m=w===s,y,h=function(){l(v,"writestart progress write writeend".split(" "))},S=function(){if((f||m&&i)&&e.FileReader){var r=new FileReader;r.onloadend=function(){var t=f?r.result:r.result.replace(/^data:[^;]*;/,"data:attachment/file;");var n=e.open(t,"_blank");if(!n)e.location.href=t;t=undefined;v.readyState=v.DONE;h()};r.readAsDataURL(t);v.readyState=v.INIT;return}if(!y){y=n().createObjectURL(t)}if(m){e.location.href=y}else{var o=e.open(y,"_blank");if(!o){e.location.href=y}}v.readyState=v.DONE;h();c(y)};v.readyState=v.INIT;if(o){y=n().createObjectURL(t);setTimeout(function(){r.href=y;r.download=u;a(r);h();c(y);v.readyState=v.DONE});return}S()},w=v.prototype,m=function(e,t,n){return new v(e,t||e.name||"download",n)};if(typeof navigator!=="undefined"&&navigator.msSaveOrOpenBlob){return function(e,t,n){t=t||e.name||"download";if(!n){e=p(e)}return navigator.msSaveOrOpenBlob(e,t)}}w.abort=function(){};w.readyState=w.INIT=0;w.WRITING=1;w.DONE=2;w.error=w.onwritestart=w.onprogress=w.onwrite=w.onabort=w.onerror=w.onwriteend=null;return m}(typeof self!=="undefined"&&self||typeof window!=="undefined"&&window||this.content);if(typeof module!=="undefined"&&module.exports){module.exports.saveAs=saveAs}else if(typeof define!=="undefined"&&define!==null&&define.amd!==null){define("FileSaver.js",function(){return saveAs})}
+var saveAs=saveAs||function(c){"use strict";if(!(void 0===c||"undefined"!=typeof navigator&&/MSIE [1-9]\./.test(navigator.userAgent))){var t=c.document,f=function(){return c.URL||c.webkitURL||c},s=t.createElementNS("http://www.w3.org/1999/xhtml","a"),d="download"in s,u=/constructor/i.test(c.HTMLElement)||c.safari,l=/CriOS\/[\d]+/.test(navigator.userAgent),p=c.setImmediate||c.setTimeout,v=function(t){p(function(){throw t},0)},w=function(t){setTimeout(function(){"string"==typeof t?f().revokeObjectURL(t):t.remove()},4e4)},m=function(t){return/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(t.type)?new Blob([String.fromCharCode(65279),t],{type:t.type}):t},r=function(t,n,e){e||(t=m(t));var r,o=this,a="application/octet-stream"===t.type,i=function(){!function(t,e,n){for(var r=(e=[].concat(e)).length;r--;){var o=t["on"+e[r]];if("function"==typeof o)try{o.call(t,n||t)}catch(t){v(t)}}}(o,"writestart progress write writeend".split(" "))};if(o.readyState=o.INIT,d)return r=f().createObjectURL(t),void p(function(){var t,e;s.href=r,s.download=n,t=s,e=new MouseEvent("click"),t.dispatchEvent(e),i(),w(r),o.readyState=o.DONE},0);!function(){if((l||a&&u)&&c.FileReader){var e=new FileReader;return e.onloadend=function(){var t=l?e.result:e.result.replace(/^data:[^;]*;/,"data:attachment/file;");c.open(t,"_blank")||(c.location.href=t),t=void 0,o.readyState=o.DONE,i()},e.readAsDataURL(t),o.readyState=o.INIT}r||(r=f().createObjectURL(t)),a?c.location.href=r:c.open(r,"_blank")||(c.location.href=r);o.readyState=o.DONE,i(),w(r)}()},e=r.prototype;return"undefined"!=typeof navigator&&navigator.msSaveOrOpenBlob?function(t,e,n){return e=e||t.name||"download",n||(t=m(t)),navigator.msSaveOrOpenBlob(t,e)}:(e.abort=function(){},e.readyState=e.INIT=0,e.WRITING=1,e.DONE=2,e.error=e.onwritestart=e.onprogress=e.onwrite=e.onabort=e.onerror=e.onwriteend=null,function(t,e,n){return new r(t,e||t.name||"download",n)})}}("undefined"!=typeof self&&self||"undefined"!=typeof window&&window||this);
 /* MarcDialogs.js v2016 */
 MarcDialogs=function(){function e(e,t,n){a?e.attachEvent("on"+t,n):e.addEventListener(t,n,!1)}function t(){s&&(o?history.go(-1):(c.className="dialog-overlay",s.className=s.className.replace(/ active/g,""),s=null))}function n(e){for(var t=0;t<s.dialogElements.length;t++){var n=s.dialogElements[t];if("INPUT"===n.nodeName&&"hidden"!==n.type||"INPUT"!==n.nodeName)return n.focus(),!0}return!1}function l(){s&&(s.style.marginLeft="-"+s.offsetWidth/2+"px",s.style.marginTop="-"+s.offsetHeight/2-30+"px")}var a=/MSIE 8/.test(navigator.userAgent),o=navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i)&&"function"==typeof history.pushState,i=["Cancel","Accept"],s=null,c=document.createElement("div");c.className="dialog-overlay",c.style.position="fixed",c.style.top="0",c.style.left="0",c.style.width="100%",c.style.height="100%",c.style.zIndex=8e3,e(c,"click",t),e(window,"load",function(){document.body.appendChild(c),o&&history.replaceState({myDialog:!1},null,null)}),e(window,"resize",l),o&&e(window,"popstate",function(e){e.state.myDialog?(s=e.state.myDialog,MarcDialogs.open(e.state.myDialog)):e.state.myDialog===!1&&s&&(c.className="dialog-overlay",s.className=s.className.replace(/ active/g,""),s=null)}),e(document,"keydown",function(e){s&&(27==e.keyCode?(e.preventDefault?e.preventDefault():e.returnValue=!1,t()):9==e.keyCode&&s.dialogElements[s.dialogElements.length-1]==document.activeElement&&(e.preventDefault?e.preventDefault():e.returnValue=!1,n()))});var d=null,u=null,m=null;return{open:function(e){s&&(s.className=s.className.replace(/ active/g,"")),o&&(s?history.replaceState({myDialog:e},null,null):(console.log("a"),history.pushState({myDialog:e},null,null))),c.className="dialog-overlay active",s="string"==typeof e?document.getElementById("dialog-"+e):e,s.className+=" active",s.style.position="fixed",s.style.top="50%",s.style.left="50%",s.style.zIndex=8001,s.dialogElements||(s.dialogElements=s.querySelectorAll("input,textarea,select")),n(),l(s),l(s)},close:t,alert:function(t){if(!d){d=document.createElement("div"),d.id="dialog-quick-alert",d.className="dialog",d.msg=document.createElement("div"),d.msg.style.textAlign="center",d.appendChild(d.msg),d.buttons=document.createElement("div"),d.buttons.className="buttons";var n=document.createElement("button");n.innerHTML=i[1],e(n,"click",this.close),d.buttons.appendChild(n),d.appendChild(d.buttons),document.body.appendChild(d)}d.msg.innerHTML=t,MarcDialogs.open("quick-alert")},confirm:function(t,n){if(!u){u=document.createElement("div"),u.id="dialog-quick-confirm",u.className="dialog",u.msg=document.createElement("div"),u.msg.style.textAlign="center",u.appendChild(u.msg),u.buttons=document.createElement("div"),u.buttons.className="buttons";var l=document.createElement("button");l.className="button colored blue with-icon icon9",l.innerHTML=i[1],e(l,"click",function(){m()}),u.buttons.appendChild(l);var a=document.createElement("button");a.className="button with-icon icon3",a.innerHTML=i[0],e(a,"click",this.close),u.buttons.appendChild(a),u.appendChild(u.buttons),document.body.appendChild(u)}m=n,u.msg.innerHTML=t,MarcDialogs.open("quick-confirm")}}}();
-/* mCreate v20170315 */
-function mCreate(a,b){var c=document.createElement(a);if("object"==typeof b)for(var d in b)b.hasOwnProperty(d)&&("html"===d?c.innerHTML=b[d]:"class"===d?c.className=b[d]:d.startsWith("style")||d.startsWith("css")?c.style[d.replace(/^(style|css)(:- )?/,"")]=b[d]:c[d]=b[d]);return c};
 /* MarcDragAndDrop.js v20170421 - Marc Robledo 2014-2017 - http://www.marcrobledo.com/license */
 MarcDragAndDrop=(function(){
 	function addEvent(e,t,f){if(/MSIE 8/.test(navigator.userAgent))e.attachEvent('on'+t,f);else e.addEventListener(t,f,false)}
@@ -92,21 +109,6 @@ MarcDragAndDrop=(function(){
 
 
 
-/* implement U16 string in MarcBinFile (PROVISIONAL!) */
-MarcBinFile.prototype.readU16String=function(pos,maxLength){
-	var cs=new Array(maxLength);
-	var str='';
-	for(var i=0;i<maxLength && this.readShort(pos+i*2)!=0;i++)
-		str+=String.fromCharCode(this.readShort(pos+i*2));
-		//cs[i]=this.readShort(pos+i*2);
-	return str
-}
-MarcBinFile.prototype.writeU16String=function(pos,maxLength,str){
-	for(var i=0;i<str.length && i<maxLength-1;i++)
-		this.writeShort(pos+i*2,str.charCodeAt(i));
-	for(;i<maxLength;i++)
-		this.writeShort(pos+i*2,0)
-}
 
 
 /* savegame load/save */
@@ -128,7 +130,7 @@ function _tempFileLoadFunction(){
 }
 
 function loadSavegameFromInput(input){
-	tempFile=new MarcBinFile(input.files[0], _tempFileLoadFunction);
+	tempFile=new MarcFile(input.files[0], _tempFileLoadFunction);
 }
 
 function saveChanges(){
@@ -185,11 +187,49 @@ window.addEventListener('load', function(){
 		loadSavegameFromInput(this);
 	}, false);
 
-	var demoMessage=document.createElement('a');
+	var demoMessage=document.createElement('button');
 	demoMessage.id='demo';
-	demoMessage.href=SavegameEditor.Filename;
-	demoMessage.download=SavegameEditor.Filename;
-	demoMessage.innerHTML='Do you want to try it out? <u>Download an example savegame</u>';
+	demoMessage.innerHTML='Do you want to try it out? <u>Try an example savegame</u>';
+	demoMessage.addEventListener('click', function(){
+		if(typeof window.fetch==='function'){
+			fetch(SavegameEditor.Filename)
+				.then(res => res.arrayBuffer()) // Gets the response and returns it as a blob
+				.then(ab => {
+					tempFile=new MarcFile(ab.byteLength);
+					tempFile.fileName=SavegameEditor.Filename;
+					tempFile._u8array=new Uint8Array(ab);
+					tempFile._dataView=new DataView(ab);
+					_tempFileLoadFunction();
+				})
+				.catch(function(){
+					alert('Unexpected error: can\'t download example savegame');
+				});
+		}else{
+			var oReq=new XMLHttpRequest();
+			oReq.open('GET', SavegameEditor.Filename, true);
+			oReq.responseType='arraybuffer';
+
+			oReq.onload=function(oEvent){
+				if(this.status===200) {
+					var ab=oReq.response; //Note: not oReq.responseText
+
+					tempFile=new MarcFile(ab.byteLength);
+					tempFile.fileName=SavegameEditor.Filename;
+					tempFile._u8array=new Uint8Array(ab);
+					tempFile._dataView=new DataView(ab);
+					_tempFileLoadFunction();
+				}else{
+					alert('Unexpected error: can\'t download example savegame');
+				}
+			};
+
+			oReq.onerror=function(oEvent){
+				alert('Unexpected error: can\'t download example savegame');
+			};
+
+			oReq.send(null);
+		}
+	}, false);
 
 	dragZone.appendChild(dragMessage);
 	dragZone.appendChild(inputFile);
@@ -199,7 +239,7 @@ window.addEventListener('load', function(){
 
 
 	MarcDragAndDrop.add('dragzone', function(droppedFiles){
-		tempFile=new MarcBinFile(droppedFiles[0], _tempFileLoadFunction);
+		tempFile=new MarcFile(droppedFiles[0], _tempFileLoadFunction);
 	});
 
 
@@ -271,7 +311,7 @@ function fixNumericFieldValue(field){
 	
 
 	if(isNaN(val) || val<field.minValue){
-		val=field.minValue || 0;
+		val=field.minValue;
 	}else if(val > field.maxValue){
 		val=field.maxValue;
 	}

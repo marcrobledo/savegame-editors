@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Savegame Editor &ndash; Mario Kart 7</title>
+	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content="A savegame editor for Mario Kart 7. It can edit your coin count and unlock tracks and car parts with a single click!"/>
+	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, 3ds, mario, kart, 7, coin, unlock, tracks, karts, cars, parts, tire, tires, glider, gliders"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="shortcut icon" href="favicon.png"/>
+	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
+	<script type="text/javascript" src="../savegame-editor.js"></script>
+	<script type="text/javascript" src="./mario-kart-7.js"></script>
+	<script type="text/javascript"><!--
+		/* service worker */
+		var FORCE_HTTPS=true;
+		window.addEventListener('load',function(){
+			if(location.protocol==='http:' && FORCE_HTTPS)
+				location.href=window.location.href.replace('http:','https:');
+			else if(location.protocol==='https:' && 'serviceWorker' in navigator)
+				navigator.serviceWorker.register('_cache_service_worker.js');
+		}, false);
+	--></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+	<div id="header-top">
+		<div class="row wrapper">
+			<h1 class="six columns text-left"><img src="favicon.png" /> Savegame Editor <small>for Mario Kart 7</small></h1>
+			<div class="six columns header-buttons text-right">
+				by <a href="/">Marc Robledo</a>
+				<i class="icon github"></i> <a href="https://github.com/marcrobledo/savegame-editors/tree/master/mario-kart-7" target="_blank">See on GitHub</a>
+				<i class="icon heart"></i> <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
+			</div>
+		</div>
+		<div class="hidden row wrapper" id="toolbar">
+			<div class="twelve columns text-center">
+				<button class="close" onclick="closeFile()"><i class="icon close"></i> Close file</button>
+				<button class="colored" onclick="saveChanges()"><i class="icon accept"></i> Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- THE EDITOR -->
+<div id="the-editor" class="wrapper hidden">
+	<!-- PROFILE -->
+	<h3 class="orange">Profile</h3>
+	<div class="container">
+		<div class="row">
+			<div class="nine columns"><label for="input-name">Name</label></div>
+			<div class="three columns"><input id="input-name" type="text" class="fw" maxlength="10"/></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-coins">Coins</label></div>
+			<div class="three columns"><input id="input-coins" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-streetpass">Streetpass</label></div>
+			<div class="three columns"><input id="input-streetpass" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-wins">Wins</label></div>
+			<div class="three columns"><input id="input-wins" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-loses">Loses</label></div>
+			<div class="three columns"><input id="input-loses" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-vrpoints">VR Points</label></div>
+			<div class="three columns"><input id="input-vrpoints" type="text" class="fw" /></div>
+		</div>
+	</div>
+	<!-- PROFILE -->
+	<h3 class="green">Unlocks</h3>
+	<div class="container">
+		<div class="row">
+			<div class="ten columns"><label for="checkbox-unlock-cups">Unlock all cups</label></div>
+			<div class="two columns text-right"><input id="checkbox-unlock-cups" type="checkbox" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="ten columns"><label for="checkbox-unlock-characters">Unlock all characters</label></div>
+			<div class="two columns text-right"><input id="checkbox-unlock-characters" type="checkbox" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="ten columns"><label for="checkbox-unlock-karts">Unlock all karts</label></div>
+			<div class="two columns text-right"><input id="checkbox-unlock-karts" type="checkbox" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="ten columns"><label for="checkbox-unlock-tires">Unlock all tires</label></div>
+			<div class="two columns text-right"><input id="checkbox-unlock-tires" type="checkbox" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="ten columns"><label for="checkbox-unlock-gliders">Unlock all gliders</label></div>
+			<div class="two columns text-right"><input id="checkbox-unlock-gliders" type="checkbox" class="fw" /></div>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>

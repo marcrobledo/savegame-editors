@@ -35,20 +35,20 @@ SavegameEditor={
 		tempFile.littleEndian=true;
 		tempFile.fileName='savedataArc.txt';
 
-		setValue('coins', tempFile.readShort(this.Offsets.COINS), 0, 9999);
-		setValue('flowballs', tempFile.readShort(this.Offsets.FLOWBALLS), 0, 255);
-		setValue('onions1', tempFile.readByte(this.Offsets.ONIONS1), 0, 255);
-		setValue('onions2', tempFile.readByte(this.Offsets.ONIONS2), 0, 255);
-		setValue('onions3', tempFile.readByte(this.Offsets.ONIONS3), 0, 255);
+		setValue('coins', tempFile.readU16(this.Offsets.COINS), 0, 9999);
+		setValue('flowballs', tempFile.readU16(this.Offsets.FLOWBALLS), 0, 255);
+		setValue('onions1', tempFile.readU8(this.Offsets.ONIONS1), 0, 255);
+		setValue('onions2', tempFile.readU8(this.Offsets.ONIONS2), 0, 255);
+		setValue('onions3', tempFile.readU8(this.Offsets.ONIONS3), 0, 255);
 	},
 
 
 	/* save function */
 	save:function(){
-		tempFile.writeShort(this.Offsets.COINS, getValue('coins'));
-		tempFile.writeShort(this.Offsets.FLOWBALLS, getValue('flowballs'));
-		tempFile.writeByte(this.Offsets.ONIONS1, getValue('onions1'));
-		tempFile.writeByte(this.Offsets.ONIONS2, getValue('onions2'));
-		tempFile.writeByte(this.Offsets.ONIONS3, getValue('onions3'));
+		tempFile.writeU16(this.Offsets.COINS, getValue('coins'));
+		tempFile.writeU16(this.Offsets.FLOWBALLS, getValue('flowballs'));
+		tempFile.writeU8(this.Offsets.ONIONS1, getValue('onions1'));
+		tempFile.writeU8(this.Offsets.ONIONS2, getValue('onions2'));
+		tempFile.writeU8(this.Offsets.ONIONS3, getValue('onions3'));
 	}
 }
