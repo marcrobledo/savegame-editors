@@ -15,9 +15,9 @@
 		var FORCE_HTTPS=true;
 		window.addEventListener('load',function(){
 			if(location.protocol==='http:' && FORCE_HTTPS)
-				location.href=window.location.href.replace('http:','https:');
+				location.replace(window.location.href.replace('http:','https:'));
 			else if(location.protocol==='https:' && 'serviceWorker' in navigator)
-				navigator.serviceWorker.register('_cache_service_worker.js');
+				navigator.serviceWorker.register('/savegame-editors/pokemon-shuffle/_cache_service_worker.js', {scope: '/savegame-editors/pokemon-shuffle/'});
 		}, false);
 	--></script>
 </head>

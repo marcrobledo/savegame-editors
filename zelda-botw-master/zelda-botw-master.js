@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild - Master editor v20190416
+	The legend of Zelda: Breath of the wild - Master editor v20190430
 	by Marc Robledo 2017-2019
 */
 var currentEditingItem=0;
@@ -7,7 +7,7 @@ var currentEditingItem=0;
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild (Master editor)',
 	Filename:'game_data.sav',
-	Version:20190416,
+	Version:20190430,
 
 
 	/* Constants */
@@ -15,10 +15,10 @@ SavegameEditor={
 		STRING_SIZE:0x20,
 		STRING64_SIZE:0x80,
 
-		/*						 v1.0    v1.1    v1.2    v1.3    kiosk    v1.3.3   v1.4/v1.5    */
-		FILESIZE:				[896976, 897160, 897112, 907824, 916576,  1020648, 1027208],
-		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x2f8e,  0x3ef8,  0x471a],
-		VERSION:				['v1.0', 'v1.1', 'v1.2', 'v1.3', 'Kiosk', 'v1.3.3','v1.4/v1.5'],
+		//missing versions: 1.1.1, 1.1.2 and 1.4.1
+		VERSION:				['v1.0', 'v1.1', 'v1.2', 'v1.3', 'v1.3.1', 'Kiosk', 'v1.3.3','v1.3.4', 'v1.4',  'v1.5',  'v1.6'],
+		FILESIZE:				[896976, 897160, 897112, 907824, 907824,  916576,  1020648, 1020648,   1027208, 1027208, 1027216],
+		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x2a46,  0x2f8e,  0x3ef8,  0x3ef9,    0x471a,  0x471b,  0x471e]
 	},
 	
 	HashFilters:[
