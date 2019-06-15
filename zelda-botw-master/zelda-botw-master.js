@@ -20,7 +20,7 @@ SavegameEditor={
 		FILESIZE:				[896976, 897160, 897112, 907824, 907824,  916576,  1020648, 1020648,   1027208, 1027208, 1027216],
 		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x2a46,  0x2f8e,  0x3ef8,  0x3ef9,    0x471a,  0x471b,  0x471e]
 	},
-	
+
 	HashFilters:[
 		['Amiibo',				/WolfLink_|Amiibo/],
 		['Display flag names',	/_DispNameFlag$/],
@@ -37,7 +37,60 @@ SavegameEditor={
 
 	Hashes:[],
 
+	EnemyPoints:{
+		Defeated_Enemy_Wizzrobe_Electric_Num: 5.0,
+		Defeated_Enemy_Wizzrobe_Fire_Num: 5.0,
+		Defeated_Enemy_Wizzrobe_Ice_Num: 5.0,
+		Defeated_Enemy_Guardian_A_Fixed_Moss_Num: 12.0,
+		Defeated_Enemy_Golem_Junior_Num: 15.0,
+		Defeated_Enemy_Giant_Junior_Num: 15.0,
+		Defeated_Enemy_Assassin_Middle_Num: 15.0,
+		Defeated_Enemy_Bokoblin_Senior_Num: 15.0,
+		Defeated_Enemy_Wizzrobe_Ice_Senior_Num: 15.0,
+		Defeated_Enemy_Wizzrobe_Fire_Senior_Num: 15.0,
+		Defeated_Enemy_Wizzrobe_Electric_Senior_Num: 15.0,
+		Defeated_RemainsFire_Drone_A_01_Num: 15.0,
+		Defeated_Enemy_Moriblin_Senior_Num: 18.0,
+		Defeated_Enemy_Guardian_Mini_Middle_Num: 20.0,
+		Defeated_Enemy_Lizalfos_Electric_Num: 20.0,
+		Defeated_Enemy_Lizalfos_Ice_Num: 20.0,
+		Defeated_Enemy_Lizalfos_Senior_Num: 20.0,
+		Defeated_Enemy_Lizalfos_Fire_Num: 20.0,
+		Defeated_Enemy_Bokoblin_Gold_Num: 25.0,
+		Defeated_Enemy_Giant_Bone_Num: 25.0,
+		Defeated_Enemy_Bokoblin_Dark_Num: 25.0,
+		Defeated_Enemy_Golem_Middle_Num: 25.0,
+		Defeated_Enemy_Giant_Middle_Num: 25.0,
+		Defeated_Enemy_Golem_Senior_Num: 30.0,
+		Defeated_Enemy_Golem_Fire_Num: 35.0,
+		Defeated_Enemy_Moriblin_Gold_Num: 35.0,
+		Defeated_Enemy_Guardian_Mini_Senior_Num: 35.0,
+		Defeated_Enemy_Guardian_B_Num: 35.0,
+		Defeated_Enemy_Golem_Ice_Num: 35.0,
+		Defeated_Enemy_Moriblin_Dark_Num: 35.0,
+		Defeated_Enemy_Golem_Fire_R_Num: 35.0,
+		Defeated_Enemy_Giant_Senior_Num: 35.0,
+		Defeated_Enemy_Lizalfos_Dark_Num: 40.0,
+		Defeated_Enemy_Lizalfos_Gold_Num: 40.0,
+		Defeated_Enemy_SandwormR_Num: 50.0,
+		Defeated_Enemy_Guardian_A_Num: 50.0,
+		Defeated_Enemy_Guardian_C_Num: 50.0,
+		Defeated_Enemy_Sandworm_Num: 50.0,
+		Defeated_Enemy_Lynel_Junior_Num: 50.0,
+		Defeated_Enemy_Lynel_Middle_Num: 60.0,
+		Defeated_Enemy_Lynel_Senior_Num: 80.0,
+		Defeated_Enemy_Assassin_Senior_Num: 100.0,
+		Defeated_Enemy_Lynel_Gold_Num: 120.0,
+		Defeated_Enemy_Lynel_Dark_Num: 120.0,
+		Defeated_Enemy_SiteBoss_Lsword_Num: 300.0,
+		Defeated_Enemy_SiteBoss_Spear_Num: 300.0,
+		Defeated_Enemy_SiteBoss_Sword_Num: 300.0,
+		Defeated_Enemy_SiteBoss_Bow_Num: 300.0,
+		Defeated_Priest_Boss_Normal_Num: 500.0,
+		Defeated_Enemy_GanonBeast_Num: 800.0
+	},
 
+	ScaleScore:0,
 
 	/* private functions */
 	_toHexInt:function(i){var s=i.toString(16);while(s.length<8)s='0'+s;return '0x'+s},
@@ -129,6 +182,37 @@ SavegameEditor={
 			option.innerHTML=this.HashFilters[i][0];
 			document.getElementById('select-filters').appendChild(option);
 		}
+
+		var findHashesIn = {};
+		for(var hash in HASHES){
+			if(/Defeated.+Num/.test(HASHES[hash][1])){
+				findHashesIn[hash]=true;
+			}
+		}
+
+		var scaleScore = 0
+		var previousHashValue=0;
+		for(var i=0x0c; i<tempFile.fileSize-4; i+=8){
+			var hashValue=tempFile.readU32(i);
+
+			if(hashValue===previousHashValue)
+				continue;
+			previousHashValue=hashValue;
+
+			if(findHashesIn[hashValue]){
+				hashtype = HASHES[hashValue][0]
+				hashid = HASHES[hashValue][1]
+				hashoffset = i
+
+				if (hashtype === S32 && hashid in this.EnemyPoints){
+					defeated = parseInt(tempFile.readU32(hashoffset+4))
+					enepoints = parseInt(this.EnemyPoints[hashid])
+					scaleScore += enepoints*defeated
+				}
+			}
+		}
+		this.ScaleScore = scaleScore
+		get('scale-score').appendChild( document.createTextNode(this.ScaleScore) );
 	},
 
 
@@ -175,7 +259,7 @@ SavegameEditor={
 			return 0;
 		});
 
-		
+
 		var HASHES_PER_PAGE=100;
 		var nPages=parseInt(this.Hashes.length/HASHES_PER_PAGE);
 		if(this.Hashes.length%HASHES_PER_PAGE!==0){
@@ -190,12 +274,11 @@ SavegameEditor={
 			document.getElementById('select-page').appendChild(option);
 		}
 		document.getElementById('select-page').selectedIndex=page;
-		
+
 		this.Hashes=this.Hashes.splice(page*HASHES_PER_PAGE, HASHES_PER_PAGE);
 		var placeholder=document.createElement('tbody');
 		for(var i=0; i<this.Hashes.length; i++){
 			var hash=this.Hashes[i];
-
 			if(hash.type){
 				createHashInput(placeholder, hash.id, hash.type, hash.offset)
 			}else{
@@ -203,7 +286,6 @@ SavegameEditor={
 			}
 		}
 		get('table').appendChild(placeholder);
-
 	},
 
 	/* load function */
