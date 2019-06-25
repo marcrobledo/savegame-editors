@@ -30,7 +30,7 @@ caches.keys().then(function(cacheNames){
 });
 
 var PRECACHE_ID='zelda-botw-master-editor';
-var PRECACHE_VERSION='v1';
+var PRECACHE_VERSION='v2b';
 var PRECACHE_URLS=[
 	'/savegame-editors/zelda-botw-master/','/savegame-editors/zelda-botw-master/index.html',
 	'/savegame-editors/zelda-botw-master/zelda-botw-master.css',

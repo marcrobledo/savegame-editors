@@ -30,7 +30,7 @@ caches.keys().then(function(cacheNames){
 });
 
 var PRECACHE_ID='zelda-botw-editor';
-var PRECACHE_VERSION='v1';
+var PRECACHE_VERSION='v2b';
 var PRECACHE_URLS=[
 	'/savegame-editors/zelda-botw/','/savegame-editors/zelda-botw/index.html',
 	'/savegame-editors/zelda-botw/zelda-botw.css',
