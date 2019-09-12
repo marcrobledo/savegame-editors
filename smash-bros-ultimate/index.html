@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Savegame Editor &ndash; Super Smash Bros. Ultimate</title>
+	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content="A savegame editor for Super Smash Bros. Ultimate. It can let you edit your skill orbs, spirit points, items and more!"/>
+	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, switch, super, smash, bros, ultimate, skill, orbs, spirit, points, money, items"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="shortcut icon" href="favicon.png"/>
+	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
+	<script type="text/javascript" src="../savegame-editor.js"></script>
+	<script type="text/javascript" src="./smash-bros-ultimate.js"></script>
+	<script type="text/javascript"><!--
+		/* service worker */
+		var FORCE_HTTPS=true;
+		window.addEventListener('load',function(){
+			if(location.protocol==='http:' && FORCE_HTTPS)
+				location.replace(window.location.href.replace('http:','https:'));
+			else if(location.protocol==='https:' && 'serviceWorker' in navigator)
+				navigator.serviceWorker.register('/savegame-editors/smash-bros-ultimate/_cache_service_worker.js', {scope: '/savegame-editors/smash-bros-ultimate/'});
+		}, false);
+	--></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+	<div id="header-top">
+		<div class="row wrapper">
+			<h1 class="six columns text-left"><img src="favicon.png" /> Savegame Editor <small>for Super Smash Bros. Ultimate</small></h1>
+			<div class="six columns header-buttons text-right">
+				by <a href="/">Marc Robledo</a>
+				<i class="icon github"></i> <a href="https://github.com/marcrobledo/savegame-editors/tree/master/smash-bros-ultimate" target="_blank">See on GitHub</a>
+				<i class="icon heart"></i> <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
+			</div>
+		</div>
+		<div class="hidden row wrapper" id="toolbar">
+			<div class="twelve columns text-center">
+				<button class="close" onclick="closeFile()"><i class="icon close"></i> Close file</button>
+				<button class="colored" onclick="saveChanges()"><i class="icon accept"></i> Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- THE EDITOR -->
+<div id="the-editor" class="wrapper hidden">
+	<!-- MAIN -->
+	<h3 class="orange">Main</h3>
+	<div class="container">
+		<div class="row">
+			<div class="six columns center"><label for="number-tickets">Tickets</label></div>
+			<div class="four columns center"><input id="number-tickets" type="text" /></div>
+
+			<div class="six columns center"><label for="number-gold">Gold</label></div>
+			<div class="four columns center"><input id="number-gold" type="text" /></div>
+
+			<div class="six columns center"><label for="number-hammers">Hammers</label></div>
+			<div class="four columns center"><input id="number-hammers" type="text" /></div>
+		</div>
+	</div>
+	<!-- SPIRITS -->
+	<h3 class="green">Spirits</h3>
+	<div class="container">
+		<div class="row">
+			<div class="six columns center"><label for="number-snacks-s">Snacks (S)</label></div>
+			<div class="four columns center"><input id="number-snacks-s" type="text" /></div>
+
+			<div class="six columns center"><label for="number-snacks-m">Snacks (M)</label></div>
+			<div class="four columns center"><input id="number-snacks-m" type="text" /></div>
+
+			<div class="six columns center"><label for="number-snacks-l">Snacks (L)</label></div>
+			<div class="four columns center"><input id="number-snacks-l" type="text" /></div>
+	
+			<div class="six columns center"><label for="number-sp">SP</label></div>
+			<div class="four columns center"><input id="number-sp" type="text" /></div>
+		</div>
+	</div>
+	<!-- SPIRIT BOARD ITEMS -->
+	<h3 class="blue">Spirit board items</h3>
+	<div class="container">
+		<div class="row">
+			<div class="six columns center"><label for="number-items-shuffle-all">Shuffle all</label></div>
+			<div class="four columns center"><input id="number-items-shuffle-all" type="text" /></div>
+
+			<div class="six columns center"><label for="number-items-all-primaries">All primaries</label></div>
+			<div class="four columns center"><input id="number-items-all-primaries" type="text" /></div>
+
+			<div class="six columns center"><label for="number-items-all-supports">All supports</label></div>
+			<div class="four columns center"><input id="number-items-all-supports" type="text" /></div>
+
+			<div class="six columns center"><label for="number-items-filler">Filler</label></div>
+			<div class="four columns center"><input id="number-items-filler" type="text" /></div>
+
+			<div class="six columns center"><label for="number-items-rematch">Rematch</label></div>
+			<div class="four columns center"><input id="number-items-rematch" type="text" /></div>
+
+			<div class="six columns center"><label for="number-items-50-damage">50% damage</label></div>
+			<div class="four columns center"><input id="number-items-50-damage" type="text" /></div>
+
+			<div class="six columns center"><label for="number-items-slow-fs-charging">Slow FS charging</label></div>
+			<div class="four columns center"><input id="number-items-slow-fs-charging" type="text" /></div>
+
+			<div class="six columns center"><label for="number-items-weaken-minions">Weaken minions</label></div>
+			<div class="four columns center"><input id="number-items-weaken-minions" type="text" /></div>
+
+			<div class="six columns center"><label for="number-items-health-drain">Health drain</label></div>
+			<div class="four columns center"><input id="number-items-health-drain" type="text" /></div>
+
+			<div class="six columns center"><label for="number-items-disable-items">Dsiable items</label></div>
+			<div class="four columns center"><input id="number-items-disable-items" type="text" /></div>
+
+			<div class="six columns center"><label for="number-items-shield-spacer">Shield spacer</label></div>
+			<div class="four columns center"><input id="number-items-shield-spacer" type="text" /></div>
+
+			<div class="six columns center"><label for="number-items-sluggish-shield">Sluggish shield</label></div>
+			<div class="four columns center"><input id="number-items-sluggish-shield" type="text" /></div>
+
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
