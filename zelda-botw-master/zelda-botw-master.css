@@ -62,6 +62,7 @@ tr:hover{background-color:#250e0e}
 .text-center{text-align:center}
 .text-justify{text-align:justify}
 .padding-vertical{padding:20px 0}
+.padding-bottom{padding:0px 0px 20px 0}
 .round{border-radius:3px}
 /* colors */
 .bg-light-gray{background-color:rgba(216,216,216,.99)}
