@@ -1,4 +1,4 @@
-/* Zelda BOTW Savegame editor by Marc Robledo v20170521 */
+/* Zelda BOTW Savegame editor by Marc Robledo v20200215 */
 /* minify at https://cssminifier.com/ + https://www.base64-image.de/ (sprites */
 
 /* @FONT-FACES */
@@ -13,6 +13,18 @@ body{
 	color:#f9f5da;
 	background-image:url(assets/bg_black.jpg);
 }
+
+/* master editor */
+#toolbar select{width:initial !important}
+#page-prev,#page-next{min-width:initial !important}
+table{
+  border-collapse:collapse;
+}
+tr{border-bottom:1px solid #452e2e;height:36px}
+tr:last-child{border-bottom:none}
+tr:hover{background-color:#250e0e}
+
+
 
 /* flex box */
 .row{
@@ -137,7 +149,32 @@ span.sprite.github{background-position:0px -48px;width:16px;height:16px; margin-
 span.sprite.heart{background-position:-16px -48px;width:16px;height:16px; margin-right:5px}
 button.with-icon.file-load:before{background-position:-32px -48px;width:20px;height:20px; margin-right:8px}
 
-
+.tab-button{
+	padding:2px;
+	margin:0 2px;
+	min-width:1px;
+	line-height:0;
+}
+.tab-button.active{
+	border-color:#d3af61;
+	background-color: white;
+}
+i.tab-icon{
+	display:inline-block;
+	width:32px;height:32px;
+	background-image:url('assets/tabs.png');
+	background-size:320px;
+}
+i.tab-icon.home{background-position-x:-0px;}
+i.tab-icon.weapons{background-position-x:-32px;}
+i.tab-icon.bows{background-position-x:-64px;}
+i.tab-icon.shields{background-position-x:-96px;}
+i.tab-icon.clothes{background-position-x:-128px;}
+i.tab-icon.materials{background-position-x:-160px;}
+i.tab-icon.food{background-position-x:-192px;}
+i.tab-icon.other{background-position-x:-224px;}
+i.tab-icon.horses{background-position-x:-256px;}
+i.tab-icon.master{background-position-x:-288px;}
 
 
 
@@ -230,7 +267,7 @@ h3{
 }
 
 table{width:100%}
-tbody tr:nth-child(even){background-color:#f2f2f2}
+/*tbody tr:nth-child(even){background-color:#f2f2f2}*/
 th{background-color:#d4d4d4}
 
 
@@ -299,7 +336,8 @@ button{
 	box-shadow:0px 1px 0px rgba(255, 255, 255, 0.2) inset;
 	transition:border-color ease-in-out .15s;
 
-	box-sizing:border-box
+	box-sizing:border-box;
+	vertical-align:middle;
 }
 button.small{
 	min-width:1px
@@ -308,7 +346,7 @@ button:hover{
 	text-shadow:none;
 	border-color:#999999
 }
-button:active{
+button:active,button.active{
 	background-image:none;
 	transform:translate(0px,1px);
 	border-color:#888;
@@ -565,12 +603,16 @@ button.no-text.with-icon:before{margin-right:0px}
 	transition:visibility 0s .35s,opacity .35s;
 	font-size:80%;
 }
+.tooltip.dark{
+	background-color:#333;
+	color:#eee
+}
 
 /* separation */
-.tooltip.position-up{margin-bottom:10px}
-.tooltip.position-down{margin-top:10px}
-.tooltip.position-left{margin-right:10px}
-.tooltip.position-right{margin-left:10px}
+.tooltip.position-up{margin-bottom:8px}
+.tooltip.position-down{margin-top:8px}
+.tooltip.position-left{margin-right:8px}
+.tooltip.position-right{margin-left:8px}
 
 /* animation */
 .tooltip.visible{visibility:visible;opacity:1;transition-delay:0s} /* transition-delay fixes fade-in/fade-out in some browsers */
@@ -579,20 +621,36 @@ button.no-text.with-icon:before{margin-right:0px}
 	text-align:right;
 }
 
-.arrow{
-	width:0;height:0;
-	position:absolute;
-}
+/* arrow */
+.tooltip:before{width:0;height:0;position:absolute;content:""}
+
+.tooltip.position-down:before{top:-4px;border-bottom:5px solid #eee;border-left:5px solid transparent;border-right:5px solid transparent}
+.tooltip.position-up:before{bottom:-4px;border-top:5px solid #eee;border-left:5px solid transparent;border-right:5px solid transparent}
+.tooltip.position-left:before{right:-4px;border-left: 5px solid #eee;border-top:5px solid transparent;border-bottom: 5px solid transparent}
+.tooltip.position-right:before{left:-4px;border-right:5px solid #eee;border-top: 5px solid transparent;border-bottom: 5px solid transparent}
+
+.tooltip.position-vertical.align-left:before{left:4px}
+.tooltip.position-vertical.align-center:before{left:50%;margin-left:-4px}
+.tooltip.position-vertical.align-right:before{right:4px}
+
+.tooltip.position-horizontal.align-top:before{top:4px}
+.tooltip.position-horizontal.align-center:before{top:50%;margin-top:-4px}
+.tooltip.position-horizontal.align-bottom:before{bottom:4px}
+
+.tooltip.dark.position-down:before{border-bottom:5px solid #333}
+.tooltip.dark.position-up:before{border-top:5px solid #333}
+.tooltip.dark.position-left:before{border-left: 5px solid #333}
+.tooltip.dark.position-right:before{border-right:5px solid #333}
 
 
-.tooltip.position-down .arrow{
+.tooltip.position-down:before{
 	border-left:5px solid transparent;
 	border-right:5px solid transparent;
 
 	border-bottom:5px solid #eee;
 	top:-5px;
 }
-.tooltip.position-up .arrow{
+.tooltip.position-up:before{
 	border-left:5px solid transparent;
 	border-right:5px solid transparent;
 

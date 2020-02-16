@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild v20190625
+	The legend of Zelda: Breath of the wild v20200215
 	by Marc Robledo 2017-2019
 */
 var currentEditingItem=0;
@@ -12,15 +12,14 @@ SavegameEditor={
 	/* Constants */
 	Constants:{
 		MAX_ITEMS:410,
-		STRING_SIZE:0x80,
+		STRING_SIZE:0x20,
+		STRING64_SIZE:0x80,
 
 		//missing versions: 1.1.1, 1.1.2 and 1.4.1
-		VERSION:				['v1.0', 'v1.1', 'v1.2', 'v1.3', 'v1.3.1', 'Kiosk', 'v1.3.3','v1.3.4', 'v1.4',  'v1.5',  'v1.6',  'v1.6*', 'v1.6**','v1.6***'],
-		FILESIZE:				[896976, 897160, 897112, 907824, 907824,  916576,  1020648, 1020648,   1027208, 1027208, 1027216, 1027216, 1027216, 1027216],
-		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x2a46,  0x2f8e,  0x3ef8,  0x3ef9,    0x471a,  0x471b,  0x471e, 0x0f423d, 0x0f423e,0x0f423f],
+		VERSION:				['v1.0', 'v1.1', 'v1.2', 'v1.3', 'v1.3.1', 'Kiosk', 'v1.3.3','v1.3.4', 'v1.4',  'v1.5',  'v1.5*',  'v1.6',  'v1.6*', 'v1.6**','v1.6***'],
+		FILESIZE:				[896976, 897160, 897112, 907824, 907824,  916576,  1020648, 1020648,   1027208, 1027208, 1027248, 1027216, 1027216, 1027216, 1027216],
+		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x2a46,  0x2f8e,  0x3ef8,  0x3ef9,    0x471a,  0x471b, 0x471b,  0x471e, 0x0f423d, 0x0f423e,0x0f423f],
 
-		MAP_ICONS: 0x9383490e,
-		MAP_POS: 0xea9def3f,
 		ICON_TYPES:{SWORD: 27, BOW:28, SHIELD:29, POT:30, STAR:31, CHEST:32,SKULL:33,LEAF:34,TOWER:35}
 	},
 
@@ -44,6 +43,7 @@ SavegameEditor={
 		0x73c29681, 'PLAYTIME',
 		0x7b74e117, 'HORSE_NAMES',
 		0x8a94e07a, 'KOROK_SEED_COUNTER',
+		0x9383490e, 'MapApp_MapIconNo',
 		0x97f925c3, 'RELIC_GERUDO',
 		0x982ba201, 'HORSE_POSITION',
 		0x9c6cfd3f, 'HORSE_MANES',
@@ -55,17 +55,24 @@ SavegameEditor={
 		0xce7afed3, 'MONS',
 		0xd913b769, 'MAPTYPE',
 		0xe1a0ca54, 'HORSE_BONDS', /* max=0x3f80 */
+		0xea9def3f, 'MapApp_MapIconPos',
 		0xf1cf4807, 'RELIC_GORON',
-		0xfda0cde4, 'RELIC_RITO'				
+		0xfda0cde4, 'RELIC_RITO'
 	],
+	Headers:{
+		'MapApp_MapIconNo':0x9383490e,
+		'MapApp_MapIconPos':0xea9def3f
+	},
 
 
 	/* private functions */
 	_toHexInt:function(i){var s=i.toString(16);while(s.length<8)s='0'+s;return '0x'+s},
-	_writeBoolean:function(offset,val,arrayPos){if(arrayPos)tempFile.writeU32(offset+8*i,val?1:0);else tempFile.writeU32(offset,val?1:0)},
-	_writeValue:function(offset,val,arrayPos){if(arrayPos)tempFile.writeU32(offset+8*i,val);else tempFile.writeU32(offset,val)},
-	_writeString:function(offset,str){
-		for(var i=0; i<16; i++){
+	_writeBoolean:function(offset,val,arrayPos){if(arrayPos)tempFile.writeU32(offset+8*arrayPos,val?1:0);else tempFile.writeU32(offset,val?1:0)},
+	_writeValue:function(offset,val,arrayPos){if(arrayPos)tempFile.writeU32(offset+8*arrayPos,val);else tempFile.writeU32(offset,val)},
+	_writeFloat32:function(offset,val,arrayPos){if(arrayPos)tempFile.writeF32(offset+8*arrayPos,val);else tempFile.writeF32(offset,val)},
+	_writeString:function(offset,str,len){
+		len=len || 8;
+		for(var i=0; i<len; i++){
 			tempFile.writeBytes(offset,[0,0,0,0]);
 			var fourBytes=str.substr(i*4, 4);
 			for(j=0; j<fourBytes.length; j++){
@@ -74,16 +81,8 @@ SavegameEditor={
 			offset+=8;
 		}
 	},
-	_writeStringShort:function(offset,str){
-		for(var i=0; i<8; i++){
-			tempFile.writeBytes(offset,[0,0,0,0]);
-			var fourBytes=str.substr(i*4, 4);
-			for(j=0; j<fourBytes.length; j++){
-				tempFile.writeU8(offset+j, fourBytes.charCodeAt(j));
-			}
-			offset+=8;
-		}
-	},
+	_writeString64:function(offset,str){this._writeString(offset,str, 16);},
+	_writeString256:function(offset,str){this._writeString(offset,str, 64);},
 
 	_searchHash:function(hash){
 		for(var i=0x0c; i<tempFile.fileSize; i+=8)
@@ -103,7 +102,7 @@ SavegameEditor={
 			this._writeValue(offset+4,val);
 	},
 
-	_getOffsets:function(v){
+	_getOffsets:function(){
 		this.Offsets={};
 		var startSearchOffset=0x0c;
 		for(var i=0; i<this.Hashes.length; i+=2){
@@ -134,28 +133,27 @@ SavegameEditor={
 		return 'other'
 	},
 
-	_readString:function(offset){
+	_readString:function(offset, len){
+		len=len || 8;
 		var txt='';
-		for(var j=0; j<16; j++){
+		for(var j=0; j<len; j++){
 			txt+=tempFile.readString(offset,4);
 			offset+=8;
 		}
 		return txt
 	},
-	_readStringShort:function(offset){
-		var txt='';
-		for(var j=0; j<8; j++){
-			txt+=tempFile.readString(offset,4);
-			offset+=8;
-		}
-		return txt
+	_readString64:function(offset){
+		return this._readString(offset, 16);
+	},
+	_readString256:function(offset){
+		return this._readString(offset, 64);
 	},
 
 	_loadItemName:function(i){
-		return this._readString(this.Offsets.ITEMS+i*0x80);
+		return this._readString64(this.Offsets.ITEMS+i*0x80);
 	},
 	_writeItemName:function(i,newItemNameId){
-		this._writeString(this.Offsets.ITEMS+i*0x80, newItemNameId);
+		this._writeString64(this.Offsets.ITEMS+i*0x80, newItemNameId);
 	},
 	_getItemMaximumQuantity:function(itemId){
 		var cat=this._getItemCategory(itemId);
@@ -232,7 +230,13 @@ SavegameEditor={
 			i++;
 		}
 		if(i<this.Constants.MAX_ITEMS){
-			this.selectItem.selectedIndex++;
+			if(this._getItemCategory(this.selectItem.value)===currentTab){
+				this.selectItem.selectedIndex++;
+				if(this._getItemCategory(this.selectItem.value)!==currentTab)
+					this.selectItem.value=this.selectItem.categories[currentTab].children[0].value;
+			}else{
+				this.selectItem.value=this.selectItem.categories[currentTab].children[0].value;
+			}
 			var itemNameId=this.selectItem.value;
 			this._writeItemName(i,itemNameId);
 			var row=this._createItemRow(i, false);
@@ -259,6 +263,7 @@ SavegameEditor={
 			var row=this._getItemRow(i);
 			row.parentElement.removeChild(row);
 			document.getElementById('container-'+newCat).appendChild(row);
+			showTab(newCat);
 			(row.previousElementSibling || row).scrollIntoView({block:'start', behavior:'smooth'});
 		}
 		this._writeItemName(i, nameId);
@@ -294,7 +299,7 @@ SavegameEditor={
 		currentEditingItem=i;
 		if(currentEditingItem==5){ /* untamed horse */
 			hide('row-tamed-horse');
-			if(!this._readString(this.Offsets.HORSE_TYPES+this.Constants.STRING_SIZE*5).startsWith('GameRomHorse')){
+			if(!this._readString64(this.Offsets.HORSE_TYPES+this.Constants.STRING64_SIZE*5).startsWith('GameRomHorse')){
 				MarcDialogs.alert('Error: this will only work if your savegame has Link on an untamed horse.');
 				return false;
 			}
@@ -302,25 +307,25 @@ SavegameEditor={
 			getField('horse-type').children[28].disabled=false;
 		}else{
 			show('row-tamed-horse');
-			setValue('horse-name',this._readString(this.Offsets.HORSE_NAMES+this.Constants.STRING_SIZE*i));
-			setValue('horse-saddles',this._readString(this.Offsets.HORSE_SADDLES+this.Constants.STRING_SIZE*i));
-			setValue('horse-reins',this._readString(this.Offsets.HORSE_REINS+this.Constants.STRING_SIZE*i));
+			setValue('horse-name',this._readString64(this.Offsets.HORSE_NAMES+this.Constants.STRING64_SIZE*i));
+			setValue('horse-saddles',this._readString64(this.Offsets.HORSE_SADDLES+this.Constants.STRING64_SIZE*i));
+			setValue('horse-reins',this._readString64(this.Offsets.HORSE_REINS+this.Constants.STRING64_SIZE*i));
 			getField('horse-type').children[27].disabled=true;
 			getField('horse-type').children[28].disabled=true;
 		}
-		setValue('horse-type',this._readString(this.Offsets.HORSE_TYPES+this.Constants.STRING_SIZE*i));
+		setValue('horse-type',this._readString64(this.Offsets.HORSE_TYPES+this.Constants.STRING64_SIZE*i));
 		MarcDialogs.open('horse');
 	},
 	editHorse2:function(i,name,saddles,reins,type){
 		if(currentEditingItem<5){
-			this._writeString(this.Offsets.HORSE_NAMES+this.Constants.STRING_SIZE*i, getValue('horse-name'));
-			this._writeString(this.Offsets.HORSE_SADDLES+this.Constants.STRING_SIZE*i, getValue('horse-saddles'));
-			this._writeString(this.Offsets.HORSE_REINS+this.Constants.STRING_SIZE*i, getValue('horse-reins'));
+			this._writeString64(this.Offsets.HORSE_NAMES+this.Constants.STRING64_SIZE*i, getValue('horse-name'));
+			this._writeString64(this.Offsets.HORSE_SADDLES+this.Constants.STRING64_SIZE*i, getValue('horse-saddles'));
+			this._writeString64(this.Offsets.HORSE_REINS+this.Constants.STRING64_SIZE*i, getValue('horse-reins'));
 		}
-		this._writeString(this.Offsets.HORSE_TYPES+this.Constants.STRING_SIZE*i, getValue('horse-type'));
+		this._writeString64(this.Offsets.HORSE_TYPES+this.Constants.STRING64_SIZE*i, getValue('horse-type'));
 
 		if(getValue('horse-type')==='GameRomHorse00L'){
-			this._writeString(this.Offsets.HORSE_MANES+this.Constants.STRING_SIZE*i, 'Horse_Link_Mane_00L');
+			this._writeString64(this.Offsets.HORSE_MANES+this.Constants.STRING64_SIZE*i, 'Horse_Link_Mane_00L');
 		}
 	},
 
@@ -357,8 +362,14 @@ SavegameEditor={
 				this._getOffsets(i);
 				setValue('version', this.Constants.VERSION[i]+' ('+CONSOLE+')');
 				return true;
+			}else if((tempFile.fileSize>=896976 && tempFile.fileSize<=1500000) && versionHash===this.Constants.HEADER[i] && tempFile.readU32(4)===0xffffffff){ /* check for mods, filesizes vary */
+				this._getOffsets(i);
+				setValue('version', this.Constants.VERSION[i]+'<small>mod</small> ('+CONSOLE+')');
+				return true;			
 			}
 		}
+		
+		
 
 		return false
 	},
@@ -383,6 +394,7 @@ SavegameEditor={
 		setNumericRange('relic-rito', 0, 99);
 
 		/* prepare edit item selector */
+		this.selectItem.categories={};
 		for(var i=0; i<BOTW_Data.Translations.length; i++){
 			var optGroup=document.createElement('optgroup');
 			optGroup.label=BOTW_Data.Translations[i].id;
@@ -390,10 +402,12 @@ SavegameEditor={
 			for(var item in BOTW_Data.Translations[i].items){
 				var opt=document.createElement('option');
 				opt.value=item;
+				opt.group=BOTW_Data.Translations[i].id;
 				opt.innerHTML=BOTW_Data.Translations[i].items[item];
 				optGroup.appendChild(opt);
 			}
 			this.selectItem.appendChild(optGroup);
+			this.selectItem.categories[BOTW_Data.Translations[i].id]=optGroup;
 		}
 		this.selectItem.value='Armor_180_Lower';
 
@@ -450,6 +464,10 @@ SavegameEditor={
 		select('horse-saddles', this._arrayToSelectOpts(BOTW_Data.HORSE_SADDLES));
 		select('horse-reins', this._arrayToSelectOpts(BOTW_Data.HORSE_REINS));
 		select('horse-type', this._arrayToSelectOpts(BOTW_Data.HORSE_TYPES));
+		
+		
+		
+		MarcTooltips.add('.tab-button',{className:'dark',fixed:true});
 	},
 
 	_timeToString:function(timeVal){
@@ -496,8 +514,8 @@ SavegameEditor={
 		setValue('pos-y', tempFile.readF32(this.Offsets.PLAYER_POSITION+8));
 		setValue('pos-z', tempFile.readF32(this.Offsets.PLAYER_POSITION+16));
 
-		var map=this._readStringShort(this.Offsets.MAP);
-		var mapType=this._readStringShort(this.Offsets.MAPTYPE);
+		var map=this._readString(this.Offsets.MAP);
+		var mapType=this._readString(this.Offsets.MAPTYPE);
 		getField('pos-map').children[0].value=map;
 		getField('pos-map').children[0].innerHTML='* '+map+' *';
 		getField('pos-maptype').children[0].value=mapType;
@@ -554,9 +572,9 @@ SavegameEditor={
 			}
 
 		}
-		MarcTooltips.add(document.querySelectorAll('#container-weapons input'),'Weapon durability',{position:'bottom',align:'right'});
-		MarcTooltips.add(document.querySelectorAll('#container-bows input'),'Bow durability',{position:'bottom',align:'right'});
-		MarcTooltips.add(document.querySelectorAll('#container-shields input'),'Shield durability',{position:'bottom',align:'right'});
+		MarcTooltips.add('#container-weapons input',{text:'Weapon durability',position:'bottom',align:'right'});
+		MarcTooltips.add('#container-bows input',{text:'Bow durability',position:'bottom',align:'right'});
+		MarcTooltips.add('#container-shields input',{text:'Shield durability',position:'bottom',align:'right'});
 		BOTW_Icons.startLoadingIcons();
 
 		/* modifier column */
@@ -573,6 +591,8 @@ SavegameEditor={
 				additional.appendChild(inputNumber('modifier-'+modifierColumn+'s-value-'+i, 0, 0xffffffff, tempFile.readU32(this.Offsets['FLAGSV_'+modifierColumn.toUpperCase()]+i*8)));
 			}
 		}
+		
+		showTab('home');
 	},
 
 	/* save function */
@@ -605,8 +625,8 @@ SavegameEditor={
 		tempFile.writeF32(this.Offsets.PLAYER_POSITION+8, getValue('pos-y'));
 		tempFile.writeF32(this.Offsets.PLAYER_POSITION+16, getValue('pos-z'));
 		
-		this._writeStringShort(this.Offsets.MAP, getValue('pos-map'))
-		this._writeStringShort(this.Offsets.MAPTYPE, getValue('pos-maptype'))
+		this._writeString(this.Offsets.MAP, getValue('pos-map'))
+		this._writeString(this.Offsets.MAPTYPE, getValue('pos-maptype'))
 
 		tempFile.writeF32(this.Offsets.HORSE_POSITION, getValue('pos-x-horse'));
 		tempFile.writeF32(this.Offsets.HORSE_POSITION+8, getValue('pos-y-horse'));
@@ -637,6 +657,34 @@ SavegameEditor={
 	}
 }
 
+
+
+
+
+/* TABS */
+var availableTabs=['home','weapons','bows','shields','clothes','materials','food','other','horses','master'];
+
+
+var currentTab;
+function showTab(newTab){
+	currentTab=newTab;
+	for(var i=0; i<availableTabs.length; i++){
+		document.getElementById('tab-button-'+availableTabs[i]).className=currentTab===availableTabs[i]?'tab-button active':'tab-button';
+		document.getElementById('tab-'+availableTabs[i]).style.display=currentTab===availableTabs[i]?'block':'none';
+	}
+	
+	document.getElementById('add-item-button').style.display=(newTab==='home' || newTab==='horses' || newTab==='master')? 'none':'block';
+
+	if(newTab==='master'){
+		if(BOTWMasterEditor.isLoaded())
+			BOTWMasterEditor.refreshResults();
+		else
+			BOTWMasterEditor.loadHashes();
+	}
+}
+
+
+
 /*
 function setValueByHash(hash, val){
 	var offset=SavegameEditor._searchHash(hash);
@@ -646,7 +694,7 @@ function setValueByHash(hash, val){
 			SavegameEditor._writeValue(offset, val[1], 1);
 			SavegameEditor._writeValue(offset, val[2], 2);
 		}else if(typeof val==='string'){
-			SavegameEditor._writeString(offset, val);
+			SavegameEditor._writeString64(offset, val);
 		}else{
 			SavegameEditor._writeValue(offset, val);
 		}
@@ -823,12 +871,12 @@ function clearMapPins(){
 }
 
 function iterateMapPins(f){
-	var offset = SavegameEditor._searchHash(SavegameEditor.Constants.MAP_ICONS)
+	var offset = SavegameEditor.Offsets.MapApp_MapIconNo;
 	for (var i = 0;; i++){
 		var base = offset + (8 * i)
 		var hdr = tempFile.readU32(base)
 		var val = tempFile.readU32(base + 4)
-		if (hdr != SavegameEditor.Constants.MAP_ICONS){
+		if (hdr != SavegameEditor.Headers.MapApp_MapIconNo){
 			break
 		}
 		if (!f(val,base+4)){
@@ -837,12 +885,12 @@ function iterateMapPins(f){
 	}
 }
 function iterateMapPinLocations(f){
-	offset = SavegameEditor._searchHash(SavegameEditor.Constants.MAP_POS)
+	offset = SavegameEditor.Offsets.MapApp_MapIconPos;
 	for (var i = 0;; i++){
 		var base = offset + (8 * i)
 		var hdr = tempFile.readU32(base)
 		var val = tempFile.readF32(base + 4)
-		if (hdr != SavegameEditor.Constants.MAP_POS){
+		if (hdr != SavegameEditor.Headers.MapApp_MapIconPos){
 			break
 		}
 		if(!f(val,base+4)){
@@ -945,9 +993,8 @@ function addLocationsToMap(){
 }
 
 
-/* MarcTooltips.js v20170518 - Marc Robledo 2014-2017 - http://www.marcrobledo.com/license */
-var MarcTooltips=function(){return{add:function(a,b,c){var d=document.createElement("div");d.className="tooltip",d.style.position="absolute",d.style.zIndex="9000",d.style.top="0",d.style.left="0",d.innerHTML=b,document.body.appendChild(d);var e="down",f="center";c&&c.position&&/^(up|down|left|right)$/i.test(c.position)&&(e=c.position.toLowerCase()),c&&c.align&&/^(top|bottom|left|right)$/i.test(c.align)&&(("up"!==e&&"down"!==e||"left"!==c.align&&"right"!==c.align)&&("left"!==e&&"right"!==e||"top"!==c.align&&"bottom"!==c.align)||(f=c.align.toLowerCase()));var h=document.createElement("div");h.className="arrow",d.className+=" position-"+e+" align-"+f,d.className+="left"===e||"right"===e?" position-horizontal":" position-vertical",d.appendChild(h);var i=function(){var a=document.documentElement,b=(window.pageXOffset||a.scrollLeft)-(a.clientLeft||0),c=(window.pageYOffset||a.scrollTop)-(a.clientTop||0),g=this.getBoundingClientRect(),h=d.getBoundingClientRect();d.style.top="up"===e?parseInt(g.top+c-h.height)+"px":"down"===e?parseInt(g.top+c+g.height)+"px":"top"===f?parseInt(g.top+c)+"px":"bottom"===f?parseInt(g.top+c-(h.height-g.height))+"px":parseInt(g.top+c-parseInt((h.height-g.height)/2))+"px",d.style.left="up"===e||"down"===e?"left"===f?parseInt(g.left+b)+"px":"right"===f?parseInt(g.left+b-(h.width-g.width))+"px":parseInt(g.left+b-parseInt((h.width-g.width)/2))+"px":"left"===e?parseInt(g.left+b-h.width)+"px":parseInt(g.left+b+g.width)+"px",d.className+=" visible"},j=function(){d.className=d.className.replace(" visible","")};"string"==typeof a&&(a=[a]);for(var k=0;k<a.length;k++)if("string"==typeof a[k])if(/^#[0-9a-zA-Z_\-]+$/.test(a[k])){var l=document.getElementById(a[k].replace("#",""));l.addEventListener("mouseover",i,!1),l.addEventListener("mouseout",j,!1)}else for(var m=document.querySelectorAll(a[k]),n=0;n<m.length;n++)m[n].addEventListener("mouseover",i,!1),m[n].addEventListener("mouseout",j,!1);else a[k].addEventListener("mouseover",i,!1),a[k].addEventListener("mouseout",j,!1)}}}();
-
+/* MarcTooltips.js v20200216 - Marc Robledo 2014-2020 - http://www.marcrobledo.com/license */
+var MarcTooltips=function(){var n=/MSIE 8/.test(navigator.userAgent);function d(t,e,o){n?t.attachEvent("on"+e,o):t.addEventListener(e,o,!1)}function u(t){void 0!==t.stopPropagation?t.stopPropagation():t.cancelBubble=!0}function g(t){if(/^#[0-9a-zA-Z_\-]+$/.test(t))return[document.getElementById(t.replace("#",""))];var e=document.querySelectorAll(t);if(n){for(var o=[],i=0;i<e.length;i++)o.push(e[i]);return o}return Array.prototype.slice.call(e)}var h=function(t,e,o){t.className=t.className.replace(/position-\w+/,"position-"+e.position).replace(/align-\w+/,"align-"+e.align);var i=(window.pageXOffset||document.documentElement.scrollLeft)-(document.documentElement.clientLeft||0),n=(window.pageYOffset||document.documentElement.scrollTop)-(document.documentElement.clientTop||0);e.fixed&&(n=i=0);var l=t.attachedTo.getBoundingClientRect().left,a=t.attachedTo.getBoundingClientRect().top,s=t.attachedTo.offsetWidth,p=t.attachedTo.offsetHeight;if("up"===e.position?t.style.top=parseInt(a+n-t.offsetHeight)+"px":"down"===e.position?t.style.top=parseInt(a+n+p)+"px":"top"===e.align?t.style.top=parseInt(a+n)+"px":"bottom"===e.align?t.style.top=parseInt(a+n-(t.offsetHeight-p))+"px":t.style.top=parseInt(a+n-parseInt((t.offsetHeight-p)/2))+"px","up"===e.position||"down"===e.position?"left"===e.align?t.style.left=parseInt(l+i)+"px":"right"===e.align?t.style.left=parseInt(l+i-(t.offsetWidth-s))+"px":t.style.left=parseInt(l+i-parseInt((t.offsetWidth-s)/2))+"px":"left"===e.position?t.style.left=parseInt(l+i-t.offsetWidth)+"px":"right"===e.position&&(t.style.left=parseInt(l+i+s)+"px"),o){var r={position:e.position,align:e.align,fixed:e.fixed},c=parseInt(t.style.left.replace("px","")),f=parseInt(t.style.top.replace("px","")),d=c+t.offsetWidth,u=f+t.offsetHeight,g=(i=window.scrollX,n=window.scrollY,Math.max(document.documentElement.clientWidth,window.innerWidth||0)),m=Math.max(document.documentElement.clientHeight,window.innerHeight||0);"up"===e.position||"down"===e.position?(g<d?r.align="right":c<i&&(r.align="left"),f<n?r.position="down":n+m<u&&(r.position="up")):(m<u?r.align="bottom":f<n&&(r.align="top"),c<i?r.position="right":i+g<d&&(r.position="left")),h(t,r,!1)}},m={};d(window,"load",function(){d(n?document:window,"click",function(){for(key in m)/ visible$/.test(m[key].className)&&/:true:/.test(key)&&(m[key].className=m[key].className.replace(" visible",""))}),d(window,"resize",function(){for(key in m)/ visible$/.test(m[key].className)&&m[key].attachedTo&&h(m[key],m[key].tooltipInfo,!0)})});function y(t){var e=t.currentTarget||t.srcElement;e.title&&(e.setAttribute("data-tooltip",e.title),e.title=""),(e.tooltip.attachedTo=e).tooltip.innerHTML=e.getAttribute("data-tooltip"),e.tooltip.className+=" visible",h(e.tooltip,e.tooltip.tooltipInfo,!0)}function w(t){var e=t.currentTarget||t.srcElement;e.tooltip.className=e.tooltip.className.replace(" visible","")}return{add:function(t,e){var o="down",i="center",n=!1,l=!1,a=!1,s=!1,p=!1;e&&(e.position&&/^(up|down|left|right)$/i.test(e.position)&&(o=e.position.toLowerCase()),e.align&&/^(top|bottom|left|right)$/i.test(e.align)&&(("up"!==o&&"down"!==o||"left"!==e.align&&"right"!==e.align)&&("left"!==o&&"right"!==o||"top"!==e.align&&"bottom"!==e.align)||(i=e.align.toLowerCase())),l=e.clickable||e.onClick||e.onclick||!1,a=e.focusable||e.onFocus||e.onfocus||!1,s=e.fixed||e.positionFixed||!1,n=e.class||e.className||e.customClass||e.customClassName||!1,p=e.text||e.customText||!1);for(var r=function(t){if("string"==typeof t)return g(t);if(t.length){for(var e=[],o=0;o<t.length;o++)"string"==typeof t[o]?e=e.concat(g(t[o])):e.push(t[o]);return e}return[t]}(t),c=function(t,e,o,i,n){var l=t+":"+e+":"+o+":"+i;if(m[l])return m[l];var a=document.createElement("div");return a.className="tooltip position-"+t+" align-"+e,a.className+="left"===t||"right"===t?" position-horizontal":" position-vertical",i&&(a.className+=" "+i),a.style.position=n?"fixed":"absolute",a.style.zIndex="9000",a.style.top="0",a.style.left="0",a.attachedTo=null,a.tooltipInfo={position:t,align:e,fixed:n},o&&d(a,"click",u),m[l]=a,document.body.appendChild(a),a}(o,i,l||a,n,s),f=0;f<r.length;f++)p?r[f].setAttribute("data-tooltip",p):r[f].title&&r[f].setAttribute("data-tooltip",r[f].title),r[f].title="",r[f].tooltip=c,a?(d(r[f],"focus",y),d(r[f],"blur",w),d(r[f],"click",u)):l?(d(r[f],"click",y),d(r[f],"click",u)):(d(r[f],"mouseover",y),d(r[f],"mouseout",w))}}}();
 
 function onScroll(){
 	var h=document.getElementById('header-top').getBoundingClientRect().height;
@@ -970,4 +1017,28 @@ if(typeof String.startsWith==='undefined'){
 	String.prototype.startsWith=function(search){
         return (new RegExp('^'+search)).test(this)
     };
+}
+
+
+
+
+
+
+
+
+
+
+var masterModeLoaded=false;
+function loadMasterMode(){
+	if(!masterModeLoaded){
+		var script=document.createElement('script');
+		script.type='text/javascript';
+		script.src='./zelda-botw.master.js';
+		script.onload=function(){
+			masterModeLoaded=true;
+			document.getElementById('tab-button-master').disabled=false;
+			//BOTWMasterEditor.prepare();
+		};
+		document.getElementsByTagName('head')[0].appendChild(script);
+	}
 }
