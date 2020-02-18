@@ -11,7 +11,7 @@ SavegameEditor={
 
 	/* Constants */
 	Constants:{
-		MAX_ITEMS:410,
+		MAX_ITEMS:420,
 		STRING_SIZE:0x20,
 		STRING64_SIZE:0x80,
 
