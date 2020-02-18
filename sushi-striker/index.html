@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Savegame Editor &ndash; Sushi Striker</title>
+	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content="A savegame editor for Sushi Striker. It can edit all your items amount and unlock Kyatten sprite"/>
+	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, 3ds, sushi, striker, item, kyatten, dlc, unlock"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="shortcut icon" href="favicon.png"/>
+	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
+	<script type="text/javascript" src="../savegame-editor.js"></script>
+	<script type="text/javascript" src="./sushi-striker.js"></script>
+	<script type="text/javascript"><!--
+		/* service worker */
+		var FORCE_HTTPS=true;
+		window.addEventListener('load',function(){
+			if(location.protocol==='http:' && FORCE_HTTPS)
+				location.replace(window.location.href.replace('http:','https:'));
+			else if(location.protocol==='https:' && 'serviceWorker' in navigator)
+				navigator.serviceWorker.register('/savegame-editors/sushi-striker/_cache_service_worker.js', {scope: '/savegame-editors/sushi-striker/'});
+		}, false);
+	--></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+	<div id="header-top">
+		<div class="row wrapper">
+			<h1 class="six columns text-left"><img src="favicon.png" /> Savegame Editor <small>for Sushi Striker</small></h1>
+			<div class="six columns header-buttons text-right">
+				by <a href="/">Marc Robledo</a>
+				<i class="icon github"></i> <a href="https://github.com/marcrobledo/savegame-editors/tree/master/sushi-striker" target="_blank">See on GitHub</a>
+				<i class="icon heart"></i> <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
+			</div>
+		</div>
+		<div class="hidden row wrapper" id="toolbar">
+			<div class="twelve columns text-center">
+				<button class="close" onclick="closeFile()"><i class="icon close"></i> Close file</button>
+				<button class="colored" onclick="saveChanges()"><i class="icon accept"></i> Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- THE EDITOR -->
+<div id="the-editor" class="wrapper hidden">
+	<!-- ITEMS -->
+	<h3 class="orange">Items</h3>
+	<div class="container" id="container-items">
+		<div class="row">
+			<div class="nine columns"><label for="input-item0">Searing Torch</label></div>
+			<div class="three columns"><input id="input-item0" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item1">Exp Charm S</label></div>
+			<div class="three columns"><input id="input-item1" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item2">Exp Charm M</label></div>
+			<div class="three columns"><input id="input-item2" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item3">Exp Charm L</label></div>
+			<div class="three columns"><input id="input-item3" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item4">Guardian Charm S</label></div>
+			<div class="three columns"><input id="input-item4" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item5">Guardian Charm M</label></div>
+			<div class="three columns"><input id="input-item5" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item6">Guardian Charm L</label></div>
+			<div class="three columns"><input id="input-item6" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item7">Skill Charm</label></div>
+			<div class="three columns"><input id="input-item7" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item8">Great Skill Charm</label></div>
+			<div class="three columns"><input id="input-item8" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item9">Canned Stamina</label></div>
+			<div class="three columns"><input id="input-item9" type="text" class="fw" /></div>
+		</div>		<div class="row">
+			<div class="nine columns"><label for="input-item10">Canned Power</label></div>
+			<div class="three columns"><input id="input-item10" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item19">Small Renewal Bean</label></div>
+			<div class="three columns"><input id="input-item19" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item20">Renewal Bean</label></div>
+			<div class="three columns"><input id="input-item20" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item21">Big Renewal Bean</label></div>
+			<div class="three columns"><input id="input-item21" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item22">Great Renewal Bean</label></div>
+			<div class="three columns"><input id="input-item22" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item23">Jacket</label></div>
+			<div class="three columns"><input id="input-item23" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item24">Sushi Sprite Catalog</label></div>
+			<div class="three columns"><input id="input-item24" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item25">Secret Scroll</label></div>
+			<div class="three columns"><input id="input-item25" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item26">Kodiak's Key</label></div>
+			<div class="three columns"><input id="input-item26" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item27">Ausprey's Key</label></div>
+			<div class="three columns"><input id="input-item27" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item28">Purrsilla's Key</label></div>
+			<div class="three columns"><input id="input-item28" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item29">Research Notes</label></div>
+			<div class="three columns"><input id="input-item29" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item30">Mysterious Stone</label></div>
+			<div class="three columns"><input id="input-item30" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item31">weird round rock</label></div>
+			<div class="three columns"><input id="input-item31" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item32">Party Charm</label></div>
+			<div class="three columns"><input id="input-item32" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item33">Training Black Belt</label></div>
+			<div class="three columns"><input id="input-item33" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item34">Potential Plate</label></div>
+			<div class="three columns"><input id="input-item34" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item35">Potential Plate (Kazurava Rank 4)</label></div>
+			<div class="three columns"><input id="input-item35" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item36">Potential Plate (Golekan Rank 3)</label></div>
+			<div class="three columns"><input id="input-item36" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item37">Potential Plate (Crowkan Rank 5)</label></div>
+			<div class="three columns"><input id="input-item37" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item38">Potential Plate (Garu-o Rank 7)</label></div>
+			<div class="three columns"><input id="input-item38" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item39">Potential Plate (Alt?)</label></div>
+			<div class="three columns"><input id="input-item39" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item40">Potential Plate (Kyatten Rank 2) <strong>Exclusive Japanese DLC</strong></label></div>
+			<div class="three columns"><input id="input-item40" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item41">Potential Plate (Owlten Rank 7)</label></div>
+			<div class="three columns"><input id="input-item41" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item42">Potential Plate (Suiten Rank 2)</label></div>
+			<div class="three columns"><input id="input-item42" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item43">Potential Plate (Boneten Rank 8)</label></div>
+			<div class="three columns"><input id="input-item43" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item44">Potential Plate (Batten Rank 6)</label></div>
+			<div class="three columns"><input id="input-item44" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item45">Potential Plate (Faeten Rank 2)</label></div>
+			<div class="three columns"><input id="input-item45" type="text" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="input-item46">Potential Plate (Hohten Rank 3)</label></div>
+			<div class="three columns"><input id="input-item46" type="text" class="fw" /></div>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>
