@@ -1,13 +1,13 @@
 /*
-	The legend of Zelda: Breath of the wild v20200215
-	by Marc Robledo 2017-2019
+	The legend of Zelda: Breath of the wild v20200218
+	by Marc Robledo 2017-2020
 */
 var currentEditingItem=0;
 
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
 	Filename:'game_data.sav',
-	Version:20190625,
+	Version:20200218,
 
 	/* Constants */
 	Constants:{
@@ -59,17 +59,13 @@ SavegameEditor={
 		0xf1cf4807, 'RELIC_GORON',
 		0xfda0cde4, 'RELIC_RITO'
 	],
-	Headers:{
-		'MapApp_MapIconNo':0x9383490e,
-		'MapApp_MapIconPos':0xea9def3f
-	},
 
 
 	/* private functions */
 	_toHexInt:function(i){var s=i.toString(16);while(s.length<8)s='0'+s;return '0x'+s},
-	_writeBoolean:function(offset,val,arrayPos){if(arrayPos)tempFile.writeU32(offset+8*arrayPos,val?1:0);else tempFile.writeU32(offset,val?1:0)},
-	_writeValue:function(offset,val,arrayPos){if(arrayPos)tempFile.writeU32(offset+8*arrayPos,val);else tempFile.writeU32(offset,val)},
-	_writeFloat32:function(offset,val,arrayPos){if(arrayPos)tempFile.writeF32(offset+8*arrayPos,val);else tempFile.writeF32(offset,val)},
+	_writeBoolean:function(offset,val,arrayIndex){if(arrayIndex)tempFile.writeU32(offset+8*arrayIndex,val?1:0);else tempFile.writeU32(offset,val?1:0)},
+	_writeValue:function(offset,val,arrayIndex){if(arrayIndex)tempFile.writeU32(offset+8*arrayIndex,val);else tempFile.writeU32(offset,val)},
+	_writeFloat32:function(offset,val,arrayIndex){if(arrayIndex)tempFile.writeF32(offset+8*arrayIndex,val);else tempFile.writeF32(offset,val)},
 	_writeString:function(offset,str,len){
 		len=len || 8;
 		for(var i=0; i<len; i++){
@@ -81,7 +77,7 @@ SavegameEditor={
 			offset+=8;
 		}
 	},
-	_writeString64:function(offset,str){this._writeString(offset,str, 16);},
+	_writeString64:function(offset,str,arrayIndex){if(typeof arrayIndex==='number')offset+=this.Constants.STRING64_SIZE*arrayIndex;this._writeString(offset,str, 16);},
 	_writeString256:function(offset,str){this._writeString(offset,str, 64);},
 
 	_searchHash:function(hash){
@@ -104,11 +100,13 @@ SavegameEditor={
 
 	_getOffsets:function(){
 		this.Offsets={};
+		this.Headers={};
 		var startSearchOffset=0x0c;
 		for(var i=0; i<this.Hashes.length; i+=2){
 			for(var j=startSearchOffset; j<tempFile.fileSize; j+=8){
 				if(this.Hashes[i]===tempFile.readU32(j)){
 					this.Offsets[this.Hashes[i+1]]=j+4;
+					this.Headers[this.Hashes[i+1]]=this.Hashes[i];
 					startSearchOffset=j+8;
 					break;
 				}
@@ -142,10 +140,12 @@ SavegameEditor={
 		}
 		return txt
 	},
-	_readString64:function(offset){
+	_readString64:function(offset,arrayIndex){
+		if(typeof arrayIndex==='number')
+			offset+=this.Constants.STRING64_SIZE*arrayIndex;
 		return this._readString(offset, 16);
 	},
-	_readString256:function(offset){
+	_readString256:function(offset,){
 		return this._readString(offset, 64);
 	},
 
@@ -153,7 +153,7 @@ SavegameEditor={
 		return this._readString64(this.Offsets.ITEMS+i*0x80);
 	},
 	_writeItemName:function(i,newItemNameId){
-		this._writeString64(this.Offsets.ITEMS+i*0x80, newItemNameId);
+		this._writeString64(this.Offsets.ITEMS, newItemNameId, i);
 	},
 	_getItemMaximumQuantity:function(itemId){
 		var cat=this._getItemCategory(itemId);
@@ -232,7 +232,7 @@ SavegameEditor={
 		if(i<this.Constants.MAX_ITEMS){
 			if(this._getItemCategory(this.selectItem.value)===currentTab){
 				this.selectItem.selectedIndex++;
-				if(this._getItemCategory(this.selectItem.value)!==currentTab)
+				if(this._getItemCategory(this.selectItem.value)!==currentTab || this.selectItem.value==='')
 					this.selectItem.value=this.selectItem.categories[currentTab].children[0].value;
 			}else{
 				this.selectItem.value=this.selectItem.categories[currentTab].children[0].value;
@@ -272,6 +272,9 @@ SavegameEditor={
 		if(document.getElementById('number-item'+i))
 			document.getElementById('number-item'+i).maxValue=this._getItemMaximumQuantity(nameId);
 	},
+	
+	filterItems:function(category){
+	},
 
 	_getModifierOffset1:function(type){
 		if(type==='bows')
@@ -295,37 +298,23 @@ SavegameEditor={
 		tempFile.writeU32(this._getModifierOffset2(type)+i*0x08, val);
 	},
 
-	editHorse:function(i){
-		currentEditingItem=i;
-		if(currentEditingItem==5){ /* untamed horse */
-			hide('row-tamed-horse');
-			if(!this._readString64(this.Offsets.HORSE_TYPES+this.Constants.STRING64_SIZE*5).startsWith('GameRomHorse')){
-				MarcDialogs.alert('Error: this will only work if your savegame has Link on an untamed horse.');
-				return false;
-			}
-			getField('horse-type').children[27].disabled=false;
-			getField('horse-type').children[28].disabled=false;
-		}else{
-			show('row-tamed-horse');
-			setValue('horse-name',this._readString64(this.Offsets.HORSE_NAMES+this.Constants.STRING64_SIZE*i));
-			setValue('horse-saddles',this._readString64(this.Offsets.HORSE_SADDLES+this.Constants.STRING64_SIZE*i));
-			setValue('horse-reins',this._readString64(this.Offsets.HORSE_REINS+this.Constants.STRING64_SIZE*i));
-			getField('horse-type').children[27].disabled=true;
-			getField('horse-type').children[28].disabled=true;
-		}
-		setValue('horse-type',this._readString64(this.Offsets.HORSE_TYPES+this.Constants.STRING64_SIZE*i));
-		MarcDialogs.open('horse');
+	setHorseName:function(i,val){
+		if(i<5)
+			this._writeString64(this.Offsets.HORSE_NAMES, val, i);
 	},
-	editHorse2:function(i,name,saddles,reins,type){
-		if(currentEditingItem<5){
-			this._writeString64(this.Offsets.HORSE_NAMES+this.Constants.STRING64_SIZE*i, getValue('horse-name'));
-			this._writeString64(this.Offsets.HORSE_SADDLES+this.Constants.STRING64_SIZE*i, getValue('horse-saddles'));
-			this._writeString64(this.Offsets.HORSE_REINS+this.Constants.STRING64_SIZE*i, getValue('horse-reins'));
-		}
-		this._writeString64(this.Offsets.HORSE_TYPES+this.Constants.STRING64_SIZE*i, getValue('horse-type'));
-
-		if(getValue('horse-type')==='GameRomHorse00L'){
-			this._writeString64(this.Offsets.HORSE_MANES+this.Constants.STRING64_SIZE*i, 'Horse_Link_Mane_00L');
+	setHorseSaddle:function(i,val){
+		if(i<5)
+			this._writeString64(this.Offsets.HORSE_SADDLES, val, i);
+	},
+	setHorseReins:function(i,val){
+		if(i<5)
+			this._writeString64(this.Offsets.HORSE_REINS, val, i);
+	},
+	setHorseType:function(i,val){
+		if(currentEditingItem<6){
+			this._writeString64(this.Offsets.HORSE_TYPES, val, i);
+			/* fix mane */
+			this._writeString64(this.Offsets.HORSE_MANES, (val==='GameRomHorse00L'?'Horse_Link_Mane_00L':'Horse_Link_Mane'), i);
 		}
 	},
 
@@ -460,10 +449,24 @@ SavegameEditor={
 			}
 		});
 
-		/* dialogs */
-		select('horse-saddles', this._arrayToSelectOpts(BOTW_Data.HORSE_SADDLES));
-		select('horse-reins', this._arrayToSelectOpts(BOTW_Data.HORSE_REINS));
-		select('horse-type', this._arrayToSelectOpts(BOTW_Data.HORSE_TYPES));
+
+		/* horses */
+		for(var i=0; i<6; i++){
+			if(i<5){
+				get('input-horse'+i+'-name').horseIndex=i;
+				get('input-horse'+i+'-name').addEventListener('change', function(){SavegameEditor.setHorseName(this.horseIndex, this.value)}, false);
+				get('select-horse'+i+'-saddles').horseIndex=i;
+				get('select-horse'+i+'-saddles').addEventListener('change', function(){SavegameEditor.setHorseSaddle(this.horseIndex, this.value)}, false);
+				get('select-horse'+i+'-reins').horseIndex=i;
+				get('select-horse'+i+'-reins').addEventListener('change', function(){SavegameEditor.setHorseReins(this.horseIndex, this.value)}, false);
+			}
+			get('select-horse'+i+'-type').horseIndex=i;
+			get('select-horse'+i+'-type').addEventListener('change', function(){SavegameEditor.setHorseType(this.horseIndex, this.value)}, false);
+
+			select('horse'+i+'-saddles', this._arrayToSelectOpts(BOTW_Data.HORSE_SADDLES));
+			select('horse'+i+'-reins', this._arrayToSelectOpts(BOTW_Data.HORSE_REINS));
+			select('horse'+i+'-type', this._arrayToSelectOpts(i===5?BOTW_Data.HORSE_TYPES.concat(BOTW_Data.HORSE_TYPES_UNTAMMED):BOTW_Data.HORSE_TYPES));
+		}
 		
 		
 		
@@ -529,7 +532,7 @@ SavegameEditor={
 
 
 		/* map pins */
-		loadMapPins()
+		loadMapPins();
 
 
 		/* items */
@@ -591,7 +594,29 @@ SavegameEditor={
 				additional.appendChild(inputNumber('modifier-'+modifierColumn+'s-value-'+i, 0, 0xffffffff, tempFile.readU32(this.Offsets['FLAGSV_'+modifierColumn.toUpperCase()]+i*8)));
 			}
 		}
-		
+
+
+		/* horses */
+		for(var i=0; i<6; i++){
+			if(i<5){
+				setValue('horse'+i+'-name',this._readString64(this.Offsets.HORSE_NAMES, i));
+				setValue('horse'+i+'-saddles',this._readString64(this.Offsets.HORSE_SADDLES, i));
+				setValue('horse'+i+'-reins',this._readString64(this.Offsets.HORSE_REINS, i));
+			}
+			var horseType=this._readString64(this.Offsets.HORSE_TYPES, i);
+			if(horseType){
+				setValue('horse'+i+'-type',horseType);
+				get('row-horse'+i).style.visibility='visible';
+			}else{
+				get('row-horse'+i).style.visibility='hidden';
+			}
+		}
+
+
+
+
+
+
 		showTab('home');
 	},
 
@@ -871,11 +896,12 @@ function clearMapPins(){
 }
 
 function iterateMapPins(f){
-	var offset = SavegameEditor.Offsets.MapApp_MapIconNo;
+	var offset = SavegameEditor.Offsets.MapApp_MapIconNo-4;
 	for (var i = 0;; i++){
 		var base = offset + (8 * i)
 		var hdr = tempFile.readU32(base)
 		var val = tempFile.readU32(base + 4)
+		//if (hdr != SavegameEditor.Constants.MAP_ICONS){
 		if (hdr != SavegameEditor.Headers.MapApp_MapIconNo){
 			break
 		}
@@ -885,7 +911,7 @@ function iterateMapPins(f){
 	}
 }
 function iterateMapPinLocations(f){
-	offset = SavegameEditor.Offsets.MapApp_MapIconPos;
+	offset = SavegameEditor.Offsets.MapApp_MapIconPos-4;
 	for (var i = 0;; i++){
 		var base = offset + (8 * i)
 		var hdr = tempFile.readU32(base)

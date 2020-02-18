@@ -276,13 +276,44 @@
 	<!-- TAB: HORSES -->
 	<div id="tab-horses">
 		<h3 class="border-blue">Horses</h3>
-		<div class="row">
-			<div class="twelve columns"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(0)">Edit horse 0</button></div>
-			<div class="twelve columns"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(1)">Edit horse 1</button></div>
-			<div class="twelve columns"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(2)">Edit horse 2</button></div>
-			<div class="twelve columns"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(3)">Edit horse 3</button></div>
-			<div class="twelve columns"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(4)">Edit horse 4</button></div>
-			<div class="twelve columns"><button class="with-icon icon10" onclick="SavegameEditor.editHorse(5)">Edit untamed horse</button></div>
+		<div class="row"><div class="twelve columns">Horse #1</div></div>
+		<div class="row" id="row-horse0">
+			<div class="three columns"><select id="select-horse0-type"></select></div>
+			<div class="three columns"><input type="text" id="input-horse0-name" /></div>
+			<div class="three columns"><select id="select-horse0-saddles"></select></div>
+			<div class="three columns"><select id="select-horse0-reins"></select></div>
+		</div>
+		<div class="row"><div class="twelve columns">Horse #2</div></div>
+		<div class="row" id="row-horse1">
+			<div class="three columns"><select id="select-horse1-type"></select></div>
+			<div class="three columns"><input type="text" id="input-horse1-name" /></div>
+			<div class="three columns"><select id="select-horse1-saddles"></select></div>
+			<div class="three columns"><select id="select-horse1-reins"></select></div>
+		</div>
+		<div class="row"><div class="twelve columns">Horse #3</div></div>
+		<div class="row" id="row-horse2">
+			<div class="three columns"><select id="select-horse2-type"></select></div>
+			<div class="three columns"><input type="text" id="input-horse2-name" /></div>
+			<div class="three columns"><select id="select-horse2-saddles"></select></div>
+			<div class="three columns"><select id="select-horse2-reins"></select></div>
+		</div>
+		<div class="row"><div class="twelve columns">Horse #4</div></div>
+		<div class="row" id="row-horse3">
+			<div class="three columns"><select id="select-horse3-type"></select></div>
+			<div class="three columns"><input type="text" id="input-horse3-name" /></div>
+			<div class="three columns"><select id="select-horse3-saddles"></select></div>
+			<div class="three columns"><select id="select-horse3-reins"></select></div>
+		</div>
+		<div class="row"><div class="twelve columns">Horse #5</div></div>
+		<div class="row" id="row-horse4">
+			<div class="three columns"><select id="select-horse4-type"></select></div>
+			<div class="three columns"><input type="text" id="input-horse4-name" /></div>
+			<div class="three columns"><select id="select-horse4-saddles"></select></div>
+			<div class="three columns"><select id="select-horse4-reins"></select></div>
+		</div>
+		<div class="row"><div class="twelve columns">Untammed horse</div></div>
+		<div class="row" id="row-horse5">
+			<div class="three columns end"><select id="select-horse5-type"></select></div>
 		</div>
 		<div class="row">
 			<div class="six columns"><label for="float-pos-x-horse">Current horse coordinates (XYZ)</label></div>
@@ -324,31 +355,6 @@
 	</div>	
 </div>
 
-
-<!-- DIALOGS -->
-<div id="dialog-horse" class="dialog">
-	<div id="row-tamed-horse">
-		<div class="row">
-			<div class="four columns"><label for="input-horse-name">Name</label></div>
-			<div class="eight columns"><input type="text" id="input-horse-name" /></div>
-		</div>
-		<div class="row">
-			<div class="four columns"><label for="select-horse-saddles">Saddles</label></div>
-			<div class="eight columns"><select id="select-horse-saddles"></select></div>
-		</div>
-		<div class="row">
-			<div class="four columns"><label for="select-horse-reins">Reins</label></div>
-			<div class="eight columns"><select id="select-horse-reins"></select></div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="four columns"><label for="select-horse-type">Type</label></div>
-		<div class="eight columns"><select id="select-horse-type"></select></div>
-	</div>
-	<div class="buttons">
-		<button onclick="SavegameEditor.editHorse2(currentEditingItem, getValue('horse-name'), getValue('horse-saddles'), getValue('horse-reins'), getValue('horse-type'));MarcDialogs.close();">Change horse</button>
-	</div>
-</div>
 
 </body>
 </html>
