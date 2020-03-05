@@ -30,7 +30,7 @@ caches.keys().then(function(cacheNames){
 });
 
 var PRECACHE_ID='sushi-striker-editor';
-var PRECACHE_VERSION='v1';
+var PRECACHE_VERSION='v2';
 var PRECACHE_URLS=[
 	'/savegame-editors/sushi-striker/','/savegame-editors/sushi-striker/index.html',
 	'/savegame-editors/sushi-striker/favicon.png',

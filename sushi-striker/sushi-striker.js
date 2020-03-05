@@ -1,6 +1,6 @@
 /*
-	Sushi Striker for HTML5 Save Editor v20191003
-	by Marc Robledo 2019
+	Sushi Striker for HTML5 Save Editor v20200305
+	by Marc Robledo 2019-20
 */
 
 SavegameEditor={
@@ -28,8 +28,10 @@ SavegameEditor={
 		tempFile.littleEndian=true;
 
 		for(var i=0; i<this.MAX_ITEMS; i++){
-			if(get('input-item'+i))
+			if(get('input-item'+i)){
 				setValue('item'+i, tempFile.readU32(this.ITEMS_OFFSET+i*8));
+				get('input-item'+i).originalValue=parseInt(getValue('item'+i));
+			}
 		}
 	},
 
@@ -38,15 +40,18 @@ SavegameEditor={
 	save:function(){
 		for(var i=0; i<this.MAX_ITEMS; i++){
 			if(get('input-item'+i)){
-				var amount=getValue('item'+i);
-				//console.log(amount);
-				if(!amount){
-					console.log(i);
-				}
+				var amount=parseInt(getValue('item'+i));
 				tempFile.writeU32(this.ITEMS_OFFSET+i*8, amount);
-				tempFile.writeU8(this.ITEMS_OFFSET+i*8+4, amount?1:0);
+
+				if(get('input-item'+i).originalValue!==amount){
+					if(get('input-item'+i).originalValue===0){
+						tempFile.writeU8(this.ITEMS_OFFSET+i*8+4, 1); //new=1
+					}else if(amount===0){
+						tempFile.writeU8(this.ITEMS_OFFSET+i*8+4, 0); //new=0
+					}
+					get('input-item'+i).originalValue=amount;
+				}
 			}
 		}
-		popa+3;
 	}
 }
