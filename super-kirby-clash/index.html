@@ -105,6 +105,19 @@
 		</div>
 	</div>
 
+	<!-- ONLINE MISSIONS -->
+	<h3 class="blue">Online only heroic missions</h3>
+	<div class="container">
+		<div class="row">
+			<div class="nine columns"><label for="button-mission-passwords">Use a Password</label></div>
+			<div class="three columns"><button id="button-mission-passwords" onclick="SavegameEditor.heroicMissionUnlock(SavegameEditor.Offsets.MISSION_PASSWORDS);this.disabled=true;">Unlock</button></div>
+		</div>
+		<div class="row">
+			<div class="nine columns"><label for="button-mission-eshop">Access Nintendo eShop from Other Games</label></div>
+			<div class="three columns"><button id="button-mission-eshop" onclick="SavegameEditor.heroicMissionUnlock(SavegameEditor.Offsets.MISSION_ESHOP);this.disabled=true;">Unlock</button></div>
+		</div>
+	</div>
+
 </div>
 
 </body>

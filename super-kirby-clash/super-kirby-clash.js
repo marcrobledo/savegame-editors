@@ -1,6 +1,6 @@
 /*
-	Super Kirby Clash savegame editor v20190912
-	by Marc Robledo 2019
+	Super Kirby Clash savegame editor v20200425
+	by Marc Robledo 2019-2020
 */
 
 SavegameEditor={
@@ -8,13 +8,23 @@ SavegameEditor={
 	Filename:'savedata.dat',
 
 	/* Constants */
+	Constants:{
+		HEROIC_MISSION_HIDDEN:0x00,
+		HEROIC_MISSION_VISIBLE:0x01,
+		HEROIC_MISSION_UNLOCKED_NEW:0x02,
+		HEROIC_MISSION_UNLOCKED:0x04,
+	},
 	Offsets:{
 		APPLE_GEMS:0x3ef0,
 		BOUGHT_APPLE_GEMS:0x3f00,
 		SHARDS_RED:0x3f20,
 		SHARDS_BLUE:0x3f24,
 		SHARDS_YELLOW:0x3f28,
-		SHARDS_RARE:0x3f2c
+		SHARDS_RARE:0x3f2c,
+		
+		MISSION_PASSWORDS: 0x3a3c,
+		MISSION_ESHOP: 0x3a44,
+		MISSION_ALL_HEROIC_MISSIONS: 0x3aa4
 		//PROFILE_NAME:0x1bb4,
 		//PROFILE_PLAYED_TIME:0x1b74,
 		//PROFILE_COMPLETED_MISSIONS:0x1b90,
@@ -25,6 +35,16 @@ SavegameEditor={
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
 		return (tempFile.fileSize===54344)
+	},
+
+	/* heroic missions */
+	heroicMissionCheck:function(offset){
+		var b=tempFile.readU8(offset);
+		
+		return (b!==this.Constants.HEROIC_MISSION_HIDDEN && b!==this.Constants.HEROIC_MISSION_VISIBLE)
+	},
+	heroicMissionUnlock:function(offset){
+		tempFile.writeU8(offset, this.Constants.HEROIC_MISSION_UNLOCKED_NEW);
 	},
 
 	/* preload function */
@@ -61,6 +81,9 @@ SavegameEditor={
 		setValue('shards-blue', tempFile.readU16(this.Offsets.SHARDS_BLUE));
 		setValue('shards-yellow', tempFile.readU16(this.Offsets.SHARDS_YELLOW));
 		setValue('shards-rare', tempFile.readU16(this.Offsets.SHARDS_RARE));
+		
+		get('button-mission-passwords').disabled=this.heroicMissionCheck(this.Offsets.MISSION_PASSWORDS);
+		get('button-mission-eshop').disabled=this.heroicMissionCheck(this.Offsets.MISSION_ESHOP);
 	},
 
 	/* save function */

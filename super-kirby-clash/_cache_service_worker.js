@@ -14,23 +14,8 @@
 */
 
 
-/* MOD: fix old caches for mrc */
-caches.keys().then(function(cacheNames){
-	for(var i=0; i<cacheNames.length; i++){
-		if(
-			cacheNames[i]==='runtime' ||
-			/^precache-\w+$/.test(cacheNames[i]) ||
-			/^precache-editor-([\w\+]+)-\w+$/.test(cacheNames[i]) ||
-			/^v?\d+\w?$/.test(cacheNames[i])
-		){
-			console.log('deleting old cache: '+cacheNames[i]);
-			caches.delete(cacheNames[i]);
-		}
-	}
-});
-
 var PRECACHE_ID='super-kirby-clash-editor';
-var PRECACHE_VERSION='v1';
+var PRECACHE_VERSION='v3';
 var PRECACHE_URLS=[
 	'/savegame-editors/super-kirby-clash/','/savegame-editors/super-kirby-clash/index.html',
 	'/savegame-editors/super-kirby-clash/favicon.png',
