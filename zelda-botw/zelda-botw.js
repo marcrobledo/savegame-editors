@@ -60,6 +60,81 @@ SavegameEditor={
 		0xfda0cde4, 'RELIC_RITO'
 	],
 
+	/* Document utils */
+
+	_getRowFromItemNumber: function(itemNumber){
+		var nameSpan, spanContainer, row;
+		nameSpan = document.getElementById("item-name"+itemNumber);
+		if(nameSpan.parentElement){
+			spanContainer = nameSpan.parentElement;
+			if(spanContainer.parentElement){
+				row = spanContainer.parentElement;
+			}
+		}
+		return row;
+	},
+	_getItemNumberFromRow: function(rowElement){
+		var rawItemNumber = rowElement
+			.children[1] // Name column
+			.children[1] // span with the item number
+			.innerHTML;
+		return rawItemNumber.match(/#([0-9]*)/)[1];
+	},
+	_getItemNameFromDoc: function(itemNumber){
+		var element = document.getElementById("item-name"+itemNumber);
+		if(element && element.innerText){
+			return element.innerText;
+        }
+		return null;
+	},
+	_setItemNameInDoc: function(itemNumber, itemName){
+		var element = document.getElementById("item-name"+itemNumber);
+		if(element){
+			element.innerText = itemName;
+        }
+	},
+	_getItemModifierFromDoc: function(itemNumber, itemCategory){
+		var element = document.getElementById("select-modifier-"+itemCategory+"-"+itemNumber);
+		if(element && element.value){
+			return element.value;
+        }
+		return null;
+	},
+	_setItemModifierInDoc: function(itemNumber, itemCategory, itemModifier){
+		var element = document.getElementById("select-modifier-"+itemCategory+"-"+itemNumber);
+		if(element && element.value){
+			element.value = itemModifier;
+			return;
+        }
+	},
+	_getItemModifierValueFromDoc: function(itemNumber, itemCategory){
+		var element = document.getElementById("number-modifier-"+itemCategory+"-value-"+itemNumber);
+		if(element && element.value){
+			return element.value;
+        }
+		return null;
+	},
+	_setItemModifierValueInDoc: function(itemNumber, itemCategory, itemModifierValue){
+		var element = document.getElementById("number-modifier-"+itemCategory+"-value-"+itemNumber);
+		if(element && element.value){
+			element.value = itemModifierValue;
+			return;
+        }
+	},
+	_getItemDurabilityFromDoc: function(itemNumber){
+		var element = document.getElementById("number-item"+itemNumber);
+		if(element && element.value){
+			return element.value;
+        }
+		return null;
+	},
+	_setItemDurabilityInDoc: function(itemNumber, itemDurability){
+		var element = document.getElementById("number-item"+itemNumber);
+		if(element && element.value){
+			element.value = itemDurability;
+			return;
+        }
+	},
 
 	/* private functions */
 	_toHexInt:function(i){var s=i.toString(16);while(s.length<8)s='0'+s;return '0x'+s},
@@ -116,7 +191,6 @@ SavegameEditor={
 			}*/
 		}
 	},
-
 
 	_getItemTranslation:function(itemId){
 		for(var i=0; i<BOTW_Data.Translations.length; i++)
@@ -241,7 +315,25 @@ SavegameEditor={
 			this._writeItemName(i,itemNameId);
 			var row=this._createItemRow(i, false);
 			document.getElementById('container-'+this._getItemCategory(itemNameId)).appendChild(row);
-			
+
+			//add modifier fields
+			var newItemCategory = this._getItemCategory(itemNameId);
+			var modifierColumns=['weapons','bows','shields'];
+			if(modifierColumns.indexOf(newItemCategory)>=0){
+				if(newItemCategory === "bows" && !itemNameId.startsWith('Weapon_')){
+					// do nothing (arrows do not have modifiers)
+				}else{
+					var category = currentTab;
+					var categorySingular = category.replace(/s$/,"");
+					var modifier=tempFile.readU32(this.Offsets['FLAGS_'+categorySingular.toUpperCase()]+i*8);
+					var modifierSelect=select('modifier-'+category+'-'+i, BOTW_Data.MODIFIERS.concat({value:modifier,name:this._toHexInt(modifier)}));
+					modifierSelect.value=modifier;
+					var modifierContainer=this._getRowFromItemNumber(i).children[2];
+					modifierContainer.appendChild(modifierSelect);
+					modifierContainer.appendChild(inputNumber('modifier-'+category+'-value-'+i, 0, 0xffffffff, tempFile.readU32(this.Offsets['FLAGSV_'+categorySingular.toUpperCase()]+i*8)));
+				}
+			}
+
 			(row.previousElementSibling || row).scrollIntoView({block:'start', behavior:'smooth'});
 			this.editItem(i);
 		}
@@ -272,7 +364,7 @@ SavegameEditor={
 		if(document.getElementById('number-item'+i))
 			document.getElementById('number-item'+i).maxValue=this._getItemMaximumQuantity(nameId);
 	},
-	
+
 	filterItems:function(category){
 	},
 
@@ -327,8 +419,10 @@ SavegameEditor={
 		return arr2;
 	},
 
-
 	changeEndianess:function(){
+		// Save item data in clipboard
+		BOTW_Clipboard.fillClipboardWithItems();
+
 		var tempFileByteSwapped=new MarcFile(tempFile.fileSize);
 		tempFileByteSwapped.fileType=tempFile.fileType;
 		tempFileByteSwapped.fileName=tempFile.fileName;
@@ -338,6 +432,14 @@ SavegameEditor={
 		}
 		tempFile=tempFileByteSwapped;
 		this.checkValidSavegame();
+
+		// reload save to apply changes
+		this.load();
+		// after changing endianess and reloading save, items get corrupted and all of them go to the other tab
+		empty('container-other');
+		// overwrite corrupted items with the ones in the clipboard
+		BOTW_Clipboard.overwriteItemsWithClipboard();
+
 	},
 
 	/* check if savegame is valid */
@@ -354,11 +456,9 @@ SavegameEditor={
 			}else if((tempFile.fileSize>=896976 && tempFile.fileSize<=1500000) && versionHash===this.Constants.HEADER[i] && tempFile.readU32(4)===0xffffffff){ /* check for mods, filesizes vary */
 				this._getOffsets(i);
 				setValue('version', this.Constants.VERSION[i]+'<small>mod</small> ('+CONSOLE+')');
-				return true;			
+				return true;
 			}
 		}
-		
-		
 
 		return false
 	},
@@ -467,9 +567,9 @@ SavegameEditor={
 			select('horse'+i+'-reins', this._arrayToSelectOpts(BOTW_Data.HORSE_REINS));
 			select('horse'+i+'-type', this._arrayToSelectOpts(i===5?BOTW_Data.HORSE_TYPES.concat(BOTW_Data.HORSE_TYPES_UNTAMMED):BOTW_Data.HORSE_TYPES));
 		}
-		
-		
-		
+
+
+
 		MarcTooltips.add('.tab-button',{className:'dark',fixed:true});
 	},
 
@@ -481,7 +581,7 @@ SavegameEditor={
 		return parseInt(timeVal/3600)+':'+minutes+':'+seconds;
 	},
 
-	/* load function */
+	/* Load data from the savegame file */
 	load:function(){
 		tempFile.fileName='game_data.sav';
 
@@ -544,7 +644,8 @@ SavegameEditor={
 		empty('container-food');
 		empty('container-other');
 
-		var modifiersArray=[0,0,0];
+		// Since item of the same category are not necessarily adjacent, store item number instead of just a counter
+		var modifiersArray=[[],[],[]];
 		var search=0; //0:weapons, 1:bows, 2:shields
 		for(var i=0; i<this.Constants.MAX_ITEMS; i++){
 			var itemNameId=this._loadItemName(i);
@@ -556,25 +657,15 @@ SavegameEditor={
 				this._createItemRow(i, itemCat)
 			);
 
-			if(search===0 && itemCat==='bows'){
-				search=1;
-			}else if(search===0 && itemCat==='shields'){
-				search=2;
-			}else if(search===1 && itemCat==='shields'){
-				search=2;
-			}else if(itemCat!=='weapons' && itemCat!=='bows' && itemCat!=='shields'){
-				search=3;
+			if(itemCat==='weapons'){
+				modifiersArray[0].push(i);
+			}else if(itemCat==='bows' && itemNameId.startsWith('Weapon_')){
+				modifiersArray[1].push(i);
+			}else if(itemCat==='shields'){
+				modifiersArray[2].push(i);
 			}
-
-			if(itemCat==='weapons' && search===0){
-				modifiersArray[0]++;
-			}else if(itemCat==='bows' && search===1 && itemNameId.startsWith('Weapon_')){
-				modifiersArray[1]++;
-			}else if(itemCat==='shields' && search===2){
-				modifiersArray[2]++;
-			}
-
 		}
+
 		MarcTooltips.add('#container-weapons input',{text:'Weapon durability',position:'bottom',align:'right'});
 		MarcTooltips.add('#container-bows input',{text:'Bow durability',position:'bottom',align:'right'});
 		MarcTooltips.add('#container-shields input',{text:'Shield durability',position:'bottom',align:'right'});
@@ -584,17 +675,19 @@ SavegameEditor={
 		var modifierColumns=['weapon','bow','shield'];
 		for(var j=0; j<3; j++){
 			var modifierColumn=modifierColumns[j];
-			for(var i=0; i<modifiersArray[j]; i++){
-				var modifier=tempFile.readU32(this.Offsets['FLAGS_'+modifierColumn.toUpperCase()]+i*8);
-				var modifierSelect=select('modifier-'+modifierColumn+'s-'+i, BOTW_Data.MODIFIERS.concat({value:modifier,name:this._toHexInt(modifier)}));
+			for(var i=0; i<modifiersArray[j].length; i++){
+				var itemNumber = modifiersArray[j][i];
+				//Adapt this because indexes are not sequential (the same as in save())
+				var modifier=tempFile.readU32(this.Offsets['FLAGS_'+modifierColumn.toUpperCase()]+itemNumber*8);
+				var modifierSelect=select('modifier-'+modifierColumn+'s-'+itemNumber, BOTW_Data.MODIFIERS.concat({value:modifier,name:this._toHexInt(modifier)}));
 				modifierSelect.value=modifier;
 
-				var additional=document.getElementById('container-'+modifierColumn+'s').children[i].children[2];
+				var row = this._getRowFromItemNumber(itemNumber);
+				var additional = row.children[2];
 				additional.appendChild(modifierSelect);
-				additional.appendChild(inputNumber('modifier-'+modifierColumn+'s-value-'+i, 0, 0xffffffff, tempFile.readU32(this.Offsets['FLAGSV_'+modifierColumn.toUpperCase()]+i*8)));
+				additional.appendChild(inputNumber('modifier-'+modifierColumn+'s-value-'+itemNumber, 0, 0xffffffff, tempFile.readU32(this.Offsets['FLAGSV_'+modifierColumn.toUpperCase()]+itemNumber*8)));
 			}
 		}
-
 
 		/* horses */
 		for(var i=0; i<6; i++){
@@ -612,11 +705,6 @@ SavegameEditor={
 			}
 		}
 
-
-
-
-
-
 		showTab('home');
 	},
 
@@ -631,12 +719,12 @@ SavegameEditor={
 		tempFile.writeU32(this.Offsets.RELIC_GERUDO, getValue('relic-gerudo'));
 		tempFile.writeU32(this.Offsets.RELIC_GORON, getValue('relic-goron'));
 		tempFile.writeU32(this.Offsets.RELIC_RITO, getValue('relic-rito'));
-		
+
 		tempFile.writeU32(this.Offsets.KOROK_SEED_COUNTER, getValue('koroks'));
 		tempFile.writeU32(this.Offsets.DEFEATED_HINOX_COUNTER, getValue('defeated-hinox'));
 		tempFile.writeU32(this.Offsets.DEFEATED_TALUS_COUNTER, getValue('defeated-talus'));
 		tempFile.writeU32(this.Offsets.DEFEATED_MOLDUGA_COUNTER, getValue('defeated-molduga'));
-		
+
 
 		/* MOTORCYCLE */
 		if(this.Offsets.MOTORCYCLE){
@@ -649,7 +737,7 @@ SavegameEditor={
 		tempFile.writeF32(this.Offsets.PLAYER_POSITION, getValue('pos-x'));
 		tempFile.writeF32(this.Offsets.PLAYER_POSITION+8, getValue('pos-y'));
 		tempFile.writeF32(this.Offsets.PLAYER_POSITION+16, getValue('pos-z'));
-		
+
 		this._writeString(this.Offsets.MAP, getValue('pos-map'))
 		this._writeString(this.Offsets.MAPTYPE, getValue('pos-maptype'))
 
@@ -667,17 +755,20 @@ SavegameEditor={
 		}
 
 		/* modifiers */
-		for(var i=0; document.getElementById('select-modifier-weapons-'+i); i++){
-			tempFile.writeU32(this.Offsets.FLAGS_WEAPON+i*8, getValue('modifier-weapons-'+i));
-			tempFile.writeU32(this.Offsets.FLAGSV_WEAPON+i*8, getValue('modifier-weapons-value-'+i));
-		}
-		for(var i=0; document.getElementById('select-modifier-bows-'+i); i++){
-			tempFile.writeU32(this.Offsets.FLAGS_BOW+i*8, getValue('modifier-bows-'+i));
-			tempFile.writeU32(this.Offsets.FLAGSV_BOW+i*8, getValue('modifier-bows-value-'+i));
-		}
-		for(var i=0; document.getElementById('select-modifier-shields-'+i); i++){
-			tempFile.writeU32(this.Offsets.FLAGS_SHIELD+i*8, getValue('modifier-shields-'+i));
-			tempFile.writeU32(this.Offsets.FLAGSV_SHIELD+i*8, getValue('modifier-shields-value-'+i));
+		var modifierCategories=['weapon','bow','shield'];
+		for(var i=0; i<3; i++){
+			var category = modifierCategories[i];
+			var offset = this.Offsets["FLAGS_"+category.toUpperCase()];
+			var valueOffset = this.Offsets["FLAGSV_"+category.toUpperCase()];
+			var container = document.getElementById("container-"+category+"s");
+			for(var j=0; j<container.children.length; j++){
+				var row = container.children[j];
+				var itemNumber = this._getItemNumberFromRow(row);
+				if(row.children[2].children.length===3){ //Check that the rows we are currently at has modifier select and input
+					tempFile.writeU32(offset+itemNumber*8, getValue('modifier-'+category+'s-'+itemNumber));
+					tempFile.writeU32(valueOffset+itemNumber*8, getValue('modifier-'+category+'s-value-'+itemNumber));
+				}
+			}
 		}
 	}
 }
@@ -697,7 +788,7 @@ function showTab(newTab){
 		document.getElementById('tab-button-'+availableTabs[i]).className=currentTab===availableTabs[i]?'tab-button active':'tab-button';
 		document.getElementById('tab-'+availableTabs[i]).style.display=currentTab===availableTabs[i]?'block':'none';
 	}
-	
+
 	document.getElementById('add-item-button').style.display=(newTab==='home' || newTab==='horses' || newTab==='master')? 'none':'block';
 
 	if(newTab==='master'){
@@ -876,7 +967,7 @@ function clearMapPins(){
 		return true;
 	})
 
-	var count2 =0; 
+	var count2 =0;
 	var i = 0;
 	iterateMapPinLocations(function(val, offset){
 		var expect = i % 3 == 0 ? -100000 : 0;

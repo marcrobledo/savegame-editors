@@ -10,6 +10,7 @@
 	<link type="text/css" rel="stylesheet" href="./zelda-botw.css" media="all"/>
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./zelda-botw.js"></script>
+	<script type="text/javascript" src="./zelda-botw.clipboard.js"></script>
 	<script type="text/javascript" src="./zelda-botw.data.js"></script>
 	<script type="text/javascript" src="./zelda-botw.locations.js"></script>
 	<script type="text/javascript" src="./zelda-botw.icons.js"></script>
@@ -66,7 +67,7 @@
 <div id="the-editor" class="wrapper hidden">
 	<!-- DEBUG -->
 	<div id="debug"></div>
-	
+
 	<!-- TAB: HOME -->
 	<div id="tab-home">
 		<!-- RUPEES -->
@@ -154,7 +155,7 @@
 				</select>
 			</div>
 		</div>
-		
+
 		<!-- Coordinates (Requires a memory editor) -->
 		<h3 class="border-green">Coordinates</h3>
 		<div class="row">
@@ -171,8 +172,8 @@
 		</div>
 
 
-	
-	
+
+
 
 
 		<!-- COMPLETIONISM -->
@@ -233,7 +234,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- TAB: WEAPONS -->
 	<div id="tab-weapons">
 		<h3>Weapons</h3><div id="container-weapons"></div>
@@ -343,7 +344,7 @@
 				<option value="AlbumPicture|PictureBook">Compendium</option>
 			</select>
 			<input id="input-custom-filter" type="text" placeholder="Search hash keys" onchange="BOTWMasterEditor.refreshResults()" />
-			
+
 			 | <label for="select-page">Page: </label>
 			<button id="page-prev" onclick="BOTWMasterEditor.prevPage()">&laquo;</button>
 			<select id="select-page" class="small" onchange="BOTWMasterEditor.setPage(this.selectedIndex)"></select>
@@ -352,7 +353,7 @@
 
 			<table id="table"></table>
 		</div>
-	</div>	
+	</div>
 </div>
 
 
