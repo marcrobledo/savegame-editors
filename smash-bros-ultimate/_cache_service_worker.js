@@ -30,7 +30,7 @@ caches.keys().then(function(cacheNames){
 });
 
 var PRECACHE_ID='smash-bros-ultimate-editor';
-var PRECACHE_VERSION='v1b';
+var PRECACHE_VERSION='v1c';
 var PRECACHE_URLS=[
 	'/savegame-editors/smash-bros-ultimate/','/savegame-editors/smash-bros-ultimate/index.html',
 	'/savegame-editors/smash-bros-ultimate/favicon.png',

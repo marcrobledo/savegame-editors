@@ -1,6 +1,6 @@
 /*
-	Super Smash Bros. Ultimate for HTML5 Save Editor v2019
-	by Marc Robledo 2019
+	Super Smash Bros. Ultimate for HTML5 Save Editor v2019-2023
+	by Marc Robledo 2019-2023
 	
 	
 	
@@ -90,6 +90,25 @@ SavegameEditor={
 
 	/* save function */
 	save:function(){
+		tempFile.writeU8(this.Offsets.ITEMS_SHUFFLE_ALL, getValue('items-shuffle-all'));
+		tempFile.writeU8(this.Offsets.ITEMS_ALL_PRIMARIES, getValue('items-all-primaries'));
+		tempFile.writeU8(this.Offsets.ITEMS_ALL_SUPPORTS, getValue('items-all-supports'));
+		tempFile.writeU8(this.Offsets.ITEMS_FILLER, getValue('items-filler'));
+		tempFile.writeU8(this.Offsets.ITEMS_REMATCH, getValue('items-rematch'));
+		tempFile.writeU8(this.Offsets.ITEMS_50_DAMAGE, getValue('items-50-damage'));
+		tempFile.writeU8(this.Offsets.ITEMS_SLOW_FS_CHARGING, getValue('items-slow-fs-charging'));
+		tempFile.writeU8(this.Offsets.ITEMS_WEAKEN_MINIONS, getValue('items-weaken-minions'));
+		tempFile.writeU8(this.Offsets.ITEMS_HEALTH_DRAIN, getValue('items-health-drain'));
+		tempFile.writeU8(this.Offsets.ITEMS_DISABLE_ITEMS, getValue('items-disable-items'));
+		tempFile.writeU8(this.Offsets.ITEMS_SHIELD_SPACER, getValue('items-shield-spacer'));
+		tempFile.writeU8(this.Offsets.ITEMS_SLUGGISH_SHIELD, getValue('items-sluggish-shield'));
+
+		tempFile.writeU16(this.Offsets.SNACK_S, getValue('snacks-s'));
+		tempFile.writeU16(this.Offsets.SNACK_M, getValue('snacks-m'));
+		tempFile.writeU16(this.Offsets.SNACK_L, getValue('snacks-l'));
+		tempFile.writeU32(this.Offsets.SPIRIT_POINTS, getValue('sp'));
+		tempFile.writeU8(this.Offsets.TICKETS, getValue('tickets'));
+		tempFile.writeU32(this.Offsets.GOLD, getValue('gold'));
 		tempFile.writeU8(this.Offsets.HAMMERS, getValue('hammers'));
 	}
 }
