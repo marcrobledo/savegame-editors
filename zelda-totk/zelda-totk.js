@@ -16,9 +16,9 @@ SavegameEditor={
 		STRING_SIZE:0x20,
 		STRING64_SIZE:0x80,
 
-		VERSION:				['v1.0'],
-		FILESIZE:				[2307552],
-		HEADER:					[0x01020304],
+		VERSION:				['v1.0', 'v1.1'],
+		FILESIZE:				[2307552, 2307656],
+		HEADER:					[0x0046c3c8, 0x0047e0f4],
 
 		ICON_TYPES:{SWORD: 27, BOW:28, SHIELD:29, POT:30, STAR:31, CHEST:32,SKULL:33,LEAF:34,TOWER:35}
 	},
@@ -299,10 +299,11 @@ SavegameEditor={
 	checkValidSavegame:function(){
 		tempFile.littleEndian=true;
 		for(var i=0; i<this.Constants.FILESIZE.length; i++){
-			var versionHash=tempFile.readU32(0);
+			var dummyHeader=tempFile.readU32(0);
+			var versionHash=tempFile.readU32(4);
 
-			if(tempFile.fileSize===this.Constants.FILESIZE[i] && versionHash===this.Constants.HEADER[i]){
-				this._getOffsets(i);
+			if(tempFile.fileSize===this.Constants.FILESIZE[i] && dummyHeader===0x01020304 && versionHash===this.Constants.HEADER[i]){
+				this._getOffsets();
 				setValue('version', this.Constants.VERSION[i]);
 				return true;
 			}
