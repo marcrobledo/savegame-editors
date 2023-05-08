@@ -6,7 +6,7 @@ var currentEditingItem=0;
 
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
-	Filename:'progress.sav',
+	Filename:['progress.sav','caption.sav'],
 	Version:20230505,
 	noDemo:true,
 
@@ -299,14 +299,43 @@ SavegameEditor={
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
 		tempFile.littleEndian=true;
-		for(var i=0; i<this.Constants.FILESIZE.length; i++){
-			var dummyHeader=tempFile.readU32(0);
-			var versionHash=tempFile.readU32(4);
+		//if(tempFile.fileName==='caption.sav'){
+		if(/caption/.test(tempFile.fileName)){
+			var startOffset=0x0474;
+			if(tempFile.readU32(startOffset)===0xe0ffd8ff){
+				var endOffset=startOffset+4;
+				var found=false;
+				while(endOffset<(tempFile.fileSize-2) && !found){
+					if(tempFile.readU8(endOffset)===0xff && tempFile.readU8(endOffset + 1)===0xd9){
+						found=true;
+					}else{
+						endOffset++;
+					}
+				}
+				
+				if(found){
+					var arrayBuffer=tempFile._u8array.buffer.slice(startOffset, endOffset+2);
+					var blob=new Blob([arrayBuffer], {type:'image/jpeg'});
+					var imageUrl=(window.URL || window.webkitURL).createObjectURL(blob);
+					var img=new Image();
+					img.src=imageUrl;
+					document.getElementById('dialog-caption').innerHTML='';
+					document.getElementById('dialog-caption').appendChild(img);
+					window.setTimeout(function(){
+						MarcDialogs.open('caption')
+					}, 100);
+				}
+			}
+		}else{
+			for(var i=0; i<this.Constants.FILESIZE.length; i++){
+				var dummyHeader=tempFile.readU32(0);
+				var versionHash=tempFile.readU32(4);
 
-			if(tempFile.fileSize===this.Constants.FILESIZE[i] && dummyHeader===0x01020304 && versionHash===this.Constants.HEADER[i]){
-				this._getOffsets();
-				setValue('version', this.Constants.VERSION[i]);
-				return true;
+				if(tempFile.fileSize===this.Constants.FILESIZE[i] && dummyHeader===0x01020304 && versionHash===this.Constants.HEADER[i]){
+					this._getOffsets();
+					setValue('version', this.Constants.VERSION[i]);
+					return true;
+				}
 			}
 		}
 
