@@ -26,6 +26,8 @@ SavegameEditor={
 	/* Hashes */
 	Hashes:[
 		0xa77921d7, 'RupeesTest',
+		//0xfbe01da1, 'HeartsTest',
+		0x31ab5580, 'MaxHeartsTest',
 		0xf9212c74, 'StaminaTest'
 	],
 
@@ -464,8 +466,8 @@ SavegameEditor={
 
 		/* prepare editor */
 		setValue('rupees', tempFile.readU32(this.Offsets.RupeesTest));
-		/*setValue('mons', tempFile.readU32(this.Offsets.MONS));
-		setValue('max-hearts', tempFile.readU32(this.Offsets.MAX_HEARTS));*/
+		/*setValue('mons', tempFile.readU32(this.Offsets.MONS));*/
+		setValue('max-hearts', tempFile.readU32(this.Offsets.MaxHeartsTest));
 		setValue('max-stamina', tempFile.readU32(this.Offsets.StaminaTest));
 		console.log('StaminaTest: '+tempFile.readU32(this.Offsets.StaminaTest));
 
@@ -601,8 +603,8 @@ SavegameEditor={
 	save:function(){
 		/* STATS */
 		tempFile.writeU32(this.Offsets.RupeesTest, getValue('rupees'));
-		/*tempFile.writeU32(this.Offsets.MONS, getValue('mons'));
-		tempFile.writeU32(this.Offsets.MAX_HEARTS, getValue('max-hearts'));*/
+		/*tempFile.writeU32(this.Offsets.MONS, getValue('mons'));*/
+		tempFile.writeU32(this.Offsets.MaxHeartsTest, getValue('max-hearts'));
 		tempFile.writeU32(this.Offsets.StaminaTest, getValue('max-stamina'));
 
 		/*tempFile.writeU32(this.Offsets.RELIC_GERUDO, getValue('relic-gerudo'));
