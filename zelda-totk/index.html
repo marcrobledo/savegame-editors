@@ -46,12 +46,12 @@
 				<span id="span-version"></span>
 				|
 				<button id="tab-button-home" title="Home" class="tab-button active" onclick="showTab('home')"><i class="tab-icon home"></i></button>
-				<button id="tab-button-weapons" title="Weapons" class="tab-button" onclick="showTab('weapons')" disabled><i class="tab-icon weapons"></i></button>
-				<button id="tab-button-bows" title="Bows" class="tab-button" onclick="showTab('bows')" disabled><i class="tab-icon bows"></i></button>
-				<button id="tab-button-shields" title="Shields" class="tab-button" onclick="showTab('shields')" disabled><i class="tab-icon shields"></i></button>
-				<button id="tab-button-clothes" title="Clothes" class="tab-button" onclick="showTab('clothes')" disabled><i class="tab-icon clothes"></i></button>
-				<button id="tab-button-materials" title="Materials" class="tab-button" onclick="showTab('materials')" disabled><i class="tab-icon materials"></i></button>
-				<button id="tab-button-food" title="Food" class="tab-button" onclick="showTab('food')" disabled><i class="tab-icon food"></i></button>
+				<button id="tab-button-weapons" title="Weapons" class="tab-button" onclick="showTab('weapons')"><i class="tab-icon weapons"></i></button>
+				<button id="tab-button-bows" title="Bows" class="tab-button" onclick="showTab('bows')"><i class="tab-icon bows"></i></button>
+				<button id="tab-button-shields" title="Shields" class="tab-button" onclick="showTab('shields')"><i class="tab-icon shields"></i></button>
+				<button id="tab-button-clothes" title="Clothes" class="tab-button" onclick="showTab('clothes')"><i class="tab-icon clothes"></i></button>
+				<button id="tab-button-materials" title="Materials" class="tab-button" onclick="showTab('materials')"><i class="tab-icon materials"></i></button>
+				<button id="tab-button-food" title="Food" class="tab-button" onclick="showTab('food')"><i class="tab-icon food"></i></button>
 				<button id="tab-button-other" title="Other" class="tab-button" onclick="showTab('other')" disabled><i class="tab-icon other"></i></button>
 				<button id="tab-button-horses" title="Horses" class="tab-button" onclick="showTab('horses')" disabled><i class="tab-icon horses"></i></button>
 				<button id="tab-button-master" title="Master editor" class="tab-button" onclick="showTab('master')" disabled><i class="tab-icon master"></i></button>
@@ -262,7 +262,7 @@
 
 	<!-- TAB: CLOTHES -->
 	<div id="tab-clothes">
-		<h3>Clothes</h3><div id="container-clothes"></div>
+		<h3>Clothes</h3><div id="container-armors"></div>
 	</div>
 
 	<!-- TAB: MATERIALS -->
@@ -282,7 +282,7 @@
 
 	<!-- ADD ITEM BUTTON -->
 	<div id="add-item-button" class="text-center">
-		<button class="with-icon icon1" onclick="SavegameEditor.addItem()">Add item</button>
+		<!-- <button class="with-icon icon1" onclick="SavegameEditor.addItem()" disabled>Add item</button> -->
 	</div>
 	<!-- TAB: HORSES -->
 	<div id="tab-horses">
