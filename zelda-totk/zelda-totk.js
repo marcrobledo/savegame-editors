@@ -64,15 +64,15 @@ SavegameEditor={
 		},
 		'material':{
 			'id':0x000afbf4,
-			'quantity':0x00046148
+			'quantity':0x000477a4
 		},
 		'armor':{
 			'id':0x00061bbc,
-			' ':false
+			'quantity':false
 		},
 		'food':{
 			'id':0x00087ca4,
-			'quantity':false
+			'quantity':0x0004e984
 		},
 		'key':{
 			'id':0x000b9488,
@@ -163,13 +163,14 @@ SavegameEditor={
 
 		var nItems=offsets.count=tempFile.readU32(offsetShift + offsets.id);
 		var items=[];
+		var readQuantity=offsets.quantity && tempFile.readU32(offsetShift + offsets.quantity)===offsets.count;
 		offsetShift+=0x04;
 		for(var i=0; i<nItems; i++){
 			var item={
 				'index':i,
 				'category':catId,
 				'id':tempFile.readString(offsetShift + offsets.id + i*0x40, 0x40),
-				'quantity':offsets.quantity? tempFile.readU32(offsets.quantity + i*0x04) : 1
+				'quantity':readQuantity? tempFile.readU32(offsetShift + offsets.quantity + i*0x04) : 1
 			};
 			if(item.id)
 				items.push(item);
@@ -178,12 +179,13 @@ SavegameEditor={
 	},
 	_writeItemsSimple:function(items, offsets){
 		var offsetShift=this._getCurrentGameVersionOffset();
+		var writeQuantity=offsets.quantity && tempFile.readU32(offsetShift + offsets.quantity)===offsets.count;
 
 		for(var i=0; i<items.length; i++){
 			var item=items[i];			
 			tempFile.writeString(0x04 + offsetShift + offsets.id + item.index * 0x40, item.id, 0x40);
-			if(offsets.quantity)
-				tempFile.writeU32(offsets.quantity + item.index*0x04, item.quantity);
+			if(writeQuantity)
+				tempFile.writeU32(0x04 + offsetShift + offsets.quantity + item.index*0x04, item.quantity);
 		}
 		return items;
 	},
@@ -251,12 +253,6 @@ SavegameEditor={
 				return TOTK_Data.Translations[i].items[itemId];
 		return '<span style="color:red">'+itemId+'</span>'
 	},
-	_getItemCategory:function(itemId){
-		for(var i=0; i<TOTK_Data.Translations.length; i++)
-			if(TOTK_Data.Translations[i].items[itemId])
-				return TOTK_Data.Translations[i].id;
-		return 'other'
-	},
 
 	/*_readStringBOTW:function(offset, len){
 		len=len || 8;
@@ -276,29 +272,6 @@ SavegameEditor={
 		return this._readString(offset, 64);
 	},*/
 
-	_loadItemName:function(i){
-		return this._readString64(this.Offsets.ITEMS+i*0x80);
-	},
-	_writeItemName:function(i,newItemNameId){
-		this._writeString64(this.Offsets.ITEMS, newItemNameId, i);
-	},
-	_getItemMaximumQuantity:function(itemId){
-		var cat=this._getItemCategory(itemId);
-		if(itemId.endsWith('Arrow') || itemId.endsWith('Arrow_A') || cat==='materials' || cat==='food'){
-			return 999;
-		}else if(cat==='weapons' || cat==='bows' || cat==='shields'){
-			return 6553500;
-		}else if(itemId==='Obj_DungeonClearSeal'){
-			return 120
-		}else if(itemId==='Obj_KorokNuts'){
-			return 900
-		}else{
-			return 0xffffffff;
-		}
-	},
-	_getItemQuantityOffset:function(i){
-		return this.Offsets.ITEMS_QUANTITY+i*0x08;
-	},
 	_getItemRow:function(i){
 		return getField('number-item'+i).parentElement.parentElement
 	},
@@ -307,6 +280,7 @@ SavegameEditor={
 		var img=new Image();
 		img.id='icon'+item.index;
 		img.src=TOTK_Icons.getBlankIcon();
+		img.loading='lazy';
 
 		/*img.addEventListener('error', function(){
 			img.src=TOTK_Icons.getBlankIcon();
@@ -326,6 +300,18 @@ SavegameEditor={
 
 
 		var input;
+		if(item.category==='material' || item.category==='food'){
+			input=inputNumber('item-quantity-'+item.category+'-'+item.index, 1, 999, item.quantity);
+			input.addEventListener('change', function(){
+				var newVal=parseInt(this.value);
+				if(!isNaN(newVal) && newVal>0)
+					item.quantity=newVal;
+			});
+		}else{
+			input=document.createElement('span');
+			input.innerHTML='-';
+		}
+		/*
 		if(item.category && item.category==='armors'){
 			input=select('item'+item.index, TOTK_Data.DYE_COLORS, function(){
 				TOTK_Icons.setIcon(img, SavegameEditor._loadItemName(item.index), parseInt(this.value));
@@ -334,16 +320,14 @@ SavegameEditor={
 
 			TOTK_Icons.setIcon(img, item.id, itemVal);
 		}else{
-			input=inputNumber('item'+item.index, 0, this._getItemMaximumQuantity(item.id), item.quantity);
+			input=inputNumber('item-quantity-'+item.category+'-'+item.index, 0, this._getItemMaximumQuantity(item.id), item.quantity);
 			input.addEventListener('change', function(){
 				var newVal=parseInt(this.value);
 				if(!isNaN(newVal) && newVal>0)
 					item.quantity=newVal;
 			});
 			TOTK_Icons.setIcon(img, item.id);
-		}
-		if(item.category!=='material')
-			input.disabled=true;
+		}*/
 
 		var r=row([1,6,3,2],
 			img,
@@ -779,12 +763,6 @@ SavegameEditor={
 
 		/* ITEMS */
 		this._writeItemsAll(this.currentItems);
-		/*for(var i=0; i<this.Constants.MAX_ITEMS; i++){
-			if(document.getElementById('number-item'+i) || document.getElementById('select-item'+i))
-				tempFile.writeU32(this._getItemQuantityOffset(i), getValue('item'+i));
-			else
-				break;
-		}*/
 
 		/* modifiers */
 		/*for(var i=0; document.getElementById('select-modifier-weapons-'+i); i++){
