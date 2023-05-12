@@ -20,7 +20,9 @@ SavegameEditor={
 		FILESIZE:				[2307552, 2307656],
 		HEADER:					[0x0046c3c8, 0x0047e0f4],
 
-		ICON_TYPES:{SWORD: 27, BOW:28, SHIELD:29, POT:30, STAR:31, CHEST:32,SKULL:33,LEAF:34,TOWER:35}
+		ICON_TYPES:{SWORD: 27, BOW:28, SHIELD:29, POT:30, STAR:31, CHEST:32,SKULL:33,LEAF:34,TOWER:35},
+		
+		BLANK_ICON_PATH:'./assets/_blank.png'
 	},
 	currentGameVersionIndex:null,
 	_getCurrentGameVersionOffset:function(){
@@ -41,22 +43,22 @@ SavegameEditor={
 	/* v1.1 adds +0x38 to all offsets */
 	OffsetsItems:{
 		'shield':{
+			'id':			0x000760f0,
 			'durability':	0x0004a3b0,
-			'power':		0x0004ba5c,
-			'modifier':		0x00051070,
-			'id':			0x000760f0
+			'power':		0x0004ba54,
+			'modifier':		0x00051070
 		},
 		'bow':{
+			'id':			0x0007b4e4,
 			'durability':	0x0004aab8,
 			'power':		0x0004cafc,
-			'modifier':		0x0005252c,
-			'id':			0x0007b4e4
+			'modifier':		0x0005252c
 		},
 		'weapon':{
+			'id':			0x000c3b58,
 			'durability':	0x0004d1c0,
 			'power':		0x0004eed4,
-			'modifier':		0x000515bc,
-			'id':			0x000c3b58
+			'modifier':		0x000515bc
 		},
 		'arrows':{
 			'id':0x000820ec,
@@ -74,14 +76,14 @@ SavegameEditor={
 			'id':0x00087ca4,
 			'quantity':0x0004e984
 		},
-		'key':{
-			'id':0x000b9488,
-			'quantity':false
-		},
-		'spobj':{ //???
+		'spobj':{
 			'id':0x0009cb70,
 			'quantity':false
 		},
+		'key':{
+			'id':0x000b9488,
+			'quantity':false
+		}
 	},
 	_readItemsNew:function(){
 		var offset=Offsets.ItemData;
@@ -111,6 +113,7 @@ SavegameEditor={
 			'materials':this._readItemsSimple('material'),
 			'armors':this._readItemsSimple('armor'),
 			'food':this._readItemsSimple('food'),
+			'spobjs':this._readItemsSimple('spobj'),
 			'key':this._readItemsSimple('key')
 		}
 	},
@@ -121,6 +124,7 @@ SavegameEditor={
 		this._writeItemsSimple(items.materials, this.OffsetsItems.material);
 		this._writeItemsSimple(items.armors, this.OffsetsItems.armor);
 		this._writeItemsSimple(items.food, this.OffsetsItems.food);
+		this._writeItemsSimple(items.spobjs, this.OffsetsItems.spobj);
 		this._writeItemsSimple(items.key, this.OffsetsItems.key);
 	},
 	_readItemsComplex:function(catId){
@@ -279,12 +283,12 @@ SavegameEditor={
 
 		var img=new Image();
 		img.id='icon'+item.index;
-		img.src=TOTK_Icons.getBlankIcon();
+		img.src=SavegameEditor.Constants.BLANK_ICON_PATH;
 		img.loading='lazy';
-
-		/*img.addEventListener('error', function(){
-			img.src=TOTK_Icons.getBlankIcon();
-		}, false);*/
+		/*img.onerror=function(){
+			this.removeEventListener('error', this.onerror);
+			img.src=SavegameEditor.Constants.BLANK_ICON_PATH;
+		}*/
 
 		var itemNumber=document.createElement('span');
 		itemNumber.className='item-number';
@@ -299,17 +303,49 @@ SavegameEditor={
 		}, false);
 
 
-		var input;
-		if(item.category==='material' || item.category==='food'){
-			input=inputNumber('item-quantity-'+item.category+'-'+item.index, 1, 999, item.quantity);
+		var lastColumn=document.createElement('div');
+		if(item.category==='weapon' || item.category==='bow' || item.category==='shield'){
+			
+
+			var input1=inputNumber('item-durability-'+item.category+'-'+item.index, 1, 6553500, item.durability);
+			input1.addEventListener('change', function(){
+				var newVal=parseInt(this.value);
+				if(!isNaN(newVal) && newVal>0)
+					item.durability=newVal;
+			});
+			input1.title='Durability';
+
+			var input2=inputNumber('item-power-'+item.category+'-'+item.index, 1, 6553500, item.power);
+			input2.addEventListener('change', function(){
+				var newVal=parseInt(this.value);
+				if(!isNaN(newVal) && newVal>0)
+					item.power=newVal;
+			});
+			input2.title='Power';
+			input2.disabled=true;
+
+			var input3=inputNumber('item-modifier-'+item.category+'-'+item.index, 1, 0xffffffff, item.modifier.toString(16));
+			input3.title='Modifier';
+			input3.disabled=true;
+			
+			lastColumn.appendChild(input1);
+			lastColumn.appendChild(input2);
+			lastColumn.appendChild(input3);
+		}else if(item.category==='material' || item.category==='food'){
+			var input=inputNumber('item-quantity-'+item.category+'-'+item.index, 1, 999, item.quantity);
 			input.addEventListener('change', function(){
 				var newVal=parseInt(this.value);
 				if(!isNaN(newVal) && newVal>0)
 					item.quantity=newVal;
 			});
+			input.title='Quantity';
+			
+			lastColumn.appendChild(input);
 		}else{
-			input=document.createElement('span');
-			input.innerHTML='-';
+			var emptySpan=document.createElement('span');
+			emptySpan.innerHTML='-';
+			
+			lastColumn.appendChild(emptySpan);
 		}
 		/*
 		if(item.category && item.category==='armors'){
@@ -333,10 +369,11 @@ SavegameEditor={
 			img,
 			span,
 			document.createElement('div'), /* modifier column */
-			input
+			lastColumn
 		);
 		r.className+=' row-items';
 		r.children[1].appendChild(itemNumber);
+		
 		return r;
 	},
 
@@ -665,10 +702,11 @@ SavegameEditor={
 		empty('container-armors');
 		empty('container-materials');
 		empty('container-food');
+		empty('container-spobjs');
 		empty('container-key');
 
 		/*var modifiersArray=[0,0,0];*/
-		var ITEM_CATS=['weapons','bows','shields','armors','materials','food','key'];
+		var ITEM_CATS=['weapons','bows','shields','armors','materials','food','spobjs','key'];
 		
 		for(var i=0; i<ITEM_CATS.length; i++){
 			var itemCat=ITEM_CATS[i];
@@ -678,10 +716,11 @@ SavegameEditor={
 				);
 			}
 		}
-		/*MarcTooltips.add('#container-weapons input',{text:'Weapon durability',position:'bottom',align:'right'});
-		MarcTooltips.add('#container-bows input',{text:'Bow durability',position:'bottom',align:'right'});
-		MarcTooltips.add('#container-shields input',{text:'Shield durability',position:'bottom',align:'right'});
-		TOTK_Icons.startLoadingIcons();*/
+		MarcTooltips.add('#container-weapons input',{position:'bottom',align:'right'});
+		MarcTooltips.add('#container-bows input',{position:'bottom',align:'right'});
+		MarcTooltips.add('#container-shields input',{position:'bottom',align:'right'});
+		MarcTooltips.add('#container-materials input',{position:'bottom',align:'right'});
+		MarcTooltips.add('#container-food input',{position:'bottom',align:'right'});
 
 		/* modifier column */
 		/*var modifierColumns=['weapon','bow','shield'];

@@ -37,7 +37,6 @@ var PRECACHE_URLS=[
 	'/savegame-editors/zelda-totk/zelda-totk.css',
 	'/savegame-editors/zelda-totk/zelda-totk.js',
 	'/savegame-editors/zelda-totk/zelda-totk.data.js',
-	'/savegame-editors/zelda-totk/zelda-totk.icons.js',
 	'/savegame-editors/zelda-totk/zelda-totk.locations.js',
 	'/savegame-editors/zelda-totk/zelda-totk.master.js',
 	'/savegame-editors/zelda-totk/favicon.png',
