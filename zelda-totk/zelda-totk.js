@@ -32,7 +32,8 @@ SavegameEditor={
 		0xa77921d7, 'RupeesTest',
 		//0xfbe01da1, 'HeartsTest',
 		0x31ab5580, 'MaxHeartsTest',
-		0xf9212c74, 'StaminaTest'
+		0xf9212c74, 'StaminaTest',
+		0xa3db7114, 'ItemData' //???
 	],
 
 	/* temporarily hardcoded offset */
@@ -73,6 +74,34 @@ SavegameEditor={
 			'id':0x00087ca4,
 			'quantity':false
 		},
+		'key':{
+			'id':0x000b9488,
+			'quantity':false
+		},
+		'spobj':{ //???
+			'id':0x0009cb70,
+			'quantity':false
+		},
+	},
+	_readItemsNew:function(){
+		var offset=Offsets.ItemData;
+		var arrays=[];
+		
+		var i=0;
+		var offsetEnd=tempFile.readU32(offset);
+		i++;
+		offset+=4;
+		while(offset<offsetEnd){
+			var len=tempFile.readU32(offset);
+			var elems=new Array(len);
+			elems
+			arrays.push({
+			})
+			offset+=4*len;
+			i+=len;
+		}
+		
+		return arrays;
 	},
 	_readItemsAll:function(){
 		return {
@@ -81,7 +110,8 @@ SavegameEditor={
 			'weapons':this._readItemsComplex('weapon'),
 			'materials':this._readItemsSimple('material'),
 			'armors':this._readItemsSimple('armor'),
-			'food':this._readItemsSimple('food')
+			'food':this._readItemsSimple('food'),
+			'key':this._readItemsSimple('key')
 		}
 	},
 	_writeItemsAll:function(items){
@@ -91,12 +121,13 @@ SavegameEditor={
 		this._writeItemsSimple(items.materials, this.OffsetsItems.material);
 		this._writeItemsSimple(items.armors, this.OffsetsItems.armor);
 		this._writeItemsSimple(items.food, this.OffsetsItems.food);
+		this._writeItemsSimple(items.key, this.OffsetsItems.key);
 	},
 	_readItemsComplex:function(catId){
 		var offsets=this.OffsetsItems[catId];
 		var offsetShift=this._getCurrentGameVersionOffset();
 
-		var nItems=tempFile.readU32(offsetShift + offsets.id);
+		var nItems=offsets.count=tempFile.readU32(offsetShift + offsets.id);
 		var items=[];
 		offsetShift+=0x04;
 		for(var i=0; i<nItems; i++){
@@ -130,13 +161,14 @@ SavegameEditor={
 		var offsets=this.OffsetsItems[catId];
 		var offsetShift=this._getCurrentGameVersionOffset();
 
-		var nItems=tempFile.readU32(offsetShift + offsets.id);
+		var nItems=offsets.count=tempFile.readU32(offsetShift + offsets.id);
 		var items=[];
+		offsetShift+=0x04;
 		for(var i=0; i<nItems; i++){
 			var item={
 				'index':i,
 				'category':catId,
-				'id':tempFile.readString(0x04 + offsets.id + i*0x40, 0x40),
+				'id':tempFile.readString(offsetShift + offsets.id + i*0x40, 0x40),
 				'quantity':offsets.quantity? tempFile.readU32(offsets.quantity + i*0x04) : 1
 			};
 			if(item.id)
@@ -595,7 +627,6 @@ SavegameEditor={
 		/*setValue('mons', tempFile.readU32(this.Offsets.MONS));*/
 		setValue('max-hearts', tempFile.readU32(this.Offsets.MaxHeartsTest));
 		setValue('max-stamina', tempFile.readU32(this.Offsets.StaminaTest));
-		console.log('StaminaTest: '+tempFile.readU32(this.Offsets.StaminaTest));
 
 
 		/*setValue('relic-gerudo', tempFile.readU32(this.Offsets.RELIC_GERUDO));
@@ -643,16 +674,17 @@ SavegameEditor={
 
 		/* items */
 		this.currentItems=this._readItemsAll();
+		//this.currentItemsTest=this._readItemsNew();
 		empty('container-weapons');
 		empty('container-bows');
 		empty('container-shields');
 		empty('container-armors');
 		empty('container-materials');
 		empty('container-food');
-		empty('container-other');
+		empty('container-key');
 
 		/*var modifiersArray=[0,0,0];*/
-		var ITEM_CATS=['weapons','bows','shields','armors','materials','food'];
+		var ITEM_CATS=['weapons','bows','shields','armors','materials','food','key'];
 		
 		for(var i=0; i<ITEM_CATS.length; i++){
 			var itemCat=ITEM_CATS[i];
@@ -775,7 +807,7 @@ SavegameEditor={
 
 
 /* TABS */
-var availableTabs=['home','weapons','bows','shields','clothes','materials','food','other','horses','master'];
+var availableTabs=['home','weapons','bows','shields','armors','materials','food','key','horses','master'];
 
 
 var currentTab;
