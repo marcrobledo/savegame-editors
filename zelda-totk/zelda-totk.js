@@ -76,13 +76,13 @@ SavegameEditor={
 			'id':0x00087ca4,
 			'quantity':0x0004e984
 		},
-		'spobj':{
+		'device':{
 			'id':0x0009cb70,
-			'quantity':false
+			'quantity':0x00046148
 		},
 		'key':{
 			'id':0x000b9488,
-			'quantity':false
+			'quantity':0x0004eb98
 		}
 	},
 	_readItemsNew:function(){
@@ -113,7 +113,7 @@ SavegameEditor={
 			'materials':this._readItemsSimple('material'),
 			'armors':this._readItemsSimple('armor'),
 			'food':this._readItemsSimple('food'),
-			'spobjs':this._readItemsSimple('spobj'),
+			'devices':this._readItemsSimple('device'),
 			'key':this._readItemsSimple('key')
 		}
 	},
@@ -124,7 +124,7 @@ SavegameEditor={
 		this._writeItemsSimple(items.materials, this.OffsetsItems.material);
 		this._writeItemsSimple(items.armors, this.OffsetsItems.armor);
 		this._writeItemsSimple(items.food, this.OffsetsItems.food);
-		this._writeItemsSimple(items.spobjs, this.OffsetsItems.spobj);
+		this._writeItemsSimple(items.devices, this.OffsetsItems.device);
 		this._writeItemsSimple(items.key, this.OffsetsItems.key);
 	},
 	_readItemsComplex:function(catId){
@@ -331,7 +331,7 @@ SavegameEditor={
 			lastColumn.appendChild(input1);
 			lastColumn.appendChild(input2);
 			lastColumn.appendChild(input3);
-		}else if(item.category==='material' || item.category==='food'){
+		}else if(item.quantity!==0xffffffff && (item.category==='material' || item.category==='food' || item.category==='device' || item.category==='key')){
 			var input=inputNumber('item-quantity-'+item.category+'-'+item.index, 1, 999, item.quantity);
 			input.addEventListener('change', function(){
 				var newVal=parseInt(this.value);
@@ -341,11 +341,6 @@ SavegameEditor={
 			input.title='Quantity';
 			
 			lastColumn.appendChild(input);
-		}else{
-			var emptySpan=document.createElement('span');
-			emptySpan.innerHTML='-';
-			
-			lastColumn.appendChild(emptySpan);
 		}
 		/*
 		if(item.category && item.category==='armors'){
@@ -702,11 +697,11 @@ SavegameEditor={
 		empty('container-armors');
 		empty('container-materials');
 		empty('container-food');
-		empty('container-spobjs');
+		empty('container-devices');
 		empty('container-key');
 
 		/*var modifiersArray=[0,0,0];*/
-		var ITEM_CATS=['weapons','bows','shields','armors','materials','food','spobjs','key'];
+		var ITEM_CATS=['weapons','bows','shields','armors','materials','food','devices','key'];
 		
 		for(var i=0; i<ITEM_CATS.length; i++){
 			var itemCat=ITEM_CATS[i];
