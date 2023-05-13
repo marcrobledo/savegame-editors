@@ -60,9 +60,9 @@ SavegameEditor={
 			'power':		0x0004eed4,
 			'modifier':		0x000515bc
 		},
-		'arrows':{
+		'arrow':{
 			'id':0x000820ec,
-			'quantity':false
+			'quantity':0x00046ff4
 		},
 		'material':{
 			'id':0x000afbf4,
@@ -110,6 +110,7 @@ SavegameEditor={
 			'shields':this._readItemsComplex('shield'),
 			'bows':this._readItemsComplex('bow'),
 			'weapons':this._readItemsComplex('weapon'),
+			'arrows':this._readItemsSimple('arrow'),
 			'materials':this._readItemsSimple('material'),
 			'armors':this._readItemsSimple('armor'),
 			'food':this._readItemsSimple('food'),
@@ -121,6 +122,7 @@ SavegameEditor={
 		this._writeItemsComplex(items.shields, this.OffsetsItems.shield);
 		this._writeItemsComplex(items.bows, this.OffsetsItems.bow);
 		this._writeItemsComplex(items.weapons, this.OffsetsItems.weapon);
+		this._writeItemsSimple(items.arrows, this.OffsetsItems.arrow);
 		this._writeItemsSimple(items.materials, this.OffsetsItems.material);
 		this._writeItemsSimple(items.armors, this.OffsetsItems.armor);
 		this._writeItemsSimple(items.food, this.OffsetsItems.food);
@@ -331,7 +333,7 @@ SavegameEditor={
 			lastColumn.appendChild(input1);
 			lastColumn.appendChild(input2);
 			lastColumn.appendChild(input3);
-		}else if(item.quantity!==0xffffffff && (item.category==='material' || item.category==='food' || item.category==='device' || item.category==='key')){
+		}else if(item.quantity!==0xffffffff && (item.category==='arrow' || item.category==='material' || item.category==='food' || item.category==='device' || item.category==='key')){
 			var input=inputNumber('item-quantity-'+item.category+'-'+item.index, 1, 999, item.quantity);
 			input.addEventListener('change', function(){
 				var newVal=parseInt(this.value);
@@ -692,6 +694,7 @@ SavegameEditor={
 		this.currentItems=this._readItemsAll();
 		//this.currentItemsTest=this._readItemsNew();
 		empty('container-weapons');
+		empty('container-arrows');
 		empty('container-bows');
 		empty('container-shields');
 		empty('container-armors');
@@ -701,7 +704,7 @@ SavegameEditor={
 		empty('container-key');
 
 		/*var modifiersArray=[0,0,0];*/
-		var ITEM_CATS=['weapons','bows','shields','armors','materials','food','devices','key'];
+		var ITEM_CATS=['weapons','arrows','bows','shields','armors','materials','food','devices','key'];
 		
 		for(var i=0; i<ITEM_CATS.length; i++){
 			var itemCat=ITEM_CATS[i];
@@ -819,7 +822,7 @@ SavegameEditor={
 
 
 /* TABS */
-var availableTabs=['home','weapons','bows','shields','armors','materials','food','key','horses','master'];
+var availableTabs=['home','weapons','bows','shields','armors','materials','food','devices','key','horses','master'];
 
 
 var currentTab;

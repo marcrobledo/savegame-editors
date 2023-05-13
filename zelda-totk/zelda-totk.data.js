@@ -1252,6 +1252,8 @@ Item_Ore_M:"Large Zonaite",
 
 
 /* TOTK */
+Item_Enemy_67:"Bokoblin Horn",
+Item_Enemy_77:"Captain Construct I Horn",
 BombFruit:"Bomb Flower",
 ConfusionFruit:"Muddle Bud",
 ElectricalFruit:"Shock Fruit",
@@ -1497,6 +1499,7 @@ Item_Cook_S_09:"Dark Cake",
 Item_Cook_S_10:"Cheesy Tomato"
 }},
 		{id:'device',items:{
+SpObj_WindGenerator_Capsule_A_01:"Fan",
 SpObj_FlameThrower_Capsule_A_01:"Flame Emitter",
 SpObj_CookSet_Capsule_A_01:"Portable Pot",
 SpObj_LiftGeneratorWing_Capsule_A_01:"Wing",
@@ -1525,8 +1528,7 @@ SpObj_SpringPiston_Capsule_A_01:"SpObj_SpringPiston_Capsule_A_01",
 SpObj_SwitchWheel_B_01:"SpObj_SwitchWheel_B_01",
 SpObj_TiltingDoll_Capsule_A_01:"SpObj_TiltingDoll_Capsule_A_01",
 SpObj_TimerBomb_Capsule_A_01:"SpObj_TimerBomb_Capsule_A_01",
-SpObj_WaterPump_A_01:"SpObj_WaterPump_A_01",
-SpObj_WindGenerator_Capsule_A_01:"SpObj_WindGenerator_Capsule_A_01"
+SpObj_WaterPump_A_01:"SpObj_WaterPump_A_01"
 }},
 		{id:'key',items:{
 Obj_DungeonClearSeal:"Spirit Orb",

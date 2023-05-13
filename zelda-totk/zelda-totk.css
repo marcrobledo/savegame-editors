@@ -163,7 +163,7 @@ i.tab-icon{
 	display:inline-block;
 	width:32px;height:32px;
 	background-image:url('assets/tabs.png');
-	background-size:320px;
+	background-size:352px;
 }
 i.tab-icon.home{background-position-x:-0px;}
 i.tab-icon.weapons{background-position-x:-32px;}
@@ -175,6 +175,7 @@ i.tab-icon.food{background-position-x:-192px;}
 i.tab-icon.other{background-position-x:-224px;}
 i.tab-icon.horses{background-position-x:-256px;}
 i.tab-icon.master{background-position-x:-288px;}
+i.tab-icon.devices{background-position-x:-320px;}
 
 
 
