@@ -212,7 +212,6 @@ i.tab-icon.devices{background-position-x:-320px;}
 #toolbar{
 	padding:8px
 }
-#span-version:hover{text-decoration:underline}
 #header h1{display:none}
 #header h1 img{vertical-align:middle}
 
@@ -310,9 +309,10 @@ optgroup{background-color:black}
 	border-color:#666
 }
 #the-editor input[type=text]:focus,#the-editor input[type=number]:focus,#the-editor select:focus{
-	box-shadow:rgba(185,159,101,.5) 0 0 4px 1px;
+	box-shadow:rgba(140, 121, 77, 0.5) 0 0 0px 3px;
 	background-color:#222;
-	border-color:#b99f65
+	border-color:#b99f65;
+	outline:none;
 }
 
 
