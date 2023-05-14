@@ -1580,7 +1580,7 @@ Get_TwnObj_DLC_MemorialPicture_A_01:"Picture of the Champions (v1.4)",
 
 /* TOTK */
 Obj_Battery_Get:"Energy Cell",
-Obj_Battery_Get_Capacity03:"Energy Cell[03]",
+/*Obj_Battery_Get_Capacity03:"Energy Cell[03]",
 Obj_Battery_Get_Capacity04:"Energy Cell[04]",
 Obj_Battery_Get_Capacity05:"Energy Cell[05]",
 Obj_Battery_Get_Capacity06:"Energy Cell[06]",
@@ -1625,7 +1625,7 @@ Obj_Battery_Get_Capacity44:"Energy Cell[44]",
 Obj_Battery_Get_Capacity45:"Energy Cell[45]",
 Obj_Battery_Get_Capacity46:"Energy Cell[46]",
 Obj_Battery_Get_Capacity47:"Energy Cell[47]",
-Obj_Battery_Get_Capacity48:"Energy Cell[48]",
+Obj_Battery_Get_Capacity48:"Energy Cell[48]",*/
 Obj_SubstituteCloth_Default:"Ordinary Fabric",
 Obj_SubstituteCloth_00:"Goron Fabric",
 Obj_SubstituteCloth_01:"Zora Fabric",
