@@ -31,11 +31,11 @@ SavegameEditor={
 
 	/* Hashes */
 	Hashes:[
-		0xa77921d7, 'RupeesTest',
-		//0xfbe01da1, 'HeartsTest',
-		0x31ab5580, 'MaxHeartsTest',
-		0xf9212c74, 'StaminaTest',
-		0xa3db7114, 'ItemData' //???
+		0xa77921d7, 'TempRupees',
+		//0xfbe01da1, 'TempHearts',
+		0x31ab5580, 'TempMaxHearts',
+		0xf9212c74, 'TempStamina',
+		0xa3db7114, 'TempItemData' //???
 	],
 
 	/* temporarily hardcoded offset */
@@ -86,7 +86,7 @@ SavegameEditor={
 		}
 	},
 	_readItemsNew:function(){
-		var offset=Offsets.ItemData;
+		var offset=Offsets.TempItemData;
 		var arrays=[];
 		
 		var i=0;
@@ -278,9 +278,6 @@ SavegameEditor={
 		return this._readString(offset, 64);
 	},*/
 
-	_getItemRow:function(i){
-		return getField('number-item'+i).parentElement.parentElement
-	},
 	_createItemRow:function(item){
 		var img=new Image();
 		img.id='icon'+item.index;
@@ -306,8 +303,6 @@ SavegameEditor={
 
 		var lastColumn=document.createElement('div');
 		if(item.category==='weapons' || item.category==='bows' || item.category==='shields'){
-			
-
 			var input1=inputNumber('item-durability-'+item.category+'-'+item.index, 1, 6553500, item.durability);
 			input1.addEventListener('change', function(){
 				var newVal=parseInt(this.value);
@@ -371,6 +366,7 @@ SavegameEditor={
 			lastColumn
 		);
 		r.className+=' row-items';
+		r.id='row-item-'+item.category+'-'+item.index;
 		r.children[1].appendChild(itemNumber);
 		
 		return r;
@@ -457,6 +453,10 @@ SavegameEditor={
 	},
 	editItem2:function(item, newId){
 		item.id=newId;
+
+		var oldRow=document.getElementById('row-item-'+item.category+'-'+item.index);
+		var newRow=this._createItemRow(item);
+		oldRow.parentElement.replaceChild(newRow, oldRow)
 
 		//TOTK_Icons.setIcon(document.getElementById('icon'+i), newId);
 		//if(document.getElementById('number-item'+i))
@@ -570,8 +570,8 @@ SavegameEditor={
 		this.selectItem.addEventListener('blur', function(){
 			//console.log('blur');
 			SavegameEditor.editItem2(currentEditingItem, this.value);
-			document.getElementById('item-name-'+currentEditingItem.category+'-'+currentEditingItem.index).innerHTML=SavegameEditor._getItemTranslation(currentEditingItem.id);
-			this.parentElement.removeChild(this);
+			//document.getElementById('item-name-'+currentEditingItem.category+'-'+currentEditingItem.index).innerHTML=SavegameEditor._getItemTranslation(currentEditingItem.id);
+			//this.parentElement.removeChild(this);
 			currentEditingItem=null;
 		}, false);
 
@@ -668,10 +668,10 @@ SavegameEditor={
 
 
 		/* prepare editor */
-		setValue('rupees', tempFile.readU32(this.Offsets.RupeesTest));
+		setValue('rupees', tempFile.readU32(this.Offsets.TempRupees));
 		/*setValue('mons', tempFile.readU32(this.Offsets.MONS));*/
-		setValue('max-hearts', tempFile.readU32(this.Offsets.MaxHeartsTest));
-		setValue('max-stamina', tempFile.readU32(this.Offsets.StaminaTest));
+		setValue('max-hearts', tempFile.readU32(this.Offsets.TempMaxHearts));
+		setValue('max-stamina', tempFile.readU32(this.Offsets.TempStamina));
 
 
 		/*setValue('relic-gerudo', tempFile.readU32(this.Offsets.RELIC_GERUDO));
@@ -735,10 +735,13 @@ SavegameEditor={
 			}
 		}
 		MarcTooltips.add('#container-weapons input',{position:'bottom',align:'right'});
+		MarcTooltips.add('#container-arrows input',{position:'bottom',align:'right'});
 		MarcTooltips.add('#container-bows input',{position:'bottom',align:'right'});
 		MarcTooltips.add('#container-shields input',{position:'bottom',align:'right'});
 		MarcTooltips.add('#container-materials input',{position:'bottom',align:'right'});
 		MarcTooltips.add('#container-food input',{position:'bottom',align:'right'});
+		MarcTooltips.add('#container-devices input',{position:'bottom',align:'right'});
+		MarcTooltips.add('#container-key input',{position:'bottom',align:'right'});
 
 		/* modifier column */
 		/*var modifierColumns=['weapon','bow','shield'];
@@ -783,10 +786,10 @@ SavegameEditor={
 	/* save function */
 	save:function(){
 		/* STATS */
-		tempFile.writeU32(this.Offsets.RupeesTest, getValue('rupees'));
+		tempFile.writeU32(this.Offsets.TempRupees, getValue('rupees'));
 		/*tempFile.writeU32(this.Offsets.MONS, getValue('mons'));*/
-		tempFile.writeU32(this.Offsets.MaxHeartsTest, getValue('max-hearts'));
-		tempFile.writeU32(this.Offsets.StaminaTest, getValue('max-stamina'));
+		tempFile.writeU32(this.Offsets.TempMaxHearts, getValue('max-hearts'));
+		tempFile.writeU32(this.Offsets.TempStamina, getValue('max-stamina'));
 
 		/*tempFile.writeU32(this.Offsets.RELIC_GERUDO, getValue('relic-gerudo'));
 		tempFile.writeU32(this.Offsets.RELIC_GORON, getValue('relic-goron'));
