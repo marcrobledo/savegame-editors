@@ -305,7 +305,7 @@ SavegameEditor={
 
 
 		var lastColumn=document.createElement('div');
-		if(item.category==='weapon' || item.category==='bow' || item.category==='shield'){
+		if(item.category==='weapons' || item.category==='bows' || item.category==='shields'){
 			
 
 			var input1=inputNumber('item-durability-'+item.category+'-'+item.index, 1, 6553500, item.durability);
