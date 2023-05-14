@@ -27,7 +27,7 @@ var TOTK_Data={
 	HORSE_TYPES_UNTAMMED:['GameRomHorseNushi','GameRomHorseBone'],
 
 	Translations:[
-		{id:'weapon',items:{
+		{id:'weapons',items:{
 Weapon_Sword_001:"Traveler's Sword",
 Weapon_Sword_002:"Soldier's Broadsword",
 Weapon_Sword_003:"Knight's Broadsword",
@@ -221,7 +221,7 @@ Weapon_Spear_166:"Long Stick (White)",
 Weapon_Spear_168:"Throwing Spear (decayed)",
 Weapon_Spear_173:"Decayed Master Sword"
 }},
-		{id:'bow',items:{
+		{id:'bows',items:{
 Weapon_Bow_001:"Traveler's Bow",
 Weapon_Bow_002:"Soldier's Bow",
 Weapon_Bow_003:"Spiked Boko Bow",
@@ -263,7 +263,7 @@ Weapon_Bow_106:"Mighty Construct Bow",
 Weapon_Bow_107:"Old Wooden Bow",
 Weapon_Bow_166:"Demon King's Bow"
 }},
-		{id:'shield',items:{
+		{id:'shields',items:{
 Weapon_Shield_001:"Wooden Shield",
 Weapon_Shield_002:"Soldier's Shield",
 Weapon_Shield_003:"Knight's Shield",
@@ -304,7 +304,7 @@ Weapon_Shield_102:"Strong Zonaite Shield",
 Weapon_Shield_103:"Mighty Zonaite Shield",
 Weapon_Shield_107:"Old Wooden Shield"
 }},
-		{id:'armor',items:{Armor_001_Head:"Hylian Hood",
+		{id:'armors',items:{Armor_001_Head:"Hylian Hood",
 Armor_002_Head:"Hylian Hood ★",
 Armor_003_Head:"Hylian Hood ★★",
 Armor_004_Head:"Hylian Hood ★★★",
@@ -922,7 +922,7 @@ Armor_1302_Lower:"Yiga Tights ★★",
 Armor_1303_Lower:"Yiga Tights ★★★",
 Armor_1304_Lower:"Yiga Tights ★★★★"
 }},
-		{id:'material',items:{
+		{id:'materials',items:{
 
 Item_Fruit_A:"Apple",
 Item_Fruit_B:"Wildberry",
@@ -1498,7 +1498,7 @@ Item_Cook_S_08:"Dark Curry",
 Item_Cook_S_09:"Dark Cake",
 Item_Cook_S_10:"Cheesy Tomato"
 }},
-		{id:'device',items:{
+		{id:'devices',items:{
 SpObj_WindGenerator_Capsule_A_01:"Fan",
 SpObj_FlameThrower_Capsule_A_01:"Flame Emitter",
 SpObj_CookSet_Capsule_A_01:"Portable Pot",
