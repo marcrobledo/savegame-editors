@@ -54,7 +54,7 @@
 				<button id="tab-button-devices" title="Zonai devices" class="tab-button" onclick="showTab('devices')"><i class="tab-icon devices"></i></button>
 				<button id="tab-button-key" title="Key items" class="tab-button" onclick="showTab('key')"><i class="tab-icon other"></i></button>
 				<button id="tab-button-horses" title="Horses" class="tab-button" onclick="showTab('horses')" disabled><i class="tab-icon horses"></i></button>
-				<button id="tab-button-master" title="Master editor" class="tab-button" onclick="showTab('master')" disabled><i class="tab-icon master"></i></button>
+				<button id="tab-button-master" title="Master editor" class="tab-button" onclick="showTab('master')"><i class="tab-icon master"></i></button>
 				| <button class="button with-icon icon3" onclick="closeFile()">Close file</button>
 				<button class="button colored blue with-icon icon9" onclick="saveChanges()">Save changes</button>
 			</div>
@@ -166,6 +166,21 @@
 			</div>
 		</div>
 		
+		<!-- Pouch size -->
+		<h3 class="border-green">Pouch size</h3>
+		<div class="row">
+			<div class="ten columns"><label for="number-pouch-size-swords">Pouch size swords</label></div>
+			<div class="two columns"><input id="number-pouch-size-swords" class="full-width" type="text" /></div>
+		</div>
+		<div class="row">
+			<div class="ten columns"><label for="number-pouch-size-bows">Pouch size bows</label></div>
+			<div class="two columns"><input id="number-pouch-size-bows" class="full-width" type="text" /></div>
+		</div>
+		<div class="row">
+			<div class="ten columns"><label for="number-pouch-size-shields">Pouch size shields</label></div>
+			<div class="two columns"><input id="number-pouch-size-shields" class="full-width" type="text" /></div>
+		</div>
+	
 		<!-- Coordinates (Requires a memory editor) -->
 		<!-- <h3 class="border-green">Coordinates</h3>
 		<div class="row">

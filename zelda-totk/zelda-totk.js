@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230511
+	The legend of Zelda: Tears of the Kingdom savegame editor v20230515
 	by Marc Robledo 2017-2020
 */
 var currentEditingItem;
@@ -42,6 +42,18 @@ SavegameEditor={
 	/* to-do: find the correct hash key */
 	/* v1.1 adds +0x38 to all offsets */
 	OffsetsItems:{
+		'pouchSword':{
+			'id':0x04aa64,
+			'type':'integer'
+		},
+		'pouchBow':{
+			'id':0x047630,
+			'type':'integer'
+		},
+		'pouchShield':{
+			'id':0x04d080,
+			'type':'integer'
+		},
 		'shields':{
 			'id':			0x000760f0,
 			'durability':	0x0004a3b0,
@@ -115,7 +127,11 @@ SavegameEditor={
 			'armors':this._readItemsSimple('armors'),
 			'food':this._readItemsSimple('food'),
 			'devices':this._readItemsSimple('devices'),
-			'key':this._readItemsSimple('key')
+			'key':this._readItemsSimple('key'),
+
+			'pouchSword':this._readItemsSimple('pouchSword'),
+			'pouchBow':this._readItemsSimple('pouchBow'),
+			'pouchShield':this._readItemsSimple('pouchShield')
 		}
 	},
 	_writeItemsAll:function(items){
@@ -128,6 +144,10 @@ SavegameEditor={
 		this._writeItemsSimple(items.food, this.OffsetsItems.food);
 		this._writeItemsSimple(items.devices, this.OffsetsItems.devices);
 		this._writeItemsSimple(items.key, this.OffsetsItems.key);
+		
+		this._writeItemsSimple(items.pouchSword, this.OffsetsItems.pouchSword);
+		this._writeItemsSimple(items.pouchBow, this.OffsetsItems.pouchBow);
+		this._writeItemsSimple(items.pouchShield, this.OffsetsItems.pouchShield);
 	},
 	_readItemsComplex:function(catId){
 		var offsets=this.OffsetsItems[catId];
@@ -171,27 +191,42 @@ SavegameEditor={
 		var items=[];
 		var readQuantity=offsets.quantity && tempFile.readU32(offsetShift + offsets.quantity)===offsets.count;
 		offsetShift+=0x04;
+		var modeInteger=offsets.type==='integer';
 		for(var i=0; i<nItems; i++){
-			var item={
-				'index':i,
-				'category':catId,
-				'id':tempFile.readString(offsetShift + offsets.id + i*0x40, 0x40),
-				'quantity':readQuantity? tempFile.readU32(offsetShift + offsets.quantity + i*0x04) : 1
-			};
-			if(item.id)
+			if(modeInteger){
+				var item={
+					'index':i,
+					'category':catId,
+					'value':tempFile.readU32(offsetShift + offsets.id + i*0x04)
+				};
 				items.push(item);
+			}else{
+				var item={
+					'index':i,
+					'category':catId,
+					'id':tempFile.readString(offsetShift + offsets.id + i*0x40, 0x40),
+					'quantity':readQuantity? tempFile.readU32(offsetShift + offsets.quantity + i*0x04) : 1
+				};
+				if(item.id)
+					items.push(item);
+			}
 		}
 		return items;
 	},
 	_writeItemsSimple:function(items, offsets){
 		var offsetShift=this._getCurrentGameVersionOffset();
 		var writeQuantity=offsets.quantity && tempFile.readU32(offsetShift + offsets.quantity)===offsets.count;
+		var modeInteger=offsets.type==='integer';
 
 		for(var i=0; i<items.length; i++){
-			var item=items[i];			
-			tempFile.writeString(0x04 + offsetShift + offsets.id + item.index * 0x40, item.id, 0x40);
-			if(writeQuantity)
-				tempFile.writeU32(0x04 + offsetShift + offsets.quantity + item.index*0x04, item.quantity);
+			var item=items[i];
+			if(modeInteger){
+				tempFile.writeU32(0x04 + offsetShift + offsets.id + item.index * 0x04, item.value);
+			}else{
+				tempFile.writeString(0x04 + offsetShift + offsets.id + item.index * 0x40, item.id, 0x40);
+				if(writeQuantity)
+					tempFile.writeU32(0x04 + offsetShift + offsets.quantity + item.index*0x04, item.quantity);
+			}
 		}
 		return items;
 	},
@@ -423,7 +458,7 @@ SavegameEditor={
 	editItem:function(item){
 		currentEditingItem=item;
 		/* prepare edit item selector */
-		this.selectItem.innerHTML;
+		this.selectItem.innerHTML='';
 		var foundItemId=false;
 		for(var i=0; i<TOTK_Data.Translations.length; i++){
 			if(TOTK_Data.Translations[i].id===item.category){
@@ -576,6 +611,26 @@ SavegameEditor={
 		}, false);
 
 		setNumericRange('rupees', 0, 999999);
+
+		setNumericRange('pouch-size-swords', 9, 18);
+		setNumericRange('pouch-size-bows', 5, 13);
+		setNumericRange('pouch-size-shields', 4, 20);
+		getField('pouch-size-swords').addEventListener('change', function(evt){
+			var newVal=parseInt(this.value);
+			if(!isNaN(newVal) && newVal>=9)
+				SavegameEditor.currentItems.pouchSword[0].value=newVal;
+		});
+		getField('pouch-size-bows').addEventListener('change', function(evt){
+			var newVal=parseInt(this.value);
+			if(!isNaN(newVal) && newVal>=5)
+				SavegameEditor.currentItems.pouchBow[0].value=newVal;
+		});
+		getField('pouch-size-shields').addEventListener('change', function(evt){
+			var newVal=parseInt(this.value);
+			if(!isNaN(newVal) && newVal>=4)
+				SavegameEditor.currentItems.pouchShield[0].value=newVal;
+		});
+
 		/*setNumericRange('mons', 0, 999999);
 		setNumericRange('relic-gerudo', 0, 99);
 		setNumericRange('relic-goron', 0, 99);
@@ -667,11 +722,20 @@ SavegameEditor={
 		tempFile.fileName='progress.sav';
 
 
+
+		/* items */
+		this.currentItems=this._readItemsAll();
+		//this.currentItemsTest=this._readItemsNew();
+
 		/* prepare editor */
 		setValue('rupees', tempFile.readU32(this.Offsets.TempRupees));
 		/*setValue('mons', tempFile.readU32(this.Offsets.MONS));*/
 		setValue('max-hearts', tempFile.readU32(this.Offsets.TempMaxHearts));
 		setValue('max-stamina', tempFile.readU32(this.Offsets.TempStamina));
+
+		setValue('number-pouch-size-swords', this.currentItems.pouchSword[0].value);
+		setValue('number-pouch-size-bows', this.currentItems.pouchBow[0].value);
+		setValue('number-pouch-size-shields', this.currentItems.pouchShield[0].value);
 
 
 		/*setValue('relic-gerudo', tempFile.readU32(this.Offsets.RELIC_GERUDO));
@@ -715,11 +779,6 @@ SavegameEditor={
 
 		/* map pins */
 		/*loadMapPins();*/
-
-
-		/* items */
-		this.currentItems=this._readItemsAll();
-		//this.currentItemsTest=this._readItemsNew();
 
 		/*var modifiersArray=[0,0,0];*/
 		var ITEM_CATS=['weapons','arrows','bows','shields','armors','materials','food','devices','key'];

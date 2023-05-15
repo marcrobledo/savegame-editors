@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom - Master editor v20230505
+	The legend of Zelda: Tears of the Kingdom - Master editor v20230515
 	by Marc Robledo 2023
 */
 
@@ -149,7 +149,7 @@ var TOTKMasterEditor=(function(){
 		for(var i=0; i<lines.length; i++){
 			if(lines[i]){
 				var data=lines[i].split(';');
-				HASHES[parseInt(data[0])]=[
+				HASHES[parseInt(data[0], 16)]=[
 					parseInt(data[1]),
 					data[2]
 				];
