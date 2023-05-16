@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230515
+	The legend of Zelda: Tears of the Kingdom savegame editor v20230516
 	by Marc Robledo 2017-2020
 */
 var currentEditingItem;
@@ -315,13 +315,17 @@ SavegameEditor={
 
 	_createItemRow:function(item){
 		var img=new Image();
-		img.id='icon'+item.index;
-		img.src=SavegameEditor.Constants.BLANK_ICON_PATH;
+		img.id='icon-'+item.category+'-'+item.index;
 		img.loading='lazy';
-		/*img.onerror=function(){
+		img.onerror=function(){
 			this.removeEventListener('error', this.onerror);
+			//console.error('icon '+this.src+' not found');
 			img.src=SavegameEditor.Constants.BLANK_ICON_PATH;
-		}*/
+		}
+		if(TOTK_Data.ALTERNATE_ICONS[item.id])
+			img.src='./assets/icons/'+item.category+'/'+TOTK_Data.ALTERNATE_ICONS[item.id]+'.png';
+		else
+			img.src='./assets/icons/'+item.category+'/'+item.id+'.png';
 
 		var itemNumber=document.createElement('span');
 		itemNumber.className='item-number';
@@ -338,7 +342,8 @@ SavegameEditor={
 
 		var lastColumn=document.createElement('div');
 		if(item.category==='weapons' || item.category==='bows' || item.category==='shields'){
-			var input1=inputNumber('item-durability-'+item.category+'-'+item.index, 1, 6553500, item.durability);
+			var maxDurability=TOTK_Data.DEFAULT_DURABILITY[item.id] || 70;
+			var input1=inputNumber('item-durability-'+item.category+'-'+item.index, 1, maxDurability, item.durability);
 			input1.addEventListener('change', function(){
 				var newVal=parseInt(this.value);
 				if(!isNaN(newVal) && newVal>0)
@@ -363,9 +368,7 @@ SavegameEditor={
 			lastColumn.appendChild(input2);
 			lastColumn.appendChild(input3);
 		}else if(item.quantity!==0xffffffff && (item.category==='arrows' || item.category==='materials' || item.category==='food' || item.category==='devices' || item.category==='key')){
-			var maxValue=999;
-			if(item.id==='Item_Ore_L' || item.id==='Item_Ore_M')
-				maxValue=9999;
+			var maxValue=TOTK_Data.MAXIMUM_QUANTITY[item.id] || 999;
 			var input=inputNumber('item-quantity-'+item.category+'-'+item.index, 1, maxValue, item.quantity);
 			input.addEventListener('change', function(){
 				var newVal=parseInt(this.value);
@@ -498,6 +501,14 @@ SavegameEditor={
 		//	document.getElementById('number-item'+i).maxValue=this._getItemMaximumQuantity(newId);
 	},
 	
+	restoreDurability:function(catId){
+		this.currentItems[catId].forEach(function(item){
+			var durability=TOTK_Data.DEFAULT_DURABILITY[item.id] || 70;
+			item.durability=durability;
+			document.getElementById('number-item-durability-'+item.category+'-'+item.index).value=durability;
+		});		
+	},
+
 	filterItems:function(category){
 	},
 
@@ -630,6 +641,21 @@ SavegameEditor={
 			if(!isNaN(newVal) && newVal>=4)
 				SavegameEditor.currentItems.pouchShield[0].value=newVal;
 		});
+
+
+		var armorIdByName={};
+		for(var id in TOTK_Data.Translations[4].items){
+			var name=TOTK_Data.Translations[4].items[id];
+
+			if(name.indexOf('★')===-1){
+				armorIdByName[name]=id;
+			}else{
+				TOTK_Data.ALTERNATE_ICONS[id]=armorIdByName[name.replace(/ ★+$/,'')];
+			}
+		}
+
+
+
 
 		/*setNumericRange('mons', 0, 999999);
 		setNumericRange('relic-gerudo', 0, 99);
