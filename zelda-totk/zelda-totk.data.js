@@ -31,11 +31,11 @@ var TOTK_Data={
 Item_Ore_L:99999, //Zonaite
 Item_Ore_M:99999, //Large Zonaite
 Energy_Material_01:9999, //Crystallized Charge
-Energy_Material_03:9999, //Large Crystallized Charge
-Energy_Material_04:9999, //Huge Crystallized Charge
+//Energy_Material_03:9999, //Large Crystallized Charge
+//Energy_Material_04:9999, //Huge Crystallized Charge
 MinusRupee_00:9999, //Poe
-MinusRupee_01:9999, //Large Poe
-MinusRupee_02:9999 //Grand Poe
+//MinusRupee_01:9999, //Large Poe
+//MinusRupee_02:9999 //Grand Poe
 },
 	DEFAULT_DURABILITY:{
 Weapon_Bow_001:22,
@@ -1611,11 +1611,11 @@ Obj_KorokNuts:"Korok Seed",
 Obj_ProofKorok:"Hestu's Gift",
 CaveMasterMedal:"Bubbul Gem",
 Energy_Material_01:"Crystallized Charge",
-Energy_Material_03:"Large Crystallized Charge",
-Energy_Material_04:"Huge Crystallized Charge",
+//Energy_Material_03:"Large Crystallized Charge",
+//Energy_Material_04:"Huge Crystallized Charge",
 MinusRupee_00:"Poe",
-MinusRupee_01:"Large Poe",
-MinusRupee_02:"Grand Poe",
+//MinusRupee_01:"Large Poe",
+//MinusRupee_02:"Grand Poe",
 Obj_SageWill:"Sage's Will",
 Obj_StableHostlePointCard:"Pony Points Card",
 
