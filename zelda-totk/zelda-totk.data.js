@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Data) v20230516
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Data) v20230518
 
 	by Marc Robledo 2023
 

@@ -43,6 +43,10 @@ SavegameEditor={
 	/* to-do: find the correct hash key */
 	/* v1.1 adds +0x38 to all offsets */
 	OffsetsItems:{
+		'horses':{
+			'id':0x0010a148,
+			'type':0x0008a0ec
+		},
 		'pouchSword':{
 			'id':0x04aa64,
 			'type':'integer'
@@ -734,23 +738,23 @@ SavegameEditor={
 
 
 		/* horses */
-		/*for(var i=0; i<6; i++){
-			if(i<5){
+		for(var i=0; i<6; i++){
+			if(i<6){
 				get('input-horse'+i+'-name').horseIndex=i;
 				get('input-horse'+i+'-name').addEventListener('change', function(){SavegameEditor.setHorseName(this.horseIndex, this.value)}, false);
-				get('select-horse'+i+'-saddles').horseIndex=i;
-				get('select-horse'+i+'-saddles').addEventListener('change', function(){SavegameEditor.setHorseSaddle(this.horseIndex, this.value)}, false);
-				get('select-horse'+i+'-reins').horseIndex=i;
-				get('select-horse'+i+'-reins').addEventListener('change', function(){SavegameEditor.setHorseReins(this.horseIndex, this.value)}, false);
+				//get('select-horse'+i+'-saddles').horseIndex=i;
+				//get('select-horse'+i+'-saddles').addEventListener('change', function(){SavegameEditor.setHorseSaddle(this.horseIndex, this.value)}, false);
+				//get('select-horse'+i+'-reins').horseIndex=i;
+				//get('select-horse'+i+'-reins').addEventListener('change', function(){SavegameEditor.setHorseReins(this.horseIndex, this.value)}, false);
 			}
 			get('select-horse'+i+'-type').horseIndex=i;
 			get('select-horse'+i+'-type').addEventListener('change', function(){SavegameEditor.setHorseType(this.horseIndex, this.value)}, false);
 
-			select('horse'+i+'-saddles', this._arrayToSelectOpts(TOTK_Data.HORSE_SADDLES));
-			select('horse'+i+'-reins', this._arrayToSelectOpts(TOTK_Data.HORSE_REINS));
-			select('horse'+i+'-type', this._arrayToSelectOpts(i===5?TOTK_Data.HORSE_TYPES.concat(TOTK_Data.HORSE_TYPES_UNTAMMED):TOTK_Data.HORSE_TYPES));
-		}*/
-		
+			//select('horse'+i+'-saddles', this._arrayToSelectOpts(TOTK_Data.HORSE_SADDLES));
+			//select('horse'+i+'-reins', this._arrayToSelectOpts(TOTK_Data.HORSE_REINS));
+			select('horse'+i+'-type', this._arrayToSelectOpts(i===6?TOTK_Data.HORSE_TYPES.concat(TOTK_Data.HORSE_TYPES_UNTAMMED):TOTK_Data.HORSE_TYPES));
+		}
+
 		
 		
 		MarcTooltips.add('.tab-button',{className:'dark',fixed:true});
