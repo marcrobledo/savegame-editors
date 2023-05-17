@@ -360,13 +360,41 @@ SavegameEditor={
 			input2.title='Power';
 			input2.disabled=true;
 
-			var input3=inputNumber('item-modifier-'+item.category+'-'+item.index, 1, 0xffffffff, item.modifier.toString(16));
-			input3.title='Modifier';
-			input3.disabled=true;
+			var modifiers=[
+				{name:'No bonus', value:0xb6eede09},
+				{name:'Attack ↑', value:0xa9384c6c},
+				{name:'Attack ↑↑', value:0xdad10617},
+				{name:'Durability ↑', value:0xd5cad39b},
+				{name:'Durability ↑↑', value:0xb2c943ee}
+			];
+			if(item.category==='weapons'){
+				modifiers.push({name:'Throw ↑↑', value:0x9659c804});
+			}else if(item.category==='bows'){
+				modifiers.push({name:'Quick Shot', value:0x7d505bc4});
+				modifiers.push({name:'Arrow Shot x5', value:0x934069cd});
+			}else if(item.category==='shields'){
+				modifiers.push({name:'Block ↑↑', value:0xb3c94e5});
+			}
+			var unknownModifier=true;
+			modifiers.forEach(function(modifier){
+				if(item.modifier===modifier.value){
+					unknownModifier=false;
+				}
+			});
+			if(unknownModifier){
+				modifiers.push({name:'Unknown: '+item.modifier.toString(16), value:item.modifier});
+			}
+			var selectModifier=select('item-modifier-'+item.category+'-'+item.index, modifiers, function(){
+				item.modifier=parseInt(this.value);
+			});
+			selectModifier.title='Modifier';
+			if(unknownModifier)
+				selectModifier.disabled=false;
+			selectModifier.value=item.modifier;
 			
 			lastColumn.appendChild(input1);
 			lastColumn.appendChild(input2);
-			lastColumn.appendChild(input3);
+			lastColumn.appendChild(selectModifier);
 		}else if(item.quantity!==0xffffffff && (item.category==='arrows' || item.category==='materials' || item.category==='food' || item.category==='devices' || item.category==='key')){
 			var maxValue=TOTK_Data.MAXIMUM_QUANTITY[item.id] || 999;
 			var input=inputNumber('item-quantity-'+item.category+'-'+item.index, 1, maxValue, item.quantity);
