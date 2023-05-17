@@ -33,7 +33,8 @@ Item_Ore_M:99999, //Large Zonaite
 Energy_Material_01:9999, //Crystallized Charge
 //Energy_Material_03:9999, //Large Crystallized Charge
 //Energy_Material_04:9999, //Huge Crystallized Charge
-MinusRupee_00:9999, //Poe
+Obj_WarpDLC:3, //Travel Medallion
+MinusRupee_00:9999 //Poe
 //MinusRupee_01:9999, //Large Poe
 //MinusRupee_02:9999 //Grand Poe
 },
@@ -1654,7 +1655,7 @@ GameRomHorseSaddle_07:"Towing Harness",
 GameRomHorseSaddle_10:"Ancient Saddle (v1.4)",
 
 Obj_Camera:"Camera",
-//Obj_WarpDLC:"Travel Medallion",
+Obj_WarpDLC:"Travel Medallion",
 //Obj_WarpDLC_Prototype:"Travel Medallion",
 Obj_AutoBuilder:"Autobuild",
 Obj_AutoBuilderDraft_00:"Schema Stone",
