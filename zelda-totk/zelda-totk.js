@@ -57,19 +57,19 @@ SavegameEditor={
 		'shields':{
 			'id':			0x000760f0,
 			'durability':	0x0004a3b0,
-			'power':		0x0004ba54,
+			'modifierValue':		0x0004ba54,
 			'modifier':		0x00051070
 		},
 		'bows':{
 			'id':			0x0007b4e4,
 			'durability':	0x0004aab8,
-			'power':		0x0004cafc,
+			'modifierValue':		0x0004cafc,
 			'modifier':		0x0005252c
 		},
 		'weapons':{
 			'id':			0x000c3b58,
 			'durability':	0x0004d1c0,
-			'power':		0x0004eed4,
+			'modifierValue':		0x0004eed4,
 			'modifier':		0x000515bc
 		},
 		'arrows':{
@@ -162,7 +162,7 @@ SavegameEditor={
 				'category':catId,
 				'id':tempFile.readString(offsetShift + offsets.id + i*0x40, 0x40),
 				'modifier':tempFile.readU32(offsetShift + offsets.modifier + i*0x04),
-				'power':tempFile.readU32(offsetShift + offsets.power + i*0x04),
+				'modifierValue':tempFile.readU32(offsetShift + offsets.modifierValue + i*0x04),
 				'durability':tempFile.readU32(offsetShift + offsets.durability + i*0x04)
 			};
 			if(item.id)
@@ -178,7 +178,7 @@ SavegameEditor={
 			var item=items[i];			
 			tempFile.writeString(offsetShift + offsets.id + item.index * 0x40, item.id, 0x40);
 			tempFile.writeU32(offsetShift + offsets.modifier + item.index * 0x04, item.modifier);
-			tempFile.writeU32(offsetShift + offsets.power + item.index * 0x04, item.power);
+			tempFile.writeU32(offsetShift + offsets.modifierValue + item.index * 0x04, item.modifierValue);
 			tempFile.writeU32(offsetShift + offsets.durability + item.index * 0x04, item.durability);
 		}
 		return items;
@@ -351,15 +351,6 @@ SavegameEditor={
 			});
 			input1.title='Durability';
 
-			var input2=inputNumber('item-power-'+item.category+'-'+item.index, 1, 6553500, item.power);
-			input2.addEventListener('change', function(){
-				var newVal=parseInt(this.value);
-				if(!isNaN(newVal) && newVal>0)
-					item.power=newVal;
-			});
-			input2.title='Power';
-			input2.disabled=true;
-
 			var modifiers=[
 				{name:'No bonus', value:0xb6eede09},
 				{name:'Attack ↑', value:0xa9384c6c},
@@ -368,11 +359,11 @@ SavegameEditor={
 				{name:'Durability ↑↑', value:0xb2c943ee}
 			];
 			if(item.category==='weapons'){
-				modifiers.push({name:'Finishing blow???', value:0xd0efac53});
+				modifiers.push({name:'Critical Hit↑', value:0xd0efac53});
 				modifiers.push({name:'Throw ↑↑', value:0x9659c804});
 			}else if(item.category==='bows'){
 				modifiers.push({name:'Quick Shot', value:0x7d505bc4});
-				modifiers.push({name:'Arrow Shot x3???', value:0x54535b3c});
+				//modifiers.push({name:'Arrow Shot x3', value:0x54535b3c}); //???
 				modifiers.push({name:'Arrow Shot x5', value:0x934069cd});
 			}else if(item.category==='shields'){
 				modifiers.push({name:'Block ↑', value:0x37eae30f});
@@ -394,10 +385,18 @@ SavegameEditor={
 			if(unknownModifier)
 				selectModifier.disabled=false;
 			selectModifier.value=item.modifier;
-			
+
+			var inputModifierValue=inputNumber('item-modifier-value-'+item.category+'-'+item.index, 1, 2147482847, item.modifierValue);
+			inputModifierValue.addEventListener('change', function(){
+				var newVal=parseInt(this.value);
+				if(!isNaN(newVal) && newVal>0)
+					item.modifierValue=newVal;
+			});
+			inputModifierValue.title='Modifier value';
+
 			lastColumn.appendChild(input1);
-			lastColumn.appendChild(input2);
 			lastColumn.appendChild(selectModifier);
+			lastColumn.appendChild(inputModifierValue);
 		}else if(item.quantity!==0xffffffff && (item.category==='arrows' || item.category==='materials' || item.category==='food' || item.category==='devices' || item.category==='key')){
 			var maxValue=TOTK_Data.MAXIMUM_QUANTITY[item.id] || 999;
 			var input=inputNumber('item-quantity-'+item.category+'-'+item.index, 1, maxValue, item.quantity);
