@@ -250,6 +250,7 @@ SavegameEditor={
 	editItem:function(i){
 		currentEditingItem=i;
 		this.selectItem.value=this._loadItemName(i);
+		this.filterItems(currentTab);
 		document.getElementById('item-name'+i).innerHTML='';
 		document.getElementById('item-name'+i).parentElement.appendChild(this.selectItem);
 		this.selectItem.focus();
@@ -274,6 +275,9 @@ SavegameEditor={
 	},
 	
 	filterItems:function(category){
+		for (let key in this.selectItem.categories) {
+			this.selectItem.categories[key].hidden = (category !== null && category !== key);
+		}
 	},
 
 	_getModifierOffset1:function(type){
