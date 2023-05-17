@@ -368,11 +368,14 @@ SavegameEditor={
 				{name:'Durability ↑↑', value:0xb2c943ee}
 			];
 			if(item.category==='weapons'){
+				modifiers.push({name:'Finishing blow???', value:0xd0efac53});
 				modifiers.push({name:'Throw ↑↑', value:0x9659c804});
 			}else if(item.category==='bows'){
 				modifiers.push({name:'Quick Shot', value:0x7d505bc4});
+				modifiers.push({name:'Arrow Shot x3???', value:0x54535b3c});
 				modifiers.push({name:'Arrow Shot x5', value:0x934069cd});
 			}else if(item.category==='shields'){
+				modifiers.push({name:'Block ↑', value:0x37eae30f});
 				modifiers.push({name:'Block ↑↑', value:0xb3c94e5});
 			}
 			var unknownModifier=true;
