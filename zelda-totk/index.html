@@ -42,8 +42,6 @@
 	<div id="toolbar" class="hidden padding-vertical">
 		<div class="row wrapper">
 			<div class="twelve columns text-center">
-				<span id="span-version"></span>
-				|
 				<button id="tab-button-home" title="Home" class="tab-button active" onclick="showTab('home')"><i class="tab-icon home"></i></button>
 				<button id="tab-button-weapons" title="Weapons" class="tab-button" onclick="showTab('weapons')"><i class="tab-icon weapons"></i></button>
 				<button id="tab-button-bows" title="Bows" class="tab-button" onclick="showTab('bows')"><i class="tab-icon bows"></i></button>
@@ -71,7 +69,15 @@
 	<div id="tab-home">
 		<!-- RUPEES -->
 		<h3 class="border-red">Stats</h3>
-		<div class="row">
+		<div class="row mb-10">
+			<div class="ten columns"><label>Game version</label></div>
+			<div class="two columns text-right"><span id="span-version"></span></div>
+		</div>
+		<div class="row mb-10">
+			<div class="ten columns"><label>Playtime</label></div>
+			<div class="two columns text-right"><span id="span-playtime"></span></div>
+		</div>
+		<div class="row mb-5">
 			<div class="ten columns"><label for="number-rupees">Rupees</label></div>
 			<div class="two columns"><input id="number-rupees" class="full-width" type="text" /></div>
 		</div>
@@ -95,12 +101,8 @@
 		<div class="row" id="row-motorcycle">
 			<div class="ten columns"><label for="checkbox-motorcycle">Motorcycle</label></div>
 			<div class="two columns text-right"><input id="checkbox-motorcycle" type="checkbox" value="1" /></div>
-		</div>
-		<div class="row">
-			<div class="ten columns"><label for="number-playtime">Playtime</label></div>
-			<div class="two columns"><input type="text" id="number-playtime" class="text-right full-width" disabled /></div>
 		</div>-->
-		<div class="row">
+		<div class="row mb-5">
 			<div class="ten columns"><label for="select-max-hearts">Max. hearts</label></div>
 			<div class="two columns">
 				<select id="select-max-hearts" class="full-width">
@@ -147,7 +149,7 @@
 				</select>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row mb-5">
 			<div class="ten columns"><label for="select-max-stamina">Max. stamina </label></div>
 			<div class="two columns">
 				<select id="select-max-stamina" class="full-width">
@@ -168,11 +170,11 @@
 		
 		<!-- Pouch size -->
 		<h3 class="border-green">Pouch size</h3>
-		<div class="row">
+		<div class="row mb-5">
 			<div class="ten columns"><label for="number-pouch-size-swords">Pouch size swords</label></div>
 			<div class="two columns"><input id="number-pouch-size-swords" class="full-width" type="text" /></div>
 		</div>
-		<div class="row">
+		<div class="row mb-5">
 			<div class="ten columns"><label for="number-pouch-size-bows">Pouch size bows</label></div>
 			<div class="two columns"><input id="number-pouch-size-bows" class="full-width" type="text" /></div>
 		</div>

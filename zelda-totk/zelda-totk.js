@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230516
+	The legend of Zelda: Tears of the Kingdom savegame editor v20230518
 	by Marc Robledo 2017-2020
 */
 var currentEditingItem;
@@ -7,7 +7,7 @@ var currentEditingItem;
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
 	Filename:['progress.sav','caption.sav'],
-	Version:20230511,
+	Version:20230518,
 	noDemo:true,
 
 	/* Constants */
@@ -35,6 +35,7 @@ SavegameEditor={
 		//0xfbe01da1, 'TempHearts',
 		0x31ab5580, 'TempMaxHearts',
 		0xf9212c74, 'TempStamina',
+		0xe573f564, 'TempPlaytime',
 		0xa3db7114, 'TempItemData' //???
 	],
 
@@ -58,7 +59,8 @@ SavegameEditor={
 			'id':			0x000760f0,
 			'durability':	0x0004a3b0,
 			'modifierValue':		0x0004ba54,
-			'modifier':		0x00051070
+			'modifier':		0x00051070,
+			'fuse':			0x000aa07c
 		},
 		'bows':{
 			'id':			0x0007b4e4,
@@ -70,7 +72,8 @@ SavegameEditor={
 			'id':			0x000c3b58,
 			'durability':	0x0004d1c0,
 			'modifierValue':		0x0004eed4,
-			'modifier':		0x000515bc
+			'modifier':		0x000515bc,
+			'fuse':			0x000a65d4
 		},
 		'arrows':{
 			'id':0x000820ec,
@@ -96,26 +99,6 @@ SavegameEditor={
 			'id':0x000b9488,
 			'quantity':0x0004eb98
 		}
-	},
-	_readItemsNew:function(){
-		var offset=Offsets.TempItemData;
-		var arrays=[];
-		
-		var i=0;
-		var offsetEnd=tempFile.readU32(offset);
-		i++;
-		offset+=4;
-		while(offset<offsetEnd){
-			var len=tempFile.readU32(offset);
-			var elems=new Array(len);
-			elems
-			arrays.push({
-			})
-			offset+=4*len;
-			i+=len;
-		}
-		
-		return arrays;
 	},
 	_readItemsAll:function(){
 		return {
@@ -165,6 +148,9 @@ SavegameEditor={
 				'modifierValue':tempFile.readU32(offsetShift + offsets.modifierValue + i*0x04),
 				'durability':tempFile.readU32(offsetShift + offsets.durability + i*0x04)
 			};
+			if(offsets.fuse)
+				item.fuse=tempFile.readString(offsetShift + offsets.fuse + i*0x40, 0x40);
+
 			if(item.id)
 				items.push(item);
 		}
@@ -175,11 +161,13 @@ SavegameEditor={
 
 		offsetShift+=0x04;
 		for(var i=0; i<items.length; i++){
-			var item=items[i];			
+			var item=items[i];
 			tempFile.writeString(offsetShift + offsets.id + item.index * 0x40, item.id, 0x40);
 			tempFile.writeU32(offsetShift + offsets.modifier + item.index * 0x04, item.modifier);
 			tempFile.writeU32(offsetShift + offsets.modifierValue + item.index * 0x04, item.modifierValue);
 			tempFile.writeU32(offsetShift + offsets.durability + item.index * 0x04, item.durability);
+			if(typeof item.fuse!=='undefined')
+				tempFile.writeString(offsetShift + offsets.fuse + item.index * 0x40, item.fuse, 0x40);
 		}
 		return items;
 	},
@@ -331,13 +319,16 @@ SavegameEditor={
 		itemNumber.className='item-number';
 		itemNumber.innerHTML='#'+item.index;
 
-		var span=document.createElement('span');
-		span.className='item-name clickable';
-		span.id='item-name-'+item.category+'-'+item.index;
-		span.innerHTML=this._getItemTranslation(item.id);
-		span.addEventListener('click', function(){
+		var spanItemId=document.createElement('span');
+		spanItemId.className='item-name clickable';
+		spanItemId.id='item-name-'+item.category+'-'+item.index;
+		spanItemId.innerHTML=this._getItemTranslation(item.id);
+		spanItemId.addEventListener('click', function(){
 			SavegameEditor.editItem(item);
 		}, false);
+		if(typeof item.fuse!=='undefined' && item.fuse){
+			spanItemId.innerHTML+=' <small style="color:#3d5b50">(fused: '+item.fuse+')</small>';
+		}
 
 
 		var lastColumn=document.createElement('div');
@@ -429,7 +420,7 @@ SavegameEditor={
 
 		var r=row([1,6,3,2],
 			img,
-			span,
+			spanItemId,
 			document.createElement('div'), /* modifier column */
 			lastColumn
 		);
@@ -793,6 +784,7 @@ SavegameEditor={
 		setValue('number-pouch-size-bows', this.currentItems.pouchBow[0].value);
 		setValue('number-pouch-size-shields', this.currentItems.pouchShield[0].value);
 
+		setValue('playtime', this._timeToString(tempFile.readU32(this.Offsets.TempPlaytime)));
 
 		/*setValue('relic-gerudo', tempFile.readU32(this.Offsets.RELIC_GERUDO));
 		setValue('relic-goron', tempFile.readU32(this.Offsets.RELIC_GORON));
@@ -801,8 +793,7 @@ SavegameEditor={
 		setValue('koroks', tempFile.readU32(this.Offsets.KOROK_SEED_COUNTER));
 		setValue('defeated-hinox', tempFile.readU32(this.Offsets.DEFEATED_HINOX_COUNTER));
 		setValue('defeated-talus', tempFile.readU32(this.Offsets.DEFEATED_TALUS_COUNTER));
-		setValue('defeated-molduga', tempFile.readU32(this.Offsets.DEFEATED_MOLDUGA_COUNTER));
-		setValue('playtime',this._timeToString(tempFile.readU32(this.Offsets.PLAYTIME)));*/
+		setValue('defeated-molduga', tempFile.readU32(this.Offsets.DEFEATED_MOLDUGA_COUNTER));*/
 
 
 		/* motorcycle */
@@ -857,21 +848,6 @@ SavegameEditor={
 		MarcTooltips.add('#container-food input',{position:'bottom',align:'right'});
 		MarcTooltips.add('#container-devices input',{position:'bottom',align:'right'});
 		MarcTooltips.add('#container-key input',{position:'bottom',align:'right'});
-
-		/* modifier column */
-		/*var modifierColumns=['weapon','bow','shield'];
-		for(var j=0; j<3; j++){
-			var modifierColumn=modifierColumns[j];
-			for(var i=0; i<modifiersArray[j]; i++){
-				var modifier=tempFile.readU32(this.Offsets['FLAGS_'+modifierColumn.toUpperCase()]+i*8);
-				var modifierSelect=select('modifier-'+modifierColumn+'s-'+i, TOTK_Data.MODIFIERS.concat({value:modifier,name:this._toHexInt(modifier)}));
-				modifierSelect.value=modifier;
-
-				var additional=document.getElementById('container-'+modifierColumn+'s').children[i].children[2];
-				additional.appendChild(modifierSelect);
-				additional.appendChild(inputNumber('modifier-'+modifierColumn+'s-value-'+i, 0, 0xffffffff, tempFile.readU32(this.Offsets['FLAGSV_'+modifierColumn.toUpperCase()]+i*8)));
-			}
-		}*/
 
 
 		/* horses */
