@@ -392,7 +392,16 @@ function select(id,options,func){
 				var option=document.createElement('option');
 				option.value=options[i].value;
 				option.innerHTML=options[i].name;
-				select.appendChild(option);
+				let dulicate = false;
+				for (const exist of select) {
+					if (exist.value === option.value && exist.innerHTML === option.innerHTML) {
+						dulicate = true;
+						break;
+					}
+				}
+				if (!dulicate) {
+					select.appendChild(option);
+				}
 			}else if(typeof options[i] === 'object'){
 				select.appendChild(options[i]);
 			}
