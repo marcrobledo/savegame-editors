@@ -27,15 +27,15 @@ var TOTK_Data={
 
 	ALTERNATE_ICONS:{},
 	MAXIMUM_QUANTITY:{
-Item_Ore_L:99999, //Zonaite
-Item_Ore_M:99999, //Large Zonaite
-Energy_Material_01:9999, //Crystallized Charge
-//Energy_Material_03:9999, //Large Crystallized Charge
-//Energy_Material_04:9999, //Huge Crystallized Charge
+Item_Ore_L:999999, //Zonaite
+Item_Ore_M:999999, //Large Zonaite
+Energy_Material_01:99999, //Crystallized Charge
+//Energy_Material_03:99999, //Large Crystallized Charge
+//Energy_Material_04:99999, //Huge Crystallized Charge
 Obj_WarpDLC:3, //Travel Medallion
-MinusRupee_00:9999 //Poe
-//MinusRupee_01:9999, //Large Poe
-//MinusRupee_02:9999 //Grand Poe
+MinusRupee_00:99999 //Poe
+//MinusRupee_01:99999, //Large Poe
+//MinusRupee_02:99999 //Grand Poe
 },
 	DEFAULT_DURABILITY:{
 Weapon_Bow_001:22,
