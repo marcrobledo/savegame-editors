@@ -305,14 +305,6 @@ SavegameEditor={
 		return this._readString(offset, 64);
 	},*/
 
-	_getItemMaxDurability:function(item) {
-		let durability=TOTK_Data.DEFAULT_DURABILITY[item.id] || 70;
-		if (item.modifier == 0xd5cad39b || item.modifier == 0xb2c943ee) {
-			durability += item.modifierValue;
-		}
-		return durability;
-	},
-
 	_createItemRow:function(item){
 		var img=new Image();
 		img.id='icon-'+item.category+'-'+item.index;
@@ -345,7 +337,7 @@ SavegameEditor={
 
 		var lastColumn=document.createElement('div');
 		if(item.category==='weapons' || item.category==='bows' || item.category==='shields'){
-			var maxDurability=this._getItemMaxDurability(item);
+			var maxDurability=getItemMaxDurability(item);
 			var input1=inputNumber('item-durability-'+item.category+'-'+item.index, 1, maxDurability, item.durability);
 			input1.addEventListener('change', function(){
 				var newVal=parseInt(this.value);
@@ -383,6 +375,8 @@ SavegameEditor={
 			}
 			var selectModifier=select('item-modifier-'+item.category+'-'+item.index, modifiers, function(){
 				item.modifier=parseInt(this.value);
+				const durabilityInput = document.getElementById(`number-item-durability-${item.category}-${item.index}`);
+				durabilityInput.maxValue = getItemMaxDurability(item);
 			});
 			selectModifier.title='Modifier';
 			if(unknownModifier)
@@ -394,6 +388,8 @@ SavegameEditor={
 				var newVal=parseInt(this.value);
 				if(!isNaN(newVal) && newVal>0)
 					item.modifierValue=newVal;
+				const durabilityInput = document.getElementById(`number-item-durability-${item.category}-${item.index}`);
+				durabilityInput.maxValue = getItemMaxDurability(item);
 			});
 			inputModifierValue.title='Modifier value';
 
@@ -529,10 +525,10 @@ SavegameEditor={
 	
 	restoreDurability:function(catId){
 		this.currentItems[catId].forEach(function(item){
-			var durability=this._getItemMaxDurability(item);
+			var durability=getItemMaxDurability(item);
 			item.durability=durability;
 			document.getElementById('number-item-durability-'+item.category+'-'+item.index).value=durability;
-		}.bind(this));		
+		});		
 	},
 
 	setHorseName:function(i,val){
@@ -1297,4 +1293,12 @@ function loadMasterMode(){
 		};
 		document.getElementsByTagName('head')[0].appendChild(script);
 	}
+}
+
+function getItemMaxDurability(item) {
+	let durability=TOTK_Data.DEFAULT_DURABILITY[item.id] || 70;
+	if (item.modifier == 0xd5cad39b || item.modifier == 0xb2c943ee) {
+		durability += item.modifierValue;
+	}
+	return durability;
 }
