@@ -266,7 +266,9 @@
 	<div id="tab-weapons">
 		<h3>Weapons</h3><div id="container-weapons"></div>
 		<div class="text-center">
-			<button onclick="SavegameEditor.restoreDurability('weapons')">Restore durability</button>
+			<!-- <button onclick="SavegameEditor.restoreDurability('weapons')">Restore durability</button> -->
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('weapons')">Add weapon</button>
+			<div style="color:red;">This feature is untested. Use it at your own risk.<br/><strong>Always keep a backup of your savegame</strong></div>
 		</div>
 	</div>
 
@@ -274,7 +276,8 @@
 	<div id="tab-bows">
 		<h3>Bows</h3><div id="container-bows"></div>
 		<div class="text-center">
-			<button onclick="SavegameEditor.restoreDurability('bows')">Restore durability</button>
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('bows')">Add bow</button>
+			<div style="color:red;">This feature is untested. Use it at your own risk.<br/><strong>Always keep a backup of your savegame</strong></div>
 		</div>
 		<h3>Arrows</h3><div id="container-arrows"></div>
 	</div>
@@ -283,20 +286,25 @@
 	<div id="tab-shields">
 		<h3>Shields</h3><div id="container-shields"></div>
 		<div class="text-center">
-			<button onclick="SavegameEditor.restoreDurability('shields')">Restore durability</button>
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('shields')">Add shield</button>
+			<div style="color:red;">This feature is untested. Use it at your own risk.<br/><strong>Always keep a backup of your savegame</strong></div>
 		</div>
 	</div>
 
 	<!-- TAB: ARMORS -->
 	<div id="tab-armors">
 		<h3>Armors</h3><div id="container-armors"></div>
+		<div class="text-center">
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('armors')">Add armor</button>
+			<div style="color:red;">This feature is untested. Use it at your own risk.<br/><strong>Always keep a backup of your savegame</strong></div>
+		</div>
 	</div>
 
 	<!-- TAB: MATERIALS -->
 	<div id="tab-materials">
 		<h3>Materials</h3><div id="container-materials"></div>
 		<div class="text-center">
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('materials')">Add item</button>
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('materials')">Add material</button>
 		</div>
 	</div>
 
@@ -309,7 +317,7 @@
 	<div id="tab-devices">
 		<h3>Zonai devices</h3><div id="container-devices"></div>
 		<div class="text-center">
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('devices')">Add item</button>
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('devices')">Add zonai device</button>
 		</div>
 	</div>
 
@@ -317,7 +325,7 @@
 	<div id="tab-key">
 		<h3>Key items</h3><div id="container-key"></div>
 		<div class="text-center">
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('key')">Add item</button>
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('key')">Add key item</button>
 		</div>
 	</div>
 

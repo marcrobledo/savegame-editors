@@ -338,6 +338,9 @@ SavegameEditor={
 		var lastColumn=document.createElement('div');
 		if(item.category==='weapons' || item.category==='bows' || item.category==='shields'){
 			var maxDurability=TOTK_Data.DEFAULT_DURABILITY[item.id] || 70;
+			/*if(item.modifier===0xd5cad39b || item.modifier===0xb2c943ee){ //Durability ↑/↑↑
+				maxDurability=0x7ffff000;
+			}*/
 			var input1=inputNumber('item-durability-'+item.category+'-'+item.index, 1, maxDurability, item.durability);
 			input1.addEventListener('change', function(){
 				var newVal=parseInt(this.value);
@@ -381,7 +384,7 @@ SavegameEditor={
 				selectModifier.disabled=false;
 			selectModifier.value=item.modifier;
 
-			var inputModifierValue=inputNumber('item-modifier-value-'+item.category+'-'+item.index, 1, 2147482847, item.modifierValue);
+			var inputModifierValue=inputNumber('item-modifier-value-'+item.category+'-'+item.index, 1, 0x7ffff000, item.modifierValue);
 			inputModifierValue.addEventListener('change', function(){
 				var newVal=parseInt(this.value);
 				if(!isNaN(newVal) && newVal>0)
@@ -404,23 +407,6 @@ SavegameEditor={
 			
 			lastColumn.appendChild(input);
 		}
-		/*
-		if(item.category && item.category==='armors'){
-			input=select('item'+item.index, TOTK_Data.DYE_COLORS, function(){
-				TOTK_Icons.setIcon(img, SavegameEditor._loadItemName(item.index), parseInt(this.value));
-			});
-			input.value=itemVal;
-
-			TOTK_Icons.setIcon(img, item.id, itemVal);
-		}else{
-			input=inputNumber('item-quantity-'+item.category+'-'+item.index, 0, this._getItemMaximumQuantity(item.id), item.quantity);
-			input.addEventListener('change', function(){
-				var newVal=parseInt(this.value);
-				if(!isNaN(newVal) && newVal>0)
-					item.quantity=newVal;
-			});
-			TOTK_Icons.setIcon(img, item.id);
-		}*/
 
 		var r=row([1,6,3,2],
 			img,
@@ -456,6 +442,10 @@ SavegameEditor={
 				category:catId,
 				id:itemIds[0],
 				quantity:1,
+				durability:TOTK_Data.DEFAULT_DURABILITY[itemIds[0]],
+				modifier:0xb6eede09,
+				modifierValue:0,
+				fuse:''
 			}
 		}
 
@@ -476,6 +466,12 @@ SavegameEditor={
 			id:itemIds[nextIndexId],
 			quantity:lastItem.quantity,
 			removable:true
+		}
+		if(newItem.category==='weapons' || newItem.category==='bows' || newItem.category==='shields'){
+			newItem.durability=TOTK_Data.DEFAULT_DURABILITY[newItem.id];
+			newItem.modifier=lastItem.modifier;
+			newItem.modifierValue=lastItem.modifierValue;
+			newItem.fuse=lastItem.fuse;
 		}
 		this.currentItems[catId].push(newItem);
 		var row=this._createItemRow(newItem);
@@ -532,31 +528,6 @@ SavegameEditor={
 			item.durability=durability;
 			document.getElementById('number-item-durability-'+item.category+'-'+item.index).value=durability;
 		});		
-	},
-
-	filterItems:function(category){
-	},
-
-	_getModifierOffset1:function(type){
-		if(type==='bows')
-			return this.Offsets.FLAGS_BOW;
-		else if(type==='shields')
-			return this.Offsets.FLAGS_SHIELDS;
-		else
-			return this.Offsets.FLAGS_WEAPON;
-	},
-	_getModifierOffset2:function(type){
-		if(type==='bows')
-			return this.Offsets.FLAGSV_BOW;
-		else if(type==='shields')
-			return this.Offsets.FLAGSV_SHIELD;
-		else
-			return this.Offsets.FLAGSV_WEAPON;
-	},
-
-	editModifier2:function(type,i,modifier,val){
-		tempFile.writeU32(this._getModifierOffset1(type)+i*0x08, modifier);
-		tempFile.writeU32(this._getModifierOffset2(type)+i*0x08, val);
 	},
 
 	setHorseName:function(i,val){
@@ -844,6 +815,9 @@ SavegameEditor={
 				);
 			}
 		}
+		MarcTooltips.add('#container-weapons select',{position:'bottom',align:'right'});
+		MarcTooltips.add('#container-bows select',{position:'bottom',align:'right'});
+		MarcTooltips.add('#container-shields select',{position:'bottom',align:'right'});
 		MarcTooltips.add('#container-weapons input',{position:'bottom',align:'right'});
 		MarcTooltips.add('#container-arrows input',{position:'bottom',align:'right'});
 		MarcTooltips.add('#container-bows input',{position:'bottom',align:'right'});
