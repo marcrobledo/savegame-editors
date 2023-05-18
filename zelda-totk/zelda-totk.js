@@ -305,6 +305,14 @@ SavegameEditor={
 		return this._readString(offset, 64);
 	},*/
 
+	_getMaxDurability:function(item){
+		var maxDurability=TOTK_Data.DEFAULT_DURABILITY[item.id] || 70;
+		if(item.modifier===0xd5cad39b||item.modifier===0xb2c943ee) {
+			maxDurability += item.modifierValue; // Durability ↑/↑↑
+		}
+		return Math.max(1, Math.min(maxDurability, 0x7ffff000));
+	},
+
 	_createItemRow:function(item){
 		var img=new Image();
 		img.id='icon-'+item.category+'-'+item.index;
@@ -337,11 +345,7 @@ SavegameEditor={
 
 		var lastColumn=document.createElement('div');
 		if(item.category==='weapons' || item.category==='bows' || item.category==='shields'){
-			var maxDurability=TOTK_Data.DEFAULT_DURABILITY[item.id] || 70;
-			/*if(item.modifier===0xd5cad39b || item.modifier===0xb2c943ee){ //Durability ↑/↑↑
-				maxDurability=0x7ffff000;
-			}*/
-			var input1=inputNumber('item-durability-'+item.category+'-'+item.index, 1, maxDurability, item.durability);
+			var input1=inputNumber('item-durability-'+item.category+'-'+item.index, 1, this._getMaxDurability(item), item.durability);
 			input1.addEventListener('change', function(){
 				var newVal=parseInt(this.value);
 				if(!isNaN(newVal) && newVal>0)
@@ -378,6 +382,8 @@ SavegameEditor={
 			}
 			var selectModifier=select('item-modifier-'+item.category+'-'+item.index, modifiers, function(){
 				item.modifier=parseInt(this.value);
+				input1.maxValue=SavegameEditor._getMaxDurability(item);
+				item.durability=input1.value=Math.min(input1.value, input1.maxValue);
 			});
 			selectModifier.title='Modifier';
 			if(unknownModifier)
@@ -387,8 +393,11 @@ SavegameEditor={
 			var inputModifierValue=inputNumber('item-modifier-value-'+item.category+'-'+item.index, 1, 0x7ffff000, item.modifierValue);
 			inputModifierValue.addEventListener('change', function(){
 				var newVal=parseInt(this.value);
-				if(!isNaN(newVal) && newVal>0)
+				if(!isNaN(newVal) && newVal>0){
 					item.modifierValue=newVal;
+					input1.maxValue=SavegameEditor._getMaxDurability(item);
+					item.durability=input1.value=Math.min(input1.value, input1.maxValue);
+				}
 			});
 			inputModifierValue.title='Modifier value';
 
@@ -524,9 +533,8 @@ SavegameEditor={
 	
 	restoreDurability:function(catId){
 		this.currentItems[catId].forEach(function(item){
-			var durability=TOTK_Data.DEFAULT_DURABILITY[item.id] || 70;
-			item.durability=durability;
-			document.getElementById('number-item-durability-'+item.category+'-'+item.index).value=durability;
+			item.durability=SavegameEditor._getMaxDurability(item);
+			document.getElementById('number-item-durability-'+item.category+'-'+item.index).value=item.durability;
 		});		
 	},
 
