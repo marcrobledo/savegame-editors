@@ -305,6 +305,14 @@ SavegameEditor={
 		return this._readString(offset, 64);
 	},*/
 
+	_getItemMaxDurability:function(item) {
+		let durability=TOTK_Data.DEFAULT_DURABILITY[item.id] || 70;
+		if (item.modifier == 0xd5cad39b || item.modifier == 0xb2c943ee) {
+			durability += item.modifierValue;
+		}
+		return durability;
+	},
+
 	_createItemRow:function(item){
 		var img=new Image();
 		img.id='icon-'+item.category+'-'+item.index;
@@ -337,10 +345,7 @@ SavegameEditor={
 
 		var lastColumn=document.createElement('div');
 		if(item.category==='weapons' || item.category==='bows' || item.category==='shields'){
-			var maxDurability=TOTK_Data.DEFAULT_DURABILITY[item.id] || 70;
-			/*if(item.modifier===0xd5cad39b || item.modifier===0xb2c943ee){ //Durability ↑/↑↑
-				maxDurability=0x7ffff000;
-			}*/
+			var maxDurability=this._getItemMaxDurability(item);
 			var input1=inputNumber('item-durability-'+item.category+'-'+item.index, 1, maxDurability, item.durability);
 			input1.addEventListener('change', function(){
 				var newVal=parseInt(this.value);
@@ -524,10 +529,10 @@ SavegameEditor={
 	
 	restoreDurability:function(catId){
 		this.currentItems[catId].forEach(function(item){
-			var durability=TOTK_Data.DEFAULT_DURABILITY[item.id] || 70;
+			var durability=this._getItemMaxDurability(item);
 			item.durability=durability;
 			document.getElementById('number-item-durability-'+item.category+'-'+item.index).value=durability;
-		});		
+		}.bind(this));		
 	},
 
 	setHorseName:function(i,val){
