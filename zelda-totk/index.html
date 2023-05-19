@@ -10,8 +10,10 @@
 	<link type="text/css" rel="stylesheet" href="./zelda-totk.css" media="all"/>
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./zelda-totk.js"></script>
-	<script type="text/javascript" src="./zelda-totk.data.js"></script>
-	<script type="text/javascript" src="./zelda-totk.locations.js"></script>
+	<script type="text/javascript" src="./zelda-totk.class.armor.js"></script>
+	<script type="text/javascript" src="./zelda-totk.class.equipment.js"></script>
+	<script type="text/javascript" src="./zelda-totk.class.horse.js"></script>
+	<script type="text/javascript" src="./zelda-totk.class.item.js"></script>
 	<script type="text/javascript" src="./zelda-totk.master.js"></script>
 	<script type="text/javascript"><!--
 		/* service worker */
@@ -268,7 +270,6 @@
 		<div class="text-center">
 			<!-- <button onclick="SavegameEditor.restoreDurability('weapons')">Restore durability</button> -->
 			<button class="with-icon icon1" onclick="SavegameEditor.addItem('weapons')">Add weapon</button>
-			<div style="color:red;">This feature is untested. Use it at your own risk.<br/><strong>Always keep a backup of your savegame</strong></div>
 		</div>
 	</div>
 
@@ -277,7 +278,6 @@
 		<h3>Bows</h3><div id="container-bows"></div>
 		<div class="text-center">
 			<button class="with-icon icon1" onclick="SavegameEditor.addItem('bows')">Add bow</button>
-			<div style="color:red;">This feature is untested. Use it at your own risk.<br/><strong>Always keep a backup of your savegame</strong></div>
 		</div>
 		<h3>Arrows</h3><div id="container-arrows"></div>
 	</div>
@@ -287,7 +287,6 @@
 		<h3>Shields</h3><div id="container-shields"></div>
 		<div class="text-center">
 			<button class="with-icon icon1" onclick="SavegameEditor.addItem('shields')">Add shield</button>
-			<div style="color:red;">This feature is untested. Use it at your own risk.<br/><strong>Always keep a backup of your savegame</strong></div>
 		</div>
 	</div>
 
@@ -296,7 +295,6 @@
 		<h3>Armors</h3><div id="container-armors"></div>
 		<div class="text-center">
 			<button class="with-icon icon1" onclick="SavegameEditor.addItem('armors')">Add armor</button>
-			<div style="color:red;">This feature is untested. Use it at your own risk.<br/><strong>Always keep a backup of your savegame</strong></div>
 		</div>
 	</div>
 

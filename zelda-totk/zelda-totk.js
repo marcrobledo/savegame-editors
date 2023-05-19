@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230518
+	The legend of Zelda: Tears of the Kingdom savegame editor v20230519
 	by Marc Robledo 2017-2020
 */
 var currentEditingItem;
@@ -7,241 +7,65 @@ var currentEditingItem;
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
 	Filename:['progress.sav','caption.sav'],
-	Version:20230518,
+	Version:20230519,
 	noDemo:true,
 
 	/* Constants */
 	Constants:{
-		MAX_ITEMS:420,
 		STRING_SIZE:0x20,
-		STRING64_SIZE:0x80,
+		STRING64_SIZE:0x40,
 
 		VERSION:				['v1.0', 'v1.1'],
 		FILESIZE:				[2307552, 2307656],
 		HEADER:					[0x0046c3c8, 0x0047e0f4],
 
-		ICON_TYPES:{SWORD: 27, BOW:28, SHIELD:29, POT:30, STAR:31, CHEST:32,SKULL:33,LEAF:34,TOWER:35},
+		//ICON_TYPES:{SWORD: 27, BOW:28, SHIELD:29, POT:30, STAR:31, CHEST:32,SKULL:33,LEAF:34,TOWER:35},
 		
 		BLANK_ICON_PATH:'./assets/_blank.png'
 	},
-	currentGameVersionIndex:null,
-	_getCurrentGameVersionOffset:function(){
-		return this.currentGameVersionIndex===1? 0x38 : 0x00;
-	},
+	currentItemOffset:null,
 
 	/* Hashes */
 	Hashes:[
+		0xfbe01da1, 'TempMaxHearts',
 		0xa77921d7, 'TempRupees',
-		//0xfbe01da1, 'TempHearts',
-		0x31ab5580, 'TempMaxHearts',
+		//0x31ab5580, 'TempHearts',
 		0xf9212c74, 'TempStamina',
 		0xe573f564, 'TempPlaytime',
 		0xa3db7114, 'TempItemData' //???
 	],
 
-	/* temporarily hardcoded offset */
-	/* to-do: find the correct hash key */
-	/* v1.1 adds +0x38 to all offsets */
 	OffsetsItems:{
-		'horses':{
-			'id':0x0010a148,
-			'type':0x0008a0ec
-		},
-		'pouchSword':{
-			'id':0x04aa64,
-			'type':'integer'
-		},
-		'pouchBow':{
-			'id':0x047630,
-			'type':'integer'
-		},
-		'pouchShield':{
-			'id':0x04d080,
-			'type':'integer'
-		},
-		'shields':{
-			'id':			0x000760f0,
-			'durability':	0x0004a3b0,
-			'modifierValue':		0x0004ba54,
-			'modifier':		0x00051070,
-			'fuse':			0x000aa07c
-		},
-		'bows':{
-			'id':			0x0007b4e4,
-			'durability':	0x0004aab8,
-			'modifierValue':		0x0004cafc,
-			'modifier':		0x0005252c
-		},
-		'weapons':{
-			'id':			0x000c3b58,
-			'durability':	0x0004d1c0,
-			'modifierValue':		0x0004eed4,
-			'modifier':		0x000515bc,
-			'fuse':			0x000a65d4
-		},
-		'arrows':{
-			'id':0x000820ec,
-			'quantity':0x00046ff4
-		},
-		'materials':{
-			'id':0x000afbf4,
-			'quantity':0x000477a4
-		},
-		'armors':{
-			'id':0x00061bbc,
-			'quantity':false
-		},
-		'food':{
-			'id':0x00087ca4,
-			'quantity':0x0004e984
-		},
-		'devices':{
-			'id':0x0009cb70,
-			'quantity':0x00046148
-		},
-		'key':{
-			'id':0x000b9488,
-			'quantity':0x0004eb98
-		}
-	},
-	_readItemsAll:function(){
-		return {
-			'shields':this._readItemsComplex('shields'),
-			'bows':this._readItemsComplex('bows'),
-			'weapons':this._readItemsComplex('weapons'),
-			'arrows':this._readItemsSimple('arrows'),
-			'materials':this._readItemsSimple('materials'),
-			'armors':this._readItemsSimple('armors'),
-			'food':this._readItemsSimple('food'),
-			'devices':this._readItemsSimple('devices'),
-			'key':this._readItemsSimple('key'),
-
-			'pouchSword':this._readItemsSimple('pouchSword'),
-			'pouchBow':this._readItemsSimple('pouchBow'),
-			'pouchShield':this._readItemsSimple('pouchShield')
-		}
-	},
-	_writeItemsAll:function(items){
-		this._writeItemsComplex(items.shields, this.OffsetsItems.shields);
-		this._writeItemsComplex(items.bows, this.OffsetsItems.bows);
-		this._writeItemsComplex(items.weapons, this.OffsetsItems.weapons);
-		this._writeItemsSimple(items.arrows, this.OffsetsItems.arrows);
-		this._writeItemsSimple(items.materials, this.OffsetsItems.materials);
-		this._writeItemsSimple(items.armors, this.OffsetsItems.armors);
-		this._writeItemsSimple(items.food, this.OffsetsItems.food);
-		this._writeItemsSimple(items.devices, this.OffsetsItems.devices);
-		this._writeItemsSimple(items.key, this.OffsetsItems.key);
-		
-		this._writeItemsSimple(items.pouchSword, this.OffsetsItems.pouchSword);
-		this._writeItemsSimple(items.pouchBow, this.OffsetsItems.pouchBow);
-		this._writeItemsSimple(items.pouchShield, this.OffsetsItems.pouchShield);
-	},
-	_readItemsComplex:function(catId){
-		var offsets=this.OffsetsItems[catId];
-		var offsetShift=this._getCurrentGameVersionOffset();
-
-		var nItems=offsets.count=tempFile.readU32(offsetShift + offsets.id);
-		var items=[];
-		offsetShift+=0x04;
-		for(var i=0; i<nItems; i++){
-			var item={
-				'index':i,
-				'category':catId,
-				'id':tempFile.readString(offsetShift + offsets.id + i*0x40, 0x40),
-				'modifier':tempFile.readU32(offsetShift + offsets.modifier + i*0x04),
-				'modifierValue':tempFile.readU32(offsetShift + offsets.modifierValue + i*0x04),
-				'durability':tempFile.readU32(offsetShift + offsets.durability + i*0x04)
-			};
-			if(offsets.fuse)
-				item.fuse=tempFile.readString(offsetShift + offsets.fuse + i*0x40, 0x40);
-
-			if(item.id)
-				items.push(item);
-		}
-		return items;
-	},
-	_writeItemsComplex:function(items, offsets){
-		var offsetShift=this._getCurrentGameVersionOffset();
-
-		offsetShift+=0x04;
-		for(var i=0; i<items.length; i++){
-			var item=items[i];
-			tempFile.writeString(offsetShift + offsets.id + item.index * 0x40, item.id, 0x40);
-			tempFile.writeU32(offsetShift + offsets.modifier + item.index * 0x04, item.modifier);
-			tempFile.writeU32(offsetShift + offsets.modifierValue + item.index * 0x04, item.modifierValue);
-			tempFile.writeU32(offsetShift + offsets.durability + item.index * 0x04, item.durability);
-			if(typeof item.fuse!=='undefined')
-				tempFile.writeString(offsetShift + offsets.fuse + item.index * 0x40, item.fuse, 0x40);
-		}
-		return items;
-	},
-	_readItemsSimple:function(catId){
-		var offsets=this.OffsetsItems[catId];
-		var offsetShift=this._getCurrentGameVersionOffset();
-
-		var nItems=offsets.count=tempFile.readU32(offsetShift + offsets.id);
-		var items=[];
-		var readQuantity=offsets.quantity && tempFile.readU32(offsetShift + offsets.quantity)===offsets.count;
-		offsetShift+=0x04;
-		var modeInteger=offsets.type==='integer';
-		for(var i=0; i<nItems; i++){
-			if(modeInteger){
-				var item={
-					'index':i,
-					'category':catId,
-					'value':tempFile.readU32(offsetShift + offsets.id + i*0x04)
-				};
-				items.push(item);
-			}else{
-				var item={
-					'index':i,
-					'category':catId,
-					'id':tempFile.readString(offsetShift + offsets.id + i*0x40, 0x40),
-					'quantity':readQuantity? tempFile.readU32(offsetShift + offsets.quantity + i*0x04) : 1
-				};
-				if(item.id)
-					items.push(item);
-			}
-		}
-		return items;
-	},
-	_writeItemsSimple:function(items, offsets){
-		var offsetShift=this._getCurrentGameVersionOffset();
-		var writeQuantity=offsets.quantity && tempFile.readU32(offsetShift + offsets.quantity)===offsets.count;
-		var modeInteger=offsets.type==='integer';
-
-		for(var i=0; i<items.length; i++){
-			var item=items[i];
-			if(modeInteger){
-				tempFile.writeU32(0x04 + offsetShift + offsets.id + item.index * 0x04, item.value);
-			}else{
-				tempFile.writeString(0x04 + offsetShift + offsets.id + item.index * 0x40, item.id, 0x40);
-				if(writeQuantity)
-					tempFile.writeU32(0x04 + offsetShift + offsets.quantity + item.index*0x04, item.quantity);
-			}
-		}
-		return items;
+		'pouchSword':0x04aa64,
+		'pouchBow':0x047630,
+		'pouchShield':0x04d080
 	},
 
-	/* private functions */
+	/* read/write data */
+	readArraySize:function(arrayOffset){
+		return tempFile.readU32(this.currentItemOffset + arrayOffset);
+	},
+	readU32Array:function(arrayOffset, index){
+		return tempFile.readU32(this.currentItemOffset + 0x04 + arrayOffset + index*4);
+	},
+	readString64Array:function(arrayOffset, index){
+		return tempFile.readString(this.currentItemOffset + 0x04 + arrayOffset + index*this.Constants.STRING64_SIZE, this.Constants.STRING64_SIZE);
+	},
+	writeU32Array:function(arrayOffset, index, value){
+		tempFile.writeU32(this.currentItemOffset + 0x04 + arrayOffset + index*4, value);
+	},
+	writeString64Array:function(arrayOffset, index, value){
+		tempFile.writeString(this.currentItemOffset + 0x04 + arrayOffset + index*this.Constants.STRING64_SIZE, value, this.Constants.STRING64_SIZE);
+	},
+
 	_toHexInt:function(i){var s=i.toString(16);while(s.length<8)s='0'+s;return '0x'+s},
 	_writeBoolean:function(offset,val,arrayIndex){if(arrayIndex)tempFile.writeU32(offset+8*arrayIndex,val?1:0);else tempFile.writeU32(offset,val?1:0)},
 	_writeValue:function(offset,val,arrayIndex){if(arrayIndex)tempFile.writeU32(offset+8*arrayIndex,val);else tempFile.writeU32(offset,val)},
-	_writeFloat32:function(offset,val,arrayIndex){if(arrayIndex)tempFile.writeF32(offset+8*arrayIndex,val);else tempFile.writeF32(offset,val)},
-	_writeString:function(offset,str,len){
-		len=len || 8;
-		for(var i=0; i<len; i++){
-			tempFile.writeBytes(offset,[0,0,0,0]);
-			var fourBytes=str.substr(i*4, 4);
-			for(j=0; j<fourBytes.length; j++){
-				tempFile.writeU8(offset+j, fourBytes.charCodeAt(j));
-			}
-			offset+=8;
-		}
-	},
-	_writeString64:function(offset,str,arrayIndex){if(typeof arrayIndex==='number')offset+=this.Constants.STRING64_SIZE*arrayIndex;this._writeString(offset,str, 16);},
-	_writeString256:function(offset,str){this._writeString(offset,str, 64);},
+	/*_writeFloat32:function(offset,val,arrayIndex){if(arrayIndex)tempFile.writeF32(offset+8*arrayIndex,val);else tempFile.writeF32(offset,val)},*/
 
+
+
+	/* private functions */
 	_searchHash:function(hash){
 		for(var i=0x0c; i<tempFile.fileSize; i+=8)
 			if(hash===tempFile.readU32(i))
@@ -273,37 +97,11 @@ SavegameEditor={
 					break;
 				}
 			}
-			/*if(typeof this.Offsets[this.Hashes[i+1]] === 'undefined'){
+			if(typeof this.Offsets[this.Hashes[i+1]] === 'undefined'){
 				console.log(this.Hashes[i+1]+' not found');
-			}*/
+			}
 		}
 	},
-
-
-	_getItemTranslation:function(itemId){
-		for(var i=0; i<TOTK_Data.Translations.length; i++)
-			if(TOTK_Data.Translations[i].items[itemId])
-				return TOTK_Data.Translations[i].items[itemId];
-		return '<span style="color:red">'+itemId+'</span>'
-	},
-
-	/*_readStringBOTW:function(offset, len){
-		len=len || 8;
-		var txt='';
-		for(var j=0; j<len; j++){
-			txt+=tempFile.readString(offset,4);
-			offset+=8;
-		}
-		return txt
-	},
-	_readString64BOTW:function(offset,arrayIndex){
-		if(typeof arrayIndex==='number')
-			offset+=this.Constants.STRING64_SIZE*arrayIndex;
-		return this._readString(offset, 16);
-	},
-	_readString256BOTW:function(offset,){
-		return this._readString(offset, 64);
-	},*/
 
 	_createItemRow:function(item){
 		var img=new Image();
@@ -314,8 +112,8 @@ SavegameEditor={
 			//console.error('icon '+this.src+' not found');
 			img.src=SavegameEditor.Constants.BLANK_ICON_PATH;
 		}
-		if(TOTK_Data.ALTERNATE_ICONS[item.id])
-			img.src='./assets/icons/'+item.category+'/'+TOTK_Data.ALTERNATE_ICONS[item.id]+'.png';
+		if(item.category==='armors')
+			img.src='./assets/icons/'+item.category+'/'+Armor.ICONS[item.id]+'.png';
 		else
 			img.src='./assets/icons/'+item.category+'/'+item.id+'.png';
 
@@ -326,86 +124,22 @@ SavegameEditor={
 		var spanItemId=document.createElement('span');
 		spanItemId.className='item-name clickable';
 		spanItemId.id='item-name-'+item.category+'-'+item.index;
-		spanItemId.innerHTML=this._getItemTranslation(item.id);
+		spanItemId.innerHTML=item.getItemTranslation();
 		spanItemId.addEventListener('click', function(){
 			SavegameEditor.editItem(item);
 		}, false);
-		if(typeof item.fuse!=='undefined' && item.fuse){
-			spanItemId.innerHTML+=' <small style="color:#3d5b50">(fused: '+item.fuse+')</small>';
+		if(typeof item.fuseId==='string' && item.fuseId){
+			spanItemId.innerHTML+=' <small style="color:#3d5b50">(fused: '+item.fuseId+')</small>';
 		}
 
 
 		var lastColumn=document.createElement('div');
 		if(item.category==='weapons' || item.category==='bows' || item.category==='shields'){
-			var maxDurability=TOTK_Data.DEFAULT_DURABILITY[item.id] || 70;
-			/*if(item.modifier===0xd5cad39b || item.modifier===0xb2c943ee){ //Durability ↑/↑↑
-				maxDurability=0x7ffff000;
-			}*/
-			var input1=inputNumber('item-durability-'+item.category+'-'+item.index, 1, maxDurability, item.durability);
-			input1.addEventListener('change', function(){
-				var newVal=parseInt(this.value);
-				if(!isNaN(newVal) && newVal>0)
-					item.durability=newVal;
-			});
-			input1.title='Durability';
-
-			var modifiers=[
-				{name:'No bonus', value:0xb6eede09},
-				{name:'Attack ↑', value:0xa9384c6c},
-				{name:'Attack ↑↑', value:0xdad10617},
-				{name:'Durability ↑', value:0xd5cad39b},
-				{name:'Durability ↑↑', value:0xb2c943ee}
-			];
-			if(item.category==='weapons'){
-				modifiers.push({name:'Critical Hit↑', value:0xd0efac53});
-				modifiers.push({name:'Throw ↑↑', value:0x9659c804});
-			}else if(item.category==='bows'){
-				modifiers.push({name:'Quick Shot', value:0x7d505bc4});
-				//modifiers.push({name:'Arrow Shot x3', value:0x54535b3c}); //???
-				modifiers.push({name:'Arrow Shot x5', value:0x934069cd});
-			}else if(item.category==='shields'){
-				modifiers.push({name:'Block ↑', value:0x37eae30f});
-				modifiers.push({name:'Block ↑↑', value:0xb3c94e5});
-			}
-			var unknownModifier=true;
-			modifiers.forEach(function(modifier){
-				if(item.modifier===modifier.value){
-					unknownModifier=false;
-				}
-			});
-			if(unknownModifier){
-				modifiers.push({name:'Unknown: '+item.modifier.toString(16), value:item.modifier});
-			}
-			var selectModifier=select('item-modifier-'+item.category+'-'+item.index, modifiers, function(){
-				item.modifier=parseInt(this.value);
-			});
-			selectModifier.title='Modifier';
-			if(unknownModifier)
-				selectModifier.disabled=false;
-			selectModifier.value=item.modifier;
-
-			var inputModifierValue=inputNumber('item-modifier-value-'+item.category+'-'+item.index, 1, 0x7ffff000, item.modifierValue);
-			inputModifierValue.addEventListener('change', function(){
-				var newVal=parseInt(this.value);
-				if(!isNaN(newVal) && newVal>0)
-					item.modifierValue=newVal;
-			});
-			inputModifierValue.title='Modifier value';
-
-			lastColumn.appendChild(input1);
-			lastColumn.appendChild(selectModifier);
-			lastColumn.appendChild(inputModifierValue);
+			lastColumn.appendChild(item._htmlInputDurability);
+			lastColumn.appendChild(item._htmlSelectModifier);
+			lastColumn.appendChild(item._htmlInputModifierValue);
 		}else if(item.quantity!==0xffffffff && (item.category==='arrows' || item.category==='materials' || item.category==='food' || item.category==='devices' || item.category==='key')){
-			var maxValue=TOTK_Data.MAXIMUM_QUANTITY[item.id] || 999;
-			var input=inputNumber('item-quantity-'+item.category+'-'+item.index, 1, maxValue, item.quantity);
-			input.addEventListener('change', function(){
-				var newVal=parseInt(this.value);
-				if(!isNaN(newVal) && newVal>0)
-					item.quantity=newVal;
-			});
-			input.title='Quantity';
-			
-			lastColumn.appendChild(input);
+			lastColumn.appendChild(item._htmlInputQuantity);
 		}
 
 		var r=row([1,6,3,2],
@@ -422,89 +156,105 @@ SavegameEditor={
 	},
 
 	addItem:function(catId){
-		var itemIds;
-		for(var i=0; i<TOTK_Data.Translations.length && !itemIds; i++){
-			if(TOTK_Data.Translations[i].id===catId)
-				itemIds=Object.keys(TOTK_Data.Translations[i].items);
-		}
-		if(!itemIds)
-			return false;
-
-		var lastItem=null;
-		for(var i=0; i<this.currentItems[catId].length; i++){
-			/* find last index just in case */
-			if(!lastItem || (this.currentItems[catId][i].index > lastItem.index	))
-				lastItem=this.currentItems[catId][i];
-		}
-		if(!lastItem){
-			lastItem={
-				index:0,
-				category:catId,
-				id:itemIds[0],
-				quantity:1,
-				durability:TOTK_Data.DEFAULT_DURABILITY[itemIds[0]],
-				modifier:0xb6eede09,
-				modifierValue:0,
-				fuse:''
+		var lastItem=this.getLastItem(catId);
+		var newItem, maxItems;
+		if(catId==='weapons' || catId==='bows' || catId==='shields'){
+			newItem=new Equipment(catId, lastItem? lastItem.index+1 : 0);
+			if(lastItem){
+				newItem.durability=lastItem.durability;
+				newItem.modifier=lastItem.modifier;
+				newItem.modifierValue=lastItem.modifierValue;
+				newItem.fuseId=lastItem.fuseId;
 			}
+			maxItems=Equipment.readMaxCapacity(catId);
+		}else if(catId==='armors'){
+			newItem=new Armor(lastItem? lastItem.index+1 : 0);
+			if(lastItem){
+				newItem.dyeColor=lastItem.dyeColor;
+			}
+			maxItems=Armor.readMaxCapacity();
+		}else if(catId==='arrows' || catId==='materials' || catId==='food' || catId==='devices' || catId==='key'){
+			newItem=new Item(catId, lastItem? lastItem.index+1 : 0);
+			if(lastItem){
+				newItem.quantity=lastItem.quantity;
+			}
+			maxItems=Items.readMaxCapacity(catId);
 		}
 
-		var offsetShift=this._getCurrentGameVersionOffset();
-		var maxItems=tempFile.readU32(offsetShift + this.OffsetsItems[catId].id);
 		if(lastItem.index===(maxItems -1))
 			return false;
 
+	
+		var itemList=this.getTranslationHash(newItem);
+		var itemListArray=[];
+		for(var id in itemList){
+			itemListArray.push(id);
+		}
 
-		var nextIndexId=itemIds.indexOf(lastItem.id)+1;
-		if(nextIndexId===itemIds.length)
+
+		var nextIndexId=itemListArray.indexOf(lastItem.id)+1;
+		if(nextIndexId===itemListArray.length)
 			nextIndexId=0;
+		newItem.id=itemListArray[nextIndexId];
 
-
-		var newItem={
-			index:lastItem.index+1,
-			category:lastItem.category,
-			id:itemIds[nextIndexId],
-			quantity:lastItem.quantity,
-			removable:true
-		}
-		if(newItem.category==='weapons' || newItem.category==='bows' || newItem.category==='shields'){
-			newItem.durability=TOTK_Data.DEFAULT_DURABILITY[newItem.id];
-			newItem.modifier=lastItem.modifier;
-			newItem.modifierValue=lastItem.modifierValue;
-			newItem.fuse=lastItem.fuse;
-		}
 		this.currentItems[catId].push(newItem);
 		var row=this._createItemRow(newItem);
 		document.getElementById('container-'+newItem.category).appendChild(row);
 		row.scrollIntoView({behavior:'smooth',block:'center'});
 	},
 
+
+	getLastItem:function(catId){
+		var lastIndex=-1;
+		for(var i=0; i<SavegameEditor.currentItems[catId].length; i++){
+			if(SavegameEditor.currentItems[catId][i].index > lastIndex)
+				lastIndex=SavegameEditor.currentItems[catId][i].index;
+		}
+		if((lastIndex+1)===SavegameEditor.currentItems[catId].length)
+			return SavegameEditor.currentItems[catId][lastIndex];
+		console.error('invalid '+catId+' index');
+		return null;
+	},
+
+	getTranslationHash:function(item){
+		if(typeof item.durability==='number') //weapons, bows or shields
+			return Equipment.TRANSLATIONS[item.category];
+		else if(item.category==='armors')
+			return Armor.TRANSLATIONS;
+		else if(typeof item.quantity==='number') //arrows, materials, food, devices or key
+			return Items.TRANSLATIONS[item.category];
+		return null;
+	},
+
 	editItem:function(item){
 		currentEditingItem=item;
-		/* prepare edit item selector */
-		this.selectItem.innerHTML='';
-		var foundItemId=false;
-		for(var i=0; i<TOTK_Data.Translations.length; i++){
-			if(TOTK_Data.Translations[i].id===item.category){
-				for(var itemId in TOTK_Data.Translations[i].items){
-					var opt=document.createElement('option');
-					opt.value=itemId;
-					opt.innerHTML=TOTK_Data.Translations[i].items[itemId];
-					
-					if(itemId===item.id)
-						foundItemId=true;
 
-					this.selectItem.appendChild(opt);
-				}
+		/* prepare edit item selector */		
+		if(this.selectItem.lastCategory !== item.category){
+			this.selectItem.innerHTML='';
+			var foundItemId=false;
+			var itemList=this.getTranslationHash(item);
+			for(var itemId in itemList){
+				var opt=document.createElement('option');
+				opt.value=itemId;
+				opt.innerHTML=itemList[itemId];
+				
+				if(itemId===item.id)
+					foundItemId=true;
+
+				this.selectItem.appendChild(opt);
 			}
-		}
-		if(!foundItemId){
-			var opt=document.createElement('option');
-			opt.value=item.id;
-			opt.innerHTML=item.id;
-			this.selectItem.appendChild(opt);
+			if(!foundItemId){
+				var opt=document.createElement('option');
+				opt.value=item.id;
+				opt.innerHTML=item.id;
+				this.selectItem.appendChild(opt);
+			}
+
+			this.selectItem.lastCategory=item.category;
 		}
 		this.selectItem.value=item.id;
+
 		document.getElementById('item-name-'+item.category+'-'+item.index).innerHTML='';
 		document.getElementById('item-name-'+item.category+'-'+item.index).parentElement.appendChild(this.selectItem);
 		this.selectItem.focus();
@@ -520,43 +270,6 @@ SavegameEditor={
 		//TOTK_Icons.setIcon(document.getElementById('icon'+i), newId);
 		//if(document.getElementById('number-item'+i))
 		//	document.getElementById('number-item'+i).maxValue=this._getItemMaximumQuantity(newId);
-	},
-	
-	restoreDurability:function(catId){
-		this.currentItems[catId].forEach(function(item){
-			var durability=TOTK_Data.DEFAULT_DURABILITY[item.id] || 70;
-			item.durability=durability;
-			document.getElementById('number-item-durability-'+item.category+'-'+item.index).value=durability;
-		});		
-	},
-
-	setHorseName:function(i,val){
-		if(i<5)
-			this._writeString64(this.Offsets.HORSE_NAMES, val, i);
-	},
-	setHorseSaddle:function(i,val){
-		if(i<5)
-			this._writeString64(this.Offsets.HORSE_SADDLES, val, i);
-	},
-	setHorseReins:function(i,val){
-		if(i<5)
-			this._writeString64(this.Offsets.HORSE_REINS, val, i);
-	},
-	setHorseType:function(i,val){
-		if(currentEditingItem<6){
-			this._writeString64(this.Offsets.HORSE_TYPES, val, i);
-			/* fix mane */
-			this._writeString64(this.Offsets.HORSE_MANES, (val==='GameRomHorse00L'?'Horse_Link_Mane_00L':'Horse_Link_Mane'), i);
-		}
-	},
-
-	_arrayToSelectOpts:function(arr){
-		var arr2=[];
-		for(var i=0; i<arr.length; i++){
-			var name=TOTK_Data.Translations[6].items[arr[i]] || arr[i];
-			arr2.push({name:name, value:arr[i]});
-		}
-		return arr2;
 	},
 
 	/* check if savegame is valid */
@@ -596,7 +309,7 @@ SavegameEditor={
 
 				if(tempFile.fileSize===this.Constants.FILESIZE[i] && dummyHeader===0x01020304 && versionHash===this.Constants.HEADER[i]){
 					this._getOffsets();
-					this.currentGameVersionIndex=i;
+					this.currentItemOffset=(SavegameEditor.Offsets.TempItemData - 0x04) - 0x3c048;
 					setValue('version', this.Constants.VERSION[i]);
 					return true;
 				}
@@ -625,30 +338,18 @@ SavegameEditor={
 		getField('pouch-size-swords').addEventListener('change', function(evt){
 			var newVal=parseInt(this.value);
 			if(!isNaN(newVal) && newVal>=9)
-				SavegameEditor.currentItems.pouchSword[0].value=newVal;
+				SavegameEditor.currentItems.pouchSword=newVal;
 		});
 		getField('pouch-size-bows').addEventListener('change', function(evt){
 			var newVal=parseInt(this.value);
 			if(!isNaN(newVal) && newVal>=5)
-				SavegameEditor.currentItems.pouchBow[0].value=newVal;
+				SavegameEditor.currentItems.pouchBow=newVal;
 		});
 		getField('pouch-size-shields').addEventListener('change', function(evt){
 			var newVal=parseInt(this.value);
 			if(!isNaN(newVal) && newVal>=4)
-				SavegameEditor.currentItems.pouchShield[0].value=newVal;
+				SavegameEditor.currentItems.pouchShield=newVal;
 		});
-
-
-		var armorIdByName={};
-		for(var id in TOTK_Data.Translations[4].items){
-			var name=TOTK_Data.Translations[4].items[id];
-
-			if(name.indexOf('★')===-1){
-				armorIdByName[name]=id;
-			}else{
-				TOTK_Data.ALTERNATE_ICONS[id]=armorIdByName[name.replace(/ ★+$/,'')];
-			}
-		}
 
 
 
@@ -707,25 +408,6 @@ SavegameEditor={
 			}
 		});*/
 
-
-		/* horses */
-		for(var i=0; i<6; i++){
-			if(i<6){
-				get('input-horse'+i+'-name').horseIndex=i;
-				get('input-horse'+i+'-name').addEventListener('change', function(){SavegameEditor.setHorseName(this.horseIndex, this.value)}, false);
-				//get('select-horse'+i+'-saddles').horseIndex=i;
-				//get('select-horse'+i+'-saddles').addEventListener('change', function(){SavegameEditor.setHorseSaddle(this.horseIndex, this.value)}, false);
-				//get('select-horse'+i+'-reins').horseIndex=i;
-				//get('select-horse'+i+'-reins').addEventListener('change', function(){SavegameEditor.setHorseReins(this.horseIndex, this.value)}, false);
-			}
-			get('select-horse'+i+'-type').horseIndex=i;
-			get('select-horse'+i+'-type').addEventListener('change', function(){SavegameEditor.setHorseType(this.horseIndex, this.value)}, false);
-
-			//select('horse'+i+'-saddles', this._arrayToSelectOpts(TOTK_Data.HORSE_SADDLES));
-			//select('horse'+i+'-reins', this._arrayToSelectOpts(TOTK_Data.HORSE_REINS));
-			select('horse'+i+'-type', this._arrayToSelectOpts(i===6?TOTK_Data.HORSE_TYPES.concat(TOTK_Data.HORSE_TYPES_UNTAMMED):TOTK_Data.HORSE_TYPES));
-		}
-
 		
 		
 		MarcTooltips.add('.tab-button',{className:'dark',fixed:true});
@@ -735,7 +417,7 @@ SavegameEditor={
 		var seconds=timeVal%60;
 		if(seconds<10)seconds='0'+seconds;
 		var minutes=parseInt(timeVal/60)%60;
-		if(minutes<10)seconds='0'+seconds;
+		if(minutes<10)minutes='0'+minutes;
 		return parseInt(timeVal/3600)+':'+minutes+':'+seconds;
 	},
 
@@ -743,11 +425,28 @@ SavegameEditor={
 	load:function(){
 		tempFile.fileName='progress.sav';
 
+		/* empty item containers */
+		var ITEM_CATS=['weapons','bows','shields','armors','arrows','materials','food','devices','key'];
+		ITEM_CATS.forEach(function(catId, i){
+			empty('container-'+catId);
+		});
 
-
-		/* items */
-		this.currentItems=this._readItemsAll();
-		//this.currentItemsTest=this._readItemsNew();
+		/* read items */
+		this.currentItems={
+			'weapons':Equipment.readAll('weapons'),
+			'bows':Equipment.readAll('bows'),
+			'shields':Equipment.readAll('shields'),
+			'armors':Armor.readAll(),
+			'arrows':Items.readAll('arrows'),
+			'materials':Items.readAll('materials'),
+			'food':Items.readAll('food'),
+			'devices':Items.readAll('devices'),
+			'key':Items.readAll('key'),
+			
+			'pouchSword':SavegameEditor.readU32Array(SavegameEditor.OffsetsItems.pouchSword, 0),
+			'pouchBow':SavegameEditor.readU32Array(SavegameEditor.OffsetsItems.pouchBow, 0),
+			'pouchShield':SavegameEditor.readU32Array(SavegameEditor.OffsetsItems.pouchShield, 0)
+		};
 
 		/* prepare editor */
 		setValue('rupees', tempFile.readU32(this.Offsets.TempRupees));
@@ -755,9 +454,9 @@ SavegameEditor={
 		setValue('max-hearts', tempFile.readU32(this.Offsets.TempMaxHearts));
 		setValue('max-stamina', tempFile.readU32(this.Offsets.TempStamina));
 
-		setValue('number-pouch-size-swords', this.currentItems.pouchSword[0].value);
-		setValue('number-pouch-size-bows', this.currentItems.pouchBow[0].value);
-		setValue('number-pouch-size-shields', this.currentItems.pouchShield[0].value);
+		setValue('number-pouch-size-swords', this.currentItems.pouchSword);
+		setValue('number-pouch-size-bows', this.currentItems.pouchBow);
+		setValue('number-pouch-size-shields', this.currentItems.pouchShield);
 
 		setValue('playtime', this._timeToString(tempFile.readU32(this.Offsets.TempPlaytime)));
 
@@ -769,15 +468,6 @@ SavegameEditor={
 		setValue('defeated-hinox', tempFile.readU32(this.Offsets.DEFEATED_HINOX_COUNTER));
 		setValue('defeated-talus', tempFile.readU32(this.Offsets.DEFEATED_TALUS_COUNTER));
 		setValue('defeated-molduga', tempFile.readU32(this.Offsets.DEFEATED_MOLDUGA_COUNTER));*/
-
-
-		/* motorcycle */
-		/*document.getElementById('checkbox-motorcycle').checked=!!tempFile.readU32(this.Offsets.MOTORCYCLE);
-		if(this.Offsets.MOTORCYCLE){
-			document.getElementById('row-motorcycle').style.display='flex';
-		}else{
-			document.getElementById('row-motorcycle').style.display='none';
-		}*/
 
 
 		/* coordinates */
@@ -802,30 +492,16 @@ SavegameEditor={
 		/* map pins */
 		/*loadMapPins();*/
 
-		/*var modifiersArray=[0,0,0];*/
-		var ITEM_CATS=['weapons','arrows','bows','shields','armors','materials','food','devices','key'];
-		
-		for(var i=0; i<ITEM_CATS.length; i++){
-			var itemCat=ITEM_CATS[i];
-
-			empty('container-'+itemCat);
-			for(var j=0; j<this.currentItems[itemCat].length; j++){
-				document.getElementById('container-'+itemCat).appendChild(
-					this._createItemRow(this.currentItems[itemCat][j])
+		/* build item containers */
+		ITEM_CATS.forEach(function(catId, i){
+			SavegameEditor.currentItems[catId].forEach(function(item, j){
+				document.getElementById('container-'+item.category).appendChild(
+					SavegameEditor._createItemRow(item)
 				);
-			}
-		}
-		MarcTooltips.add('#container-weapons select',{position:'bottom',align:'right'});
-		MarcTooltips.add('#container-bows select',{position:'bottom',align:'right'});
-		MarcTooltips.add('#container-shields select',{position:'bottom',align:'right'});
-		MarcTooltips.add('#container-weapons input',{position:'bottom',align:'right'});
-		MarcTooltips.add('#container-arrows input',{position:'bottom',align:'right'});
-		MarcTooltips.add('#container-bows input',{position:'bottom',align:'right'});
-		MarcTooltips.add('#container-shields input',{position:'bottom',align:'right'});
-		MarcTooltips.add('#container-materials input',{position:'bottom',align:'right'});
-		MarcTooltips.add('#container-food input',{position:'bottom',align:'right'});
-		MarcTooltips.add('#container-devices input',{position:'bottom',align:'right'});
-		MarcTooltips.add('#container-key input',{position:'bottom',align:'right'});
+			});
+			MarcTooltips.add('#container-'+catId+' select',{position:'bottom',align:'right'});
+			MarcTooltips.add('#container-'+catId+' input',{position:'bottom',align:'right'});
+		});
 
 
 		/* horses */
@@ -860,6 +536,10 @@ SavegameEditor={
 		tempFile.writeU32(this.Offsets.TempMaxHearts, getValue('max-hearts'));
 		tempFile.writeU32(this.Offsets.TempStamina, getValue('max-stamina'));
 
+		SavegameEditor.writeU32Array(this.OffsetsItems.pouchSword, 0, this.currentItems.pouchSword);
+		SavegameEditor.writeU32Array(this.OffsetsItems.pouchBow, 0, this.currentItems.pouchBow);
+		SavegameEditor.writeU32Array(this.OffsetsItems.pouchShield, 0, this.currentItems.pouchShield);
+	
 		/*tempFile.writeU32(this.Offsets.RELIC_GERUDO, getValue('relic-gerudo'));
 		tempFile.writeU32(this.Offsets.RELIC_GORON, getValue('relic-goron'));
 		tempFile.writeU32(this.Offsets.RELIC_RITO, getValue('relic-rito'));
@@ -868,13 +548,6 @@ SavegameEditor={
 		tempFile.writeU32(this.Offsets.DEFEATED_HINOX_COUNTER, getValue('defeated-hinox'));
 		tempFile.writeU32(this.Offsets.DEFEATED_TALUS_COUNTER, getValue('defeated-talus'));
 		tempFile.writeU32(this.Offsets.DEFEATED_MOLDUGA_COUNTER, getValue('defeated-molduga'));*/
-		
-
-		/* MOTORCYCLE */
-		/*if(this.Offsets.MOTORCYCLE){
-			tempFile.writeU32(this.Offsets.MOTORCYCLE, getField('checkbox-motorcycle').checked?1:0);
-		}*/
-
 
 
 		/* COORDINATES */
@@ -891,21 +564,11 @@ SavegameEditor={
 
 
 		/* ITEMS */
-		this._writeItemsAll(this.currentItems);
-
-		/* modifiers */
-		/*for(var i=0; document.getElementById('select-modifier-weapons-'+i); i++){
-			tempFile.writeU32(this.Offsets.FLAGS_WEAPON+i*8, getValue('modifier-weapons-'+i));
-			tempFile.writeU32(this.Offsets.FLAGSV_WEAPON+i*8, getValue('modifier-weapons-value-'+i));
-		}
-		for(var i=0; document.getElementById('select-modifier-bows-'+i); i++){
-			tempFile.writeU32(this.Offsets.FLAGS_BOW+i*8, getValue('modifier-bows-'+i));
-			tempFile.writeU32(this.Offsets.FLAGSV_BOW+i*8, getValue('modifier-bows-value-'+i));
-		}
-		for(var i=0; document.getElementById('select-modifier-shields-'+i); i++){
-			tempFile.writeU32(this.Offsets.FLAGS_SHIELD+i*8, getValue('modifier-shields-'+i));
-			tempFile.writeU32(this.Offsets.FLAGSV_SHIELD+i*8, getValue('modifier-shields-value-'+i));
-		}*/
+		['weapons','bows','shields','armors','arrows','materials','food','devices','key'].forEach(function(catId, i){
+			SavegameEditor.currentItems[catId].forEach(function(item, j){
+				item.save();
+			});
+		});
 	}
 }
 
@@ -935,315 +598,6 @@ function showTab(newTab){
 
 
 
-/*
-function setValueByHash(hash, val){
-	var offset=SavegameEditor._searchHash(hash);
-	if(offset){
-		if(val.length && val.length===3){
-			SavegameEditor._writeValue(offset, val[0]);
-			SavegameEditor._writeValue(offset, val[1], 1);
-			SavegameEditor._writeValue(offset, val[2], 2);
-		}else if(typeof val==='string'){
-			SavegameEditor._writeString64(offset, val);
-		}else{
-			SavegameEditor._writeValue(offset, val);
-		}
-	}else{
-		alert('invalid hash '+SavegameEditor._toHexInt(hash));
-	}
-}*/
-
-function setBooleans(hashTable, counterElement){
-	var counter=0;
-	for(var i=0;i<hashTable.length; i++){
-		var offset=SavegameEditor._searchHash(hashTable[i]);
-		if(offset && !tempFile.readU32(offset+4)){
-			tempFile.writeU32(offset+4, 1);
-			counter++;
-		}
-	}
-
-	if(counterElement)
-		setValue(counterElement, parseInt(getValue(counterElement))+counter);
-	return counter;
-}
-
-function unlockKoroks(){
-	var unlockedKoroks=setBooleans(TOTK_Data.KOROKS,'koroks');
-	var offset=SavegameEditor._searchHash(0x64622a86); //HiddenKorok_Complete
-	tempFile.writeU32(offset+4, 1);
-
-	//search korok seeds in inventory
-	for(var i=0; i<SavegameEditor.Constants.MAX_ITEMS; i++){
-		if(SavegameEditor._loadItemName(i)==='Obj_KorokNuts'){
-			setValue('item'+i, parseInt(getValue('item'+i))+unlockedKoroks);
-			break;
-		}
-	}
-	MarcDialogs.alert(unlockedKoroks+' korok seeds were added');
-}
-
-function defeatAllHinox(){
-	var unlockedKoroks=setBooleans(TOTK_Data.DEFEATED_HINOX,'defeated-hinox');
-	MarcDialogs.alert(unlockedKoroks+' Hinox have been defeated');
-}
-function defeatAllTalus(){
-	var unlockedKoroks=setBooleans(TOTK_Data.DEFEATED_TALUS,'defeated-talus');
-	MarcDialogs.alert(unlockedKoroks+' Talus have been defeated');
-}
-function defeatAllMolduga(){
-	var unlockedKoroks=setBooleans(TOTK_Data.DEFEATED_MOLDUGA,'defeated-molduga');
-	MarcDialogs.alert(unlockedKoroks+' Molduga have been defeated');
-}
-function visitAllLocations(){
-	var missingLocations=setBooleans(TOTK_Data.LOCATIONS);
-	MarcDialogs.alert(missingLocations+' unknown locations were visited');
-}
-function setCompendiumToStock(){
-	var setToStock=0;
-	for(var i=0; i<TOTK_Data.PICTURE_BOOK_SIZE.length; i++){
-		var offset=SavegameEditor._searchHash(TOTK_Data.PICTURE_BOOK_SIZE[i]);
-		if(typeof offset === 'number'){
-			var val=tempFile.readU32(offset+4);
-			if(val && val!==0xffffffff){
-				tempFile.writeU32(offset+4, 0xffffffff);
-				setToStock++;
-			}
-		}
-	}
-	MarcDialogs.alert(setToStock+' pics were reseted to stock.<br/>You can now safely remove all .jpg files under <u>pict_book</u> folder.');
-}
-
-var mapPinCount = 0;
-var MAX_MAP_PINS = 100;
-function loadMapPins(){
-	// Read Pin Types
-	var count = 0;
-	iterateMapPins(function(val){
-		if (val == 0xffffffff){
-			return false;
-		}
-		count++;
-		//console.log(count, val)
-		return true;
-	})
-	// to debug saved locations
-	// var i = 0;
-	// iterateMapPinLocations(function(val, offset){
-	// 	if (i % 3 == 0){
-	// 		console.log("-----")
-	// 		if (val == -100000){
-	// 			return false;
-	// 		}
-	// 	}
-	// 	i++
-	// 	console.log(val)
-	// 	return true
-	// })
-	mapPinCount = count;
-	setValue('number-map-pins', count);
-}
-
-function guessMainFieldGrid() {
-	if (getValue('pos-maptype') == "MainField")
-		setValue("pos-map",guessMainFieldGridInternal(getValue("pos-x"), getValue("pos-z")))
-}
-
-function fixDungeonCoordinates() {
-	var dungeon = getValue('pos-map')
-	if (dungeon == "RemainsFire") {
-		setValue('pos-x', 0)
-		setValue('pos-y',16.8)
-		setValue('pos-z',69.5)
-	} else if (dungeon == "RemainsWater") {
-		setValue('pos-x',47.7)
-		setValue('pos-y',6.05)
-		setValue('pos-z',6.3)
-	} else if (dungeon == "RemainsWind") {
-		setValue('pos-x',0)
-		setValue('pos-y',3.4)
-		setValue('pos-z',-77.7)
-	} else if (dungeon == "RemainsElectric") {
-		setValue('pos-x',0)
-		setValue('pos-y',71.9)
-		setValue('pos-z',3.7)
-	} else if (dungeon == "FinalTrial") {
-		setValue('pos-x',0)
-		setValue('pos-y',-0.4)
-		setValue('pos-z',64.5)
-	}
-}
-
-function guessMainFieldGridInternal(xpos, zpos) {
-	// A1 = -4974.629, -3974.629
-	// J8 =  4974.629,  3974.629
-	// X and letter part of grid: west/east
-	// Z and number part of grid: north/south
-
-	// grid also visible at https://mrcheeze.github.io/botw-object-map/
-
-	// idea: Take position fraction out of the whole grid and divide equally.
-
-	var gridvalX = Math.min(10, Math.max(1, Math.trunc((xpos + 4974.629) / 9949.258 * 10 + 1)))
-	var gridvalZ = Math.min( 8, Math.max(1, Math.trunc((zpos + 3974.629) / 7949.258 * 8  + 1)))
-
-	return String.fromCharCode(64 + gridvalX) + '-' + gridvalZ
-}
-
-function clearMapPins(){
-	// types
-	var count = 0;
-	iterateMapPins(function(val,offset){
-		if (val != 0xffffffff){
-			count++;
-			tempFile.writeU32(offset, 0xffffffff)
-		}
-		return true;
-	})
-
-	var count2 =0; 
-	var i = 0;
-	iterateMapPinLocations(function(val, offset){
-		var expect = i % 3 == 0 ? -100000 : 0;
-		i++;
-		if (val != expect){
-			count2++
-			tempFile.writeF32(offset, expect)
-		}
-		return true
-	})
-	if (count2 / 3 > count){
-		count = count2 / 3
-	}
-	mapPinCount = 0;
-	setValue('number-map-pins', 0);
-	MarcDialogs.alert(count+' map pins removed');
-}
-
-function iterateMapPins(f){
-	var offset = SavegameEditor.Offsets.MapApp_MapIconNo-4;
-	for (var i = 0;; i++){
-		var base = offset + (8 * i)
-		var hdr = tempFile.readU32(base)
-		var val = tempFile.readU32(base + 4)
-		//if (hdr != SavegameEditor.Constants.MAP_ICONS){
-		if (hdr != SavegameEditor.Headers.MapApp_MapIconNo){
-			break
-		}
-		if (!f(val,base+4)){
-			break
-		}
-	}
-}
-function iterateMapPinLocations(f){
-	offset = SavegameEditor.Offsets.MapApp_MapIconPos-4;
-	for (var i = 0;; i++){
-		var base = offset + (8 * i)
-		var hdr = tempFile.readU32(base)
-		var val = tempFile.readF32(base + 4)
-		if (hdr != SavegameEditor.Headers.MapApp_MapIconPos){
-			break
-		}
-		if(!f(val,base+4)){
-			break
-		}
-	}
-}
-
-function dist(px,py,pz,l){
-	// 2d seems to work better than 3d
-	return Math.sqrt((Math.pow(l[0]-px,2))+(Math.pow(l[2]-pz,2)))
-}
-
-
-
-function addToMap(data, icon){
-	var px=tempFile.readF32(SavegameEditor.Offsets.PLAYER_POSITION);
-	var py=tempFile.readF32(SavegameEditor.Offsets.PLAYER_POSITION+8);
-	var pz=tempFile.readF32(SavegameEditor.Offsets.PLAYER_POSITION+16);
-
-	var points = [];
-	for (var i = 0; i<data.length; i++){
-		var l = TOTK_Data.COORDS[data[i]]
-		if (l){
-		   points.push({H:data[i], L:l})
-		}
-	}
-	// fill closest first
-	points.sort(function(a,b){
-		aDist = dist(px,py,pz,a.L);
-		bDist = dist(px,py,pz,b.L);
-		return aDist - bDist
-	})
-	var count = 0;
-	for (var i = 0; i<points.length && mapPinCount<MAX_MAP_PINS; i++){
-		var pt = points[i]
-		var hash = pt.H;
-		var offset=SavegameEditor._searchHash(hash);
-		if(offset && !tempFile.readU32(offset + 4)){
-			addMapPin(icon, pt.L)
-			count++;
-			mapPinCount++;
-		}
-	}
-	setValue('number-map-pins', mapPinCount);
-	return count;
-}
-
-function addMapPin(icon, location){
-	// add pin to next availible location.
-	iterateMapPins(function(val,offset){
-		if (val == 0xffffffff){
-			tempFile.writeU32(offset, icon)
-			return false
-		}
-		return true;
-	})
-	var i = 0;
-	var added = false;
-	iterateMapPinLocations(function(val, offset){
-		if (i%3 != 0){
-			i++
-			return true;
-		}
-		i++
-		if (val == -100000){
-			added = true;
-			tempFile.writeF32(offset,location[0])
-			tempFile.writeF32(offset+8,location[1])
-			tempFile.writeF32(offset+16,location[2])
-			return false;
-		}
-		return true;
-	})
-}
-
-function addKoroksToMap(){
-	var n = addToMap(TOTK_Data.KOROKS, SavegameEditor.Constants.ICON_TYPES.LEAF);
-	MarcDialogs.alert(n+' pins for missing Korok seeds added to map');
-}
-
-function addHinoxToMap(){
-	var n = addToMap(TOTK_Data.DEFEATED_HINOX, SavegameEditor.Constants.ICON_TYPES.SKULL);
-	MarcDialogs.alert(n+' pins for missing Hinox added to map');
-}
-
-function addTalusToMap(){
-	var n = addToMap(TOTK_Data.DEFEATED_TALUS, SavegameEditor.Constants.ICON_TYPES.SHIELD);
-	MarcDialogs.alert(n+' pins for missing Talus added to map');
-}
-
-function addMoldugaToMap(){
-	var n = addToMap(TOTK_Data.DEFEATED_MOLDUGA, SavegameEditor.Constants.ICON_TYPES.CHEST);
-	MarcDialogs.alert(n+' pins for missing Molduga added to map');
-}
-
-function addLocationsToMap(){
-	var n = addToMap(TOTK_Data.LOCATIONS, SavegameEditor.Constants.ICON_TYPES.STAR);
-	MarcDialogs.alert(n+' pins for missing locations added to map');
-}
-
-
 /* MarcTooltips.js v20200216 - Marc Robledo 2014-2020 - http://www.marcrobledo.com/license */
 var MarcTooltips=function(){var n=/MSIE 8/.test(navigator.userAgent);function d(t,e,o){n?t.attachEvent("on"+e,o):t.addEventListener(e,o,!1)}function u(t){void 0!==t.stopPropagation?t.stopPropagation():t.cancelBubble=!0}function g(t){if(/^#[0-9a-zA-Z_\-]+$/.test(t))return[document.getElementById(t.replace("#",""))];var e=document.querySelectorAll(t);if(n){for(var o=[],i=0;i<e.length;i++)o.push(e[i]);return o}return Array.prototype.slice.call(e)}var h=function(t,e,o){t.className=t.className.replace(/position-\w+/,"position-"+e.position).replace(/align-\w+/,"align-"+e.align);var i=(window.pageXOffset||document.documentElement.scrollLeft)-(document.documentElement.clientLeft||0),n=(window.pageYOffset||document.documentElement.scrollTop)-(document.documentElement.clientTop||0);e.fixed&&(n=i=0);var l=t.attachedTo.getBoundingClientRect().left,a=t.attachedTo.getBoundingClientRect().top,s=t.attachedTo.offsetWidth,p=t.attachedTo.offsetHeight;if("up"===e.position?t.style.top=parseInt(a+n-t.offsetHeight)+"px":"down"===e.position?t.style.top=parseInt(a+n+p)+"px":"top"===e.align?t.style.top=parseInt(a+n)+"px":"bottom"===e.align?t.style.top=parseInt(a+n-(t.offsetHeight-p))+"px":t.style.top=parseInt(a+n-parseInt((t.offsetHeight-p)/2))+"px","up"===e.position||"down"===e.position?"left"===e.align?t.style.left=parseInt(l+i)+"px":"right"===e.align?t.style.left=parseInt(l+i-(t.offsetWidth-s))+"px":t.style.left=parseInt(l+i-parseInt((t.offsetWidth-s)/2))+"px":"left"===e.position?t.style.left=parseInt(l+i-t.offsetWidth)+"px":"right"===e.position&&(t.style.left=parseInt(l+i+s)+"px"),o){var r={position:e.position,align:e.align,fixed:e.fixed},c=parseInt(t.style.left.replace("px","")),f=parseInt(t.style.top.replace("px","")),d=c+t.offsetWidth,u=f+t.offsetHeight,g=(i=window.scrollX,n=window.scrollY,Math.max(document.documentElement.clientWidth,window.innerWidth||0)),m=Math.max(document.documentElement.clientHeight,window.innerHeight||0);"up"===e.position||"down"===e.position?(g<d?r.align="right":c<i&&(r.align="left"),f<n?r.position="down":n+m<u&&(r.position="up")):(m<u?r.align="bottom":f<n&&(r.align="top"),c<i?r.position="right":i+g<d&&(r.position="left")),h(t,r,!1)}},m={};d(window,"load",function(){d(n?document:window,"click",function(){for(key in m)/ visible$/.test(m[key].className)&&/:true:/.test(key)&&(m[key].className=m[key].className.replace(" visible",""))}),d(window,"resize",function(){for(key in m)/ visible$/.test(m[key].className)&&m[key].attachedTo&&h(m[key],m[key].tooltipInfo,!0)})});function y(t){var e=t.currentTarget||t.srcElement;e.title&&(e.setAttribute("data-tooltip",e.title),e.title=""),(e.tooltip.attachedTo=e).tooltip.innerHTML=e.getAttribute("data-tooltip"),e.tooltip.className+=" visible",h(e.tooltip,e.tooltip.tooltipInfo,!0)}function w(t){var e=t.currentTarget||t.srcElement;e.tooltip.className=e.tooltip.className.replace(" visible","")}return{add:function(t,e){var o="down",i="center",n=!1,l=!1,a=!1,s=!1,p=!1;e&&(e.position&&/^(up|down|left|right)$/i.test(e.position)&&(o=e.position.toLowerCase()),e.align&&/^(top|bottom|left|right)$/i.test(e.align)&&(("up"!==o&&"down"!==o||"left"!==e.align&&"right"!==e.align)&&("left"!==o&&"right"!==o||"top"!==e.align&&"bottom"!==e.align)||(i=e.align.toLowerCase())),l=e.clickable||e.onClick||e.onclick||!1,a=e.focusable||e.onFocus||e.onfocus||!1,s=e.fixed||e.positionFixed||!1,n=e.class||e.className||e.customClass||e.customClassName||!1,p=e.text||e.customText||!1);for(var r=function(t){if("string"==typeof t)return g(t);if(t.length){for(var e=[],o=0;o<t.length;o++)"string"==typeof t[o]?e=e.concat(g(t[o])):e.push(t[o]);return e}return[t]}(t),c=function(t,e,o,i,n){var l=t+":"+e+":"+o+":"+i;if(m[l])return m[l];var a=document.createElement("div");return a.className="tooltip position-"+t+" align-"+e,a.className+="left"===t||"right"===t?" position-horizontal":" position-vertical",i&&(a.className+=" "+i),a.style.position=n?"fixed":"absolute",a.style.zIndex="9000",a.style.top="0",a.style.left="0",a.attachedTo=null,a.tooltipInfo={position:t,align:e,fixed:n},o&&d(a,"click",u),m[l]=a,document.body.appendChild(a),a}(o,i,l||a,n,s),f=0;f<r.length;f++)p?r[f].setAttribute("data-tooltip",p):r[f].title&&r[f].setAttribute("data-tooltip",r[f].title),r[f].title="",r[f].tooltip=c,a?(d(r[f],"focus",y),d(r[f],"blur",w),d(r[f],"click",u)):l?(d(r[f],"click",y),d(r[f],"click",u)):(d(r[f],"mouseover",y),d(r[f],"mouseout",w))}}}();
 
@@ -1259,16 +613,6 @@ function onScroll(){
 }
 window.addEventListener('scroll', onScroll, false);
 
-if(typeof String.prototype.endsWith==='undefined'){
-	String.prototype.endsWith=function(search){
-        return (new RegExp(search+'$')).test(this)
-    };
-}
-if(typeof String.prototype.startsWith==='undefined'){
-	String.prototype.startsWith=function(search){
-        return (new RegExp('^'+search)).test(this)
-    };
-}
 
 
 

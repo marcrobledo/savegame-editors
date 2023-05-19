@@ -1,5 +1,5 @@
 /*
-	savegame-editor.js v20230505
+	savegame-editor.js v20230519
 	A library that lets you create easily a savegame editor. Made with vanilla JS.
 
 	by Marc Robledo 2016-2023
@@ -367,7 +367,7 @@ function checkbox(id,val){
 		input.value=val;
 	return input
 }
-function select(id,options,func){
+function select(id,options,func,def){
 	var select;
 	if(document.getElementById('select-'+id)){
 		select=document.getElementById('select-'+id);
@@ -376,6 +376,7 @@ function select(id,options,func){
 		select.id='select-'+id;
 		select.className='full-width';
 	}
+	var unknownValue=true;
 	if(options){
 		for(var i=0; i<options.length; i++){
 			if(typeof options[i] === 'number'){
@@ -396,12 +397,25 @@ function select(id,options,func){
 			}else if(typeof options[i] === 'object'){
 				select.appendChild(options[i]);
 			}
-			
+
+			if(typeof def!=='undefined' && options[i].value!=def){
+				unknownValue=false;
+			}
 		}
 	}
 
 	if(func)
 		select.addEventListener('change',func,false);
+
+	if(unknownValue){
+		var option=document.createElement('option');
+		option.value=def;
+		option.innerHTML='Unknown: '+def;
+		select.appendChild(option);
+	}
+
+	if(typeof def!=='undefined')
+		select.value=def;
 
 	return select
 }
