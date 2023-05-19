@@ -6,11 +6,15 @@
 */
 
 function Horse(index){
-	this._offsets=Items.Offsets.Horses;
-	//to-do
+	this.category='horses';
+	this.index=index;
+	this._offsets=Horses.Offsets;
+
+	this.id=SavegameEditor.readString64Array(this._offsets.ID, index);
+	this.name=SavegameEditor.readUTF8String64Array(this._offsets.NAME, index);
 }
 Horse.prototype.save=function(){
-	//to-do
+	SavegameEditor.writeString64Array(this._offsets.ID, this.index, this.id);
 }
 
 
@@ -40,8 +44,6 @@ setHorseType:function(i,val){
 },
 for(var i=0; i<6; i++){
 	if(i<6){
-		get('input-horse'+i+'-name').horseIndex=i;
-		get('input-horse'+i+'-name').addEventListener('change', function(){SavegameEditor.setHorseName(this.horseIndex, this.value)}, false);
 		//get('select-horse'+i+'-saddles').horseIndex=i;
 		//get('select-horse'+i+'-saddles').addEventListener('change', function(){SavegameEditor.setHorseSaddle(this.horseIndex, this.value)}, false);
 		//get('select-horse'+i+'-reins').horseIndex=i;
@@ -56,43 +58,33 @@ for(var i=0; i<6; i++){
 }
 */
 var Horses={};
-Horses.items=[];
-Horses.getLastIndex=function(){
-	if(!Horses.items.length)
-		return 0;
-
-	var lastIndex=0;
-	for(var i=0; i<Horses.items.length; i++){
-		if(Horses.items[i].index > lastIndex)
-			lastIndex=Horses.items[i].index;
+Horses.readAll=function(){
+	var horses=[];
+	var maxHorses=SavegameEditor.readArraySize(Horses.Offsets.ID);
+	for(var i=0; i<maxHorses; i++){
+		var horse=new Horse(i);
+		if(horse.id)
+			horses.push(horse);
 	}
-	if((lastIndex+1)===Horses.items.length)
-		return lastIndex;
-	console.error('invalid horse index');
-	return null;
-}
-Horses.remove=function(index){
-	if(typeof index==='object')
-		index=Horses.items.indexOf(index);
-
-	Horses.items.splice(index, 1);
-	for(var i=index; i<Horses.items.length; i++){
-		Horses.items[i].index--;
-	}
-
-	SavegameEditor.writeString64Array(this._offsets.ID, '\0', Horses.items.length);
+	return horses;
 }
 Horses.Offsets={ //v1.0 offsets, v1.1=v1.0 + 0x38
-	Horses:{
-		ID:				0x0010a148,
-		TYPE:			0x0008a0ec
-	}
+	ID:			0x0008a0ec,
+	NAME:		0x0010a148
 }
 
+Horses.HORSE_TYPES=[
+	'GameRomHorse00','GameRomHorse01','GameRomHorse02','GameRomHorse03','GameRomHorse04','GameRomHorse05','GameRomHorse06','GameRomHorse07','GameRomHorse08','GameRomHorse09','GameRomHorse10','GameRomHorse11','GameRomHorse12','GameRomHorse13','GameRomHorse14','GameRomHorse15','GameRomHorse16','GameRomHorse17','GameRomHorse18','GameRomHorse19','GameRomHorse20','GameRomHorse21','GameRomHorse22','GameRomHorse23','GameRomHorse25','GameRomHorse26','GameRomHorseEpona','GameRomHorseZelda','GameRomHorse00L','GameRomHorse01L','GameRomHorseGold',
+
+	//untested, posible freeze
+	'GameRomHorseBone',
+	'GameRomHorseBone_AllDay',
+	'GameRomHorseForStreetVender',
+	'GameRomHorseNushi'
+];
 Horses.HORSE_REINS=['GameRomHorseReins_00','GameRomHorseReins_01','GameRomHorseReins_02','GameRomHorseReins_03','GameRomHorseReins_04','GameRomHorseReins_05','GameRomHorseReins_06','GameRomHorseReins_00L','GameRomHorseReins_10'];
 Horses.HORSE_SADDLES=['GameRomHorseSaddle_00','GameRomHorseSaddle_01','GameRomHorseSaddle_02','GameRomHorseSaddle_03','GameRomHorseSaddle_04','GameRomHorseSaddle_05','GameRomHorseSaddle_06','GameRomHorseSaddle_00L','GameRomHorseSaddle_00S','GameRomHorseSaddle_10'];
-Horses.HORSE_TYPES=['GameRomHorse00','GameRomHorse01','GameRomHorse02','GameRomHorse03','GameRomHorse04','GameRomHorse05','GameRomHorse06','GameRomHorse07','GameRomHorse08','GameRomHorse09','GameRomHorse10','GameRomHorse11','GameRomHorse12','GameRomHorse13','GameRomHorse14','GameRomHorse15','GameRomHorse16','GameRomHorse17','GameRomHorse18','GameRomHorse19','GameRomHorse20','GameRomHorse21','GameRomHorse22','GameRomHorse23','GameRomHorseEpona','GameRomHorseZelda','GameRomHorse00L','GameRomHorse01L','GameRomHorseGold'];
-Horses.HORSE_TYPES_UNTAMMED=['GameRomHorseNushi','GameRomHorseBone'];
+Horses.HORSE_TYPES_UNTAMMED=[];
 
 
 Horses.TRANSLATIONS={
