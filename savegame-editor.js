@@ -376,7 +376,7 @@ function select(id,options,func,def){
 		select.id='select-'+id;
 		select.className='full-width';
 	}
-	var unknownValue=true;
+	var unknownValue=typeof def!=='undefined';
 	if(options){
 		for(var i=0; i<options.length; i++){
 			if(typeof options[i] === 'number'){
@@ -398,7 +398,7 @@ function select(id,options,func,def){
 				select.appendChild(options[i]);
 			}
 
-			if(typeof def!=='undefined' && options[i].value!=def){
+			if(unknownValue && options[i].value!=def){
 				unknownValue=false;
 			}
 		}
