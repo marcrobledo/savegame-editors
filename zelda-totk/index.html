@@ -108,7 +108,7 @@
 			<div class="ten columns"><label for="select-max-hearts">Max. hearts</label></div>
 			<div class="two columns">
 				<select id="select-max-hearts" class="full-width">
-					<option value="4">1</option>
+					<option value="4">1 heart</option>
 					<option value="8">2 hearts</option>
 					<option value="12">3 hearts</option>
 					<option value="16">4 hearts</option>
@@ -152,7 +152,7 @@
 			</div>
 		</div>
 		<div class="row mb-5">
-			<div class="ten columns"><label for="select-max-stamina">Max. stamina </label></div>
+			<div class="ten columns"><label for="select-max-stamina">Max. stamina</label></div>
 			<div class="two columns">
 				<select id="select-max-stamina" class="full-width">
 					<option value="1148846080">1 wheel</option>
@@ -168,6 +168,10 @@
 					<option value="1161527296">3 wheels</option>
 				</select>
 			</div>
+		</div>
+		<div class="row mb-5">
+			<div class="ten columns"><label for="number-pony-points">Pony points</label></div>
+			<div class="two columns"><input id="number-pony-points" class="full-width" type="text" /></div>
 		</div>
 		
 		<!-- Pouch size -->
@@ -268,7 +272,7 @@
 	<div id="tab-weapons">
 		<h3>Weapons</h3><div id="container-weapons"></div>
 		<div class="text-center">
-			<!-- <button onclick="SavegameEditor.restoreDurability('weapons')">Restore durability</button> -->
+			<button onclick="SavegameEditor.restoreDurability('weapons')">Restore durability</button>
 			<button class="with-icon icon1" onclick="SavegameEditor.addItem('weapons')">Add weapon</button>
 		</div>
 	</div>
@@ -277,6 +281,7 @@
 	<div id="tab-bows">
 		<h3>Bows</h3><div id="container-bows"></div>
 		<div class="text-center">
+			<button onclick="SavegameEditor.restoreDurability('bows')">Restore durability</button>
 			<button class="with-icon icon1" onclick="SavegameEditor.addItem('bows')">Add bow</button>
 		</div>
 		<h3>Arrows</h3><div id="container-arrows"></div>
@@ -286,6 +291,7 @@
 	<div id="tab-shields">
 		<h3>Shields</h3><div id="container-shields"></div>
 		<div class="text-center">
+			<button onclick="SavegameEditor.restoreDurability('shields')">Restore durability</button>
 			<button class="with-icon icon1" onclick="SavegameEditor.addItem('shields')">Add shield</button>
 		</div>
 	</div>
@@ -309,6 +315,9 @@
 	<!-- TAB: FOOD -->
 	<div id="tab-food">
 		<h3>Food</h3><div id="container-food"></div>
+		<div class="text-center">
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('food')">Add food</button>
+		</div>
 	</div>
 
 	<!-- TAB: ZONAI DEVICES -->

@@ -1,31 +1,32 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Armor class) v20230519
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Armor class) v20230521
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
 */
 
-function Armor(index, read){
+function Armor(index, id, dye){
 	this.category='armors';
 	this.index=index;
-	this._offsets=Armor.Offsets.Armor;
 
-	if(read){
-		this.id=SavegameEditor.readString64Array(this._offsets.ID, index);
-		this.dyeColor=0xdeadbeef;
-	}else{
-		this.id='\0';
-		this.dyeColor=0xdeadbeef;
-	}
+	this.id=id;
+	this.dye=dye || '';
 
 	Armor.buildHtmlElements(this);
 }
 Armor.prototype.getItemTranslation=function(){
 	return Armor.TRANSLATIONS[this.id] || this.id;
 }
+Armor.prototype.copy=function(index, newId){
+	return new Armor(
+		index,
+		typeof newId==='string'? newId : this.id,
+		this.dye
+	);
+}
 Armor.prototype.save=function(){
-	SavegameEditor.writeString64Array(this._offsets.ID, this.index, this.id);
-	//SavegameEditor.writeString64Array(this._offsets.DYE, this.dyeColor, this.index);
+	SavegameEditor.writeString64('ArrayArmorIds', this.index, this.id);
+	//SavegameEditor.writeString64('ArrayArmorDyeColors', this.index, this.dyeColor);
 }
 
 
@@ -34,18 +35,19 @@ Armor.buildHtmlElements=function(item){
 	//to-do: add dye selector
 }
 
-Armor.readMaxCapacity=function(catId){
-	return SavegameEditor.readArraySize(Armor.Offsets.Armor.ID);
-}
 Armor.readAll=function(){
-	var items=[];
-	var maxItems=Armor.readMaxCapacity();
-	for(var i=0; i<maxItems; i++){
-		var item=new Armor(i, true);
-		if(item.id)
-			items.push(item);
+	var armorIds=SavegameEditor.readString64Array('ArrayArmorIds');
+	var validArmors=[];
+	for(var i=0; i<armorIds.length; i++){
+		if(armorIds[i]){
+			validArmors.push(new Armor(
+				i,
+				armorIds[i],
+				null
+			));
+		}
 	}
-	return items;
+	return validArmors;
 }
 Armor.remove=function(index){
 	if(typeof index==='object')
@@ -57,12 +59,6 @@ Armor.remove=function(index){
 	}
 
 	SavegameEditor.writeString64Array(this._offsets.ID, '\0', Armor.items.length);
-}
-Armor.Offsets={ //v1.0 offsets, v1.1=v1.0 + 0x38
-	Armor:{
-		ID:				0x00061bbc,
-		DYE:			0xdeadbeef
-	}
 }
 
 

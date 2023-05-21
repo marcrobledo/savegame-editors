@@ -119,12 +119,12 @@ function createHashInput(container, hashId, type, offset){
 
 
 function setBoolean(){
-	SavegameEditor._writeBoolean(this.offset, this.checked, 0);
+	tempFile.writeU32(this.offset, this.checked? 1: 0);
 }
 function setS32(){
-	SavegameEditor._writeValue(this.offset, this.value, 0);
+	tempFile.writeU32(this.offset, parseInt(this.value));
 }
-function setF32(){
+/*function setF32(){
 	SavegameEditor._writeFloat32(this.offset, this.value, 0);
 }
 function setString(){
@@ -135,7 +135,7 @@ function setString64(){
 }
 function setString256(){
 	SavegameEditor._writeString256(this.offset, this.value);
-}
+}*/
 
 var TOTKMasterEditor=(function(){
 	var HASHES_PER_PAGE=100;

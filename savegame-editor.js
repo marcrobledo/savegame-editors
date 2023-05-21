@@ -398,7 +398,7 @@ function select(id,options,func,def){
 				select.appendChild(options[i]);
 			}
 
-			if(unknownValue && options[i].value!=def){
+			if(unknownValue && options[i].value==def){
 				unknownValue=false;
 			}
 		}
@@ -410,7 +410,7 @@ function select(id,options,func,def){
 	if(unknownValue){
 		var option=document.createElement('option');
 		option.value=def;
-		option.innerHTML='Unknown: '+def;
+		option.innerHTML='['+(typeof def==='number'? def.toString(16) : def)+']';
 		select.appendChild(option);
 	}
 

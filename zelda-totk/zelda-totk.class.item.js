@@ -1,39 +1,62 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Item class) v20230519
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Item class) v20230521
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
 */
 
-function Item(catId, index, read){
+function Item(catId, index, id, quantity, foodEffect, foodEffectHearts, foodEffectMultiplier, foodEffectTime, foodEffectUnknown1){
 	this.category=catId;
 	this.index=index;
-	this._offsets=Items.getOffsetsByCategoryId(catId);
 
-	if(read){
-		this.id=SavegameEditor.readString64Array(this._offsets.ID, index);
-		this.quantity=SavegameEditor.readU32Array(this._offsets.QUANTITY, index);
-	}else{
-		this.id='\0';
-		this.quantity=1;
+	this.id=id;
+	this.quantity=quantity || 1;
+
+	if(catId==='food'){
+		this.foodEffect=typeof foodEffect==='number'? foodEffect : Item.FOOD_NO_EFFECT;
+		this.foodEffectHearts=typeof foodEffectHearts==='number'? foodEffectHearts : 4;
+		this.foodEffectMultiplier=typeof foodEffectMultiplier==='number'? foodEffectMultiplier : 0;
+		this.foodEffectTime=typeof foodEffectTime==='number'? foodEffectTime : 0;
+		this.foodEffectUnknown1=typeof foodEffectUnknown1==='number'? foodEffectUnknown1 : 1;
 	}
-
-	Items.buildHtmlElements(this);
+	Item.buildHtmlElements(this);
 }
+
 Item.prototype.getItemTranslation=function(){
-	return Items.TRANSLATIONS[this.category][this.id] || this.id;
+	return Item.TRANSLATIONS[this.category][this.id] || this.id;
 }
+Item.prototype.copy=function(index, newId){
+	return new Item(
+		this.category,
+		index,
+		typeof newId==='string'? newId : this.id,
+		this.quantity,
+		this.category==='food'? this.foodEffect : null,
+		this.category==='food'? this.foodEffectHearts : null,
+		this.category==='food'? this.foodEffectMultiplier : null,
+		this.category==='food'? this.foodEffectTime : null,
+		this.category==='food'? this.foodEffectUnknown1 : null
+	);
+}
+
 Item.prototype.save=function(){
-	SavegameEditor.writeString64Array(this._offsets.ID, this.index, this.id);
-	SavegameEditor.writeU32Array(this._offsets.QUANTITY, this.index, this.quantity);
+	var categoryHash=capitalizeCategoryId(this.category);
+	SavegameEditor.writeString64('Array'+categoryHash+'Ids', this.index, this.id);
+	SavegameEditor.writeU32('Array'+categoryHash+'Quantities', this.index, this.quantity);
+	if(this.category==='food'){
+		SavegameEditor.writeU32('ArrayFoodEffects', this.index, this.foodEffect);
+		SavegameEditor.writeU32('ArrayFoodEffectsHearts', this.index, this.foodEffectHearts);
+		SavegameEditor.writeU32('ArrayFoodEffectsMultiplier', this.index, this.foodEffectMultiplier);
+		SavegameEditor.writeU32('ArrayFoodEffectsTime', this.index, this.foodEffectTime);
+		SavegameEditor.writeU32('ArrayFoodEffectsUnknown1', this.index, this.foodEffectUnknown1);
+	}
 }
 
 
 
-var Items={};
-Items.buildHtmlElements=function(item){
+Item.buildHtmlElements=function(item){
 	//build html elements
-	var maxValue=Items.MAXIMUM_QUANTITY[item.id] || 999;
+	var maxValue=Item.MAXIMUM_QUANTITY[item.id] || 999;
 	item._htmlInputQuantity=inputNumber('item-quantity-'+item.category+'-'+item.index, 1, maxValue, item.quantity);
 	item._htmlInputQuantity.addEventListener('change', function(){
 		var newVal=parseInt(this.value);
@@ -41,72 +64,78 @@ Items.buildHtmlElements=function(item){
 			item.quantity=newVal;
 	});
 	item._htmlInputQuantity.title='Quantity';
-}
-Items.readMaxCapacity=function(catId){
-	return SavegameEditor.readArraySize(Items.getOffsetsByCategoryId(catId).ID);
-}
-Items.readAll=function(catId){
-	var offsets=Items.getOffsetsByCategoryId(catId);
 
-	var items=[];
-	var maxItems=Items.readMaxCapacity(catId);
-	for(var i=0; i<maxItems; i++){
-		var item=new Item(catId, i, true);
-		if(item.id)
-			items.push(item);
+
+	if(item.category==='food'){
+		var foodEffects=[
+			{name:'none', value:Item.FOOD_NO_EFFECT},
+			{name:'Stamina', value:0xe9a30056},
+			{name:'Attack+', value:0xa9384c6c},
+			{name:'Attack+ with cold', value:0x4a3e58f6},
+			{name:'Attack+ with heat', value:0x4c6a85d2},
+			{name:'Defense+', value:0xa0a00c0e},
+			{name:'Speed+', value:0xb3f6b87a},
+			{name:'Brightness', value:0x4939dca1}
+		];
+		item._htmlSelectFoodEffect=select('item-food-effects-'+item.category+'-'+item.index, foodEffects, function(){
+			item.foodEffect=parseInt(this.value);
+		}, item.foodEffect);
+		item._htmlSelectFoodEffect.title='Food effect';
+
+		item._htmlSelectFoodEffectHearts=inputNumber('item-food-effects-hearts-'+item.category+'-'+item.index, 0, 40*4, item.foodEffectHearts);
+		item._htmlSelectFoodEffectHearts.addEventListener('change', function(){
+			var newVal=parseInt(this.value);
+			if(!isNaN(newVal) && newVal>0)
+				item.foodEffectHearts=newVal;
+		});
+		item._htmlSelectFoodEffectHearts.title='Heart quarters heal';
+
+		item._htmlSelectFoodEffectMultiplier=inputNumber('item-food-effects-multiplier-'+item.category+'-'+item.index, 1, 8, item.foodEffectMultiplier);
+		item._htmlSelectFoodEffectMultiplier.addEventListener('change', function(){
+			var newVal=parseInt(this.value);
+			if(!isNaN(newVal) && newVal>0)
+				item.foodEffectMultiplier=newVal;
+		});
+		item._htmlSelectFoodEffectMultiplier.title='Multiplier';
+
+		item._htmlSelectFoodEffectTime=inputNumber('item-food-effects-time-'+item.category+'-'+item.index, 30, 4800, item.foodEffectTime);
+		item._htmlSelectFoodEffectTime.addEventListener('change', function(){
+			var newVal=parseInt(this.value);
+			if(!isNaN(newVal) && newVal>0)
+				item.foodEffectTime=newVal;
+		});
+		item._htmlSelectFoodEffectTime.title='Duration (in seconds)';
 	}
-	return items;
 }
-Items.getOffsetsByCategoryId=function(catId){
-	if(catId==='arrows')
-		return Items.Offsets.Arrows;
-	else if(catId==='materials')
-		return Items.Offsets.Materials;
-	else if(catId==='food')
-		return Items.Offsets.Food;
-	else if(catId==='devices')
-		return Items.Offsets.Devices;
-	else if(catId==='key')
-		return Items.Offsets.Key;
 
-	return null;
-}
-Items.remove=function(index){
-	if(typeof index==='object')
-		index=Items.items.indexOf(index);
-
-	Items.items.splice(index, 1);
-	for(var i=index; i<Items.items.length; i++){
-		Items.items[i].index--;
+Item.readAll=function(catId){
+	var categoryHash=capitalizeCategoryId(catId);
+	var itemIds=SavegameEditor.readString64Array('Array'+categoryHash+'Ids');
+	var isFood=(catId==='food');
+	var validItems=[];
+	for(var i=0; i<itemIds.length; i++){
+		if(itemIds[i]){
+			validItems.push(new Item(
+				catId,
+				i,
+				itemIds[i],
+				SavegameEditor.readU32('Array'+categoryHash+'Quantities', i),
+				isFood? SavegameEditor.readU32('ArrayFoodEffects', i) : null,
+				isFood? SavegameEditor.readU32('ArrayFoodEffectsHearts', i) : null,
+				isFood? SavegameEditor.readU32('ArrayFoodEffectsMultiplier', i) : null,
+				isFood? SavegameEditor.readU32('ArrayFoodEffectsTime', i) : null,
+				isFood? SavegameEditor.readU32('ArrayFoodEffectsUnknown1', i) : null
+			));
+		}
 	}
-
-	SavegameEditor.writeString64Array(this._offsets.ID, '\0', Items.items.length);
+	return validItems;
 }
-Items.Offsets={ //v1.0 offsets, v1.1=v1.0 + 0x38
-	Arrows:{
-		ID:				0x000820ec,
-		QUANTITY:		0x00046ff4
-	},
-	Materials:{
-		ID:				0x000afbf4,
-		QUANTITY:		0x000477a4
-	},
-	Food:{
-		ID:				0x00087ca4,
-		QUANTITY:		0x0004e984
-	},
-	Devices:{
-		ID:				0x0009cb70,
-		QUANTITY:		0x00046148
-	},
-	Key:{
-		ID:				0x000b9488,
-		QUANTITY:		0x0004eb98
-	}
-};
+Item.remove=function(index){
+	//to-do
+}
 
 
-Items.MAXIMUM_QUANTITY={
+Item.MAXIMUM_QUANTITY={
 Item_Ore_L:999999, //Zonaite
 Item_Ore_M:999999, //Large Zonaite
 Energy_Material_01:99999, //Crystallized Charge
@@ -119,8 +148,9 @@ MinusRupee_00:99999 //Poe
 };
 
 
+Item.FOOD_NO_EFFECT=0xb6eede09;
 
-Items.TRANSLATIONS={
+Item.TRANSLATIONS={
 'arrows':{
 NormalArrow:'Arrow'
 },
@@ -829,6 +859,9 @@ Obj_SubstituteCloth_55:"Nostalgic Fabric",
 Obj_SubstituteCloth_56:"Addison's Fabric"
 }
 };
+
+Item.TRANSLATIONS_FUSE_ONLY={
+}
 
 
 

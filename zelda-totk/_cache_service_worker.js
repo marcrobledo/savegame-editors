@@ -30,14 +30,16 @@ caches.keys().then(function(cacheNames){
 });
 
 var PRECACHE_ID='zelda-totk-editor';
-var PRECACHE_VERSION='v0a';
+var PRECACHE_VERSION='v0';
 var PRECACHE_URLS=[
 	//is hashes file too big for cacheing?
 	'/savegame-editors/zelda-totk/','/savegame-editors/zelda-totk/index.html',
 	'/savegame-editors/zelda-totk/zelda-totk.css',
 	'/savegame-editors/zelda-totk/zelda-totk.js',
-	'/savegame-editors/zelda-totk/zelda-totk.data.js',
-	'/savegame-editors/zelda-totk/zelda-totk.locations.js',
+	'/savegame-editors/zelda-totk/zelda-totk.class.equipment.js',
+	'/savegame-editors/zelda-totk/zelda-totk.class.armor.js',
+	'/savegame-editors/zelda-totk/zelda-totk.class.item.js',
+	'/savegame-editors/zelda-totk/zelda-totk.class.horse.js',
 	'/savegame-editors/zelda-totk/zelda-totk.master.js',
 	'/savegame-editors/zelda-totk/favicon.png',
 	'/savegame-editors/zelda-totk/assets/_blank.png',
