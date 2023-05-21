@@ -13,7 +13,7 @@ function Item(catId, index, id, quantity, foodEffect, foodEffectHearts, foodEffe
 	this.quantity=quantity || 1;
 
 	if(catId==='food'){
-		this.foodEffect=typeof foodEffect==='number'? foodEffect : Item.FOOD_NO_EFFECT;
+		this.foodEffect=typeof foodEffect==='number'? foodEffect : Item.FOOD_EFFECT_NONE;
 		this.foodEffectHearts=typeof foodEffectHearts==='number'? foodEffectHearts : 4;
 		this.foodEffectMultiplier=typeof foodEffectMultiplier==='number'? foodEffectMultiplier : 0;
 		this.foodEffectTime=typeof foodEffectTime==='number'? foodEffectTime : 0;
@@ -68,14 +68,26 @@ Item.buildHtmlElements=function(item){
 
 	if(item.category==='food'){
 		var foodEffects=[
-			{name:'none', value:Item.FOOD_NO_EFFECT},
-			{name:'Stamina', value:0xe9a30056},
-			{name:'Attack+', value:0xa9384c6c},
-			{name:'Attack+ with cold', value:0x4a3e58f6},
-			{name:'Attack+ with heat', value:0x4c6a85d2},
-			{name:'Defense+', value:0xa0a00c0e},
-			{name:'Speed+', value:0xb3f6b87a},
-			{name:'Brightness', value:0x4939dca1}
+			{name:'none', value:Item.FOOD_EFFECT_NONE},
+			{name:'Stamina', value:Item.FOOD_EFFECT_STAMINA_RECOVER},
+			{name:'Attack+', value:Item.FOOD_EFFECT_ATTACK_PLUS},
+			{name:'Attack+ with cold', value:Item.FOOD_EFFECT_ATTACK_PLUS_WITH_COLD},
+			{name:'Attack+ with heat', value:Item.FOOD_EFFECT_ATTACK_PLUS_WITH_HEAT},
+			{name:'Defense+', value:Item.FOOD_EFFECT_DEFENSE_PLUS},
+			{name:'Speed+', value:Item.FOOD_EFFECT_SPEED_PLUS},
+			{name:'Brightness', value:Item.FOOD_EFFECT_BRIGHTNESS},
+
+			{name:'Extra Heart', value:Item.FOOD_EFFECT_LIFE_MAX_EXTRA},
+			{name:'Gloom Recovery', value:Item.FOOD_EFFECT_LIFE_GLOOM_RECOVERY},
+			{name:'Miasma Guard', value:Item.FOOD_EFFECT_MIASMA_GUARD},
+			{name:'Extra Stamina', value:Item.FOOD_EFFECT_STAMINA_MAX_EXTRA},
+			{name:'Flame Guard', value:Item.FOOD_EFFECT_RESIST_BURN},
+			{name:'Heat Resistance', value:Item.FOOD_EFFECT_RESIST_HOT},
+			{name:'Cold Resistance', value:Item.FOOD_EFFECT_RESIST_COLD},
+			{name:'Shock Resistance', value:Item.FOOD_EFFECT_RESIST_ELECTRIC},
+			{name:'Swim Speed Up', value:Item.FOOD_EFFECT_SWIM_SPEED_UP},
+			{name:'Slip Resistance', value:Item.FOOD_EFFECT_SLIP_RESISTANCE},
+			{name:'Stealth Up', value:Item.FOOD_EFFECT_STEALTH_UP}
 		];
 		item._htmlSelectFoodEffect=select('item-food-effects-'+item.category+'-'+item.index, foodEffects, function(){
 			item.foodEffect=parseInt(this.value);
@@ -148,7 +160,36 @@ MinusRupee_00:99999 //Poe
 };
 
 
-Item.FOOD_NO_EFFECT=0xb6eede09;
+Item.FOOD_EFFECT_NONE=0xb6eede09;
+Item.FOOD_EFFECT_STAMINA_RECOVER=0xe9a30056;
+Item.FOOD_EFFECT_ATTACK_PLUS=0xa9384c6c;
+Item.FOOD_EFFECT_ATTACK_PLUS_WITH_COLD=0x4a3e58f6;
+Item.FOOD_EFFECT_ATTACK_PLUS_WITH_HEAT=0x4c6a85d2;
+Item.FOOD_EFFECT_DEFENSE_PLUS=0xa0a00c0e;
+Item.FOOD_EFFECT_SPEED_PLUS=0xb3f6b87a;
+Item.FOOD_EFFECT_BRIGHTNESS=0x4939dca1;
+Item.FOOD_EFFECT_LIFE_MAX_EXTRA=0xc1db0965;
+Item.FOOD_EFFECT_LIFE_GLOOM_RECOVERY=0x3459853;
+Item.FOOD_EFFECT_MIASMA_GUARD=0x4d1e8af4;
+Item.FOOD_EFFECT_STAMINA_MAX_EXTRA=0x60d8315d;
+Item.FOOD_EFFECT_RESIST_BURN=0x11383afd;
+Item.FOOD_EFFECT_RESIST_HOT=0x1df7a011;
+Item.FOOD_EFFECT_RESIST_COLD=0x9b6d98fb;
+Item.FOOD_EFFECT_RESIST_ELECTRIC=0x183cd822;
+Item.FOOD_EFFECT_SWIM_SPEED_UP=0x67866c6d;
+Item.FOOD_EFFECT_SLIP_RESISTANCE=0x2b0cb1e9;
+Item.FOOD_EFFECT_STEALTH_UP=0x74141898;
+
+
+
+
+
+
+
+
+
+
+
 
 Item.TRANSLATIONS={
 'arrows':{
