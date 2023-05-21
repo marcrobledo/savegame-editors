@@ -110,7 +110,8 @@ Item.buildHtmlElements=function(item){
 		});
 		item._htmlSelectFoodEffectMultiplier.title='Multiplier';
 
-		item._htmlSelectFoodEffectTime=inputNumber('item-food-effects-time-'+item.category+'-'+item.index, 30, 4800, item.foodEffectTime);
+		//item._htmlSelectFoodEffectTime=inputNumber('item-food-effects-time-'+item.category+'-'+item.index, 30, 5999, item.foodEffectTime);
+		item._htmlSelectFoodEffectTime=inputNumber('item-food-effects-time-'+item.category+'-'+item.index, 30, 28800, item.foodEffectTime);
 		item._htmlSelectFoodEffectTime.addEventListener('change', function(){
 			var newVal=parseInt(this.value);
 			if(!isNaN(newVal) && newVal>0)
