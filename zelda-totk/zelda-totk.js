@@ -29,6 +29,7 @@ SavegameEditor={
 		0xf9212c74, 'MaxStamina',
 		0x15ec5858, 'PonyPoints',
 		0xe573f564, 'Playtime',
+		0xafd01d68, 'MaxBattery',
 
 		0xd7a3f6ba, 'ArrayPouchSwords',
 		0xc61785c2, 'ArrayPouchBows',
@@ -75,6 +76,11 @@ SavegameEditor={
 		if(typeof arrayIndex==='number')
 			return tempFile.readU32(SavegameEditor.Offsets[hashKey] + 0x04 + arrayIndex*0x04);
 		return tempFile.readU32(SavegameEditor.Offsets[hashKey]);
+	},
+	readF32:function(hashKey, arrayIndex){
+		if(typeof arrayIndex==='number')
+			return tempFile.readF32(SavegameEditor.Offsets[hashKey] + 0x04 + arrayIndex*0x04);
+		return tempFile.readF32(SavegameEditor.Offsets[hashKey]);
 	},
 	readString64:function(hashKey, arrayIndex){
 		if(typeof arrayIndex==='number')
@@ -539,6 +545,7 @@ SavegameEditor={
 		/*setValue('mons', this.readU32(this.Offsets.MONS));*/
 		setValue('max-hearts', this.readU32('MaxHearts'));
 		setValue('max-stamina', this.readU32('MaxStamina'));
+		setValue('max-battery', this.readF32('MaxBattery'));
 		setValue('pony-points', this.readU32('PonyPoints'));
 
 		setValue('number-pouch-size-swords', this.readU32Array('ArrayPouchSwords', 0));
@@ -600,6 +607,7 @@ SavegameEditor={
 		/*this.writeU32('Mons', getValue('mons'));*/
 		this.writeU32('MaxHearts', null, getValue('max-hearts'));
 		this.writeU32('MaxStamina', null, getValue('max-stamina'));
+		this.writeF32('MaxBattery', null, getValue('max-battery'));
 		this.writeU32('PonyPoints', null, getValue('pony-points'));
 
 		this.writeU32('ArrayPouchSwords', 0, getValue('pouch-size-swords'));
