@@ -69,25 +69,26 @@ Item.buildHtmlElements=function(item){
 	if(item.category==='food'){
 		var foodEffects=[
 			{name:'none', value:Item.FOOD_EFFECT_NONE},
-			{name:'Stamina', value:Item.FOOD_EFFECT_STAMINA_RECOVER},
+			{name:'Stamina recover', value:Item.FOOD_EFFECT_STAMINA_RECOVER},
+			{name:'Extra Heart', value:Item.FOOD_EFFECT_LIFE_MAX_EXTRA},
+			{name:'Extra Stamina', value:Item.FOOD_EFFECT_STAMINA_MAX_EXTRA},
+
 			{name:'Attack+', value:Item.FOOD_EFFECT_ATTACK_PLUS},
 			{name:'Attack+ with cold', value:Item.FOOD_EFFECT_ATTACK_PLUS_WITH_COLD},
 			{name:'Attack+ with heat', value:Item.FOOD_EFFECT_ATTACK_PLUS_WITH_HEAT},
 			{name:'Defense+', value:Item.FOOD_EFFECT_DEFENSE_PLUS},
 			{name:'Speed+', value:Item.FOOD_EFFECT_SPEED_PLUS},
 			{name:'Brightness', value:Item.FOOD_EFFECT_BRIGHTNESS},
+			{name:'Slip Resistance', value:Item.FOOD_EFFECT_SLIP_RESISTANCE},
+			{name:'Stealth Up', value:Item.FOOD_EFFECT_STEALTH_UP},
 
-			{name:'Extra Heart', value:Item.FOOD_EFFECT_LIFE_MAX_EXTRA},
 			{name:'Gloom Recovery', value:Item.FOOD_EFFECT_LIFE_GLOOM_RECOVERY},
 			{name:'Miasma Guard', value:Item.FOOD_EFFECT_MIASMA_GUARD},
-			{name:'Extra Stamina', value:Item.FOOD_EFFECT_STAMINA_MAX_EXTRA},
 			{name:'Flame Guard', value:Item.FOOD_EFFECT_RESIST_BURN},
 			{name:'Heat Resistance', value:Item.FOOD_EFFECT_RESIST_HOT},
 			{name:'Cold Resistance', value:Item.FOOD_EFFECT_RESIST_COLD},
 			{name:'Shock Resistance', value:Item.FOOD_EFFECT_RESIST_ELECTRIC},
-			{name:'Swim Speed Up', value:Item.FOOD_EFFECT_SWIM_SPEED_UP},
-			{name:'Slip Resistance', value:Item.FOOD_EFFECT_SLIP_RESISTANCE},
-			{name:'Stealth Up', value:Item.FOOD_EFFECT_STEALTH_UP}
+			{name:'Swim Speed Up', value:Item.FOOD_EFFECT_SWIM_SPEED_UP}
 		];
 		item._htmlSelectFoodEffect=select('item-food-effects-'+item.category+'-'+item.index, foodEffects, function(){
 			item.foodEffect=parseInt(this.value);
@@ -102,7 +103,7 @@ Item.buildHtmlElements=function(item){
 		});
 		item._htmlSelectFoodEffectHearts.title='Heart quarters heal';
 
-		item._htmlSelectFoodEffectMultiplier=inputNumber('item-food-effects-multiplier-'+item.category+'-'+item.index, 1, 8, item.foodEffectMultiplier);
+		item._htmlSelectFoodEffectMultiplier=inputNumber('item-food-effects-multiplier-'+item.category+'-'+item.index, 1, 40, item.foodEffectMultiplier);
 		item._htmlSelectFoodEffectMultiplier.addEventListener('change', function(){
 			var newVal=parseInt(this.value);
 			if(!isNaN(newVal) && newVal>0)
@@ -110,10 +111,10 @@ Item.buildHtmlElements=function(item){
 		});
 		item._htmlSelectFoodEffectMultiplier.title='Multiplier';
 
-		item._htmlSelectFoodEffectTime=inputNumber('item-food-effects-time-'+item.category+'-'+item.index, 30, 59999, item.foodEffectTime);
+		item._htmlSelectFoodEffectTime=inputNumber('item-food-effects-time-'+item.category+'-'+item.index, 0, 59999, item.foodEffectTime);
 		item._htmlSelectFoodEffectTime.addEventListener('change', function(){
 			var newVal=parseInt(this.value);
-			if(!isNaN(newVal) && newVal>0)
+			if(!isNaN(newVal) && newVal>=0)
 				item.foodEffectTime=newVal;
 		});
 		item._htmlSelectFoodEffectTime.title='Duration (in seconds)';
