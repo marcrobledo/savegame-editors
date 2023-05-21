@@ -37,16 +37,16 @@ SavegameEditor={
 		0x65efd0be, 'ArrayWeaponIds',
 		0x8b12d062, 'ArrayWeaponDurabilities',
 		0xdd846288, 'ArrayWeaponModifiers',
-		0xfda1d214, 'ArrayWeaponModifierValue',
+		0xfda1d214, 'ArrayWeaponModifierValues',
 		0x80707cad, 'ArrayWeaponFuseIds',
 		0x791c4a0b, 'ArrayBowIds',
 		0x60589200, 'ArrayBowDurabilities',
 		0xd59aeed5, 'ArrayBowModifiers',
-		0xdfd216f2, 'ArrayBowModifierValue',
+		0xdfd216f2, 'ArrayBowModifierValues',
 		0x273190f4, 'ArrayShieldIds',
 		0xc3416d19, 'ArrayShieldDurabilities',
 		0x464b410c, 'ArrayShieldModifiers',
-		0xa6a38304, 'ArrayShieldModifierValue',
+		0xa6a38304, 'ArrayShieldModifierValues',
 		0xc95833d9, 'ArrayShieldFuseIds',
 		0x754e8549, 'ArrayArmorIds',
 		0x24dd3262, 'ArrayArrowIds',
@@ -131,6 +131,22 @@ SavegameEditor={
 		else
 			tempFile.writeString(this.Offsets[hashKey], value, 0x40);
 	},
+	writeStringUTF8:function(hashKey, arrayIndex, value){
+		var bytes=new Array(0x20);
+		for(var i=0; i<value.length; i++){
+			var charCode=value.charCodeAt(i);
+			bytes[i*2 + 0]=charCode & 0xff;
+			bytes[i*2 + 1]=charCode >>> 8;
+		}
+		for(i=i*2; i<bytes.length; i++){
+			bytes[i]=0;
+		}
+
+		if(typeof arrayIndex==='number')
+			tempFile.writeBytes(this.Offsets[hashKey] + 0x04 + arrayIndex*0x20, bytes);
+		else
+			tempFile.writeBytes(this.Offsets[hashKey], bytes);
+	},
 	writeF32:function(hashKey, arrayIndex, value){
 		if(typeof arrayIndex==='number')
 			tempFile.writeF32(this.Offsets[hashKey] + 0x04 + arrayIndex*0x04, value);
@@ -208,6 +224,8 @@ SavegameEditor={
 				lastColumn.appendChild(item._htmlSelectFoodEffectMultiplier);
 				lastColumn.appendChild(item._htmlSelectFoodEffectTime);
 			}
+		}else if(item.category==='horses'){
+			lastColumn.appendChild(item._htmlInputName);
 		}
 
 		var r=row([1,6,3,2],
@@ -289,6 +307,8 @@ SavegameEditor={
 			return Armor.TRANSLATIONS;
 		else if(catId==='arrows' || catId==='materials' || catId==='food' || catId==='devices' || catId==='key')
 			return Item.TRANSLATIONS[catId];
+		else if(catId==='horses')
+			return Horse.TRANSLATIONS;
 		return null;
 	},
 
@@ -400,8 +420,8 @@ SavegameEditor={
 		setNumericRange('rupees', 0, 999999);
 		setNumericRange('pony-points', 0, 999999);
 
-		setNumericRange('pouch-size-swords', 9, 18);
-		setNumericRange('pouch-size-bows', 5, 13);
+		setNumericRange('pouch-size-swords', 9, 20);
+		setNumericRange('pouch-size-bows', 5, 14);
 		setNumericRange('pouch-size-shields', 4, 20);
 		getField('pouch-size-swords').addEventListener('change', function(evt){
 			var newVal=parseInt(this.value);
@@ -418,23 +438,6 @@ SavegameEditor={
 			if(!isNaN(newVal) && newVal>=4)
 				SavegameEditor.currentItems.pouchShield=newVal;
 		});
-		
-		var horseTypes=[];
-		Horse.HORSE_TYPES.forEach(function(id){
-			horseTypes.push({name:id, value:id});
-		});
-		for(var i=0; i<6; i++){
-			select('horse'+i+'-type', horseTypes, function(){
-				SavegameEditor.currentItems.horses[this.horseIndex].id=this.value;
-			});
-			get('select-horse'+i+'-type').horseIndex=i;
-
-			get('input-horse'+i+'-name').addEventListener('change', function(){
-				SavegameEditor.currentHorses[this.horseIndex].name=this.value.trim();
-			});
-			get('input-horse'+i+'-name').horseIndex=i;
-			get('input-horse'+i+'-name').disabled=true;
-		}
 
 
 		/*setNumericRange('mons', 0, 999999);
@@ -511,7 +514,7 @@ SavegameEditor={
 		this.selectItem.lastCategory=null;
 
 		/* empty item containers */
-		var ITEM_CATS=['weapons','bows','shields','armors','arrows','materials','food','devices','key'];
+		var ITEM_CATS=['weapons','bows','shields','armors','arrows','materials','food','devices','key','horses'];
 		ITEM_CATS.forEach(function(catId, i){
 			empty('container-'+catId);
 		});
@@ -586,38 +589,6 @@ SavegameEditor={
 			MarcTooltips.add('#container-'+catId+' select',{position:'bottom',align:'right'});
 			MarcTooltips.add('#container-'+catId+' input',{position:'bottom',align:'right'});
 		});
-
-
-		/* horses */
-		for(var i=0; i<6; i++){
-			hide('row-horse'+i);
-
-			var horse=this.currentItems.horses[i];
-			if(horse && horse.id && horse.name){
-				get('row-horse'+horse.index).style.display='flex';
-				get('select-horse'+horse.index+'-type').value=horse.id;
-				get('input-horse'+horse.index+'-name').value=horse.name;
-			}
-		}
-		/*for(var i=0; i<6; i++){
-			if(i<5){
-				setValue('horse'+i+'-name',this._readString64(this.Offsets.HORSE_NAMES, i));
-				setValue('horse'+i+'-saddles',this._readString64(this.Offsets.HORSE_SADDLES, i));
-				setValue('horse'+i+'-reins',this._readString64(this.Offsets.HORSE_REINS, i));
-			}
-			var horseType=this._readString64(this.Offsets.HORSE_TYPES, i);
-			if(horseType){
-				setValue('horse'+i+'-type',horseType);
-				get('row-horse'+i).style.visibility='visible';
-			}else{
-				get('row-horse'+i).style.visibility='hidden';
-			}
-		}*/
-
-
-
-
-
 
 		showTab('home');
 	},

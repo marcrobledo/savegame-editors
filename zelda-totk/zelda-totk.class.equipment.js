@@ -59,7 +59,7 @@ Equipment.prototype.save=function(){
 	SavegameEditor.writeString64('Array'+categoryHash+'Ids', this.index, this.id);
 	SavegameEditor.writeU32('Array'+categoryHash+'Durabilities', this.index, this.durability);
 	SavegameEditor.writeU32('Array'+categoryHash+'Modifiers', this.index, this.modifier);
-	SavegameEditor.writeU32('Array'+categoryHash+'ModifierValue', this.index, this.modifierValue);
+	SavegameEditor.writeU32('Array'+categoryHash+'ModifierValues', this.index, this.modifierValue);
 
 	/*if(this.isFusable())
 		SavegameEditor.writeString64('ArrayWeaponFuseIds', this.index, this.fuseId);*/

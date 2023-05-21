@@ -11,15 +11,31 @@ function Horse(index, id, name){
 
 	this.id=id;
 	this.name=name;
+
+	Horse.buildHtmlElements(this);
+}
+Horse.prototype.getItemTranslation=function(){
+	return Horse.TRANSLATIONS[this.id] || this.id;
 }
 Horse.prototype.save=function(){
 	SavegameEditor.writeString64('ArrayHorseIds', this.index, this.id);
+	SavegameEditor.writeStringUTF8('ArrayHorseNames', this.index, this.name);
 }
 
 
-Horse.buildHtmlElements=function(horse){
+Horse.buildHtmlElements=function(item){
 	//build html elements
-	//to-do
+	item._htmlInputName=input('name-'+item.category+'-'+item.index, item.name);
+	item._htmlInputName.addEventListener('change', function(){
+		var newVal=this.value;
+		if(newVal.length>9)
+			newVal=newVal.substr(0,9);
+		if(!newVal)
+			newVal='a';
+		item.name=newVal;
+	});
+	item._htmlInputName.title='Horse name';
+	item._htmlInputName.maxLength=9;
 }
 
 Horse.readAll=function(){
@@ -41,6 +57,7 @@ Horse.HORSE_TYPES=[
 	'GameRomHorse00','GameRomHorse01','GameRomHorse02','GameRomHorse03','GameRomHorse04','GameRomHorse05','GameRomHorse06','GameRomHorse07','GameRomHorse08','GameRomHorse09','GameRomHorse10','GameRomHorse11','GameRomHorse12','GameRomHorse13','GameRomHorse14','GameRomHorse15','GameRomHorse16','GameRomHorse17','GameRomHorse18','GameRomHorse19','GameRomHorse20','GameRomHorse21','GameRomHorse22','GameRomHorse23','GameRomHorse25','GameRomHorse26','GameRomHorseEpona','GameRomHorseZelda','GameRomHorse00L','GameRomHorse01L','GameRomHorseGold',
 
 	//untested, posible freeze
+	'GameRomHorseSpPattern',
 	'GameRomHorseBone',
 	'GameRomHorseBone_AllDay',
 	'GameRomHorseForStreetVender',
@@ -51,6 +68,10 @@ Horse.HORSE_SADDLES=['GameRomHorseSaddle_00','GameRomHorseSaddle_01','GameRomHor
 Horse.HORSE_TYPES_UNTAMMED=[];
 
 
-Horse.TRANSLATIONS={
-	//to-do
-};
+Horse.TRANSLATIONS=(function(horseTypes){
+	var names={};
+	horseTypes.forEach(function(id, i){
+		names[id]=id.replace('GameRom', '');
+	});
+	return names;
+}(Horse.HORSE_TYPES));
