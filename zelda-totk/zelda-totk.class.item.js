@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Item class) v20230521
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Item class) v20230522
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -10,7 +10,7 @@ function Item(catId, index, id, quantity, foodEffect, foodEffectHearts, foodEffe
 	this.index=index;
 
 	this.id=id;
-	this.quantity=quantity || 1;
+	this.quantity=typeof quantity==='number'? quantity : 1;
 
 	if(catId==='food'){
 		this.foodEffect=typeof foodEffect==='number'? foodEffect : Item.FOOD_EFFECT_NONE;
@@ -95,29 +95,32 @@ Item.buildHtmlElements=function(item){
 		}, item.foodEffect);
 		item._htmlSelectFoodEffect.title='Food effect';
 
-		item._htmlSelectFoodEffectHearts=inputNumber('item-food-effects-hearts-'+item.category+'-'+item.index, 0, 40*4, item.foodEffectHearts);
-		item._htmlSelectFoodEffectHearts.addEventListener('change', function(){
+		item._htmlInputFoodEffectHearts=inputNumber('item-food-effects-hearts-'+item.category+'-'+item.index, 0, 40*4, item.foodEffectHearts);
+		item._htmlInputFoodEffectHearts.addEventListener('change', function(){
 			var newVal=parseInt(this.value);
 			if(!isNaN(newVal) && newVal>0)
 				item.foodEffectHearts=newVal;
 		});
-		item._htmlSelectFoodEffectHearts.title='Heart quarters heal';
+		item._htmlInputFoodEffectHearts.title='Heart quarters heal';
 
-		item._htmlSelectFoodEffectMultiplier=inputNumber('item-food-effects-multiplier-'+item.category+'-'+item.index, 1, 40, item.foodEffectMultiplier);
-		item._htmlSelectFoodEffectMultiplier.addEventListener('change', function(){
+		item._htmlInputFoodEffectMultiplier=inputNumber('item-food-effects-multiplier-'+item.category+'-'+item.index, 1, 250, item.foodEffectMultiplier);
+		item._htmlInputFoodEffectMultiplier.addEventListener('change', function(){
 			var newVal=parseInt(this.value);
 			if(!isNaN(newVal) && newVal>0)
 				item.foodEffectMultiplier=newVal;
 		});
-		item._htmlSelectFoodEffectMultiplier.title='Multiplier';
+		item._htmlInputFoodEffectMultiplier.title='Multiplier';
 
-		item._htmlSelectFoodEffectTime=inputNumber('item-food-effects-time-'+item.category+'-'+item.index, 0, 59999, item.foodEffectTime);
-		item._htmlSelectFoodEffectTime.addEventListener('change', function(){
+		item._htmlInputFoodEffectTime=inputNumber('item-food-effects-time-'+item.category+'-'+item.index, 0, 59999, item.foodEffectTime);
+		item._htmlInputFoodEffectTime.addEventListener('change', function(){
 			var newVal=parseInt(this.value);
 			if(!isNaN(newVal) && newVal>=0)
 				item.foodEffectTime=newVal;
 		});
-		item._htmlSelectFoodEffectTime.title='Duration (in seconds)';
+		item._htmlInputFoodEffectTime.title='Duration (in seconds)';
+
+		item._htmlSpanFoodEffectUnknownValue=span(item.foodEffectUnknown1);
+		item._htmlSpanFoodEffectUnknownValue.title='Unknown value';
 	}
 }
 
