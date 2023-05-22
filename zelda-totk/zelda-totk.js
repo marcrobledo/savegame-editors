@@ -67,7 +67,11 @@ SavegameEditor={
 		0x60fac288, 'ArrayKeyQuantities',
 
 		0x7bde80e9, 'ArrayHorseIds',
-		0xd2ddb868, 'ArrayHorseNames'
+		0xd2ddb868, 'ArrayHorseNames',
+		
+		0x14d7f4c4, 'ArrayMapPinIcons',
+		0xf24fc2e7, 'ArrayMapPinCoordinates',
+		0xd2025694, 'ArrayMapPinMap'
 	],
 
 
@@ -81,6 +85,18 @@ SavegameEditor={
 		if(typeof arrayIndex==='number')
 			return tempFile.readF32(SavegameEditor.Offsets[hashKey] + 0x04 + arrayIndex*0x04);
 		return tempFile.readF32(SavegameEditor.Offsets[hashKey]);
+	},
+	readVector2F:function(hashKey, arrayIndex){
+		if(typeof arrayIndex==='number'){
+			return {
+				x: tempFile.readF32(SavegameEditor.Offsets[hashKey] + 0x04 + arrayIndex*0x08),
+				y: tempFile.readF32(SavegameEditor.Offsets[hashKey] + 0x04 + arrayIndex*0x08 + 0x04)
+			}
+		}
+		return {
+			x: tempFile.readF32(SavegameEditor.Offsets[hashKey]),
+			y: tempFile.readF32(SavegameEditor.Offsets[hashKey] + 0x04)
+		}
 	},
 	readString64:function(hashKey, arrayIndex){
 		if(typeof arrayIndex==='number')
@@ -160,6 +176,16 @@ SavegameEditor={
 			tempFile.writeF32(this.Offsets[hashKey], value);
 	},
 
+	writeVector2F:function(hashKey, arrayIndex, vector){
+		if(typeof arrayIndex==='number'){
+			tempFile.writeF32(this.Offsets[hashKey] + 0x04 + arrayIndex*0x08, vector.x);
+			tempFile.writeF32(this.Offsets[hashKey] + 0x04 + arrayIndex*0x08 + 0x04, vector.y);
+		}else{
+			tempFile.writeF32(this.Offsets[hashKey], vector.x);
+			tempFile.writeF32(this.Offsets[hashKey] + 0x04, vector.y);
+		}
+	},
+
 
 	/* private functions */
 	_toHexInt:function(i){var s=i.toString(16);while(s.length<8)s='0'+s;return '0x'+s},
@@ -182,6 +208,24 @@ SavegameEditor={
 				console.error('hash '+this.Hashes[i+1]+' not found');
 			}
 		}
+	},
+	_getOffsetsByHashes:function(hashes){
+		var offsets={};
+		for(var i=0x000028; i<0x03c800; i+=8){
+			var hash=tempFile.readU32(i);
+			var foundHashIndex=hashes.indexOf(hash);
+			if(hash===0xa3db7114){ //looks like this hash is always the final one (at least in v1.0 and v1.1)
+				break;
+			}else if(foundHashIndex!==-1){
+				offsets[hashes[foundHashIndex]]=i+4;
+			}
+		}
+		for(var i=0; i<hashes.length; i++){
+			if(typeof offsets[hashes[i]] === 'undefined'){
+				console.error('hash ['+i+']:'+hashes[i].toString(16)+' not found');
+			}
+		}
+		return offsets;
 	},
 
 	_createItemRow:function(item){
@@ -226,9 +270,10 @@ SavegameEditor={
 			lastColumn.appendChild(item._htmlInputQuantity);
 			if(item.category==='food'){
 				lastColumn.appendChild(item._htmlSelectFoodEffect);
-				lastColumn.appendChild(item._htmlSelectFoodEffectHearts);
-				lastColumn.appendChild(item._htmlSelectFoodEffectMultiplier);
-				lastColumn.appendChild(item._htmlSelectFoodEffectTime);
+				lastColumn.appendChild(item._htmlInputFoodEffectHearts);
+				lastColumn.appendChild(item._htmlInputFoodEffectMultiplier);
+				lastColumn.appendChild(item._htmlInputFoodEffectTime);
+				//lastColumn.appendChild(item._htmlSpanFoodEffectUnknownValue);
 			}
 		}else if(item.category==='horses'){
 			lastColumn.appendChild(item._htmlInputName);
@@ -366,6 +411,46 @@ SavegameEditor={
 		});
 	},
 
+	addMapPin:function(icon, x, y, z){
+		for(var i=0; i<this.currentItems.mapPins.length; i++){
+			if(this.currentItems.mapPins[i].isFree() && !MapPin.find(this.currentItems.mapPins, x, y, z)){
+				this.currentItems.mapPins[i].icon=icon;
+				this.currentItems.mapPins[i].coordinates={x:x, y:y};
+				this.currentItems.mapPins[i].map=MapPin.getMapByZ(z);
+				this.refreshMapPinsCounter();
+				return true;
+			}
+		}
+		return false;
+	},
+	addKorokPins:function(start, end){
+		var count=0;
+		for(var i=start; i<=end && i<Korok.COORDINATES.length; i++){
+			if(this.addMapPin(MapPin.ICON_LEAF, Korok.COORDINATES[i][2], Korok.COORDINATES[i][3], Korok.COORDINATES[i][4]))
+				count++;
+		}
+
+		this.refreshMapPinsCounter();
+		MarcDialogs.alert(count+' map pins added');
+		return count;
+	},
+	clearAllMapPins:function(){
+		var count=0;
+		for(var i=0; i<this.currentItems.mapPins.length; i++){
+			if(this.currentItems.mapPins[i].clear())
+				count++;
+		}
+
+		this.refreshMapPinsCounter();
+		MarcDialogs.alert(count+' map pins removed');
+		return count;
+	},
+
+	refreshMapPinsCounter:function(){
+		var count=MapPin.count(this.currentItems.mapPins);
+		setValue('pin-counter', count+'<small>/'+MapPin.MAX+'</small>');
+	},
+
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
 		tempFile.littleEndian=true;
@@ -500,8 +585,6 @@ SavegameEditor={
 			}
 		});*/
 
-		
-		
 		MarcTooltips.add('.tab-button',{className:'dark',fixed:true});
 	},
 
@@ -537,7 +620,9 @@ SavegameEditor={
 			'devices':Item.readAll('devices'),
 			'key':Item.readAll('key'),
 			
-			'horses':Horse.readAll()
+			'horses':Horse.readAll(),
+			
+			'mapPins':MapPin.readAll()
 		};
 	
 		/* prepare editor */
@@ -584,7 +669,7 @@ SavegameEditor={
 
 
 		/* map pins */
-		/*loadMapPins();*/
+		this.refreshMapPinsCounter();
 
 		/* build item containers */
 		ITEM_CATS.forEach(function(catId, i){
@@ -648,6 +733,12 @@ SavegameEditor={
 		/* HORSES */
 		for(var i=0; i<SavegameEditor.currentItems.horses.length; i++){
 			SavegameEditor.currentItems.horses[i].save();
+		}
+
+
+		/* MAP PINS */
+		for(var i=0; i<SavegameEditor.currentItems.mapPins.length; i++){
+			SavegameEditor.currentItems.mapPins[i].save();
 		}
 	}
 }
