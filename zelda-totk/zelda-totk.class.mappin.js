@@ -11,9 +11,6 @@ function MapPin(index, icon, coordinates, map){
 	this.coordinates=coordinates;
 	this.map=map;
 }
-MapPin.prototype.equals=function(mapPin){
-	return this.coordinates.x===mapPin.coordinates.x && this.coordinates.y===mapPin.coordinates.y && this.map===mapPin.map
-}
 MapPin.prototype.clear=function(){
 	if(!this.isFree()){
 		this.icon=MapPin.ICON_NONE;
@@ -52,6 +49,16 @@ MapPin.count=function(mapPins){
 			count++;
 	}
 	return count;
+}
+MapPin.find=function(mapPins, x, y, z){
+	for(var i=0; i<mapPins.length; i++){
+		if(mapPins[i].coordinates.x===x && mapPins[i].coordinates.y===y && mapPins[i].map===MapPin.getMapByZ(z))
+			return true;
+	}
+	return false;
+}
+MapPin.getMapByZ=function(z){
+	return z>800? MapPin.MAP_SKY : MapPin.MAP_MAIN;
 }
 
 MapPin.ICON_NONE=0x7e3d1e46;
