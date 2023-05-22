@@ -4,11 +4,32 @@
 	by Marc Robledo 2023
 */
 
-function MapPin(index, icon, vector){
+function MapPin(index, icon, coordinates, map){
 	this.index=index;
 
 	this.icon=icon;
-	this.vector=vector;
+	this.coordinates=coordinates;
+	this.map=map;
+}
+MapPin.prototype.equals=function(mapPin){
+	return this.coordinates.x===mapPin.coordinates.x && this.coordinates.y===mapPin.coordinates.y && this.map===mapPin.map
+}
+MapPin.prototype.clear=function(){
+	if(!this.isFree()){
+		this.icon=MapPin.ICON_NONE;
+		this.coordinates={x:0.0, y:0.0};
+		this.map=MapPin.MAP_MAIN;
+		return true;
+	}
+	return false;
+}
+MapPin.prototype.isFree=function(){
+	return this.icon===MapPin.ICON_NONE;
+}
+MapPin.prototype.save=function(){
+	SavegameEditor.writeU32('ArrayMapPinIcons', this.index, this.icon);
+	SavegameEditor.writeVector2F('ArrayMapPinCoordinates', this.index, this.coordinates);
+	SavegameEditor.writeU32('ArrayMapPinMap', this.index, this.map);
 }
 
 MapPin.readAll=function(){
@@ -18,7 +39,8 @@ MapPin.readAll=function(){
 		mapPins.push(new MapPin(
 			i,
 			mapPinIcons[i],
-			SavegameEditor.readVector2F('ArrayMapPinCoordinates', i)
+			SavegameEditor.readVector2F('ArrayMapPinCoordinates', i),
+			SavegameEditor.readU32Array('ArrayMapPinMap', i)
 		));
 	}
 	return mapPins;
@@ -26,8 +48,8 @@ MapPin.readAll=function(){
 MapPin.count=function(mapPins){
 	var count=0;
 	for(var i=0; i<mapPins.length; i++){
-		if(mapPins[i].icon!==MapPin.ICON_NONE)
-			count+=mapPins[i].value;
+		if(!mapPins[i].isFree())
+			count++;
 	}
 	return count;
 }
@@ -43,3 +65,9 @@ MapPin.ICON_CHEST=0x0aedde59;
 MapPin.ICON_SKULL=0x3028107d;
 MapPin.ICON_LEAF=0x51b0bed0;
 MapPin.ICON_CRYSTAL=0x8093120e;
+
+MapPin.MAP_SKY=0xb1085c38;
+MapPin.MAP_MAIN=0x24950135;
+MapPin.MAP_MINUS=0xf0235d8d;
+
+MapPin.MAX=300;
