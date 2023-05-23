@@ -44,13 +44,17 @@ Compendium.setToStock=function(all){
 	var flagsOffsets=SavegameEditor._getOffsetsByHashes(Compendium.HASHES_GOT_FLAGS);
 	for(var i=0; i<Compendium.HASHES_GOT_FLAGS.length; i++){
 		var val=tempFile.readU32(flagsOffsets[Compendium.HASHES_GOT_FLAGS[i]]);
-		if(val===Compendium.STATUS_CUSTOM || (all && Compendium.STATUS_NO_PIC)){
+		if((!all && val===Compendium.STATUS_CUSTOM) || (all && val===Compendium.STATUS_NO_PIC)){
 			tempFile.writeU32(flagsOffsets[Compendium.HASHES_GOT_FLAGS[i]], Compendium.STATUS_STOCK);
 			count++;
 		}
 	}
 
-	MarcDialogs.alert(count+' pictures set to stock.<br/>You can now delete all *.jpg images in /picturebook/ folder');
+	if(all){
+		MarcDialogs.alert(count+' pictures unlocked.');
+	}else{
+		MarcDialogs.alert(count+' pictures set to stock.<br/>You can now delete all .jpg images in /picturebook/ folder');
+	}
 	SavegameEditor.refreshCompendiumCounter();
 	return count;
 }
