@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="./zelda-totk.class.item.js"></script>
 	<script type="text/javascript" src="./zelda-totk.class.korok.js"></script>
 	<script type="text/javascript" src="./zelda-totk.class.mappin.js"></script>
+	<script type="text/javascript" src="./zelda-totk.class.compendium.js"></script>
 	<script type="text/javascript" src="./zelda-totk.master.js"></script>
 	<script type="text/javascript"><!--
 		/* service worker */
@@ -244,16 +245,15 @@
 			<div class="two columns"><input id="number-pouch-size-shields" class="full-width" type="text" /></div>
 		</div>
 	
-		<!-- Coordinates (Requires a memory editor) -->
-		<!-- <h3 class="border-green">Coordinates</h3>
+		<!-- Coordinates -->
+		<h3 class="border-green">Coordinates</h3>
 		<div class="row">
 			<div class="six columns"><label for="float-pos-x">Current Link coordinates (XYZ)</label></div>
-			<div class="two columns"><input id="float-pos-x" onchange="guessMainFieldGrid()" class="full-width" type="text" /></div>
-			<div class="two columns"><input id="float-pos-y" onchange="guessMainFieldGrid()" class="full-width" type="text" /></div>
-			<div class="two columns"><input id="float-pos-z" onchange="guessMainFieldGrid()" class="full-width" type="text" /></div>
+			<div class="two columns"><input id="float-pos-x" class="full-width" type="text" /></div>
+			<div class="two columns"><input id="float-pos-y" class="full-width" type="text" /></div>
+			<div class="two columns"><input id="float-pos-z" class="full-width" type="text" /></div>
 		</div>
-
-		<div class="row">
+		<!-- <div class="row">
 			<div class="six columns"><label for="select-pos-maptype">Map</label></div>
 			<div class="three columns"><select id="select-pos-maptype"></select></div>
 			<div class="three columns"><select id="select-pos-map"></select></div>
@@ -267,19 +267,19 @@
 		<!-- COMPLETIONISM -->
 		<h3 class="border-blue">Completionism</h3>
 		<div class="row mb-10">
-			<div class="seven columns">Map pins <span id="span-pin-counter"></span></div>
-			<div class="five columns text-right">
+			<div class="four columns">Map pins <span id="span-pin-counter"></span></div>
+			<div class="eight columns text-right">
 				<button onclick="SavegameEditor.clearAllMapPins()">Remove all map pins</button>
 			</div>
 		</div>
-		<!-- <div class="row mb-10">
-			<div class="seven columns"><label for="number-koroks">Korok seeds</label></div>
-			<div class="five columns text-right">
-				<button onclick="SavegameEditor.addKorokPins(0, 299)">Pin korok #001-#300 to map</button>
-				<button onclick="SavegameEditor.addKorokPins(300, 599)">Pin koroks #301-#600 to map</button>
-				<button onclick="SavegameEditor.addKorokPins(600, 899)">Pin koroks #601-#900 to map</button>
+		<div class="row mb-10">
+			<div class="four columns"><label for="number-koroks">Pin korok locations to map</label></div>
+			<div class="eight columns text-right">
+				<button onclick="SavegameEditor.addKorokPins(0, 299)">Koroks #001-#300</button>
+				<button onclick="SavegameEditor.addKorokPins(300, 599)">Koroks #301-#600</button>
+				<button onclick="SavegameEditor.addKorokPins(600, 899)">Koroks #601-#900</button>
 			</div>
-		</div> -->
+		</div>
 
 		<!-- <div class="row">
 			<div class="seven columns"><label for="number-defeated-hinox">Defeated Hinox</label></div>
@@ -304,27 +304,20 @@
 				<button onclick="defeatAllMolduga()">Defeat all</button>
 				<button onclick="addMoldugaToMap()">Add pins to Map</button>
 			</div>
-		</div>
-		<div class="row">
-			<div class="nine columns"><label for="number-defeated-molduga">Hyrule Compendium</label></div>
-			<div class="three columns text-right">
-				<button onclick="setCompendiumToStock()">Set to stock</button>
+		</div> -->
+		<div class="row mb-10">
+			<div class="four columns">Hyrule Compendium <span id="span-compendium-counter"></span></div>
+			<div class="eight columns text-right">
+				<button onclick="Compendium.setToStock(false)">Set current to stock</button>
+				<button onclick="Compendium.setToStock(true)">Unlock all</button>
 			</div>
 		</div>
 
-		<div class="row">
+		<!-- <div class="row">
 			<div class="seven columns">Visited locations</div>
 			<div class="five columns text-right">
 				<button onclick="visitAllLocations()">Visit all</button>
 				<button onclick="addLocationsToMap()">Add pins to Map</button>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="nine columns">Map Pins</div>
-			<div class="three columns text-right">
-				<input type="text" id="number-map-pins" style="width:50px" disabled />
-				<button onclick="clearMapPins()">Clear</button>
 			</div>
 		</div> -->
 	</div>

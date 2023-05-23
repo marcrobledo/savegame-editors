@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230521
+	The legend of Zelda: Tears of the Kingdom savegame editor v20230523
 	by Marc Robledo 2017-2020
 */
 var currentEditingItem;
@@ -31,6 +31,7 @@ SavegameEditor={
 		0xe573f564, 'Playtime',
 		0xafd01d68, 'MaxBattery',
 
+		0xc884818d, 'PlayerPos', //Vector3F
 		0xd7a3f6ba, 'ArrayPouchSwords',
 		0xc61785c2, 'ArrayPouchBows',
 		0x05271e7d, 'ArrayPouchShields',
@@ -71,7 +72,9 @@ SavegameEditor={
 		
 		0x14d7f4c4, 'ArrayMapPinIcons',
 		0xf24fc2e7, 'ArrayMapPinCoordinates',
-		0xd2025694, 'ArrayMapPinMap'
+		0xd2025694, 'ArrayMapPinMap',
+		
+		0xdcd9f005, 'StructCompendium'
 	],
 
 
@@ -96,6 +99,20 @@ SavegameEditor={
 		return {
 			x: tempFile.readF32(SavegameEditor.Offsets[hashKey]),
 			y: tempFile.readF32(SavegameEditor.Offsets[hashKey] + 0x04)
+		}
+	},
+	readVector3F:function(hashKey, arrayIndex){
+		/*if(typeof arrayIndex==='number'){
+			return {
+				x: tempFile.readF32(SavegameEditor.Offsets[hashKey] + 0x04 + arrayIndex*0x0c),
+				y: tempFile.readF32(SavegameEditor.Offsets[hashKey] + 0x04 + arrayIndex*0x0c + 0x04),
+				z: tempFile.readF32(SavegameEditor.Offsets[hashKey] + 0x04 + arrayIndex*0x0c + 0x08)
+			}
+		}*/
+		return {
+			x: tempFile.readF32(SavegameEditor.Offsets[hashKey]),
+			y: tempFile.readF32(SavegameEditor.Offsets[hashKey] + 0x04),
+			z: tempFile.readF32(SavegameEditor.Offsets[hashKey] + 0x08)
 		}
 	},
 	readString64:function(hashKey, arrayIndex){
@@ -186,6 +203,18 @@ SavegameEditor={
 		}
 	},
 
+	writeVector3F:function(hashKey, arrayIndex, vector){
+		var offset=tempFile.readF32(SavegameEditor.Offsets[hashKey]);
+		if(typeof arrayIndex==='number'){
+			/*tempFile.writeF32(this.Offsets[hashKey] + 0x04 + arrayIndex*0x08, vector.x);
+			tempFile.writeF32(this.Offsets[hashKey] + 0x04 + arrayIndex*0x08 + 0x04, vector.y);*/
+		}else{
+			tempFile.writeF32(this.Offsets[hashKey], vector.x);
+			tempFile.writeF32(this.Offsets[hashKey] + 0x04, vector.y);
+			tempFile.writeF32(this.Offsets[hashKey] + 0x08, vector.z);
+		}
+	},
+
 
 	/* private functions */
 	_toHexInt:function(i){var s=i.toString(16);while(s.length<8)s='0'+s;return '0x'+s},
@@ -197,7 +226,7 @@ SavegameEditor={
 			if(hash===0xa3db7114){ //looks like this hash is always the final one (at least in v1.0 and v1.1)
 				break;
 			}else if(foundHashIndex!==-1){
-				if(/^Array/.test(this.Hashes[foundHashIndex+1]))
+				if(/^(Array|PlayerPos)/.test(this.Hashes[foundHashIndex+1]))
 					this.Offsets[this.Hashes[foundHashIndex+1]]=tempFile.readU32(i+4);
 				else
 					this.Offsets[this.Hashes[foundHashIndex+1]]=i+4;
@@ -426,7 +455,7 @@ SavegameEditor={
 	addKorokPins:function(start, end){
 		var count=0;
 		for(var i=start; i<=end && i<Korok.COORDINATES.length; i++){
-			if(this.addMapPin(MapPin.ICON_LEAF, Korok.COORDINATES[i][2], Korok.COORDINATES[i][3], Korok.COORDINATES[i][4]))
+			if(this.addMapPin(MapPin.ICON_LEAF, Korok.COORDINATES[i][2], Korok.COORDINATES[i][4], Korok.COORDINATES[i][3])) //vector3f is turned into a vector2f --> z->y
 				count++;
 		}
 
@@ -449,6 +478,11 @@ SavegameEditor={
 	refreshMapPinsCounter:function(){
 		var count=MapPin.count(this.currentItems.mapPins);
 		setValue('pin-counter', count+'<small>/'+MapPin.MAX+'</small>');
+	},
+
+	refreshCompendiumCounter:function(){
+		var count=Compendium.count();
+		setValue('compendium-counter', count.total+'<small>/'+Compendium.HASHES_GOT_FLAGS.length+'</small>');
 	},
 
 	/* check if savegame is valid */
@@ -626,6 +660,8 @@ SavegameEditor={
 		};
 	
 		/* prepare editor */
+		setValue('playtime', this._timeToString(this.readU32('Playtime')));
+
 		setValue('rupees', this.readU32('CurrentRupees'));
 		/*setValue('mons', this.readU32(this.Offsets.MONS));*/
 		setValue('max-hearts', this.readU32('MaxHearts'));
@@ -637,7 +673,16 @@ SavegameEditor={
 		setValue('number-pouch-size-bows', this.readU32Array('ArrayPouchBows', 0));
 		setValue('number-pouch-size-shields', this.readU32Array('ArrayPouchShields', 0));
 
-		setValue('playtime', this._timeToString(this.readU32('Playtime')));
+
+
+		/* coordinates */
+		var playerPos=this.readVector3F('PlayerPos');
+		setValue('pos-x', playerPos.x);
+		setValue('pos-y', -playerPos.z);
+		setValue('pos-z', playerPos.y-105);
+
+
+
 
 		/*setValue('relic-gerudo', tempFile.readU32(this.Offsets.RELIC_GERUDO));
 		setValue('relic-goron', tempFile.readU32(this.Offsets.RELIC_GORON));
@@ -649,10 +694,6 @@ SavegameEditor={
 		setValue('defeated-molduga', tempFile.readU32(this.Offsets.DEFEATED_MOLDUGA_COUNTER));*/
 
 
-		/* coordinates */
-		/*setValue('pos-x', tempFile.readF32(this.Offsets.PLAYER_POSITION));
-		setValue('pos-y', tempFile.readF32(this.Offsets.PLAYER_POSITION+8));
-		setValue('pos-z', tempFile.readF32(this.Offsets.PLAYER_POSITION+16));*/
 
 		/*var map=this._readString(this.Offsets.MAP);
 		var mapType=this._readString(this.Offsets.MAPTYPE);
@@ -661,15 +702,14 @@ SavegameEditor={
 		getField('pos-maptype').children[0].value=mapType;
 		getField('pos-maptype').children[0].innerHTML='* '+mapType+' *';
 		setValue('pos-map',map)
-		setValue('pos-maptype',mapType)
-
-		setValue('pos-x-horse', tempFile.readF32(this.Offsets.HORSE_POSITION));
-		setValue('pos-y-horse', tempFile.readF32(this.Offsets.HORSE_POSITION+8));
-		setValue('pos-z-horse', tempFile.readF32(this.Offsets.HORSE_POSITION+16));*/
+		setValue('pos-maptype',mapType);*/
 
 
 		/* map pins */
 		this.refreshMapPinsCounter();
+		
+		/* compendium */
+		this.refreshCompendiumCounter();
 
 		/* build item containers */
 		ITEM_CATS.forEach(function(catId, i){
@@ -698,7 +738,15 @@ SavegameEditor={
 		this.writeU32('ArrayPouchSwords', 0, getValue('pouch-size-swords'));
 		this.writeU32('ArrayPouchBows', 0, getValue('pouch-size-bows'));
 		this.writeU32('ArrayPouchShields', 0, getValue('pouch-size-shields'));
-	
+
+
+		var playerPos={
+			x:getValue('pos-x'),
+			z:-getValue('pos-y'),
+			y:getValue('pos-z')+105
+		};
+		this.writeVector3F('PlayerPos', null, playerPos);
+
 		/*tempFile.writeU32(this.Offsets.RELIC_GERUDO, getValue('relic-gerudo'));
 		tempFile.writeU32(this.Offsets.RELIC_GORON, getValue('relic-goron'));
 		tempFile.writeU32(this.Offsets.RELIC_RITO, getValue('relic-rito'));
@@ -710,16 +758,8 @@ SavegameEditor={
 
 
 		/* COORDINATES */
-		/*tempFile.writeF32(this.Offsets.PLAYER_POSITION, getValue('pos-x'));
-		tempFile.writeF32(this.Offsets.PLAYER_POSITION+8, getValue('pos-y'));
-		tempFile.writeF32(this.Offsets.PLAYER_POSITION+16, getValue('pos-z'));
-		
-		this._writeString(this.Offsets.MAP, getValue('pos-map'))
-		this._writeString(this.Offsets.MAPTYPE, getValue('pos-maptype'))
-
-		tempFile.writeF32(this.Offsets.HORSE_POSITION, getValue('pos-x-horse'));
-		tempFile.writeF32(this.Offsets.HORSE_POSITION+8, getValue('pos-y-horse'));
-		tempFile.writeF32(this.Offsets.HORSE_POSITION+16, getValue('pos-z-horse'));*/
+		/*this._writeString(this.Offsets.MAP, getValue('pos-map'))
+		this._writeString(this.Offsets.MAPTYPE, getValue('pos-maptype'))*/
 
 
 		/* ITEMS */
