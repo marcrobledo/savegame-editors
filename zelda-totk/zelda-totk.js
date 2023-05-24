@@ -51,6 +51,7 @@ SavegameEditor={
 		0xa6a38304, 'ArrayShieldModifierValues',
 		0xc95833d9, 'ArrayShieldFuseIds',
 		0x754e8549, 'ArrayArmorIds',
+		0x183e2a32, 'ArrayArmorDyeColors',
 		0x24dd3262, 'ArrayArrowIds',
 		0x53b27d94, 'ArrayArrowQuantities',
 		0xd96ebf12, 'ArrayMaterialIds',
@@ -304,8 +305,23 @@ SavegameEditor={
 				lastColumn.appendChild(item._htmlInputFoodEffectTime);
 				//lastColumn.appendChild(item._htmlSpanFoodEffectUnknownValue);
 			}
+		}else if(item.category==='armors'){
+			lastColumn.appendChild(item._htmlSpanColor);
+			lastColumn.appendChild(item._htmlSelectDyeColor);
 		}else if(item.category==='horses'){
 			lastColumn.appendChild(item._htmlInputName);
+		}
+		
+		if(item.category==='materials' || item.category==='food' || item.category==='devices' || item.category==='key'){
+			item._htmlDeleteButton=document.createElement('button');
+			item._htmlDeleteButton.className='button colored red with-icon icon3 floating';
+			item._htmlDeleteButton.addEventListener('click', function(){
+				MarcDialogs.confirm('Are you sure you want to delete <strong>'+item.getItemTranslation()+'</strong>?<br/><div style="color:red">Warning: use this feature at your own risk</div>', function(){
+					MarcDialogs.close();
+					SavegameEditor._removeItem(item.category, item.index);
+				});
+			});
+			lastColumn.appendChild(item._htmlDeleteButton);
 		}
 
 		var r=row([1,6,3,2],
@@ -319,6 +335,26 @@ SavegameEditor={
 		r.children[1].appendChild(itemNumber);
 		
 		return r;
+	},
+
+	_removeItem:function(catId, index){
+		var items=this.currentItems[catId];
+		if(typeof index==='object')
+			index=items.indexOf(index);
+
+		items.splice(index, 1);
+		document.getElementById('container-'+catId).removeChild(document.getElementById('container-'+catId).children[index]);
+
+		for(var i=index; i<items.length; i++){
+			items[i].index--;
+			document.getElementById('container-'+catId).children[i].querySelector('.item-number').innerHTML='#'+items[i].index;
+		}
+
+		var fakeItem;
+		if(catId==='materials' || catId==='food' || catId==='devices' || catId==='key'){
+			fakeItem=new Item(catId, items.length, '', 0xffffffff)
+		}
+		fakeItem.save();
 	},
 
 	addItem:function(catId){
@@ -788,7 +824,7 @@ SavegameEditor={
 
 
 /* TABS */
-var availableTabs=['home','weapons','bows','shields','armors','materials','food','devices','key','horses','master'];
+var availableTabs=['home','weapons','bows','shields','armors','materials','food','devices','key','horses','master'/*,'help'*/];
 
 
 var currentTab;

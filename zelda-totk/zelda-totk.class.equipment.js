@@ -176,17 +176,6 @@ Equipment.readAll=function(catId){
 }
 
 
-Equipment.remove=function(index){
-	if(typeof index==='object')
-		index=Equipment.items.indexOf(index);
-
-	Equipment.items.splice(index, 1);
-	for(var i=index; i<Equipment.items.length; i++){
-		Equipment.items[i].index--;
-	}
-
-	SavegameEditor.writeString64Array(this._offsets.ID, '\0', Equipment.items.length);
-}
 
 Equipment.MODIFIER_NO_BONUS=0xb6eede09;
 Equipment.MODIFIER_ATTACK=0xa9384c6c;

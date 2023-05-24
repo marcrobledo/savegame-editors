@@ -1,18 +1,24 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Armor class) v20230521
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Armor class) v20230523
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
 */
 
-function Armor(index, id, dye){
+function Armor(index, id, dyeColor){
 	this.category='armors';
 	this.index=index;
 
 	this.id=id;
-	this.dye=dye || '';
+	this.dyeColor=dyeColor || Armor.DYE_NONE;
 
 	Armor.buildHtmlElements(this);
+	this.refreshHtmlColor();
+}
+Armor.prototype.refreshHtmlColor=function(){
+	var colorIndex=this._htmlSelectDyeColor.selectedIndex;
+	var colors=['transparent','#2641ea','#ec3b18','#ffe13e','#f8f8f8','#080808','#b03af4','#4bf130','#78e7ff','#527abc','#ff9b2f','#ff85d0','#f62ba7','#ffef98','#8f3a20','#808080']
+	this._htmlSpanColor.style.backgroundColor=colors[colorIndex];
 }
 Armor.prototype.getItemTranslation=function(){
 	return Armor.TRANSLATIONS[this.id] || this.id;
@@ -21,18 +27,43 @@ Armor.prototype.copy=function(index, newId){
 	return new Armor(
 		index,
 		typeof newId==='string'? newId : this.id,
-		this.dye
+		this.dyeColor
 	);
 }
 Armor.prototype.save=function(){
 	SavegameEditor.writeString64('ArrayArmorIds', this.index, this.id);
-	//SavegameEditor.writeString64('ArrayArmorDyeColors', this.index, this.dyeColor);
+	SavegameEditor.writeU32('ArrayArmorDyeColors', this.index, this.dyeColor);
 }
 
 
 Armor.buildHtmlElements=function(item){
 	//build html elements
-	//to-do: add dye selector
+	var dyeColors=[
+		{name:'Default color', value:Armor.DYE_NONE},
+		{name:'Blue', value:Armor.DYE_BLUE},
+		{name:'Red', value:Armor.DYE_RED},
+		{name:'Yellow', value:Armor.DYE_YELLOW},
+		{name:'White', value:Armor.DYE_WHITE},
+		{name:'Black', value:Armor.DYE_BLACK},
+		{name:'Purple', value:Armor.DYE_PURPLE},
+		{name:'Green', value:Armor.DYE_GREEN},
+		{name:'Light blue', value:Armor.DYE_LIGHT_BLUE},
+		{name:'Navy', value:Armor.DYE_NAVY},
+		{name:'Orange', value:Armor.DYE_ORANGE},
+		{name:'Pink', value:Armor.DYE_PINK},
+		{name:'Crimson', value:Armor.DYE_CRIMSON},
+		{name:'Light yellow', value:Armor.DYE_LIGHT_YELLOW},
+		{name:'Brown', value:Armor.DYE_BROWN},
+		{name:'Gray', value:Armor.DYE_GRAY}
+	];
+	item._htmlSelectDyeColor=select('armor-dye-'+item.category+'-'+item.index, dyeColors, function(){
+		item.dyeColor=parseInt(this.value);
+		item.refreshHtmlColor();
+	}, item.dyeColor);
+	item._htmlSelectDyeColor.title='Dye color';
+
+	item._htmlSpanColor=document.createElement('span');
+	item._htmlSpanColor.className='dye-color';
 }
 
 Armor.readAll=function(){
@@ -43,26 +74,30 @@ Armor.readAll=function(){
 			validArmors.push(new Armor(
 				i,
 				armorIds[i],
-				null
+				SavegameEditor.readU32Array('ArrayArmorDyeColors', i)
 			));
 		}
 	}
 	return validArmors;
 }
-Armor.remove=function(index){
-	if(typeof index==='object')
-		index=Armor.items.indexOf(index);
-
-	Armor.items.splice(index, 1);
-	for(var i=index; i<Armor.items.length; i++){
-		Armor.items[i].index--;
-	}
-
-	SavegameEditor.writeString64Array(this._offsets.ID, '\0', Armor.items.length);
-}
 
 
-//Armor.DYE_COLORS:['-default-','Blue','Red','Yellow','White','Black','Purple','Green','Light Blue','Navy','Orange','Peach','Crimson','Light Yellow','Brown','Gray',{value:0xffffffff,name:'locked color'}],
+Armor.DYE_NONE=0xb6eede09;
+Armor.DYE_BLUE=0xe2911aba;
+Armor.DYE_RED=0x6e1a9181;
+Armor.DYE_YELLOW=0xc03f6678;
+Armor.DYE_WHITE=0x4402060c;
+Armor.DYE_BLACK=0x6cbc3cb4;
+Armor.DYE_PURPLE=0x7f0ae256;
+Armor.DYE_GREEN=0x7c9b6ddb;
+Armor.DYE_LIGHT_BLUE=0x01666931;
+Armor.DYE_NAVY=0xadfd3a1;
+Armor.DYE_ORANGE=0x619ec353;
+Armor.DYE_PINK=0xeaf26a09;
+Armor.DYE_CRIMSON=0xf8bdf528;
+Armor.DYE_LIGHT_YELLOW=0xdf26c6da;
+Armor.DYE_BROWN=0xb364bb2c;
+Armor.DYE_GRAY=0x762266bf;
 
 Armor.TRANSLATIONS={
 Armor_001_Head:'Hylian Hood',
@@ -246,8 +281,6 @@ Armor_100_Lower:'Ancient Greaves ★★',
 Armor_101_Lower:'Ancient Greaves ★★★',
 Armor_102_Lower:'Ancient Greaves ★★★★',
 
-Armor_022_Head:'Bokoblin Mask',
-
 Armor_024_Head:'Diamond Circlet',
 Armor_117_Head:'Diamond Circlet ★',
 Armor_118_Head:'Diamond Circlet ★★',
@@ -278,8 +311,6 @@ Armor_137_Head:'Amber Earrings ★',
 Armor_138_Head:'Amber Earrings ★★',
 Armor_139_Head:'Amber Earrings ★★★',
 Armor_140_Head:'Amber Earrings ★★★★',
-
-Armor_045_Head:'Moblin Mask',
 
 Armor_046_Head:'Rubber Helm',
 Armor_103_Head:'Rubber Helm ★',
@@ -319,6 +350,9 @@ Armor_153_Lower:'Sand Boots ★★',
 Armor_154_Lower:'Sand Boots ★★★',
 Armor_155_Lower:'Sand Boots ★★★★',
 
+
+Armor_022_Head:'Bokoblin Mask',
+Armor_045_Head:'Moblin Mask',
 Armor_055_Head:'Lizalfos Mask',
 Armor_056_Head:'Lynel Mask',
 

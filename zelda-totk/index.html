@@ -58,6 +58,7 @@
 				<button id="tab-button-key" title="Key items" class="tab-button" onclick="showTab('key')"><i class="tab-icon other"></i></button>
 				<button id="tab-button-horses" title="Horses" class="tab-button" onclick="showTab('horses')"><i class="tab-icon horses"></i></button>
 				<button id="tab-button-master" title="Master editor" class="tab-button" onclick="showTab('master')"><i class="tab-icon master"></i></button>
+				<!-- <button id="tab-button-help" title="Help" class="tab-button" onclick="showTab('help')"><i class="tab-icon help"></i></button> -->
 				| <button class="button with-icon icon3" onclick="closeFile()">Close file</button>
 				<button class="button colored blue with-icon icon9" onclick="saveChanges()">Save changes</button>
 			</div>
@@ -392,10 +393,11 @@
 
 	<!-- TAB: HORSES -->
 	<div id="tab-horses">
-		<h3 class="border-blue">Horses</h3><div id="container-horses"></div>
+		<h3 class="border-blue">Horses</h3>
+		<div id="container-horses"></div>
 		<!-- <div class="row"><div class="twelve columns">Untammed horse</div></div>
-		<div class="row" id="row-horse6">
-			<div class="three columns end"><select id="select-horse6-type"></select></div>
+		<div class="row" id="row-horse10">
+			<div class="three columns end"><select id="select-horse10-type"></select></div>
 		</div>
 		<div class="row">
 			<div class="six columns"><label for="float-pos-x-horse">Current horse coordinates (XYZ)</label></div>
@@ -434,11 +436,14 @@
 
 			<table id="table"></table>
 		</div>
-	</div>	
+	</div>
+
+	<!-- TAB: HELP -->
+	<div id="tab-help">
+	</div>
 </div>
 
-<div id="dialog-caption" class="dialog text-center">
-</div>
+<div id="dialog-caption" class="dialog text-center"></div>
 
 </body>
 </html>

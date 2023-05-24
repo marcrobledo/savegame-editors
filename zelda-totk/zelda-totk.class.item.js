@@ -146,9 +146,6 @@ Item.readAll=function(catId){
 	}
 	return validItems;
 }
-Item.remove=function(index){
-	//to-do
-}
 
 
 Item.MAXIMUM_QUANTITY={
