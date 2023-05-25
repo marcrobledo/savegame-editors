@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230523
+	The legend of Zelda: Tears of the Kingdom savegame editor v20230525
 	by Marc Robledo 2017-2020
 */
 var currentEditingItem;
@@ -70,7 +70,10 @@ SavegameEditor={
 
 		0x7bde80e9, 'ArrayHorseIds',
 		0xd2ddb868, 'ArrayHorseNames',
-		
+		0x54049354, 'ArrayHorseManes',
+		0x1daf6cb4, 'ArrayHorseSaddles',
+		0xfee5cd77, 'ArrayHorseReins',
+
 		0x14d7f4c4, 'ArrayMapPinIcons',
 		0xf24fc2e7, 'ArrayMapPinCoordinates',
 		0xd2025694, 'ArrayMapPinMap',
@@ -224,7 +227,7 @@ SavegameEditor={
 		for(var i=0x000028; i<0x03c800; i+=8){
 			var hash=tempFile.readU32(i);
 			var foundHashIndex=this.Hashes.indexOf(hash);
-			if(hash===0xa3db7114){ //looks like this hash is always the final one (at least in v1.0 and v1.1)
+			if(hash===0xa3db7114){ //found MetaData.SaveTypeHash
 				break;
 			}else if(foundHashIndex!==-1){
 				if(/^(Array|PlayerPos)/.test(this.Hashes[foundHashIndex+1]))
@@ -244,7 +247,7 @@ SavegameEditor={
 		for(var i=0x000028; i<0x03c800; i+=8){
 			var hash=tempFile.readU32(i);
 			var foundHashIndex=hashes.indexOf(hash);
-			if(hash===0xa3db7114){ //looks like this hash is always the final one (at least in v1.0 and v1.1)
+			if(hash===0xa3db7114){ //found MetaData.SaveTypeHash
 				break;
 			}else if(foundHashIndex!==-1){
 				offsets[hashes[foundHashIndex]]=i+4;
@@ -310,6 +313,9 @@ SavegameEditor={
 			lastColumn.appendChild(item._htmlSelectDyeColor);
 		}else if(item.category==='horses'){
 			lastColumn.appendChild(item._htmlInputName);
+			lastColumn.appendChild(item._htmlSelectMane);
+			lastColumn.appendChild(item._htmlSelectSaddles);
+			lastColumn.appendChild(item._htmlSelectReins);
 		}
 		
 		if(item.category==='materials' || item.category==='food' || item.category==='devices' || item.category==='key'){
