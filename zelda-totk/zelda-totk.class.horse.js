@@ -5,7 +5,7 @@
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
 */
 
-function Horse(index, id, name, mane, saddles, reins){
+function Horse(index, id, name, mane, saddles, reins, bond, specialType, statsSpeed, statsPull, iconPattern, iconEyeColor){
 	this.category='horses';
 	this.index=index;
 
@@ -14,8 +14,70 @@ function Horse(index, id, name, mane, saddles, reins){
 	this.mane=mane;
 	this.saddles=saddles;
 	this.reins=reins;
+	this.bond=bond;
+	this.specialType=specialType;
+	this.statsSpeed=statsSpeed;
+	this.statsPull=statsPull;
+	this.iconPattern=iconPattern;
+	this.iconEyeColor=iconEyeColor;
+
+	if(
+		specialType!==Horse.TYPE_NORMAL && 
+		specialType!==Horse.TYPE_EPONA &&
+		specialType!==Horse.TYPE_GIANT_BLACK &&
+		specialType!==Horse.TYPE_GIANT_WHITE &&
+		specialType!==Horse.TYPE_SPOT &&
+		specialType!==Horse.TYPE_GOLD
+	)
+		alert('unknown horse['+index+'].specialType value: '+specialType);
 
 	Horse.buildHtmlElements(this);
+	this.fixValues(true);
+}
+
+
+Horse.prototype.fixValues=function(ignoreEquipment){
+	if(this.id==='GameRomHorse00L'){
+		this.specialType=Horse.TYPE_GIANT_BLACK;
+		if(!ignoreEquipment){
+			this.mane=0x9cd4f27b;
+			this.saddles=0xf1435392;
+			this.reins=0x4dbf2061;
+		}
+		this._htmlSelectIconPattern.disabled=true;
+		this._htmlSelectIconEyeColor.disabled=true;
+		//this.temperament='wild';
+	}else if(this.id==='GameRomHorse01L'){
+		this.specialType=Horse.TYPE_GIANT_WHITE;
+		if(!ignoreEquipment){
+			this.mane=0x55365b10;
+			this.saddles=0xf1435392;
+			this.reins=0x4dbf2061;
+		}
+		this._htmlSelectIconPattern.disabled=true;
+		this._htmlSelectIconEyeColor.disabled=true;
+		//this.temperament='wild';
+	}else if(this.id==='GameRomHorseSpPattern'){
+		this.specialType=Horse.TYPE_SPOT;
+		this._htmlSelectIconPattern.disabled=true;
+		this._htmlSelectIconEyeColor.disabled=true;
+		//this.temperament='wild'; //???
+	}else if(this.id==='GameRomHorseGold'){
+		this.specialType=Horse.TYPE_GOLD;
+		this._htmlSelectIconPattern.disabled=true;
+		this._htmlSelectIconEyeColor.disabled=true;
+		//this.temperament='wild'; //???
+	}else if(this.id==='GameRomHorseEpona'){
+		this.specialType=Horse.TYPE_EPONA;
+		this._htmlSelectIconPattern.disabled=true;
+		this._htmlSelectIconEyeColor.disabled=true;
+		//this.temperament='wild'; //???
+	}else{
+		this.specialType=Horse.TYPE_NORMAL;
+		this._htmlSelectIconPattern.disabled=false;
+		this._htmlSelectIconEyeColor.disabled=false;
+		//this.temperament='gentle'; //???
+	}
 }
 Horse.prototype.getItemTranslation=function(){
 	return Horse.TRANSLATIONS[this.id] || this.id;
@@ -26,8 +88,13 @@ Horse.prototype.save=function(){
 	SavegameEditor.writeU32('ArrayHorseManes', this.index, this.mane);
 	SavegameEditor.writeU32('ArrayHorseSaddles', this.index, this.saddles);
 	SavegameEditor.writeU32('ArrayHorseReins', this.index, this.reins);
+	SavegameEditor.writeF32('ArrayHorseBonds', this.index, this.bond);
+	SavegameEditor.writeU32('ArrayHorseSpecialTypes', this.index, this.specialType);
+	SavegameEditor.writeU32('ArrayHorseStatsSpeed', this.index, this.statsSpeed);
+	SavegameEditor.writeU32('ArrayHorseStatsPull', this.index, this.statsPull);
+	SavegameEditor.writeU32('ArrayHorseIconPatterns', this.index, this.iconPattern);
+	SavegameEditor.writeU32('ArrayHorseIconEyeColors', this.index, this.iconEyeColor);
 }
-
 
 Horse.buildHtmlElements=function(item){
 	//build html elements
@@ -57,6 +124,41 @@ Horse.buildHtmlElements=function(item){
 		item.reins=this.value;
 	}, item.reins);
 	item._htmlSelectReins.title='Reins';
+
+	item._htmlInputBond=inputFloat('bond-'+item.category+'-'+item.index,0,100,item.bond*100);
+	item._htmlInputBond.addEventListener('change', function(){
+		item.bond=parseFloat(this.value) / 100;
+	});
+	item._htmlInputBond.title='Bond';
+
+
+	var stats=[
+		{value:1, name:'★★'},
+		{value:2, name:'★★★'},
+		{value:3, name:'★★★★'},
+		{value:4, name:'★★★★★'}
+	];
+	item._htmlSelectStatsSpeed=select('horse-stats-speed-'+item.index, stats, function(){
+		item.statsSpeed=parseInt(this.value);
+	}, item.statsSpeed);
+	item._htmlSelectStatsSpeed.title='Stats: Speed';
+	item._htmlSelectStatsPull=select('horse-stats-pull-'+item.index, stats, function(){
+		item.statsPull=parseInt(this.value);
+	}, item.statsPull);
+	item._htmlSelectStatsPull.title='Stats: Pull';
+
+
+
+
+	item._htmlSelectIconPattern=select('horse-icon-pattern-'+item.index, Horse.ICON_PATTERNS, function(){
+		item.iconPattern=parseInt(this.value);
+	}, item.iconPattern);
+	item._htmlSelectIconPattern.title='Icon pattern';
+
+	item._htmlSelectIconEyeColor=select('horse-icon-eye-color-'+item.index, Horse.ICON_EYE_COLORS, function(){
+		item.iconEyeColor=parseInt(this.value);
+	}, item.iconEyeColor);
+	item._htmlSelectIconEyeColor.title='Icon eye color';
 }
 
 Horse.readAll=function(){
@@ -70,24 +172,83 @@ Horse.readAll=function(){
 				SavegameEditor.readStringUTF8('ArrayHorseNames', i),
 				SavegameEditor.readU32('ArrayHorseManes', i),
 				SavegameEditor.readU32('ArrayHorseSaddles', i),
-				SavegameEditor.readU32('ArrayHorseReins', i)
+				SavegameEditor.readU32('ArrayHorseReins', i),
+				SavegameEditor.readF32('ArrayHorseBonds', i),
+				SavegameEditor.readU32('ArrayHorseSpecialTypes', i),
+				SavegameEditor.readU32('ArrayHorseStatsSpeed', i),
+				SavegameEditor.readU32('ArrayHorseStatsPull', i),
+				SavegameEditor.readU32('ArrayHorseIconPatterns', i),
+				SavegameEditor.readU32('ArrayHorseIconEyeColors', i)
 			));
 		}
 	}
 	return validHorses;
 }
 
-Horse.HORSE_TYPES=[
-	'GameRomHorse00','GameRomHorse01','GameRomHorse02','GameRomHorse03','GameRomHorse04','GameRomHorse05','GameRomHorse06','GameRomHorse07','GameRomHorse08','GameRomHorse09','GameRomHorse10','GameRomHorse11','GameRomHorse12','GameRomHorse13','GameRomHorse14','GameRomHorse15','GameRomHorse16','GameRomHorse17','GameRomHorse18','GameRomHorse19','GameRomHorse20','GameRomHorse21','GameRomHorse22','GameRomHorse23','GameRomHorse25','GameRomHorse26','GameRomHorseEpona','GameRomHorseZelda','GameRomHorse00L','GameRomHorse01L','GameRomHorseGold',
+Horse.TRANSLATIONS={
+	'GameRomHorse00':'Horse 00',
+	'GameRomHorse01':'Horse 01',
+	'GameRomHorse02':'Horse 02',
+	'GameRomHorse03':'Horse 03',
+	'GameRomHorse04':'Horse 04',
+	'GameRomHorse05':'Horse 05',
+	'GameRomHorse06':'Horse 06',
+	'GameRomHorse07':'Horse 07',
+	'GameRomHorse08':'Horse 08',
+	'GameRomHorse09':'Horse 09',
+	'GameRomHorse10':'Horse 10',
+	'GameRomHorse11':'Horse 11',
+	'GameRomHorse12':'Horse 12',
+	'GameRomHorse13':'Horse 13',
+	'GameRomHorse14':'Horse 14',
+	'GameRomHorse15':'Horse 15',
+	'GameRomHorse16':'Horse 16',
+	'GameRomHorse17':'Horse 17',
+	'GameRomHorse18':'Horse 18',
+	'GameRomHorse19':'Horse 19',
+	'GameRomHorse20':'Horse 20',
+	'GameRomHorse21':'Horse 21',
+	'GameRomHorse22':'Horse 22',
+	'GameRomHorse23':'Horse 23',
+	'GameRomHorse25':'Horse 25',
+	'GameRomHorse26':'Horse 26',
+	'GameRomHorseEpona':'Epona (amiibo)',
+	'GameRomHorseZelda':'Royal White Stallion',
+	'GameRomHorse00L':'Giant Black Stallion',
+	'GameRomHorse01L':'Giant White Stallion',
+	'GameRomHorseGold':'Golden',
+	'GameRomHorseSpPattern':'Spot',
 
-	//untested, posible freeze
-	'GameRomHorseSpPattern',
-	'GameRomHorseBone',
-	'GameRomHorseBone_AllDay',
-	'GameRomHorseForStreetVender',
-	'GameRomHorseNushi'
+	//untammable	
+	'GameRomHorseBone':'Stalhorse*',
+	'GameRomHorseBone_AllDay':'Stalhorse* (daytime)',
+	'GameRomHorseForStreetVender':'Merchant*',
+	'GameRomHorseNushi':'Lord of the Mountain*'
+};
+
+
+
+
+Horse.TYPE_NORMAL=1; //normal
+Horse.TYPE_EPONA=4; //Epona
+Horse.TYPE_GIANT_BLACK=2; //00L (Giant Black Stallion)
+Horse.TYPE_GIANT_WHITE=13; //01L (Giant White Stallion)
+Horse.TYPE_GOLD=12; //Gold
+Horse.TYPE_SPOT=8; //SpPattern
+
+Horse.ICON_PATTERNS=[
+	{value:0x8ff7b62d, name:'00'}, //00
+	{value:0x61ec6600, name:'01'}, //01
+	{value:0x43caa47b, name:'02'}, //02
+	{value:0xb8872476, name:'03'}, //03
+	{value:0xfdcaa775, name:'04'}, //04
+	{value:0xb28f2118, name:'05'}, //05
+	{value:0xe7fc193e, name:'06 (Special: Gold)'}, //06	
 ];
-
+Horse.ICON_EYE_COLORS=[
+	{value:0x6cbc3cb4, name:'Black'},
+	{value:0xe2911aba, name:'Blue'}
+];
 Horse.MANES=[
 	{value:0xb6eede09, name:'None'}, //None
 	{value:0xb93d9e3b, name:'Mane'}, //Horse_Link_Mane
@@ -138,11 +299,3 @@ Horse.REINS=[
 
 
 
-
-Horse.TRANSLATIONS=(function(horseTypes){
-	var names={};
-	horseTypes.forEach(function(id, i){
-		names[id]=id.replace('GameRom', '').replace('Horse', 'Horse ');
-	});
-	return names;
-}(Horse.HORSE_TYPES));

@@ -73,12 +73,16 @@ SavegameEditor={
 		0x54049354, 'ArrayHorseManes',
 		0x1daf6cb4, 'ArrayHorseSaddles',
 		0xfee5cd77, 'ArrayHorseReins',
+		0xdcd9f005, 'ArrayHorseBonds',
+		0xcea848b6, 'ArrayHorseSpecialTypes',
+		0xc0775abf, 'ArrayHorseStatsSpeed',
+		0x10d564d7, 'ArrayHorseStatsPull',
+		0xfbf44df2, 'ArrayHorseIconPatterns',
+		0x48bfcf08, 'ArrayHorseIconEyeColors',
 
 		0x14d7f4c4, 'ArrayMapPinIcons',
 		0xf24fc2e7, 'ArrayMapPinCoordinates',
-		0xd2025694, 'ArrayMapPinMap',
-		
-		0xdcd9f005, 'StructCompendium'
+		0xd2025694, 'ArrayMapPinMap'
 	],
 
 
@@ -316,6 +320,11 @@ SavegameEditor={
 			lastColumn.appendChild(item._htmlSelectMane);
 			lastColumn.appendChild(item._htmlSelectSaddles);
 			lastColumn.appendChild(item._htmlSelectReins);
+			lastColumn.appendChild(item._htmlInputBond);
+			lastColumn.appendChild(item._htmlSelectStatsSpeed);
+			lastColumn.appendChild(item._htmlSelectStatsPull);
+			lastColumn.appendChild(item._htmlSelectIconPattern);
+			lastColumn.appendChild(item._htmlSelectIconEyeColor);
 		}
 		
 		if(item.category==='materials' || item.category==='food' || item.category==='devices' || item.category==='key'){
@@ -466,10 +475,13 @@ SavegameEditor={
 	},
 	editItem2:function(item, newId){
 		item.id=newId;
+		if(item.category==='horses'){
+			item.fixValues();
+		}
 
 		var oldRow=document.getElementById('row-item-'+item.category+'-'+item.index);
 		var newRow=this._createItemRow(item);
-		oldRow.parentElement.replaceChild(newRow, oldRow)
+		oldRow.parentElement.replaceChild(newRow, oldRow);
 
 		//TOTK_Icons.setIcon(document.getElementById('icon'+i), newId);
 		//if(document.getElementById('number-item'+i))
