@@ -1,11 +1,11 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Horse class) v20230525
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Horse class) v20230526
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
 */
 
-function Horse(index, id, name, mane, saddles, reins, bond, specialType, statsSpeed, statsPull, iconPattern, iconEyeColor){
+function Horse(index, id, name, mane, saddles, reins, bond, specialType, statsStrength, statsSpeed, statsStamina, statsPull, iconPattern, iconEyeColor){
 	this.category='horses';
 	this.index=index;
 
@@ -16,7 +16,9 @@ function Horse(index, id, name, mane, saddles, reins, bond, specialType, statsSp
 	this.reins=reins;
 	this.bond=bond;
 	this.specialType=specialType;
+	this.statsStrength=statsStrength;
 	this.statsSpeed=statsSpeed;
+	this.statsStamina=statsStamina;
 	this.statsPull=statsPull;
 	this.iconPattern=iconPattern;
 	this.iconEyeColor=iconEyeColor;
@@ -29,7 +31,7 @@ function Horse(index, id, name, mane, saddles, reins, bond, specialType, statsSp
 		specialType!==Horse.TYPE_SPOT &&
 		specialType!==Horse.TYPE_GOLD
 	)
-		alert('unknown horse['+index+'].specialType value: '+specialType);
+		console.warn('unknown horse['+index+'].specialType value: '+specialType);
 
 	Horse.buildHtmlElements(this);
 	this.fixValues(true);
@@ -90,7 +92,9 @@ Horse.prototype.save=function(){
 	SavegameEditor.writeU32('ArrayHorseReins', this.index, this.reins);
 	SavegameEditor.writeF32('ArrayHorseBonds', this.index, this.bond);
 	SavegameEditor.writeU32('ArrayHorseSpecialTypes', this.index, this.specialType);
+	SavegameEditor.writeU32('ArrayHorseStatsStrength', this.index, this.statsStrength);
 	SavegameEditor.writeU32('ArrayHorseStatsSpeed', this.index, this.statsSpeed);
+	SavegameEditor.writeU32('ArrayHorseStatsStamina', this.index, this.statsStamina);
 	SavegameEditor.writeU32('ArrayHorseStatsPull', this.index, this.statsPull);
 	SavegameEditor.writeU32('ArrayHorseIconPatterns', this.index, this.iconPattern);
 	SavegameEditor.writeU32('ArrayHorseIconEyeColors', this.index, this.iconEyeColor);
@@ -138,10 +142,25 @@ Horse.buildHtmlElements=function(item){
 		{value:3, name:'★★★★'},
 		{value:4, name:'★★★★★'}
 	];
+	var statsStamina=[
+		{value:2, name:'★★'},
+		{value:3, name:'★★★'},
+		{value:4, name:'★★★★'},
+		{value:5, name:'★★★★★'}
+	];
+	item._htmlInputStatsStrength=inputNumber('horse-stats-strength-'+item.index,100,350,item.statsStrength);
+	item._htmlInputStatsStrength.addEventListener('change', function(){
+		item.statsStrength=parseInt(this.value);
+	});
+	item._htmlInputStatsStrength.title='Stats: Strength';
 	item._htmlSelectStatsSpeed=select('horse-stats-speed-'+item.index, stats, function(){
 		item.statsSpeed=parseInt(this.value);
 	}, item.statsSpeed);
 	item._htmlSelectStatsSpeed.title='Stats: Speed';
+	item._htmlSelectStatsStamina=select('horse-stats-stamina-'+item.index, statsStamina, function(){
+		item.statsStamina=parseInt(this.value);
+	}, item.statsStamina);
+	item._htmlSelectStatsStamina.title='Stats: Stamina';
 	item._htmlSelectStatsPull=select('horse-stats-pull-'+item.index, stats, function(){
 		item.statsPull=parseInt(this.value);
 	}, item.statsPull);
@@ -175,7 +194,9 @@ Horse.readAll=function(){
 				SavegameEditor.readU32('ArrayHorseReins', i),
 				SavegameEditor.readF32('ArrayHorseBonds', i),
 				SavegameEditor.readU32('ArrayHorseSpecialTypes', i),
+				SavegameEditor.readU32('ArrayHorseStatsStrength', i),
 				SavegameEditor.readU32('ArrayHorseStatsSpeed', i),
+				SavegameEditor.readU32('ArrayHorseStatsStamina', i),
 				SavegameEditor.readU32('ArrayHorseStatsPull', i),
 				SavegameEditor.readU32('ArrayHorseIconPatterns', i),
 				SavegameEditor.readU32('ArrayHorseIconEyeColors', i)
@@ -293,9 +314,3 @@ Horse.REINS=[
 	{value:0x4dbf2061, name:'Reins 00L'}, //GameRomHorseReins_00L
 	{value:0xe8fe6ab7, name:'Reins 00S'} //GameRomHorseReins_00S
 ];
-
-
-
-
-
-

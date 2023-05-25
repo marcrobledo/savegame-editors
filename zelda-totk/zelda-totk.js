@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230525
+	The legend of Zelda: Tears of the Kingdom savegame editor v20230526
 	by Marc Robledo 2017-2020
 */
 var currentEditingItem;
@@ -75,10 +75,13 @@ SavegameEditor={
 		0xfee5cd77, 'ArrayHorseReins',
 		0xdcd9f005, 'ArrayHorseBonds',
 		0xcea848b6, 'ArrayHorseSpecialTypes',
+		0xafe462c3, 'ArrayHorseStatsStrength', //posible strength
 		0xc0775abf, 'ArrayHorseStatsSpeed',
+		0xc8454f7c, 'ArrayHorseStatsStamina', //posible stamina
 		0x10d564d7, 'ArrayHorseStatsPull',
 		0xfbf44df2, 'ArrayHorseIconPatterns',
 		0x48bfcf08, 'ArrayHorseIconEyeColors',
+
 
 		0x14d7f4c4, 'ArrayMapPinIcons',
 		0xf24fc2e7, 'ArrayMapPinCoordinates',
@@ -321,7 +324,9 @@ SavegameEditor={
 			lastColumn.appendChild(item._htmlSelectSaddles);
 			lastColumn.appendChild(item._htmlSelectReins);
 			lastColumn.appendChild(item._htmlInputBond);
+			lastColumn.appendChild(item._htmlInputStatsStrength);
 			lastColumn.appendChild(item._htmlSelectStatsSpeed);
+			lastColumn.appendChild(item._htmlSelectStatsStamina);
 			lastColumn.appendChild(item._htmlSelectStatsPull);
 			lastColumn.appendChild(item._htmlSelectIconPattern);
 			lastColumn.appendChild(item._htmlSelectIconEyeColor);
