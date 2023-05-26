@@ -2,6 +2,7 @@
 	The legend of Zelda: Tears of the Kingdom Savegame Editor (Horse class) v20230526
 
 	by Marc Robledo 2023
+	horse data thanks to JonJaded, Ozymandias07 and Karlos007
 */
 
 function Horse(index, id, name, mane, saddles, reins, bond, specialType, statsStrength, statsSpeed, statsStamina, statsPull, iconPattern, iconEyeColor){
