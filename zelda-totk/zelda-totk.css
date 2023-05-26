@@ -20,9 +20,9 @@ body{
 table{
   border-collapse:collapse;
 }
-tr{border-bottom:1px solid #452e2e;height:36px}
+tr{border-bottom:1px solid #2e4533;height:36px}
 tr:last-child{border-bottom:none}
-tr:hover{background-color:#250e0e}
+tr:hover{background-color:#121710}
 
 
 /* TOTK */

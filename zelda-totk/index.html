@@ -411,30 +411,21 @@
 	<div id="tab-master">
 		<div id="master-editor-loading" class="text-center">Master editor is loading...</div>
 		<div id="master-editor-hidden" class="hidden">
-			<label for="select-filters">Filter: </label>
-			<select id="select-filters" onchange="TOTKMasterEditor.refreshResults()">
-				<option value="">- All -</option>
-				<!-- <option value="WolfLink_|Amiibo">Amiibo</option>
-				<option value="_DispNameFlag$">Display flag names</option>
-				<option value="100enemy">DLC1</option>
-				<option value="Motorcycle">DLC2</option>
-				<option value="Horse_">Horses</option>
-				<option value="Defeat_Enemy_|Defeated.+Num">Defeated enemies</option>
-				<option value="Porch|Cook">Items</option>
-				<option value="IsGet_">Get flags</option>
-				<option value="HiddenKorok|OldKorok_">Korok</option>
-				<option value="^Location_">Visited locations</option>
-				<option value="AlbumPicture|PictureBook">Compendium</option> -->
-			</select>
-			<input id="input-custom-filter" type="text" placeholder="Search hash keys" onchange="TOTKMasterEditor.refreshResults()" />
-			
-			 | <label for="select-page">Page: </label>
-			<button id="page-prev" onclick="TOTKMasterEditor.prevPage()">&laquo;</button>
-			<select id="select-page" class="small" onchange="TOTKMasterEditor.setPage(this.selectedIndex)"></select>
-			<button id="page-next" onclick="TOTKMasterEditor.nextPage()">&raquo;</button>
-
+			<div>
+				<label>Search <input id="input-custom-filter" type="text" list="knownHashes" placeholder="Search variables" onchange="TOTKMasterEditor.refreshResults()" /></label>
+				<datalist id="knownHashes">
+					<option value="paraglider fabric">Usable paraglider fabrics</option>
+					<option value="tower">Hyrule tower activation</option>
+				</datalist>
+			</div>
 
 			<table id="table"></table>
+			<div class="text-center">
+				<label for="select-page">Page: </label>
+				<button id="page-prev" onclick="TOTKMasterEditor.prevPage()">&laquo;</button>
+				<select id="select-page" class="small" onchange="TOTKMasterEditor.setPage(this.selectedIndex)"></select>
+				<button id="page-next" onclick="TOTKMasterEditor.nextPage()">&raquo;</button>
+			</div>
 		</div>
 	</div>
 

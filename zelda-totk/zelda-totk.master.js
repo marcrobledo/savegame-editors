@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom - Master editor v20230515
+	The legend of Zelda: Tears of the Kingdom - Master editor v20230526
 	by Marc Robledo 2023
 */
 
@@ -161,6 +161,7 @@ var TOTKMasterEditor=(function(){
 		document.getElementById('master-editor-hidden').style.display='block';
 
 		TOTKMasterEditor.refreshResults();
+		get('input-custom-filter').focus();
 	};
 
 	return{
@@ -170,6 +171,7 @@ var TOTKMasterEditor=(function(){
 		loadHashes:function(){
 			if(this.isLoaded()){
 				this.refreshResults();
+				get('input-custom-filter').focus();
 			}else if(typeof window.fetch==='function'){
 				fetch('./zelda-totk.hashes.csv')
 					.then(res => res.text()) // Gets the response and returns it as a blob
@@ -283,11 +285,8 @@ var TOTKMasterEditor=(function(){
 		nextPage:function(){this.setPage(this.currentPage+1);},
 		
 		refreshResults:function(){
-			var filter=getValue('filters').trim();
 			var customFilter=getValue('custom-filter').trim();
-			if(filter){
-				this.filterHashes(new RegExp(filter));
-			}else if(customFilter){
+			if(customFilter){
 				this.filterHashes(new RegExp(customFilter, 'i'));
 			}else{
 				this.filterHashes(null);

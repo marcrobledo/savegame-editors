@@ -859,10 +859,12 @@ function showTab(newTab){
 	}
 
 	if(newTab==='master'){
-		if(TOTKMasterEditor.isLoaded())
+		if(TOTKMasterEditor.isLoaded()){
 			TOTKMasterEditor.refreshResults();
-		else
+			get('input-custom-filter').focus();
+		}else{
 			TOTKMasterEditor.loadHashes();
+		}
 	}
 }
 
