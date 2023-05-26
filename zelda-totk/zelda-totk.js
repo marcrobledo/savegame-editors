@@ -75,9 +75,9 @@ SavegameEditor={
 		0xfee5cd77, 'ArrayHorseReins',
 		0xdcd9f005, 'ArrayHorseBonds',
 		0xcea848b6, 'ArrayHorseSpecialTypes',
-		0xafe462c3, 'ArrayHorseStatsStrength', //posible strength
+		0xafe462c3, 'ArrayHorseStatsStrength',
 		0xc0775abf, 'ArrayHorseStatsSpeed',
-		0xc8454f7c, 'ArrayHorseStatsStamina', //posible stamina
+		0xc8454f7c, 'ArrayHorseStatsStamina',
 		0x10d564d7, 'ArrayHorseStatsPull',
 		0xfbf44df2, 'ArrayHorseIconPatterns',
 		0x48bfcf08, 'ArrayHorseIconEyeColors',

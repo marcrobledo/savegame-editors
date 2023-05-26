@@ -2,7 +2,6 @@
 	The legend of Zelda: Tears of the Kingdom Savegame Editor (Horse class) v20230526
 
 	by Marc Robledo 2023
-	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
 */
 
 function Horse(index, id, name, mane, saddles, reins, bond, specialType, statsStrength, statsSpeed, statsStamina, statsPull, iconPattern, iconEyeColor){
@@ -25,6 +24,7 @@ function Horse(index, id, name, mane, saddles, reins, bond, specialType, statsSt
 
 	if(
 		specialType!==Horse.TYPE_NORMAL && 
+		specialType!==Horse.TYPE_ZELDA &&
 		specialType!==Horse.TYPE_EPONA &&
 		specialType!==Horse.TYPE_GIANT_BLACK &&
 		specialType!==Horse.TYPE_GIANT_WHITE &&
@@ -39,13 +39,13 @@ function Horse(index, id, name, mane, saddles, reins, bond, specialType, statsSt
 
 
 Horse.prototype.fixValues=function(ignoreEquipment){
-	if(this.id==='GameRomHorse00L'){
+	if(this.id==='GameRomHorseZelda'){
+		this.specialType=Horse.TYPE_ZELDA;
+		this._htmlSelectIconPattern.disabled=true;
+		this._htmlSelectIconEyeColor.disabled=true;
+		//this.temperament='wild';
+	}else if(this.id==='GameRomHorse00L'){
 		this.specialType=Horse.TYPE_GIANT_BLACK;
-		if(!ignoreEquipment){
-			this.mane=0x9cd4f27b;
-			this.saddles=0xf1435392;
-			this.reins=0x4dbf2061;
-		}
 		this._htmlSelectIconPattern.disabled=true;
 		this._htmlSelectIconEyeColor.disabled=true;
 		//this.temperament='wild';
@@ -251,6 +251,7 @@ Horse.TRANSLATIONS={
 
 
 Horse.TYPE_NORMAL=1; //normal
+Horse.TYPE_ZELDA=3; //Royal White Stallion
 Horse.TYPE_EPONA=4; //Epona
 Horse.TYPE_GIANT_BLACK=2; //00L (Giant Black Stallion)
 Horse.TYPE_GIANT_WHITE=13; //01L (Giant White Stallion)

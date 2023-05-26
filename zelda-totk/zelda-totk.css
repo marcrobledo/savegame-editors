@@ -347,7 +347,9 @@ optgroup{background-color:black}
 	border-color:#b99f65;
 	outline:none;
 }
-
+input[type=text]:disabled, select:disabled{
+	color: #252824 !important;
+}
 
 
 
