@@ -147,7 +147,8 @@ Horse.buildHtmlElements=function(item){
 		{value:2, name:'★★'},
 		{value:3, name:'★★★'},
 		{value:4, name:'★★★★'},
-		{value:5, name:'★★★★★'}
+		{value:5, name:'★★★★★'},
+		{value:0, name:'Infinite'}
 	];
 	item._htmlInputStatsStrength=inputNumber('horse-stats-strength-'+item.index,100,350,item.statsStrength);
 	item._htmlInputStatsStrength.addEventListener('change', function(){
@@ -291,7 +292,7 @@ Horse.MANES=[
 	{value:0xbad4c4a9, name:'Mane 00S'} //Horse_Link_Mane_00S
 ];
 Horse.SADDLES=[
-	{value:0xb6eede09, name:'None'}, //None
+	//{value:0xb6eede09, name:'None'}, //None
 	{value:0x8573ae34, name:'Saddle 00'}, //GameRomHorseSaddle_00
 	{value:0x04c6c17b, name:'Saddle 01'}, //GameRomHorseSaddle_01
 	{value:0x47d0c84e, name:'Saddle 02'}, //GameRomHorseSaddle_02
@@ -304,7 +305,7 @@ Horse.SADDLES=[
 	{value:0x8c5bd272, name:'Saddle 00S'} //GameRomHorseSaddle_00S
 ];
 Horse.REINS=[
-	{value:0xb6eede09, name:'None'}, //None
+	//{value:0xb6eede09, name:'None'}, //None
 	{value:0x1864234b, name:'Reins 00'}, //GameRomHorseReins_00
 	{value:0x094f807a, name:'Reins 01'}, //GameRomHorseReins_01
 	{value:0xe54abe55, name:'Reins 02'}, //GameRomHorseReins_02
