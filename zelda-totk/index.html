@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="./zelda-totk.class.item.js"></script>
 	<script type="text/javascript" src="./zelda-totk.class.korok.js"></script>
 	<script type="text/javascript" src="./zelda-totk.class.mappin.js"></script>
+	<script type="text/javascript" src="./zelda-totk.class.shrine.js"></script>
 	<script type="text/javascript" src="./zelda-totk.class.compendium.js"></script>
 	<script type="text/javascript" src="./zelda-totk.master.js"></script>
 	<script type="text/javascript"><!--
@@ -311,6 +312,20 @@
 			<div class="eight columns text-right">
 				<button onclick="Compendium.setToStock(false)">Set current to stock</button>
 				<button onclick="Compendium.setToStock(true)">Unlock missing</button>
+			</div>
+		</div>
+		<div class="row mb-10">
+			<div class="four columns">Shrines - Found: <span id="span-shrines-found-counter"></span> - Cleared: <span id="span-shrines-clear-counter"></span></div>
+			<div class="eight columns text-right">
+				<button onclick="Shrine.setAllAsFound()">Set all shrines as found</button>
+				<button onclick="Shrine.setAllAsClear()">Set all shrines as cleared</button>
+			</div>
+		</div>
+		<div class="row mb-10">
+			<div class="four columns">Lightroots - Found: <span id="span-lightroots-found-counter"></span> - Cleared: <span id="span-lightroots-clear-counter"></span></div>
+			<div class="eight columns text-right">
+				<button onclick="Lightroot.setAllAsFound()">Set all lightroots as found</button>
+				<button onclick="Lightroot.setAllAsClear()">Set all lightroots as activated</button>
 			</div>
 		</div>
 

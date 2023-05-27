@@ -81,6 +81,7 @@ SavegameEditor={
 		0x10d564d7, 'ArrayHorseStatsPull',
 		0xfbf44df2, 'ArrayHorseIconPatterns',
 		0x48bfcf08, 'ArrayHorseIconEyeColors',
+		0xa0e854ea, 'WildTammedHorseId',
 
 
 		0x14d7f4c4, 'ArrayMapPinIcons',
@@ -538,14 +539,22 @@ SavegameEditor={
 		return count;
 	},
 
-	refreshMapPinsCounter:function(){
-		var count=MapPin.count(this.currentItems.mapPins);
-		setValue('pin-counter', count+'<small>/'+MapPin.MAX+'</small>');
+	_refreshCounter:function(container, val, max){
+		setValue(container+'-counter', val+'<small>/'+max+'</small>');
 	},
-
+	refreshMapPinsCounter:function(){
+		this._refreshCounter('pin', MapPin.count(this.currentItems.mapPins), MapPin.MAX);
+	},
 	refreshCompendiumCounter:function(){
-		var count=Compendium.count();
-		setValue('compendium-counter', count.total+'<small>/'+Compendium.HASHES_GOT_FLAGS.length+'</small>');
+		this._refreshCounter('compendium', Compendium.count().total, Compendium.HASHES_GOT_FLAGS.length);
+	},
+	refreshShrineCounters:function(){
+		this._refreshCounter('shrines-found', Shrine.countFound(), Shrine.HASHES_FOUND.length);
+		this._refreshCounter('shrines-clear', Shrine.countClear(), Shrine.HASHES_STATUS.length);
+	},
+	refreshLightrootCounters:function(){
+		this._refreshCounter('lightroots-found', Lightroot.countFound(), Lightroot.HASHES_FOUND.length);
+		this._refreshCounter('lightroots-clear', Lightroot.countClear(), Lightroot.HASHES_STATUS.length);
 	},
 
 	/* check if savegame is valid */
@@ -770,6 +779,10 @@ SavegameEditor={
 
 		/* map pins */
 		this.refreshMapPinsCounter();
+
+		/* shrines/lightroots */
+		this.refreshShrineCounters();
+		this.refreshLightrootCounters();
 		
 		/* compendium */
 		this.refreshCompendiumCounter();
