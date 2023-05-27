@@ -13,7 +13,7 @@ function Item(catId, index, id, quantity, foodEffect, foodEffectHearts, foodEffe
 	this.quantity=typeof quantity==='number'? quantity : 1;
 
 	if(catId==='food'){
-		this.foodEffect=typeof foodEffect==='number'? foodEffect : Item.FOOD_EFFECT_NONE;
+		this.foodEffect=typeof foodEffect==='number'? foodEffect : Item.FOOD_EFFECTS[0].value;
 		this.foodEffectHearts=typeof foodEffectHearts==='number'? foodEffectHearts : 4;
 		this.foodEffectMultiplier=typeof foodEffectMultiplier==='number'? foodEffectMultiplier : 0;
 		this.foodEffectTime=typeof foodEffectTime==='number'? foodEffectTime : 0;
@@ -67,30 +67,7 @@ Item.buildHtmlElements=function(item){
 
 
 	if(item.category==='food'){
-		var foodEffects=[
-			{name:'none', value:Item.FOOD_EFFECT_NONE},
-			{name:'Stamina recover', value:Item.FOOD_EFFECT_STAMINA_RECOVER},
-			{name:'Extra Heart', value:Item.FOOD_EFFECT_LIFE_MAX_EXTRA},
-			{name:'Extra Stamina', value:Item.FOOD_EFFECT_STAMINA_MAX_EXTRA},
-
-			{name:'Attack+', value:Item.FOOD_EFFECT_ATTACK_PLUS},
-			{name:'Attack+ with cold', value:Item.FOOD_EFFECT_ATTACK_PLUS_WITH_COLD},
-			{name:'Attack+ with heat', value:Item.FOOD_EFFECT_ATTACK_PLUS_WITH_HEAT},
-			{name:'Defense+', value:Item.FOOD_EFFECT_DEFENSE_PLUS},
-			{name:'Speed+', value:Item.FOOD_EFFECT_SPEED_PLUS},
-			{name:'Brightness', value:Item.FOOD_EFFECT_BRIGHTNESS},
-			{name:'Slip Resistance', value:Item.FOOD_EFFECT_SLIP_RESISTANCE},
-			{name:'Stealth Up', value:Item.FOOD_EFFECT_STEALTH_UP},
-
-			{name:'Gloom Recovery', value:Item.FOOD_EFFECT_LIFE_GLOOM_RECOVERY},
-			{name:'Miasma Guard', value:Item.FOOD_EFFECT_MIASMA_GUARD},
-			{name:'Flame Guard', value:Item.FOOD_EFFECT_RESIST_BURN},
-			{name:'Heat Resistance', value:Item.FOOD_EFFECT_RESIST_HOT},
-			{name:'Cold Resistance', value:Item.FOOD_EFFECT_RESIST_COLD},
-			{name:'Shock Resistance', value:Item.FOOD_EFFECT_RESIST_ELECTRIC},
-			{name:'Swim Speed Up', value:Item.FOOD_EFFECT_SWIM_SPEED_UP}
-		];
-		item._htmlSelectFoodEffect=select('item-food-effects-'+item.category+'-'+item.index, foodEffects, function(){
+		item._htmlSelectFoodEffect=select('item-food-effects-'+item.category+'-'+item.index, Item.FOOD_EFFECTS, function(){
 			item.foodEffect=parseInt(this.value);
 		}, item.foodEffect);
 		item._htmlSelectFoodEffect.title='Food effect';
@@ -161,33 +138,166 @@ MinusRupee_00:99999 //Poe
 };
 
 
-Item.FOOD_EFFECT_NONE=0xb6eede09;
-Item.FOOD_EFFECT_STAMINA_RECOVER=0xe9a30056;
-Item.FOOD_EFFECT_ATTACK_PLUS=0xa9384c6c;
-Item.FOOD_EFFECT_ATTACK_PLUS_WITH_COLD=0x4a3e58f6;
-Item.FOOD_EFFECT_ATTACK_PLUS_WITH_HEAT=0x4c6a85d2;
-Item.FOOD_EFFECT_DEFENSE_PLUS=0xa0a00c0e;
-Item.FOOD_EFFECT_SPEED_PLUS=0xb3f6b87a;
-Item.FOOD_EFFECT_BRIGHTNESS=0x4939dca1;
-Item.FOOD_EFFECT_LIFE_MAX_EXTRA=0xc1db0965;
-Item.FOOD_EFFECT_LIFE_GLOOM_RECOVERY=0x3459853;
-Item.FOOD_EFFECT_MIASMA_GUARD=0x4d1e8af4;
-Item.FOOD_EFFECT_STAMINA_MAX_EXTRA=0x60d8315d;
-Item.FOOD_EFFECT_RESIST_BURN=0x11383afd;
-Item.FOOD_EFFECT_RESIST_HOT=0x1df7a011;
-Item.FOOD_EFFECT_RESIST_COLD=0x9b6d98fb;
-Item.FOOD_EFFECT_RESIST_ELECTRIC=0x183cd822;
-Item.FOOD_EFFECT_SWIM_SPEED_UP=0x67866c6d;
-Item.FOOD_EFFECT_SLIP_RESISTANCE=0x2b0cb1e9;
-Item.FOOD_EFFECT_STEALTH_UP=0x74141898;
+
+Item.FOOD_EFFECTS=[
+{name:'None', value:0xb6eede09}, //None
+{name:'Heat Resistance', value:0x1df7a011}, //ResistHot
+{name:'Flame Guard', value:0x11383afd}, //ResistBurn
+{name:'Cold Resistance', value:0x9b6d98fb}, //ResistCold
+{name:'Shock Resistance', value:0x183cd822}, //ResistElectric
+{name:'Lightning Proof', value:0x25293142}, //ResitLightning
+{name:'UnFreezable', value:0xf5e2a20c}, //ResistFreeze
+{name:'*ResistAncient', value:0xe53962df},
+{name:'Swim Speed Up', value:0x67866c6d}, //SwimSpeedUp
+{name:'Swim Dash Stamina Up', value:0x87645022}, //DecreaseSwimStamina
+{name:'*SpinAttack', value:0x1e082215},
+{name:'*ClimbWaterfall', value:0x9119b797},
+{name:'Climb Speed Up', value:0xdc7faf6e}, //ClimbSpeedUp
+{name:'*ClimbSpeedUpOnlyHorizontaly', value:0x81e9dab0},
+{name:'Attack Up', value:0xa9384c6c}, //AttackUp
+{name:'Cold Weather Attack', value:0x4a3e58f6}, //AttackUpCold
+{name:'Hot Weather Attack', value:0x4c6a85d2}, //AttackUpHot
+{name:'Stormy Weather Attack', value:0xff347a38}, //AttackUpThunderstorm
+{name:'*AttackUpDark', value:0xa2d97a77},
+{name:'*AttackUpBone', value:0x51f5ed93},
+{name:'Stealth Up', value:0x74141898}, //QuietnessUp
+{name:'Sand Speed Up', value:0x9add92a3}, //SandMoveUp
+{name:'Snow Speed Up', value:0x33261e44}, //SnowMoveUp
+{name:'*WakeWind', value:0x29e7073a},
+{name:'*TwiceJump', value:0xca81b8ab},
+{name:'*EmergencyAvoid', value:0x8674a913},
+{name:'Defense Up', value:0xa0a00c0e}, //DefenseUp
+{name:'Speed Up', value:0xb3f6b87a}, //AllSpeed
+{name:'Gloom Resistance', value:0x4d1e8af4}, //MiasmaGuard
+{name:'*MaskBokoblin', value:0x6b9c735f},
+{name:'*MaskMoriblin', value:0xcd1c7892},
+{name:'*MaskLizalfos', value:0x18c0a6f1},
+{name:'*MaskLynel', value:0x4d70d744},
+{name:'*YigaDisguise', value:0x2c403cd2},
+{name:'*StalDisguise', value:0x4d91c91b},
+{name:'*LifeRecover', value:0x515632a9},
+{name:'Extra Heart', value:0xc1db0965}, //LifeMaxUp
+{name:'Stamina Recovery', value:0xe9a30056}, //StaminaRecover
+{name:'Extra Stamina', value:0x60d8315d}, //ExStaminaMaxUp
+{name:'Gloom Recovery', value:0x03459853}, //LifeRepair
+{name:'Skydive Mobility Up', value:0x6775f470}, //DivingMobilityUp
+{name:'Slip Resistance', value:0x2b0cb1e9}, //NotSlippy
+{name:'*Moisturizing', value:0x994b605e},
+{name:'Glow', value:0x4939dca1}, //LightEmission
+{name:'Rupee Padding', value:0xcfd032db}, //RupeeGuard
+{name:'*FallResist', value:0x8b6e916c},
+{name:'Master Sword Beam Up', value:0x59be2cc3}, //SwordBeamUp
+{name:'*VisualizeLife', value:0x5d85e03c},
+{name:'Night Speed Up', value:0x82638f9d}, //NightMoveSpeedUp
+{name:'*NightGlow', value:0x7d5014ab},
+{name:'Climbing Jump Stamina Up', value:0x0d1d9ef3}, //DecreaseWallJumpStamina
+{name:' Charge Atk. Stamina Up', value:0x48aa5ddf}, //DecreaseChargeAttackStamina
+{name:'*EmitTerror', value:0xe6202c76},
+{name:'Fireproof', value:0x2f3b7069}, //NoBurning
+{name:'Impact Proof', value:0xc5def427}, //NoFallDamage
+{name:'Slip Proof', value:0x346a7abc}, //NoSlip
+{name:'*RupeeGuardRate', value:0x56b27b1f},
+{name:'*MaskAll', value:0xc03cbd09},
+{name:'Energy Up', value:0xa3b0355e}, //DecreaseZonauEnergy
+{name:'Energy Recharge Up', value:0x52fad704}, //ZonauEnergyHealUp
+{name:'*MaskHorablin', value:0x719be063},
+{name:'Gloom Attack Resist', value:0x671dbe0d}, //MiasmaDefenseUp
+{name:'Cold Weather Charge', value:0xf563b129}, //ChargePowerUpCold
+{name:'Hot Weather Charge', value:0x4fb7ed09}, //ChargePowerUpHot
+{name:'Stormy Weather Charge', value:0x8f4fdaf4}, //ChargePowerUpThunderstorm
+{name:'Shining Steps', value:0x1d249847}, //LightFootprint
+{name:'*SoulPowerUpLightning', value:0xfbfc055b},
+{name:'*SoulPowerUpWater', value:0x77b8c024},
+{name:'*SoulPowerUpWind', value:0xc4cf428c},
+{name:'*SoulPowerUpFire', value:0xf149c0c0},
+{name:'*SoulPowerUpSpirit', value:0xf9c555e6},
+{name:'*EnableUseSwordBeam', value:0xaa04e165}
+];
 
 
 
 
+Item.fixKeyAvailabilityFlags=function(){
+	var changes=0;
+	SavegameEditor.currentItems.key.forEach(function(item, i){
+		if(Item.AvailabilityFlags[item.id]){
+			var offset=SavegameEditor._getOffsetsByHashes([Item.AvailabilityFlags[item.id]], true);
+			if(offset){
+				var originalValue=tempFile.readU32(offset);
+				if(originalValue===0){
+					tempFile.writeU32(offset, 1);
+					changes++;
+				}
+			}
+		}
+	});
 
+	if(changes){
+		//console.warn(changes+' paraglider fabric availability flags have been fixed');
+		MarcDialogs.alert(changes+' paraglider fabric availability flags have been fixed');
+		if(currentTab==='master' && TOTKMasterEditor.isLoaded()){
+			TOTKMasterEditor.refreshResults();
+		}
+	}
+	return changes;
+}
 
-
-
+Item.AvailabilityFlags={
+	/* paraglider fabrics */
+	Obj_SubstituteCloth_Default:0x7ff848d1,
+	Obj_SubstituteCloth_00:0xb65bc9d7,
+	Obj_SubstituteCloth_01:0x41929f49,
+	Obj_SubstituteCloth_02:0x084da01f,
+	Obj_SubstituteCloth_03:0x31a2d1cc,
+	Obj_SubstituteCloth_04:0x865f713d,
+	Obj_SubstituteCloth_05:0x30669b55,
+	Obj_SubstituteCloth_06:0x022aef11,
+	Obj_SubstituteCloth_07:0x112734b9,
+	Obj_SubstituteCloth_08:0xdbc821f2,
+	Obj_SubstituteCloth_09:0x1ecc8c93,
+	Obj_SubstituteCloth_10:0x405203b9,
+	Obj_SubstituteCloth_11:0x7c38e018,
+	Obj_SubstituteCloth_12:0x0636a9e7,
+	Obj_SubstituteCloth_13:0x09865592,
+	Obj_SubstituteCloth_14:0x57129d72,
+	Obj_SubstituteCloth_15:0xf4035866,
+	Obj_SubstituteCloth_16:0xc80d0bf1,
+	Obj_SubstituteCloth_17:0x96427113,
+	Obj_SubstituteCloth_18:0x8ef713e8,
+	Obj_SubstituteCloth_19:0x92754bbd,
+	Obj_SubstituteCloth_20:0x94d2472d,
+	Obj_SubstituteCloth_21:0xe6cacf83,
+	Obj_SubstituteCloth_22:0x85a4e8e3,
+	Obj_SubstituteCloth_23:0xca1847dd,
+	Obj_SubstituteCloth_24:0x8c007dbc,
+	Obj_SubstituteCloth_25:0xa2aec992,
+	Obj_SubstituteCloth_26:0x7c552e01,
+	Obj_SubstituteCloth_27:0xca76a631,
+	Obj_SubstituteCloth_28:0xd9c206b1,
+	Obj_SubstituteCloth_29:0x6443f768,
+	Obj_SubstituteCloth_30:0x397217b2,
+	Obj_SubstituteCloth_31:0x6fb24dcc,
+	Obj_SubstituteCloth_32:0x38267d74,
+	Obj_SubstituteCloth_33:0xca2baf8b,
+	Obj_SubstituteCloth_34:0x500ce8e9,
+	Obj_SubstituteCloth_35:0x861db450,
+	Obj_SubstituteCloth_36:0x8dbea34c,
+	Obj_SubstituteCloth_37:0xd552e642,
+	Obj_SubstituteCloth_38:0x6199467d,
+	Obj_SubstituteCloth_39:0x6625f898,
+	Obj_SubstituteCloth_40:0x63452b97,
+	Obj_SubstituteCloth_41:0x53e2da50,
+	Obj_SubstituteCloth_43:0xee3f78e3,
+	Obj_SubstituteCloth_45:0xf2d50ecf,
+	Obj_SubstituteCloth_46:0xa4bf8025,
+	Obj_SubstituteCloth_48:0x0f1e166d,
+	Obj_SubstituteCloth_49:0xc9ab8463,
+	Obj_SubstituteCloth_51:0x21170251,
+	Obj_SubstituteCloth_52:0xeaae73a3,
+	Obj_SubstituteCloth_53:0xa5ecfeec,
+	Obj_SubstituteCloth_55:0x93e7260f,
+	Obj_SubstituteCloth_56:0x6688319b
+}
 
 
 
@@ -791,13 +901,6 @@ Obj_CaveWellHonor_00:"All's Well",
 Obj_CheckPointHonor_00:"Dispelling Darkness Medal",
 Obj_EnergyUtuwa_A_01:"Energy Well",
 Obj_HiddenScroll_00:"Earthwake Manual",
-
-/*GameRomHorse00S:"Donkey",
-GameRomHorseNushi:"Lord of the Mountain",
-GameRomHorseEpona:"Epona",
-GameRomHorseBone:"Stalhorse",
-GameRomHorse00L:"Giant Horse",
-GameRomHorseZelda:"Royal White Stallion",*/
 
 /*Obj_Battery_Get_Capacity03:"Energy Cell[03]",
 Obj_Battery_Get_Capacity04:"Energy Cell[04]",

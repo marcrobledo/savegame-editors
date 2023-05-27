@@ -242,13 +242,12 @@ Horse.TRANSLATIONS={
 	'GameRomHorseSpPattern':'Spot',
 
 	//untammable	
+	'GameRomHorse00S':'Donkey (NEED TEST)*',
 	'GameRomHorseBone':'Stalhorse*',
 	'GameRomHorseBone_AllDay':'Stalhorse* (daytime)',
 	'GameRomHorseForStreetVender':'Merchant*',
 	'GameRomHorseNushi':'Lord of the Mountain*'
 };
-
-
 
 
 Horse.TYPE_NORMAL=1; //normal

@@ -249,7 +249,7 @@ SavegameEditor={
 			}
 		}
 	},
-	_getOffsetsByHashes:function(hashes){
+	_getOffsetsByHashes:function(hashes, single){
 		var offsets={};
 		for(var i=0x000028; i<0x03c800; i+=8){
 			var hash=tempFile.readU32(i);
@@ -257,6 +257,8 @@ SavegameEditor={
 			if(hash===0xa3db7114){ //found MetaData.SaveTypeHash
 				break;
 			}else if(foundHashIndex!==-1){
+				if(single)
+					return i+4;
 				offsets[hashes[foundHashIndex]]=i+4;
 			}
 		}
@@ -265,6 +267,8 @@ SavegameEditor={
 				console.error('hash ['+i+']:'+hashes[i].toString(16)+' not found');
 			}
 		}
+		if(single)
+			return false;
 		return offsets;
 	},
 
@@ -827,6 +831,7 @@ SavegameEditor={
 				item.save();
 			});
 		});
+		Item.fixKeyAvailabilityFlags();
 
 
 		/* HORSES */
@@ -891,23 +896,4 @@ window.addEventListener('scroll', onScroll, false);
 
 function capitalizeCategoryId(catId){
 	return (catId.charAt(0).toUpperCase() + catId.substr(1)).replace(/s$/, '')
-}
-
-
-
-
-
-var masterModeLoaded=false;
-function loadMasterMode(){
-	if(!masterModeLoaded){
-		var script=document.createElement('script');
-		script.type='text/javascript';
-		script.src='./zelda-totk.master.js';
-		script.onload=function(){
-			masterModeLoaded=true;
-			document.getElementById('tab-button-master').disabled=false;
-			//TOTKMasterEditor.prepare();
-		};
-		document.getElementsByTagName('head')[0].appendChild(script);
-	}
 }
