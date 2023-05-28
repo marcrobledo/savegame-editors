@@ -356,7 +356,7 @@ Armor_045_Head:'Moblin Mask',
 Armor_055_Head:'Lizalfos Mask',
 Armor_056_Head:'Lynel Mask',
 
-Armor_115_Head:'Thunder Helm',
+Armor_115_Head:'Lightning Helm',
 
 Armor_116_Upper:'Tunic of Memories',
 Armor_148_Upper:'Tunic of Memories ★',
