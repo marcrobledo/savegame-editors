@@ -147,71 +147,71 @@ Item.FOOD_EFFECTS=[
 {name:'Shock Resistance', value:0x183cd822}, //ResistElectric
 {name:'Lightning Proof', value:0x25293142}, //ResitLightning
 {name:'UnFreezable', value:0xf5e2a20c}, //ResistFreeze
-{name:'*ResistAncient', value:0xe53962df},
+//{name:'*ResistAncient', value:0xe53962df},
 {name:'Swim Speed Up', value:0x67866c6d}, //SwimSpeedUp
 {name:'Swim Dash Stamina Up', value:0x87645022}, //DecreaseSwimStamina
-{name:'*SpinAttack', value:0x1e082215},
-{name:'*ClimbWaterfall', value:0x9119b797},
+//{name:'*SpinAttack', value:0x1e082215},
+//{name:'*ClimbWaterfall', value:0x9119b797},
 {name:'Climb Speed Up', value:0xdc7faf6e}, //ClimbSpeedUp
-{name:'*ClimbSpeedUpOnlyHorizontaly', value:0x81e9dab0},
+//{name:'*ClimbSpeedUpOnlyHorizontaly', value:0x81e9dab0},
 {name:'Attack Up', value:0xa9384c6c}, //AttackUp
 {name:'Cold Weather Attack', value:0x4a3e58f6}, //AttackUpCold
 {name:'Hot Weather Attack', value:0x4c6a85d2}, //AttackUpHot
 {name:'Stormy Weather Attack', value:0xff347a38}, //AttackUpThunderstorm
-{name:'*AttackUpDark', value:0xa2d97a77},
-{name:'*AttackUpBone', value:0x51f5ed93},
+//{name:'*AttackUpDark', value:0xa2d97a77},
+//{name:'*AttackUpBone', value:0x51f5ed93},
 {name:'Stealth Up', value:0x74141898}, //QuietnessUp
 {name:'Sand Speed Up', value:0x9add92a3}, //SandMoveUp
 {name:'Snow Speed Up', value:0x33261e44}, //SnowMoveUp
-{name:'*WakeWind', value:0x29e7073a},
-{name:'*TwiceJump', value:0xca81b8ab},
-{name:'*EmergencyAvoid', value:0x8674a913},
+//{name:'*WakeWind', value:0x29e7073a},
+//{name:'*TwiceJump', value:0xca81b8ab},
+//{name:'*EmergencyAvoid', value:0x8674a913},
 {name:'Defense Up', value:0xa0a00c0e}, //DefenseUp
 {name:'Speed Up', value:0xb3f6b87a}, //AllSpeed
 {name:'Gloom Resistance', value:0x4d1e8af4}, //MiasmaGuard
-{name:'*MaskBokoblin', value:0x6b9c735f},
-{name:'*MaskMoriblin', value:0xcd1c7892},
-{name:'*MaskLizalfos', value:0x18c0a6f1},
-{name:'*MaskLynel', value:0x4d70d744},
-{name:'*YigaDisguise', value:0x2c403cd2},
-{name:'*StalDisguise', value:0x4d91c91b},
-{name:'*LifeRecover', value:0x515632a9},
+//{name:'*MaskBokoblin', value:0x6b9c735f},
+//{name:'*MaskMoriblin', value:0xcd1c7892},
+//{name:'*MaskLizalfos', value:0x18c0a6f1},
+//{name:'*MaskLynel', value:0x4d70d744},
+//{name:'*YigaDisguise', value:0x2c403cd2},
+//{name:'*StalDisguise', value:0x4d91c91b},
+//{name:'*LifeRecover', value:0x515632a9},
 {name:'Extra Heart', value:0xc1db0965}, //LifeMaxUp
 {name:'Stamina Recovery', value:0xe9a30056}, //StaminaRecover
 {name:'Extra Stamina', value:0x60d8315d}, //ExStaminaMaxUp
 {name:'Gloom Recovery', value:0x03459853}, //LifeRepair
 {name:'Skydive Mobility Up', value:0x6775f470}, //DivingMobilityUp
 {name:'Slip Resistance', value:0x2b0cb1e9}, //NotSlippy
-{name:'*Moisturizing', value:0x994b605e},
+//{name:'*Moisturizing', value:0x994b605e},
 {name:'Glow', value:0x4939dca1}, //LightEmission
 {name:'Rupee Padding', value:0xcfd032db}, //RupeeGuard
-{name:'*FallResist', value:0x8b6e916c},
+//{name:'*FallResist', value:0x8b6e916c},
 {name:'Master Sword Beam Up', value:0x59be2cc3}, //SwordBeamUp
-{name:'*VisualizeLife', value:0x5d85e03c},
+//{name:'*VisualizeLife', value:0x5d85e03c},
 {name:'Night Speed Up', value:0x82638f9d}, //NightMoveSpeedUp
-{name:'*NightGlow', value:0x7d5014ab},
+//{name:'*NightGlow', value:0x7d5014ab},
 {name:'Climbing Jump Stamina Up', value:0x0d1d9ef3}, //DecreaseWallJumpStamina
 {name:' Charge Atk. Stamina Up', value:0x48aa5ddf}, //DecreaseChargeAttackStamina
-{name:'*EmitTerror', value:0xe6202c76},
+//{name:'*EmitTerror', value:0xe6202c76},
 {name:'Fireproof', value:0x2f3b7069}, //NoBurning
 {name:'Impact Proof', value:0xc5def427}, //NoFallDamage
 {name:'Slip Proof', value:0x346a7abc}, //NoSlip
-{name:'*RupeeGuardRate', value:0x56b27b1f},
-{name:'*MaskAll', value:0xc03cbd09},
+//{name:'*RupeeGuardRate', value:0x56b27b1f},
+//{name:'*MaskAll', value:0xc03cbd09},
 {name:'Energy Up', value:0xa3b0355e}, //DecreaseZonauEnergy
 {name:'Energy Recharge Up', value:0x52fad704}, //ZonauEnergyHealUp
-{name:'*MaskHorablin', value:0x719be063},
+//{name:'*MaskHorablin', value:0x719be063},
 {name:'Gloom Attack Resist', value:0x671dbe0d}, //MiasmaDefenseUp
 {name:'Cold Weather Charge', value:0xf563b129}, //ChargePowerUpCold
 {name:'Hot Weather Charge', value:0x4fb7ed09}, //ChargePowerUpHot
 {name:'Stormy Weather Charge', value:0x8f4fdaf4}, //ChargePowerUpThunderstorm
-{name:'Shining Steps', value:0x1d249847}, //LightFootprint
-{name:'*SoulPowerUpLightning', value:0xfbfc055b},
-{name:'*SoulPowerUpWater', value:0x77b8c024},
-{name:'*SoulPowerUpWind', value:0xc4cf428c},
-{name:'*SoulPowerUpFire', value:0xf149c0c0},
-{name:'*SoulPowerUpSpirit', value:0xf9c555e6},
-{name:'*EnableUseSwordBeam', value:0xaa04e165}
+{name:'Shining Steps', value:0x1d249847} //LightFootprint
+//{name:'*SoulPowerUpLightning', value:0xfbfc055b},
+//{name:'*SoulPowerUpWater', value:0x77b8c024},
+//{name:'*SoulPowerUpWind', value:0xc4cf428c},
+//{name:'*SoulPowerUpFire', value:0xf149c0c0},
+//{name:'*SoulPowerUpSpirit', value:0xf9c555e6},
+//{name:'*EnableUseSwordBeam', value:0xaa04e165}
 ];
 
 
