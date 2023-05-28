@@ -155,9 +155,9 @@ Item.FOOD_EFFECTS=[
 {name:'Climb Speed Up', value:0xdc7faf6e}, //ClimbSpeedUp
 //{name:'*ClimbSpeedUpOnlyHorizontaly', value:0x81e9dab0},
 {name:'Attack Up', value:0xa9384c6c}, //AttackUp
-{name:'Cold Weather Attack', value:0x4a3e58f6}, //AttackUpCold
-{name:'Hot Weather Attack', value:0x4c6a85d2}, //AttackUpHot
-{name:'Stormy Weather Attack', value:0xff347a38}, //AttackUpThunderstorm
+{name:'Cold Weather Attack Up', value:0x4a3e58f6}, //AttackUpCold
+{name:'Hot Weather Attack Up', value:0x4c6a85d2}, //AttackUpHot
+{name:'Stormy Weather Attack Up', value:0xff347a38}, //AttackUpThunderstorm
 //{name:'*AttackUpDark', value:0xa2d97a77},
 //{name:'*AttackUpBone', value:0x51f5ed93},
 {name:'Stealth Up', value:0x74141898}, //QuietnessUp
