@@ -47,15 +47,20 @@ Horse.prototype.fixValues=function(ignoreEquipment){
 		//this.temperament='wild';
 	}else if(this.id==='GameRomHorse00L'){
 		this.specialType=Horse.TYPE_GIANT_BLACK;
+		if(!ignoreEquipment){
+			this.mane=this._htmlSelectMane.value=0x9cd4f27b;
+			this.saddles=this._htmlSelectSaddles.value=0xf1435392;
+			this.reins=this._htmlSelectReins.value=0x4dbf2061;
+		}
 		this._htmlSelectIconPattern.disabled=true;
 		this._htmlSelectIconEyeColor.disabled=true;
 		//this.temperament='wild';
 	}else if(this.id==='GameRomHorse01L'){
 		this.specialType=Horse.TYPE_GIANT_WHITE;
 		if(!ignoreEquipment){
-			this.mane=0x55365b10;
-			this.saddles=0xf1435392;
-			this.reins=0x4dbf2061;
+			this.mane=this._htmlSelectMane.value=0x55365b10;
+			this.saddles=this._htmlSelectSaddles.value=0xf1435392;
+			this.reins=this._htmlSelectReins.value=0x4dbf2061;
 		}
 		this._htmlSelectIconPattern.disabled=true;
 		this._htmlSelectIconEyeColor.disabled=true;
@@ -77,6 +82,11 @@ Horse.prototype.fixValues=function(ignoreEquipment){
 		//this.temperament='wild'; //???
 	}else{
 		this.specialType=Horse.TYPE_NORMAL;
+		if(!ignoreEquipment && this.id==='GameRomHorse00S'){
+			this.mane=this._htmlSelectMane.value=0xbad4c4a9;
+			this.saddles=this._htmlSelectSaddles.value=0x8c5bd272;
+			this.reins=this._htmlSelectReins.value=0xe8fe6ab7;
+		}
 		this._htmlSelectIconPattern.disabled=false;
 		this._htmlSelectIconEyeColor.disabled=false;
 		//this.temperament='gentle'; //???
@@ -242,12 +252,14 @@ Horse.TRANSLATIONS={
 	'GameRomHorseGold':'Golden',
 	'GameRomHorseSpPattern':'Spot',
 
-	//untammable	
-	'GameRomHorse00S':'Donkey (NEED TEST)*',
-	'GameRomHorseBone':'Stalhorse*',
-	'GameRomHorseBone_AllDay':'Stalhorse* (daytime)',
-	'GameRomHorseForStreetVender':'Merchant*',
-	'GameRomHorseNushi':'Lord of the Mountain*'
+	//untammable
+	//'GameRomHorse00S':'*Donkey',
+	'GameRomHorseBone':'*Stalhorse',
+	'GameRomHorseBone_AllDay':'*Stalhorse (daytime)',
+	'GameRomHorseForStreetVender':'*Merchant',
+	'GameRomHorseNushi':'*Lord of the Mountain',
+	'Animal_Bear_A':'*Bear A',
+	'Animal_Bear_B':'*Bear B'
 };
 
 
@@ -274,7 +286,7 @@ Horse.ICON_EYE_COLORS=[
 ];
 Horse.MANES=[
 	{value:0xb6eede09, name:'None'}, //None
-	{value:0xb93d9e3b, name:'Mane'}, //Horse_Link_Mane
+	{value:0xb93d9e3b, name:'Normal Mane'}, //Horse_Link_Mane
 	{value:0x3a84d601, name:'Mane 01'}, //Horse_Link_Mane_01
 	{value:0x0bffd92a, name:'Mane 02'}, //Horse_Link_Mane_02
 	{value:0xe8125091, name:'Mane 03'}, //Horse_Link_Mane_03
@@ -287,32 +299,35 @@ Horse.MANES=[
 	{value:0x87d9391f, name:'Mane 10'}, //Horse_Link_Mane_10
 	{value:0xd6a61738, name:'Mane 11'}, //Horse_Link_Mane_11
 	{value:0x12dd95d6, name:'Mane 12'}, //Horse_Link_Mane_12
-	{value:0x9cd4f27b, name:'Mane 00L'}, //Horse_Link_Mane_00L
-	{value:0x55365b10, name:'Mane 01L'}, //Horse_Link_Mane_01L
-	{value:0xbad4c4a9, name:'Mane 00S'} //Horse_Link_Mane_00S
+	{value:0x9cd4f27b, name:'Giant black mane'}, //Horse_Link_Mane_00L
+	{value:0x55365b10, name:'Giant white mane'}, //Horse_Link_Mane_01L
+	{value:0xbad4c4a9, name:'*Donkey mane'} //Horse_Link_Mane_00S
 ];
 Horse.SADDLES=[
 	//{value:0xb6eede09, name:'None'}, //None
-	{value:0x8573ae34, name:'Saddle 00'}, //GameRomHorseSaddle_00
-	{value:0x04c6c17b, name:'Saddle 01'}, //GameRomHorseSaddle_01
-	{value:0x47d0c84e, name:'Saddle 02'}, //GameRomHorseSaddle_02
-	{value:0xaeab565a, name:'Saddle 03'}, //GameRomHorseSaddle_03
-	{value:0xcf167805, name:'Saddle 04'}, //GameRomHorseSaddle_04
-	{value:0x6e2db559, name:'Saddle 05'}, //GameRomHorseSaddle_05
-	{value:0x7feaa5c0, name:'Saddle 06'}, //GameRomHorseSaddle_06
-	{value:0xb926ed8b, name:'Saddle 07'}, //GameRomHorseSaddle_07
-	{value:0xf1435392, name:'Saddle 00L'}, //GameRomHorseSaddle_00L
-	{value:0x8c5bd272, name:'Saddle 00S'} //GameRomHorseSaddle_00S
+	{value:0x8573ae34, name:'Stable Saddle'}, //GameRomHorseSaddle_00
+	{value:0x04c6c17b, name:'Traveler\'s Saddle'}, //GameRomHorseSaddle_01
+	{value:0x47d0c84e, name:'Royal Saddle'}, //GameRomHorseSaddle_02
+	{value:0xaeab565a, name:'Knight\'s Saddle'}, //GameRomHorseSaddle_03
+	{value:0xcf167805, name:'Monster Saddle'}, //GameRomHorseSaddle_04
+	{value:0x6e2db559, name:'Extravagant Saddle'}, //GameRomHorseSaddle_05
+	{value:0xb926ed8b, name:'Towing Harness'}, //GameRomHorseSaddle_07
+	{value:0xf1435392, name:'Giant Saddle'}, //GameRomHorseSaddle_00L
+	{value:0x7feaa5c0, name:'*Saddle 06'}, //GameRomHorseSaddle_06
+	{value:0x8c5bd272, name:'*Donkey Saddle'} //GameRomHorseSaddle_00S
+	//{value:0xdeadbeef, name:'*Saddle 07_ExternalCoupler'}, //GameRomHorseSaddle_07_ExternalCoupler
+	//{value:0xdeadbeef, name:'*Towing Harness (+ wagon)'}, //GameRomHorseSaddle_07_WithWagon
+	//{value:0xdeadbeef, name:'*Saddle 00S_AncientAssistant'} //GameRomHorseSaddle_00S_AncientAssistant
 ];
 Horse.REINS=[
 	//{value:0xb6eede09, name:'None'}, //None
-	{value:0x1864234b, name:'Reins 00'}, //GameRomHorseReins_00
-	{value:0x094f807a, name:'Reins 01'}, //GameRomHorseReins_01
-	{value:0xe54abe55, name:'Reins 02'}, //GameRomHorseReins_02
-	{value:0x0200441d, name:'Reins 03'}, //GameRomHorseReins_03
-	{value:0x85610de7, name:'Reins 04'}, //GameRomHorseReins_04
-	{value:0xbdc6a58b, name:'Reins 05'}, //GameRomHorseReins_05
-	{value:0x79c2c72f, name:'Reins 06'}, //GameRomHorseReins_06
-	{value:0x4dbf2061, name:'Reins 00L'}, //GameRomHorseReins_00L
-	{value:0xe8fe6ab7, name:'Reins 00S'} //GameRomHorseReins_00S
+	{value:0x1864234b, name:'Stable Bridle'}, //GameRomHorseReins_00
+	{value:0x094f807a, name:'Traveler\'s Bridle'}, //GameRomHorseReins_01
+	{value:0xe54abe55, name:'Royal Reins'}, //GameRomHorseReins_02
+	{value:0x0200441d, name:'Knight\'s Bridle'}, //GameRomHorseReins_03
+	{value:0x85610de7, name:'Monster Bridle'}, //GameRomHorseReins_04
+	{value:0xbdc6a58b, name:'Extravagant Bridle'}, //GameRomHorseReins_05
+	{value:0x4dbf2061, name:'Giant Bridle'}, //GameRomHorseReins_00L
+	{value:0x79c2c72f, name:'*Bridle 06'}, //GameRomHorseReins_06
+	{value:0xe8fe6ab7, name:'*Donkey Bridle'} //GameRomHorseReins_00S
 ];
