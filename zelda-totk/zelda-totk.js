@@ -1,6 +1,7 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230526
-	by Marc Robledo 2017-2020
+	The legend of Zelda: Tears of the Kingdom savegame editor v20230528
+
+	by Marc Robledo 2023
 */
 var currentEditingItem;
 
@@ -301,9 +302,6 @@ SavegameEditor={
 		spanItemId.addEventListener('click', function(){
 			SavegameEditor.editItem(item);
 		}, false);
-		if(typeof item.fuseId==='string' && item.fuseId){
-			spanItemId.innerHTML+=' <small style="color:#3d5b50">(fused: '+item.fuseId+')</small>';
-		}
 
 
 		var lastColumn=document.createElement('div');
@@ -311,6 +309,9 @@ SavegameEditor={
 			lastColumn.appendChild(item._htmlInputDurability);
 			lastColumn.appendChild(item._htmlSelectModifier);
 			lastColumn.appendChild(item._htmlInputModifierValue);
+			if(item.isFusable()){
+				lastColumn.appendChild(item._htmlSelectFusion);
+			}
 		}else if(item.quantity!==0xffffffff && (item.category==='arrows' || item.category==='materials' || item.category==='food' || item.category==='devices' || item.category==='key')){
 			lastColumn.appendChild(item._htmlInputQuantity);
 			if(item.category==='food'){
@@ -337,7 +338,7 @@ SavegameEditor={
 			lastColumn.appendChild(item._htmlSelectIconEyeColor);
 		}
 		
-		if(item.category==='materials' || item.category==='food' || item.category==='devices' || item.category==='key'){
+		if(item.removable){
 			item._htmlDeleteButton=document.createElement('button');
 			item._htmlDeleteButton.className='button colored red with-icon icon3 floating';
 			item._htmlDeleteButton.addEventListener('click', function(){
@@ -376,7 +377,11 @@ SavegameEditor={
 		}
 
 		var fakeItem;
-		if(catId==='materials' || catId==='food' || catId==='devices' || catId==='key'){
+		if(catId==='weapons' || catId==='bows' || catId==='shields'){
+			fakeItem=new Equipment(catId, items.length, '', 0xffffffff, Equipment.MODIFIER_NO_BONUS, 0xffffffff);
+		}else if(catId==='armors'){
+			fakeItem=new Armor(items.length, '', Armor.DYE_NONE);
+		}else if(catId==='materials' || catId==='food' || catId==='devices' || catId==='key'){
 			fakeItem=new Item(catId, items.length, '', 0xffffffff)
 		}
 		fakeItem.save();
@@ -419,6 +424,7 @@ SavegameEditor={
 		}else if(catId==='arrows' || catId==='materials' || catId==='food' || catId==='devices' || catId==='key'){
 			newItem=lastItem? lastItem.copy(lastItem.index+1, newId) : new Item(catId, 0, newId);
 		}
+		newItem.removable=true;
 
 	
 
@@ -613,6 +619,21 @@ SavegameEditor={
 			//this.parentElement.removeChild(this);
 			currentEditingItem=null;
 		}, false);
+
+		/* prepare fusable items list */
+		for(var itemId in Equipment.TRANSLATIONS.weapons){
+			if(!/^Weapon_Sword_07/.test(itemId))
+				Equipment.FUSABLE_ITEMS.push({value:itemId, name:'Weapon: '+Equipment.TRANSLATIONS.weapons[itemId]})
+		}
+		for(var itemId in Equipment.TRANSLATIONS.shields){
+			Equipment.FUSABLE_ITEMS.push({value:itemId, name:'Shield: '+Equipment.TRANSLATIONS.shields[itemId]})
+		}
+		for(var itemId in Item.TRANSLATIONS.materials){
+			Equipment.FUSABLE_ITEMS.push({value:itemId, name:'Material: '+Item.TRANSLATIONS.materials[itemId]})
+		}
+		for(var itemId in Item.TRANSLATIONS.devices){
+			Equipment.FUSABLE_ITEMS.push({value:itemId.replace('_Capsule',''), name:'Zonai: '+Item.TRANSLATIONS.devices[itemId]})
+		}
 
 		setNumericRange('rupees', 0, 999999);
 		setNumericRange('pony-points', 0, 999999);

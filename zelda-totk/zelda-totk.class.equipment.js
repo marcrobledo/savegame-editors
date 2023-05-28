@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Equipment class) v20230521
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Equipment class) v20230528
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -8,6 +8,7 @@
 function Equipment(catId, index, id, durability, modifier, modifierValue, fuseId){ //Weapon, Bow or Shield
 	this.category=catId;
 	this.index=index;
+	this.removable=false;
 
 	this.id=id;
 	this.durability=durability || 70;
@@ -15,9 +16,6 @@ function Equipment(catId, index, id, durability, modifier, modifierValue, fuseId
 	this.modifierValue=modifierValue || 0;
 	if(this.isFusable()){
 		this.fuseId=fuseId || '';
-		if(this.fuseId && Equipment.FUSABLE_WITH.indexOf(this.fuseId)===-1){
-			console.warn('unknown fusable item['+catId+','+index+']: '+this.fuseId);
-		}
 	}
 
 	Equipment.buildHtmlElements(this);
@@ -28,17 +26,20 @@ Equipment.prototype.getItemTranslation=function(){
 Equipment.prototype.isFusable=function(){
 	return (this.category==='weapons' || this.category==='shields')
 }
-Equipment.prototype.getFusableTranslation=function(){
-	if(!this.fuseId)
-		return null;
-	//to-do
-}
 Equipment.prototype.restoreDurability=function(){
 	this.durability=this.getMaximumDurability();
 	this._htmlInputDurability.value=this.durability;
 }
 Equipment.prototype.getMaximumDurability=function(){
 	var defaultDurability=Equipment.DEFAULT_DURABILITY[this.id] || 70;
+	if(this.isFusable() && this.fuseId){
+		if(Equipment.DEFAULT_DURABILITY[this.fuseId]){
+			defaultDurability+=Equipment.DEFAULT_DURABILITY[this.fuseId];
+		}else{
+			defaultDurability+=25;
+		}
+	}
+
 	if(this.modifier===Equipment.MODIFIER_DURABILITY || this.modifier===Equipment.MODIFIER_DURABILITY2) //Durability ↑/↑↑
 		return defaultDurability + this.modifierValue;
 	return defaultDurability;
@@ -61,8 +62,8 @@ Equipment.prototype.save=function(){
 	SavegameEditor.writeU32('Array'+categoryHash+'Modifiers', this.index, this.modifier);
 	SavegameEditor.writeU32('Array'+categoryHash+'ModifierValues', this.index, this.modifierValue);
 
-	/*if(this.isFusable())
-		SavegameEditor.writeString64('ArrayWeaponFuseIds', this.index, this.fuseId);*/
+	if(this.isFusable())
+		SavegameEditor.writeString64('Array'+categoryHash+'FuseIds', this.index, this.fuseId);
 }
 
 
@@ -149,8 +150,13 @@ Equipment.buildHtmlElements=function(item){
 		}
 	});
 	item._htmlInputModifierValue.title='Modifier value';
-	
+
+	//build html elements
 	if(item.isFusable()){
+		item._htmlSelectFusion=select('item-fusion-'+item.category+'-'+item.index, Equipment.FUSABLE_ITEMS, function(){
+			item.fuseId=this.value;
+		}, item.fuseId);
+		item._htmlSelectFusion.title='Fusion';
 	}
 }
 
@@ -567,57 +573,17 @@ Weapon_Shield_107:'Old Wooden Shield'
 }
 };
 
-Equipment.TRANSLATIONS_FUSE_ONLY={
-}
-
-Equipment.FUSABLE_WITH=[
-'AsbObj_RockParts_C_S_01',
-'AsbObj_SharpRock_A_S_01',
-'AsbObj_WhiteWoodRectangle_A_LL_01',
-'Barrel_SkyObj',
-'DgnObj_BoardIron_E',
-'DgnObj_SpikeBallWood_A',
-'IceWall_Piece',
-'Item_Enemy_106',
-'Item_Enemy_109',
-'Item_Enemy_134',
-'Item_Enemy_137',
-'Item_Enemy_138',
-'Item_Enemy_139',
-'Item_Enemy_141',
-'Item_Enemy_142',
-'Item_Enemy_149',
-'Item_Enemy_150',
-'Item_Enemy_151',
-'Item_Enemy_153',
-'Item_Enemy_166',
-'Item_Enemy_168',
-'Item_Enemy_192',
-'Item_Enemy_193',
-'Item_Enemy_225',
-'Item_Enemy_227',
-'Item_Enemy_58',
-'Item_Enemy_59',
-'Item_Enemy_60',
-'Item_Enemy_77',
-'Item_Ore_B',
-'Item_Ore_C',
-'Item_Ore_D',
-'Obj_GerudoHoleCover_A_03',
-'Obj_LiftRockWhite_A_01',
-'Obj_SpikeBall_B',
-'SpObj_Cannon_A_01',
-'SpObj_ElectricBoxGenerator',
-'SpObj_FlameThrower_A_01',
-'SpObj_SlipBoard_A_01',
-'SpObj_SpringPiston_A_01',
-'Weapon_Bow_036',
-'Weapon_Lsword_041',
-'Weapon_Shield_002',
-'Weapon_Shield_006',
-'Weapon_Shield_103',
-'Weapon_Sword_019',
-'Weapon_Sword_101',
-'Weapon_Sword_112',
-'Weapon_Sword_124'
+Equipment.FUSABLE_ITEMS=[
+{value:'',name:'No fusion'},
+{value:'AsbObj_RockParts_C_S_01',name:'Environment: AsbObj_RockParts_C_S_01'},
+{value:'AsbObj_SharpRock_A_S_01',name:'Environment: AsbObj_SharpRock_A_S_01'},
+{value:'AsbObj_WhiteWoodRectangle_A_LL_01',name:'Environment: AsbObj_WhiteWoodRectangle_A_LL_01'},
+{value:'Barrel_SkyObj',name:'Environment: Barrel_SkyObj'},
+{value:'DgnObj_BoardIron_E',name:'Environment: DgnObj_BoardIron_E'},
+{value:'DgnObj_SpikeBall_A',name:'Environment: DgnObj_SpikeBall_A'},
+{value:'DgnObj_SpikeBallWood_A',name:'Environment: DgnObj_SpikeBallWood_A'},
+{value:'IceWall_Piece',name:'Environment: IceWall_Piece'},
+{value:'Obj_GerudoHoleCover_A_03',name:'Environment: Obj_GerudoHoleCover_A_03'},
+{value:'Obj_LiftRockWhite_A_01',name:'Environment: Obj_LiftRockWhite_A_01'},
+{value:'Obj_SpikeBall_B',name:'Environment: Obj_SpikeBall_B'}
 ];

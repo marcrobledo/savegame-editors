@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Armor class) v20230523
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Armor class) v20230528
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -8,6 +8,7 @@
 function Armor(index, id, dyeColor){
 	this.category='armors';
 	this.index=index;
+	this.removable=false;
 
 	this.id=id;
 	this.dyeColor=dyeColor || Armor.DYE_NONE;

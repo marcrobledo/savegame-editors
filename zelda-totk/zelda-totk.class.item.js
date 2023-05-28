@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Item class) v20230522
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Item class) v20230528
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -8,6 +8,7 @@
 function Item(catId, index, id, quantity, foodEffect, foodEffectHearts, foodEffectMultiplier, foodEffectTime, foodEffectUnknown1){
 	this.category=catId;
 	this.index=index;
+	this.removable=catId!=='arrows';
 
 	this.id=id;
 	this.quantity=typeof quantity==='number'? quantity : 1;
@@ -1002,9 +1003,6 @@ Obj_SubstituteCloth_55:"Nostalgic Fabric",
 Obj_SubstituteCloth_56:"Addison's Fabric"
 }
 };
-
-Item.TRANSLATIONS_FUSE_ONLY={
-}
 
 
 
