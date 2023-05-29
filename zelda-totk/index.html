@@ -19,6 +19,7 @@
 	<script type="text/javascript" src="./zelda-totk.class.shrine.js"></script>
 	<script type="text/javascript" src="./zelda-totk.class.compendium.js"></script>
 	<script type="text/javascript" src="./zelda-totk.master.js"></script>
+	<!-- <script type="text/javascript" src="./murmurhash3js.min.js"></script> -->
 	<script type="text/javascript"><!--
 		/* service worker */
 		/*var FORCE_HTTPS=true;
@@ -317,6 +318,7 @@
 		<div class="row mb-10">
 			<div class="four columns">Shrines - Found: <span id="span-shrines-found-counter"></span> - Cleared: <span id="span-shrines-clear-counter"></span></div>
 			<div class="eight columns text-right">
+				<button onclick="SavegameEditor.addLocationPinsShrines()">Pin missing shrines in map</button>
 				<button onclick="Shrine.setAllAsFound()">Set all shrines as found</button>
 				<button onclick="Shrine.setAllAsClear()">Set all shrines as cleared</button>
 			</div>
@@ -324,6 +326,7 @@
 		<div class="row mb-10">
 			<div class="four columns">Lightroots - Found: <span id="span-lightroots-found-counter"></span> - Cleared: <span id="span-lightroots-clear-counter"></span></div>
 			<div class="eight columns text-right">
+				<button onclick="SavegameEditor.addLocationPinsLightroots()">Pin missing lightroots in map</button>
 				<button onclick="Lightroot.setAllAsFound()">Set all lightroots as found</button>
 				<button onclick="Lightroot.setAllAsClear()">Set all lightroots as activated</button>
 			</div>
