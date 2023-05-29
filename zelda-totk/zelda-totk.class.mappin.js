@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Map pin class) v20230523
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Map pin class) v20230529
 
 	by Marc Robledo 2023
 */
@@ -52,13 +52,17 @@ MapPin.count=function(mapPins){
 }
 MapPin.find=function(mapPins, x, y, z){
 	for(var i=0; i<mapPins.length; i++){
-		if(mapPins[i].coordinates.x===x && mapPins[i].coordinates.y===z && mapPins[i].map===MapPin.getMapByZ(z))
+		if(mapPins[i].coordinates.x===x && mapPins[i].coordinates.y===y && mapPins[i].map===MapPin.getMapByZ(z))
 			return true;
 	}
 	return false;
 }
 MapPin.getMapByZ=function(z){
-	return z>750? MapPin.MAP_SKY : MapPin.MAP_MAIN;
+	if(z>750)
+		return MapPin.MAP_SKY;
+	else if(z<-300)
+		return MapPin.MAP_MINUS;
+	return MapPin.MAP_MAIN;
 }
 
 MapPin.ICON_NONE=0x7e3d1e46;
