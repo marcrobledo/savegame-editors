@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Item class) v20230528
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Item class) v20230531
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -129,13 +129,13 @@ Item.readAll=function(catId){
 Item.MAXIMUM_QUANTITY={
 Item_Ore_L:999999, //Zonaite
 Item_Ore_M:999999, //Large Zonaite
-Energy_Material_01:99999, //Crystallized Charge
-//Energy_Material_03:99999, //Large Crystallized Charge
-//Energy_Material_04:99999, //Huge Crystallized Charge
+Energy_Material_01:999999, //Crystallized Charge
+//Energy_Material_03:999999, //Large Crystallized Charge
+//Energy_Material_04:999999, //Huge Crystallized Charge
 Obj_WarpDLC:3, //Travel Medallion
-MinusRupee_00:99999 //Poe
-//MinusRupee_01:99999, //Large Poe
-//MinusRupee_02:99999 //Grand Poe
+MinusRupee_00:999999 //Poe
+//MinusRupee_01:999999, //Large Poe
+//MinusRupee_02:999999 //Grand Poe
 };
 
 
