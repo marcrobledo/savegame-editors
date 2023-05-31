@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Shrine class) v20230523
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Shrine class) v20230531
 
 	by Marc Robledo 2023
 */
@@ -54,7 +54,19 @@ var Shrine={
 			}
 		}
 		this.setAllAsFound();
+
 		MarcDialogs.alert(count+' shrines set as clear.');
+		var foundItem=SavegameEditor._findItem('key','Obj_DungeonClearSeal');
+		if(foundItem){
+			foundItem.quantity+=count;
+			foundItem._htmlInputQuantity.value=foundItem.quantity;
+		}else{
+			var newItem=new Item('key', SavegameEditor.currentItems.key.length, 'Obj_DungeonClearSeal', count);
+			newItem.removable=true;
+			SavegameEditor.currentItems.key.push(newItem);
+			document.getElementById('container-key').appendChild(SavegameEditor._createItemRow(newItem));
+		}
+
 		SavegameEditor.refreshShrineCounters();
 		return count;
 	},

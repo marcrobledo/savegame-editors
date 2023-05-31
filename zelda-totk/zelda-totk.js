@@ -389,6 +389,15 @@ SavegameEditor={
 		fakeItem.save();
 	},
 
+	_findItem:function(catId, itemId){
+		var items=this.currentItems[catId];
+		for(var i=0; i<items.length; i++){
+			if(items[i].id===itemId)
+				return items[i];
+		}
+		return false;
+	},
+
 	addItem:function(catId){
 		var categoryHash=capitalizeCategoryId(catId);
 		var maxItems=SavegameEditor.readU32('Array'+categoryHash+'Ids');
