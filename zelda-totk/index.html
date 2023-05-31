@@ -19,7 +19,7 @@
 	<script type="text/javascript" src="./zelda-totk.class.shrine.js"></script>
 	<script type="text/javascript" src="./zelda-totk.class.compendium.js"></script>
 	<script type="text/javascript" src="./zelda-totk.master.js"></script>
-	<!-- <script type="text/javascript" src="./murmurhash3js.min.js"></script> -->
+	<script type="text/javascript" src="./murmurhash3js.min.js"></script>
 	<script type="text/javascript"><!--
 		/* service worker */
 		/*var FORCE_HTTPS=true;
@@ -249,7 +249,7 @@
 		</div>
 	
 		<!-- Coordinates -->
-		<h3 class="border-green">Coordinates</h3>
+		<h3 class="border-orange">Coordinates</h3>
 		<div class="row">
 			<div class="six columns"><label for="float-pos-x">Current Link coordinates (XYZ)</label></div>
 			<div class="two columns"><input id="float-pos-x" class="full-width" type="text" /></div>
@@ -267,8 +267,8 @@
 	
 
 
-		<!-- COMPLETIONISM -->
-		<h3 class="border-blue">Completionism</h3>
+		<!-- MAP PINS -->
+		<h3 class="border-blue">Map pins</h3>
 		<div class="row mb-10">
 			<div class="four columns">Map pins <span id="span-pin-counter"></span></div>
 			<div class="eight columns text-right">
@@ -276,11 +276,30 @@
 			</div>
 		</div>
 		<div class="row mb-10">
-			<div class="four columns"><label for="number-koroks">Pin korok locations to map</label></div>
+			<div class="four columns">Koroks</div>
 			<div class="eight columns text-right">
-				<button onclick="SavegameEditor.addKorokPins(0, 299)">Koroks #001-#300</button>
-				<button onclick="SavegameEditor.addKorokPins(300, 599)">Koroks #301-#600</button>
-				<button onclick="SavegameEditor.addKorokPins(600, 899)">Koroks #601-#900</button>
+				<button onclick="SavegameEditor.addPinsKoroksHidden()">Pin missing koroks in map</button>
+				<button onclick="SavegameEditor.addPinsKoroksCarry()">Pin missing koroks&times;2 in map</button>
+			</div>
+		</div>
+		<div class="row mb-10">
+			<div class="four columns">Shrines/lightroots</div>
+			<div class="eight columns text-right">
+				<button onclick="SavegameEditor.addPinsShrines()">Pin missing shrines in map</button>
+				<button onclick="SavegameEditor.addPinsLightroots()">Pin missing lightroots in map</button>
+			</div>
+		</div>
+
+		<!-- COMPLETIONISM -->
+		<h3 class="border-red">Completionism</h3>
+		<div class="row mb-10">
+			<div class="four columns">
+				Koroks - <span id="span-korok-hidden-counter"></span>
+				- Carried: <span id="span-korok-carry-counter"></span> (&times;2)
+			</div>
+			<div class="eight columns text-right">
+				<button onclick="Korok.setAllHiddenAsFound()">Set all 800 koroks as found</button>
+				<button onclick="Korok.setAllCarryAsFound()">Set all 100 koroks as carried</button>
 			</div>
 		</div>
 
@@ -309,7 +328,7 @@
 			</div>
 		</div> -->
 		<div class="row mb-10">
-			<div class="four columns">Hyrule Compendium <span id="span-compendium-counter"></span></div>
+			<div class="four columns">Hyrule Compendium - <span id="span-compendium-counter"></span></div>
 			<div class="eight columns text-right">
 				<button onclick="Compendium.setToStock(false)">Set current to stock</button>
 				<button onclick="Compendium.setToStock(true)">Unlock missing</button>
@@ -318,7 +337,6 @@
 		<div class="row mb-10">
 			<div class="four columns">Shrines - Found: <span id="span-shrines-found-counter"></span> - Cleared: <span id="span-shrines-clear-counter"></span></div>
 			<div class="eight columns text-right">
-				<button onclick="SavegameEditor.addLocationPinsShrines()">Pin missing shrines in map</button>
 				<button onclick="Shrine.setAllAsFound()">Set all shrines as found</button>
 				<button onclick="Shrine.setAllAsClear()">Set all shrines as cleared</button>
 			</div>
@@ -326,7 +344,6 @@
 		<div class="row mb-10">
 			<div class="four columns">Lightroots - Found: <span id="span-lightroots-found-counter"></span> - Cleared: <span id="span-lightroots-clear-counter"></span></div>
 			<div class="eight columns text-right">
-				<button onclick="SavegameEditor.addLocationPinsLightroots()">Pin missing lightroots in map</button>
 				<button onclick="Lightroot.setAllAsFound()">Set all lightroots as found</button>
 				<button onclick="Lightroot.setAllAsClear()">Set all lightroots as activated</button>
 			</div>

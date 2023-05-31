@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230529
+	The legend of Zelda: Tears of the Kingdom savegame editor v20230531
 
 	by Marc Robledo 2023
 */
@@ -524,17 +524,6 @@ SavegameEditor={
 		}
 		return false;
 	},
-	addKorokPins:function(start, end){
-		var count=0;
-		for(var i=start; i<=end && i<Korok.COORDINATES.length; i++){
-			if(this.addMapPin(MapPin.ICON_LEAF, Korok.COORDINATES[i][2], Korok.COORDINATES[i][4], Korok.COORDINATES[i][3])) //vector3f is turned into a vector2f --> z->y
-				count++;
-		}
-
-		this.refreshMapPinsCounter();
-		MarcDialogs.alert(count+' map pins added');
-		return count;
-	},
 	addLocationPins:function(flags, coordinates, icon){
 		var count=0;
 		var offsets=this._getOffsetsByHashes(flags);
@@ -547,10 +536,25 @@ SavegameEditor={
 		MarcDialogs.alert(count+' map pins added');
 		return count;
 	},
-	addLocationPinsShrines:function(flags, coordinates, icon){
+	addPinsKoroksHidden:function(){
+		return this.addLocationPins(Korok.HASHES_FOUND_HIDDEN, Korok.COORDINATES_HIDDEN, MapPin.ICON_LEAF);
+	},
+	addPinsKoroksCarry:function(){
+		var count=0;
+		var offsets=this._getOffsetsByHashes(Korok.HASHES_FOUND_CARRY);
+		for(var i=0; i<Korok.HASHES_FOUND_CARRY.length; i++){
+			if(tempFile.readU32(offsets[Korok.HASHES_FOUND_CARRY[i]])===Korok.CARRY_STATUS_FALSE && this.addMapPin(MapPin.ICON_LEAF, Korok.COORDINATES_CARRY[i][0], Korok.COORDINATES_CARRY[i][2], Korok.COORDINATES_CARRY[i][1])) //vector3f is turned into a vector2f --> z->y
+				count++;
+		}
+
+		this.refreshMapPinsCounter();
+		MarcDialogs.alert(count+' map pins added');
+		return count;
+	},
+	addPinsShrines:function(){
 		return this.addLocationPins(Shrine.HASHES_FOUND, Shrine.COORDINATES, MapPin.ICON_CRYSTAL);
 	},
-	addLocationPinsLightroots:function(flags, coordinates, icon){
+	addPinsLightroots:function(){
 		return this.addLocationPins(Lightroot.HASHES_FOUND, Lightroot.COORDINATES, MapPin.ICON_CRYSTAL);
 	},
 	clearAllMapPins:function(){
@@ -567,6 +571,10 @@ SavegameEditor={
 
 	_refreshCounter:function(container, val, max){
 		setValue(container+'-counter', val+'<small>/'+max+'</small>');
+	},
+	refreshKoroksCounter:function(){
+		this._refreshCounter('korok-hidden', Korok.countHidden(), Korok.HASHES_FOUND_HIDDEN.length);
+		this._refreshCounter('korok-carry', Korok.countCarry(), Korok.HASHES_FOUND_CARRY.length);
 	},
 	refreshMapPinsCounter:function(){
 		this._refreshCounter('pin', MapPin.count(this.currentItems.mapPins), MapPin.MAX);
@@ -800,7 +808,6 @@ SavegameEditor={
 		setValue('relic-goron', tempFile.readU32(this.Offsets.RELIC_GORON));
 		setValue('relic-rito', tempFile.readU32(this.Offsets.RELIC_RITO));
 
-		setValue('koroks', tempFile.readU32(this.Offsets.KOROK_SEED_COUNTER));
 		setValue('defeated-hinox', tempFile.readU32(this.Offsets.DEFEATED_HINOX_COUNTER));
 		setValue('defeated-talus', tempFile.readU32(this.Offsets.DEFEATED_TALUS_COUNTER));
 		setValue('defeated-molduga', tempFile.readU32(this.Offsets.DEFEATED_MOLDUGA_COUNTER));*/
@@ -819,6 +826,9 @@ SavegameEditor={
 
 		/* map pins */
 		this.refreshMapPinsCounter();
+
+		/* koroks */
+		this.refreshKoroksCounter();
 
 		/* shrines/lightroots */
 		this.refreshShrineCounters();
@@ -866,8 +876,7 @@ SavegameEditor={
 		/*tempFile.writeU32(this.Offsets.RELIC_GERUDO, getValue('relic-gerudo'));
 		tempFile.writeU32(this.Offsets.RELIC_GORON, getValue('relic-goron'));
 		tempFile.writeU32(this.Offsets.RELIC_RITO, getValue('relic-rito'));
-		
-		tempFile.writeU32(this.Offsets.KOROK_SEED_COUNTER, getValue('koroks'));
+
 		tempFile.writeU32(this.Offsets.DEFEATED_HINOX_COUNTER, getValue('defeated-hinox'));
 		tempFile.writeU32(this.Offsets.DEFEATED_TALUS_COUNTER, getValue('defeated-talus'));
 		tempFile.writeU32(this.Offsets.DEFEATED_MOLDUGA_COUNTER, getValue('defeated-molduga'));*/
