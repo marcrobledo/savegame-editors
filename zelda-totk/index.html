@@ -17,9 +17,10 @@
 	<script type="text/javascript" src="./zelda-totk.class.korok.js"></script>
 	<script type="text/javascript" src="./zelda-totk.class.mappin.js"></script>
 	<script type="text/javascript" src="./zelda-totk.class.shrine.js"></script>
+	<script type="text/javascript" src="./zelda-totk.class.schematics.js"></script>
 	<script type="text/javascript" src="./zelda-totk.class.compendium.js"></script>
 	<script type="text/javascript" src="./zelda-totk.master.js"></script>
-	<script type="text/javascript" src="./murmurhash3js.min.js"></script>
+	<!-- <script type="text/javascript" src="./murmurhash3js.min.js"></script> -->
 	<script type="text/javascript"><!--
 		/* service worker */
 		/*var FORCE_HTTPS=true;
@@ -289,6 +290,12 @@
 				<button onclick="SavegameEditor.addPinsLightroots()">Pin missing lightroots in map</button>
 			</div>
 		</div>
+		<div class="row mb-10">
+			<div class="four columns">Schematics</div>
+			<div class="eight columns text-right">
+				<button onclick="SavegameEditor.addPinsSchematics()">Pin missing schematics in map</button>
+			</div>
+		</div>
 
 		<!-- COMPLETIONISM -->
 		<h3 class="border-red">Completionism</h3>
@@ -346,6 +353,12 @@
 			<div class="eight columns text-right">
 				<button onclick="Lightroot.setAllAsFound()">Set all lightroots as found</button>
 				<button onclick="Lightroot.setAllAsClear()">Set all lightroots as activated</button>
+			</div>
+		</div>
+		<div class="row mb-10">
+			<div class="four columns">Schematics - Found: <span id="span-schematics-counter"></span></div>
+			<div class="eight columns text-right">
+				<button onclick="Schematics.setAllAsFound()">Set all schematics as found</button>
 			</div>
 		</div>
 

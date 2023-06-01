@@ -56,16 +56,8 @@ var Shrine={
 		this.setAllAsFound();
 
 		MarcDialogs.alert(count+' shrines set as clear.');
-		var foundItem=SavegameEditor._findItem('key','Obj_DungeonClearSeal');
-		if(foundItem){
-			foundItem.quantity+=count;
-			foundItem._htmlInputQuantity.value=foundItem.quantity;
-		}else{
-			var newItem=new Item('key', SavegameEditor.currentItems.key.length, 'Obj_DungeonClearSeal', count);
-			newItem.removable=true;
-			SavegameEditor.currentItems.key.push(newItem);
-			document.getElementById('container-key').appendChild(SavegameEditor._createItemRow(newItem));
-		}
+		if(count)
+			SavegameEditor.addItem('key', 'Obj_DungeonClearSeal', count);
 
 		SavegameEditor.refreshShrineCounters();
 		return count;

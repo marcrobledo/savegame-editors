@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230531
+	The legend of Zelda: Tears of the Kingdom savegame editor v20230601
 
 	by Marc Robledo 2023
 */
@@ -398,16 +398,31 @@ SavegameEditor={
 		return false;
 	},
 
-	addItem:function(catId){
+	addItem:function(catId, itemId, quantity){
 		var categoryHash=capitalizeCategoryId(catId);
 		var maxItems=SavegameEditor.readU32('Array'+categoryHash+'Ids');
 
 		var lastItem=this.getLastItem(catId);
-		var newId;
 
 		if(lastItem && lastItem.index===(maxItems -1)){
 			console.warn('not enough space in '+catId);
 			return false;
+		}
+
+
+		if(typeof itemId==='string'){
+			quantity=typeof quantity==='number' && quantity>0? quantity : 1;
+			var foundItem=SavegameEditor._findItem(catId,itemId);
+			if(foundItem){
+				foundItem.quantity+=quantity;
+				foundItem._htmlInputQuantity.value=foundItem.quantity;
+			}else{
+				var newItem=new Item(catId, SavegameEditor.currentItems[catId].length, itemId, quantity);
+				newItem.removable=true;
+				SavegameEditor.currentItems[catId].push(newItem);
+				document.getElementById('container-'+catId).appendChild(SavegameEditor._createItemRow(newItem));
+			}
+			return quantity;
 		}
 
 		var itemList=this.getTranslationHash(catId);
@@ -416,6 +431,7 @@ SavegameEditor={
 			itemListArray.push(id);
 		}
 
+		var newId;
 		if(lastItem){
 			var nextIndexId=itemListArray.indexOf(lastItem.id)+1;
 			if(nextIndexId===itemListArray.length)
@@ -443,6 +459,8 @@ SavegameEditor={
 		var row=this._createItemRow(newItem);
 		document.getElementById('container-'+newItem.category).appendChild(row);
 		row.scrollIntoView({behavior:'smooth',block:'center'});
+
+		return true;
 	},
 
 
@@ -566,6 +584,9 @@ SavegameEditor={
 	addPinsLightroots:function(){
 		return this.addLocationPins(Lightroot.HASHES_FOUND, Lightroot.COORDINATES, MapPin.ICON_CRYSTAL);
 	},
+	addPinsSchematics:function(){
+		return this.addLocationPins(Schematics.HASHES_FOUND, Schematics.COORDINATES, MapPin.ICON_DIAMOND);
+	},
 	clearAllMapPins:function(){
 		var count=0;
 		for(var i=0; i<this.currentItems.mapPins.length; i++){
@@ -598,6 +619,9 @@ SavegameEditor={
 	refreshLightrootCounters:function(){
 		this._refreshCounter('lightroots-found', Lightroot.countFound(), Lightroot.HASHES_FOUND.length);
 		this._refreshCounter('lightroots-clear', Lightroot.countClear(), Lightroot.HASHES_STATUS.length);
+	},
+	refreshSchematicsCounters:function(){
+		this._refreshCounter('schematics', Schematics.count(), Schematics.HASHES_FOUND.length);
 	},
 
 	/* check if savegame is valid */
@@ -836,15 +860,13 @@ SavegameEditor={
 		/* map pins */
 		this.refreshMapPinsCounter();
 
-		/* koroks */
+		/* completionism */
 		this.refreshKoroksCounter();
-
-		/* shrines/lightroots */
+		this.refreshCompendiumCounter();
 		this.refreshShrineCounters();
 		this.refreshLightrootCounters();
-		
-		/* compendium */
-		this.refreshCompendiumCounter();
+		this.refreshSchematicsCounters();
+
 
 		/* build item containers */
 		ITEM_CATS.forEach(function(catId, i){

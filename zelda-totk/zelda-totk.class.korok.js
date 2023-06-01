@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Korok class) v20230531
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Korok class) v20230601
 
 	by Marc Robledo 2023
 	korok hashes filtered by Karlos007
@@ -50,16 +50,8 @@ Korok.setAllHiddenAsFound=function(){
 	}
 
 	MarcDialogs.alert(count+' koroks set as found.');
-	var foundItem=SavegameEditor._findItem('key','Obj_KorokNuts');
-	if(foundItem){
-		foundItem.quantity+=count;
-		foundItem._htmlInputQuantity.value=foundItem.quantity;
-	}else{
-		var newItem=new Item('key', SavegameEditor.currentItems.key.length, 'Obj_KorokNuts', count);
-		newItem.removable=true;
-		SavegameEditor.currentItems.key.push(newItem);
-		document.getElementById('container-key').appendChild(SavegameEditor._createItemRow(newItem));
-	}
+	if(count)
+		SavegameEditor.addItem('key', 'Obj_KorokNuts', count);
 
 	SavegameEditor.refreshKoroksCounter();
 	return count;
@@ -76,16 +68,8 @@ Korok.setAllCarryAsFound=function(){
 	}
 
 	MarcDialogs.alert(count+' koroks set as carried.');
-	var foundItem=SavegameEditor._findItem('key','Obj_KorokNuts');
-	if(foundItem){
-		foundItem.quantity+=count*2;
-		foundItem._htmlInputQuantity.value=foundItem.quantity;
-	}else{
-		var newItem=new Item('key', SavegameEditor.currentItems.key.length, 'Obj_KorokNuts', count*2);
-		newItem.removable=true;
-		SavegameEditor.currentItems.key.push(newItem);
-		document.getElementById('container-key').appendChild(SavegameEditor._createItemRow(newItem));
-	}
+	if(count)
+		SavegameEditor.addItem('key', 'Obj_KorokNuts', count*2);
 
 	SavegameEditor.refreshKoroksCounter();
 	return count;
