@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Equipment class) v20230528
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Equipment class) v20230602
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -575,6 +575,9 @@ Weapon_Shield_107:'Old Wooden Shield'
 
 Equipment.FUSABLE_ITEMS=[
 {value:'',name:'No fusion'},
+{value:'Item_Enemy_140',name:'Material★: Item_Enemy_140'},
+{value:'Item_Enemy_138',name:'Material★: Luminous Stone Talus Heart'},
+{value:'Item_Enemy_227',name:'Material★: Flux Construct III Core'},
 {value:'AsbObj_RockParts_C_S_01',name:'Environment: AsbObj_RockParts_C_S_01'},
 {value:'AsbObj_SharpRock_A_S_01',name:'Environment: AsbObj_SharpRock_A_S_01'},
 {value:'AsbObj_WhiteWoodRectangle_A_LL_01',name:'Environment: AsbObj_WhiteWoodRectangle_A_LL_01'},
@@ -585,5 +588,7 @@ Equipment.FUSABLE_ITEMS=[
 {value:'IceWall_Piece',name:'Environment: IceWall_Piece'},
 {value:'Obj_GerudoHoleCover_A_03',name:'Environment: Obj_GerudoHoleCover_A_03'},
 {value:'Obj_LiftRockWhite_A_01',name:'Environment: Obj_LiftRockWhite_A_01'},
-{value:'Obj_SpikeBall_B',name:'Environment: Obj_SpikeBall_B'}
+{value:'Obj_SpikeBall_B',name:'Environment: Obj_SpikeBall_B'},
+{value:'Obj_TreeApple_A_M_01_Treant_Trunk',name:'Environment: Obj_TreeApple_A_M_01_Treant_Trunk'},
+{value:'Obj_TreeWood_A_L_Treant_ForAttachment',name:'Environment: Obj_TreeWood_A_L_Treant_ForAttachment'}
 ];
