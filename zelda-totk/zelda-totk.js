@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230601
+	The legend of Zelda: Tears of the Kingdom savegame editor v20230602
 
 	by Marc Robledo 2023
 */
@@ -879,6 +879,9 @@ SavegameEditor={
 			MarcTooltips.add('#container-'+catId+' input',{position:'bottom',align:'right'});
 		});
 
+		if(TOTKMasterEditor.isLoaded())
+			TOTKMasterEditor.forceFindOffsets=true;
+
 		showTab('home');
 	},
 
@@ -958,10 +961,11 @@ function showTab(newTab){
 
 	if(newTab==='master'){
 		if(TOTKMasterEditor.isLoaded()){
-			TOTKMasterEditor.refreshResults();
-			get('input-custom-filter').focus();
+			if(TOTKMasterEditor.forceFindOffsets)
+				TOTKMasterEditor.findOffsets();
+			TOTKMasterEditor.focus();
 		}else{
-			TOTKMasterEditor.loadHashes();
+			TOTKMasterEditor.initialize();
 		}
 	}
 }
