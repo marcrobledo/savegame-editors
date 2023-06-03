@@ -264,8 +264,9 @@ SavegameEditor={
 	writeVector3F:function(hashKey, arrayIndex, vector){
 		var offset=tempFile.readF32(SavegameEditor.Offsets[hashKey]);
 		if(typeof arrayIndex==='number'){
-			/*tempFile.writeF32(this.Offsets[hashKey] + 0x04 + arrayIndex*0x08, vector.x);
-			tempFile.writeF32(this.Offsets[hashKey] + 0x04 + arrayIndex*0x08 + 0x04, vector.y);*/
+			tempFile.writeF32(this.Offsets[hashKey] + 0x04 + arrayIndex*0x0c, vector.x);
+			tempFile.writeF32(this.Offsets[hashKey] + 0x04 + arrayIndex*0x0c + 0x04, vector.y);
+			tempFile.writeF32(this.Offsets[hashKey] + 0x04 + arrayIndex*0x0c + 0x08, vector.z);
 		}else{
 			tempFile.writeF32(this.Offsets[hashKey], vector.x);
 			tempFile.writeF32(this.Offsets[hashKey] + 0x04, vector.y);
