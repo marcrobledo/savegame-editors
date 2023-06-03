@@ -105,7 +105,7 @@ d9cf801a;3;Unknown event???? [d9cf801a];Ready,Beam_CheckPointTutorial,Beam_Check
 e0c24add;3;Unknown event [e0c24add];NotReady,Ready,Step1,Step1a,Step2,Complete
 ad02a969;3;Unknown event [ad02a969];NotReady,Ready,SellAmbers,Complete
 df20c872;3;Unknown event [df20c872];NotReady,Ready,HaveWaterFruit,Complete
-c5d87de2;3;Unknown event [c5d87de2];NotReady,Ready,Enlist,Equip,Complete
+c5d87de2;3;Step_AssassinGerudoBase;NotReady,Ready,Enlist,Equip,Complete
 383a4ab2;3;Unknown event [383a4ab2];NotReady,Ready,Craft,Playing,Retry,TimeOver,Complete
 c519833d;3;Unknown event [c519833d];NotReady,Ready,Retry,Playing,Finish,Complete
 b186cdd2;3;Unknown event [b186cdd2];NotReady,Ready,Step01,Step02,Complete

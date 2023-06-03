@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230603
+	The legend of Zelda: Tears of the Kingdom savegame editor v20230604
 
 	by Marc Robledo 2023
 */
@@ -86,7 +86,19 @@ SavegameEditor={
 
 		0x14d7f4c4, 'ArrayMapPinIcons',
 		0xf24fc2e7, 'ArrayMapPinCoordinates',
-		0xd2025694, 'ArrayMapPinMap'
+		0xd2025694, 'ArrayMapPinMap',
+
+		//0xe5b21993, 'ActiveMode', //???
+		//0x84328ce6, 'AutoBuilder',
+		//0x8ad36c62, 'AutoBuilder.Draft',
+		//0x55cb3b43, 'AutoBuilder.Draft.Content',
+		0xd27f8651, 'AutoBuilder.Draft.Content.Index', //S32, length=30
+		0xa56722b6, 'AutoBuilder.Draft.Content.CombinedActorInfo', //binary data (size=6688), length=0?
+		0xc5bf2815, 'AutoBuilder.Draft.Content.CameraPos', //Vector3F, length=30
+		0xef74dca7, 'AutoBuilder.Draft.Content.CameraAt', //Vector3F, length=30
+		0x67f4b46b, 'AutoBuilder.Draft.Content.IsFavorite' //S32?, length=30
+		//0x4058267a, 'AutoBuilder.Draft.Content.SerialNumber',
+		//0xb1c6f532, 'AutoBuilder.Draft.Content.IsValid'
 	],
 
 
@@ -95,6 +107,11 @@ SavegameEditor={
 		if(typeof arrayIndex==='number')
 			return tempFile.readU32(SavegameEditor.Offsets[hashKey] + 0x04 + arrayIndex*0x04);
 		return tempFile.readU32(SavegameEditor.Offsets[hashKey]);
+	},
+	readS32:function(hashKey, arrayIndex){
+		if(typeof arrayIndex==='number')
+			return tempFile.readS32(SavegameEditor.Offsets[hashKey] + 0x04 + arrayIndex*0x04);
+		return tempFile.readS32(SavegameEditor.Offsets[hashKey]);
 	},
 	readF32:function(hashKey, arrayIndex){
 		if(typeof arrayIndex==='number')
@@ -114,13 +131,13 @@ SavegameEditor={
 		}
 	},
 	readVector3F:function(hashKey, arrayIndex){
-		/*if(typeof arrayIndex==='number'){
+		if(typeof arrayIndex==='number'){
 			return {
 				x: tempFile.readF32(SavegameEditor.Offsets[hashKey] + 0x04 + arrayIndex*0x0c),
 				y: tempFile.readF32(SavegameEditor.Offsets[hashKey] + 0x04 + arrayIndex*0x0c + 0x04),
 				z: tempFile.readF32(SavegameEditor.Offsets[hashKey] + 0x04 + arrayIndex*0x0c + 0x08)
 			}
-		}*/
+		}
 		return {
 			x: tempFile.readF32(SavegameEditor.Offsets[hashKey]),
 			y: tempFile.readF32(SavegameEditor.Offsets[hashKey] + 0x04),
@@ -163,11 +180,36 @@ SavegameEditor={
 	readU32Array:function(hashKey, arrayIndex){
 		return this._readArray(hashKey, arrayIndex, this.readU32);
 	},
+	readS32Array:function(hashKey, arrayIndex){
+		return this._readArray(hashKey, arrayIndex, this.readS32);
+	},
+	readVector3FArray:function(hashKey, arrayIndex){
+		return this._readArray(hashKey, arrayIndex, this.readVector3F);
+	},
 	readString64Array:function(hashKey, arrayIndex){
 		return this._readArray(hashKey, arrayIndex, this.readString64);
 	},
 	readStringUTF8Array:function(hashKey, arrayIndex){
 		return this._readArray(hashKey, arrayIndex, this.readStringUTF8);
+	},
+	readDynamicDataArray:function(hashKey, arrayIndex){
+		var allData=[];
+		var offset=this.Offsets[hashKey];
+		var max=tempFile.readU32(offset);
+		offset+=4;
+		for(var i=0; i<max; i++){
+			var len=tempFile.readU32(offset);
+			offset+=4;
+			var data=tempFile.readBytes(offset, len);
+			if(typeof arrayIndex==='number'){
+				if(i===arrayIndex)
+					return data;
+			}else{
+				allData.push(data);
+			}
+			offset+=len;
+		}
+		return allData;
 	},
 
 	writeU32:function(hashKey, arrayIndex, value){
@@ -175,6 +217,12 @@ SavegameEditor={
 			tempFile.writeU32(this.Offsets[hashKey] + 0x04 + arrayIndex*0x04, value);
 		else
 			tempFile.writeU32(this.Offsets[hashKey], value);
+	},
+	writeS32:function(hashKey, arrayIndex, value){
+		if(typeof arrayIndex==='number')
+			tempFile.writeS32(this.Offsets[hashKey] + 0x04 + arrayIndex*0x04, value);
+		else
+			tempFile.writeS32(this.Offsets[hashKey], value);
 	},
 	writeString64:function(hashKey, arrayIndex, value){
 		if(typeof arrayIndex==='number')
@@ -204,7 +252,6 @@ SavegameEditor={
 		else
 			tempFile.writeF32(this.Offsets[hashKey], value);
 	},
-
 	writeVector2F:function(hashKey, arrayIndex, vector){
 		if(typeof arrayIndex==='number'){
 			tempFile.writeF32(this.Offsets[hashKey] + 0x04 + arrayIndex*0x08, vector.x);
@@ -214,7 +261,6 @@ SavegameEditor={
 			tempFile.writeF32(this.Offsets[hashKey] + 0x04, vector.y);
 		}
 	},
-
 	writeVector3F:function(hashKey, arrayIndex, vector){
 		var offset=tempFile.readF32(SavegameEditor.Offsets[hashKey]);
 		if(typeof arrayIndex==='number'){
@@ -225,6 +271,21 @@ SavegameEditor={
 			tempFile.writeF32(this.Offsets[hashKey] + 0x04, vector.y);
 			tempFile.writeF32(this.Offsets[hashKey] + 0x08, vector.z);
 		}
+	},
+	writeDynamicData:function(hashKey, arrayIndex, data){
+		var offset=this.Offsets[hashKey];
+		var max=tempFile.readU32(offset);
+		offset+=4;
+		for(var i=0; i<max; i++){
+			var len=tempFile.readU32(offset);
+			offset+=4;
+			if(arrayIndex===i){
+				tempFile.writeBytes(offset, data);
+				return true;
+			}
+			offset+=len;
+		}
+		return false;
 	},
 
 
@@ -239,7 +300,7 @@ SavegameEditor={
 			if(hash===0xa3db7114){ //found MetaData.SaveTypeHash
 				break;
 			}else if(foundHashIndex!==-1){
-				if(/^(Array|PlayerPos)/.test(this.Hashes[foundHashIndex+1]))
+				if(/^(Array|PlayerPos|AutoBuilder)/.test(this.Hashes[foundHashIndex+1]))
 					this.Offsets[this.Hashes[foundHashIndex+1]]=tempFile.readU32(i+4);
 				else
 					this.Offsets[this.Hashes[foundHashIndex+1]]=i+4;
@@ -344,10 +405,16 @@ SavegameEditor={
 			item._htmlDeleteButton=document.createElement('button');
 			item._htmlDeleteButton.className='button colored red with-icon icon3 floating';
 			item._htmlDeleteButton.addEventListener('click', function(){
-				MarcDialogs.confirm('Are you sure you want to delete <strong>'+item.getItemTranslation()+'</strong>?<br/><div style="color:red">Warning: use this feature at your own risk</div>', function(){
-					MarcDialogs.close();
+				if(SavegameEditor.removeWarning){
+					MarcDialogs.confirm('Are you sure you want to delete <strong>'+item.getItemTranslation()+'</strong>?<br/><div style="color:red">Warning: use this feature at your own risk</div>', function(){
+						MarcDialogs.close();
+						SavegameEditor._removeItem(item.category, item.index);
+						//SavegameEditor.removeWarning=false;
+						//MarcDialogs.alert('Be careful when deleting more items, the confirmation dialog won\'t appear again.');
+					});
+				}else{
 					SavegameEditor._removeItem(item.category, item.index);
-				});
+				}
 			});
 			lastColumn.appendChild(item._htmlDeleteButton);
 		}
@@ -725,6 +792,37 @@ SavegameEditor={
 		});
 
 
+
+		/* autobuilder */
+		get('input-file-autobuilder-import').addEventListener('change', function(evt){
+			autobuilderTempFile=new MarcFile(this.files[0], function(){
+				var selectedIndex=parseInt(getValue('select-autobuilder-index'));
+				var autobuilderOld=AutoBuilder.readSingle(selectedIndex);
+				if(autobuilderOld){
+					var importedAutobuilder=AutoBuilder.fromFile(autobuilderTempFile);
+					if(importedAutobuilder){
+						importedAutobuilder._index=autobuilderOld._index;
+						importedAutobuilder.index=autobuilderOld.index;
+						importedAutobuilder.isFavorite=autobuilderOld.isFavorite;
+						importedAutobuilder.save();
+						MarcDialogs.alert('Successfully imported schema at '+(importedAutobuilder.index+1));
+					}else{
+						MarcDialogs.alert('Error while importing schema at '+(importedAutobuilder.index+1));
+					}
+				}
+			});
+
+		});
+		get('button-autobuilder-export').addEventListener('click', function(evt){
+			var selectedIndex=parseInt(getValue('select-autobuilder-index'));
+			var autobuilder=AutoBuilder.readSingle(selectedIndex);
+			if(autobuilder)
+				autobuilder.export().save();
+		});
+		get('button-autobuilder-import').addEventListener('click', function(evt){
+			get('input-file-autobuilder-import').click();
+		});
+
 		/*setNumericRange('mons', 0, 999999);
 		setNumericRange('relic-gerudo', 0, 99);
 		setNumericRange('relic-goron', 0, 99);
@@ -794,6 +892,7 @@ SavegameEditor={
 	load:function(){
 		tempFile.fileName='progress.sav';
 
+		this.removeWarning=true;
 		this.selectItem.lastCategory=null;
 
 		/* empty item containers */

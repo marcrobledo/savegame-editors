@@ -19,6 +19,7 @@
 	<script type="text/javascript" src="./zelda-totk.class.shrine.js"></script>
 	<script type="text/javascript" src="./zelda-totk.class.schematics.js"></script>
 	<script type="text/javascript" src="./zelda-totk.class.compendium.js"></script>
+	<script type="text/javascript" src="./zelda-totk.class.autobuilder.js"></script>
 	<script type="text/javascript" src="./zelda-totk.master.js"></script>
 	<script type="text/javascript" src="./murmurhash3js.min.js"></script>
 	<script type="text/javascript"><!--
@@ -369,6 +370,49 @@
 				<button onclick="addLocationsToMap()">Add pins to Map</button>
 			</div>
 		</div> -->
+
+		<!-- AUTOBUILDER -->
+		<h3 class="border-grey">Autobuilder</h3>
+		<div class="row mb-10">
+			<div class="twelve columns">
+				<label>Schema <select id="select-autobuilder-index" style="width:auto">
+					<option value="0">01</option>
+					<option value="1">02</option>
+					<option value="2">03</option>
+					<option value="3">04</option>
+					<option value="4">05</option>
+					<option value="5">06</option>
+					<option value="6">07</option>
+					<option value="7">08</option>
+					<option value="8">09</option>
+					<option value="9">10</option>
+					<option value="10">11</option>
+					<option value="11">12</option>
+					<option value="12">13</option>
+					<option value="13">14</option>
+					<option value="14">15</option>
+					<option value="15">16</option>
+					<option value="16">17</option>
+					<option value="17">18</option>
+					<option value="18">19</option>
+					<option value="19">20</option>
+					<option value="20">21</option>
+					<option value="21">22</option>
+					<option value="22">23</option>
+					<option value="23">24</option>
+					<option value="24">25</option>
+					<option value="25">26</option>
+					<option value="26">27</option>
+					<option value="27">28</option>
+					<option value="28">29</option>
+					<option value="29">30</option>
+				</select></label>
+				<button id="button-autobuilder-export">Export</button>
+				<button id="button-autobuilder-import">Import</button>
+				<input id="input-file-autobuilder-import" type="file" accept=".totkab" style="display:none" />
+				<span style="color:red"><strong>Currently on alpha</strong>. Use this on your own risk!</span>
+			</div>
+		</div>
 	</div>
 	
 	<!-- TAB: WEAPONS -->

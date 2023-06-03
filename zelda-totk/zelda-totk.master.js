@@ -137,6 +137,7 @@ var TOTKMasterEditor=(function(){
 				_addEditorRow(container, hash.id, s);
 			}else{
 				var inp=inputNumber(hash.hashHex, -2147483648, 2147483647, tempFile.readU32(hash.offset));
+				inp.className='text-right';
 				inp.offset=hash.offset;
 				inp.addEventListener('change', _setS32);
 				_addEditorRow(container, hash.id, inp);
@@ -144,16 +145,22 @@ var TOTKMasterEditor=(function(){
 		}else if(hash.type===VECTOR3F){
 			var metadataOffset=tempFile.readU32(hash.offset);
 			var inputX=inputFloat(hash.hashHex+'x', -10000, 10000, tempFile.readF32(metadataOffset));
+			inputX.className='text-right';
+			inputX.style='width:160px';
 			inputX.offset=metadataOffset;
 			inputX.addEventListener('change', _setF32);
 			inputX.title='X';
 
 			var inputY=inputFloat(hash.hashHex+'y', -10000, 10000, tempFile.readF32(metadataOffset+4));
+			inputY.className='text-right';
+			inputY.style='width:160px';
 			inputY.offset=metadataOffset+4;
 			inputY.addEventListener('change', _setF32);
 			inputY.title='Y';
 
 			var inputZ=inputFloat(hash.hashHex+'z', -10000, 10000, tempFile.readF32(metadataOffset+8));
+			inputZ.className='text-right';
+			inputZ.style='width:160px';
 			inputZ.offset=metadataOffset+8;
 			inputZ.addEventListener('change', _setF32);
 			inputZ.title='Z';
