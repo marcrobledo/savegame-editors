@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Item class) v20230601
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Item class) v20230603
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -497,6 +497,18 @@ Item_Enemy_228:'Shard of Dinraal\'s Spike',
 Item_Enemy_229:'Shard of Naydra\'s Spike',
 Item_Enemy_230:'Shard of Farosh\'s Spike',
 Item_Enemy_231:'Shard of Light Dragon\'s Spike',
+
+Item_Enemy_137:'Stone Talus Heart', //fusable only
+Item_Enemy_138:'Luminous Stole Talus Heart', //fusable only
+Item_Enemy_139:'Rare Stone Talus Heart', //fusable only
+Item_Enemy_140:'Igneo Talus Heart', //fusable only
+Item_Enemy_141:'Frost Talus Heart', //fusable only
+Item_Enemy_220:'Colgera Jaw', //fusable only
+Item_Enemy_221:'Marbled Gohma Leg', //fusable only
+Item_Enemy_223:'Queen Gibdo Wing', //fusable only
+Item_Enemy_225:'Flux Construct I Core', //fusable only
+Item_Enemy_226:'Flux Construct II Core', //fusable only
+Item_Enemy_227:'Flux Construct III Core', //fusable only
 
 Item_FishGet_A:'Hyrule Bass',
 Item_FishGet_AA:'Ancient Arowana',

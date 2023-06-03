@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230602
+	The legend of Zelda: Tears of the Kingdom savegame editor v20230603
 
 	by Marc Robledo 2023
 */
@@ -681,6 +681,13 @@ SavegameEditor={
 		}, false);
 
 		/* prepare fusable items list */
+		Equipment.KNOWN_FUSABLE_MATERIALS.forEach(function(itemId){
+			Equipment.FUSABLE_ITEMS.push({value:itemId,name:'*Material: '+Item.TRANSLATIONS.materials[itemId] || itemId})
+		});
+
+		Equipment.KNOWN_FUSABLE_OBJECTS.forEach(function(itemId){
+			Equipment.FUSABLE_ITEMS.push({value:itemId,name:'Environment: '+itemId})
+		});
 		for(var itemId in Equipment.TRANSLATIONS.weapons){
 			if(!/^Weapon_Sword_07/.test(itemId))
 				Equipment.FUSABLE_ITEMS.push({value:itemId, name:'Weapon: '+Equipment.TRANSLATIONS.weapons[itemId]})
@@ -692,7 +699,7 @@ SavegameEditor={
 			Equipment.FUSABLE_ITEMS.push({value:itemId, name:'Material: '+Item.TRANSLATIONS.materials[itemId]})
 		}
 		for(var itemId in Item.TRANSLATIONS.devices){
-			Equipment.FUSABLE_ITEMS.push({value:itemId.replace('_Capsule',''), name:'Zonai: '+Item.TRANSLATIONS.devices[itemId]})
+			Equipment.FUSABLE_ITEMS.push({value:itemId.replace('_Capsule',''), name:'Zonai device: '+Item.TRANSLATIONS.devices[itemId]})
 		}
 
 		setNumericRange('rupees', 0, 999999);
