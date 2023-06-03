@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom - Master editor v20230602
+	The legend of Zelda: Tears of the Kingdom - Master editor v20230603
 
 	by Marc Robledo 2023
 */
@@ -30,7 +30,6 @@ var TOTKMasterEditor=(function(){
 	//const STRING64_ARRAY=16;
 	//const STRING256=17;
 	//const STRING256_ARRAY=18;
-	const ENUM=31;
 
 	var _addCustomHashesBoolean=function(customHashes, label){
 		for(var i=0; i<customHashes.length; i++){
@@ -38,7 +37,24 @@ var TOTKMasterEditor=(function(){
 				hash:customHashes[i],
 				hashHex:customHashes[i].toString(16),
 				type:BOOL,
-				id: label+' ['+i+']'
+				id: label+' ['+i+']',
+				enumValues:null
+			})
+			allHashes.push(customHashes[i]);
+		}
+	};
+
+	var _addCustomHashesEnum=function(customHashes, label, options){
+		options=options.map(function(value){
+			return {value:murmurHash3.x86.hash32(value), name:value};
+		});
+		for(var i=0; i<customHashes.length; i++){
+			hashes.push({
+				hash:customHashes[i],
+				hashHex:customHashes[i].toString(16),
+				type:S32,
+				id: label+' ['+i+']',
+				enumValues:options
 			})
 			allHashes.push(customHashes[i]);
 		}
@@ -51,18 +67,30 @@ var TOTKMasterEditor=(function(){
 			if(lines[i]){
 				var data=lines[i].split(';');
 				var hashInt=parseInt(data[0], 16);
+				var options=null;
+				if(data[3]){
+					options=data[3].split(',').map(function(value){
+						return {value:murmurHash3.x86.hash32(value), name:value};
+					});
+				}
 				hashes.push({
 					hash:hashInt,
 					hashHex:data[0],
 					type:parseInt(data[1]),
-					id:data[2]
+					id:data[2],
+					enumValues:options
 				});
 				allHashes.push(hashInt);
 			}
 		}
 
 		_addCustomHashesBoolean(Korok.HASHES_FOUND_HIDDEN, 'Korok found');
-		_addCustomHashesBoolean(Korok.HASHES_FOUND_CARRY, 'Korok carried');
+		_addCustomHashesEnum(Korok.HASHES_FOUND_CARRY, 'Korok carried', ['NotClear','Clear']);
+		_addCustomHashesBoolean(Shrine.HASHES_FOUND, 'Shrine location found');
+		_addCustomHashesEnum(Shrine.HASHES_STATUS, 'Shrine status', ['Hidden','Appear','Open','Enter','Clear']);
+		_addCustomHashesBoolean(Lightroot.HASHES_FOUND, 'Lightroot location found');
+		_addCustomHashesEnum(Lightroot.HASHES_STATUS, 'Lightroot status', ['Close','Open']);
+		_addCustomHashesEnum(Compendium.HASHES_GOT_FLAGS, 'Compendium picture status', ['Unopened','TakePhoto','Buy']);
 	};
 
 	var _setBoolean=function(){
@@ -102,10 +130,17 @@ var TOTKMasterEditor=(function(){
 				c.checked=true;
 			_addEditorRow(container, hash.id, c);
 		}else if(hash.type===S32){
-			var inp=inputNumber(hash.hashHex, -2147483648, 2147483647, tempFile.readU32(hash.offset));
-			inp.offset=hash.offset;
-			inp.addEventListener('change', _setS32);
-			_addEditorRow(container, hash.id, inp);
+			if(hash.enumValues){
+				var s=select(hash.hashHex, hash.enumValues, null, tempFile.readU32(hash.offset));
+				s.offset=hash.offset;
+				s.addEventListener('change', _setS32);
+				_addEditorRow(container, hash.id, s);
+			}else{
+				var inp=inputNumber(hash.hashHex, -2147483648, 2147483647, tempFile.readU32(hash.offset));
+				inp.offset=hash.offset;
+				inp.addEventListener('change', _setS32);
+				_addEditorRow(container, hash.id, inp);
+			}
 		}else if(hash.type===VECTOR3F){
 			var metadataOffset=tempFile.readU32(hash.offset);
 			var inputX=inputFloat(hash.hashHex+'x', -10000, 10000, tempFile.readF32(metadataOffset));
