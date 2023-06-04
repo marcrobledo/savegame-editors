@@ -122,9 +122,8 @@ Equipment.buildHtmlElements=function(item){
 		var fromNoBonus=item.modifier===Equipment.MODIFIER_NO_BONUS;
 		var fromModifierDurability=item.modifier===Equipment.MODIFIER_DURABILITY || item.modifier===Equipment.MODIFIER_DURABILITY2;
 		item.modifier=parseInt(this.value);
-		
-		var maximumDurability=item.getMaximumDurability();
-		get('number-item-durability-'+item.category+'-'+item.index).maxValue=maximumDurability;
+
+		item.fixValues();
 
 		if(item.modifier===Equipment.MODIFIER_NO_BONUS){
 			item.modifierValue=0;
@@ -158,6 +157,8 @@ Equipment.buildHtmlElements=function(item){
 	if(item.isFusable()){
 		item._htmlSelectFusion=select('item-fusion-'+item.category+'-'+item.index, Equipment.FUSABLE_ITEMS, function(){
 			item.fuseId=this.value;
+			item.restoreDurability();
+			item.fixValues();
 		}, item.fuseId);
 		item._htmlSelectFusion.title='Fusion';
 	}
