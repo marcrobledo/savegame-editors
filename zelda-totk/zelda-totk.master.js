@@ -102,6 +102,10 @@ var TOTKMasterEditor=(function(){
 	var _setF32=function(){
 		tempFile.writeF32(this.offset, parseFloat(this.value));
 	}
+	var _setF32Negative=function(){
+		var val=parseFloat(this.value);
+		tempFile.writeF32(this.offset, val? -val : 0); //just in case, avoid storing -0
+	}
 
 	var _addEditorRow=function(container, left, right1, right2, right3){
 		var tr=document.createElement('tr');
@@ -151,17 +155,17 @@ var TOTKMasterEditor=(function(){
 			inputX.addEventListener('change', _setF32);
 			inputX.title='X';
 
-			var inputY=inputFloat(hash.hashHex+'y', -10000, 10000, tempFile.readF32(metadataOffset+4));
+			var inputY=inputFloat(hash.hashHex+'y', -10000, 10000, -tempFile.readF32(metadataOffset+8));
 			inputY.className='text-right';
 			inputY.style='width:160px';
-			inputY.offset=metadataOffset+4;
-			inputY.addEventListener('change', _setF32);
+			inputY.offset=metadataOffset+8;
+			inputY.addEventListener('change', _setF32Negative);
 			inputY.title='Y';
 
-			var inputZ=inputFloat(hash.hashHex+'z', -10000, 10000, tempFile.readF32(metadataOffset+8));
+			var inputZ=inputFloat(hash.hashHex+'z', -10000, 10000, tempFile.readF32(metadataOffset+4));
 			inputZ.className='text-right';
 			inputZ.style='width:160px';
-			inputZ.offset=metadataOffset+8;
+			inputZ.offset=metadataOffset+4;
 			inputZ.addEventListener('change', _setF32);
 			inputZ.title='Z';
 
