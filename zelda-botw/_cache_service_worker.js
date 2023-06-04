@@ -30,7 +30,7 @@ caches.keys().then(function(cacheNames){
 });
 
 var PRECACHE_ID='zelda-botw-editor';
-var PRECACHE_VERSION='v5b';
+var PRECACHE_VERSION='v5c';
 var PRECACHE_URLS=[
 	//is hashes file too big for cacheing?
 	'/savegame-editors/zelda-botw/','/savegame-editors/zelda-botw/index.html',
