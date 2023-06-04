@@ -15,7 +15,7 @@ SavegameEditor={
 	Constants:{
 		GAME_VERSIONS:[
 			{version:'v1.0', fileSize:2307552, header:0x0046c3c8, metaDataStart:0x0003c050},
-			{version:'v1.1', fileSize:2307656, header:0x0047e0f4, metaDataStart:0x0003c088}
+			{version:'v1.1.x', fileSize:2307656, header:0x0047e0f4, metaDataStart:0x0003c088}
 		],
 
 		BLANK_ICON_PATH:'./assets/_blank.png'
@@ -588,7 +588,7 @@ SavegameEditor={
 	},
 	editItem2:function(item, newId){
 		item.id=newId;
-		if(item.category==='horses'){
+		if(typeof item.fixValues==='function'){
 			item.fixValues();
 		}
 
