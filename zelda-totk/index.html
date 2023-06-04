@@ -10,18 +10,19 @@
 	<link type="text/css" rel="stylesheet" href="./zelda-totk.css" media="all"/>
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./zelda-totk.js"></script>
-	<script type="text/javascript" src="./zelda-totk.class.armor.js"></script>
-	<script type="text/javascript" src="./zelda-totk.class.equipment.js"></script>
-	<script type="text/javascript" src="./zelda-totk.class.horse.js"></script>
-	<script type="text/javascript" src="./zelda-totk.class.item.js"></script>
-	<script type="text/javascript" src="./zelda-totk.class.korok.js"></script>
-	<script type="text/javascript" src="./zelda-totk.class.mappin.js"></script>
-	<script type="text/javascript" src="./zelda-totk.class.shrine.js"></script>
-	<script type="text/javascript" src="./zelda-totk.class.schematics.js"></script>
-	<script type="text/javascript" src="./zelda-totk.class.compendium.js"></script>
-	<script type="text/javascript" src="./zelda-totk.class.autobuilder.js"></script>
-	<script type="text/javascript" src="./zelda-totk.master.js"></script>
-	<script type="text/javascript" src="./murmurhash3js.min.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.class.armor.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.class.equipment.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.class.horse.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.class.item.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.class.korok.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.class.mappin.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.class.shrine.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.class.schematics.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.class.compendium.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.class.autobuilder.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.locale.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.master.js"></script>
+	<script defer type="text/javascript" src="./murmurhash3js.min.js"></script>
 	<script type="text/javascript"><!--
 		/* service worker */
 		/*var FORCE_HTTPS=true;
@@ -62,7 +63,7 @@
 				<button id="tab-button-key" title="Key items" class="tab-button" onclick="showTab('key')"><i class="tab-icon other"></i></button>
 				<button id="tab-button-horses" title="Horses" class="tab-button" onclick="showTab('horses')"><i class="tab-icon horses"></i></button>
 				<button id="tab-button-master" title="Master editor" class="tab-button" onclick="showTab('master')"><i class="tab-icon master"></i></button>
-				<!-- <button id="tab-button-help" title="Help" class="tab-button" onclick="showTab('help')"><i class="tab-icon help"></i></button> -->
+				<button id="tab-button-settings" title="Settings" class="tab-button" onclick="showTab('settings')"><i class="tab-icon settings"></i></button>
 				| <button class="button with-icon icon3" onclick="closeFile()">Close file</button>
 				<button class="button colored blue with-icon icon9" onclick="saveChanges()">Save changes</button>
 			</div>
@@ -528,12 +529,44 @@
 		</div>
 	</div>
 
-	<!-- TAB: HELP -->
-	<div id="tab-help">
+	<!-- TAB: SETTINGS -->
+	<div id="tab-settings">
+		<h3 class="border-orange">Settings</h3>
+		<div id="box-settings">
+			<div>
+				<label for="select-language">Item language</label>
+				<select id="select-language">
+					<option value="en">English</option>
+					<option value="fr">Français</option>
+					<option value="fr_alt">Français (Canada)</option>
+					<option value="de">Deutsch</option>
+					<option value="it">Italiano</option>
+					<option value="es">Español</option>
+					<option value="es_alt">Español latino</option>
+					<option value="nl">Dutch</option>
+					<option value="ru">Russian</option>
+					<option value="ja">Japanese</option>
+					<option value="ko">Korean</option>
+					<option value="zh">Chinese (simplified)</option>
+					<option value="zh_alt">Chinese (traditional)</option>
+				</select>
+			</div>
+			<div>
+				<label><input type="checkbox" id="checkbox-warning-delete" checked> Warn when deleting item</select>
+			</div>
+		</div>
+		<h3 class="border-blue">Troubleshooting</h3>
+
+		<p>Please read and check the <a href="https://github.com/marcrobledo/savegame-editors/wiki/TOTK-known-issues-&-FAQ" target="_blank">list of known issues</a> if you are having problems when loading/saving your edited savegame.</p>
+		<p><strong>Always remember to make backups of your savegames before editing. Use this savegame editor at your own risk. By using it, you are responsible of any data lost.</strong></p>		
 	</div>
 </div>
 
 <div id="dialog-caption" class="dialog text-center"></div>
 
+
+<div id="toast-loading" style="display:none">
+	Loading <span id="span-loading-filename"></span>...
+</div>
 </body>
 </html>

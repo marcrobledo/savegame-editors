@@ -1,0 +1,922 @@
+Weapon_Lsword_001;Походный клеймор
+Weapon_Lsword_002;Боевой клеймор
+Weapon_Lsword_003;Рыцарский клеймор
+Weapon_Lsword_019;Лапа моблина
+Weapon_Lsword_020;Ржавый клеймор
+Weapon_Lsword_024;Королевский клеймор
+Weapon_Lsword_027;Длинный меч зора
+Weapon_Lsword_029;Клеймор герудо
+Weapon_Lsword_036;Щебнерез
+Weapon_Lsword_038;Весло
+Weapon_Lsword_041;Восьмеричный меч
+Weapon_Lsword_045;Тяпка
+Weapon_Lsword_047;Гвардейский клеймор
+Weapon_Lsword_051;Огромный бумеранг
+Weapon_Lsword_054;Скалобой
+Weapon_Lsword_057;Клеймор Сумрака
+Weapon_Lsword_059;Меч Биггорона
+Weapon_Lsword_060;Меч Лютобога
+Weapon_Lsword_101;Длинный зонаровый меч
+Weapon_Lsword_103;Толстая палка
+Weapon_Lsword_106;Походный клеймор
+Weapon_Lsword_108;Прочная толстая палка
+Weapon_Lsword_109;Узловатая толстая палка
+Weapon_Lsword_112;Боевой клеймор
+Weapon_Lsword_113;Рыцарский клеймор
+Weapon_Lsword_114;Восьмеричный меч
+Weapon_Lsword_124;Королевский клеймор
+Weapon_Lsword_127;Длинный меч зора
+Weapon_Lsword_129;Клеймор герудо
+Weapon_Lsword_136;Щебнерез
+Weapon_Lsword_147;Гвардейский клеймор
+Weapon_Lsword_161;Большой волшебный жезл
+Weapon_Lsword_163;Длинный зонаровый меч+
+Weapon_Lsword_164;Длинный зонаровый меч++
+Weapon_Lsword_166;Миазмовая дубина
+Weapon_Lsword_168;Толстая палка
+Weapon_Lsword_174;Огромный бумеранг
+Weapon_Spear_001;Походное копье
+Weapon_Spear_002;Боевое копье
+Weapon_Spear_003;Рыцарская алебарда
+Weapon_Spear_021;Ржавая алебарда
+Weapon_Spear_022;Вилы
+Weapon_Spear_024;Королевская алебарда
+Weapon_Spear_025;Лесное копье
+Weapon_Spear_027;Копье зора
+Weapon_Spear_029;Копье герудо
+Weapon_Spear_030;Дротик
+Weapon_Spear_032;Полетное копье
+Weapon_Spear_036;Деревянная швабра
+Weapon_Spear_038;Рыбацкий гарпун
+Weapon_Spear_047;Гвардейская алебарда
+Weapon_Spear_050;Трезубец Чешуи Света
+Weapon_Spear_101;Зонаровое копье
+Weapon_Spear_103;Длинная палка
+Weapon_Spear_106;Походное копье
+Weapon_Spear_108;Крепкая длинная палка
+Weapon_Spear_109;Узловатая длинная палка
+Weapon_Spear_112;Боевое копье
+Weapon_Spear_113;Рыцарская алебарда
+Weapon_Spear_124;Королевская алебарда
+Weapon_Spear_125;Лесное копье
+Weapon_Spear_127;Копье зора
+Weapon_Spear_129;Копье герудо
+Weapon_Spear_132;Полетное копье
+Weapon_Spear_147;Гвардейская алебарда
+Weapon_Spear_161;Длинный волшебный жезл
+Weapon_Spear_163;Зонаровое копье+
+Weapon_Spear_164;Зонаровое копье++
+Weapon_Spear_166;Миазмовое копье
+Weapon_Spear_168;Длинная палка
+Weapon_Spear_173;Дротик
+Weapon_Sword_001;Походный меч
+Weapon_Sword_002;Боевой меч
+Weapon_Sword_003;Рыцарский меч
+Weapon_Sword_019;Лапа бокоблина
+Weapon_Sword_020;Лапа заврофоса
+Weapon_Sword_021;Ржавый меч
+Weapon_Sword_022;Деревянный черпак
+Weapon_Sword_024;Королевский меч
+Weapon_Sword_025;Лесной меч
+Weapon_Sword_027;Меч зора
+Weapon_Sword_029;Сабля герудо
+Weapon_Sword_031;Полетный меч
+Weapon_Sword_041;Восьмеричный клинок
+Weapon_Sword_043;Факел
+Weapon_Sword_044;Ветка
+Weapon_Sword_047;Гвардейский меч
+Weapon_Sword_051;Бумеранг
+Weapon_Sword_052;Сабля Семи
+Weapon_Sword_057;Белый небесный меч
+Weapon_Sword_058;Меч Героя
+Weapon_Sword_059;Бумеранг бриза
+Weapon_Sword_070;Высший Меч
+Weapon_Sword_070_Broken;Поврежденный Высший Меч
+Weapon_Sword_101;Зонаровый меч
+Weapon_Sword_103;Палка
+Weapon_Sword_105;Бумеранг
+Weapon_Sword_106;Походный меч
+Weapon_Sword_107;Завроранг
+Weapon_Sword_108;Крепкая палка
+Weapon_Sword_109;Узловатая палка
+Weapon_Sword_112;Боевой меч
+Weapon_Sword_113;Рыцарский меч
+Weapon_Sword_114;Восьмеричный клинок
+Weapon_Sword_124;Королевский меч
+Weapon_Sword_125;Лесной меч
+Weapon_Sword_127;Меч зора
+Weapon_Sword_129;Сабля герудо
+Weapon_Sword_131;Полетный меч
+Weapon_Sword_147;Гвардейский меч
+Weapon_Sword_161;Волшебный жезл
+Weapon_Sword_163;Зонаровый меч+
+Weapon_Sword_164;Зонаровый меч++
+Weapon_Sword_166;Миазмовый меч
+Weapon_Sword_167;Ветка
+Weapon_Sword_168;Палка
+Weapon_Bow_001;Походный лук
+Weapon_Bow_002;Боевой лук
+Weapon_Bow_003;Колючий боколук
+Weapon_Bow_004;Боколук
+Weapon_Bow_006;Завролук
+Weapon_Bow_009;Лук левра
+Weapon_Bow_011;Усиленный завролук
+Weapon_Bow_013;Лесной лук
+Weapon_Bow_014;Лук зора
+Weapon_Bow_015;Лук герудо
+Weapon_Bow_016;Ласточий лук
+Weapon_Bow_017;Соколиный лук
+Weapon_Bow_026;Лук могучего левра
+Weapon_Bow_027;Драконий боколук
+Weapon_Bow_028;Большой орлиный лук
+Weapon_Bow_029;Лук средоточия
+Weapon_Bow_030;Стальной завролук
+Weapon_Bow_032;Лук ужасного левра
+Weapon_Bow_033;Гвардейский лук
+Weapon_Bow_035;Рыцарский лук
+Weapon_Bow_036;Королевский лук
+Weapon_Bow_038;Деревянный лук
+Weapon_Bow_040;Двойной лук
+Weapon_Bow_072;Лук Сумрака
+Weapon_Bow_101;Зонаровый лук
+Weapon_Bow_104;Лук голема
+Weapon_Bow_105;Лук голема+
+Weapon_Bow_106;Лук голема++
+Weapon_Bow_107;Старый деревянный лук
+Weapon_Bow_166;Лук короля демонов
+Weapon_Shield_001;Деревянный щит
+Weapon_Shield_002;Боевой щит
+Weapon_Shield_003;Рыцарский щит
+Weapon_Shield_004;Бокощит
+Weapon_Shield_005;Колючий бокощит
+Weapon_Shield_006;Драконий бокощит
+Weapon_Shield_007;Заврощит
+Weapon_Shield_008;Крепкий заврощит
+Weapon_Shield_009;Стальной заврощит
+Weapon_Shield_016;Щит левра
+Weapon_Shield_017;Щит могучего левра
+Weapon_Shield_018;Щит ужасного левра
+Weapon_Shield_021;Ржавый щит
+Weapon_Shield_022;Королевский щит
+Weapon_Shield_023;Лесной щит
+Weapon_Shield_025;Щит зора
+Weapon_Shield_026;Щит герудо
+Weapon_Shield_030;Хайлийский щит
+Weapon_Shield_031;Охотничий щит
+Weapon_Shield_032;Рыбацкий щит
+Weapon_Shield_033;Гвардейский щит
+Weapon_Shield_034;Расписной щит
+Weapon_Shield_035;Походный щит
+Weapon_Shield_036;Щит Солнца
+Weapon_Shield_037;Сияющая Эгида
+Weapon_Shield_040;Крышка
+Weapon_Shield_041;Щит духовного ока
+Weapon_Shield_042;Воздушный щит
+Weapon_Shield_057;Щит бриза
+Weapon_Shield_101;Зонаровый щит
+Weapon_Shield_102;Зонаровый щит+
+Weapon_Shield_103;Зонаровый щит++
+Weapon_Shield_107;Старый деревянный щит
+Armor_001_Head;Хайлийский капюшон
+Armor_001_Lower;Хайлийские штаны
+Armor_001_Upper;Хайлийская туника
+Armor_005_Head;Колпак Героя Просторов
+Armor_005_Lower;Шорты Героя Просторов
+Armor_005_Upper;Туника Героя Просторов
+Armor_006_Head;Шлем зора
+Armor_006_Lower;Поножи зора
+Armor_006_Upper;Доспехи зора
+Armor_008_Head;Обруч Пустыни
+Armor_008_Lower;Штаны Пустыни
+Armor_008_Upper;Наплечник Пустыни
+Armor_009_Head;Зимний талисман
+Armor_009_Lower;Зимние штаны
+Armor_009_Upper;Зимняя туника
+Armor_011_Head;Пожарный шлем
+Armor_011_Lower;Пожарные сапоги
+Armor_011_Upper;Пожарные доспехи
+Armor_012_Head;Маска скрытности
+Armor_012_Lower;Трико скрытности
+Armor_012_Upper;Нагрудник скрытности
+Armor_014_Head;Скальный платок
+Armor_014_Lower;Скальные туфли
+Armor_014_Upper;Скальное снаряжение
+Armor_017_Head;Светящаяся маска
+Armor_017_Lower;Светящееся трико
+Armor_017_Upper;Светящаяся камиза
+Armor_020_Head;Хайлийский шлем
+Armor_020_Lower;Хайлийские поножи
+Armor_020_Upper;Хайлийские доспехи
+Armor_022_Head;Голова бокоблина
+Armor_024_Head;Диадема с алмазом
+Armor_025_Head;Повязка с рубином
+Armor_026_Head;Диадема с сапфиром
+Armor_027_Head;Топазовые серьги
+Armor_028_Head;Опаловые серьги
+Armor_029_Head;Янтарные серьги
+Armor_045_Head;Голова моблина
+Armor_046_Head;Резиновый шлем
+Armor_046_Lower;Резиновые поножи
+Armor_046_Upper;Резиновые доспехи
+Armor_048_Head;Шлем варвара
+Armor_048_Lower;Шорты варвара
+Armor_048_Upper;Наряд варвара
+Armor_049_Lower;Сапоги-пескоходы
+Armor_055_Head;Голова заврофоса
+Armor_056_Head;Голова левра
+Armor_1006_Head;Аэромаска
+Armor_1006_Lower;Аэроштаны
+Armor_1006_Upper;Аэротуника
+Armor_1036_Head;Дух героя древности
+Armor_1043_Lower;Старые сандалии
+Armor_1043_Upper;Старая короткая тога
+Armor_1044_Lower;Старые теплые штаны
+Armor_1046_Head;Квакшин капюшон
+Armor_1046_Lower;Квакшины поножи
+Armor_1046_Upper;Квакшины рукава
+Armor_1051_Head;Маска рудокопа
+Armor_1051_Lower;Штаны рудокопа
+Armor_1051_Upper;Облачение рудокопа
+Armor_1061_Head;Рога пламени
+Armor_1061_Lower;Штаны пламени
+Armor_1061_Upper;Облачение пламени
+Armor_1066_Head;Рог грозы
+Armor_1066_Lower;Штаны грозы
+Armor_1066_Upper;Облачение грозы
+Armor_1071_Head;Гребень метели
+Armor_1071_Lower;Штаны метели
+Armor_1071_Upper;Облачение метели
+Armor_1076_Head;Шапо Сагоно
+Armor_1086_Head;Грива духов
+Armor_1086_Lower;Поножи духов
+Armor_1086_Upper;Доспехи духов
+Armor_1091_Head;Зонаровый шлем
+Armor_1091_Lower;Зонаровые поножи
+Armor_1091_Upper;Зонаровое облачение
+Armor_1096_Head;Маска Пробуждения
+Armor_1096_Lower;Трико Пробуждения
+Armor_1096_Upper;Туника Пробуждения
+Armor_1106_Upper;Новая туника Воина
+Armor_1125_Head;Голова хорроблина
+Armor_1141_Head;Капюшон мрака
+Armor_1141_Lower;Поножи мрака
+Armor_1141_Upper;Туника мрака
+Armor_1151_Head;Старое колечко для волос
+Armor_1152_Head;Хайлийский капюшон
+Armor_115_Head;Шлем-громоотвод
+Armor_116_Upper;Памятная туника
+Armor_1300_Head;Маска клана Ига
+Armor_1300_Lower;Трико клана Ига
+Armor_1300_Upper;Доспехи клана Ига
+Armor_141_Lower;Сапоги-снегоходы
+Armor_160_Head;Колпак тьмы
+Armor_160_Lower;Штаны тьмы
+Armor_160_Upper;Туника тьмы
+Armor_171_Head;Шлем фантома
+Armor_171_Lower;Поножи фантома
+Armor_171_Upper;Доспехи фантома
+Armor_172_Head;Маска Маджоры
+Armor_173_Head;Шлем Мидны
+Armor_174_Head;Шапка Тингла
+Armor_174_Lower;Штаны Тингла
+Armor_174_Upper;Одеяние Тингла
+Armor_175_Upper;Туника с омаром
+Armor_176_Head;Маска корока
+Armor_177_Head;Капюшон Равио
+Armor_178_Head;Шлем Занта
+Armor_179_Head;Гвардейский берет
+Armor_179_Lower;Гвардейские сапоги
+Armor_179_Upper;Гвардейский мундир
+Armor_180_Head;Череп злого духа
+Armor_180_Lower;Поножи злого духа
+Armor_180_Upper;Броня злого духа
+Armor_181_Head;Шлем Ва-Руты
+Armor_182_Head;Шлем Ва-Медо
+Armor_183_Head;Шлем Ва-Рудании
+Armor_184_Head;Шлем Ва-Наборис
+Armor_200_Head;Колпак Героя Времени
+Armor_200_Lower;Штаны Героя Времени
+Armor_200_Upper;Туника Героя Времени
+Armor_205_Head;Колпак Героя Ветра
+Armor_205_Lower;Штаны Героя Ветра
+Armor_205_Upper;Туника Героя Ветра
+Armor_210_Head;Колпак Героя Сумрака
+Armor_210_Lower;Штаны Героя Сумрака
+Armor_210_Upper;Туника Героя Сумрака
+Armor_215_Head;Колпак Героя Небес
+Armor_215_Lower;Штаны Героя Небес
+Armor_215_Upper;Туника Героя Небес
+Armor_220_Head;Маска Шиик
+Armor_225_Head;Маска Лютобога
+Armor_225_Lower;Сапоги Лютобога
+Armor_225_Upper;Доспехи Лютобога
+Armor_230_Head;Колпак Героя Хайрула
+Armor_230_Lower;Шорты Героя Хайрула
+Armor_230_Upper;Туника Героя Хайрула
+Animal_Insect_A;Прыть-лягушка
+Animal_Insect_AA;Бодрый жук
+Animal_Insect_AB;Пожарная бабочка
+Animal_Insect_AG;Цепкая квакша
+Animal_Insect_AH;Цепкая ящерица
+Animal_Insect_AI;Темнячок
+Animal_Insect_B;Живучая лягушка
+Animal_Insect_C;Морозная стрекоза
+Animal_Insect_E;Тихий светлячок
+Animal_Insect_F;Фея
+Animal_Insect_G;Клинковый жук
+Animal_Insect_H;Бодрый сверчок
+Animal_Insect_I;Грозовая стрекоза
+Animal_Insect_M;Чудо-ящерица
+Animal_Insect_N;Морозная бабочка
+Animal_Insect_P;Латный жук
+Animal_Insect_Q;Жар-бабочка
+Animal_Insect_R;Грозовая бабочка
+Animal_Insect_S;Прыть-ящерица
+Animal_Insect_T;Жар-стрекоза
+Animal_Insect_X;Пожарная ящерица
+BeeHome;Мед бодрых пчел
+BombFruit;Бомбоцвет
+ConfusionFruit;Конфуксия
+ElectricalFruit;Грозофрукт
+FireFruit;Огнефрукт
+FldObj_Pinecone_A_01;Хайрульская шишка
+IceFruit;Ледофрукт
+Item_Enemy_01;Зуб бокоблина
+Item_Enemy_02;Сердце бокоблина
+Item_Enemy_04;Коготь заврофоса
+Item_Enemy_05;Заврохвост
+Item_Enemy_07;Зуб моблина
+Item_Enemy_08;Сердце моблина
+Item_Enemy_100;Рог хорроблина
+Item_Enemy_101;Рог синего хорроблина
+Item_Enemy_102;Рог черного хорроблина
+Item_Enemy_103;Рог серебряного хорроблина
+Item_Enemy_104;Ноготь хорроблина
+Item_Enemy_105;Сердце хорроблина
+Item_Enemy_106;Рог заврофоса
+Item_Enemy_107;Рог синего заврофоса
+Item_Enemy_108;Рог черного заврофоса
+Item_Enemy_109;Рог серебряного заврофоса
+Item_Enemy_114;Синий заврохвост
+Item_Enemy_115;Черный заврохвост
+Item_Enemy_116;Серебряный заврохвост
+Item_Enemy_117;Глаз огненного куса
+Item_Enemy_118;Глаз грозового куса
+Item_Enemy_119;Глаз ледяного куса
+Item_Enemy_121;Сердце гибдо
+Item_Enemy_123;Крыло гибдо
+Item_Enemy_124;Крыло какуды
+Item_Enemy_13;Копыто левра
+Item_Enemy_130;Энергозонар
+Item_Enemy_131;Большой энергозонар
+Item_Enemy_132;Рог синего бокобосса
+Item_Enemy_133;Рог черного бокобосса
+Item_Enemy_134;Рог серебряного бокобосса
+Item_Enemy_135;Зуб бокобосса
+Item_Enemy_136;Сердце бокобосса
+Item_Enemy_14;Сердце левра
+Item_Enemy_142;Рог хинокса
+Item_Enemy_143;Рог синего хинокса
+Item_Enemy_144;Рог черного хинокса
+Item_Enemy_148;Секущий рог левра
+Item_Enemy_149;Секущий рог сизогривого левра
+Item_Enemy_15;Красное желе чучу
+Item_Enemy_150;Секущий рог белогривого левра
+Item_Enemy_151;Секущий рог серебряного левра
+Item_Enemy_153;Огненный рог глиока
+Item_Enemy_154;Ледяной рог глиока
+Item_Enemy_155;Громовой рог глиока
+Item_Enemy_156;Крыло глиока
+Item_Enemy_157;Сердце глиока
+Item_Enemy_158;Чешуйка Белого дракона
+Item_Enemy_159;Коготь Белого дракона
+Item_Enemy_16;Желтое желе чучу
+Item_Enemy_160;Фрагмент зуба Белого дракона
+Item_Enemy_166;Рог голема-рядового ГР-1
+Item_Enemy_167;Рог голема-рядового ГР-2
+Item_Enemy_168;Рог голема-рядового ГР-3
+Item_Enemy_169;Рог голема-рядового ГР-4
+Item_Enemy_17;Белое желе чучу
+Item_Enemy_18;Крыло куса
+Item_Enemy_181;Безоар щитоеда
+Item_Enemy_182;Безоар огненного щитоеда
+Item_Enemy_183;Безоар грозового щитоеда
+Item_Enemy_184;Безоар ледяного щитоеда
+Item_Enemy_186;Клык дегугармы
+Item_Enemy_187;Клык обсидиановой дегугармы
+Item_Enemy_188;Клык сизой дегугармы
+Item_Enemy_189;Ноготь дегугармы
+Item_Enemy_19;Глаз куса
+Item_Enemy_190;Сердце дегугармы
+Item_Enemy_191;Рог голема-капитана ГК-2
+Item_Enemy_192;Рог голема-капитана ГК-3
+Item_Enemy_193;Рог голема-капитана ГК-4
+Item_Enemy_20;Щупальце осьминоса
+Item_Enemy_208;Рог сталнокса
+Item_Enemy_21;Глаз осьминоса
+Item_Enemy_210;Челюсть молдоры
+Item_Enemy_211;Рог Динраля
+Item_Enemy_212;Рог Нейдры
+Item_Enemy_213;Рог Фароша
+Item_Enemy_214;Рог Белого дракона
+Item_Enemy_215;Крушащий рог левра
+Item_Enemy_216;Крушащий рог сизогривого левра
+Item_Enemy_217;Крушащий рог белогривого левра
+Item_Enemy_218;Крушащий рог серебряного левра
+Item_Enemy_228;Драколит Динраля
+Item_Enemy_229;Драколит Нейдры
+Item_Enemy_230;Драколит Фароша
+Item_Enemy_231;Драколит Белого дракона
+Item_Enemy_24;Плавник молдоры
+Item_Enemy_25;Сердце молдоры
+Item_Enemy_32;Ноготь хинокса
+Item_Enemy_33;Зуб хинокса
+Item_Enemy_34;Сердце хинокса
+Item_Enemy_38;Чешуйка Динраля
+Item_Enemy_39;Коготь Динраля
+Item_Enemy_40;Желе чучу
+Item_Enemy_41;Хвост огнедыш. заврофоса
+Item_Enemy_42;Хвост заврофоса-ледоплюя
+Item_Enemy_43;Хвост грозового заврофоса
+Item_Enemy_44;Крыло огненного куса
+Item_Enemy_45;Крыло грозового куса
+Item_Enemy_46;Крыло ледяного куса
+Item_Enemy_47;Фрагмент зуба Динраля
+Item_Enemy_49;Чешуйка Нейдры
+Item_Enemy_50;Коготь Нейдры
+Item_Enemy_51;Фрагмент зуба Нейдры
+Item_Enemy_53;Чешуйка Фароша
+Item_Enemy_54;Коготь Фароша
+Item_Enemy_55;Фрагмент зуба Фароша
+Item_Enemy_57;Зоб осьминоса
+Item_Enemy_58;Рог огнедыш. заврофоса
+Item_Enemy_59;Рог заврофоса-ледоплюя
+Item_Enemy_60;Рог грозового заврофоса
+Item_Enemy_64;Рог бокобосса
+Item_Enemy_66;Глаз какуды
+Item_Enemy_67;Рог голема-капитана ГК-1
+Item_Enemy_69;Ребра гибдо
+Item_Enemy_77;Рог бокоблина
+Item_Enemy_78;Рог синего бокоблина
+Item_Enemy_79;Рог черного бокоблина
+Item_Enemy_80;Рог серебряного бокоблина
+Item_Enemy_89;Рог моблина
+Item_Enemy_90;Рог синего моблина
+Item_Enemy_91;Рог черного моблина
+Item_Enemy_92;Рог серебряного моблина
+Item_FishGet_A;Хайрульский окунь
+Item_FishGet_AA;Древняя аравана
+Item_FishGet_AC;Пещерный вспышник
+Item_FishGet_B;Чудо-окунь
+Item_FishGet_C;Морозная форель
+Item_FishGet_D;Грозовая форель
+Item_FishGet_E;Клинковый сазан
+Item_FishGet_F;Клинковый пагр
+Item_FishGet_G;Латный пагр
+Item_FishGet_H;Латный сазан
+Item_FishGet_I;Чудо-семга
+Item_FishGet_J;Жар-форель
+Item_FishGet_L;Бодрый окунь
+Item_FishGet_M;Улитка-тихоход
+Item_FishGet_X;Тишь-форель
+Item_FishGet_Z;Карп санке
+Item_Fruit_A;Яблоко
+Item_Fruit_B;Малина
+Item_Fruit_C;Грозалис
+Item_Fruit_E;Прыть-лотос
+Item_Fruit_F;Морозный арбуз
+Item_Fruit_G;Кокос
+Item_Fruit_H;Клинковые бананы
+Item_Fruit_I;Жгучий перец
+Item_Fruit_J;Латная тыква
+Item_Fruit_K;Желудь
+Item_Fruit_L;Птичий орех
+Item_Fruit_M;Хайрульский помидор
+Item_Fruit_N;Солнечная тыква
+Item_Fruit_P;Золотое яблоко
+Item_InsectGet_K;Клинковый краб
+Item_InsectGet_O;Латный краб
+Item_InsectGet_Z;Бодрый краб
+Item_KingScale;Королевская чешуйка
+Item_Material_01;Сахарный тростник
+Item_Material_02;Приправа горонов
+Item_Material_03;Хайрульский рис
+Item_Material_04;Яйцо
+Item_Material_05;Молоко
+Item_Material_06;Козье масло
+Item_Material_07;Табантская пшеница
+Item_Material_08;Экстракт монстра
+Item_Material_09;Бутылка масла
+Item_Material_10;Хатенский сыр
+Item_Material_11;Сгусток тьмы
+Item_Meat_01;Сырое филе
+Item_Meat_02;Сырой огузок
+Item_Meat_06;Сырая ножка
+Item_Meat_07;Сырой окорок
+Item_Meat_11;Сырая рулька
+Item_Meat_12;Сырая тушка
+Item_MushroomGet_D;Прытковик
+Item_MushroomGet_K;Подсветиновик
+Item_Mushroom_A;Бодренок
+Item_Mushroom_B;Подморозовик
+Item_Mushroom_C;Жаромор
+Item_Mushroom_E;Хайруловик
+Item_Mushroom_F;Чудо-трюфель
+Item_Mushroom_H;Грозовик
+Item_Mushroom_J;Скрытоежка
+Item_Mushroom_L;Клинковик
+Item_Mushroom_M;Латновик
+Item_Mushroom_N;Супертрюфель
+Item_Mushroom_O;Живушка
+Item_Mushroom_P;Небовичок
+Item_Ore_A;Алмаз
+Item_Ore_B;Рубин
+Item_Ore_C;Сапфир
+Item_Ore_D;Топаз
+Item_Ore_E;Опал
+Item_Ore_F;Янтарь
+Item_Ore_G;Фосфолит
+Item_Ore_H;Каменная соль
+Item_Ore_I;Кремень
+Item_Ore_J;Осколок звезды
+Item_Ore_L;Зонар
+Item_Ore_M;Большой зонар
+Item_PlantGet_A;Хайрулея
+Item_PlantGet_B;Чудо-редис
+Item_PlantGet_C;Суперредис
+Item_PlantGet_E;Морозоцвет
+Item_PlantGet_F;Жароцвет
+Item_PlantGet_G;Клинкоцвет
+Item_PlantGet_H;Латноцвет
+Item_PlantGet_I;Скрытоцвет
+Item_PlantGet_J;Принцесса тишины
+Item_PlantGet_L;Грозоцвет
+Item_PlantGet_M;Прыть-морковь
+Item_PlantGet_O;Прыть-фиалка
+Item_PlantGet_Q;Жив-морковь
+Item_PlantGet_R;Лучистый одуванчик
+Item_PlantGet_S;Бодролук
+Item_PlantGet_U;Корокская вайя
+Item_Weapon_01;Древний клинок
+LightBall_Large;Чудо-семечко фонариса
+LightBall_Small;Семечко фонариса
+LightFruit;Искрамбола
+Obj_FireWoodBundle;Дрова
+SmokeFruit;Споровик
+WaterFruit;Водофрукт
+Item_Boiled_01;Вареное яйцо
+Item_ChilledFish_01;Мерзлый окунь
+Item_ChilledFish_02;Мерзлая чудо-семга
+Item_ChilledFish_03;Мерзлая форель
+Item_ChilledFish_04;Мерзлый сазан
+Item_ChilledFish_05;Мерзлый пагр
+Item_ChilledFish_06;Мерзлый чудо-окунь
+Item_ChilledFish_07;Мерзлый краб
+Item_ChilledFish_08;Мерзлый тихоход
+Item_ChilledFish_16;Мерзлая аравана
+Item_ChilledFish_18;Мерзлый пещерный вспышник
+Item_Chilled_01;Мерзлое филе
+Item_Chilled_02;Мерзлый огузок
+Item_Chilled_03;Мерзлая рулька
+Item_Chilled_04;Мерзлая ножка
+Item_Chilled_05;Мерзлый окорок
+Item_Chilled_06;Мерзлая тушка
+Item_Cook_A_01;Сочные грибы
+Item_Cook_A_02;Грибы на пару
+Item_Cook_A_03;Фрукты на пару
+Item_Cook_A_04;Рыба на пару
+Item_Cook_A_05;Мясо на пару
+Item_Cook_A_07;Грибы с фруктами
+Item_Cook_A_08;Грибы с рыбой
+Item_Cook_A_09;Грибы с мясом
+Item_Cook_A_10;Омлет
+Item_Cook_A_11;Грибы в сиропе
+Item_Cook_A_12;Мясо в сиропе
+Item_Cook_A_13;Рыба в сиропе
+Item_Cook_A_14;Овощи в сиропе
+Item_Cook_B_01;Салат
+Item_Cook_B_02;Фрукт-микс
+Item_Cook_B_05;Хруст-рыба
+Item_Cook_B_06;Шиш-кебаб
+Item_Cook_B_11;Салат XL
+Item_Cook_B_12;Фрукт-микс XL
+Item_Cook_B_13;Сочные грибы XL
+Item_Cook_B_15;Хруст-рыба XL
+Item_Cook_B_16;Шиш-кебаб XL
+Item_Cook_B_17;Хруст-микс
+Item_Cook_B_18;Сочный хруст-микс
+Item_Cook_B_19;Жирный хруст-микс
+Item_Cook_B_20;Тыква с мясом
+Item_Cook_B_21;Вареные перцы
+Item_Cook_B_22;Вареные орехи
+Item_Cook_B_23;Морской микс
+Item_Cook_C_16;Эликсир фей
+Item_Cook_C_17;Зелье
+Item_Cook_D_01;Грибы с солью
+Item_Cook_D_02;Горный салат
+Item_Cook_D_03;Рыба с солью
+Item_Cook_D_04;Стейк
+Item_Cook_D_05;Сочные стейки
+Item_Cook_D_06;Жирные стейки
+Item_Cook_D_07;Пряные стейки
+Item_Cook_D_08;Пряная рыба
+Item_Cook_D_09;Краб с солью
+Item_Cook_D_10;Краб в соусе
+Item_Cook_E_01;Плов
+Item_Cook_E_02;Сочный плов
+Item_Cook_E_03;Жирный плов
+Item_Cook_E_04;Рис с яйцом
+Item_Cook_F_01;Суп с мясом
+Item_Cook_F_02;Уха
+Item_Cook_F_03;Лечо
+Item_Cook_F_04;Суп «Сердце»
+Item_Cook_G_02;Онигири
+Item_Cook_G_03;Луговички
+Item_Cook_G_04;Лесовички
+Item_Cook_G_05;Котлеты
+Item_Cook_G_06;Сочные котлеты
+Item_Cook_G_09;Жирные котлеты
+Item_Cook_G_10;Ризотто
+Item_Cook_G_11;Пряный плов
+Item_Cook_G_12;Каша с грибами
+Item_Cook_G_13;Каша с овощами
+Item_Cook_G_14;Каша с семгой
+Item_Cook_G_15;Мясики
+Item_Cook_G_16;Рис с крабом
+Item_Cook_G_17;Каша с крабом
+Item_Cook_H_01;Рыба под соусом
+Item_Cook_H_02;Пагр под соусом
+Item_Cook_H_03;Семга под соусом
+Item_Cook_I_01;Кекс с фруктами
+Item_Cook_I_02;Яблочный пирог
+Item_Cook_I_03;Тарталетка
+Item_Cook_I_04;Пирог с мясом
+Item_Cook_I_05;Морковный пирог
+Item_Cook_I_06;Тыквенный пирог
+Item_Cook_I_07;Яблоко в масле
+Item_Cook_I_08;Яблоко с медом
+Item_Cook_I_09;Фрукты с медом
+Item_Cook_I_10;Блин
+Item_Cook_I_11;Блин с малиной
+Item_Cook_I_12;Ореховый кекс
+Item_Cook_I_13;Жареные бананы
+Item_Cook_I_14;Пудинг
+Item_Cook_I_15;Пирог «Рыбка»
+Item_Cook_I_16;Мед-карамель
+Item_Cook_I_17;Блин с медом
+Item_Cook_J_01;Рис с соусом
+Item_Cook_J_02;Овощное азу
+Item_Cook_J_03;Морское азу
+Item_Cook_J_04;Азу
+Item_Cook_J_05;Сочное азу
+Item_Cook_J_06;Гуляш
+Item_Cook_J_07;Сочный гуляш
+Item_Cook_J_08;Жирное азу
+Item_Cook_J_09;Жирный гуляш
+Item_Cook_K_01;Мясное рагу
+Item_Cook_K_02;Сочное рагу
+Item_Cook_K_03;Рагу из тыквы
+Item_Cook_K_04;Улитное рагу
+Item_Cook_K_05;Жирное рагу
+Item_Cook_K_06;Грибное рагу
+Item_Cook_K_07;Рагу
+Item_Cook_K_08;Морковное рагу
+Item_Cook_K_09;Горячее молоко
+Item_Cook_L_01;Рагу монстрони
+Item_Cook_L_02;Суп монстрони
+Item_Cook_L_03;Кекс монстрони
+Item_Cook_L_04;Монстрята
+Item_Cook_L_05;Гуляш монстрони
+Item_Cook_M_01;Булка
+Item_Cook_N_01;Паэлья
+Item_Cook_N_02;Фруктовый торт
+Item_Cook_N_03;Омлет с зеленью
+Item_Cook_N_04;Омлет с грибами
+Item_Cook_O_01;Dubious Food
+Item_Cook_O_02;Rock-Hard Food
+Item_Cook_P_01;Грибы «Арома»
+Item_Cook_P_02;Салат «Арома»
+Item_Cook_P_03;Шашлык
+Item_Cook_P_04;Сочный шашлык
+Item_Cook_P_05;Жирный шашлык
+Item_Cook_Q_01;Тушеные помидоры
+Item_Cook_Q_02;Томатный суп
+Item_Cook_Q_03;Пареный помидор
+Item_Cook_Q_04;Рагу «Грибы-овощи»
+Item_Cook_Q_05;Суп «Помидоры ди маре»
+Item_Cook_Q_06;Лук в мундире
+Item_Cook_Q_07;Тушеный лук
+Item_Cook_Q_08;Хрустящий жареный рис
+Item_Cook_Q_09;Чизкейк
+Item_Cook_Q_10;Сырное ризотто
+Item_Cook_R_01;Сырный омлет
+Item_Cook_R_02;Молочная каша с овощами
+Item_Cook_R_03;«Воой-да-ваай»
+Item_Cook_R_04;Пицца с помидорами
+Item_Cook_R_05;Дары моря в масле
+Item_Cook_R_06;Ножка во фритюре
+Item_Cook_R_07;Окорок во фритюре
+Item_Cook_R_08;Тушка во фритюре
+Item_Cook_R_09;Хлебец с сыром
+Item_Cook_R_10;Печеная рыба с сыром
+Item_Cook_S_01;Сырный карри
+Item_Cook_S_02;Гуляш с сыром
+Item_Cook_S_03;Лакомый гуляш с сыром
+Item_Cook_S_04;Гурманский гуляш с сыром
+Item_Cook_S_05;Колдунское рагу
+Item_Cook_S_06;Колдунские рисики
+Item_Cook_S_07;Колдунский суп
+Item_Cook_S_08;Колдунский карри
+Item_Cook_S_09;Колдунский рулет
+Item_Cook_S_10;Помидор с сыром
+Item_RoastFish_01;Жареный окунь
+Item_RoastFish_02;Жареный чудо-окунь
+Item_RoastFish_03;Жареная форель
+Item_RoastFish_04;Жареная чудо-семга
+Item_RoastFish_07;Жареный сазан
+Item_RoastFish_09;Жареный пагр
+Item_RoastFish_13;Жареный тихоход
+Item_RoastFish_15;Жареный краб
+Item_RoastFish_16;Жареная аравана
+Item_RoastFish_18;Жареный пещерный вспышник
+Item_Roast_01;Жареное филе
+Item_Roast_02;Жареная ножка
+Item_Roast_03;Печеное яблоко
+Item_Roast_04;Жареный бодренок
+Item_Roast_05;Жареный чудо-трюфель
+Item_Roast_06;Жареный хайруловик
+Item_Roast_07;Печеная малина
+Item_Roast_08;Печеный грозалис
+Item_Roast_10;Печеный кокос
+Item_Roast_11;Печеные бананы
+Item_Roast_12;Печеный арбуз
+Item_Roast_13;Жареный перец
+Item_Roast_15;Печеная латная тыква
+Item_Roast_16;Печеный прыть-лотос
+Item_Roast_18;Печеный редис
+Item_Roast_19;Печеный суперредис
+Item_Roast_24;Печеная прыть-морковь
+Item_Roast_27;Жженый клинкоцвет
+Item_Roast_28;Жженый латноцвет
+Item_Roast_31;Жареный подморозовик
+Item_Roast_32;Жареный жаромор
+Item_Roast_33;Жареный грозовик
+Item_Roast_36;Жареный прытковик
+Item_Roast_37;Жареный клинковик
+Item_Roast_38;Жареный латновик
+Item_Roast_39;Жареная скрытоежка
+Item_Roast_40;Жареный огузок
+Item_Roast_41;Жареный окорок
+Item_Roast_45;Жареная рулька
+Item_Roast_46;Жареная тушка
+Item_Roast_48;Жареный желудь
+Item_Roast_49;Жареный супертрюфель
+Item_Roast_50;Печеная жив-морковь
+Item_Roast_51;Печеное яйцо
+Item_Roast_52;Жареный орех
+Item_Roast_53;Жареная живушка
+Item_Roast_54;Жареный хайрульский помидор
+Item_Roast_55;Печеная солнечная тыква
+Item_Roast_56;Жареный небовичок
+Item_Roast_58;Жареный подсветиновик
+Item_Roast_59;Жареное золотое яблоко
+SpObj_BalloonEnvelope_A_01;Воздушный шар
+SpObj_Beamos_A_01;Лазер
+SpObj_Cannon_A_01;Пушка
+SpObj_Cart_A_01;Тележка
+SpObj_Chaser_A_01;Автономный бот
+SpObj_ControlStick_A_01;Штурвал
+SpObj_CookSetOnFire_A_01;Переносной казан
+SpObj_ElectricBoxGenerator;Шокер
+SpObj_EnergyBank_A_01;Батарея
+SpObj_EnergyBank_A_02;Расширенная батарея
+SpObj_FastWheel_A_01;Маленькое колесо
+SpObj_SwitchWheel_B_01;Большое колесо
+SpObj_FlameThrower_A_01;Огнемет
+SpObj_FlashLight_A_01;Прожектор
+SpObj_FloatingStone_A_01;Летающий камень
+SpObj_GolemHead_A_01;Голова голема
+SpObj_LiftGeneratorWing_A_01;Параплан
+SpObj_WaterPump_A_01;Гидрант
+SpObj_LightMirror_A_01;Отражатель
+SpObj_Pile_A_01;Кол
+SpObj_Rocket_A_01;Ракета
+SpObj_SlipBoard_A_01;Сани
+SpObj_SnowMachine_A_01;Морозитель
+SpObj_SpringPiston_A_01;Пружина
+SpObj_TiltingDoll_A_01;Неваляшка
+SpObj_TimerBomb_A_01;Часовая бомба
+SpObj_WindGenerator_A_01;Пропеллер
+CaveMasterMedal;Дар пещерной пипы
+Energy_Material_01;Зонарокристалл
+Energy_Material_03;Крупный зонарокристалл
+Energy_Material_04;Огромный зонарокристалл
+GameRomHorseReins_01;Походная узда
+GameRomHorseReins_02;Королевская узда
+GameRomHorseReins_03;Рыцарская узда
+GameRomHorseReins_04;Монстроузда
+GameRomHorseReins_05;Роскошная узда
+GameRomHorseSaddle_01;Походное седло
+GameRomHorseSaddle_02;Королевское седло
+GameRomHorseSaddle_03;Рыцарское седло
+GameRomHorseSaddle_04;Монстроседло
+GameRomHorseSaddle_05;Роскошное седло
+GameRomHorseSaddle_07;Тяговая сбруя
+Item_StableHostelAccommodationCoupon_A;Конюшенный купон
+KeySmall;Маленький ключ
+MinusRupee_00;Духат
+MinusRupee_01;Большой духат
+MinusRupee_02;Огромный духат
+Obj_AutoBuilderDraftAssassin_00;Чертеж клана Ига
+Obj_AutoBuilderDraft_00;Плитка с чертежом
+Obj_Camera;Фотоаппарат
+Obj_CaveWellHonor_00;Награда за изучение колодцев
+Obj_CheckPointHonor_00;Награда за рассеивание тьмы
+Obj_DRStone_Get;Пураншет
+Obj_DefeatHonor_00;Награда за каменного глыбника
+Obj_DefeatHonor_01;Награда за хинокса
+Obj_DefeatHonor_02;Награда за молдору
+Obj_DefeatHonor_03;Награда за дегугарму
+Obj_DefeatHonor_04;Награда за блокоголема
+Obj_DefeatHonor_05;Награда за глиока
+Obj_DungeonClearSeal;Частица света
+Obj_EnergyUtuwa_A_01;Энергорасширитель
+Obj_HeartUtuwa_A_01;Капсула сердца
+Obj_HiddenScroll_00;Книга геомагии
+Obj_KorokNuts;Корокское семечко
+Obj_Photo_Animal;«Фауна»
+Obj_Photo_BossEnemy;«Боссы»
+Obj_Photo_Enemy;«Враги»
+Obj_Photo_Material;«Материалы»
+Obj_Photo_Other;«Прочее»
+Obj_Photo_Weapon;«Оружие»
+Obj_ProofKorok;Подарок Эсту
+Obj_SageSoulPlus_Gerudo;Верная клятва Риджу, Мудреца грома
+Obj_SageSoulPlus_Goron;Верная клятва Юнобо, Мудреца огня
+Obj_SageSoulPlus_Rito;Верная клятва Тюлина, Мудреца ветра
+Obj_SageSoulPlus_Zonau;Верная клятва Минеру, Мудреца духа
+Obj_SageSoulPlus_Zora;Верная клятва Сидона, Мудреца воды
+Obj_SageSoul_Gerudo;Клятва Риджу, Мудреца грома
+Obj_SageSoul_Goron;Клятва Юнобо, Мудреца огня
+Obj_SageSoul_Rito;Клятва Тюлина, Мудреца ветра
+Obj_SageSoul_Zonau;Клятва Минеру, Мудреца духа
+Obj_SageSoul_Zora;Клятва Сидона, Мудреца воды
+Obj_SageWill;Завет Мудрецов
+Obj_StableHostlePointCard;Конюшенная карточка
+Obj_StaminaUtuwa_A_01;Капсула энергии
+Obj_SubstituteCloth_00;Ткань горонов
+Obj_SubstituteCloth_01;Ткань зора
+Obj_SubstituteCloth_02;Ткань герудо
+Obj_SubstituteCloth_03;Королевская ткань
+Obj_SubstituteCloth_04;Ткань зонаи
+Obj_SubstituteCloth_05;Ткань шиика
+Obj_SubstituteCloth_06;Ткань Ига
+Obj_SubstituteCloth_07;Ткань боевой бригады
+Obj_SubstituteCloth_08;Ткань Группы по изучению зонаи
+Obj_SubstituteCloth_09;Ткань с Маланией
+Obj_SubstituteCloth_10;Ткань Лурелина
+Obj_SubstituteCloth_11;Ткань «Клевер-курьера»
+Obj_SubstituteCloth_12;Ткань «ТопордаСтроя»
+Obj_SubstituteCloth_13;Ткань Колтина
+Obj_SubstituteCloth_14;Ткань короков
+Obj_SubstituteCloth_15;Ткань с гризли
+Obj_SubstituteCloth_16;Ткань от Робби
+Obj_SubstituteCloth_17;Ткань от Сагоно
+Obj_SubstituteCloth_18;Ткань «Какуда»
+Obj_SubstituteCloth_19;Ткань «Элдинский страус»
+Obj_SubstituteCloth_20;Ткань «Кокко»
+Obj_SubstituteCloth_21;Ткань с лошадьми
+Obj_SubstituteCloth_22;Ткань «Чучу»
+Obj_SubstituteCloth_23;Ткань с леврами
+Obj_SubstituteCloth_24;Ткань с глиоком
+Obj_SubstituteCloth_25;Ткань «Сталнокс»
+Obj_SubstituteCloth_26;Ткань «Памятная туника»
+Obj_SubstituteCloth_27;Ткань «Хайлийский капюшон»
+Obj_SubstituteCloth_28;Ткань принцессы Хайрула
+Obj_SubstituteCloth_29;Ткань Воина горонов
+Obj_SubstituteCloth_30;Ткань Воина рито
+Obj_SubstituteCloth_31;Ткань Воина зора
+Obj_SubstituteCloth_32;Ткань Воина герудо
+Obj_SubstituteCloth_33;Ткань «Древний символ шиика»
+Obj_SubstituteCloth_34;Ткань «Бокоблин»
+Obj_SubstituteCloth_35;Ткань короля демонов
+Obj_SubstituteCloth_36;Ткань «Короля красных львов»
+Obj_SubstituteCloth_37;Ткань Шиик
+Obj_SubstituteCloth_38;Ткань Зеркала Сумрака
+Obj_SubstituteCloth_39;Ткань принцессы Сумрака
+Obj_SubstituteCloth_40;Ткань фермы Лон Лон
+Obj_SubstituteCloth_41;Ткань «Маска Маджоры»
+Obj_SubstituteCloth_43;Ткань древней династии
+Obj_SubstituteCloth_45;Ткань духа меча
+Obj_SubstituteCloth_46;Ретроткань
+Obj_SubstituteCloth_48;Ткань с яйцом
+Obj_SubstituteCloth_49;Ткань Богини
+Obj_SubstituteCloth_51;Ткань «Новая туника Воина»
+Obj_SubstituteCloth_52;Ткань принцессы Зельды
+Obj_SubstituteCloth_53;Ткань вождя герудо
+Obj_SubstituteCloth_55;Ностальгическая ткань
+Obj_SubstituteCloth_56;Ткань Березды
+Obj_SubstituteCloth_Default;Обычная ткань
+Obj_TreasureMap_00;Старая карта
+Obj_WarpDLC_Prototype;Прототип медальона перемещения
+Parasail;Планер

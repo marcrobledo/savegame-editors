@@ -1,0 +1,922 @@
+Weapon_Lsword_001;Reizigersgrootzwaard
+Weapon_Lsword_002;Soldatengrootzwaard
+Weapon_Lsword_003;Tweehandig ridderzwaard
+Weapon_Lsword_019;Moblin-arm
+Weapon_Lsword_020;Verroest slagzwaard
+Weapon_Lsword_024;Koninklijk slagzwaard
+Weapon_Lsword_027;Zora-grootzwaard
+Weapon_Lsword_029;Gerudo-grootzwaard
+Weapon_Lsword_036;Steenwerper
+Weapon_Lsword_038;Roeispaan
+Weapon_Lsword_041;Achtvoudige nodachi
+Weapon_Lsword_045;Schoffel
+Weapon_Lsword_047;Sheikah-grootzwaard
+Weapon_Lsword_051;Grote boemerang
+Weapon_Lsword_054;Steenpletter
+Weapon_Lsword_057;Schemerslagzwaard
+Weapon_Lsword_059;Biggorons zwaard
+Weapon_Lsword_060;Fierce Deity's tweehander
+Weapon_Lsword_101;Zonanium slagzwaard
+Weapon_Lsword_103;Dikke stok
+Weapon_Lsword_106;Reizigersgrootzwaard
+Weapon_Lsword_108;Sterke dikke stok
+Weapon_Lsword_109;Extra sterke dikke stok
+Weapon_Lsword_112;Soldatengrootzwaard
+Weapon_Lsword_113;Tweehandig ridderzwaard
+Weapon_Lsword_114;Achtvoudige nodachi
+Weapon_Lsword_124;Koninklijk slagzwaard
+Weapon_Lsword_127;Zora-grootzwaard
+Weapon_Lsword_129;Gerudo-grootzwaard
+Weapon_Lsword_136;Steenwerper
+Weapon_Lsword_147;Sheikah-grootzwaard
+Weapon_Lsword_161;Grote toverstaf
+Weapon_Lsword_163;Zonanium slagzwaard+
+Weapon_Lsword_164;Zonanium slagzwaard++
+Weapon_Lsword_166;Metalen miasmaknuppel
+Weapon_Lsword_168;Dikke stok
+Weapon_Lsword_174;Grote boemerang
+Weapon_Spear_001;Reizigersspeer
+Weapon_Spear_002;Soldatenspeer
+Weapon_Spear_003;Ridderhellebaard
+Weapon_Spear_021;Verroeste hellebaard
+Weapon_Spear_022;Hooivork
+Weapon_Spear_024;Koninklijke hellebaard
+Weapon_Spear_025;Woudspeer
+Weapon_Spear_027;Zora-speer
+Weapon_Spear_029;Gerudo-speer
+Weapon_Spear_030;Werpspeer
+Weapon_Spear_032;Eksterspeer
+Weapon_Spear_036;Zwabber
+Weapon_Spear_038;Harpoen
+Weapon_Spear_047;Sheikah-hellebaard
+Weapon_Spear_050;Lichtschubbenspeer
+Weapon_Spear_101;Zonanium speer
+Weapon_Spear_103;Lange stok
+Weapon_Spear_106;Reizigersspeer
+Weapon_Spear_108;Sterke lange stok
+Weapon_Spear_109;Extra sterke lange stok
+Weapon_Spear_112;Soldatenspeer
+Weapon_Spear_113;Ridderhellebaard
+Weapon_Spear_124;Koninklijke hellebaard
+Weapon_Spear_125;Woudspeer
+Weapon_Spear_127;Zora-speer
+Weapon_Spear_129;Gerudo-speer
+Weapon_Spear_132;Eksterspeer
+Weapon_Spear_147;Sheikah-hellebaard
+Weapon_Spear_161;Lange toverstaf
+Weapon_Spear_163;Zonanium speer+
+Weapon_Spear_164;Zonanium speer++
+Weapon_Spear_166;Miasmaspeer
+Weapon_Spear_168;Lange stok
+Weapon_Spear_173;Werpspeer
+Weapon_Sword_001;Reizigerszwaard
+Weapon_Sword_002;Soldatenzwaard
+Weapon_Sword_003;Ridderzwaard
+Weapon_Sword_019;Bokoblin-arm
+Weapon_Sword_020;Lizalfos-arm
+Weapon_Sword_021;Verroest zwaard
+Weapon_Sword_022;Houten lepel
+Weapon_Sword_024;Koninklijk zwaard
+Weapon_Sword_025;Woudzwaard
+Weapon_Sword_027;Zora-zwaard
+Weapon_Sword_029;Gerudo-kromzwaard
+Weapon_Sword_031;Verenkling
+Weapon_Sword_041;Achtvoudige tanto
+Weapon_Sword_043;Fakkel
+Weapon_Sword_044;Tak
+Weapon_Sword_047;Sheikah-zwaard
+Weapon_Sword_051;Boemerang
+Weapon_Sword_052;Zwaard van de Zeven
+Weapon_Sword_057;Hemelwit zwaard
+Weapon_Sword_058;Heldenzwaard
+Weapon_Sword_059;Zeebriesboemerang
+Weapon_Sword_070;Meesterzwaard
+Weapon_Sword_070_Broken;Aangetast Meesterzwaard
+Weapon_Sword_101;Zonanium zwaard
+Weapon_Sword_103;Houten stok
+Weapon_Sword_105;Boemerang
+Weapon_Sword_106;Reizigerszwaard
+Weapon_Sword_107;Lizal-boemerang
+Weapon_Sword_108;Sterke houten stok
+Weapon_Sword_109;Extra sterke houten stok
+Weapon_Sword_112;Soldatenzwaard
+Weapon_Sword_113;Ridderzwaard
+Weapon_Sword_114;Achtvoudige tanto
+Weapon_Sword_124;Koninklijk zwaard
+Weapon_Sword_125;Woudzwaard
+Weapon_Sword_127;Zora-zwaard
+Weapon_Sword_129;Gerudo-kromzwaard
+Weapon_Sword_131;Verenkling
+Weapon_Sword_147;Sheikah-zwaard
+Weapon_Sword_161;Toverstaf
+Weapon_Sword_163;Zonanium zwaard+
+Weapon_Sword_164;Zonanium zwaard++
+Weapon_Sword_166;Miasmazwaard
+Weapon_Sword_167;Tak
+Weapon_Sword_168;Houten stok
+Weapon_Bow_001;Reizigersboog
+Weapon_Bow_002;Soldatenboog
+Weapon_Bow_003;Boko-bottenboog
+Weapon_Bow_004;Boko-boog
+Weapon_Bow_006;Lizal-boog
+Weapon_Bow_009;Lynel-boog
+Weapon_Bow_011;Verstevigde Lizal-boog
+Weapon_Bow_013;Woudboog
+Weapon_Bow_014;Zora-boog
+Weapon_Bow_015;Gerudo-boog
+Weapon_Bow_016;Zwaluwboog
+Weapon_Bow_017;Valkenboog
+Weapon_Bow_026;Machtige Lynel-boog
+Weapon_Bow_027;Boko-drakenboog
+Weapon_Bow_028;Adelaarsboog
+Weapon_Bow_029;Focusboog
+Weapon_Bow_030;Stalen Lizal-boog
+Weapon_Bow_032;Woeste Lynel-boog
+Weapon_Bow_033;Sheikah-boog
+Weapon_Bow_035;Ridderboog
+Weapon_Bow_036;Koninklijke boog
+Weapon_Bow_038;Houten boog
+Weapon_Bow_040;Dubbelboog
+Weapon_Bow_072;Schemerboog
+Weapon_Bow_101;Zonanium boog
+Weapon_Bow_104;Zonoïdeboog
+Weapon_Bow_105;Zonoïdeboog+
+Weapon_Bow_106;Zonoïdeboog++
+Weapon_Bow_107;Oude houten boog
+Weapon_Bow_166;Demonenkoningboog
+Weapon_Shield_001;Houten schild
+Weapon_Shield_002;Soldatenschild
+Weapon_Shield_003;Ridderschild
+Weapon_Shield_004;Boko-schild
+Weapon_Shield_005;Boko-bottenschild
+Weapon_Shield_006;Boko-drakenschild
+Weapon_Shield_007;Lizal-schild
+Weapon_Shield_008;Verstevigd Lizal-schild
+Weapon_Shield_009;Stalen Lizal-schild
+Weapon_Shield_016;Lynel-schild
+Weapon_Shield_017;Machtig Lynel-schild
+Weapon_Shield_018;Woest Lynel-schild
+Weapon_Shield_021;Verroest schild
+Weapon_Shield_022;Koninklijk schild
+Weapon_Shield_023;Woudschild
+Weapon_Shield_025;Zora-schild
+Weapon_Shield_026;Gerudo-schild
+Weapon_Shield_030;Hyliaans schild
+Weapon_Shield_031;Konijnenschild
+Weapon_Shield_032;Vissersschild
+Weapon_Shield_033;Sheikah-schild
+Weapon_Shield_034;Wapenschild
+Weapon_Shield_035;Reizigersschild
+Weapon_Shield_036;Dageraadschild
+Weapon_Shield_037;Zonneschild
+Weapon_Shield_040;Deksel
+Weapon_Shield_041;Focus-schild
+Weapon_Shield_042;Vliegerschild
+Weapon_Shield_057;Zeebriesschild
+Weapon_Shield_101;Zonanium schild
+Weapon_Shield_102;Zonanium schild+
+Weapon_Shield_103;Zonanium schild++
+Weapon_Shield_107;Oud houten schild
+Armor_001_Head;Hyliaanse kap
+Armor_001_Lower;Hyliaanse broek
+Armor_001_Upper;Hyliaans hemd
+Armor_005_Head;Wildernismuts
+Armor_005_Lower;Wildernisbroek
+Armor_005_Upper;Wilderniskostuum
+Armor_006_Head;Zora-helm
+Armor_006_Lower;Zora-scheenplaten
+Armor_006_Upper;Zora-pantser
+Armor_008_Head;Woestijnhaarband
+Armor_008_Lower;Woestijnbroek
+Armor_008_Upper;Woestijnarmstuk
+Armor_009_Head;Rito-veren
+Armor_009_Lower;Rito-broek
+Armor_009_Upper;Rito-hemd
+Armor_011_Head;Anti-vuurhelm
+Armor_011_Lower;Anti-vuurlaarzen
+Armor_011_Upper;Anti-vuurpantser
+Armor_012_Head;Ninjamasker
+Armor_012_Lower;Ninjabroek
+Armor_012_Upper;Ninja-outfit
+Armor_014_Head;Klimbandana
+Armor_014_Lower;Klimschoenen
+Armor_014_Upper;Klimhandschoen
+Armor_017_Head;Lichtgevend masker
+Armor_017_Lower;Lichtgevende legging
+Armor_017_Upper;Lichtgevend hemd
+Armor_020_Head;Hyliaanse helm
+Armor_020_Lower;Hyliaanse scheenplaten
+Armor_020_Upper;Hyliaans harnas
+Armor_022_Head;Bokoblin-masker
+Armor_024_Head;Diadeem met diamant
+Armor_025_Head;Diadeem met robijn
+Armor_026_Head;Diadeem met saffier
+Armor_027_Head;Topazen oorbellen
+Armor_028_Head;Opalen oorbellen
+Armor_029_Head;Barnstenen oorbellen
+Armor_045_Head;Moblin-masker
+Armor_046_Head;Rubberen helm
+Armor_046_Lower;Rubberen broek
+Armor_046_Upper;Rubberen harnas
+Armor_048_Head;Barbarenhelm
+Armor_048_Lower;Barbarenbroek
+Armor_048_Upper;Barbarenharnas
+Armor_049_Lower;Zandlaarzen
+Armor_055_Head;Lizalfos-masker
+Armor_056_Head;Lynel-masker
+Armor_1006_Head;Aerodynamisch masker
+Armor_1006_Lower;Aerodynamische broek
+Armor_1006_Upper;Aerodynamisch hemd
+Armor_1036_Head;Held-van-weleergedaante
+Armor_1043_Lower;Afgedragen schoeisel
+Armor_1043_Upper;Afgedragen toga
+Armor_1044_Lower;Afgedragen warme laarzen
+Armor_1046_Head;Kikkerkap
+Armor_1046_Lower;Kikkerscheenplaten
+Armor_1046_Upper;Kikkerarmstuk
+Armor_1051_Head;Mijnwerkersmasker
+Armor_1051_Lower;Mijnwerkersbroek
+Armor_1051_Upper;Mijnwerkersvest
+Armor_1061_Head;Vuurhoofdband
+Armor_1061_Lower;Vuurbroek
+Armor_1061_Upper;Vuurhemd
+Armor_1066_Head;Bliksemhoofdband
+Armor_1066_Lower;Bliksembroek
+Armor_1066_Upper;Bliksemhemd
+Armor_1071_Head;Sneeuwstormhoofdband
+Armor_1071_Lower;Sneeuwstormbroek
+Armor_1071_Upper;Sneeuwstormhemd
+Armor_1076_Head;Cece-hoed
+Armor_1086_Head;Geestenhoofdtooi
+Armor_1086_Lower;Geestenbroek
+Armor_1086_Upper;Geestentuniek
+Armor_1091_Head;Zonanium helm
+Armor_1091_Lower;Zonanium kniebeschermers
+Armor_1091_Upper;Zonanium outfit
+Armor_1096_Head;Droommasker
+Armor_1096_Lower;Droombroek
+Armor_1096_Upper;Droomkostuum
+Armor_1106_Upper;Nieuw Hemd der Uitverkorenen
+Armor_1125_Head;Horriblin-masker
+Armor_1141_Head;Duisterniskap
+Armor_1141_Lower;Duisternisbeenkappen
+Armor_1141_Upper;Duisternistuniek
+Armor_1151_Head;Afgedragen haaraccessoire
+Armor_1152_Head;Hyliaanse kap
+Armor_115_Head;Bliksemafweerhelm
+Armor_116_Upper;Hemd der Herinneringen
+Armor_1300_Head;Yiga-masker
+Armor_1300_Lower;Yiga-legging
+Armor_1300_Upper;Yiga-harnas
+Armor_141_Lower;Sneeuwlaarzen
+Armor_160_Head;Schaduwmuts
+Armor_160_Lower;Schaduwbroek
+Armor_160_Upper;Schaduwkostuum
+Armor_171_Head;Fantoomhelm
+Armor_171_Lower;Fantoomscheenplaten
+Armor_171_Upper;Fantoompantser
+Armor_172_Head;Majora's masker
+Armor_173_Head;Midna's helm
+Armor_174_Head;Tingles kap
+Armor_174_Lower;Tingles maillot
+Armor_174_Upper;Tingles hemd
+Armor_175_Upper;Kreeftenhemd
+Armor_176_Head;Korok-masker
+Armor_177_Head;Ravio's muts
+Armor_178_Head;Zants helm
+Armor_179_Head;Lijfwachtbaret
+Armor_179_Lower;Lijfwachtlaarzen
+Armor_179_Upper;Lijfwachtuniform
+Armor_180_Head;Kwaadaardig masker
+Armor_180_Lower;Kwaadaardige scheenplaten
+Armor_180_Upper;Kwaadaardig pantser
+Armor_181_Head;Vah Ruta-helm
+Armor_182_Head;Vah Medoh-helm
+Armor_183_Head;Vah Rudania-helm
+Armor_184_Head;Vah Naboris-helm
+Armor_200_Head;Tijdmuts
+Armor_200_Lower;Tijdbroek
+Armor_200_Upper;Tijdkostuum
+Armor_205_Head;Windmuts
+Armor_205_Lower;Windbroek
+Armor_205_Upper;Windkostuum
+Armor_210_Head;Schemermuts
+Armor_210_Lower;Schemerbroek
+Armor_210_Upper;Schemerkostuum
+Armor_215_Head;Hemelmuts
+Armor_215_Lower;Hemelbroek
+Armor_215_Upper;Hemelkostuum
+Armor_220_Head;Sheiks masker
+Armor_225_Head;Fierce Deity-masker
+Armor_225_Lower;Fierce Deity-laarzen
+Armor_225_Upper;Fierce Deity-harnas
+Armor_230_Head;Heldenmuts
+Armor_230_Lower;Heldenbroek
+Armor_230_Upper;Heldenkostuum
+Animal_Insect_A;Sprintkikker
+Animal_Insect_AA;Krachtkever
+Animal_Insect_AB;Doofvlinder
+Animal_Insect_AG;Kleefkikker
+Animal_Insect_AH;Kleefhagedis
+Animal_Insect_AI;Vale vuurvlieg
+Animal_Insect_B;Boostkikker
+Animal_Insect_C;Sneeuwlibel
+Animal_Insect_E;Stiltevuurvlieg
+Animal_Insect_F;Fee
+Animal_Insect_G;Zwaardneushoornkever
+Animal_Insect_H;Energiesprinkhaan
+Animal_Insect_I;Schoklibel
+Animal_Insect_M;Hartjeshagedis
+Animal_Insect_N;Sneeuwvlinder
+Animal_Insect_P;Harnaskever
+Animal_Insect_Q;Vlamvlinder
+Animal_Insect_R;Bliksemvlinder
+Animal_Insect_S;Haasthagedis
+Animal_Insect_T;Vuurlibel
+Animal_Insect_X;Doofhagedis
+BeeHome;Krachthoning
+BombFruit;Bombloem
+ConfusionFruit;Verwarbloem
+ElectricalFruit;Bliksemvrucht
+FireFruit;Vuurvrucht
+FldObj_Pinecone_A_01;Hyrule-dennenappel
+IceFruit;IJsvruchten
+Item_Enemy_01;Bokoblin-tand
+Item_Enemy_02;Bokoblin-hart
+Item_Enemy_04;Lizalfos-klauw
+Item_Enemy_05;Lizalfos-staart
+Item_Enemy_07;Moblin-tand
+Item_Enemy_08;Moblin-hart
+Item_Enemy_100;Horriblin-hoorn
+Item_Enemy_101;Blauwe-Horriblin-hoorn
+Item_Enemy_102;Zwarte-Horriblin-hoorn
+Item_Enemy_103;Zilveren-Horriblin-hoorn
+Item_Enemy_104;Horriblin-klauw
+Item_Enemy_105;Horriblin-hart
+Item_Enemy_106;Lizalfos-hoorn
+Item_Enemy_107;Blauwe-Lizalfos-hoorn
+Item_Enemy_108;Zwarte-Lizalfos-hoorn
+Item_Enemy_109;Zilveren-Lizalfos-hoorn
+Item_Enemy_114;Blauwe-Lizalfos-staart
+Item_Enemy_115;Zwarte-Lizalfos-staart
+Item_Enemy_116;Zilveren-Lizalfos-staart
+Item_Enemy_117;Vuur-Keese-oog
+Item_Enemy_118;Elektro-Keese-oog
+Item_Enemy_119;IJs-Keese-oog
+Item_Enemy_121;Gibdo-hart
+Item_Enemy_123;Gibdo-vleugel
+Item_Enemy_124;Aerocuda-vleugel
+Item_Enemy_13;Lynel-hoef
+Item_Enemy_130;Zonaniumenergiebol
+Item_Enemy_131;Grote zonaniumenergiebol
+Item_Enemy_132;Blauwe-Bokoblin-baashoorn
+Item_Enemy_133;Zwarte-Bokoblin-baashoorn
+Item_Enemy_134;Zilveren-Bokoblin-baashoorn
+Item_Enemy_135;Bokoblin-baastand
+Item_Enemy_136;Bokoblin-baashart
+Item_Enemy_14;Lynel-hart
+Item_Enemy_142;Hinox-hoorn
+Item_Enemy_143;Blauwe-Hinox-hoorn
+Item_Enemy_144;Zwarte-Hinox-hoorn
+Item_Enemy_148;Lynel-sabelhoorn
+Item_Enemy_149;Blauwe-Lynel-sabelhoorn
+Item_Enemy_15;Vuur-Chuchu-gelei
+Item_Enemy_150;Witte-Lynel-sabelhoorn
+Item_Enemy_151;Zilveren-Lynel-sabelhoorn
+Item_Enemy_153;Gleeok-vuurhoorn
+Item_Enemy_154;Gleeok-ijshoorn
+Item_Enemy_155;Gleeok-bliksemhoorn
+Item_Enemy_156;Gleeok-vleugel
+Item_Enemy_157;Gleeok-hart
+Item_Enemy_158;Lichtdraakschub
+Item_Enemy_159;Lichtdraakklauw
+Item_Enemy_16;Elektro-Chuchu-gelei
+Item_Enemy_160;Lichtdraaktandsplinter
+Item_Enemy_166;Zonoïdesoldaathoorn 1.0
+Item_Enemy_167;Zonoïdesoldaathoorn 2.0
+Item_Enemy_168;Zonoïdesoldaathoorn 3.0
+Item_Enemy_169;Zonoïdesoldaathoorn 4.0
+Item_Enemy_17;IJs-Chuchu-gelei
+Item_Enemy_18;Keese-vleugel
+Item_Enemy_181;Like Like-maagsteen
+Item_Enemy_182;Vuur-Like-maagsteen
+Item_Enemy_183;Elektro-Like-maagsteen
+Item_Enemy_184;IJs-Like-maagsteen
+Item_Enemy_186;Frox-slagtand
+Item_Enemy_187;Donkere-Frox-slagtand
+Item_Enemy_188;Wit-blauwe-Frox-slagtand
+Item_Enemy_189;Frox-nagel
+Item_Enemy_19;Keese-oog
+Item_Enemy_190;Frox-hart
+Item_Enemy_191;Zonoïdeofficierhoorn 2.0
+Item_Enemy_192;Zonoïdeofficierhoorn 3.0
+Item_Enemy_193;Zonoïdeofficierhoorn 4.0
+Item_Enemy_20;Octorok-tentakel
+Item_Enemy_208;Skelet-Hinox-hoorn
+Item_Enemy_21;Octorok-oog
+Item_Enemy_210;Molduga-kaakbeen
+Item_Enemy_211;Dinraals hoorn
+Item_Enemy_212;Naydra's hoorn
+Item_Enemy_213;Farosh' hoorn
+Item_Enemy_214;Lichtdraakhoorn
+Item_Enemy_215;Lynel-hamerhoorn
+Item_Enemy_216;Blauwe-Lynel-hamerhoorn
+Item_Enemy_217;Witte-Lynel-hamerhoorn
+Item_Enemy_218;Zilveren-Lynel-hamerhoorn
+Item_Enemy_228;Dinraals drakensteen
+Item_Enemy_229;Naydra's drakensteen
+Item_Enemy_230;Farosh' drakensteen
+Item_Enemy_231;Lichtdrakensteen
+Item_Enemy_24;Molduga-vin
+Item_Enemy_25;Molduga-hart
+Item_Enemy_32;Hinox-nagel
+Item_Enemy_33;Hinox-tand
+Item_Enemy_34;Hinox-hart
+Item_Enemy_38;Dinraals schub
+Item_Enemy_39;Dinraals klauw
+Item_Enemy_40;Chuchu-gelei
+Item_Enemy_41;Vuur-Lizalfos-staart
+Item_Enemy_42;IJs-Lizalfos-staart
+Item_Enemy_43;Elektro-Lizalfos-staart
+Item_Enemy_44;Vuur-Keese-vleugel
+Item_Enemy_45;Elektro-Keese-vleugel
+Item_Enemy_46;IJs-Keese-vleugel
+Item_Enemy_47;Dinraals tandsplinter
+Item_Enemy_49;Naydra's schub
+Item_Enemy_50;Naydra's klauw
+Item_Enemy_51;Naydra's tandsplinter
+Item_Enemy_53;Farosh' schub
+Item_Enemy_54;Farosh' klauw
+Item_Enemy_55;Farosh' tandsplinter
+Item_Enemy_57;Octorok-ballon
+Item_Enemy_58;Vuur-Lizalfos-hoorn
+Item_Enemy_59;IJs-Lizalfos-hoorn
+Item_Enemy_60;Elektro-Lizalfos-hoorn
+Item_Enemy_64;Bokoblin-baashoorn
+Item_Enemy_66;Aerocuda-oog
+Item_Enemy_67;Zonoïdeofficierhoorn 1.0
+Item_Enemy_69;Gibdo-bot
+Item_Enemy_77;Bokoblin-hoorn
+Item_Enemy_78;Blauwe-Bokoblin-hoorn
+Item_Enemy_79;Zwarte-Bokoblin-hoorn
+Item_Enemy_80;Zilveren-Bokoblin-hoorn
+Item_Enemy_89;Moblin-hoorn
+Item_Enemy_90;Blauwe-Moblin-hoorn
+Item_Enemy_91;Zwarte-Moblin-hoorn
+Item_Enemy_92;Zilveren-Moblin-hoorn
+Item_FishGet_A;Hyrule-baars
+Item_FishGet_AA;Eeuwenoude arowana
+Item_FishGet_AC;Glimgrotvis
+Item_FishGet_B;Hartenbaars
+Item_FishGet_C;IJsforel
+Item_FishGet_D;Schokforel
+Item_FishGet_E;Steekkarper
+Item_FishGet_F;Zwaardsnapper
+Item_FishGet_G;Schildsnapper
+Item_FishGet_H;Schildkarper
+Item_FishGet_I;Hartenzalm
+Item_FishGet_J;Warmteforel
+Item_FishGet_L;Energiebaars
+Item_FishGet_M;Sluipslak
+Item_FishGet_X;Schaduwforel
+Item_FishGet_Z;Driekleurige karper
+Item_Fruit_A;Appel
+Item_Fruit_B;Bes
+Item_Fruit_C;Schokvrucht
+Item_Fruit_E;Looplotus
+Item_Fruit_F;Watermeloen
+Item_Fruit_G;Kokosnoot
+Item_Fruit_H;Knokbananen
+Item_Fruit_I;Peper
+Item_Fruit_J;Pantserpompoen
+Item_Fruit_K;Eikel
+Item_Fruit_L;Vogelzaad
+Item_Fruit_M;Hyrule-tomaten
+Item_Fruit_N;Zonpompoen
+Item_Fruit_P;Gouden appel
+Item_InsectGet_K;Wapenkrab
+Item_InsectGet_O;Pantserkrab
+Item_InsectGet_Z;Krachtkrab
+Item_KingScale;Koningsschub
+Item_Material_01;Rietsuiker
+Item_Material_02;Goron-saus
+Item_Material_03;Hyrule-rijst
+Item_Material_04;Ei
+Item_Material_05;Melk
+Item_Material_06;Geitenboter
+Item_Material_07;Tabantha-tarwe
+Item_Material_08;Monsterextract
+Item_Material_09;Flesje olie
+Item_Material_10;Hateno-kaas
+Item_Material_11;Duister fragment
+Item_Meat_01;Wild
+Item_Meat_02;Wild XL
+Item_Meat_06;Gevogelte
+Item_Meat_07;Gevogelte XL
+Item_Meat_11;Wild XXL
+Item_Meat_12;Gevogelte XXL
+Item_MushroomGet_D;Sprintzwam
+Item_MushroomGet_K;Glimzwam
+Item_Mushroom_A;Pepzwam
+Item_Mushroom_B;Koelzwam
+Item_Mushroom_C;Hittezwam
+Item_Mushroom_E;Hyrule-zwam
+Item_Mushroom_F;Harttruffel
+Item_Mushroom_H;Schokzwam
+Item_Mushroom_J;Sluipzwam
+Item_Mushroom_L;Zwaardzwam
+Item_Mushroom_M;Schildzwam
+Item_Mushroom_N;Harttruffel XL
+Item_Mushroom_O;Boostzwam
+Item_Mushroom_P;Hemelzwam
+Item_Ore_A;Diamant
+Item_Ore_B;Robijn
+Item_Ore_C;Saffier
+Item_Ore_D;Topaas
+Item_Ore_E;Opaal
+Item_Ore_F;Barnsteen
+Item_Ore_G;Lichtgevende steen
+Item_Ore_H;Zoutkristal
+Item_Ore_I;Vuursteen
+Item_Ore_J;Sterrenscherf
+Item_Ore_L;Zonanium
+Item_Ore_M;Groot stuk zonanium
+Item_PlantGet_A;Hyrule-kruid
+Item_PlantGet_B;Hartradijs
+Item_PlantGet_C;Hartradijs XL
+Item_PlantGet_E;IJskruid
+Item_PlantGet_F;Vuurkruid
+Item_PlantGet_G;Strijdkruid
+Item_PlantGet_H;Schutkruid
+Item_PlantGet_I;Fluisterkruid
+Item_PlantGet_J;Stille prinses
+Item_PlantGet_L;Elektrokruid
+Item_PlantGet_M;Sprintwortel
+Item_PlantGet_O;Snelheidsviooltje
+Item_PlantGet_Q;Boostwortel
+Item_PlantGet_R;Zonbloem
+Item_PlantGet_S;Energielook
+Item_PlantGet_U;Korok-blad
+Item_Weapon_01;Geavanceerde dolk
+LightBall_Large;Gigaglimbloemzaadje
+LightBall_Small;Glimbloemzaadje
+LightFruit;Fonkelvrucht
+Obj_FireWoodBundle;Houtbundel
+SmokeFruit;Stuifzwam
+WaterFruit;Watervrucht
+Item_Boiled_01;Gekookt ei
+Item_ChilledFish_01;Bevroren baars
+Item_ChilledFish_02;Bevroren hartenzalm
+Item_ChilledFish_03;Bevroren forel
+Item_ChilledFish_04;Bevroren karper
+Item_ChilledFish_05;Bevroren brasem
+Item_ChilledFish_06;Bevroren hartenbaars
+Item_ChilledFish_07;Bevroren krab
+Item_ChilledFish_08;Bevroren sluipslak
+Item_ChilledFish_16;Bevroren arowana
+Item_ChilledFish_18;Bevroren grotvis
+Item_Chilled_01;Bevroren wild
+Item_Chilled_02;Bevroren wild XL
+Item_Chilled_03;Bevroren wild XXL
+Item_Chilled_04;Bevroren gevogelte
+Item_Chilled_05;Bevroren gevogelte XL
+Item_Chilled_06;Bevroren gevogelte XXL
+Item_Cook_A_01;Paddenstoelenspies
+Item_Cook_A_02;Gestoomde paddenstoelen
+Item_Cook_A_03;Gestoomde vruchten
+Item_Cook_A_04;Gestoomde vis
+Item_Cook_A_05;Gestoomd vlees
+Item_Cook_A_07;Paddenstoelenvruchtenmix
+Item_Cook_A_08;Paddenstoelenvisspies
+Item_Cook_A_09;Paddenstoelenvleesspies
+Item_Cook_A_10;Omelet
+Item_Cook_A_11;Geglaceerde paddenstoelen
+Item_Cook_A_12;Geglaceerd vlees
+Item_Cook_A_13;Geglaceerde vis
+Item_Cook_A_14;Geglaceerde groente
+Item_Cook_B_01;Gebakken groente
+Item_Cook_B_02;Gestoofd fruit
+Item_Cook_B_05;Visspies
+Item_Cook_B_06;Vleesspies
+Item_Cook_B_11;Veel gebakken groente
+Item_Cook_B_12;Veel gestoofd fruit
+Item_Cook_B_13;Veel paddenstoelenspiezen
+Item_Cook_B_15;Veel visspiezen
+Item_Cook_B_16;Veel vleesspiezen
+Item_Cook_B_17;Vis-en-vleesmix
+Item_Cook_B_18;Vis-en-vleesmix XL
+Item_Cook_B_19;Vis-en-vleesmix XXL
+Item_Cook_B_20;Gevulde pompoen
+Item_Cook_B_21;Gebakken pepers
+Item_Cook_B_22;Geroosterde noten
+Item_Cook_B_23;Zeevruchtenspies
+Item_Cook_C_16;Feeënwater
+Item_Cook_C_17;Drankje
+Item_Cook_D_01;Gegrilde paddenstoelen
+Item_Cook_D_02;Gegrilde groente
+Item_Cook_D_03;Gegrilde vis
+Item_Cook_D_04;Gegrild vlees
+Item_Cook_D_05;Gegrild vlees XL
+Item_Cook_D_06;Gegrild vlees XXL
+Item_Cook_D_07;Pittig gegrild vlees
+Item_Cook_D_08;Pittige gegrilde vis
+Item_Cook_D_09;Gegrilde krab
+Item_Cook_D_10;Geroerbakte krab
+Item_Cook_E_01;Gevogelte-pilav
+Item_Cook_E_02;Gevogelte-pilav XL
+Item_Cook_E_03;Gevogelte-pilav XXL
+Item_Cook_E_04;Spiegelei met rijst
+Item_Cook_F_01;Vleescrèmesoep
+Item_Cook_F_02;Vissencrèmesoep
+Item_Cook_F_03;Groentecrèmesoep
+Item_Cook_F_04;Hartencrèmesoep
+Item_Cook_G_02;Visrijstballen
+Item_Cook_G_03;Groenterijstballen
+Item_Cook_G_04;Paddenstoelrijstballen
+Item_Cook_G_05;Wild met rijst
+Item_Cook_G_06;Wild met rijst XL
+Item_Cook_G_09;Wild met rijst XXL
+Item_Cook_G_10;Vis met rijst
+Item_Cook_G_11;Kerriepilav
+Item_Cook_G_12;Paddenstoelrisotto
+Item_Cook_G_13;Groenterisotto
+Item_Cook_G_14;Zalmrisotto
+Item_Cook_G_15;Vleesrijstballen
+Item_Cook_G_16;Krabomelet met rijst
+Item_Cook_G_17;Krabrisotto
+Item_Cook_H_01;Vis met boter
+Item_Cook_H_02;Zeebaars met boter
+Item_Cook_H_03;Zalm met boter
+Item_Cook_I_01;Vruchtenvlaai
+Item_Cook_I_02;Appeltaart
+Item_Cook_I_03;Eiertaart
+Item_Cook_I_04;Vleespastei
+Item_Cook_I_05;Worteltaart
+Item_Cook_I_06;Pompoentaart
+Item_Cook_I_07;Boterappel
+Item_Cook_I_08;Honingappel
+Item_Cook_I_09;Honingfruit
+Item_Cook_I_10;Pannenkoek
+Item_Cook_I_11;Bessenpannenkoek
+Item_Cook_I_12;Notentaart
+Item_Cook_I_13;Gebakken bananen
+Item_Cook_I_14;Flan
+Item_Cook_I_15;Vispastei
+Item_Cook_I_16;Honingsnoepjes
+Item_Cook_I_17;Honingpannenkoek
+Item_Cook_J_01;Kerrie met rijst
+Item_Cook_J_02;Kerrie met groente
+Item_Cook_J_03;Kerrie met vis
+Item_Cook_J_04;Kerrie met gevogelte
+Item_Cook_J_05;Kerrie met gevogelte XL
+Item_Cook_J_06;Kerrie met wild
+Item_Cook_J_07;Kerrie met wild XL
+Item_Cook_J_08;Kerrie met gevogelte XXL
+Item_Cook_J_09;Kerrie met wild XXL
+Item_Cook_K_01;Stoofschotel met wild
+Item_Cook_K_02;Stoofschotel met wild XL
+Item_Cook_K_03;Stoofschotel met pompoen
+Item_Cook_K_04;Slakkensoep
+Item_Cook_K_05;Stoofschotel met wild XXL
+Item_Cook_K_06;Paddenstoelencrèmesoep
+Item_Cook_K_07;Groentesoep
+Item_Cook_K_08;Stoofschotel met wortel
+Item_Cook_K_09;Warme melk
+Item_Cook_L_01;Stoofschotel met monster
+Item_Cook_L_02;Monstersoep
+Item_Cook_L_03;Monstertaart
+Item_Cook_L_04;Monsterrijstballen
+Item_Cook_L_05;Kerrie met monster
+Item_Cook_M_01;Tarwebrood
+Item_Cook_N_01;Paella
+Item_Cook_N_02;Vruchtentaart
+Item_Cook_N_03;Groenteomelet
+Item_Cook_N_04;Paddenstoelenomelet
+Item_Cook_O_01;Mislukte maaltijd
+Item_Cook_O_02;Keihard eten
+Item_Cook_P_01;Geurige paddenstoelenmix
+Item_Cook_P_02;Gesauteerde groente
+Item_Cook_P_03;Wildbiefstuk
+Item_Cook_P_04;Wildbiefstuk XL
+Item_Cook_P_05;Wildbiefstuk XXL
+Item_Cook_Q_01;Gesmoorde tomaten
+Item_Cook_Q_02;Tomatensoep
+Item_Cook_Q_03;Gestoomde tomaten
+Item_Cook_Q_04;Paddenstoel-tomaatstoofpot
+Item_Cook_Q_05;Zeevruchten-tomatensoep
+Item_Cook_Q_06;Geroosterde energielook
+Item_Cook_Q_07;Boterlook
+Item_Cook_Q_08;Gebakken rijst
+Item_Cook_Q_09;Cheesecake
+Item_Cook_Q_10;Kaasrisotto
+Item_Cook_R_01;Kaasomelet
+Item_Cook_R_02;Groenterijstepap
+Item_Cook_R_03;Meiden en jongens
+Item_Cook_R_04;Tomatenpizza
+Item_Cook_R_05;Vis-lookstoofschotel
+Item_Cook_R_06;Gefrituurd gevogelte
+Item_Cook_R_07;Gefrituurd gevogelte XL
+Item_Cook_R_08;Gefrituurd gevogelte XXL
+Item_Cook_R_09;Gegratineerd brood
+Item_Cook_R_10;Gegratineerde vis
+Item_Cook_S_01;Kerrie met kaas
+Item_Cook_S_02;Vlees en kaas
+Item_Cook_S_03;Vlees en kaas XL
+Item_Cook_S_04;Vlees en kaas XXL
+Item_Cook_S_05;Duivelsstoofpot
+Item_Cook_S_06;Duivelsrijstbal
+Item_Cook_S_07;Duivelssoep
+Item_Cook_S_08;Duivelskerrie
+Item_Cook_S_09;Duivelscake
+Item_Cook_S_10;Tomaat en kaas
+Item_RoastFish_01;Gegrilde baars
+Item_RoastFish_02;Gegrilde hartenbaars
+Item_RoastFish_03;Gegrilde forel
+Item_RoastFish_04;Gegrilde hartenzalm
+Item_RoastFish_07;Gegrilde karper
+Item_RoastFish_09;Gegrilde brasem
+Item_RoastFish_13;Geroosterde sluipslak
+Item_RoastFish_15;Geroosterde krab
+Item_RoastFish_16;Gegrilde arowana
+Item_RoastFish_18;Gegrilde grotvis
+Item_Roast_01;Gegrild wild
+Item_Roast_02;Gegrild gevogelte
+Item_Roast_03;Geroosterde appel
+Item_Roast_04;Geroosterde pepzwam
+Item_Roast_05;Geroosterde harttruffel
+Item_Roast_06;Geroosterde Hyrule-zwam
+Item_Roast_07;Geroosterde bes
+Item_Roast_08;Geroosterde schokvrucht
+Item_Roast_10;Geroosterde kokosnoot
+Item_Roast_11;Geroosterde knokbanaan
+Item_Roast_12;Geroosterde watermeloen
+Item_Roast_13;Geroosterde peper
+Item_Roast_15;Geroosterde pompoen
+Item_Roast_16;Geroosterde looplotus
+Item_Roast_18;Geroosterde hartradijs
+Item_Roast_19;Geroosterde hartradijs XL
+Item_Roast_24;Geroosterde sprintwortel
+Item_Roast_27;Geroosterd strijdkruid
+Item_Roast_28;Geroosterd schutkruid
+Item_Roast_31;Geroosterde koelzwam
+Item_Roast_32;Geroosterde hittezwam
+Item_Roast_33;Geroosterde schokzwam
+Item_Roast_36;Geroosterde sprintzwam
+Item_Roast_37;Geroosterde zwaardzwam
+Item_Roast_38;Geroosterde schildzwam
+Item_Roast_39;Geroosterde sluipzwam
+Item_Roast_40;Gegrild wild XL
+Item_Roast_41;Gegrild gevogelte XL
+Item_Roast_45;Gegrild wild XXL
+Item_Roast_46;Gegrild gevogelte XXL
+Item_Roast_48;Geroosterde eikel
+Item_Roast_49;Geroosterde harttruffel XL
+Item_Roast_50;Geroosterde boostwortel
+Item_Roast_51;Geroosterd ei
+Item_Roast_52;Geroosterd vogelzaad
+Item_Roast_53;Geroosterde boostzwam
+Item_Roast_54;Geroosterde Hyrule-tomaten
+Item_Roast_55;Geroosterde zonpompoen
+Item_Roast_56;Geroosterde hemelzwam
+Item_Roast_58;Geroosterde glimzwam
+Item_Roast_59;Geroosterde gouden appel
+SpObj_BalloonEnvelope_A_01;Heteluchtballon
+SpObj_Beamos_A_01;Laserkanon
+SpObj_Cannon_A_01;Kanon
+SpObj_Cart_A_01;Platte kar
+SpObj_Chaser_A_01;Doelzoekend voertuig
+SpObj_ControlStick_A_01;Stuurtoestel
+SpObj_CookSetOnFire_A_01;Reiskookpan
+SpObj_ElectricBoxGenerator;Bliksemwerper
+SpObj_EnergyBank_A_01;Batterij
+SpObj_EnergyBank_A_02;Extra krachtige batterij
+SpObj_FastWheel_A_01;Klein wiel
+SpObj_SwitchWheel_B_01;Groot wiel
+SpObj_FlameThrower_A_01;Vlammenwerper
+SpObj_FlashLight_A_01;Lamp
+SpObj_FloatingStone_A_01;Zweefsteen
+SpObj_GolemHead_A_01;Zonoïdekop
+SpObj_LiftGeneratorWing_A_01;Draagvleugel
+SpObj_WaterPump_A_01;Brandkraan
+SpObj_LightMirror_A_01;Spiegel
+SpObj_Pile_A_01;Staak
+SpObj_Rocket_A_01;Raket
+SpObj_SlipBoard_A_01;Slee
+SpObj_SnowMachine_A_01;Vrieswindwerper
+SpObj_SpringPiston_A_01;Veer
+SpObj_TiltingDoll_A_01;Wiebelpop
+SpObj_TimerBomb_A_01;Tijdbom
+SpObj_WindGenerator_A_01;Blazer
+CaveMasterMedal;Bubbul-kikkerkristal
+Energy_Material_01;Zonaniumkristal
+Energy_Material_03;Groot zonaniumkristal
+Energy_Material_04;Reuzenzonaniumkristal
+GameRomHorseReins_01;Reizigershoofdstel
+GameRomHorseReins_02;Koninklijk hoofdstel
+GameRomHorseReins_03;Riddershoofdstel
+GameRomHorseReins_04;Monsterhoofdstel
+GameRomHorseReins_05;Paradehoofdstel
+GameRomHorseSaddle_01;Reizigerszadel
+GameRomHorseSaddle_02;Koninklijk zadel
+GameRomHorseSaddle_03;Ridderzadel
+GameRomHorseSaddle_04;Monsterzadel
+GameRomHorseSaddle_05;Paradezadel
+GameRomHorseSaddle_07;Sleeptuig
+Item_StableHostelAccommodationCoupon_A;Bedbon
+KeySmall;Kleine sleutel
+MinusRupee_00;Poe
+MinusRupee_01;Grote Poe
+MinusRupee_02;Enorme Poe
+Obj_AutoBuilderDraftAssassin_00;Yiga-schetsboek
+Obj_AutoBuilderDraft_00;Blauwdruktablet
+Obj_Camera;Foto's
+Obj_CaveWellHonor_00;Puttenbeloning
+Obj_CheckPointHonor_00;Blijk van het verdrijven van de duisternis
+Obj_DRStone_Get;Purah-tablet
+Obj_DefeatHonor_00;Steen-Talus-medaille
+Obj_DefeatHonor_01;Hinox-medaille
+Obj_DefeatHonor_02;Molduga-medaille
+Obj_DefeatHonor_03;Frox-medaille
+Obj_DefeatHonor_04;Blokzonoïde-medaille
+Obj_DefeatHonor_05;Gleeok-medaille
+Obj_DungeonClearSeal;Lichtbol
+Obj_EnergyUtuwa_A_01;Energiecel
+Obj_HeartUtuwa_A_01;Extra hartje
+Obj_HiddenScroll_00;Aardpilaarhandboek
+Obj_KorokNuts;Korok-zaadje
+Obj_Photo_Animal;Collectie 'Dieren'
+Obj_Photo_BossEnemy;Collectie 'Eindbazen'
+Obj_Photo_Enemy;Collectie 'Vijanden'
+Obj_Photo_Material;Collectie 'Ingrediënten'
+Obj_Photo_Other;Collectie 'Diversen'
+Obj_Photo_Weapon;Collectie 'Wapens'
+Obj_ProofKorok;Hestu's beloning
+Obj_SageSoulPlus_Gerudo;Eeuwige eed van Riju, Wijze van de Bliksem
+Obj_SageSoulPlus_Goron;Eeuwige eed van Yunobo, Wijze van het Vuur
+Obj_SageSoulPlus_Rito;Eeuwige eed van Tulin, Wijze van de Wind
+Obj_SageSoulPlus_Zonau;Eeuwige eed van Mineru, Wijze van de Ziel
+Obj_SageSoulPlus_Zora;Eeuwige eed van Sidon, Wijze van het Water
+Obj_SageSoul_Gerudo;Eed van Riju, Wijze van de Bliksem
+Obj_SageSoul_Goron;Eed van Yunobo, Wijze van het Vuur
+Obj_SageSoul_Rito;Eed van Tulin, Wijze van de Wind
+Obj_SageSoul_Zonau;Eed van Mineru, Wijze van de Ziel
+Obj_SageSoul_Zora;Eed van Sidon, Wijze van het Water
+Obj_SageWill;Wens van een Wijze
+Obj_StableHostlePointCard;Stalpuntenkaart
+Obj_StaminaUtuwa_A_01;Extra energie
+Obj_SubstituteCloth_00;Goron-stof
+Obj_SubstituteCloth_01;Zora-stof
+Obj_SubstituteCloth_02;Gerudo-stof
+Obj_SubstituteCloth_03;Koninklijke Hyliaanse stof
+Obj_SubstituteCloth_04;Zonai-stof
+Obj_SubstituteCloth_05;Sheikah-stof
+Obj_SubstituteCloth_06;Yiga-stof
+Obj_SubstituteCloth_07;Aanvalsgroepstof
+Obj_SubstituteCloth_08;Zonai-onderzoeksgroepstof
+Obj_SubstituteCloth_09;Paardengodstof
+Obj_SubstituteCloth_10;Lurelin-stof
+Obj_SubstituteCloth_11;Het Klaverblad-stof
+Obj_SubstituteCloth_12;Bouwbedrijf Hudson-stof
+Obj_SubstituteCloth_13;Koltins handgemaakte stof
+Obj_SubstituteCloth_14;Korok-stof
+Obj_SubstituteCloth_15;Grizzlybeerstof
+Obj_SubstituteCloth_16;Robbies handgemaakte stof
+Obj_SubstituteCloth_17;Cece-stof
+Obj_SubstituteCloth_18;Aerocuda-stof
+Obj_SubstituteCloth_19;Eldin-struisvogelstof
+Obj_SubstituteCloth_20;Cucco-stof
+Obj_SubstituteCloth_21;Paardenstof
+Obj_SubstituteCloth_22;Chuchu-stof
+Obj_SubstituteCloth_23;Lynel-stof
+Obj_SubstituteCloth_24;Gleeok-stof
+Obj_SubstituteCloth_25;Skelet-Hinox-stof
+Obj_SubstituteCloth_26;Hemd-der-Herinneringenstof
+Obj_SubstituteCloth_27;Hyliaanse-kap-stof
+Obj_SubstituteCloth_28;Prinses-van-Hyrule-stof
+Obj_SubstituteCloth_29;Goron-Uitverkorene-stof
+Obj_SubstituteCloth_30;Rito-Uitverkorene-stof
+Obj_SubstituteCloth_31;Zora-Uitverkorene-stof
+Obj_SubstituteCloth_32;Gerudo-Uitverkorene-stof
+Obj_SubstituteCloth_33;Geavanceerde-Sheikah-stof
+Obj_SubstituteCloth_34;Bokoblin-stof
+Obj_SubstituteCloth_35;Demonenkoningstof
+Obj_SubstituteCloth_36;Rodeleeuwenstof
+Obj_SubstituteCloth_37;Sheik-stof
+Obj_SubstituteCloth_38;Schemerspiegelstof
+Obj_SubstituteCloth_39;Schemerprinsesstof
+Obj_SubstituteCloth_40;Lon Lon-stof
+Obj_SubstituteCloth_41;Majora's-masker-stof
+Obj_SubstituteCloth_43;Oude-dynastiestof
+Obj_SubstituteCloth_45;Zwaardzielstof
+Obj_SubstituteCloth_46;Pixelstof
+Obj_SubstituteCloth_48;Eierstof
+Obj_SubstituteCloth_49;Godinstof
+Obj_SubstituteCloth_51;Nieuwe-Hemd-der-Uitverkorenenstof
+Obj_SubstituteCloth_52;Prinses-Zelda-stof
+Obj_SubstituteCloth_53;Gerudo-koningstof
+Obj_SubstituteCloth_55;Nostalgische stof
+Obj_SubstituteCloth_56;Addisons handgemaakte stof
+Obj_SubstituteCloth_Default;Gewone stof
+Obj_TreasureMap_00;Oude kaart
+Obj_WarpDLC_Prototype;Prototype reismedaillon
+Parasail;Zweefzeil

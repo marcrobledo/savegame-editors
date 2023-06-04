@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Item class) v20230603
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Item class) v20230604
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -24,6 +24,8 @@ function Item(catId, index, id, quantity, foodEffect, foodEffectHearts, foodEffe
 }
 
 Item.prototype.getItemTranslation=function(){
+	if(Locale._(this.id))
+		return Locale._(this.id);
 	return Item.TRANSLATIONS[this.category][this.id] || this.id;
 }
 Item.prototype.copy=function(index, newId){

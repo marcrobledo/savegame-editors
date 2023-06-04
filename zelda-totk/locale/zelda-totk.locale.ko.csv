@@ -1,0 +1,922 @@
+Weapon_Lsword_001;여행자의 양손검
+Weapon_Lsword_002;병사의 양손검
+Weapon_Lsword_003;기사의 양손검
+Weapon_Lsword_019;모리블린의 뼈
+Weapon_Lsword_020;녹슨 양손검
+Weapon_Lsword_024;왕가의 양손검
+Weapon_Lsword_027;조라의 대검
+Weapon_Lsword_029;겔드의 양손검
+Weapon_Lsword_036;돌 크러셔
+Weapon_Lsword_038;배의 노
+Weapon_Lsword_041;잔심의 장도
+Weapon_Lsword_045;밭의 괭이
+Weapon_Lsword_047;근위의 양손검
+Weapon_Lsword_051;빅부메랑
+Weapon_Lsword_054;거암 크러셔
+Weapon_Lsword_057;황혼의 대검
+Weapon_Lsword_059;빅고론도
+Weapon_Lsword_060;귀신의 대검
+Weapon_Lsword_101;조나니움 대검
+Weapon_Lsword_103;굵은 봉
+Weapon_Lsword_106;여행자의 양손검
+Weapon_Lsword_108;튼튼한 굵은 봉
+Weapon_Lsword_109;울퉁불퉁한 굵은 봉
+Weapon_Lsword_112;병사의 양손검
+Weapon_Lsword_113;기사의 양손검
+Weapon_Lsword_114;잔심의 장도
+Weapon_Lsword_124;왕가의 양손검
+Weapon_Lsword_127;조라의 대검
+Weapon_Lsword_129;겔드의 양손검
+Weapon_Lsword_136;돌 크러셔
+Weapon_Lsword_147;근위의 양손검
+Weapon_Lsword_161;마법의 대지팡이
+Weapon_Lsword_163;튼튼한 조나니움 대검
+Weapon_Lsword_164;강력한 조나니움 대검
+Weapon_Lsword_166;독기의 철퇴
+Weapon_Lsword_168;굵은 봉
+Weapon_Lsword_174;빅부메랑
+Weapon_Spear_001;여행자의 창
+Weapon_Spear_002;병사의 창
+Weapon_Spear_003;기사의 창
+Weapon_Spear_021;녹슨 창
+Weapon_Spear_022;밭의 쇠스랑
+Weapon_Spear_024;왕가의 창
+Weapon_Spear_025;숲에 사는 자의 창
+Weapon_Spear_027;조라의 창
+Weapon_Spear_029;겔드의 창
+Weapon_Spear_030;투척 창
+Weapon_Spear_032;날개깃의 창
+Weapon_Spear_036;나무 대걸레
+Weapon_Spear_038;어부의 작살
+Weapon_Spear_047;근위의 창
+Weapon_Spear_050;광린의 창
+Weapon_Spear_101;조나니움 창
+Weapon_Spear_103;장봉
+Weapon_Spear_106;여행자의 창
+Weapon_Spear_108;튼튼한 장봉
+Weapon_Spear_109;울퉁불퉁한 장봉
+Weapon_Spear_112;병사의 창
+Weapon_Spear_113;기사의 창
+Weapon_Spear_124;왕가의 창
+Weapon_Spear_125;숲에 사는 자의 창
+Weapon_Spear_127;조라의 창
+Weapon_Spear_129;겔드의 창
+Weapon_Spear_132;날개깃의 창
+Weapon_Spear_147;근위의 창
+Weapon_Spear_161;마법의 장지팡이
+Weapon_Spear_163;튼튼한 조나니움 창
+Weapon_Spear_164;강력한 조나니움 창
+Weapon_Spear_166;독기의 창
+Weapon_Spear_168;장봉
+Weapon_Spear_173;투척 창
+Weapon_Sword_001;여행자의 검
+Weapon_Sword_002;병사의 검
+Weapon_Sword_003;기사의 검
+Weapon_Sword_019;보코블린의 뼈
+Weapon_Sword_020;리잘포스의 뼈
+Weapon_Sword_021;녹슨 검
+Weapon_Sword_022;나무 국자
+Weapon_Sword_024;왕가의 검
+Weapon_Sword_025;숲에 사는 자의 검
+Weapon_Sword_027;조라의 검
+Weapon_Sword_029;겔드의 나이프
+Weapon_Sword_031;날개깃의 검
+Weapon_Sword_041;잔심의 단도
+Weapon_Sword_043;횃불
+Weapon_Sword_044;나뭇가지
+Weapon_Sword_047;근위의 검
+Weapon_Sword_051;부메랑
+Weapon_Sword_052;칠보의 나이프
+Weapon_Sword_057;천공의 백도검
+Weapon_Sword_058;시작의 검
+Weapon_Sword_059;해풍의 부메랑
+Weapon_Sword_070;마스터 소드
+Weapon_Sword_070_Broken;망가진 마스터 소드
+Weapon_Sword_101;조나니움 검
+Weapon_Sword_103;나무 봉
+Weapon_Sword_105;부메랑
+Weapon_Sword_106;여행자의 검
+Weapon_Sword_107;리잘부메랑
+Weapon_Sword_108;튼튼한 나무 봉
+Weapon_Sword_109;울퉁불퉁한 나무 봉
+Weapon_Sword_112;병사의 검
+Weapon_Sword_113;기사의 검
+Weapon_Sword_114;잔심의 단도
+Weapon_Sword_124;왕가의 검
+Weapon_Sword_125;숲에 사는 자의 검
+Weapon_Sword_127;조라의 검
+Weapon_Sword_129;겔드의 나이프
+Weapon_Sword_131;날개깃의 검
+Weapon_Sword_147;근위의 검
+Weapon_Sword_161;마법의 지팡이
+Weapon_Sword_163;튼튼한 조나니움 검
+Weapon_Sword_164;강력한 조나니움 검
+Weapon_Sword_166;독기의 검
+Weapon_Sword_167;나뭇가지
+Weapon_Sword_168;나무 봉
+Weapon_Bow_001;여행자의 활
+Weapon_Bow_002;병사의 활
+Weapon_Bow_003;가시 보코활
+Weapon_Bow_004;보코활
+Weapon_Bow_006;리잘보우
+Weapon_Bow_009;라이넬의 활
+Weapon_Bow_011;강화 리잘보우
+Weapon_Bow_013;숲에 사는 자의 활
+Weapon_Bow_014;조라의 활
+Weapon_Bow_015;겔드의 활
+Weapon_Bow_016;제비의 활
+Weapon_Bow_017;매의 활
+Weapon_Bow_026;야수왕의 활
+Weapon_Bow_027;용골 보코활
+Weapon_Bow_028;참수리의 활
+Weapon_Bow_029;일심의 활
+Weapon_Bow_030;강철 리잘보우
+Weapon_Bow_032;야수신의 활
+Weapon_Bow_033;근위의 활
+Weapon_Bow_035;기사의 활
+Weapon_Bow_036;왕가의 활
+Weapon_Bow_038;나무 활
+Weapon_Bow_040;이연궁
+Weapon_Bow_072;황혼의 활
+Weapon_Bow_101;조나니움 활
+Weapon_Bow_104;골렘의 활
+Weapon_Bow_105;튼튼한 골렘의 활
+Weapon_Bow_106;강력한 골렘의 활
+Weapon_Bow_107;낡은 나무 활
+Weapon_Bow_166;마왕의 활
+Weapon_Shield_001;나무 방패
+Weapon_Shield_002;병사의 방패
+Weapon_Shield_003;기사의 방패
+Weapon_Shield_004;보코방패
+Weapon_Shield_005;가시 보코방패
+Weapon_Shield_006;용골 보코방패
+Weapon_Shield_007;리잘실드
+Weapon_Shield_008;강화 리잘실드
+Weapon_Shield_009;강철 리잘실드
+Weapon_Shield_016;라이넬의 방패
+Weapon_Shield_017;야수왕의 방패
+Weapon_Shield_018;야수신의 방패
+Weapon_Shield_021;녹슨 방패
+Weapon_Shield_022;왕가의 방패
+Weapon_Shield_023;숲에 사는 자의 방패
+Weapon_Shield_025;조라의 방패
+Weapon_Shield_026;겔드의 방패
+Weapon_Shield_030;하일리아의 방패
+Weapon_Shield_031;토끼 문양 방패
+Weapon_Shield_032;물고기 문양 방패
+Weapon_Shield_033;근위의 방패
+Weapon_Shield_034;짐승 문양 방패
+Weapon_Shield_035;여행자의 방패
+Weapon_Shield_036;태양의 방패
+Weapon_Shield_037;칠보의 방패
+Weapon_Shield_040;냄비 뚜껑
+Weapon_Shield_041;수호의 방패
+Weapon_Shield_042;산들바람의 방패
+Weapon_Shield_057;바닷바람의 방패
+Weapon_Shield_101;조나니움 방패
+Weapon_Shield_102;튼튼한 조나니움 방패
+Weapon_Shield_103;견고한 조나니움 방패
+Weapon_Shield_107;낡은 나무 방패
+Armor_001_Head;하일리아의 후드
+Armor_001_Lower;하일리아의 바지
+Armor_001_Upper;하일리아의 옷
+Armor_005_Head;숨결의 용사의 모자
+Armor_005_Lower;숨결의 용사의 바지
+Armor_005_Upper;숨결의 용사의 옷
+Armor_006_Head;조라의 투구
+Armor_006_Lower;조라의 경갑
+Armor_006_Upper;조라의 갑옷
+Armor_008_Head;사막의 머리 밴드
+Armor_008_Lower;사막의 바지
+Armor_008_Upper;사막의 어깨 보호대
+Armor_009_Head;방한 날개 장식
+Armor_009_Lower;리토의 날개 바지
+Armor_009_Upper;리토의 날개 옷
+Armor_011_Head;방염의 돌투구
+Armor_011_Lower;방염의 돌신
+Armor_011_Upper;방염의 돌갑옷
+Armor_012_Head;은밀 마스크
+Armor_012_Lower;은밀 타이츠
+Armor_012_Upper;은밀 슈트
+Armor_014_Head;클라이밍 두건
+Armor_014_Lower;클라이밍 슈즈
+Armor_014_Upper;클라이밍 장비
+Armor_017_Head;야광 마스크
+Armor_017_Lower;야광 타이츠
+Armor_017_Upper;야광 슈트
+Armor_020_Head;하일리아 병사의 투구
+Armor_020_Lower;하일리아 병사의 경갑
+Armor_020_Upper;하일리아 병사의 갑옷
+Armor_022_Head;보코블린 마스크
+Armor_024_Head;다이아 머리 장식
+Armor_025_Head;루비 머리 장식
+Armor_026_Head;사파이어 머리 장식
+Armor_027_Head;토파즈 귀걸이
+Armor_028_Head;오팔 귀걸이
+Armor_029_Head;호박 귀걸이
+Armor_045_Head;모리블린 마스크
+Armor_046_Head;러버 캡
+Armor_046_Lower;러버 타이츠
+Armor_046_Upper;러버 슈트
+Armor_048_Head;야만족의 투구
+Armor_048_Lower;야만족의 하의
+Armor_048_Upper;야만족의 옷
+Armor_049_Lower;샌드 부츠
+Armor_055_Head;리잘포스 마스크
+Armor_056_Head;라이넬 마스크
+Armor_1006_Head;글라이딩 마스크
+Armor_1006_Lower;글라이딩 타이츠
+Armor_1006_Upper;글라이딩 슈트
+Armor_1036_Head;고대의 용사의 영혼
+Armor_1043_Lower;낡은 하의
+Armor_1043_Upper;낡은 토가
+Armor_1044_Lower;낡은 방한복
+Armor_1046_Head;개구리의 두건
+Armor_1046_Lower;개구리의 덧신
+Armor_1046_Upper;개구리의 토시
+Armor_1051_Head;채굴용 마스크
+Armor_1051_Lower;채굴용 바지
+Armor_1051_Upper;채굴용 옷
+Armor_1061_Head;화염의 머리 장식
+Armor_1061_Lower;화염의 바지
+Armor_1061_Upper;화염의 옷
+Armor_1066_Head;뇌광의 머리 장식
+Armor_1066_Lower;뇌광의 바지
+Armor_1066_Upper;뇌광의 옷
+Armor_1071_Head;눈보라의 머리 장식
+Armor_1071_Lower;눈보라의 바지
+Armor_1071_Upper;눈보라의 옷
+Armor_1076_Head;사고노 해트
+Armor_1086_Head;정령의 가발
+Armor_1086_Lower;정령의 하의
+Armor_1086_Upper;정령의 상의
+Armor_1091_Head;조나니움 투구
+Armor_1091_Lower;조나니움 무릎 보호대
+Armor_1091_Upper;조나니움 가슴 보호대
+Armor_1096_Head;꿈꾸는 용사의 가면
+Armor_1096_Lower;꿈꾸는 용사의 바지
+Armor_1096_Upper;꿈꾸는 용사의 옷
+Armor_1106_Upper;신식·영걸의 옷
+Armor_1125_Head;호러블린 마스크
+Armor_1141_Head;어둠의 두건
+Armor_1141_Lower;어둠의 각반
+Armor_1141_Upper;어둠의 옷
+Armor_1151_Head;낡은 머리 장식
+Armor_1152_Head;하일리아의 후드
+Armor_115_Head;호뢰의 투구
+Armor_116_Upper;추억의 옷
+Armor_1300_Head;이가단 마스크
+Armor_1300_Lower;이가단 타이츠
+Armor_1300_Upper;이가단 슈트
+Armor_141_Lower;스노 부츠
+Armor_160_Head;다크 헤드
+Armor_160_Lower;다크 레그
+Armor_160_Upper;다크 바디
+Armor_171_Head;팬텀의 투구
+Armor_171_Lower;팬텀의 경갑
+Armor_171_Upper;팬텀의 갑옷
+Armor_172_Head;무쥬라의 가면
+Armor_173_Head;미드나의 투구
+Armor_174_Head;팅글의 두건
+Armor_174_Lower;팅글의 바지
+Armor_174_Upper;팅글의 옷
+Armor_175_Upper;푸른 가재 셔츠
+Armor_176_Head;코로그의 가면
+Armor_177_Head;라비오의 후드
+Armor_178_Head;젠트의 투구
+Armor_179_Head;근위병의 모자
+Armor_179_Lower;근위병의 부츠
+Armor_179_Upper;근위병의 옷
+Armor_180_Head;이차원악령의 투구
+Armor_180_Lower;이차원악령의 경갑
+Armor_180_Upper;이차원악령의 갑옷
+Armor_181_Head;신수 병기·루타
+Armor_182_Head;신수 병기·메도
+Armor_183_Head;신수 병기·루다니아
+Armor_184_Head;신수 병기·나보리스
+Armor_200_Head;시간의 용사의 모자
+Armor_200_Lower;시간의 용사의 바지
+Armor_200_Upper;시간의 용사의 옷
+Armor_205_Head;바람의 용사의 모자
+Armor_205_Lower;바람의 용사의 바지
+Armor_205_Upper;바람의 용사의 옷
+Armor_210_Head;황혼의 용사의 모자
+Armor_210_Lower;황혼의 용사의 바지
+Armor_210_Upper;황혼의 용사의 옷
+Armor_215_Head;하늘의 용사의 모자
+Armor_215_Lower;하늘의 용사의 바지
+Armor_215_Upper;하늘의 용사의 옷
+Armor_220_Head;시크의 마스크
+Armor_225_Head;귀신의 모자
+Armor_225_Lower;귀신의 부츠
+Armor_225_Upper;귀신의 옷
+Armor_230_Head;시작의 용사의 모자
+Armor_230_Lower;시작의 용사의 바지
+Armor_230_Upper;시작의 용사의 옷
+Animal_Insect_A;고고개구리
+Animal_Insect_AA;원기장수풍뎅이
+Animal_Insect_AB;방염호랑나비
+Animal_Insect_AG;접착개구리
+Animal_Insect_AH;접착도마뱀
+Animal_Insect_AI;어둠반딧불이
+Animal_Insect_B;활력개구리
+Animal_Insect_C;썰렁왕잠자리
+Animal_Insect_E;고요반딧불이
+Animal_Insect_F;요정
+Animal_Insect_G;칼날장수풍뎅이
+Animal_Insect_H;원기메뚜기
+Animal_Insect_I;찌릿찌릿왕잠자리
+Animal_Insect_M;맥스도마뱀
+Animal_Insect_N;썰렁호랑나비
+Animal_Insect_P;갑옷장수풍뎅이
+Animal_Insect_Q;따끈따끈호랑나비
+Animal_Insect_R;찌릿찌릿호랑나비
+Animal_Insect_S;고고도마뱀
+Animal_Insect_T;따끈따끈왕잠자리
+Animal_Insect_X;방염도마뱀
+BeeHome;원기벌의 벌꿀
+BombFruit;폭탄꽃
+ConfusionFruit;혼란꽃
+ElectricalFruit;전기 열매
+FireFruit;화염의 열매
+FldObj_Pinecone_A_01;하이랄솔방울
+IceFruit;냉기의 열매
+Item_Enemy_01;보코블린의 이빨
+Item_Enemy_02;보코블린의 간
+Item_Enemy_04;리잘포스의 발톱
+Item_Enemy_05;리잘포스의 꼬리
+Item_Enemy_07;모리블린의 이빨
+Item_Enemy_08;모리블린의 간
+Item_Enemy_100;호러블린의 뿔
+Item_Enemy_101;블루 호러블린의 뿔
+Item_Enemy_102;블랙 호러블린의 뿔
+Item_Enemy_103;실버 호러블린의 뿔
+Item_Enemy_104;호러블린의 발톱
+Item_Enemy_105;호러블린의 간
+Item_Enemy_106;리잘포스의 뿔
+Item_Enemy_107;블루 리잘포스의 뿔
+Item_Enemy_108;블랙 리잘포스의 뿔
+Item_Enemy_109;실버 리잘포스의 뿔
+Item_Enemy_114;블루 리잘포스의 꼬리
+Item_Enemy_115;블랙 리잘포스의 꼬리
+Item_Enemy_116;실버 리잘포스의 꼬리
+Item_Enemy_117;파이어 키이스의 눈알
+Item_Enemy_118;일렉트로 키이스의 눈알
+Item_Enemy_119;아이스 키이스의 눈알
+Item_Enemy_121;기브도의 간
+Item_Enemy_123;기브도의 날개
+Item_Enemy_124;카쿠다의 날개
+Item_Enemy_13;라이넬의 발굽
+Item_Enemy_130;조나우 에너지
+Item_Enemy_131;커다란 조나우 에너지
+Item_Enemy_132;블루 보스보코블린의 뿔
+Item_Enemy_133;블랙 보스보코블린의 뿔
+Item_Enemy_134;실버 보스보코블린의 뿔
+Item_Enemy_135;보스보코블린의 이빨
+Item_Enemy_136;보스보코블린의 간
+Item_Enemy_14;라이넬의 간
+Item_Enemy_142;히녹스의 뿔
+Item_Enemy_143;블루 히녹스의 뿔
+Item_Enemy_144;블랙 히녹스의 뿔
+Item_Enemy_148;라이넬의 칼날뿔
+Item_Enemy_149;푸른 갈기의 라이넬의 칼날뿔
+Item_Enemy_15;빨간츄츄젤리
+Item_Enemy_150;하얀 갈기의 라이넬의 칼날뿔
+Item_Enemy_151;실버 라이넬의 칼날뿔
+Item_Enemy_153;그리오크의 화염각
+Item_Enemy_154;그리오크의 빙설각
+Item_Enemy_155;그리오크의 뇌전각
+Item_Enemy_156;그리오크의 날개
+Item_Enemy_157;그리오크의 간
+Item_Enemy_158;백룡의 비늘
+Item_Enemy_159;백룡의 발톱
+Item_Enemy_16;노란츄츄젤리
+Item_Enemy_160;백룡의 이빨 조각
+Item_Enemy_166;병정 골렘의 뿔
+Item_Enemy_167;병정 골렘의 뿔(중등)
+Item_Enemy_168;병정 골렘의 뿔(상등)
+Item_Enemy_169;병정 골렘의 뿔(특등)
+Item_Enemy_17;하얀츄츄젤리
+Item_Enemy_18;키이스의 날개
+Item_Enemy_181;조아조아의 위돌
+Item_Enemy_182;파이어 조아의 위돌
+Item_Enemy_183;일렉트로 조아의 위돌
+Item_Enemy_184;아이스 조아의 위돌
+Item_Enemy_186;데그가마의 큰 이빨
+Item_Enemy_187;흑요의 데그가마의 큰 이빨
+Item_Enemy_188;창백의 데그가마의 큰 이빨
+Item_Enemy_189;데그가마의 발톱
+Item_Enemy_19;키이스의 눈알
+Item_Enemy_190;데그가마의 간
+Item_Enemy_191;대장 골렘의 뿔(중등)
+Item_Enemy_192;대장 골렘의 뿔(상등)
+Item_Enemy_193;대장 골렘의 뿔(특등)
+Item_Enemy_20;옥타의 다리
+Item_Enemy_208;스탈 히녹스의 뿔
+Item_Enemy_21;옥타의 눈알
+Item_Enemy_210;몰드래고의 턱뼈
+Item_Enemy_211;올드래곤의 뿔
+Item_Enemy_212;넬드래곤의 뿔
+Item_Enemy_213;필로드래곤의 뿔
+Item_Enemy_214;백룡의 뿔
+Item_Enemy_215;라이넬의 분쇄뿔
+Item_Enemy_216;푸른 갈기의 라이넬의 분쇄뿔
+Item_Enemy_217;하얀 갈기의 라이넬의 분쇄뿔
+Item_Enemy_218;실버 라이넬의 분쇄뿔
+Item_Enemy_228;올드래곤의 용암석
+Item_Enemy_229;넬드래곤의 용암석
+Item_Enemy_230;필로드래곤의 용암석
+Item_Enemy_231;백룡의 용암석
+Item_Enemy_24;몰드래고의 등지느러미
+Item_Enemy_25;몰드래고의 간
+Item_Enemy_32;히녹스의 발톱
+Item_Enemy_33;히녹스의 이빨
+Item_Enemy_34;히녹스의 간
+Item_Enemy_38;올드래곤의 비늘
+Item_Enemy_39;올드래곤의 발톱
+Item_Enemy_40;츄츄젤리
+Item_Enemy_41;화염 리잘포스의 꼬리
+Item_Enemy_42;얼음 리잘포스의 꼬리
+Item_Enemy_43;마비 리잘포스의 꼬리
+Item_Enemy_44;파이어 키이스의 날개
+Item_Enemy_45;일렉트로 키이스의 날개
+Item_Enemy_46;아이스 키이스의 날개
+Item_Enemy_47;올드래곤의 이빨 조각
+Item_Enemy_49;넬드래곤의 비늘
+Item_Enemy_50;넬드래곤의 발톱
+Item_Enemy_51;넬드래곤의 이빨 조각
+Item_Enemy_53;필로드래곤의 비늘
+Item_Enemy_54;필로드래곤의 발톱
+Item_Enemy_55;필로드래곤의 이빨 조각
+Item_Enemy_57;옥타 풍선
+Item_Enemy_58;화염 리잘포스의 뿔
+Item_Enemy_59;얼음 리잘포스의 뿔
+Item_Enemy_60;마비 리잘포스의 뿔
+Item_Enemy_64;보스보코블린의 뿔
+Item_Enemy_66;카쿠다의 눈알
+Item_Enemy_67;대장 골렘의 뿔
+Item_Enemy_69;기브도의 뼈
+Item_Enemy_77;보코블린의 뿔
+Item_Enemy_78;블루 보코블린의 뿔
+Item_Enemy_79;블랙 보코블린의 뿔
+Item_Enemy_80;실버 보코블린의 뿔
+Item_Enemy_89;모리블린의 뿔
+Item_Enemy_90;블루 모리블린의 뿔
+Item_Enemy_91;블랙 모리블린의 뿔
+Item_Enemy_92;실버 모리블린의 뿔
+Item_FishGet_A;하이랄배스
+Item_FishGet_AA;고대아로와나
+Item_FishGet_AC;조명동굴어
+Item_FishGet_B;맥스배스
+Item_FishGet_C;썰렁송어
+Item_FishGet_D;찌릿찌릿송어
+Item_FishGet_E;칼날잉어
+Item_FishGet_F;칼날도미
+Item_FishGet_G;갑옷도미
+Item_FishGet_H;갑옷잉어
+Item_FishGet_I;맥스연어
+Item_FishGet_J;따끈따끈송어
+Item_FishGet_L;원기배스
+Item_FishGet_M;은밀우렁이
+Item_FishGet_X;은밀송어
+Item_FishGet_Z;달록잉어
+Item_Fruit_A;사과
+Item_Fruit_B;딸기
+Item_Fruit_C;찌릿찌릿프루트
+Item_Fruit_E;고고연꽃 열매
+Item_Fruit_F;썰렁멜론
+Item_Fruit_G;야자열매
+Item_Fruit_H;칼날바나나
+Item_Fruit_I;따끈따끈초 열매
+Item_Fruit_J;갑옷호박
+Item_Fruit_K;도토리
+Item_Fruit_L;작은 새 나무 열매
+Item_Fruit_M;하이랄토마토
+Item_Fruit_N;해품이호박
+Item_Fruit_P;황금 사과
+Item_InsectGet_K;칼날게
+Item_InsectGet_O;갑옷게
+Item_InsectGet_Z;원기게
+Item_KingScale;왕의 비늘
+Item_Material_01;사탕수수
+Item_Material_02;고론의 향신료
+Item_Material_03;하이랄 쌀
+Item_Material_04;새의 알
+Item_Material_05;신선 우유
+Item_Material_06;염소 버터
+Item_Material_07;타반타 밀
+Item_Material_08;몬스터엑기스
+Item_Material_09;기름병
+Item_Material_10;하테노 치즈
+Item_Material_11;어둠 덩어리
+Item_Meat_01;짐승 고기
+Item_Meat_02;상급 짐승 고기
+Item_Meat_06;새 고기
+Item_Meat_07;상급 새 고기
+Item_Meat_11;특급 짐승 고기
+Item_Meat_12;특급 새 고기
+Item_MushroomGet_D;고고버섯
+Item_MushroomGet_K;조명버섯
+Item_Mushroom_A;원기버섯
+Item_Mushroom_B;썰렁버섯
+Item_Mushroom_C;따끈따끈버섯
+Item_Mushroom_E;하이랄버섯
+Item_Mushroom_F;맥스트러플
+Item_Mushroom_H;찌릿찌릿버섯
+Item_Mushroom_J;은밀버섯
+Item_Mushroom_L;칼날버섯
+Item_Mushroom_M;갑옷버섯
+Item_Mushroom_N;큰맥스트러플
+Item_Mushroom_O;활력버섯
+Item_Mushroom_P;하늘버섯
+Item_Ore_A;다이아몬드
+Item_Ore_B;루비
+Item_Ore_C;사파이어
+Item_Ore_D;토파즈
+Item_Ore_E;오팔
+Item_Ore_F;호박
+Item_Ore_G;야광석
+Item_Ore_H;암염
+Item_Ore_I;부싯돌
+Item_Ore_J;별의 조각
+Item_Ore_L;조나니움
+Item_Ore_M;커다란 조나니움
+Item_PlantGet_A;하이랄초
+Item_PlantGet_B;맥스순무
+Item_PlantGet_C;큰맥스순무
+Item_PlantGet_E;썰렁허브
+Item_PlantGet_F;따끈따끈허브
+Item_PlantGet_G;칼날초
+Item_PlantGet_H;갑옷초
+Item_PlantGet_I;은밀초
+Item_PlantGet_J;고요한 공주
+Item_PlantGet_L;찌릿찌릿허브
+Item_PlantGet_M;고고당근
+Item_PlantGet_O;고고제비꽃
+Item_PlantGet_Q;활력당근
+Item_PlantGet_R;해품이꽃
+Item_PlantGet_S;원기초
+Item_PlantGet_U;코로그 잎새
+Item_Weapon_01;고대의 칼날
+LightBall_Large;거대한 조명꽃 씨앗
+LightBall_Small;조명꽃 씨앗
+LightFruit;광휘의 열매
+Obj_FireWoodBundle;장작 묶음
+SmokeFruit;연기버섯
+WaterFruit;물 열매
+Item_Boiled_01;삶은 알
+Item_ChilledFish_01;냉동 배스
+Item_ChilledFish_02;냉동 맥스연어
+Item_ChilledFish_03;냉동 송어
+Item_ChilledFish_04;냉동 잉어
+Item_ChilledFish_05;냉동 도미
+Item_ChilledFish_06;냉동 맥스배스
+Item_ChilledFish_07;냉동 게
+Item_ChilledFish_08;냉동 우렁이
+Item_ChilledFish_16;냉동 아로와나
+Item_ChilledFish_18;냉동 동굴어
+Item_Chilled_01;냉동 짐승 고기
+Item_Chilled_02;냉동 상급 짐승 고기
+Item_Chilled_03;냉동 특급 짐승 고기
+Item_Chilled_04;냉동 새 고기
+Item_Chilled_05;냉동 상급 새 고기
+Item_Chilled_06;냉동 특급 새 고기
+Item_Cook_A_01;버섯 꼬치구이
+Item_Cook_A_02;버섯쌈구이
+Item_Cook_A_03;과일찜
+Item_Cook_A_04;생선쌈구이
+Item_Cook_A_05;고기쌈구이
+Item_Cook_A_07;과일 버섯무침
+Item_Cook_A_08;생선 꼬치구이와 버섯
+Item_Cook_A_09;고기 꼬치구이와 버섯
+Item_Cook_A_10;오믈렛
+Item_Cook_A_11;달게 조린 버섯
+Item_Cook_A_12;달게 조린 고기
+Item_Cook_A_13;달게 조린 생선
+Item_Cook_A_14;달게 조린 야채
+Item_Cook_B_01;야채구이
+Item_Cook_B_02;과일전골
+Item_Cook_B_05;생선 꼬치구이
+Item_Cook_B_06;고기 꼬치구이
+Item_Cook_B_11;야채구이 곱빼기
+Item_Cook_B_12;과일전골 곱빼기
+Item_Cook_B_13;버섯구이 곱빼기
+Item_Cook_B_15;생선 꼬치구이 곱빼기
+Item_Cook_B_16;고기 꼬치구이 곱빼기
+Item_Cook_B_17;고기와 생선구이
+Item_Cook_B_18;상급 고기와 생선구이
+Item_Cook_B_19;특급 고기와 생선구이
+Item_Cook_B_20;고기를 넣은 호박
+Item_Cook_B_21;따끈따끈볶음
+Item_Cook_B_22;너츠볶음
+Item_Cook_B_23;해산물 꼬치구이
+Item_Cook_C_16;요정의 활력수
+Item_Cook_C_17;물약
+Item_Cook_D_01;버섯 소금구이
+Item_Cook_D_02;야채 소금구이
+Item_Cook_D_03;생선 소금구이
+Item_Cook_D_04;고기 소금구이
+Item_Cook_D_05;상급 고기 소금구이
+Item_Cook_D_06;특급 고기 소금구이
+Item_Cook_D_07;스파이시 고기구이
+Item_Cook_D_08;스파이시 생선구이
+Item_Cook_D_09;게 소금구이
+Item_Cook_D_10;게볶음
+Item_Cook_E_01;치킨 필래프
+Item_Cook_E_02;상급 치킨 필래프
+Item_Cook_E_03;특급 치킨 필래프
+Item_Cook_E_04;달걀프라이라이스
+Item_Cook_F_01;고기 밀크수프
+Item_Cook_F_02;생선 밀크수프
+Item_Cook_F_03;야채 크림수프
+Item_Cook_F_04;하트 밀크수프
+Item_Cook_G_02;해물 주먹밥
+Item_Cook_G_03;야채 주먹밥
+Item_Cook_G_04;버섯 주먹밥
+Item_Cook_G_05;짐승 고기덮밥
+Item_Cook_G_06;상급 짐승 고기덮밥
+Item_Cook_G_09;특급 짐승 고기덮밥
+Item_Cook_G_10;해물볶음밥
+Item_Cook_G_11;카레 필래프
+Item_Cook_G_12;버섯 리조또
+Item_Cook_G_13;야채 리조또
+Item_Cook_G_14;연어 리조또
+Item_Cook_G_15;고기 주먹밥
+Item_Cook_G_16;게살 달걀볶음밥
+Item_Cook_G_17;게살 리조또
+Item_Cook_H_01;생선 뫼니에르
+Item_Cook_H_02;도미 뫼니에르
+Item_Cook_H_03;연어 뫼니에르
+Item_Cook_I_01;프루트 파이
+Item_Cook_I_02;애플파이
+Item_Cook_I_03;에그 타르트
+Item_Cook_I_04;미트 파이
+Item_Cook_I_05;당근 케이크
+Item_Cook_I_06;호박 케이크
+Item_Cook_I_07;버터 바른 사과
+Item_Cook_I_08;꿀에 절인 사과
+Item_Cook_I_09;꿀에 절인 과일
+Item_Cook_I_10;플레인 크레이프
+Item_Cook_I_11;딸기 크레이프
+Item_Cook_I_12;너츠 케이크
+Item_Cook_I_13;튀긴 바나나
+Item_Cook_I_14;달걀 푸딩
+Item_Cook_I_15;피시 파이
+Item_Cook_I_16;벌꿀 사탕
+Item_Cook_I_17;벌꿀 크레이프
+Item_Cook_J_01;카레라이스
+Item_Cook_J_02;야채 카레
+Item_Cook_J_03;해산물 카레
+Item_Cook_J_04;치킨 카레
+Item_Cook_J_05;상급 치킨 카레
+Item_Cook_J_06;짐승 고기 카레
+Item_Cook_J_07;상급 고기 카레
+Item_Cook_J_08;특급 치킨 카레
+Item_Cook_J_09;특급 고기 카레
+Item_Cook_K_01;고기 스튜
+Item_Cook_K_02;상급 고기 스튜
+Item_Cook_K_03;호박 스튜
+Item_Cook_K_04;조개 차우더
+Item_Cook_K_05;특급 고기 스튜
+Item_Cook_K_06;버섯 밀크수프
+Item_Cook_K_07;야채 밀크수프
+Item_Cook_K_08;당근 스튜
+Item_Cook_K_09;핫밀크
+Item_Cook_L_01;몬스터전골
+Item_Cook_L_02;몬스터수프
+Item_Cook_L_03;몬스터 케이크
+Item_Cook_L_04;몬스터 주먹밥
+Item_Cook_L_05;몬스터 카레
+Item_Cook_M_01;밀 빵
+Item_Cook_N_01;해물 파에야
+Item_Cook_N_02;프루트케이크
+Item_Cook_N_03;야채 오믈렛
+Item_Cook_N_04;버섯 오믈렛
+Item_Cook_O_01;애매한 요리
+Item_Cook_O_02;너무 딱딱한 요리
+Item_Cook_P_01;향긋한 버섯볶음
+Item_Cook_P_02;향긋한 나물볶음
+Item_Cook_P_03;짐승 스테이크
+Item_Cook_P_04;상급 짐승 스테이크
+Item_Cook_P_05;특급 짐승 스테이크
+Item_Cook_Q_01;토마토전골
+Item_Cook_Q_02;토마토수프
+Item_Cook_Q_03;야채 토마토찜
+Item_Cook_Q_04;버섯 토마토전골
+Item_Cook_Q_05;해산물 토마토수프
+Item_Cook_Q_06;통구이
+Item_Cook_Q_07;버터볶음
+Item_Cook_Q_08;고슬고슬 볶음밥
+Item_Cook_Q_09;치즈 케이크
+Item_Cook_Q_10;치즈 리조또
+Item_Cook_R_01;치즈 오믈렛
+Item_Cook_R_02;야채 우유 죽
+Item_Cook_R_03;브아이 밋 브오이
+Item_Cook_R_04;토마토 피자
+Item_Cook_R_05;오일 해산물전골
+Item_Cook_R_06;오일 새 고기 튀김
+Item_Cook_R_07;오일 상급 새 고기 튀김
+Item_Cook_R_08;오일 특급 새 고기 튀김
+Item_Cook_R_09;사르르 치즈 빵
+Item_Cook_R_10;해산물과 치즈구이
+Item_Cook_S_01;치즈 카레
+Item_Cook_S_02;치즈 짐승 고기덮밥
+Item_Cook_S_03;상급 치즈 짐승 고기덮밥
+Item_Cook_S_04;특급 치즈 짐승 고기덮밥
+Item_Cook_S_05;마인전골
+Item_Cook_S_06;마인 주먹밥
+Item_Cook_S_07;마인수프
+Item_Cook_S_08;마인 카레
+Item_Cook_S_09;마인 케이크
+Item_Cook_S_10;치즈 토마토
+Item_RoastFish_01;구운 배스
+Item_RoastFish_02;구운 맥스배스
+Item_RoastFish_03;구운 송어
+Item_RoastFish_04;구운 맥스연어
+Item_RoastFish_07;구운 잉어
+Item_RoastFish_09;구운 도미
+Item_RoastFish_13;구운 은밀우렁이
+Item_RoastFish_15;구운 게
+Item_RoastFish_16;구운 아로와나
+Item_RoastFish_18;구운 동굴어
+Item_Roast_01;구운 짐승 고기
+Item_Roast_02;구운 새 고기
+Item_Roast_03;구운 사과
+Item_Roast_04;구운 원기버섯
+Item_Roast_05;구운 맥스트러플
+Item_Roast_06;구운 하이랄버섯
+Item_Roast_07;구운 딸기
+Item_Roast_08;구운 찌릿찌릿프루트
+Item_Roast_10;구운 야자열매
+Item_Roast_11;구운 칼날바나나
+Item_Roast_12;구운 썰렁멜론
+Item_Roast_13;구운 따끈따끈초 열매
+Item_Roast_15;구운 갑옷호박
+Item_Roast_16;구운 고고연꽃 열매
+Item_Roast_18;구운 순무
+Item_Roast_19;구운 큰순무
+Item_Roast_24;구운 고고당근
+Item_Roast_27;구운 칼날초
+Item_Roast_28;구운 갑옷초
+Item_Roast_31;구운 썰렁버섯
+Item_Roast_32;구운 따끈따끈버섯
+Item_Roast_33;구운 찌릿찌릿버섯
+Item_Roast_36;구운 고고버섯
+Item_Roast_37;구운 칼날버섯
+Item_Roast_38;구운 갑옷버섯
+Item_Roast_39;구운 은밀버섯
+Item_Roast_40;구운 상급 짐승 고기
+Item_Roast_41;구운 상급 새 고기
+Item_Roast_45;구운 특급 짐승 고기
+Item_Roast_46;구운 특급 새 고기
+Item_Roast_48;구운 도토리
+Item_Roast_49;구운 큰맥스트러플
+Item_Roast_50;구운 활력당근
+Item_Roast_51;구운 알
+Item_Roast_52;구운 나무 열매
+Item_Roast_53;구운 활력버섯
+Item_Roast_54;구운 하이랄토마토
+Item_Roast_55;구운 해품이호박
+Item_Roast_56;구운 하늘버섯
+Item_Roast_58;구운 조명버섯
+Item_Roast_59;구운 황금 사과
+SpObj_BalloonEnvelope_A_01;열기구
+SpObj_Beamos_A_01;광선 머리
+SpObj_Cannon_A_01;대포
+SpObj_Cart_A_01;수레
+SpObj_Chaser_A_01;추적 수레
+SpObj_ControlStick_A_01;조종간
+SpObj_CookSetOnFire_A_01;휴대 냄비
+SpObj_ElectricBoxGenerator;뇌룡의 머리
+SpObj_EnergyBank_A_01;스페어 배터리
+SpObj_EnergyBank_A_02;대용량 배터리
+SpObj_FastWheel_A_01;작은 타이어
+SpObj_SwitchWheel_B_01;커다란 타이어
+SpObj_FlameThrower_A_01;화룡의 머리
+SpObj_FlashLight_A_01;라이트
+SpObj_FloatingStone_A_01;부유석
+SpObj_GolemHead_A_01;골렘의 머리
+SpObj_LiftGeneratorWing_A_01;날개
+SpObj_WaterPump_A_01;소화전
+SpObj_LightMirror_A_01;거울
+SpObj_Pile_A_01;말뚝
+SpObj_Rocket_A_01;로켓
+SpObj_SlipBoard_A_01;썰매
+SpObj_SnowMachine_A_01;빙룡의 머리
+SpObj_SpringPiston_A_01;스프링
+SpObj_TiltingDoll_A_01;오뚝이
+SpObj_TimerBomb_A_01;타이머 폭탄
+SpObj_WindGenerator_A_01;선풍기
+CaveMasterMedal;마요이의 유실물
+Energy_Material_01;조나우 에너지 결정
+Energy_Material_03;커다란 조나우 에너지 결정
+Energy_Material_04;거대한 조나우 에너지 결정
+GameRomHorseReins_01;여행자의 고삐
+GameRomHorseReins_02;왕가의 고삐
+GameRomHorseReins_03;기사의 고삐
+GameRomHorseReins_04;몬스터의 고삐
+GameRomHorseReins_05;화려한 고삐
+GameRomHorseSaddle_01;여행자의 안장
+GameRomHorseSaddle_02;왕가의 안장
+GameRomHorseSaddle_03;기사의 안장
+GameRomHorseSaddle_04;몬스터의 안장
+GameRomHorseSaddle_05;화려한 안장
+GameRomHorseSaddle_07;견인 하네스
+Item_StableHostelAccommodationCoupon_A;마구간 숙박권
+KeySmall;작은 열쇠
+MinusRupee_00;포우
+MinusRupee_01;데그포우
+MinusRupee_02;그랑포우
+Obj_AutoBuilderDraftAssassin_00;이가단의 설계도
+Obj_AutoBuilderDraft_00;설계도 석판
+Obj_Camera;사진기
+Obj_CaveWellHonor_00;우물 순례 기념품
+Obj_CheckPointHonor_00;어둠을 극복한 증표
+Obj_DRStone_Get;프루아패드
+Obj_DefeatHonor_00;바위록 토벌 훈장
+Obj_DefeatHonor_01;히녹스 토벌 훈장
+Obj_DefeatHonor_02;몰드래고 토벌 훈장
+Obj_DefeatHonor_03;데그가마 토벌 훈장
+Obj_DefeatHonor_04;블록 골렘 토벌 훈장
+Obj_DefeatHonor_05;그리오크 토벌 훈장
+Obj_DungeonClearSeal;축복의 빛
+Obj_EnergyUtuwa_A_01;추가 배터리
+Obj_HeartUtuwa_A_01;생명의 그릇
+Obj_HiddenScroll_00;토둔서
+Obj_KorokNuts;코로그 열매
+Obj_Photo_Animal;야생 동물 사진
+Obj_Photo_BossEnemy;강적 사진
+Obj_Photo_Enemy;몬스터 사진
+Obj_Photo_Material;소재 사진
+Obj_Photo_Other;보물 사진
+Obj_Photo_Weapon;무기 사진
+Obj_ProofKorok;보쿠린 열매
+Obj_SageSoulPlus_Gerudo;번개의 현자 루쥬와의 굳은 맹약
+Obj_SageSoulPlus_Goron;화염의 현자 윤돌과의 굳은 맹약
+Obj_SageSoulPlus_Rito;바람의 현자 튤리와의 굳은 맹약
+Obj_SageSoulPlus_Zonau;영혼의 현자 미넬과의 굳은 맹약
+Obj_SageSoulPlus_Zora;물의 현자 시드와의 굳은 맹약
+Obj_SageSoul_Gerudo;번개의 현자 루쥬와의 맹약
+Obj_SageSoul_Goron;화염의 현자 윤돌과의 맹약
+Obj_SageSoul_Rito;바람의 현자 튤리와의 맹약
+Obj_SageSoul_Zonau;영혼의 현자 미넬과의 맹약
+Obj_SageSoul_Zora;물의 현자 시드와의 맹약
+Obj_SageWill;현자의 유지
+Obj_StableHostlePointCard;마구간 포인트 카드
+Obj_StaminaUtuwa_A_01;스태미나의 그릇
+Obj_SubstituteCloth_00;고론족의 원단
+Obj_SubstituteCloth_01;조라족의 원단
+Obj_SubstituteCloth_02;겔드족의 원단
+Obj_SubstituteCloth_03;하이랄 왕가의 원단
+Obj_SubstituteCloth_04;조나우의 원단
+Obj_SubstituteCloth_05;시커족의 원단
+Obj_SubstituteCloth_06;이가단의 원단
+Obj_SubstituteCloth_07;토벌대의 원단
+Obj_SubstituteCloth_08;조나우 조사대의 원단
+Obj_SubstituteCloth_09;마신님의 원단
+Obj_SubstituteCloth_10;나크시 마을의 원단
+Obj_SubstituteCloth_11;토끼풀 신문사의 원단
+Obj_SubstituteCloth_12;허드슨 건설의 원단
+Obj_SubstituteCloth_13;콜텐의 수제 원단
+Obj_SubstituteCloth_14;코로그족의 원단
+Obj_SubstituteCloth_15;황제큰곰의 원단
+Obj_SubstituteCloth_16;로베리의 수제 원단
+Obj_SubstituteCloth_17;SAGONO의 원단
+Obj_SubstituteCloth_18;카쿠다의 원단
+Obj_SubstituteCloth_19;올딘타조의 원단
+Obj_SubstituteCloth_20;꼬꼬의 원단
+Obj_SubstituteCloth_21;말의 원단
+Obj_SubstituteCloth_22;츄츄의 원단
+Obj_SubstituteCloth_23;라이넬의 원단
+Obj_SubstituteCloth_24;그리오크의 원단
+Obj_SubstituteCloth_25;스탈 히녹스의 원단
+Obj_SubstituteCloth_26;추억의 옷 원단
+Obj_SubstituteCloth_27;하일리아의 후드 원단
+Obj_SubstituteCloth_28;하이랄 왕녀의 원단
+Obj_SubstituteCloth_29;고론 영걸의 원단
+Obj_SubstituteCloth_30;리토 영걸의 원단
+Obj_SubstituteCloth_31;조라 영걸의 원단
+Obj_SubstituteCloth_32;겔드 영걸의 원단
+Obj_SubstituteCloth_33;고대 시커 문양 원단
+Obj_SubstituteCloth_34;보코블린의 원단
+Obj_SubstituteCloth_35;마왕의 원단
+Obj_SubstituteCloth_36;붉은 사자의 왕의 원단
+Obj_SubstituteCloth_37;시크의 원단
+Obj_SubstituteCloth_38;어둠의 거울 원단
+Obj_SubstituteCloth_39;황혼의 공주 원단
+Obj_SubstituteCloth_40;론론 목장의 원단
+Obj_SubstituteCloth_41;무쥬라의 가면 원단
+Obj_SubstituteCloth_43;멸망한 왕가의 원단
+Obj_SubstituteCloth_45;검의 정령 원단
+Obj_SubstituteCloth_46;도트의 원단
+Obj_SubstituteCloth_48;알 문양 원단
+Obj_SubstituteCloth_49;여신의 원단
+Obj_SubstituteCloth_51;신식·영걸의 옷 원단
+Obj_SubstituteCloth_52;젤다 공주의 원단
+Obj_SubstituteCloth_53;겔드 왕의 원단
+Obj_SubstituteCloth_55;추억의 문양 원단
+Obj_SubstituteCloth_56;애디슨의 수제 원단
+Obj_SubstituteCloth_Default;평범한 원단
+Obj_TreasureMap_00;낡은 지도
+Obj_WarpDLC_Prototype;워프 마커 시제품
+Parasail;패러세일

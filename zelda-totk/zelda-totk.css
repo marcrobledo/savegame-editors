@@ -1,4 +1,4 @@
-/* Zelda TOTK Savegame editor by Marc Robledo v20230505 */
+/* Zelda TOTK Savegame editor by Marc Robledo v20230604 */
 /* minify at https://cssminifier.com/ + https://www.base64-image.de/ (sprites */
 
 /* @FONT-FACES */
@@ -8,7 +8,7 @@
 body{
 	font:15px 'Open Sans',sans-serif;
 	cursor:default;
-	margin:180px 0 80px;
+	margin:0 0 80px;
 	background-color:#160c0c;
 	color:#f9f5da;
 	background-image:url(assets/bg_black.jpg);
@@ -24,6 +24,17 @@ tr{border-bottom:1px solid #2e4533;height:36px}
 tr:last-child{border-bottom:none}
 tr:hover{background-color:#121710}
 
+
+/* loading backdrop */
+#toast-loading{
+	position:fixed;
+	bottom: 10px;
+	right:10px;
+	padding: 8px 20px;
+	border-radius:3px;
+	background-color:rgba(0,0,0,.91);
+	z-index:1000;
+}
 
 /* TOTK */
 .dye-color{
@@ -53,7 +64,32 @@ tr:hover{background-color:#121710}
 }
 
 
-
+/* settings */
+#box-settings{
+	background-color: rgba(0,0,0,.4);
+	max-width: 400px;
+	margin:0 auto;
+	padding: 20px;
+	border-radius:3px
+}
+#box-settings>div{
+	margin-bottom:20px;
+	display:flex;
+	justify-content:space-between;
+	align-items: center;
+}
+#box-settings>div:last-child{
+	margin-bottom:0
+}
+#tab-settings a{
+	color:white;
+}
+#tab-settings a:hover{
+	color:orange;
+}
+#select-language{
+	width:auto
+}
 
 /* flex box */
 .row{
@@ -82,7 +118,7 @@ tr:hover{background-color:#121710}
 	margin-bottom:4px;
 	padding:10px;
 }
-.row-items img{max-width:100%}
+.row-items img{max-width:100%;min-height:32px}
 .row-items .item-name:hover{text-decoration:underline}
 .item-number{position:absolute;top:0;left:0; color:#444;font-family:monospace;font-size:80%}
 .tiles span{display:block}
@@ -196,7 +232,7 @@ i.tab-icon{
 	display:inline-block;
 	width:32px;height:32px;
 	background-image:url('assets/tabs.png');
-	background-size:352px;
+	background-size:384px;
 }
 i.tab-icon.home{background-position-x:-0px;}
 i.tab-icon.weapons{background-position-x:-32px;}
@@ -209,6 +245,7 @@ i.tab-icon.other{background-position-x:-224px;}
 i.tab-icon.horses{background-position-x:-256px;}
 i.tab-icon.master{background-position-x:-288px;}
 i.tab-icon.devices{background-position-x:-320px;}
+i.tab-icon.settings{background-position-x:-352px;}
 
 
 
@@ -224,8 +261,8 @@ i.tab-icon.devices{background-position-x:-320px;}
 /* header+toolbar+footer */
 #header{
 	color:#333;
-	position:absolute;
-	top:0;left:0;
+	position:sticky;
+	top:-108px;
 	width:100%;
 	z-index:100;
 	background-color:#faf8f7;
@@ -522,6 +559,7 @@ button.no-text.with-icon:before{margin-right:0px}
 	position:relative;
 	transition:all .2s;
 	padding-bottom:20px;
+	margin-top: 72px;
 	/*font-weight:bold;*/
 }
 .dragging-files #dragzone{
@@ -598,7 +636,7 @@ button.no-text.with-icon:before{margin-right:0px}
 .dialog-overlay.active,.dialog.active{visibility:visible;opacity:1;transition-delay:0s}/* fixes fade-in/fade-out*/
 
 .dialog-overlay{
-	transition:visibility 0s .2s, opacity .2s;
+	transition:visibility 0s .15s, opacity .15s;
 
 	background-color:black;
 	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";/* IE8 */
@@ -609,7 +647,7 @@ button.no-text.with-icon:before{margin-right:0px}
 	position:absolute;top:0;left:0; /* fix for reserved space */
 
 	transform:translateY(-10px);
-	transition:visibility 0s .2s, opacity .2s ease-in, transform .2s ease-in;
+	transition:visibility 0s .15s, opacity .15s ease-in, transform .15s ease-in;
 
 	background-color:white;
 	padding:15px;
@@ -636,7 +674,7 @@ button.no-text.with-icon:before{margin-right:0px}
 	opacity:0;
 	z-index:8000;
 	border-radius:2px;
-	transition:visibility 0s .35s,opacity .35s;
+	transition:visibility 0s .15s,opacity .15s;
 	font-size:80%;
 }
 .tooltip.dark{

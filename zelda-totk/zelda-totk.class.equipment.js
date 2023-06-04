@@ -21,6 +21,8 @@ function Equipment(catId, index, id, durability, modifier, modifierValue, fuseId
 	Equipment.buildHtmlElements(this);
 }
 Equipment.prototype.getItemTranslation=function(){
+	if(Locale._(this.id))
+		return Locale._(this.id);
 	return Equipment.TRANSLATIONS[this.category][this.id] || this.id;
 }
 Equipment.prototype.isFusable=function(){

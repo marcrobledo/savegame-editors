@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Armor class) v20230528
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Armor class) v20230604
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -22,6 +22,8 @@ Armor.prototype.refreshHtmlColor=function(){
 	this._htmlSpanColor.style.backgroundColor=colors[colorIndex];
 }
 Armor.prototype.getItemTranslation=function(){
+	if(Locale._(this.id))
+		return Locale._(this.id);
 	return Armor.TRANSLATIONS[this.id] || this.id;
 }
 Armor.prototype.copy=function(index, newId){

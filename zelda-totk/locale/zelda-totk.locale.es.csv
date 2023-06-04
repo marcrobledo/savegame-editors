@@ -1,0 +1,922 @@
+Weapon_Lsword_001;Mandoble de viajero
+Weapon_Lsword_002;Mandoble de soldado
+Weapon_Lsword_003;Mandoble de caballero
+Weapon_Lsword_019;Brazo de moblin;Hueso de moblin
+Weapon_Lsword_020;Mandoble oxidado
+Weapon_Lsword_024;Mandoble real
+Weapon_Lsword_027;Mandoble zora
+Weapon_Lsword_029;Mandoble gerudo
+Weapon_Lsword_036;Lanzarrocas;Trozarrocas
+Weapon_Lsword_038;Remo
+Weapon_Lsword_041;Mandoble del vigilante
+Weapon_Lsword_045;Azada;Azadón
+Weapon_Lsword_047;Mandoble de la guardia
+Weapon_Lsword_051;Gran bumerán
+Weapon_Lsword_054;Machacarrocas
+Weapon_Lsword_057;Mandoble del Crepúsculo
+Weapon_Lsword_059;Espada de Biggoron
+Weapon_Lsword_060;Espada de la Fiera Deidad;Espada de la fiera deidad
+Weapon_Lsword_101;Mandoble de zonnanio
+Weapon_Lsword_103;Garrote sencillo
+Weapon_Lsword_106;Mandoble de viajero
+Weapon_Lsword_108;Garrote de madera
+Weapon_Lsword_109;Garrote reforzado
+Weapon_Lsword_112;Mandoble de soldado
+Weapon_Lsword_113;Mandoble de caballero
+Weapon_Lsword_114;Mandoble del vigilante
+Weapon_Lsword_124;Mandoble real
+Weapon_Lsword_127;Mandoble zora
+Weapon_Lsword_129;Mandoble gerudo
+Weapon_Lsword_136;Lanzarrocas;Trozarrocas
+Weapon_Lsword_147;Mandoble de la guardia
+Weapon_Lsword_161;Gran cetro mágico
+Weapon_Lsword_163;Mandoble de zonnanio reforzado
+Weapon_Lsword_164;Gran mandoble de zonnanio
+Weapon_Lsword_166;Garrote del aura maligna
+Weapon_Lsword_168;Garrote sencillo
+Weapon_Lsword_174;Gran bumerán
+Weapon_Spear_001;Lanza de viajero
+Weapon_Spear_002;Lanza de soldado
+Weapon_Spear_003;Lanza de caballero
+Weapon_Spear_021;Lanza oxidada
+Weapon_Spear_022;Horca;Rastrillo
+Weapon_Spear_024;Lanza real
+Weapon_Spear_025;Lanza del bosque
+Weapon_Spear_027;Lanza zora
+Weapon_Spear_029;Lanza gerudo
+Weapon_Spear_030;Lanza arrojadiza
+Weapon_Spear_032;Lanza de plumas;Lanza emplumada
+Weapon_Spear_036;Fregona;Trapeador
+Weapon_Spear_038;Arpón
+Weapon_Spear_047;Lanza de la guardia
+Weapon_Spear_050;Tridente de escamas;Lanza de la escama
+Weapon_Spear_101;Lanza de zonnanio
+Weapon_Spear_103;Lanza de palo
+Weapon_Spear_106;Lanza de viajero
+Weapon_Spear_108;Lanza de palo reforzada
+Weapon_Spear_109;Gran lanza de palo
+Weapon_Spear_112;Lanza de soldado
+Weapon_Spear_113;Lanza de caballero
+Weapon_Spear_124;Lanza real
+Weapon_Spear_125;Lanza del bosque
+Weapon_Spear_127;Lanza zora
+Weapon_Spear_129;Lanza gerudo
+Weapon_Spear_132;Lanza de plumas;Lanza emplumada
+Weapon_Spear_147;Lanza de la guardia
+Weapon_Spear_161;Cetro mágico supremo
+Weapon_Spear_163;Lanza de zonnanio reforzada
+Weapon_Spear_164;Gran lanza de zonnanio
+Weapon_Spear_166;Lanza del aura maligna
+Weapon_Spear_168;Lanza de palo
+Weapon_Spear_173;Lanza arrojadiza
+Weapon_Sword_001;Espada de viajero
+Weapon_Sword_002;Espada de soldado
+Weapon_Sword_003;Espada de caballero
+Weapon_Sword_019;Brazo de bokoblin;Hueso de bokoblin
+Weapon_Sword_020;Brazo de lizalfos;Hueso de lizalfos
+Weapon_Sword_021;Espada oxidada
+Weapon_Sword_022;Cuchara de madera
+Weapon_Sword_024;Espada real
+Weapon_Sword_025;Espada del bosque
+Weapon_Sword_027;Espada zora
+Weapon_Sword_029;Daga gerudo
+Weapon_Sword_031;Espada de pluma
+Weapon_Sword_041;Espada del vigilante
+Weapon_Sword_043;Antorcha
+Weapon_Sword_044;Rama de árbol
+Weapon_Sword_047;Espada de la guardia
+Weapon_Sword_051;Bumerán
+Weapon_Sword_052;Cimitarra de la ira
+Weapon_Sword_057;Espada alba celeste
+Weapon_Sword_058;Espada del héroe
+Weapon_Sword_059;Bumerán del viento
+Weapon_Sword_070;Espada Maestra
+Weapon_Sword_070_Broken;Espada Maestra deteriorada
+Weapon_Sword_101;Sable de zonnanio
+Weapon_Sword_103;Palo de madera
+Weapon_Sword_105;Bumerán
+Weapon_Sword_106;Espada de viajero
+Weapon_Sword_107;Bumerán lizal
+Weapon_Sword_108;Palo de madera resistente
+Weapon_Sword_109;Palo reforzado
+Weapon_Sword_112;Espada de soldado
+Weapon_Sword_113;Espada de caballero
+Weapon_Sword_114;Espada del vigilante
+Weapon_Sword_124;Espada real
+Weapon_Sword_125;Espada del bosque
+Weapon_Sword_127;Espada zora
+Weapon_Sword_129;Daga gerudo
+Weapon_Sword_131;Espada de pluma
+Weapon_Sword_147;Espada de la guardia
+Weapon_Sword_161;Cetro mágico
+Weapon_Sword_163;Sable de zonnanio reforzado
+Weapon_Sword_164;Gran sable de zonnanio
+Weapon_Sword_166;Sable del aura maligna
+Weapon_Sword_167;Rama de árbol
+Weapon_Sword_168;Palo de madera
+Weapon_Bow_001;Arco de viajero
+Weapon_Bow_002;Arco de soldado
+Weapon_Bow_003;Arco boko punzante
+Weapon_Bow_004;Arco boko
+Weapon_Bow_006;Arco lizal
+Weapon_Bow_009;Arco de centaleón
+Weapon_Bow_011;Arco lizal reforzado
+Weapon_Bow_013;Arco del bosque
+Weapon_Bow_014;Arco zora
+Weapon_Bow_015;Arco gerudo
+Weapon_Bow_016;Arco de golondrina
+Weapon_Bow_017;Arco de halcón
+Weapon_Bow_026;Arco bestial
+Weapon_Bow_027;Arco boko de dragón
+Weapon_Bow_028;Arco de águila
+Weapon_Bow_029;Arco del vigilante
+Weapon_Bow_030;Arco lizal de acero
+Weapon_Bow_032;Arco colosal
+Weapon_Bow_033;Arco de la guardia
+Weapon_Bow_035;Arco de caballero
+Weapon_Bow_036;Arco real
+Weapon_Bow_038;Arco de madera
+Weapon_Bow_040;Arco doble
+Weapon_Bow_072;Arco crepuscular
+Weapon_Bow_101;Arco de zonnanio
+Weapon_Bow_104;Arco de gólem
+Weapon_Bow_105;Arco de gólem reforzado
+Weapon_Bow_106;Gran arco de gólem
+Weapon_Bow_107;Arco de madera viejo
+Weapon_Bow_166;Arco del rey demonio
+Weapon_Shield_001;Escudo de madera
+Weapon_Shield_002;Escudo de soldado
+Weapon_Shield_003;Escudo de caballero
+Weapon_Shield_004;Escudo boko
+Weapon_Shield_005;Escudo boko punzante
+Weapon_Shield_006;Escudo boko de dragón
+Weapon_Shield_007;Escudo lizal
+Weapon_Shield_008;Escudo lizal reforzado
+Weapon_Shield_009;Escudo lizal de acero
+Weapon_Shield_016;Escudo de centaleón
+Weapon_Shield_017;Escudo bestial
+Weapon_Shield_018;Escudo colosal
+Weapon_Shield_021;Escudo oxidado
+Weapon_Shield_022;Escudo real
+Weapon_Shield_023;Escudo del bosque
+Weapon_Shield_025;Escudo zora
+Weapon_Shield_026;Escudo gerudo
+Weapon_Shield_030;Escudo hyliano
+Weapon_Shield_031;Escudo de liebre;Escudo de conejo
+Weapon_Shield_032;Escudo de pez
+Weapon_Shield_033;Escudo de la guardia
+Weapon_Shield_034;Escudo animal
+Weapon_Shield_035;Escudo de viajero
+Weapon_Shield_036;Escudo del sol
+Weapon_Shield_037;Escudo de la ira
+Weapon_Shield_040;Tapa de cacerola
+Weapon_Shield_041;Escudo del vigilante
+Weapon_Shield_042;Escudo de la brisa
+Weapon_Shield_057;Escudo del viento
+Weapon_Shield_101;Escudo de zonnanio
+Weapon_Shield_102;Escudo de zonnanio reforzado
+Weapon_Shield_103;Gran escudo de zonnanio
+Weapon_Shield_107;Escudo de madera viejo
+Armor_001_Head;Capucha hyliana
+Armor_001_Lower;Pantalón hyliano
+Armor_001_Upper;Túnica hyliana
+Armor_005_Head;Gorro de lo Salvaje;Gorro del viajero
+Armor_005_Lower;Pantalón de lo Salvaje;Pantalón del viajero
+Armor_005_Upper;Túnica de lo Salvaje;Túnica del viajero
+Armor_006_Head;Capucha zora
+Armor_006_Lower;Grebas zora
+Armor_006_Upper;Armadura zora
+Armor_008_Head;Coletero del desierto
+Armor_008_Lower;Grebas del desierto
+Armor_008_Upper;Hombrera del desierto
+Armor_009_Head;Plumas orni
+Armor_009_Lower;Pantalón orni
+Armor_009_Upper;Túnica orni
+Armor_011_Head;Casco ignífugo
+Armor_011_Lower;Grebas ignífugas
+Armor_011_Upper;Armadura ignífuga
+Armor_012_Head;Máscara de sigilo;Máscara sheikah
+Armor_012_Lower;Mallas de sigilo;Mallas sheikah
+Armor_012_Upper;Túnica de sigilo;Armadura sheikah
+Armor_014_Head;Pañuelo de escalada;Pañuelo montañés
+Armor_014_Lower;Mallas de escalada;Botas de montañés
+Armor_014_Upper;Camiseta de escalada;Camiseta de montañés
+Armor_017_Head;Máscara luminosa
+Armor_017_Lower;Mallas luminosas
+Armor_017_Upper;Camiseta luminosa
+Armor_020_Head;Casco hyliano
+Armor_020_Lower;Grebas hylianas
+Armor_020_Upper;Armadura hyliana
+Armor_022_Head;Máscara de bokoblin
+Armor_024_Head;Diadema de diamante;Diadema con diamante
+Armor_025_Head;Diadema de rubí;Diadema con rubí
+Armor_026_Head;Diadema de zafiro;Diadema con zafiro
+Armor_027_Head;Pendientes de topacio;Aretes de topacio
+Armor_028_Head;Pendientes de ópalo;Aretes de ópalo
+Armor_029_Head;Pendientes de ámbar;Aretes de ámbar
+Armor_045_Head;Máscara de moblin
+Armor_046_Head;Casco aislante
+Armor_046_Lower;Pantalón aislante
+Armor_046_Upper;Túnica aislante;Armadura aislante
+Armor_048_Head;Casco de bárbaro
+Armor_048_Lower;Pantalón de bárbaro
+Armor_048_Upper;Pechera de bárbaro;Armadura de bárbaro
+Armor_049_Lower;Botas del desierto
+Armor_055_Head;Máscara de lizalfos
+Armor_056_Head;Máscara de centaleón
+Armor_1006_Head;Máscara aerodinámica
+Armor_1006_Lower;Pantalón aerodinámico
+Armor_1006_Upper;Túnica aerodinámica
+Armor_1036_Head;Espíritu del héroe ancestral
+Armor_1043_Lower;Sandalias arcaicas
+Armor_1043_Upper;Toga arcaica
+Armor_1044_Lower;Botas forradas arcaicas
+Armor_1046_Head;Capucha anfibia
+Armor_1046_Lower;Grebas anfibias
+Armor_1046_Upper;Hombrera anfibia
+Armor_1051_Head;Máscara de minero
+Armor_1051_Lower;Pantalón de minero
+Armor_1051_Upper;Coraza de minero
+Armor_1061_Head;Tocado de la llama
+Armor_1061_Lower;Pantalón de la llama
+Armor_1061_Upper;Túnica de la llama
+Armor_1066_Head;Tocado de la centella
+Armor_1066_Lower;Pantalón de la centella
+Armor_1066_Upper;Loriga de la centella
+Armor_1071_Head;Tocado de la ventisca
+Armor_1071_Lower;Pantalón de la ventisca
+Armor_1071_Upper;Túnica de la ventisca
+Armor_1076_Head;Sombrero de Sogene
+Armor_1086_Head;Tocado de los espíritus
+Armor_1086_Lower;Pantalón de los espíritus
+Armor_1086_Upper;Túnica de los espíritus
+Armor_1091_Head;Casco de zonnanio
+Armor_1091_Lower;Grebas de zonnanio
+Armor_1091_Upper;Loriga de zonnanio
+Armor_1096_Head;Máscara del Despertar
+Armor_1096_Lower;Pantalón del Despertar
+Armor_1096_Upper;Túnica del Despertar
+Armor_1106_Upper;Nueva túnica del elegido;Nueva túnica de campeón
+Armor_1125_Head;Máscara de horroblin
+Armor_1141_Head;Capucha de las tinieblas
+Armor_1141_Lower;Grebas de las tinieblas
+Armor_1141_Upper;Túnica de las tinieblas
+Armor_1151_Head;Coletero viejo
+Armor_1152_Head;Capucha hyliana
+Armor_115_Head;Casco antitrueno
+Armor_116_Upper;Túnica de los recuerdos
+Armor_1300_Head;Máscara del clan Yiga
+Armor_1300_Lower;Mallas del clan Yiga
+Armor_1300_Upper;Túnica del clan Yiga
+Armor_141_Lower;Botas de nieve
+Armor_160_Head;Máscara oscura
+Armor_160_Lower;Pantalón oscuro
+Armor_160_Upper;Túnica oscura
+Armor_171_Head;Casco de espectro
+Armor_171_Lower;Grebas de espectro
+Armor_171_Upper;Armadura de espectro
+Armor_172_Head;Máscara de Majora
+Armor_173_Head;Casco de Midna
+Armor_174_Head;Gorro de Tingle
+Armor_174_Lower;Mallas de Tingle
+Armor_174_Upper;Camiseta de Tingle
+Armor_175_Upper;Camiseta de langosta
+Armor_176_Head;Máscara de kolog
+Armor_177_Head;Capucha de Ravio
+Armor_178_Head;Casco de Zant
+Armor_179_Head;Boina de guardia real
+Armor_179_Lower;Botas de guardia real
+Armor_179_Upper;Uniforme de guardia real
+Armor_180_Head;Casco del espíritu maligno
+Armor_180_Lower;Botas del espíritu maligno
+Armor_180_Upper;Cota del espíritu maligno
+Armor_181_Head;Casco divino de Ruta
+Armor_182_Head;Casco divino de Medoh
+Armor_183_Head;Casco divino de Rudania
+Armor_184_Head;Casco divino de Naboris
+Armor_200_Head;Gorro del Tiempo
+Armor_200_Lower;Pantalón del Tiempo
+Armor_200_Upper;Túnica del Tiempo
+Armor_205_Head;Gorro del Viento
+Armor_205_Lower;Pantalón del Viento
+Armor_205_Upper;Túnica del Viento
+Armor_210_Head;Gorro del Crepúsculo
+Armor_210_Lower;Pantalón del Crepúsculo
+Armor_210_Upper;Túnica del Crepúsculo
+Armor_215_Head;Gorro de los Cielos
+Armor_215_Lower;Pantalón de los Cielos
+Armor_215_Upper;Túnica de los Cielos
+Armor_220_Head;Máscara de Sheik
+Armor_225_Head;Máscara de la Deidad;Máscara de la fiera deidad
+Armor_225_Lower;Pantalón de la Deidad;Botas de la fiera deidad
+Armor_225_Upper;Armadura de la Deidad;Cota de la fiera deidad
+Armor_230_Head;Gorro del Preludio;Gorro del héroe
+Armor_230_Lower;Pantalón del Preludio;Pantalón del héroe
+Armor_230_Upper;Túnica del Preludio;Túnica del héroe
+Animal_Insect_A;Rana rauda;Rana escurridiza
+Animal_Insect_AA;Escarabajo vigoroso;Escarabajo obrero
+Animal_Insect_AB;Mariposa ignífuga;Mariposa chimenea
+Animal_Insect_AG;Rana adherente;Rana escaladora
+Animal_Insect_AH;Lagarto adherente;Lagarto trepador
+Animal_Insect_AI;Luciérnaga de las tinieblas
+Animal_Insect_B;Rana briosa;Rana duradera
+Animal_Insect_C;Libélula gélida;Libélula del frescor
+Animal_Insect_E;Luciérnaga sigilosa;Luciérnaga del sosiego
+Animal_Insect_F;Hada
+Animal_Insect_G;Escarabajo recio
+Animal_Insect_H;Grillo vigoroso;Grillo vagabundo
+Animal_Insect_I;Libélula electro;Libélula nimbo
+Animal_Insect_M;Lagarto vivaz;Lagarto milvidas
+Animal_Insect_N;Mariposa gélida;Mariposa invernal
+Animal_Insect_P;Escarabajo robusto;Escarabajo pétreo
+Animal_Insect_Q;Mariposa ígnea;Mariposa estival
+Animal_Insect_R;Mariposa electro;Mariposa nubarrón
+Animal_Insect_S;Lagarto raudo;Lagarto corretón
+Animal_Insect_T;Libélula ígnea;Libélula cálida
+Animal_Insect_X;Lagarto ignífugo;Lagarto humero
+BeeHome;Miel de vigor;Miel de abeja
+BombFruit;Flor bomba
+ConfusionFruit;Flor aturdidora
+ElectricalFruit;Fruto eléctrico
+FireFruit;Fruto ígneo
+FldObj_Pinecone_A_01;Piña hyliana;Piñón hyliano
+IceFruit;Fruto gélido
+Item_Enemy_01;Colmillo de bokoblin
+Item_Enemy_02;Víscera de bokoblin
+Item_Enemy_04;Garra de lizalfos
+Item_Enemy_05;Cola de lizalfos
+Item_Enemy_07;Colmillo de moblin
+Item_Enemy_08;Víscera de moblin
+Item_Enemy_100;Cuerno de horroblin
+Item_Enemy_101;Cuerno de horroblin azul
+Item_Enemy_102;Cuerno de horroblin negro
+Item_Enemy_103;Cuerno de horroblin plateado
+Item_Enemy_104;Garra de horroblin
+Item_Enemy_105;Víscera de horroblin
+Item_Enemy_106;Cuerno de lizalfos
+Item_Enemy_107;Cuerno de lizalfos azul
+Item_Enemy_108;Cuerno de lizalfos negro
+Item_Enemy_109;Cuerno de lizalfos plateado
+Item_Enemy_114;Cola de lizalfos azul
+Item_Enemy_115;Cola de lizalfos negro
+Item_Enemy_116;Cola de lizalfos plateado
+Item_Enemy_117;Ojo de keese de fuego
+Item_Enemy_118;Ojo de keese eléctrico
+Item_Enemy_119;Ojo de keese de hielo
+Item_Enemy_121;Víscera de gibdo
+Item_Enemy_123;Ala de gibdo
+Item_Enemy_124;Ala de aerocuda
+Item_Enemy_13;Pezuña de centaleón
+Item_Enemy_130;Esfera energética zonnan
+Item_Enemy_131;Gran esfera energética zonnan
+Item_Enemy_132;Cuerno de gran bokoblin azul
+Item_Enemy_133;Cuerno de gran bokoblin negro
+Item_Enemy_134;Cuerno de gran bokoblin plateado
+Item_Enemy_135;Colmillo de gran bokoblin
+Item_Enemy_136;Víscera de gran bokoblin
+Item_Enemy_14;Víscera de centaleón
+Item_Enemy_142;Cuerno de hinox
+Item_Enemy_143;Cuerno de hinox azul
+Item_Enemy_144;Cuerno de hinox negro
+Item_Enemy_148;Cuerno fino de centaleón
+Item_Enemy_149;Cuerno fino de centaleón azul
+Item_Enemy_15;Gelatina ígnea
+Item_Enemy_150;Cuerno fino de centaleón blanco
+Item_Enemy_151;Cuerno fino de centaleón plateado
+Item_Enemy_153;Cuerno ígneo de griock;Cuerno ígneo de gleeok
+Item_Enemy_154;Cuerno gélido de griock;Cuerno gélido de gleeok
+Item_Enemy_155;Cuerno eléctrico de griock;Cuerno eléctrico de gleeok
+Item_Enemy_156;Ala de griock;Ala de gleeok
+Item_Enemy_157;Víscera de griock;Víscera de gleeok
+Item_Enemy_158;Escama del dragón blanco
+Item_Enemy_159;Garra del dragón blanco
+Item_Enemy_16;Gelatina eléctrica
+Item_Enemy_160;Colmillo del dragón blanco
+Item_Enemy_166;Cuerno de gólem recluta
+Item_Enemy_167;Cuerno de gólem soldado
+Item_Enemy_168;Cuerno de gólem cabo
+Item_Enemy_169;Cuerno de gólem sargento
+Item_Enemy_17;Gelatina gélida
+Item_Enemy_18;Ala de keese
+Item_Enemy_181;Gastrolito de like like
+Item_Enemy_182;Gastrolito de like ígneo
+Item_Enemy_183;Gastrolito de like eléctrico
+Item_Enemy_184;Gastrolito de like gélido
+Item_Enemy_186;Gran colmillo de anuronte
+Item_Enemy_187;Gran colmillo de anuronte oscuro
+Item_Enemy_188;Gran colmillo de anuronte albo
+Item_Enemy_189;Uña de anuronte
+Item_Enemy_19;Ojo de keese
+Item_Enemy_190;Víscera de anuronte
+Item_Enemy_191;Cuerno de gólem teniente
+Item_Enemy_192;Cuerno de gólem capitán
+Item_Enemy_193;Cuerno de gólem coronel
+Item_Enemy_20;Tentáculo de octorok
+Item_Enemy_208;Cuerno de hinox esquelético;Cuerno de stalhinox
+Item_Enemy_21;Ojo de octorok
+Item_Enemy_210;Mandíbula de moldora
+Item_Enemy_211;Cuerno de Elden;Cuerno de Eldra
+Item_Enemy_212;Cuerno de Nayen;Cuerno de Naydra
+Item_Enemy_213;Cuerno de Faren;Cuerno de Farodra
+Item_Enemy_214;Cuerno del dragón blanco
+Item_Enemy_215;Cuerno pesado de centaleón
+Item_Enemy_216;Cuerno pesado de centaleón azul
+Item_Enemy_217;Cuerno pesado de centaleón blanco
+Item_Enemy_218;Cuerno pesado de centaleón plateado
+Item_Enemy_228;Roca dracónica de Elden;Roca dracónica de Eldra
+Item_Enemy_229;Roca dracónica de Nayen;Roca dracónica de Naydra
+Item_Enemy_230;Roca dracónica de Faren;Roca dracónica de Farodra
+Item_Enemy_231;Roca dracónica del dragón blanco
+Item_Enemy_24;Aleta de moldora
+Item_Enemy_25;Víscera de moldora
+Item_Enemy_32;Uña de hinox
+Item_Enemy_33;Colmillo de hinox;Diente de hinox
+Item_Enemy_34;Víscera de hinox
+Item_Enemy_38;Escama de Elden;Escama de Eldra
+Item_Enemy_39;Garra de Elden;Garra de Eldra
+Item_Enemy_40;Gelatina de chuchu
+Item_Enemy_41;Cola de lizalfos ígneo
+Item_Enemy_42;Cola de lizalfos gélido
+Item_Enemy_43;Cola de lizalfos eléctrico
+Item_Enemy_44;Ala de keese de fuego
+Item_Enemy_45;Ala de keese eléctrico
+Item_Enemy_46;Ala de keese de hielo
+Item_Enemy_47;Colmillo de Elden;Colmillo de Eldra
+Item_Enemy_49;Escama de Nayen;Escama de Naydra
+Item_Enemy_50;Garra de Nayen;Garra de Naydra
+Item_Enemy_51;Colmillo de Nayen;Colmillo de Naydra
+Item_Enemy_53;Escama de Faren;Escama de Farodra
+Item_Enemy_54;Garra de Faren;Garra de Farodra
+Item_Enemy_55;Colmillo de Faren;Colmillo de Farodra
+Item_Enemy_57;Globo de octorok
+Item_Enemy_58;Cuerno de lizalfos ígneo
+Item_Enemy_59;Cuerno de lizalfos gélido
+Item_Enemy_60;Cuerno de lizalfos eléctrico
+Item_Enemy_64;Cuerno de gran bokoblin
+Item_Enemy_66;Ojo de aerocuda
+Item_Enemy_67;Cuerno de gólem brigada
+Item_Enemy_69;Costillar de gibdo
+Item_Enemy_77;Cuerno de bokoblin
+Item_Enemy_78;Cuerno de bokoblin azul
+Item_Enemy_79;Cuerno de bokoblin negro
+Item_Enemy_80;Cuerno de bokoblin plateado
+Item_Enemy_89;Cuerno de moblin
+Item_Enemy_90;Cuerno de moblin azul
+Item_Enemy_91;Cuerno de moblin negro
+Item_Enemy_92;Cuerno de moblin plateado
+Item_FishGet_A;Lubina de Hyrule
+Item_FishGet_AA;Arowana arcaico
+Item_FishGet_AC;Pez cavernario luminoso
+Item_FishGet_B;Lubina vivaz;Lubina longeva
+Item_FishGet_C;Trucha gélida;Trucha nevada
+Item_FishGet_D;Trucha electro;Trucha contracorriente
+Item_FishGet_E;Carpa recia;Carpa alfa
+Item_FishGet_F;Dorada recia;Besugo guerrero
+Item_FishGet_G;Dorada robusta;Besugo óseo
+Item_FishGet_H;Carpa robusta;Carpa acorazada
+Item_FishGet_I;Salmón vivaz;Salmón ardoroso
+Item_FishGet_J;Trucha ígnea;Trucha termal
+Item_FishGet_L;Lubina vigorosa;Lubina peregrina
+Item_FishGet_M;Caracol sigiloso;Caracol aguzado
+Item_FishGet_X;Trucha sigilosa
+Item_FishGet_Z;Carpa tricolor
+Item_Fruit_A;Manzana
+Item_Fruit_B;Frambuesa
+Item_Fruit_C;Fruta electro;Fruta aislante
+Item_Fruit_E;Semilla de loto rauda;Loto vaivén
+Item_Fruit_F;Sandía gélida;Sandía del oasis
+Item_Fruit_G;Coco
+Item_Fruit_H;Plátanos recios;Plátanos bélicos
+Item_Fruit_I;Baya ígnea;Chile abrasador
+Item_Fruit_J;Calabaza robusta
+Item_Fruit_K;Bellota
+Item_Fruit_L;Fruto de árbol
+Item_Fruit_M;Tomates hylianos
+Item_Fruit_N;Calabaza luminosa
+Item_Fruit_P;Manzana dorada
+Item_InsectGet_K;Cangrejo recio;Cangrejo tenaz
+Item_InsectGet_O;Cangrejo robusto;Cangrejo roqueño
+Item_InsectGet_Z;Cangrejo vigoroso;Cangrejo inquieto
+Item_KingScale;Escama del rey
+Item_Material_01;Caña de azúcar;Azúcar de caña
+Item_Material_02;Especias goron
+Item_Material_03;Arroz de Hyrule
+Item_Material_04;Huevo de ave;Huevo
+Item_Material_05;Leche fresca
+Item_Material_06;Manteca de cabra;Mantequilla de cabra
+Item_Material_07;Trigo de Tabanta
+Item_Material_08;Esencia de monstruo
+Item_Material_09;Tarro de aceite;Jarra de aceite
+Item_Material_10;Queso de Hatelia
+Item_Material_11;Materia tenebrosa
+Item_Meat_01;Carne de caza;Filete
+Item_Meat_02;Carne de caza XL;Lomo
+Item_Meat_06;Carne de ave;Jamoncito de ave
+Item_Meat_07;Carne de ave XL;Pierna de ave
+Item_Meat_11;Carne de caza XXL;Pierna
+Item_Meat_12;Carne de ave XXL;Ave entera
+Item_MushroomGet_D;Seta rauda;Hongo vertiginoso
+Item_MushroomGet_K;Seta luminosa;Hongo luminoso
+Item_Mushroom_A;Seta vigorosa;Hongo perenne
+Item_Mushroom_B;Seta gélida;Hongo gélido
+Item_Mushroom_C;Seta ígnea;Hongo solar
+Item_Mushroom_E;Seta de Hyrule;Hongo de Hyrule
+Item_Mushroom_F;Trufa vivaz;Trufa centenaria
+Item_Mushroom_H;Seta electro;Hongo vatio
+Item_Mushroom_J;Seta sigilosa;Hongo acechador
+Item_Mushroom_L;Seta recia;Hongo tajado
+Item_Mushroom_M;Seta robusta;Hongo férreo
+Item_Mushroom_N;Trufón vivaz;Trufa milenaria
+Item_Mushroom_O;Seta briosa;Hongo duradero
+Item_Mushroom_P;Seta celeste;Hongo celeste
+Item_Ore_A;Diamante
+Item_Ore_B;Rubí
+Item_Ore_C;Zafiro
+Item_Ore_D;Topacio
+Item_Ore_E;Ópalo
+Item_Ore_F;Ámbar
+Item_Ore_G;Gema luminosa
+Item_Ore_H;Halita
+Item_Ore_I;Pedernal
+Item_Ore_J;Fragmento de estrella
+Item_Ore_L;Zonnanio
+Item_Ore_M;Zonnanio grande
+Item_PlantGet_A;Hierba de Hyrule
+Item_PlantGet_B;Rábano vivaz;Rábano lozano
+Item_PlantGet_C;Rábano vivaz grande;Rábano lozano grande
+Item_PlantGet_E;Hierba gélida;Escarchina
+Item_PlantGet_F;Hierba ígnea;Fosforina
+Item_PlantGet_G;Bulbo recio;Bulbo arpón
+Item_PlantGet_H;Bulbo robusto;Bulbo del amparo
+Item_PlantGet_I;Flor sigilosa;Campana muda
+Item_PlantGet_J;Princesa de la calma
+Item_PlantGet_L;Hierba electro;Electrina
+Item_PlantGet_M;Zanahoria rauda
+Item_PlantGet_O;Violeta rauda;Violeta saltarina
+Item_PlantGet_Q;Zanahoria briosa
+Item_PlantGet_R;Solirio
+Item_PlantGet_S;Planta de vigor;Cebolla vigorina
+Item_PlantGet_U;Palma kolog
+Item_Weapon_01;Hoja ancestral
+LightBall_Large;Gran semilla luminosa
+LightBall_Small;Semilla luminosa
+LightFruit;Fruto resplandeciente
+Obj_FireWoodBundle;Montón de leña
+SmokeFruit;Seta exhaladora;Hongo exhalador
+WaterFruit;Fruto acuoso
+Item_Boiled_01;Huevo cocido
+Item_ChilledFish_01;Lubina helada
+Item_ChilledFish_02;Salmón vivaz helado;Salmón ardoroso helado
+Item_ChilledFish_03;Trucha helada
+Item_ChilledFish_04;Carpa helada
+Item_ChilledFish_05;Dorada helada;Besugo helado
+Item_ChilledFish_06;Lubina vivaz helada;Lubina longeva helada
+Item_ChilledFish_07;Cangrejo helado
+Item_ChilledFish_08;Caracol sigiloso helado;Caracol aguzado helado
+Item_ChilledFish_16;Arowana helado
+Item_ChilledFish_18;Pez cavernario helado
+Item_Chilled_01;Carne de caza helada;Filete helado
+Item_Chilled_02;Carne de caza XL helada;Lomo helado
+Item_Chilled_03;Carne de caza XXL helada;Pierna helada
+Item_Chilled_04;Carne de ave helada;Jamoncito de ave helado
+Item_Chilled_05;Carne de ave XL helada;Muslo de ave helado
+Item_Chilled_06;Carne de ave XXL helada;Ave entera helada
+Item_Cook_A_01;Brocheta de setas;Brocheta de hongos
+Item_Cook_A_02;Setas al vapor;Hongos al vapor
+Item_Cook_A_03;Frutas al vapor
+Item_Cook_A_04;Pescado al vapor
+Item_Cook_A_05;Carne al vapor
+Item_Cook_A_07;Salteado de frutas y setas;Ensalada de frutas y hongos
+Item_Cook_A_08;Brocheta de pescado y setas;Brocheta de pescado y hongos
+Item_Cook_A_09;Brocheta de carne y setas;Brocheta de carne y hongos
+Item_Cook_A_10;Tortilla;Omelet
+Item_Cook_A_11;Setas glaseadas;Hongos confitados
+Item_Cook_A_12;Carne glaseada;Carne confitada
+Item_Cook_A_13;Pescado glaseado;Pescado confitado
+Item_Cook_A_14;Verduras glaseadas;Verduras confitadas
+Item_Cook_B_01;Salteado de montaña;Verduras salteadas
+Item_Cook_B_02;Frutas pochadas
+Item_Cook_B_05;Brocheta de pescado
+Item_Cook_B_06;Brocheta de carne
+Item_Cook_B_11;Salteado de montaña variado;Surtido de verduras salteadas
+Item_Cook_B_12;Frutas variadas pochadas;Surtido de frutas pochadas
+Item_Cook_B_13;Brochetas de setas variadas;Surtido de brochetas de hongos
+Item_Cook_B_15;Brochetas de pescado variado;Surtido de brochetas de pescado
+Item_Cook_B_16;Brochetas de carne variada;Surtido de brochetas de carne
+Item_Cook_B_17;Carne con pescado
+Item_Cook_B_18;Carne con pescado XL;Carne con pescado exquisita
+Item_Cook_B_19;Carne con pescado XXL;Carne con pescado gourmet
+Item_Cook_B_20;Calabaza rellena
+Item_Cook_B_21;Bayas salteadas;Pimientos salteados
+Item_Cook_B_22;Semillas salteadas;Frutos secos salteados
+Item_Cook_B_23;Brocheta de frutos del mar;Brocheta marítima
+Item_Cook_C_16;Tónico feérico
+Item_Cook_C_17;Elixir
+Item_Cook_D_01;Setas a la parrilla;Hongos a la parrilla
+Item_Cook_D_02;Verduras a la parrilla
+Item_Cook_D_03;Pescado a la parrilla;Pescado salado a la parrilla
+Item_Cook_D_04;Carne a la parrilla;Carne salada a la parrilla
+Item_Cook_D_05;Carne a la parrilla XL;Carne exquisita a la parrilla
+Item_Cook_D_06;Carne a la parrilla XXL;Carne gourmet a la parrilla
+Item_Cook_D_07;Carne asada;Filete a la pimienta
+Item_Cook_D_08;Pescado asado;Pescado a la pimienta
+Item_Cook_D_09;Cangrejo a la parrilla;Cangrejo salado a la parrilla
+Item_Cook_D_10;Cangrejo salteado;Estofado de cangrejo
+Item_Cook_E_01;Arroz frito con ave
+Item_Cook_E_02;Arroz frito con ave XL;Arroz frito con ave exquisito
+Item_Cook_E_03;Arroz frito con ave XXL;Arroz frito con ave gourmet
+Item_Cook_E_04;Arroz con huevo frito
+Item_Cook_F_01;Sopa de carne
+Item_Cook_F_02;Sopa de pescado
+Item_Cook_F_03;Sopa de verduras
+Item_Cook_F_04;Crema de la pasión;Crema de corazón
+Item_Cook_G_02;Bolas de arroz con pescado;Bolas de arroz con mariscos
+Item_Cook_G_03;Bolas de arroz con verdura;Bolas de arroz con verduras
+Item_Cook_G_04;Bolas de arroz con setas;Bolas de arroz con hongos
+Item_Cook_G_05;Arroz con carne
+Item_Cook_G_06;Arroz con carne XL;Arroz con carne exquisita
+Item_Cook_G_09;Arroz con carne XXL;Arroz con carne gourmet
+Item_Cook_G_10;Arroz frito con marisco;Arroz frito con mariscos
+Item_Cook_G_11;Arroz frito especiado
+Item_Cook_G_12;Arroz con setas;Arroz con hongos
+Item_Cook_G_13;Arroz con verduras;Arroz con calabaza
+Item_Cook_G_14;Arroz con salmón
+Item_Cook_G_15;Bolas de arroz con carne
+Item_Cook_G_16;Arroz frito con cangrejo
+Item_Cook_G_17;Arroz con cangrejo
+Item_Cook_H_01;Pescado con salsa
+Item_Cook_H_02;Dorada con salsa;Besugo con salsa
+Item_Cook_H_03;Salmón con salsa
+Item_Cook_I_01;Pastelito de frutas;Pay de frutas
+Item_Cook_I_02;Tarta de manzana;Pay de manzana
+Item_Cook_I_03;Tartaleta de huevo
+Item_Cook_I_04;Hojaldre de carne;Empanada de carne
+Item_Cook_I_05;Pastel de zanahoria
+Item_Cook_I_06;Pastel de calabaza;Pay de calabaza
+Item_Cook_I_07;Manzanas a la manteca;Manzanas a la mantequilla
+Item_Cook_I_08;Manzanas a la miel
+Item_Cook_I_09;Frutas a la miel
+Item_Cook_I_10;Torta con mantequilla;Crepa
+Item_Cook_I_11;Torta con frambuesas;Crepa con frambuesas
+Item_Cook_I_12;Bizcocho de semillas;Pastel de frutos secos
+Item_Cook_I_13;Plátanos fritos
+Item_Cook_I_14;Flan de huevo
+Item_Cook_I_15;Pescado de hojaldre;Empanada de pescado
+Item_Cook_I_16;Dulce de miel
+Item_Cook_I_17;Torta con miel;Crepa con miel
+Item_Cook_J_01;Arroz especiado;Arroz al estilo goron
+Item_Cook_J_02;Arroz especiado con verduras;Verduras al estilo goron
+Item_Cook_J_03;Arroz especiado con marisco;Mariscos al estilo goron
+Item_Cook_J_04;Arroz especiado con ave;Ave al estilo goron
+Item_Cook_J_05;Arroz especiado con ave XL;Ave exquisita al estilo goron
+Item_Cook_J_06;Arroz especiado con carne;Carne al estilo goron
+Item_Cook_J_07;Arroz especiado con carne XL;Carne exquisita al estilo goron
+Item_Cook_J_08;Arroz especiado con ave XXL;Ave gourmet al estilo goron
+Item_Cook_J_09;Arroz especiado con carne XXL;Carne gourmet al estilo goron
+Item_Cook_K_01;Guiso de carne
+Item_Cook_K_02;Guiso de carne XL;Guiso de carne exquisito
+Item_Cook_K_03;Guiso de calabaza
+Item_Cook_K_04;Sopa de caracol
+Item_Cook_K_05;Guiso de carne XXL;Guiso de carne gourmet
+Item_Cook_K_06;Sopa de setas;Crema de hongos
+Item_Cook_K_07;Crema de verduras
+Item_Cook_K_08;Guiso de zanahoria
+Item_Cook_K_09;Leche caliente
+Item_Cook_L_01;Estofado de monstruo
+Item_Cook_L_02;Sopa de monstruo
+Item_Cook_L_03;Pastelito de monstruo;Pastel de monstruo
+Item_Cook_L_04;Bolas de arroz de monstruo;Bolas de arroz con monstruo
+Item_Cook_L_05;Arroz especiado de monstruo;Monstruo al estilo goron
+Item_Cook_M_01;Pan de trigo
+Item_Cook_N_01;Arroz con marisco;Paella marinera
+Item_Cook_N_02;Pastel de frutas;Pastel de fruta
+Item_Cook_N_03;Tortilla vegetal;Omelet vegetal
+Item_Cook_N_04;Tortilla de setas;Revuelto de hongos
+Item_Cook_O_01;Comida sospechosa
+Item_Cook_O_02;Comida pesada;Comida petrificada
+Item_Cook_P_01;Salteado aromático de setas;Salteado aromático de hongos
+Item_Cook_P_02;Salteado aromático de hierbas
+Item_Cook_P_03;Pincho de carne;Carne especiada
+Item_Cook_P_04;Pincho de carne XL;Carne especiada exquisita
+Item_Cook_P_05;Pincho de carne XXL;Carne especiada gourmet
+Item_Cook_Q_01;Tomates pochados
+Item_Cook_Q_02;Sopa de tomate
+Item_Cook_Q_03;Salteado de tomates al vapor
+Item_Cook_Q_04;Guiso de tomate y setas;Guiso de tomate y hongos
+Item_Cook_Q_05;Sopa de pescado y tomate
+Item_Cook_Q_06;Asado vegetal
+Item_Cook_Q_07;Salteado a la mantequilla
+Item_Cook_Q_08;Arroz frito
+Item_Cook_Q_09;Tarta de queso;Pay de queso
+Item_Cook_Q_10;Arroz al queso
+Item_Cook_R_01;Tortilla con queso;Omelet con queso
+Item_Cook_R_02;Arroz cremoso con verduras
+Item_Cook_R_03;Shiok y shiak;Noble afán
+Item_Cook_R_04;Pizza de tomate
+Item_Cook_R_05;Guiso de pescado al aceite
+Item_Cook_R_06;Carne de ave frita;Jamoncito de ave frito
+Item_Cook_R_07;Carne de ave XL frita;Muslo de ave frito
+Item_Cook_R_08;Carne de ave XXL frita;Ave entera frita
+Item_Cook_R_09;Pan gratinado
+Item_Cook_R_10;Pescado gratinado
+Item_Cook_S_01;Arroz especiado con queso;Arroz al curry con queso
+Item_Cook_S_02;Carne con queso
+Item_Cook_S_03;Carne XL con queso;Carne exquisita con queso
+Item_Cook_S_04;Carne XXL con queso;Carne gourmet con queso
+Item_Cook_S_05;Guiso embrujado
+Item_Cook_S_06;Bolas de arroz embrujadas
+Item_Cook_S_07;Sopa embrujada
+Item_Cook_S_08;Arroz especiado embrujado
+Item_Cook_S_09;Pastelito embrujado
+Item_Cook_S_10;Tomates con queso
+Item_RoastFish_01;Lubina de Hyrule asada
+Item_RoastFish_02;Lubina vivaz asada;Lubina longeva asada
+Item_RoastFish_03;Trucha asada
+Item_RoastFish_04;Salmón vivaz asado;Salmón ardoroso asado
+Item_RoastFish_07;Carpa asada
+Item_RoastFish_09;Dorada asada;Besugo asado
+Item_RoastFish_13;Caracol sigiloso asado;Caracol aguzado asado
+Item_RoastFish_15;Cangrejo asado
+Item_RoastFish_16;Arowana asado
+Item_RoastFish_18;Pez cavernario asado
+Item_Roast_01;Carne de caza asada;Filete asado
+Item_Roast_02;Carne de ave asada;Jamoncito de ave asado
+Item_Roast_03;Manzana asada
+Item_Roast_04;Seta vigorosa asada;Hongo perenne asado
+Item_Roast_05;Trufa vivaz asada;Trufa centenaria asada
+Item_Roast_06;Seta de Hyrule asada;Hongo de Hyrule asado
+Item_Roast_07;Frambuesa asada
+Item_Roast_08;Fruta electro asada;Fruta aislante asada
+Item_Roast_10;Coco asado
+Item_Roast_11;Plátanos recios asados;Plátanos bélicos asados
+Item_Roast_12;Sandía gélida asada;Sandía del oasis asada
+Item_Roast_13;Baya ígnea asada;Chile abrasador asado
+Item_Roast_15;Calabaza robusta asada
+Item_Roast_16;Semilla de loto asada;Loto vaivén asado
+Item_Roast_18;Rábano asado
+Item_Roast_19;Rábano grande asado
+Item_Roast_24;Zanahoria rauda asada
+Item_Roast_27;Bulbo recio asado;Bulbo arpón asado
+Item_Roast_28;Bulbo robusto asado;Bulbo del amparo asado
+Item_Roast_31;Seta gélida asada;Hongo gélido asado
+Item_Roast_32;Seta ígnea asada;Hongo solar asado
+Item_Roast_33;Seta electro asada;Hongo vatio asado
+Item_Roast_36;Seta rauda asada;Hongo vertiginoso asado
+Item_Roast_37;Seta recia asada;Hongo tajado asado
+Item_Roast_38;Seta robusta asada;Hongo férreo asado
+Item_Roast_39;Seta sigilosa asada;Hongo acechador asado
+Item_Roast_40;Carne de caza XL asada;Bistec asado
+Item_Roast_41;Carne de ave XL asada;Muslo de ave asado
+Item_Roast_45;Carne de caza XXL asada;Pierna asada
+Item_Roast_46;Carne de ave XXL asada;Ave entera asada
+Item_Roast_48;Bellota asada
+Item_Roast_49;Trufón vivaz asado;Trufa milenaria asada
+Item_Roast_50;Zanahoria briosa asada
+Item_Roast_51;Huevo frito;Huevo asado
+Item_Roast_52;Fruto de árbol asado
+Item_Roast_53;Seta briosa asada;Hongo duradero asado
+Item_Roast_54;Tomates hylianos asados
+Item_Roast_55;Calabaza luminosa asada
+Item_Roast_56;Seta celeste asada;Hongo celeste asado
+Item_Roast_58;Seta luminosa asada;Hongo luminoso asado
+Item_Roast_59;Manzana dorada asada
+SpObj_BalloonEnvelope_A_01;Globo aerostático
+SpObj_Beamos_A_01;Fotocéfalo
+SpObj_Cannon_A_01;Cañón
+SpObj_Cart_A_01;Transportador
+SpObj_Chaser_A_01;Autotransportador
+SpObj_ControlStick_A_01;Timón
+SpObj_CookSetOnFire_A_01;Cacerola portátil
+SpObj_ElectricBoxGenerator;Electrocéfalo
+SpObj_EnergyBank_A_01;Batería extra
+SpObj_EnergyBank_A_02;Superbatería extra
+SpObj_FastWheel_A_01;Rueda pequeña
+SpObj_SwitchWheel_B_01;Rueda grande
+SpObj_FlameThrower_A_01;Igneocéfalo
+SpObj_FlashLight_A_01;Foco
+SpObj_FloatingStone_A_01;Bloque flotante
+SpObj_GolemHead_A_01;Cabeza de gólem
+SpObj_LiftGeneratorWing_A_01;Planeador
+SpObj_WaterPump_A_01;Hidrante
+SpObj_LightMirror_A_01;Espejo
+SpObj_Pile_A_01;Estaca
+SpObj_Rocket_A_01;Cohete
+SpObj_SlipBoard_A_01;Deslizador
+SpObj_SnowMachine_A_01;Criocéfalo
+SpObj_SpringPiston_A_01;Resorte
+SpObj_TiltingDoll_A_01;Tentetieso;Estabilizador
+SpObj_TimerBomb_A_01;Bomba con temporizador;Bomba de tiempo
+SpObj_WindGenerator_A_01;Turbina
+CaveMasterMedal;Emblema de fantasmo
+Energy_Material_01;Cristal energético zonnan
+Energy_Material_03;Gran cristal energético zonnan
+Energy_Material_04;Megacristal energético zonnan
+GameRomHorseReins_01;Brida de viajero
+GameRomHorseReins_02;Brida real
+GameRomHorseReins_03;Brida de caballero
+GameRomHorseReins_04;Brida monstruosa
+GameRomHorseReins_05;Brida elegante
+GameRomHorseSaddle_01;Silla de viajero
+GameRomHorseSaddle_02;Silla real
+GameRomHorseSaddle_03;Silla de caballero
+GameRomHorseSaddle_04;Silla monstruosa
+GameRomHorseSaddle_05;Silla elegante
+GameRomHorseSaddle_07;Arnés de tiro;Arnés de carga
+Item_StableHostelAccommodationCoupon_A;Vale por una estancia;Cupón por una estancia
+KeySmall;Llave pequeña
+MinusRupee_00;Poe
+MinusRupee_01;Poe grande
+MinusRupee_02;Poe enorme
+Obj_AutoBuilderDraftAssassin_00;Esquemas del clan Yiga
+Obj_AutoBuilderDraft_00;Grabado esquemático
+Obj_Camera;Cámara de fotos;Cámara
+Obj_CaveWellHonor_00;Trofeo de espeleólogo
+Obj_CheckPointHonor_00;Insignia de la luz
+Obj_DRStone_Get;Tableta de Prunia
+Obj_DefeatHonor_00;Medalla de petrarok;Medalla de talus
+Obj_DefeatHonor_01;Medalla de hinox
+Obj_DefeatHonor_02;Medalla de moldora
+Obj_DefeatHonor_03;Medalla de anuronte
+Obj_DefeatHonor_04;Medalla de gólem cúbico
+Obj_DefeatHonor_05;Medalla de griock;Medalla de gleeok
+Obj_DungeonClearSeal;Orbe luminoso
+Obj_EnergyUtuwa_A_01;Célula energética
+Obj_HeartUtuwa_A_01;Contenedor de corazón
+Obj_HiddenScroll_00;Manual de manipulación terrestre
+Obj_KorokNuts;Semilla de kolog
+Obj_Photo_Animal;Foto de un animal
+Obj_Photo_BossEnemy;Foto de un jefe
+Obj_Photo_Enemy;Foto de un monstruo
+Obj_Photo_Material;Foto de material
+Obj_Photo_Other;Foto de un tesoro
+Obj_Photo_Weapon;Foto de un arma
+Obj_ProofKorok;Semilla de Obab
+Obj_SageSoulPlus_Gerudo;Pacto eterno con Riju, sabia del trueno
+Obj_SageSoulPlus_Goron;Pacto eterno con Yunobo, sabio del fuego
+Obj_SageSoulPlus_Rito;Pacto eterno con Tureli, sabio del viento
+Obj_SageSoulPlus_Zonau;Pacto eterno con Mineru, sabia del espíritu
+Obj_SageSoulPlus_Zora;Pacto eterno con Sidon, sabio del agua
+Obj_SageSoul_Gerudo;Pacto con Riju, sabia del trueno
+Obj_SageSoul_Goron;Pacto con Yunobo, sabio del fuego
+Obj_SageSoul_Rito;Pacto con Tureli, sabio del viento
+Obj_SageSoul_Zonau;Pacto con Mineru, sabia del espíritu
+Obj_SageSoul_Zora;Pacto con Sidon, sabio del agua
+Obj_SageWill;Voluntad de los sabios
+Obj_StableHostlePointCard;Carné de puntos del gremio;Tarjeta de puntos del gremio
+Obj_StaminaUtuwa_A_01;Contenedor de vigor
+Obj_SubstituteCloth_00;Tela goron
+Obj_SubstituteCloth_01;Tela zora
+Obj_SubstituteCloth_02;Tela gerudo
+Obj_SubstituteCloth_03;Tela del emblema real hyliano
+Obj_SubstituteCloth_04;Tela zonnan
+Obj_SubstituteCloth_05;Tela sheikah
+Obj_SubstituteCloth_06;Tela del clan Yiga
+Obj_SubstituteCloth_07;Tela de la patrulla exterminadora
+Obj_SubstituteCloth_08;Tela del grupo de investigación
+Obj_SubstituteCloth_09;Tela de la deidad de los caballos
+Obj_SubstituteCloth_10;Tela de la aldea Onaona
+Obj_SubstituteCloth_11;Tela de la gaceta «El trébol»
+Obj_SubstituteCloth_12;Tela de Construcciones Karid
+Obj_SubstituteCloth_13;Tela de Koltin
+Obj_SubstituteCloth_14;Tela kolog
+Obj_SubstituteCloth_15;Tela de oso emperador;Tela de oso garrablanca
+Obj_SubstituteCloth_16;Tela de Rotver
+Obj_SubstituteCloth_17;Tela de la marca Sogene
+Obj_SubstituteCloth_18;Tela de aerocuda
+Obj_SubstituteCloth_19;Tela de avestruz de Eldin
+Obj_SubstituteCloth_20;Tela de cuco
+Obj_SubstituteCloth_21;Tela de caballo
+Obj_SubstituteCloth_22;Tela de chuchu
+Obj_SubstituteCloth_23;Tela de centaleón
+Obj_SubstituteCloth_24;Tela de griock;Tela de gleeok
+Obj_SubstituteCloth_25;Tela de hinox esquelético;Tela de stalhinox
+Obj_SubstituteCloth_26;Tela de la túnica de los recuerdos
+Obj_SubstituteCloth_27;Tela de la capucha hyliana
+Obj_SubstituteCloth_28;Tela de la princesa de Hyrule
+Obj_SubstituteCloth_29;Tela del elegido goron;Tela del campeón goron
+Obj_SubstituteCloth_30;Tela del elegido orni;Tela del campeón orni
+Obj_SubstituteCloth_31;Tela de la elegida zora;Tela de la campeona zora
+Obj_SubstituteCloth_32;Tela de la elegida gerudo;Tela de la campeona gerudo
+Obj_SubstituteCloth_33;Tela sheikah ancestral
+Obj_SubstituteCloth_34;Tela de bokoblin
+Obj_SubstituteCloth_35;Tela del rey demonio
+Obj_SubstituteCloth_36;Tela de Mascarón Rojo
+Obj_SubstituteCloth_37;Tela de Sheik
+Obj_SubstituteCloth_38;Tela del Espejo del Crepúsculo
+Obj_SubstituteCloth_39;Tela de la princesa del Crepúsculo
+Obj_SubstituteCloth_40;Tela del rancho Lon Lon
+Obj_SubstituteCloth_41;Tela de la Máscara de Majora
+Obj_SubstituteCloth_43;Tela de la familia real extinta
+Obj_SubstituteCloth_45;Tela del espíritu de la espada
+Obj_SubstituteCloth_46;Tela retro
+Obj_SubstituteCloth_48;Tela con estampado de huevo
+Obj_SubstituteCloth_49;Tela de la Diosa
+Obj_SubstituteCloth_51;Tela de la nueva túnica del elegido;Tela de la nueva túnica de campeón
+Obj_SubstituteCloth_52;Tela de la princesa Zelda
+Obj_SubstituteCloth_53;Tela del rey gerudo
+Obj_SubstituteCloth_55;Tela con estampado nostálgico
+Obj_SubstituteCloth_56;Tela artesanal de Kabalit
+Obj_SubstituteCloth_Default;Tela común
+Obj_TreasureMap_00;Mapa viejo
+Obj_WarpDLC_Prototype;Prototipo de teletransportador
+Parasail;Paravela

@@ -8,8 +8,14 @@ var currentEditingItem;
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
 	Filename:['progress.sav','caption.sav'],
-	Version:20230529,
+	Version:20230604,
 	noDemo:true,
+
+	/* Settings */
+	Settings:{
+		lang:'en',
+		removeWarning:true
+	},
 
 	/* Constants */
 	Constants:{
@@ -290,6 +296,26 @@ SavegameEditor={
 	},
 
 
+	/* settings */
+	loadSettings:function(){
+		if(typeof localStorage==='object' && localStorage.getItem('zelda-totk-sge-settings')){
+			var loadedSettings=JSON.parse(localStorage.getItem('zelda-totk-sge-settings'));
+			if(typeof loadedSettings.lang==='string'){
+				this.Settings.lang=loadedSettings.lang.toLowerCase().trim();
+			}
+			if(typeof loadedSettings.removeWarning==='boolean'){
+				this.Settings.removeWarning=loadedSettings.removeWarning;
+			}
+		}
+	},
+	saveSettings:function(){
+		if(typeof localStorage==='object'){
+			localStorage.setItem('zelda-totk-sge-settings', JSON.stringify(this.Settings));
+		}
+	},
+
+
+
 	/* private functions */
 	_toHexInt:function(i){var s=i.toString(16);while(s.length<8)s='0'+s;return '0x'+s},
 	_getOffsets:function(){
@@ -406,12 +432,10 @@ SavegameEditor={
 			item._htmlDeleteButton=document.createElement('button');
 			item._htmlDeleteButton.className='button colored red with-icon icon3 floating';
 			item._htmlDeleteButton.addEventListener('click', function(){
-				if(SavegameEditor.removeWarning){
+				if(SavegameEditor.Settings.removeWarning){
 					MarcDialogs.confirm('Are you sure you want to delete <strong>'+item.getItemTranslation()+'</strong>?<br/><div style="color:red">Warning: use this feature at your own risk</div>', function(){
 						MarcDialogs.close();
 						SavegameEditor._removeItem(item.category, item.index);
-						//SavegameEditor.removeWarning=false;
-						//MarcDialogs.alert('Be careful when deleting more items, the confirmation dialog won\'t appear again.');
 					});
 				}else{
 					SavegameEditor._removeItem(item.category, item.index);
@@ -566,7 +590,7 @@ SavegameEditor={
 			for(var itemId in itemList){
 				var opt=document.createElement('option');
 				opt.value=itemId;
-				opt.innerHTML=itemList[itemId];
+				opt.innerHTML=Locale._(itemId) || itemList[itemId];
 				this.selectItem.appendChild(opt);
 			}
 
@@ -691,6 +715,24 @@ SavegameEditor={
 	refreshSchematicsCounters:function(){
 		this._refreshCounter('schematics', Schematics.count(), Schematics.HASHES_FOUND.length);
 	},
+	refreshItemTab:function(catId){
+		empty('container-'+catId);
+		SavegameEditor.currentItems[catId].forEach(function(item, j){
+			document.getElementById('container-'+item.category).appendChild(
+				SavegameEditor._createItemRow(item)
+			);
+		});
+		MarcTooltips.add('#container-'+catId+' select',{position:'bottom',align:'right'});
+		MarcTooltips.add('#container-'+catId+' input',{position:'bottom',align:'right'});
+	},
+	refreshItemTabs:function(){
+		if(this.currentItems){
+			var ITEM_CATS=['weapons','bows','shields','armors','arrows','materials','food','devices','key','horses'];
+			ITEM_CATS.forEach(function(catId, i){
+				SavegameEditor.refreshItemTab(catId);
+			});
+		}
+	},
 
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
@@ -739,6 +781,9 @@ SavegameEditor={
 
 
 	preload:function(){
+		this.loadSettings();
+		Locale.set(this.Settings.lang);
+
 		this.selectItem=document.createElement('select');
 		this.selectItem.addEventListener('blur', function(){
 			//console.log('blur');
@@ -824,59 +869,18 @@ SavegameEditor={
 			get('input-file-autobuilder-import').click();
 		});
 
-		/*setNumericRange('mons', 0, 999999);
-		setNumericRange('relic-gerudo', 0, 99);
-		setNumericRange('relic-goron', 0, 99);
-		setNumericRange('relic-rito', 0, 99);*/
-
-		/* map position selectors */
-		/*select(
-			'pos-maptype',
-			[
-				'?',
-				{value:'MainField',name:'MainField'},
-				{value:'MainFieldDungeon',name:'MainFieldDungeon'}
-			],
-			function(){
-				if(this.value==='MainField'){
-					setValue('pos-map','A-1');
-				}else if(this.value==='MainFieldDungeon'){
-					setValue('pos-map','RemainsElectric');
-					fixDungeonCoordinates();
-				}
-			}
-		);*/
-
-		/*var maps=['?'];
-		for(var i=0; i<10; i++){
-			for(var j=0; j<8; j++){
-				var map=(String.fromCharCode(65+i))+'-'+(j+1);
-				maps.push({value:map,name:map});
-			}
-		}
-		for(var i=0; i<120; i++){
-			var map='Dungeon'
-			if(i<100)
-				map+='0';
-			if(i<10)
-				map+='0';
-			map+=i;
-			maps.push({value:map,name:map});
-		}
-		maps.push({value:'RemainsElectric',name:'RemainsElectric'});
-		maps.push({value:'RemainsFire',name:'RemainsFire'});
-		maps.push({value:'RemainsWater',name:'RemainsWater'});
-		maps.push({value:'RemainsWind',name:'RemainsWind'});
-		select('pos-map', maps, function(){
-			if(/^.-\d$/.test(this.value)){
-				setValue('pos-maptype','MainField');
-			}else if(/^Remains/.test(this.value)){
-				setValue('pos-maptype','MainFieldDungeon');
-				fixDungeonCoordinates();
-			}else if(/^Dungeon/.test(this.value)){
-				setValue('pos-maptype','MainFieldDungeon');
-			}
-		});*/
+		/* settings */
+		select('language').value=this.Settings.lang;
+		get('checkbox-warning-delete').checked=this.Settings.removeWarning;
+		select('language').addEventListener('change', function(evt){
+			SavegameEditor.Settings.lang=this.value;
+			Locale.set(this.value);
+			SavegameEditor.saveSettings();
+		});
+		get('checkbox-warning-delete').addEventListener('change', function(evt){
+			SavegameEditor.Settings.removeWarning=this.checked;
+			SavegameEditor.saveSettings();
+		});
 
 		MarcTooltips.add('.tab-button',{className:'dark',fixed:true});
 	},
@@ -893,14 +897,7 @@ SavegameEditor={
 	load:function(){
 		tempFile.fileName='progress.sav';
 
-		this.removeWarning=true;
 		this.selectItem.lastCategory=null;
-
-		/* empty item containers */
-		var ITEM_CATS=['weapons','bows','shields','armors','arrows','materials','food','devices','key','horses'];
-		ITEM_CATS.forEach(function(catId, i){
-			empty('container-'+catId);
-		});
 
 		/* read items */
 		this.currentItems={
@@ -923,7 +920,6 @@ SavegameEditor={
 		setValue('playtime', this._timeToString(this.readU32('Playtime')));
 
 		setValue('rupees', this.readU32('CurrentRupees'));
-		/*setValue('mons', this.readU32(this.Offsets.MONS));*/
 		setValue('max-hearts', this.readU32('MaxHearts'));
 		setValue('max-stamina', this.readU32('MaxStamina'));
 		setValue('max-battery', this.readF32('MaxBattery'));
@@ -941,29 +937,6 @@ SavegameEditor={
 		setValue('pos-y', -playerPos.z);
 		setValue('pos-z', playerPos.y-105);
 
-
-
-
-		/*setValue('relic-gerudo', tempFile.readU32(this.Offsets.RELIC_GERUDO));
-		setValue('relic-goron', tempFile.readU32(this.Offsets.RELIC_GORON));
-		setValue('relic-rito', tempFile.readU32(this.Offsets.RELIC_RITO));
-
-		setValue('defeated-hinox', tempFile.readU32(this.Offsets.DEFEATED_HINOX_COUNTER));
-		setValue('defeated-talus', tempFile.readU32(this.Offsets.DEFEATED_TALUS_COUNTER));
-		setValue('defeated-molduga', tempFile.readU32(this.Offsets.DEFEATED_MOLDUGA_COUNTER));*/
-
-
-
-		/*var map=this._readString(this.Offsets.MAP);
-		var mapType=this._readString(this.Offsets.MAPTYPE);
-		getField('pos-map').children[0].value=map;
-		getField('pos-map').children[0].innerHTML='* '+map+' *';
-		getField('pos-maptype').children[0].value=mapType;
-		getField('pos-maptype').children[0].innerHTML='* '+mapType+' *';
-		setValue('pos-map',map)
-		setValue('pos-maptype',mapType);*/
-
-
 		/* map pins */
 		this.refreshMapPinsCounter();
 
@@ -974,17 +947,8 @@ SavegameEditor={
 		this.refreshLightrootCounters();
 		this.refreshSchematicsCounters();
 
-
 		/* build item containers */
-		ITEM_CATS.forEach(function(catId, i){
-			SavegameEditor.currentItems[catId].forEach(function(item, j){
-				document.getElementById('container-'+item.category).appendChild(
-					SavegameEditor._createItemRow(item)
-				);
-			});
-			MarcTooltips.add('#container-'+catId+' select',{position:'bottom',align:'right'});
-			MarcTooltips.add('#container-'+catId+' input',{position:'bottom',align:'right'});
-		});
+		this.refreshItemTabs();
 
 		if(TOTKMasterEditor.isLoaded())
 			TOTKMasterEditor.forceFindOffsets=true;
@@ -1055,7 +1019,7 @@ SavegameEditor={
 
 
 /* TABS */
-var availableTabs=['home','weapons','bows','shields','armors','materials','food','devices','key','horses','master'/*,'help'*/];
+var availableTabs=['home','weapons','bows','shields','armors','materials','food','devices','key','horses','master','settings'];
 
 
 var currentTab;
@@ -1082,20 +1046,20 @@ function showTab(newTab){
 /* MarcTooltips.js v20200216 - Marc Robledo 2014-2020 - http://www.marcrobledo.com/license */
 var MarcTooltips=function(){var n=/MSIE 8/.test(navigator.userAgent);function d(t,e,o){n?t.attachEvent("on"+e,o):t.addEventListener(e,o,!1)}function u(t){void 0!==t.stopPropagation?t.stopPropagation():t.cancelBubble=!0}function g(t){if(/^#[0-9a-zA-Z_\-]+$/.test(t))return[document.getElementById(t.replace("#",""))];var e=document.querySelectorAll(t);if(n){for(var o=[],i=0;i<e.length;i++)o.push(e[i]);return o}return Array.prototype.slice.call(e)}var h=function(t,e,o){t.className=t.className.replace(/position-\w+/,"position-"+e.position).replace(/align-\w+/,"align-"+e.align);var i=(window.pageXOffset||document.documentElement.scrollLeft)-(document.documentElement.clientLeft||0),n=(window.pageYOffset||document.documentElement.scrollTop)-(document.documentElement.clientTop||0);e.fixed&&(n=i=0);var l=t.attachedTo.getBoundingClientRect().left,a=t.attachedTo.getBoundingClientRect().top,s=t.attachedTo.offsetWidth,p=t.attachedTo.offsetHeight;if("up"===e.position?t.style.top=parseInt(a+n-t.offsetHeight)+"px":"down"===e.position?t.style.top=parseInt(a+n+p)+"px":"top"===e.align?t.style.top=parseInt(a+n)+"px":"bottom"===e.align?t.style.top=parseInt(a+n-(t.offsetHeight-p))+"px":t.style.top=parseInt(a+n-parseInt((t.offsetHeight-p)/2))+"px","up"===e.position||"down"===e.position?"left"===e.align?t.style.left=parseInt(l+i)+"px":"right"===e.align?t.style.left=parseInt(l+i-(t.offsetWidth-s))+"px":t.style.left=parseInt(l+i-parseInt((t.offsetWidth-s)/2))+"px":"left"===e.position?t.style.left=parseInt(l+i-t.offsetWidth)+"px":"right"===e.position&&(t.style.left=parseInt(l+i+s)+"px"),o){var r={position:e.position,align:e.align,fixed:e.fixed},c=parseInt(t.style.left.replace("px","")),f=parseInt(t.style.top.replace("px","")),d=c+t.offsetWidth,u=f+t.offsetHeight,g=(i=window.scrollX,n=window.scrollY,Math.max(document.documentElement.clientWidth,window.innerWidth||0)),m=Math.max(document.documentElement.clientHeight,window.innerHeight||0);"up"===e.position||"down"===e.position?(g<d?r.align="right":c<i&&(r.align="left"),f<n?r.position="down":n+m<u&&(r.position="up")):(m<u?r.align="bottom":f<n&&(r.align="top"),c<i?r.position="right":i+g<d&&(r.position="left")),h(t,r,!1)}},m={};d(window,"load",function(){d(n?document:window,"click",function(){for(key in m)/ visible$/.test(m[key].className)&&/:true:/.test(key)&&(m[key].className=m[key].className.replace(" visible",""))}),d(window,"resize",function(){for(key in m)/ visible$/.test(m[key].className)&&m[key].attachedTo&&h(m[key],m[key].tooltipInfo,!0)})});function y(t){var e=t.currentTarget||t.srcElement;e.title&&(e.setAttribute("data-tooltip",e.title),e.title=""),(e.tooltip.attachedTo=e).tooltip.innerHTML=e.getAttribute("data-tooltip"),e.tooltip.className+=" visible",h(e.tooltip,e.tooltip.tooltipInfo,!0)}function w(t){var e=t.currentTarget||t.srcElement;e.tooltip.className=e.tooltip.className.replace(" visible","")}return{add:function(t,e){var o="down",i="center",n=!1,l=!1,a=!1,s=!1,p=!1;e&&(e.position&&/^(up|down|left|right)$/i.test(e.position)&&(o=e.position.toLowerCase()),e.align&&/^(top|bottom|left|right)$/i.test(e.align)&&(("up"!==o&&"down"!==o||"left"!==e.align&&"right"!==e.align)&&("left"!==o&&"right"!==o||"top"!==e.align&&"bottom"!==e.align)||(i=e.align.toLowerCase())),l=e.clickable||e.onClick||e.onclick||!1,a=e.focusable||e.onFocus||e.onfocus||!1,s=e.fixed||e.positionFixed||!1,n=e.class||e.className||e.customClass||e.customClassName||!1,p=e.text||e.customText||!1);for(var r=function(t){if("string"==typeof t)return g(t);if(t.length){for(var e=[],o=0;o<t.length;o++)"string"==typeof t[o]?e=e.concat(g(t[o])):e.push(t[o]);return e}return[t]}(t),c=function(t,e,o,i,n){var l=t+":"+e+":"+o+":"+i;if(m[l])return m[l];var a=document.createElement("div");return a.className="tooltip position-"+t+" align-"+e,a.className+="left"===t||"right"===t?" position-horizontal":" position-vertical",i&&(a.className+=" "+i),a.style.position=n?"fixed":"absolute",a.style.zIndex="9000",a.style.top="0",a.style.left="0",a.attachedTo=null,a.tooltipInfo={position:t,align:e,fixed:n},o&&d(a,"click",u),m[l]=a,document.body.appendChild(a),a}(o,i,l||a,n,s),f=0;f<r.length;f++)p?r[f].setAttribute("data-tooltip",p):r[f].title&&r[f].setAttribute("data-tooltip",r[f].title),r[f].title="",r[f].tooltip=c,a?(d(r[f],"focus",y),d(r[f],"blur",w),d(r[f],"click",u)):l?(d(r[f],"click",y),d(r[f],"click",u)):(d(r[f],"mouseover",y),d(r[f],"mouseout",w))}}}();
 
-function onScroll(){
-	var h=document.getElementById('header-top').getBoundingClientRect().height;
-	if(window.scrollY>h){
-		document.getElementById('header').style.position='fixed';
-		document.getElementById('header').style.top='-'+h+'px';
-	}else{
-		document.getElementById('header').style.position='absolute';
-		document.getElementById('header').style.top='0px';
+
+
+
+
+var UI={
+	setLoading:function(fileName){
+		if(fileName){
+			setValue('span-loading-filename', fileName);
+			document.getElementById('toast-loading').style.display='block';
+		}else{
+			document.getElementById('toast-loading').style.display='none';
+		}
 	}
-}
-window.addEventListener('scroll', onScroll, false);
-
-
-
+};
 
 
 function capitalizeCategoryId(catId){
