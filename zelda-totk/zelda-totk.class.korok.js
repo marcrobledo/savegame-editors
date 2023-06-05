@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Korok class) v20230601
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Korok class) v20230605
 
 	by Marc Robledo 2023
 	korok hashes filtered by Karlos007
@@ -75,7 +75,7 @@ Korok.setAllCarryAsFound=function(){
 	return count;
 }
 
-Korok.HASHES_FOUND_HIDDEN=[
+Korok.HASHES_FOUND_HIDDEN=[ /* IsAppearKorok.XXX */
 0x865134f7,
 0x43a84d09,
 0x89830c69,
