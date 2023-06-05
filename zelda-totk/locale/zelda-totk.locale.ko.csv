@@ -780,33 +780,33 @@ Item_Roast_55;구운 해품이호박
 Item_Roast_56;구운 하늘버섯
 Item_Roast_58;구운 조명버섯
 Item_Roast_59;구운 황금 사과
-SpObj_BalloonEnvelope_A_01;열기구
-SpObj_Beamos_A_01;광선 머리
-SpObj_Cannon_A_01;대포
-SpObj_Cart_A_01;수레
-SpObj_Chaser_A_01;추적 수레
-SpObj_ControlStick_A_01;조종간
-SpObj_CookSetOnFire_A_01;휴대 냄비
-SpObj_ElectricBoxGenerator;뇌룡의 머리
-SpObj_EnergyBank_A_01;스페어 배터리
-SpObj_EnergyBank_A_02;대용량 배터리
-SpObj_FastWheel_A_01;작은 타이어
-SpObj_SwitchWheel_B_01;커다란 타이어
-SpObj_FlameThrower_A_01;화룡의 머리
-SpObj_FlashLight_A_01;라이트
-SpObj_FloatingStone_A_01;부유석
-SpObj_GolemHead_A_01;골렘의 머리
-SpObj_LiftGeneratorWing_A_01;날개
-SpObj_WaterPump_A_01;소화전
-SpObj_LightMirror_A_01;거울
-SpObj_Pile_A_01;말뚝
-SpObj_Rocket_A_01;로켓
-SpObj_SlipBoard_A_01;썰매
-SpObj_SnowMachine_A_01;빙룡의 머리
-SpObj_SpringPiston_A_01;스프링
-SpObj_TiltingDoll_A_01;오뚝이
-SpObj_TimerBomb_A_01;타이머 폭탄
-SpObj_WindGenerator_A_01;선풍기
+SpObj_BalloonEnvelope_Capsule_A_01;열기구
+SpObj_Beamos_Capsule_A_01;광선 머리
+SpObj_Cannon_Capsule_A_01;대포
+SpObj_Cart_Capsule_A_01;수레
+SpObj_Chaser_Capsule_A_01;추적 수레
+SpObj_ControlStick_Capsule_A_01;조종간
+SpObj_CookSet_Capsule_A_01;휴대 냄비
+SpObj_ElectricBoxGenerCapsule_ator;뇌룡의 머리
+SpObj_EnergyBank_Capsule_A_01;스페어 배터리
+SpObj_EnergyBank_Capsule_A_02;대용량 배터리
+SpObj_FastWheel_Capsule_A_01;작은 타이어
+SpObj_FastWheel_Capsule_B_01;커다란 타이어
+SpObj_FlameThrower_Capsule_A_01;화룡의 머리
+SpObj_FlashLight_Capsule_A_01;라이트
+SpObj_FloatingStone_Capsule_A_01;부유석
+SpObj_GolemHead_Capsule_A_01;골렘의 머리
+SpObj_LiftGeneratorWing_Capsule_A_01;날개
+SpObj_LiftableWaterPump_Capsule_A_01;소화전
+SpObj_LightMirror_Capsule_A_01;거울
+SpObj_Pile_Capsule_A_01;말뚝
+SpObj_Rocket_Capsule_A_01;로켓
+SpObj_SlipBoard_Capsule_A_01;썰매
+SpObj_SnowMachine_Capsule_A_01;빙룡의 머리
+SpObj_SpringPiston_Capsule_A_01;스프링
+SpObj_TiltingDoll_Capsule_A_01;오뚝이
+SpObj_TimerBomb_Capsule_A_01;타이머 폭탄
+SpObj_WindGenerator_Capsule_A_01;선풍기
 CaveMasterMedal;마요이의 유실물
 Energy_Material_01;조나우 에너지 결정
 Energy_Material_03;커다란 조나우 에너지 결정

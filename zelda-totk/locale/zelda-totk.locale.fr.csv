@@ -780,33 +780,33 @@ Item_Roast_55;Citrouille radieuse grillée
 Item_Roast_56;Champi céleste grillé
 Item_Roast_58;Champi lumos grillé
 Item_Roast_59;Pomme dorée grillée
-SpObj_BalloonEnvelope_A_01;Montgolfière
-SpObj_Beamos_A_01;Lance-laser
-SpObj_Cannon_A_01;Canon
-SpObj_Cart_A_01;Convoyeur
-SpObj_Chaser_A_01;Convoyeur autoguidé
-SpObj_ControlStick_A_01;Gouvernail
-SpObj_CookSetOnFire_A_01;Marmite de voyage
-SpObj_ElectricBoxGenerator;Lance-foudre
-SpObj_EnergyBank_A_01;Batterie de rechange;Batterie
-SpObj_EnergyBank_A_02;Batterie haute capacité
-SpObj_FastWheel_A_01;Roulette
-SpObj_SwitchWheel_B_01;Roue
-SpObj_FlameThrower_A_01;Lance-flamme
-SpObj_FlashLight_A_01;Projecteur
-SpObj_FloatingStone_A_01;Plateforme lévitante
-SpObj_GolemHead_A_01;Tête de Golem
-SpObj_LiftGeneratorWing_A_01;Planeur
-SpObj_WaterPump_A_01;Déverseur
-SpObj_LightMirror_A_01;Miroir
-SpObj_Pile_A_01;Pieu
-SpObj_Rocket_A_01;Propulseur
-SpObj_SlipBoard_A_01;Glisseur
-SpObj_SnowMachine_A_01;Lance-glace
-SpObj_SpringPiston_A_01;Ressort
-SpObj_TiltingDoll_A_01;Ramponeau;Balancier
-SpObj_TimerBomb_A_01;Bombe à retardement
-SpObj_WindGenerator_A_01;Turbine
+SpObj_BalloonEnvelope_Capsule_A_01;Montgolfière
+SpObj_Beamos_Capsule_A_01;Lance-laser
+SpObj_Cannon_Capsule_A_01;Canon
+SpObj_Cart_Capsule_A_01;Convoyeur
+SpObj_Chaser_Capsule_A_01;Convoyeur autoguidé
+SpObj_ControlStick_Capsule_A_01;Gouvernail
+SpObj_CookSet_Capsule_A_01;Marmite de voyage
+SpObj_ElectricBoxGenerCapsule_ator;Lance-foudre
+SpObj_EnergyBank_Capsule_A_01;Batterie de rechange;Batterie
+SpObj_EnergyBank_Capsule_A_02;Batterie haute capacité
+SpObj_FastWheel_Capsule_A_01;Roulette
+SpObj_FastWheel_Capsule_B_01;Roue
+SpObj_FlameThrower_Capsule_A_01;Lance-flamme
+SpObj_FlashLight_Capsule_A_01;Projecteur
+SpObj_FloatingStone_Capsule_A_01;Plateforme lévitante
+SpObj_GolemHead_Capsule_A_01;Tête de Golem
+SpObj_LiftGeneratorWing_Capsule_A_01;Planeur
+SpObj_LiftableWaterPump_Capsule_A_01;Déverseur
+SpObj_LightMirror_Capsule_A_01;Miroir
+SpObj_Pile_Capsule_A_01;Pieu
+SpObj_Rocket_Capsule_A_01;Propulseur
+SpObj_SlipBoard_Capsule_A_01;Glisseur
+SpObj_SnowMachine_Capsule_A_01;Lance-glace
+SpObj_SpringPiston_Capsule_A_01;Ressort
+SpObj_TiltingDoll_Capsule_A_01;Ramponeau;Balancier
+SpObj_TimerBomb_Capsule_A_01;Bombe à retardement
+SpObj_WindGenerator_Capsule_A_01;Turbine
 CaveMasterMedal;Cristal d'Elusis
 Energy_Material_01;Cristal d'énergie soneau;Cristal d'énergie Soneau
 Energy_Material_03;Grand cristal d'énergie soneau;Grand cristal d'énergie Soneau

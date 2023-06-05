@@ -1,3 +1,19 @@
+Home;Principal
+Weapons;Armas
+Bows;Arcos
+Arrows;Flechas
+Shields;Escudos
+Armors;Armaduras
+Materials;Materiales
+Food;Comida
+Zonai devices;Dispositivos Zonan
+Key items;Objetos importantes
+Horses;Caballos
+Master editor;Editor maestro
+Settings;Configuración
+Close file;Cerrar partida
+Save changes;Guardar cambios
+
 Weapon_Lsword_001;Mandoble de viajero
 Weapon_Lsword_002;Mandoble de soldado
 Weapon_Lsword_003;Mandoble de caballero
@@ -144,6 +160,7 @@ Weapon_Bow_105;Arco de gólem reforzado
 Weapon_Bow_106;Gran arco de gólem
 Weapon_Bow_107;Arco de madera viejo
 Weapon_Bow_166;Arco del rey demonio
+NormalArrow2222222222;Flecha
 Weapon_Shield_001;Escudo de madera
 Weapon_Shield_002;Escudo de soldado
 Weapon_Shield_003;Escudo de caballero
@@ -780,33 +797,33 @@ Item_Roast_55;Calabaza luminosa asada
 Item_Roast_56;Seta celeste asada;Hongo celeste asado
 Item_Roast_58;Seta luminosa asada;Hongo luminoso asado
 Item_Roast_59;Manzana dorada asada
-SpObj_BalloonEnvelope_A_01;Globo aerostático
-SpObj_Beamos_A_01;Fotocéfalo
-SpObj_Cannon_A_01;Cañón
-SpObj_Cart_A_01;Transportador
-SpObj_Chaser_A_01;Autotransportador
-SpObj_ControlStick_A_01;Timón
-SpObj_CookSetOnFire_A_01;Cacerola portátil
-SpObj_ElectricBoxGenerator;Electrocéfalo
-SpObj_EnergyBank_A_01;Batería extra
-SpObj_EnergyBank_A_02;Superbatería extra
-SpObj_FastWheel_A_01;Rueda pequeña
-SpObj_SwitchWheel_B_01;Rueda grande
-SpObj_FlameThrower_A_01;Igneocéfalo
-SpObj_FlashLight_A_01;Foco
-SpObj_FloatingStone_A_01;Bloque flotante
-SpObj_GolemHead_A_01;Cabeza de gólem
-SpObj_LiftGeneratorWing_A_01;Planeador
-SpObj_WaterPump_A_01;Hidrante
-SpObj_LightMirror_A_01;Espejo
-SpObj_Pile_A_01;Estaca
-SpObj_Rocket_A_01;Cohete
-SpObj_SlipBoard_A_01;Deslizador
-SpObj_SnowMachine_A_01;Criocéfalo
-SpObj_SpringPiston_A_01;Resorte
-SpObj_TiltingDoll_A_01;Tentetieso;Estabilizador
-SpObj_TimerBomb_A_01;Bomba con temporizador;Bomba de tiempo
-SpObj_WindGenerator_A_01;Turbina
+SpObj_BalloonEnvelope_Capsule_A_01;Globo aerostático
+SpObj_Beamos_Capsule_A_01;Fotocéfalo
+SpObj_Cannon_Capsule_A_01;Cañón
+SpObj_Cart_Capsule_A_01;Transportador
+SpObj_Chaser_Capsule_A_01;Autotransportador
+SpObj_ControlStick_Capsule_A_01;Timón
+SpObj_CookSet_Capsule_A_01;Cacerola portátil
+SpObj_ElectricBoxGenerCapsule_ator;Electrocéfalo
+SpObj_EnergyBank_Capsule_A_01;Batería extra
+SpObj_EnergyBank_Capsule_A_02;Superbatería extra
+SpObj_FastWheel_Capsule_A_01;Rueda pequeña
+SpObj_FastWheel_Capsule_B_01;Rueda grande
+SpObj_FlameThrower_Capsule_A_01;Igneocéfalo
+SpObj_FlashLight_Capsule_A_01;Foco
+SpObj_FloatingStone_Capsule_A_01;Bloque flotante
+SpObj_GolemHead_Capsule_A_01;Cabeza de gólem
+SpObj_LiftGeneratorWing_Capsule_A_01;Planeador
+SpObj_LiftableWaterPump_Capsule_A_01;Hidrante
+SpObj_LightMirror_Capsule_A_01;Espejo
+SpObj_Pile_Capsule_A_01;Estaca
+SpObj_Rocket_Capsule_A_01;Cohete
+SpObj_SlipBoard_Capsule_A_01;Deslizador
+SpObj_SnowMachine_Capsule_A_01;Criocéfalo
+SpObj_SpringPiston_Capsule_A_01;Resorte
+SpObj_TiltingDoll_Capsule_A_01;Tentetieso;Estabilizador
+SpObj_TimerBomb_Capsule_A_01;Bomba con temporizador;Bomba de tiempo
+SpObj_WindGenerator_Capsule_A_01;Turbina
 CaveMasterMedal;Emblema de fantasmo
 Energy_Material_01;Cristal energético zonnan
 Energy_Material_03;Gran cristal energético zonnan
@@ -918,5 +935,6 @@ Obj_SubstituteCloth_55;Tela con estampado nostálgico
 Obj_SubstituteCloth_56;Tela artesanal de Kabalit
 Obj_SubstituteCloth_Default;Tela común
 Obj_TreasureMap_00;Mapa viejo
+Obj_WarpDLC;Teletransportador
 Obj_WarpDLC_Prototype;Prototipo de teletransportador
 Parasail;Paravela
