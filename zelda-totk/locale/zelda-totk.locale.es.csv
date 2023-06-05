@@ -160,7 +160,7 @@ Weapon_Bow_105;Arco de gólem reforzado
 Weapon_Bow_106;Gran arco de gólem
 Weapon_Bow_107;Arco de madera viejo
 Weapon_Bow_166;Arco del rey demonio
-NormalArrow2222222222;Flecha
+NormalArrow;Flecha
 Weapon_Shield_001;Escudo de madera
 Weapon_Shield_002;Escudo de soldado
 Weapon_Shield_003;Escudo de caballero
@@ -194,98 +194,411 @@ Weapon_Shield_101;Escudo de zonnanio
 Weapon_Shield_102;Escudo de zonnanio reforzado
 Weapon_Shield_103;Gran escudo de zonnanio
 Weapon_Shield_107;Escudo de madera viejo
+
 Armor_001_Head;Capucha hyliana
+Armor_002_Head;Capucha hyliana ★
+Armor_003_Head;Capucha hyliana ★★
+Armor_004_Head;Capucha hyliana ★★★
+Armor_015_Head;Capucha hyliana ★★★★
 Armor_001_Lower;Pantalón hyliano
+Armor_002_Lower;Pantalón hyliano ★
+Armor_003_Lower;Pantalón hyliano ★★
+Armor_004_Lower;Pantalón hyliano ★★★
+Armor_015_Lower;Pantalón hyliano ★★★★
 Armor_001_Upper;Túnica hyliana
+Armor_002_Upper;Túnica hyliana ★
+Armor_003_Upper;Túnica hyliana ★★
+Armor_004_Upper;Túnica hyliana ★★★
+Armor_015_Upper;Túnica hyliana ★★★★
 Armor_005_Head;Gorro de lo Salvaje;Gorro del viajero
+Armor_035_Head;Gorro de lo Salvaje ★;Gorro del viajero ★
+Armor_039_Head;Gorro de lo Salvaje ★★;Gorro del viajero ★★
+Armor_060_Head;Gorro de lo Salvaje ★★★;Gorro del viajero ★★★
+Armor_061_Head;Gorro de lo Salvaje ★★★★;Gorro del viajero ★★★★
 Armor_005_Lower;Pantalón de lo Salvaje;Pantalón del viajero
+Armor_035_Lower;Pantalón de lo Salvaje ★;Pantalón del viajero ★
+Armor_039_Lower;Pantalón de lo Salvaje ★★;Pantalón del viajero ★★
+Armor_060_Lower;Pantalón de lo Salvaje ★★★;Pantalón del viajero ★★★
+Armor_061_Lower;Pantalón de lo Salvaje ★★★★;Pantalón del viajero ★★★★
 Armor_005_Upper;Túnica de lo Salvaje;Túnica del viajero
+Armor_035_Upper;Túnica de lo Salvaje ★;Túnica del viajero ★
+Armor_039_Upper;Túnica de lo Salvaje ★★;Túnica del viajero ★★
+Armor_060_Upper;Túnica de lo Salvaje ★★★;Túnica del viajero ★★★
+Armor_061_Upper;Túnica de lo Salvaje ★★★★;Túnica del viajero ★★★★
 Armor_006_Head;Capucha zora
+Armor_007_Head;Capucha zora ★
+Armor_062_Head;Capucha zora ★★
+Armor_063_Head;Capucha zora ★★★
+Armor_064_Head;Capucha zora ★★★★
 Armor_006_Lower;Grebas zora
+Armor_007_Lower;Grebas zora ★
+Armor_062_Lower;Grebas zora ★★
+Armor_063_Lower;Grebas zora ★★★
+Armor_064_Lower;Grebas zora ★★★★
 Armor_006_Upper;Armadura zora
+Armor_007_Upper;Armadura zora ★
+Armor_062_Upper;Armadura zora ★★
+Armor_063_Upper;Armadura zora ★★★
+Armor_064_Upper;Armadura zora ★★★★
 Armor_008_Head;Coletero del desierto
+Armor_040_Head;Coletero del desierto ★
+Armor_065_Head;Coletero del desierto ★★
+Armor_066_Head;Coletero del desierto ★★★
+Armor_067_Head;Coletero del desierto ★★★★
 Armor_008_Lower;Grebas del desierto
+Armor_040_Lower;Grebas del desierto ★
+Armor_065_Lower;Grebas del desierto ★★
+Armor_066_Lower;Grebas del desierto ★★★
+Armor_067_Lower;Grebas del desierto ★★★★
 Armor_008_Upper;Hombrera del desierto
+Armor_040_Upper;Hombrera del desierto ★
+Armor_065_Upper;Hombrera del desierto ★★
+Armor_066_Upper;Hombrera del desierto ★★★
+Armor_067_Upper;Hombrera del desierto ★★★★
 Armor_009_Head;Plumas orni
+Armor_036_Head;Plumas orni ★
+Armor_071_Head;Plumas orni ★★
+Armor_072_Head;Plumas orni ★★★
+Armor_073_Head;Plumas orni ★★★★
 Armor_009_Lower;Pantalón orni
+Armor_036_Lower;Pantalón orni ★
+Armor_071_Lower;Pantalón orni ★★
+Armor_072_Lower;Pantalón orni ★★★
+Armor_073_Lower;Pantalón orni ★★★★
 Armor_009_Upper;Túnica orni
+Armor_036_Upper;Túnica orni ★
+Armor_071_Upper;Túnica orni ★★
+Armor_072_Upper;Túnica orni ★★★
+Armor_073_Upper;Túnica orni ★★★★
 Armor_011_Head;Casco ignífugo
+Armor_037_Head;Casco ignífugo ★
+Armor_074_Head;Casco ignífugo ★★
+Armor_075_Head;Casco ignífugo ★★★
+Armor_076_Head;Casco ignífugo ★★★★
 Armor_011_Lower;Grebas ignífugas
+Armor_037_Lower;Grebas ignífugas ★
+Armor_074_Lower;Grebas ignífugas ★★
+Armor_075_Lower;Grebas ignífugas ★★★
+Armor_076_Lower;Grebas ignífugas ★★★★
 Armor_011_Upper;Armadura ignífuga
+Armor_037_Upper;Armadura ignífuga ★
+Armor_074_Upper;Armadura ignífuga ★★
+Armor_075_Upper;Armadura ignífuga ★★★
+Armor_076_Upper;Armadura ignífuga ★★★★
 Armor_012_Head;Máscara de sigilo;Máscara sheikah
+Armor_042_Head;Máscara de sigilo ★;Máscara sheikah ★
+Armor_077_Head;Máscara de sigilo ★★;Máscara sheikah ★★
+Armor_078_Head;Máscara de sigilo ★★★;Máscara sheikah ★★★
+Armor_079_Head;Máscara de sigilo ★★★★;Máscara sheikah ★★★★
 Armor_012_Lower;Mallas de sigilo;Mallas sheikah
+Armor_042_Lower;Mallas de sigilo ★;Mallas sheikah ★
+Armor_077_Lower;Mallas de sigilo ★★;Mallas sheikah ★★
+Armor_078_Lower;Mallas de sigilo ★★★;Mallas sheikah ★★★
+Armor_079_Lower;Mallas de sigilo ★★★★;Mallas sheikah ★★★★
 Armor_012_Upper;Túnica de sigilo;Armadura sheikah
+Armor_042_Upper;Túnica de sigilo ★;Armadura sheikah ★
+Armor_077_Upper;Túnica de sigilo ★★;Armadura sheikah ★★
+Armor_078_Upper;Túnica de sigilo ★★★;Armadura sheikah ★★★
+Armor_079_Upper;Túnica de sigilo ★★★★;Armadura sheikah ★★★★
 Armor_014_Head;Pañuelo de escalada;Pañuelo montañés
+Armor_083_Head;Pañuelo de escalada ★;Pañuelo montañés ★
+Armor_084_Head;Pañuelo de escalada ★★;Pañuelo montañés ★★
+Armor_085_Head;Pañuelo de escalada ★★★;Pañuelo montañés ★★★
+Armor_086_Head;Pañuelo de escalada ★★★★;Pañuelo montañés ★★★★
 Armor_014_Lower;Mallas de escalada;Botas de montañés
+Armor_083_Lower;Mallas de escalada ★;Botas de montañés ★
+Armor_084_Lower;Mallas de escalada ★★;Botas de montañés ★★
+Armor_085_Lower;Mallas de escalada ★★★;Botas de montañés ★★★
+Armor_086_Lower;Mallas de escalada ★★★★;Botas de montañés ★★★★
 Armor_014_Upper;Camiseta de escalada;Camiseta de montañés
+Armor_083_Upper;Camiseta de escalada ★;Camiseta de montañés ★
+Armor_084_Upper;Camiseta de escalada ★★;Camiseta de montañés ★★
+Armor_085_Upper;Camiseta de escalada ★★★;Camiseta de montañés ★★★
+Armor_086_Upper;Camiseta de escalada ★★★★;Camiseta de montañés ★★★★
 Armor_017_Head;Máscara luminosa
+Armor_087_Head;Máscara luminosa ★
+Armor_088_Head;Máscara luminosa ★★
+Armor_089_Head;Máscara luminosa ★★★
+Armor_090_Head;Máscara luminosa ★★★★
 Armor_017_Lower;Mallas luminosas
+Armor_087_Lower;Mallas luminosas ★
+Armor_088_Lower;Mallas luminosas ★★
+Armor_089_Lower;Mallas luminosas ★★★
+Armor_090_Lower;Mallas luminosas ★★★★
 Armor_017_Upper;Camiseta luminosa
+Armor_087_Upper;Camiseta luminosa ★
+Armor_088_Upper;Camiseta luminosa ★★
+Armor_089_Upper;Camiseta luminosa ★★★
+Armor_090_Upper;Camiseta luminosa ★★★★
 Armor_020_Head;Casco hyliano
+Armor_095_Head;Casco hyliano ★
+Armor_096_Head;Casco hyliano ★★
+Armor_097_Head;Casco hyliano ★★★
+Armor_098_Head;Casco hyliano ★★★★
 Armor_020_Lower;Grebas hylianas
+Armor_095_Lower;Grebas hylianas ★
+Armor_096_Lower;Grebas hylianas ★★
+Armor_097_Lower;Grebas hylianas ★★★
+Armor_098_Lower;Grebas hylianas ★★★★
 Armor_020_Upper;Armadura hyliana
+Armor_095_Upper;Armadura hyliana ★
+Armor_096_Upper;Armadura hyliana ★★
+Armor_097_Upper;Armadura hyliana ★★★
+Armor_098_Upper;Armadura hyliana ★★★★
 Armor_022_Head;Máscara de bokoblin
 Armor_024_Head;Diadema de diamante;Diadema con diamante
+Armor_117_Head;Diadema de diamante ★;Diadema con diamante ★
+Armor_118_Head;Diadema de diamante ★★;Diadema con diamante ★★
+Armor_119_Head;Diadema de diamante ★★★;Diadema con diamante ★★★
+Armor_120_Head;Diadema de diamante ★★★★;Diadema con diamante ★★★★
 Armor_025_Head;Diadema de rubí;Diadema con rubí
+Armor_121_Head;Diadema de rubí ★;Diadema con rubí ★
+Armor_122_Head;Diadema de rubí ★★;Diadema con rubí ★★
+Armor_123_Head;Diadema de rubí ★★★;Diadema con rubí ★★★
+Armor_124_Head;Diadema de rubí ★★★★;Diadema con rubí ★★★★
 Armor_026_Head;Diadema de zafiro;Diadema con zafiro
+Armor_125_Head;Diadema de zafiro ★;Diadema con zafiro ★
+Armor_126_Head;Diadema de zafiro ★★;Diadema con zafiro ★★
+Armor_127_Head;Diadema de zafiro ★★★;Diadema con zafiro ★★★
+Armor_128_Head;Diadema de zafiro ★★★★;Diadema con zafiro ★★★★
 Armor_027_Head;Pendientes de topacio;Aretes de topacio
+Armor_129_Head;Pendientes de topacio ★;Aretes de topacio ★
+Armor_130_Head;Pendientes de topacio ★★;Aretes de topacio ★★
+Armor_131_Head;Pendientes de topacio ★★★;Aretes de topacio ★★★
+Armor_132_Head;Pendientes de topacio ★★★★;Aretes de topacio ★★★★
 Armor_028_Head;Pendientes de ópalo;Aretes de ópalo
+Armor_133_Head;Pendientes de ópalo ★;Aretes de ópalo ★
+Armor_134_Head;Pendientes de ópalo ★★;Aretes de ópalo ★★
+Armor_135_Head;Pendientes de ópalo ★★★;Aretes de ópalo ★★★
+Armor_136_Head;Pendientes de ópalo ★★★★;Aretes de ópalo ★★★★
 Armor_029_Head;Pendientes de ámbar;Aretes de ámbar
+Armor_137_Head;Pendientes de ámbar ★;Aretes de ámbar ★
+Armor_138_Head;Pendientes de ámbar ★★;Aretes de ámbar ★★
+Armor_139_Head;Pendientes de ámbar ★★★;Aretes de ámbar ★★★
+Armor_140_Head;Pendientes de ámbar ★★★★;Aretes de ámbar ★★★★
 Armor_045_Head;Máscara de moblin
 Armor_046_Head;Casco aislante
+Armor_103_Head;Casco aislante ★
+Armor_104_Head;Casco aislante ★★
+Armor_105_Head;Casco aislante ★★★
+Armor_106_Head;Casco aislante ★★★★
 Armor_046_Lower;Pantalón aislante
+Armor_103_Lower;Pantalón aislante ★
+Armor_104_Lower;Pantalón aislante ★★
+Armor_105_Lower;Pantalón aislante ★★★
+Armor_106_Lower;Pantalón aislante ★★★★
 Armor_046_Upper;Túnica aislante;Armadura aislante
+Armor_103_Upper;Túnica aislante ★;Armadura aislante ★
+Armor_104_Upper;Túnica aislante ★★;Armadura aislante ★★
+Armor_105_Upper;Túnica aislante ★★★;Armadura aislante ★★★
+Armor_106_Upper;Túnica aislante ★★★★;Armadura aislante ★★★★
 Armor_048_Head;Casco de bárbaro
+Armor_111_Head;Casco de bárbaro ★
+Armor_112_Head;Casco de bárbaro ★★
+Armor_113_Head;Casco de bárbaro ★★★
+Armor_114_Head;Casco de bárbaro ★★★★
 Armor_048_Lower;Pantalón de bárbaro
+Armor_111_Lower;Pantalón de bárbaro ★
+Armor_112_Lower;Pantalón de bárbaro ★★
+Armor_113_Lower;Pantalón de bárbaro ★★★
+Armor_114_Lower;Pantalón de bárbaro ★★★★
 Armor_048_Upper;Pechera de bárbaro;Armadura de bárbaro
+Armor_111_Upper;Pechera de bárbaro ★;Armadura de bárbaro ★
+Armor_112_Upper;Pechera de bárbaro ★★;Armadura de bárbaro ★★
+Armor_113_Upper;Pechera de bárbaro ★★★;Armadura de bárbaro ★★★
+Armor_114_Upper;Pechera de bárbaro ★★★★;Armadura de bárbaro ★★★★
 Armor_049_Lower;Botas del desierto
+Armor_152_Lower;Botas del desierto ★
+Armor_153_Lower;Botas del desierto ★★
+Armor_154_Lower;Botas del desierto ★★★
+Armor_155_Lower;Botas del desierto ★★★★
 Armor_055_Head;Máscara de lizalfos
 Armor_056_Head;Máscara de centaleón
 Armor_1006_Head;Máscara aerodinámica
+Armor_1007_Head;Máscara aerodinámica ★
+Armor_1008_Head;Máscara aerodinámica ★★
+Armor_1009_Head;Máscara aerodinámica ★★★
+Armor_1010_Head;Máscara aerodinámica ★★★★
 Armor_1006_Lower;Pantalón aerodinámico
+Armor_1007_Lower;Pantalón aerodinámico ★
+Armor_1008_Lower;Pantalón aerodinámico ★★
+Armor_1009_Lower;Pantalón aerodinámico ★★★
+Armor_1010_Lower;Pantalón aerodinámico ★★★★
 Armor_1006_Upper;Túnica aerodinámica
+Armor_1007_Upper;Túnica aerodinámica ★
+Armor_1008_Upper;Túnica aerodinámica ★★
+Armor_1009_Upper;Túnica aerodinámica ★★★
+Armor_1010_Upper;Túnica aerodinámica ★★★★
 Armor_1036_Head;Espíritu del héroe ancestral
+Armor_1037_Head;Espíritu del héroe ancestral ★
+Armor_1038_Head;Espíritu del héroe ancestral ★★
+Armor_1039_Head;Espíritu del héroe ancestral ★★★
+Armor_1040_Head;Espíritu del héroe ancestral ★★★★
 Armor_1043_Lower;Sandalias arcaicas
 Armor_1043_Upper;Toga arcaica
 Armor_1044_Lower;Botas forradas arcaicas
 Armor_1046_Head;Capucha anfibia
+Armor_1047_Head;Capucha anfibia ★
+Armor_1048_Head;Capucha anfibia ★★
+Armor_1049_Head;Capucha anfibia ★★★
+Armor_1050_Head;Capucha anfibia ★★★★
 Armor_1046_Lower;Grebas anfibias
+Armor_1047_Lower;Grebas anfibias ★
+Armor_1048_Lower;Grebas anfibias ★★
+Armor_1049_Lower;Grebas anfibias ★★★
+Armor_1050_Lower;Grebas anfibias ★★★★
 Armor_1046_Upper;Hombrera anfibia
+Armor_1047_Upper;Hombrera anfibia ★
+Armor_1048_Upper;Hombrera anfibia ★★
+Armor_1049_Upper;Hombrera anfibia ★★★
+Armor_1050_Upper;Hombrera anfibia ★★★★
 Armor_1051_Head;Máscara de minero
+Armor_1052_Head;Máscara de minero ★
+Armor_1053_Head;Máscara de minero ★★
+Armor_1054_Head;Máscara de minero ★★★
+Armor_1055_Head;Máscara de minero ★★★★
 Armor_1051_Lower;Pantalón de minero
+Armor_1052_Lower;Pantalón de minero ★
+Armor_1053_Lower;Pantalón de minero ★★
+Armor_1054_Lower;Pantalón de minero ★★★
+Armor_1055_Lower;Pantalón de minero ★★★★
 Armor_1051_Upper;Coraza de minero
+Armor_1052_Upper;Coraza de minero ★
+Armor_1053_Upper;Coraza de minero ★★
+Armor_1054_Upper;Coraza de minero ★★★
+Armor_1055_Upper;Coraza de minero ★★★★
 Armor_1061_Head;Tocado de la llama
+Armor_1062_Head;Tocado de la llama ★
+Armor_1063_Head;Tocado de la llama ★★
+Armor_1064_Head;Tocado de la llama ★★★
+Armor_1065_Head;Tocado de la llama ★★★★
 Armor_1061_Lower;Pantalón de la llama
+Armor_1062_Lower;Pantalón de la llama ★
+Armor_1063_Lower;Pantalón de la llama ★★
+Armor_1064_Lower;Pantalón de la llama ★★★
+Armor_1065_Lower;Pantalón de la llama ★★★★
 Armor_1061_Upper;Túnica de la llama
+Armor_1062_Upper;Túnica de la llama ★
+Armor_1063_Upper;Túnica de la llama ★★
+Armor_1064_Upper;Túnica de la llama ★★★
+Armor_1065_Upper;Túnica de la llama ★★★★
 Armor_1066_Head;Tocado de la centella
+Armor_1067_Head;Tocado de la centella ★
+Armor_1068_Head;Tocado de la centella ★★
+Armor_1069_Head;Tocado de la centella ★★★
+Armor_1070_Head;Tocado de la centella ★★★★
 Armor_1066_Lower;Pantalón de la centella
+Armor_1067_Lower;Pantalón de la centella ★
+Armor_1068_Lower;Pantalón de la centella ★★
+Armor_1069_Lower;Pantalón de la centella ★★★
+Armor_1070_Lower;Pantalón de la centella ★★★★
 Armor_1066_Upper;Loriga de la centella
+Armor_1067_Upper;Loriga de la centella ★
+Armor_1068_Upper;Loriga de la centella ★★
+Armor_1069_Upper;Loriga de la centella ★★★
+Armor_1070_Upper;Loriga de la centella ★★★★
 Armor_1071_Head;Tocado de la ventisca
+Armor_1072_Head;Tocado de la ventisca ★
+Armor_1073_Head;Tocado de la ventisca ★★
+Armor_1074_Head;Tocado de la ventisca ★★★
+Armor_1075_Head;Tocado de la ventisca ★★★★
 Armor_1071_Lower;Pantalón de la ventisca
+Armor_1072_Lower;Pantalón de la ventisca ★
+Armor_1073_Lower;Pantalón de la ventisca ★★
+Armor_1074_Lower;Pantalón de la ventisca ★★★
+Armor_1075_Lower;Pantalón de la ventisca ★★★★
 Armor_1071_Upper;Túnica de la ventisca
+Armor_1072_Upper;Túnica de la ventisca ★
+Armor_1073_Upper;Túnica de la ventisca ★★
+Armor_1074_Upper;Túnica de la ventisca ★★★
+Armor_1075_Upper;Túnica de la ventisca ★★★★
 Armor_1076_Head;Sombrero de Sogene
 Armor_1086_Head;Tocado de los espíritus
 Armor_1086_Lower;Pantalón de los espíritus
 Armor_1086_Upper;Túnica de los espíritus
 Armor_1091_Head;Casco de zonnanio
+Armor_1092_Head;Casco de zonnanio ★
+Armor_1093_Head;Casco de zonnanio ★★
+Armor_1094_Head;Casco de zonnanio ★★★
+Armor_1095_Head;Casco de zonnanio ★★★★
 Armor_1091_Lower;Grebas de zonnanio
+Armor_1092_Lower;Grebas de zonnanio ★
+Armor_1093_Lower;Grebas de zonnanio ★★
+Armor_1094_Lower;Grebas de zonnanio ★★★
+Armor_1095_Lower;Grebas de zonnanio ★★★★
 Armor_1091_Upper;Loriga de zonnanio
+Armor_1092_Upper;Loriga de zonnanio ★
+Armor_1093_Upper;Loriga de zonnanio ★★
+Armor_1094_Upper;Loriga de zonnanio ★★★
+Armor_1095_Upper;Loriga de zonnanio ★★★★
 Armor_1096_Head;Máscara del Despertar
+Armor_1097_Head;Máscara del Despertar ★
+Armor_1098_Head;Máscara del Despertar ★★
+Armor_1099_Head;Máscara del Despertar ★★★
+Armor_1100_Head;Máscara del Despertar ★★★★
 Armor_1096_Lower;Pantalón del Despertar
+Armor_1097_Lower;Pantalón del Despertar ★
+Armor_1098_Lower;Pantalón del Despertar ★★
+Armor_1099_Lower;Pantalón del Despertar ★★★
+Armor_1100_Lower;Pantalón del Despertar ★★★★
 Armor_1096_Upper;Túnica del Despertar
+Armor_1097_Upper;Túnica del Despertar ★
+Armor_1098_Upper;Túnica del Despertar ★★
+Armor_1099_Upper;Túnica del Despertar ★★★
+Armor_1100_Upper;Túnica del Despertar ★★★★
 Armor_1106_Upper;Nueva túnica del elegido;Nueva túnica de campeón
+Armor_1107_Upper;Nueva túnica del elegido ★;Nueva túnica de campeón ★
+Armor_1108_Upper;Nueva túnica del elegido ★★;Nueva túnica de campeón ★★
+Armor_1109_Upper;Nueva túnica del elegido ★★★;Nueva túnica de campeón ★★★
+Armor_1110_Upper;Nueva túnica del elegido ★★★★;Nueva túnica de campeón ★★★★
 Armor_1125_Head;Máscara de horroblin
 Armor_1141_Head;Capucha de las tinieblas
+Armor_1142_Head;Capucha de las tinieblas ★
+Armor_1143_Head;Capucha de las tinieblas ★★
+Armor_1144_Head;Capucha de las tinieblas ★★★
+Armor_1145_Head;Capucha de las tinieblas ★★★★
 Armor_1141_Lower;Grebas de las tinieblas
+Armor_1142_Lower;Grebas de las tinieblas ★
+Armor_1143_Lower;Grebas de las tinieblas ★★
+Armor_1144_Lower;Grebas de las tinieblas ★★★
+Armor_1145_Lower;Grebas de las tinieblas ★★★★
 Armor_1141_Upper;Túnica de las tinieblas
+Armor_1142_Upper;Túnica de las tinieblas ★
+Armor_1143_Upper;Túnica de las tinieblas ★★
+Armor_1144_Upper;Túnica de las tinieblas ★★★
+Armor_1145_Upper;Túnica de las tinieblas ★★★★
 Armor_1151_Head;Coletero viejo
 Armor_1152_Head;Capucha hyliana
+Armor_1153_Head;Capucha hyliana ★
+Armor_1154_Head;Capucha hyliana ★★
+Armor_1155_Head;Capucha hyliana ★★★
+Armor_1156_Head;Capucha hyliana ★★★★
 Armor_115_Head;Casco antitrueno
 Armor_116_Upper;Túnica de los recuerdos
+Armor_148_Upper;Túnica de los recuerdos ★
+Armor_149_Upper;Túnica de los recuerdos ★★
+Armor_150_Upper;Túnica de los recuerdos ★★★
+Armor_151_Upper;Túnica de los recuerdos ★★★★
 Armor_1300_Head;Máscara del clan Yiga
+Armor_1301_Head;Máscara del clan Yiga ★
+Armor_1302_Head;Máscara del clan Yiga ★★
+Armor_1303_Head;Máscara del clan Yiga ★★★
+Armor_1304_Head;Máscara del clan Yiga ★★★★
 Armor_1300_Lower;Mallas del clan Yiga
+Armor_1301_Lower;Mallas del clan Yiga ★
+Armor_1302_Lower;Mallas del clan Yiga ★★
+Armor_1303_Lower;Mallas del clan Yiga ★★★
+Armor_1304_Lower;Mallas del clan Yiga ★★★★
 Armor_1300_Upper;Túnica del clan Yiga
+Armor_1301_Upper;Túnica del clan Yiga ★
+Armor_1302_Upper;Túnica del clan Yiga ★★
+Armor_1303_Upper;Túnica del clan Yiga ★★★
+Armor_1304_Upper;Túnica del clan Yiga ★★★★
 Armor_141_Lower;Botas de nieve
+Armor_156_Lower;Botas de nieve ★
+Armor_157_Lower;Botas de nieve ★★
+Armor_158_Lower;Botas de nieve ★★★
+Armor_159_Lower;Botas de nieve ★★★★
 Armor_160_Head;Máscara oscura
 Armor_160_Lower;Pantalón oscuro
 Armor_160_Upper;Túnica oscura
@@ -302,34 +615,139 @@ Armor_176_Head;Máscara de kolog
 Armor_177_Head;Capucha de Ravio
 Armor_178_Head;Casco de Zant
 Armor_179_Head;Boina de guardia real
+Armor_1146_Head;Boina de guardia real ★
+Armor_1147_Head;Boina de guardia real ★★
+Armor_1148_Head;Boina de guardia real ★★★
+Armor_1149_Head;Boina de guardia real ★★★★
 Armor_179_Lower;Botas de guardia real
+Armor_1146_Lower;Botas de guardia real ★
+Armor_1147_Lower;Botas de guardia real ★★
+Armor_1148_Lower;Botas de guardia real ★★★
+Armor_1149_Lower;Botas de guardia real ★★★★
 Armor_179_Upper;Uniforme de guardia real
+Armor_1146_Upper;Uniforme de guardia real ★
+Armor_1147_Upper;Uniforme de guardia real ★★
+Armor_1148_Upper;Uniforme de guardia real ★★★
+Armor_1149_Upper;Uniforme de guardia real ★★★★
 Armor_180_Head;Casco del espíritu maligno
 Armor_180_Lower;Botas del espíritu maligno
 Armor_180_Upper;Cota del espíritu maligno
 Armor_181_Head;Casco divino de Ruta
+Armor_186_Head;Casco divino de Ruta ★
+Armor_187_Head;Casco divino de Ruta ★★
+Armor_188_Head;Casco divino de Ruta ★★★
+Armor_189_Head;Casco divino de Ruta ★★★★
 Armor_182_Head;Casco divino de Medoh
+Armor_190_Head;Casco divino de Medoh ★
+Armor_191_Head;Casco divino de Medoh ★★
+Armor_192_Head;Casco divino de Medoh ★★★
+Armor_193_Head;Casco divino de Medoh ★★★★
 Armor_183_Head;Casco divino de Rudania
+Armor_194_Head;Casco divino de Rudania ★
+Armor_195_Head;Casco divino de Rudania ★★
+Armor_196_Head;Casco divino de Rudania ★★★
+Armor_197_Head;Casco divino de Rudania ★★★★
 Armor_184_Head;Casco divino de Naboris
+Armor_198_Head;Casco divino de Naboris ★
+Armor_199_Head;Casco divino de Naboris ★★
+Armor_168_Head;Casco divino de Naboris ★★★
+Armor_169_Head;Casco divino de Naboris ★★★★
 Armor_200_Head;Gorro del Tiempo
+Armor_201_Head;Gorro del Tiempo ★
+Armor_202_Head;Gorro del Tiempo ★★
+Armor_203_Head;Gorro del Tiempo ★★★
+Armor_204_Head;Gorro del Tiempo ★★★★
 Armor_200_Lower;Pantalón del Tiempo
+Armor_201_Lower;Pantalón del Tiempo ★
+Armor_202_Lower;Pantalón del Tiempo ★★
+Armor_203_Lower;Pantalón del Tiempo ★★★
+Armor_204_Lower;Pantalón del Tiempo ★★★★
 Armor_200_Upper;Túnica del Tiempo
+Armor_201_Upper;Túnica del Tiempo ★
+Armor_202_Upper;Túnica del Tiempo ★★
+Armor_203_Upper;Túnica del Tiempo ★★★
+Armor_204_Upper;Túnica del Tiempo ★★★★
 Armor_205_Head;Gorro del Viento
+Armor_206_Head;Gorro del Viento ★
+Armor_207_Head;Gorro del Viento ★★
+Armor_208_Head;Gorro del Viento ★★★
+Armor_209_Head;Gorro del Viento ★★★★
 Armor_205_Lower;Pantalón del Viento
+Armor_206_Lower;Pantalón del Viento ★
+Armor_207_Lower;Pantalón del Viento ★★
+Armor_208_Lower;Pantalón del Viento ★★★
+Armor_209_Lower;Pantalón del Viento ★★★★
 Armor_205_Upper;Túnica del Viento
+Armor_206_Upper;Túnica del Viento ★
+Armor_207_Upper;Túnica del Viento ★★
+Armor_208_Upper;Túnica del Viento ★★★
+Armor_209_Upper;Túnica del Viento ★★★★
 Armor_210_Head;Gorro del Crepúsculo
+Armor_211_Head;Gorro del Crepúsculo ★
+Armor_212_Head;Gorro del Crepúsculo ★★
+Armor_213_Head;Gorro del Crepúsculo ★★★
+Armor_214_Head;Gorro del Crepúsculo ★★★★
 Armor_210_Lower;Pantalón del Crepúsculo
+Armor_211_Lower;Pantalón del Crepúsculo ★
+Armor_212_Lower;Pantalón del Crepúsculo ★★
+Armor_213_Lower;Pantalón del Crepúsculo ★★★
+Armor_214_Lower;Pantalón del Crepúsculo ★★★★
 Armor_210_Upper;Túnica del Crepúsculo
+Armor_211_Upper;Túnica del Crepúsculo ★
+Armor_212_Upper;Túnica del Crepúsculo ★★
+Armor_213_Upper;Túnica del Crepúsculo ★★★
+Armor_214_Upper;Túnica del Crepúsculo ★★★★
 Armor_215_Head;Gorro de los Cielos
+Armor_216_Head;Gorro de los Cielos ★
+Armor_217_Head;Gorro de los Cielos ★★
+Armor_218_Head;Gorro de los Cielos ★★★
+Armor_219_Head;Gorro de los Cielos ★★★★
 Armor_215_Lower;Pantalón de los Cielos
+Armor_216_Lower;Pantalón de los Cielos ★
+Armor_217_Lower;Pantalón de los Cielos ★★
+Armor_218_Lower;Pantalón de los Cielos ★★★
+Armor_219_Lower;Pantalón de los Cielos ★★★★
 Armor_215_Upper;Túnica de los Cielos
+Armor_216_Upper;Túnica de los Cielos ★
+Armor_217_Upper;Túnica de los Cielos ★★
+Armor_218_Upper;Túnica de los Cielos ★★★
+Armor_219_Upper;Túnica de los Cielos ★★★★
 Armor_220_Head;Máscara de Sheik
+Armor_221_Head;Máscara de Sheik ★
+Armor_222_Head;Máscara de Sheik ★★
+Armor_223_Head;Máscara de Sheik ★★★
+Armor_224_Head;Máscara de Sheik ★★★★
 Armor_225_Head;Máscara de la Deidad;Máscara de la fiera deidad
+Armor_226_Head;Máscara de la Deidad ★;Máscara de la fiera deidad ★
+Armor_227_Head;Máscara de la Deidad ★★;Máscara de la fiera deidad ★★
+Armor_228_Head;Máscara de la Deidad ★★★;Máscara de la fiera deidad ★★★
+Armor_229_Head;Máscara de la Deidad ★★★★;Máscara de la fiera deidad ★★★★
 Armor_225_Lower;Pantalón de la Deidad;Botas de la fiera deidad
+Armor_226_Lower;Pantalón de la Deidad ★;Botas de la fiera deidad ★
+Armor_227_Lower;Pantalón de la Deidad ★★;Botas de la fiera deidad ★★
+Armor_228_Lower;Pantalón de la Deidad ★★★;Botas de la fiera deidad ★★★
+Armor_229_Lower;Pantalón de la Deidad ★★★★;Botas de la fiera deidad ★★★★
 Armor_225_Upper;Armadura de la Deidad;Cota de la fiera deidad
+Armor_226_Upper;Armadura de la Deidad ★;Cota de la fiera deidad ★
+Armor_227_Upper;Armadura de la Deidad ★★;Cota de la fiera deidad ★★
+Armor_228_Upper;Armadura de la Deidad ★★★;Cota de la fiera deidad ★★★
+Armor_229_Upper;Armadura de la Deidad ★★★★;Cota de la fiera deidad ★★★★
 Armor_230_Head;Gorro del Preludio;Gorro del héroe
+Armor_231_Head;Gorro del Preludio ★;Gorro del héroe ★
+Armor_232_Head;Gorro del Preludio ★★;Gorro del héroe ★★
+Armor_233_Head;Gorro del Preludio ★★★;Gorro del héroe ★★★
+Armor_234_Head;Gorro del Preludio ★★★★;Gorro del héroe ★★★★
 Armor_230_Lower;Pantalón del Preludio;Pantalón del héroe
+Armor_231_Lower;Pantalón del Preludio ★;Pantalón del héroe ★
+Armor_232_Lower;Pantalón del Preludio ★★;Pantalón del héroe ★★
+Armor_233_Lower;Pantalón del Preludio ★★★;Pantalón del héroe ★★★
+Armor_234_Lower;Pantalón del Preludio ★★★★;Pantalón del héroe ★★★★
 Armor_230_Upper;Túnica del Preludio;Túnica del héroe
+Armor_231_Upper;Túnica del Preludio ★;Túnica del héroe ★
+Armor_232_Upper;Túnica del Preludio ★★;Túnica del héroe ★★
+Armor_233_Upper;Túnica del Preludio ★★★;Túnica del héroe ★★★
+Armor_234_Upper;Túnica del Preludio ★★★★;Túnica del héroe ★★★★
+
 Animal_Insect_A;Rana rauda;Rana escurridiza
 Animal_Insect_AA;Escarabajo vigoroso;Escarabajo obrero
 Animal_Insect_AB;Mariposa ignífuga;Mariposa chimenea

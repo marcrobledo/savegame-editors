@@ -177,98 +177,411 @@ Weapon_Shield_101;Sonanium-Schild
 Weapon_Shield_102;Stabiler Sonanium-Schild
 Weapon_Shield_103;Massiver Sonanium-Schild
 Weapon_Shield_107;Alter Holzschild
+
 Armor_001_Head;Hylia-Kapuze
+Armor_002_Head;Hylia-Kapuze ★
+Armor_003_Head;Hylia-Kapuze ★★
+Armor_004_Head;Hylia-Kapuze ★★★
+Armor_015_Head;Hylia-Kapuze ★★★★
 Armor_001_Lower;Hylia-Hose
+Armor_002_Lower;Hylia-Hose ★
+Armor_003_Lower;Hylia-Hose ★★
+Armor_004_Lower;Hylia-Hose ★★★
+Armor_015_Lower;Hylia-Hose ★★★★
 Armor_001_Upper;Hylia-Gewand
+Armor_002_Upper;Hylia-Gewand ★
+Armor_003_Upper;Hylia-Gewand ★★
+Armor_004_Upper;Hylia-Gewand ★★★
+Armor_015_Upper;Hylia-Gewand ★★★★
 Armor_005_Head;Wildnismütze
+Armor_035_Head;Wildnismütze ★
+Armor_039_Head;Wildnismütze ★★
+Armor_060_Head;Wildnismütze ★★★
+Armor_061_Head;Wildnismütze ★★★★
 Armor_005_Lower;Wildnishose
+Armor_035_Lower;Wildnishose ★
+Armor_039_Lower;Wildnishose ★★
+Armor_060_Lower;Wildnishose ★★★
+Armor_061_Lower;Wildnishose ★★★★
 Armor_005_Upper;Wildnisgewand
+Armor_035_Upper;Wildnisgewand ★
+Armor_039_Upper;Wildnisgewand ★★
+Armor_060_Upper;Wildnisgewand ★★★
+Armor_061_Upper;Wildnisgewand ★★★★
 Armor_006_Head;Zora-Helm
+Armor_007_Head;Zora-Helm ★
+Armor_062_Head;Zora-Helm ★★
+Armor_063_Head;Zora-Helm ★★★
+Armor_064_Head;Zora-Helm ★★★★
 Armor_006_Lower;Zora-Beinschutz
+Armor_007_Lower;Zora-Beinschutz ★
+Armor_062_Lower;Zora-Beinschutz ★★
+Armor_063_Lower;Zora-Beinschutz ★★★
+Armor_064_Lower;Zora-Beinschutz ★★★★
 Armor_006_Upper;Zora-Rüstung
+Armor_007_Upper;Zora-Rüstung ★
+Armor_062_Upper;Zora-Rüstung ★★
+Armor_063_Upper;Zora-Rüstung ★★★
+Armor_064_Upper;Zora-Rüstung ★★★★
 Armor_008_Head;Wüsten-Stirnschutz
+Armor_040_Head;Wüsten-Stirnschutz ★
+Armor_065_Head;Wüsten-Stirnschutz ★★
+Armor_066_Head;Wüsten-Stirnschutz ★★★
+Armor_067_Head;Wüsten-Stirnschutz ★★★★
 Armor_008_Lower;Wüsten-Beinschutz
+Armor_040_Lower;Wüsten-Beinschutz ★
+Armor_065_Lower;Wüsten-Beinschutz ★★
+Armor_066_Lower;Wüsten-Beinschutz ★★★
+Armor_067_Lower;Wüsten-Beinschutz ★★★★
 Armor_008_Upper;Wüsten-Schulterschutz
+Armor_040_Upper;Wüsten-Schulterschutz ★
+Armor_065_Upper;Wüsten-Schulterschutz ★★
+Armor_066_Upper;Wüsten-Schulterschutz ★★★
+Armor_067_Upper;Wüsten-Schulterschutz ★★★★
 Armor_009_Head;Anti-Schnee-Federn
+Armor_036_Head;Anti-Schnee-Federn ★
+Armor_071_Head;Anti-Schnee-Federn ★★
+Armor_072_Head;Anti-Schnee-Federn ★★★
+Armor_073_Head;Anti-Schnee-Federn ★★★★
 Armor_009_Lower;Orni-Hose
+Armor_036_Lower;Orni-Hose ★
+Armor_071_Lower;Orni-Hose ★★
+Armor_072_Lower;Orni-Hose ★★★
+Armor_073_Lower;Orni-Hose ★★★★
 Armor_009_Upper;Orni-Gewand
+Armor_036_Upper;Orni-Gewand ★
+Armor_071_Upper;Orni-Gewand ★★
+Armor_072_Upper;Orni-Gewand ★★★
+Armor_073_Upper;Orni-Gewand ★★★★
 Armor_011_Head;Anti-Feuer-Helm
+Armor_037_Head;Anti-Feuer-Helm ★
+Armor_074_Head;Anti-Feuer-Helm ★★
+Armor_075_Head;Anti-Feuer-Helm ★★★
+Armor_076_Head;Anti-Feuer-Helm ★★★★
 Armor_011_Lower;Anti-Feuer-Hose
+Armor_037_Lower;Anti-Feuer-Hose ★
+Armor_074_Lower;Anti-Feuer-Hose ★★
+Armor_075_Lower;Anti-Feuer-Hose ★★★
+Armor_076_Lower;Anti-Feuer-Hose ★★★★
 Armor_011_Upper;Anti-Feuer-Rüstung
+Armor_037_Upper;Anti-Feuer-Rüstung ★
+Armor_074_Upper;Anti-Feuer-Rüstung ★★
+Armor_075_Upper;Anti-Feuer-Rüstung ★★★
+Armor_076_Upper;Anti-Feuer-Rüstung ★★★★
 Armor_012_Head;Ninja-Maske
+Armor_042_Head;Ninja-Maske ★
+Armor_077_Head;Ninja-Maske ★★
+Armor_078_Head;Ninja-Maske ★★★
+Armor_079_Head;Ninja-Maske ★★★★
 Armor_012_Lower;Ninja-Hose
+Armor_042_Lower;Ninja-Hose ★
+Armor_077_Lower;Ninja-Hose ★★
+Armor_078_Lower;Ninja-Hose ★★★
+Armor_079_Lower;Ninja-Hose ★★★★
 Armor_012_Upper;Ninja-Anzug
+Armor_042_Upper;Ninja-Anzug ★
+Armor_077_Upper;Ninja-Anzug ★★
+Armor_078_Upper;Ninja-Anzug ★★★
+Armor_079_Upper;Ninja-Anzug ★★★★
 Armor_014_Head;Kletterkopftuch
+Armor_083_Head;Kletterkopftuch ★
+Armor_084_Head;Kletterkopftuch ★★
+Armor_085_Head;Kletterkopftuch ★★★
+Armor_086_Head;Kletterkopftuch ★★★★
 Armor_014_Lower;Kletterschuhe
+Armor_083_Lower;Kletterschuhe ★
+Armor_084_Lower;Kletterschuhe ★★
+Armor_085_Lower;Kletterschuhe ★★★
+Armor_086_Lower;Kletterschuhe ★★★★
 Armor_014_Upper;Kletterhandschuh
+Armor_083_Upper;Kletterhandschuh ★
+Armor_084_Upper;Kletterhandschuh ★★
+Armor_085_Upper;Kletterhandschuh ★★★
+Armor_086_Upper;Kletterhandschuh ★★★★
 Armor_017_Head;Leuchtmaske
+Armor_087_Head;Leuchtmaske ★
+Armor_088_Head;Leuchtmaske ★★
+Armor_089_Head;Leuchtmaske ★★★
+Armor_090_Head;Leuchtmaske ★★★★
 Armor_017_Lower;Leuchthose
+Armor_087_Lower;Leuchthose ★
+Armor_088_Lower;Leuchthose ★★
+Armor_089_Lower;Leuchthose ★★★
+Armor_090_Lower;Leuchthose ★★★★
 Armor_017_Upper;Leuchtanzug
+Armor_087_Upper;Leuchtanzug ★
+Armor_088_Upper;Leuchtanzug ★★
+Armor_089_Upper;Leuchtanzug ★★★
+Armor_090_Upper;Leuchtanzug ★★★★
 Armor_020_Head;Hylia-Helm
+Armor_095_Head;Hylia-Helm ★
+Armor_096_Head;Hylia-Helm ★★
+Armor_097_Head;Hylia-Helm ★★★
+Armor_098_Head;Hylia-Helm ★★★★
 Armor_020_Lower;Hylia-Beinschutz
+Armor_095_Lower;Hylia-Beinschutz ★
+Armor_096_Lower;Hylia-Beinschutz ★★
+Armor_097_Lower;Hylia-Beinschutz ★★★
+Armor_098_Lower;Hylia-Beinschutz ★★★★
 Armor_020_Upper;Hylia-Rüstung
+Armor_095_Upper;Hylia-Rüstung ★
+Armor_096_Upper;Hylia-Rüstung ★★
+Armor_097_Upper;Hylia-Rüstung ★★★
+Armor_098_Upper;Hylia-Rüstung ★★★★
 Armor_022_Head;Bokblin-Maske
 Armor_024_Head;Diamant-Stirnband
+Armor_117_Head;Diamant-Stirnband ★
+Armor_118_Head;Diamant-Stirnband ★★
+Armor_119_Head;Diamant-Stirnband ★★★
+Armor_120_Head;Diamant-Stirnband ★★★★
 Armor_025_Head;Rhodonit-Stirnband
+Armor_121_Head;Rhodonit-Stirnband ★
+Armor_122_Head;Rhodonit-Stirnband ★★
+Armor_123_Head;Rhodonit-Stirnband ★★★
+Armor_124_Head;Rhodonit-Stirnband ★★★★
 Armor_026_Head;Saphir-Stirnband
+Armor_125_Head;Saphir-Stirnband ★
+Armor_126_Head;Saphir-Stirnband ★★
+Armor_127_Head;Saphir-Stirnband ★★★
+Armor_128_Head;Saphir-Stirnband ★★★★
 Armor_027_Head;Topas-Ohrringe
+Armor_129_Head;Topas-Ohrringe ★
+Armor_130_Head;Topas-Ohrringe ★★
+Armor_131_Head;Topas-Ohrringe ★★★
+Armor_132_Head;Topas-Ohrringe ★★★★
 Armor_028_Head;Opal-Ohrringe
+Armor_133_Head;Opal-Ohrringe ★
+Armor_134_Head;Opal-Ohrringe ★★
+Armor_135_Head;Opal-Ohrringe ★★★
+Armor_136_Head;Opal-Ohrringe ★★★★
 Armor_029_Head;Bernstein-Ohrringe
+Armor_137_Head;Bernstein-Ohrringe ★
+Armor_138_Head;Bernstein-Ohrringe ★★
+Armor_139_Head;Bernstein-Ohrringe ★★★
+Armor_140_Head;Bernstein-Ohrringe ★★★★
 Armor_045_Head;Moblin-Maske
 Armor_046_Head;Isolierhelm
+Armor_103_Head;Isolierhelm ★
+Armor_104_Head;Isolierhelm ★★
+Armor_105_Head;Isolierhelm ★★★
+Armor_106_Head;Isolierhelm ★★★★
 Armor_046_Lower;Isolierhose
+Armor_103_Lower;Isolierhose ★
+Armor_104_Lower;Isolierhose ★★
+Armor_105_Lower;Isolierhose ★★★
+Armor_106_Lower;Isolierhose ★★★★
 Armor_046_Upper;Isolierrüstung
+Armor_103_Upper;Isolierrüstung ★
+Armor_104_Upper;Isolierrüstung ★★
+Armor_105_Upper;Isolierrüstung ★★★
+Armor_106_Upper;Isolierrüstung ★★★★
 Armor_048_Head;Barbarenmaske
+Armor_111_Head;Barbarenmaske ★
+Armor_112_Head;Barbarenmaske ★★
+Armor_113_Head;Barbarenmaske ★★★
+Armor_114_Head;Barbarenmaske ★★★★
 Armor_048_Lower;Barbarenhose
+Armor_111_Lower;Barbarenhose ★
+Armor_112_Lower;Barbarenhose ★★
+Armor_113_Lower;Barbarenhose ★★★
+Armor_114_Lower;Barbarenhose ★★★★
 Armor_048_Upper;Barbarenkleider
+Armor_111_Upper;Barbarenkleider ★
+Armor_112_Upper;Barbarenkleider ★★
+Armor_113_Upper;Barbarenkleider ★★★
+Armor_114_Upper;Barbarenkleider ★★★★
 Armor_049_Lower;Sandstiefel
+Armor_152_Lower;Sandstiefel ★
+Armor_153_Lower;Sandstiefel ★★
+Armor_154_Lower;Sandstiefel ★★★
+Armor_155_Lower;Sandstiefel ★★★★
 Armor_055_Head;Echsalfos-Maske
 Armor_056_Head;Leunen-Maske
 Armor_1006_Head;Aero-Maske
+Armor_1007_Head;Aero-Maske ★
+Armor_1008_Head;Aero-Maske ★★
+Armor_1009_Head;Aero-Maske ★★★
+Armor_1010_Head;Aero-Maske ★★★★
 Armor_1006_Lower;Aero-Beinschutz
+Armor_1007_Lower;Aero-Beinschutz ★
+Armor_1008_Lower;Aero-Beinschutz ★★
+Armor_1009_Lower;Aero-Beinschutz ★★★
+Armor_1010_Lower;Aero-Beinschutz ★★★★
 Armor_1006_Upper;Aero-Harnisch
+Armor_1007_Upper;Aero-Harnisch ★
+Armor_1008_Upper;Aero-Harnisch ★★
+Armor_1009_Upper;Aero-Harnisch ★★★
+Armor_1010_Upper;Aero-Harnisch ★★★★
 Armor_1036_Head;Heldengeist aus uralter Zeit
+Armor_1037_Head;Heldengeist aus uralter Zeit ★
+Armor_1038_Head;Heldengeist aus uralter Zeit ★★
+Armor_1039_Head;Heldengeist aus uralter Zeit ★★★
+Armor_1040_Head;Heldengeist aus uralter Zeit ★★★★
 Armor_1043_Lower;Altes Beinkleid
 Armor_1043_Upper;Alte Toga
 Armor_1044_Lower;Alte Winterhose
 Armor_1046_Head;Kröten-Kapuze
+Armor_1047_Head;Kröten-Kapuze ★
+Armor_1048_Head;Kröten-Kapuze ★★
+Armor_1049_Head;Kröten-Kapuze ★★★
+Armor_1050_Head;Kröten-Kapuze ★★★★
 Armor_1046_Lower;Kröten-Stiefel
+Armor_1047_Lower;Kröten-Stiefel ★
+Armor_1048_Lower;Kröten-Stiefel ★★
+Armor_1049_Lower;Kröten-Stiefel ★★★
+Armor_1050_Lower;Kröten-Stiefel ★★★★
 Armor_1046_Upper;Kröten-Anzug
+Armor_1047_Upper;Kröten-Anzug ★
+Armor_1048_Upper;Kröten-Anzug ★★
+Armor_1049_Upper;Kröten-Anzug ★★★
+Armor_1050_Upper;Kröten-Anzug ★★★★
 Armor_1051_Head;Untertage-Maske
+Armor_1052_Head;Untertage-Maske ★
+Armor_1053_Head;Untertage-Maske ★★
+Armor_1054_Head;Untertage-Maske ★★★
+Armor_1055_Head;Untertage-Maske ★★★★
 Armor_1051_Lower;Untertage-Hose
+Armor_1052_Lower;Untertage-Hose ★
+Armor_1053_Lower;Untertage-Hose ★★
+Armor_1054_Lower;Untertage-Hose ★★★
+Armor_1055_Lower;Untertage-Hose ★★★★
 Armor_1051_Upper;Untertage-Harnisch
+Armor_1052_Upper;Untertage-Harnisch ★
+Armor_1053_Upper;Untertage-Harnisch ★★
+Armor_1054_Upper;Untertage-Harnisch ★★★
+Armor_1055_Upper;Untertage-Harnisch ★★★★
 Armor_1061_Head;Flammenkopfschmuck
+Armor_1062_Head;Flammenkopfschmuck ★
+Armor_1063_Head;Flammenkopfschmuck ★★
+Armor_1064_Head;Flammenkopfschmuck ★★★
+Armor_1065_Head;Flammenkopfschmuck ★★★★
 Armor_1061_Lower;Flammenhose
+Armor_1062_Lower;Flammenhose ★
+Armor_1063_Lower;Flammenhose ★★
+Armor_1064_Lower;Flammenhose ★★★
+Armor_1065_Lower;Flammenhose ★★★★
 Armor_1061_Upper;Flammenwams
+Armor_1062_Upper;Flammenwams ★
+Armor_1063_Upper;Flammenwams ★★
+Armor_1064_Upper;Flammenwams ★★★
+Armor_1065_Upper;Flammenwams ★★★★
 Armor_1066_Head;Blitzstrahlkopfschmuck
+Armor_1067_Head;Blitzstrahlkopfschmuck ★
+Armor_1068_Head;Blitzstrahlkopfschmuck ★★
+Armor_1069_Head;Blitzstrahlkopfschmuck ★★★
+Armor_1070_Head;Blitzstrahlkopfschmuck ★★★★
 Armor_1066_Lower;Blitzstrahlhose
+Armor_1067_Lower;Blitzstrahlhose ★
+Armor_1068_Lower;Blitzstrahlhose ★★
+Armor_1069_Lower;Blitzstrahlhose ★★★
+Armor_1070_Lower;Blitzstrahlhose ★★★★
 Armor_1066_Upper;Blitzstrahlumhang
+Armor_1067_Upper;Blitzstrahlumhang ★
+Armor_1068_Upper;Blitzstrahlumhang ★★
+Armor_1069_Upper;Blitzstrahlumhang ★★★
+Armor_1070_Upper;Blitzstrahlumhang ★★★★
 Armor_1071_Head;Schneesturmkopfschmuck
+Armor_1072_Head;Schneesturmkopfschmuck ★
+Armor_1073_Head;Schneesturmkopfschmuck ★★
+Armor_1074_Head;Schneesturmkopfschmuck ★★★
+Armor_1075_Head;Schneesturmkopfschmuck ★★★★
 Armor_1071_Lower;Schneesturmhose
+Armor_1072_Lower;Schneesturmhose ★
+Armor_1073_Lower;Schneesturmhose ★★
+Armor_1074_Lower;Schneesturmhose ★★★
+Armor_1075_Lower;Schneesturmhose ★★★★
 Armor_1071_Upper;Schneesturmtunika
+Armor_1072_Upper;Schneesturmtunika ★
+Armor_1073_Upper;Schneesturmtunika ★★
+Armor_1074_Upper;Schneesturmtunika ★★★
+Armor_1075_Upper;Schneesturmtunika ★★★★
 Armor_1076_Head;Sagono Deluxe
 Armor_1086_Head;Geisterkopfschmuck
 Armor_1086_Lower;Geister-Hakama
 Armor_1086_Upper;Geistergewand
 Armor_1091_Head;Sonanium-Helm
+Armor_1092_Head;Sonanium-Helm ★
+Armor_1093_Head;Sonanium-Helm ★★
+Armor_1094_Head;Sonanium-Helm ★★★
+Armor_1095_Head;Sonanium-Helm ★★★★
 Armor_1091_Lower;Sonanium-Knieschützer
+Armor_1092_Lower;Sonanium-Knieschützer ★
+Armor_1093_Lower;Sonanium-Knieschützer ★★
+Armor_1094_Lower;Sonanium-Knieschützer ★★★
+Armor_1095_Lower;Sonanium-Knieschützer ★★★★
 Armor_1091_Upper;Sonanium-Rüstung
+Armor_1092_Upper;Sonanium-Rüstung ★
+Armor_1093_Upper;Sonanium-Rüstung ★★
+Armor_1094_Upper;Sonanium-Rüstung ★★★
+Armor_1095_Upper;Sonanium-Rüstung ★★★★
 Armor_1096_Head;Erwachensmaske
+Armor_1097_Head;Erwachensmaske ★
+Armor_1098_Head;Erwachensmaske ★★
+Armor_1099_Head;Erwachensmaske ★★★
+Armor_1100_Head;Erwachensmaske ★★★★
 Armor_1096_Lower;Erwachenshose
+Armor_1097_Lower;Erwachenshose ★
+Armor_1098_Lower;Erwachenshose ★★
+Armor_1099_Lower;Erwachenshose ★★★
+Armor_1100_Lower;Erwachenshose ★★★★
 Armor_1096_Upper;Erwachensgewand
+Armor_1097_Upper;Erwachensgewand ★
+Armor_1098_Upper;Erwachensgewand ★★
+Armor_1099_Upper;Erwachensgewand ★★★
+Armor_1100_Upper;Erwachensgewand ★★★★
 Armor_1106_Upper;Neues Reckengewand
+Armor_1107_Upper;Neues Reckengewand ★
+Armor_1108_Upper;Neues Reckengewand ★★
+Armor_1109_Upper;Neues Reckengewand ★★★
+Armor_1110_Upper;Neues Reckengewand ★★★★
 Armor_1125_Head;Horrorblin-Maske
 Armor_1141_Head;Kapuze der Finsternis
+Armor_1142_Head;Kapuze der Finsternis ★
+Armor_1143_Head;Kapuze der Finsternis ★★
+Armor_1144_Head;Kapuze der Finsternis ★★★
+Armor_1145_Head;Kapuze der Finsternis ★★★★
 Armor_1141_Lower;Gamaschen der Finsternis
+Armor_1142_Lower;Gamaschen der Finsternis ★
+Armor_1143_Lower;Gamaschen der Finsternis ★★
+Armor_1144_Lower;Gamaschen der Finsternis ★★★
+Armor_1145_Lower;Gamaschen der Finsternis ★★★★
 Armor_1141_Upper;Gewand der Finsternis
+Armor_1142_Upper;Gewand der Finsternis ★
+Armor_1143_Upper;Gewand der Finsternis ★★
+Armor_1144_Upper;Gewand der Finsternis ★★★
+Armor_1145_Upper;Gewand der Finsternis ★★★★
 Armor_1151_Head;Altes Haarband
 Armor_1152_Head;Hylia-Kapuze
+Armor_1153_Head;Hylia-Kapuze ★
+Armor_1154_Head;Hylia-Kapuze ★★
+Armor_1155_Head;Hylia-Kapuze ★★★
+Armor_1156_Head;Hylia-Kapuze ★★★★
 Armor_115_Head;Blitzschutzhelm
 Armor_116_Upper;Erinnerungsgewand
+Armor_148_Upper;Erinnerungsgewand ★
+Armor_149_Upper;Erinnerungsgewand ★★
+Armor_150_Upper;Erinnerungsgewand ★★★
+Armor_151_Upper;Erinnerungsgewand ★★★★
 Armor_1300_Head;Yiga-Maske
+Armor_1301_Head;Yiga-Maske ★
+Armor_1302_Head;Yiga-Maske ★★
+Armor_1303_Head;Yiga-Maske ★★★
+Armor_1304_Head;Yiga-Maske ★★★★
 Armor_1300_Lower;Yiga-Hose
+Armor_1301_Lower;Yiga-Hose ★
+Armor_1302_Lower;Yiga-Hose ★★
+Armor_1303_Lower;Yiga-Hose ★★★
+Armor_1304_Lower;Yiga-Hose ★★★★
 Armor_1300_Upper;Yiga-Anzug
+Armor_1301_Upper;Yiga-Anzug ★
+Armor_1302_Upper;Yiga-Anzug ★★
+Armor_1303_Upper;Yiga-Anzug ★★★
+Armor_1304_Upper;Yiga-Anzug ★★★★
 Armor_141_Lower;Schneestiefel
+Armor_156_Lower;Schneestiefel ★
+Armor_157_Lower;Schneestiefel ★★
+Armor_158_Lower;Schneestiefel ★★★
+Armor_159_Lower;Schneestiefel ★★★★
 Armor_160_Head;Dunkelkapuze
 Armor_160_Lower;Dunkelhose
 Armor_160_Upper;Dunkelgewand
@@ -285,34 +598,139 @@ Armor_176_Head;Krog-Maske
 Armor_177_Head;Ravios Mütze
 Armor_178_Head;Zantos Helm
 Armor_179_Head;Leibwache-Mütze
+Armor_1146_Head;Leibwache-Mütze ★
+Armor_1147_Head;Leibwache-Mütze ★★
+Armor_1148_Head;Leibwache-Mütze ★★★
+Armor_1149_Head;Leibwache-Mütze ★★★★
 Armor_179_Lower;Leibwache-Stiefel
+Armor_1146_Lower;Leibwache-Stiefel ★
+Armor_1147_Lower;Leibwache-Stiefel ★★
+Armor_1148_Lower;Leibwache-Stiefel ★★★
+Armor_1149_Lower;Leibwache-Stiefel ★★★★
 Armor_179_Upper;Leibwache-Gewand
+Armor_1146_Upper;Leibwache-Gewand ★
+Armor_1147_Upper;Leibwache-Gewand ★★
+Armor_1148_Upper;Leibwache-Gewand ★★★
+Armor_1149_Upper;Leibwache-Gewand ★★★★
 Armor_180_Head;Unheilsreiter-Helm
 Armor_180_Lower;Unheilsreiter-Stiefel
 Armor_180_Upper;Unheilsreiter-Rüstung
 Armor_181_Head;Ruta-Helm
+Armor_186_Head;Ruta-Helm ★
+Armor_187_Head;Ruta-Helm ★★
+Armor_188_Head;Ruta-Helm ★★★
+Armor_189_Head;Ruta-Helm ★★★★
 Armor_182_Head;Medoh-Helm
+Armor_190_Head;Medoh-Helm ★
+Armor_191_Head;Medoh-Helm ★★
+Armor_192_Head;Medoh-Helm ★★★
+Armor_193_Head;Medoh-Helm ★★★★
 Armor_183_Head;Rudania-Helm
+Armor_194_Head;Rudania-Helm ★
+Armor_195_Head;Rudania-Helm ★★
+Armor_196_Head;Rudania-Helm ★★★
+Armor_197_Head;Rudania-Helm ★★★★
 Armor_184_Head;Naboris-Helm
+Armor_198_Head;Naboris-Helm ★
+Armor_199_Head;Naboris-Helm ★★
+Armor_168_Head;Naboris-Helm ★★★
+Armor_169_Head;Naboris-Helm ★★★★
 Armor_200_Head;Zeitmütze
+Armor_201_Head;Zeitmütze ★
+Armor_202_Head;Zeitmütze ★★
+Armor_203_Head;Zeitmütze ★★★
+Armor_204_Head;Zeitmütze ★★★★
 Armor_200_Lower;Zeithose
+Armor_201_Lower;Zeithose ★
+Armor_202_Lower;Zeithose ★★
+Armor_203_Lower;Zeithose ★★★
+Armor_204_Lower;Zeithose ★★★★
 Armor_200_Upper;Zeitgewand
+Armor_201_Upper;Zeitgewand ★
+Armor_202_Upper;Zeitgewand ★★
+Armor_203_Upper;Zeitgewand ★★★
+Armor_204_Upper;Zeitgewand ★★★★
 Armor_205_Head;Windmütze
+Armor_206_Head;Windmütze ★
+Armor_207_Head;Windmütze ★★
+Armor_208_Head;Windmütze ★★★
+Armor_209_Head;Windmütze ★★★★
 Armor_205_Lower;Windhose
+Armor_206_Lower;Windhose ★
+Armor_207_Lower;Windhose ★★
+Armor_208_Lower;Windhose ★★★
+Armor_209_Lower;Windhose ★★★★
 Armor_205_Upper;Windgewand
+Armor_206_Upper;Windgewand ★
+Armor_207_Upper;Windgewand ★★
+Armor_208_Upper;Windgewand ★★★
+Armor_209_Upper;Windgewand ★★★★
 Armor_210_Head;Schattenmütze
+Armor_211_Head;Schattenmütze ★
+Armor_212_Head;Schattenmütze ★★
+Armor_213_Head;Schattenmütze ★★★
+Armor_214_Head;Schattenmütze ★★★★
 Armor_210_Lower;Schattenhose
+Armor_211_Lower;Schattenhose ★
+Armor_212_Lower;Schattenhose ★★
+Armor_213_Lower;Schattenhose ★★★
+Armor_214_Lower;Schattenhose ★★★★
 Armor_210_Upper;Schattengewand
+Armor_211_Upper;Schattengewand ★
+Armor_212_Upper;Schattengewand ★★
+Armor_213_Upper;Schattengewand ★★★
+Armor_214_Upper;Schattengewand ★★★★
 Armor_215_Head;Himmelsmütze
+Armor_216_Head;Himmelsmütze ★
+Armor_217_Head;Himmelsmütze ★★
+Armor_218_Head;Himmelsmütze ★★★
+Armor_219_Head;Himmelsmütze ★★★★
 Armor_215_Lower;Himmelshose
+Armor_216_Lower;Himmelshose ★
+Armor_217_Lower;Himmelshose ★★
+Armor_218_Lower;Himmelshose ★★★
+Armor_219_Lower;Himmelshose ★★★★
 Armor_215_Upper;Himmelsgewand
+Armor_216_Upper;Himmelsgewand ★
+Armor_217_Upper;Himmelsgewand ★★
+Armor_218_Upper;Himmelsgewand ★★★
+Armor_219_Upper;Himmelsgewand ★★★★
 Armor_220_Head;Shiek-Maske
+Armor_221_Head;Shiek-Maske ★
+Armor_222_Head;Shiek-Maske ★★
+Armor_223_Head;Shiek-Maske ★★★
+Armor_224_Head;Shiek-Maske ★★★★
 Armor_225_Head;Grimmige-Gottheit-Mütze
+Armor_226_Head;Grimmige-Gottheit-Mütze ★
+Armor_227_Head;Grimmige-Gottheit-Mütze ★★
+Armor_228_Head;Grimmige-Gottheit-Mütze ★★★
+Armor_229_Head;Grimmige-Gottheit-Mütze ★★★★
 Armor_225_Lower;Grimmige-Gottheit-Stiefel
+Armor_226_Lower;Grimmige-Gottheit-Stiefel ★
+Armor_227_Lower;Grimmige-Gottheit-Stiefel ★★
+Armor_228_Lower;Grimmige-Gottheit-Stiefel ★★★
+Armor_229_Lower;Grimmige-Gottheit-Stiefel ★★★★
 Armor_225_Upper;Grimmige-Gottheit-Panzer
+Armor_226_Upper;Grimmige-Gottheit-Panzer ★
+Armor_227_Upper;Grimmige-Gottheit-Panzer ★★
+Armor_228_Upper;Grimmige-Gottheit-Panzer ★★★
+Armor_229_Upper;Grimmige-Gottheit-Panzer ★★★★
 Armor_230_Head;Ursprungsmütze
+Armor_231_Head;Ursprungsmütze ★
+Armor_232_Head;Ursprungsmütze ★★
+Armor_233_Head;Ursprungsmütze ★★★
+Armor_234_Head;Ursprungsmütze ★★★★
 Armor_230_Lower;Ursprungshose
+Armor_231_Lower;Ursprungshose ★
+Armor_232_Lower;Ursprungshose ★★
+Armor_233_Lower;Ursprungshose ★★★
+Armor_234_Lower;Ursprungshose ★★★★
 Armor_230_Upper;Ursprungsgewand
+Armor_231_Upper;Ursprungsgewand ★
+Armor_232_Upper;Ursprungsgewand ★★
+Armor_233_Upper;Ursprungsgewand ★★★
+Armor_234_Upper;Ursprungsgewand ★★★★
+
 Animal_Insect_A;Spurtkröte
 Animal_Insect_AA;Ausdauerkäfer
 Animal_Insect_AB;Löschflügler

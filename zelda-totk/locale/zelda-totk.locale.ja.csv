@@ -177,98 +177,411 @@ Weapon_Shield_101;ゾナニウムの盾
 Weapon_Shield_102;ゾナニウムの硬盾
 Weapon_Shield_103;ゾナニウムの堅盾
 Weapon_Shield_107;古びた木の盾
+
 Armor_001_Head;ハイリアのフード
+Armor_002_Head;ハイリアのフード ★
+Armor_003_Head;ハイリアのフード ★★
+Armor_004_Head;ハイリアのフード ★★★
+Armor_015_Head;ハイリアのフード ★★★★
 Armor_001_Lower;ハイリアのズボン
+Armor_002_Lower;ハイリアのズボン ★
+Armor_003_Lower;ハイリアのズボン ★★
+Armor_004_Lower;ハイリアのズボン ★★★
+Armor_015_Lower;ハイリアのズボン ★★★★
 Armor_001_Upper;ハイリアの服
+Armor_002_Upper;ハイリアの服 ★
+Armor_003_Upper;ハイリアの服 ★★
+Armor_004_Upper;ハイリアの服 ★★★
+Armor_015_Upper;ハイリアの服 ★★★★
 Armor_005_Head;息吹の勇者帽子
+Armor_035_Head;息吹の勇者帽子 ★
+Armor_039_Head;息吹の勇者帽子 ★★
+Armor_060_Head;息吹の勇者帽子 ★★★
+Armor_061_Head;息吹の勇者帽子 ★★★★
 Armor_005_Lower;息吹の勇者ズボン
+Armor_035_Lower;息吹の勇者ズボン ★
+Armor_039_Lower;息吹の勇者ズボン ★★
+Armor_060_Lower;息吹の勇者ズボン ★★★
+Armor_061_Lower;息吹の勇者ズボン ★★★★
 Armor_005_Upper;息吹の勇者服
+Armor_035_Upper;息吹の勇者服 ★
+Armor_039_Upper;息吹の勇者服 ★★
+Armor_060_Upper;息吹の勇者服 ★★★
+Armor_061_Upper;息吹の勇者服 ★★★★
 Armor_006_Head;ゾーラの兜
+Armor_007_Head;ゾーラの兜 ★
+Armor_062_Head;ゾーラの兜 ★★
+Armor_063_Head;ゾーラの兜 ★★★
+Armor_064_Head;ゾーラの兜 ★★★★
 Armor_006_Lower;ゾーラのすねあて
+Armor_007_Lower;ゾーラのすねあて ★
+Armor_062_Lower;ゾーラのすねあて ★★
+Armor_063_Lower;ゾーラのすねあて ★★★
+Armor_064_Lower;ゾーラのすねあて ★★★★
 Armor_006_Upper;ゾーラの鎧
+Armor_007_Upper;ゾーラの鎧 ★
+Armor_062_Upper;ゾーラの鎧 ★★
+Armor_063_Upper;ゾーラの鎧 ★★★
+Armor_064_Upper;ゾーラの鎧 ★★★★
 Armor_008_Head;熱砂の鉢がね
+Armor_040_Head;熱砂の鉢がね ★
+Armor_065_Head;熱砂の鉢がね ★★
+Armor_066_Head;熱砂の鉢がね ★★★
+Armor_067_Head;熱砂の鉢がね ★★★★
 Armor_008_Lower;熱砂のズボン
+Armor_040_Lower;熱砂のズボン ★
+Armor_065_Lower;熱砂のズボン ★★
+Armor_066_Lower;熱砂のズボン ★★★
+Armor_067_Lower;熱砂のズボン ★★★★
 Armor_008_Upper;熱砂の肩当て
+Armor_040_Upper;熱砂の肩当て ★
+Armor_065_Upper;熱砂の肩当て ★★
+Armor_066_Upper;熱砂の肩当て ★★★
+Armor_067_Upper;熱砂の肩当て ★★★★
 Armor_009_Head;雪よけの羽飾り
+Armor_036_Head;雪よけの羽飾り ★
+Armor_071_Head;雪よけの羽飾り ★★
+Armor_072_Head;雪よけの羽飾り ★★★
+Armor_073_Head;雪よけの羽飾り ★★★★
 Armor_009_Lower;リトの羽毛ズボン
+Armor_036_Lower;リトの羽毛ズボン ★
+Armor_071_Lower;リトの羽毛ズボン ★★
+Armor_072_Lower;リトの羽毛ズボン ★★★
+Armor_073_Lower;リトの羽毛ズボン ★★★★
 Armor_009_Upper;リトの羽毛服
+Armor_036_Upper;リトの羽毛服 ★
+Armor_071_Upper;リトの羽毛服 ★★
+Armor_072_Upper;リトの羽毛服 ★★★
+Armor_073_Upper;リトの羽毛服 ★★★★
 Armor_011_Head;耐火の石兜
+Armor_037_Head;耐火の石兜 ★
+Armor_074_Head;耐火の石兜 ★★
+Armor_075_Head;耐火の石兜 ★★★
+Armor_076_Head;耐火の石兜 ★★★★
 Armor_011_Lower;耐火の石靴
+Armor_037_Lower;耐火の石靴 ★
+Armor_074_Lower;耐火の石靴 ★★
+Armor_075_Lower;耐火の石靴 ★★★
+Armor_076_Lower;耐火の石靴 ★★★★
 Armor_011_Upper;耐火の石鎧
+Armor_037_Upper;耐火の石鎧 ★
+Armor_074_Upper;耐火の石鎧 ★★
+Armor_075_Upper;耐火の石鎧 ★★★
+Armor_076_Upper;耐火の石鎧 ★★★★
 Armor_012_Head;忍びマスク
+Armor_042_Head;忍びマスク ★
+Armor_077_Head;忍びマスク ★★
+Armor_078_Head;忍びマスク ★★★
+Armor_079_Head;忍びマスク ★★★★
 Armor_012_Lower;忍びタイツ
+Armor_042_Lower;忍びタイツ ★
+Armor_077_Lower;忍びタイツ ★★
+Armor_078_Lower;忍びタイツ ★★★
+Armor_079_Lower;忍びタイツ ★★★★
 Armor_012_Upper;忍びスーツ
+Armor_042_Upper;忍びスーツ ★
+Armor_077_Upper;忍びスーツ ★★
+Armor_078_Upper;忍びスーツ ★★★
+Armor_079_Upper;忍びスーツ ★★★★
 Armor_014_Head;クライムバンダナ
+Armor_083_Head;クライムバンダナ ★
+Armor_084_Head;クライムバンダナ ★★
+Armor_085_Head;クライムバンダナ ★★★
+Armor_086_Head;クライムバンダナ ★★★★
 Armor_014_Lower;クライムシューズ
+Armor_083_Lower;クライムシューズ ★
+Armor_084_Lower;クライムシューズ ★★
+Armor_085_Lower;クライムシューズ ★★★
+Armor_086_Lower;クライムシューズ ★★★★
 Armor_014_Upper;クライムグローブ
+Armor_083_Upper;クライムグローブ ★
+Armor_084_Upper;クライムグローブ ★★
+Armor_085_Upper;クライムグローブ ★★★
+Armor_086_Upper;クライムグローブ ★★★★
 Armor_017_Head;夜光マスク
+Armor_087_Head;夜光マスク ★
+Armor_088_Head;夜光マスク ★★
+Armor_089_Head;夜光マスク ★★★
+Armor_090_Head;夜光マスク ★★★★
 Armor_017_Lower;夜光タイツ
+Armor_087_Lower;夜光タイツ ★
+Armor_088_Lower;夜光タイツ ★★
+Armor_089_Lower;夜光タイツ ★★★
+Armor_090_Lower;夜光タイツ ★★★★
 Armor_017_Upper;夜光スーツ
+Armor_087_Upper;夜光スーツ ★
+Armor_088_Upper;夜光スーツ ★★
+Armor_089_Upper;夜光スーツ ★★★
+Armor_090_Upper;夜光スーツ ★★★★
 Armor_020_Head;ハイリア兵の兜
+Armor_095_Head;ハイリア兵の兜 ★
+Armor_096_Head;ハイリア兵の兜 ★★
+Armor_097_Head;ハイリア兵の兜 ★★★
+Armor_098_Head;ハイリア兵の兜 ★★★★
 Armor_020_Lower;ハイリア兵のすねあて
+Armor_095_Lower;ハイリア兵のすねあて ★
+Armor_096_Lower;ハイリア兵のすねあて ★★
+Armor_097_Lower;ハイリア兵のすねあて ★★★
+Armor_098_Lower;ハイリア兵のすねあて ★★★★
 Armor_020_Upper;ハイリア兵の鎧
+Armor_095_Upper;ハイリア兵の鎧 ★
+Armor_096_Upper;ハイリア兵の鎧 ★★
+Armor_097_Upper;ハイリア兵の鎧 ★★★
+Armor_098_Upper;ハイリア兵の鎧 ★★★★
 Armor_022_Head;ボコブリンマスク
 Armor_024_Head;ダイヤの頭飾り
+Armor_117_Head;ダイヤの頭飾り ★
+Armor_118_Head;ダイヤの頭飾り ★★
+Armor_119_Head;ダイヤの頭飾り ★★★
+Armor_120_Head;ダイヤの頭飾り ★★★★
 Armor_025_Head;ルビーの頭飾り
+Armor_121_Head;ルビーの頭飾り ★
+Armor_122_Head;ルビーの頭飾り ★★
+Armor_123_Head;ルビーの頭飾り ★★★
+Armor_124_Head;ルビーの頭飾り ★★★★
 Armor_026_Head;サファイアの頭飾り
+Armor_125_Head;サファイアの頭飾り ★
+Armor_126_Head;サファイアの頭飾り ★★
+Armor_127_Head;サファイアの頭飾り ★★★
+Armor_128_Head;サファイアの頭飾り ★★★★
 Armor_027_Head;トパーズの耳飾り
+Armor_129_Head;トパーズの耳飾り ★
+Armor_130_Head;トパーズの耳飾り ★★
+Armor_131_Head;トパーズの耳飾り ★★★
+Armor_132_Head;トパーズの耳飾り ★★★★
 Armor_028_Head;オパールの耳飾り
+Armor_133_Head;オパールの耳飾り ★
+Armor_134_Head;オパールの耳飾り ★★
+Armor_135_Head;オパールの耳飾り ★★★
+Armor_136_Head;オパールの耳飾り ★★★★
 Armor_029_Head;コハクの耳飾り
+Armor_137_Head;コハクの耳飾り ★
+Armor_138_Head;コハクの耳飾り ★★
+Armor_139_Head;コハクの耳飾り ★★★
+Armor_140_Head;コハクの耳飾り ★★★★
 Armor_045_Head;モリブリンマスク
 Armor_046_Head;ラバーキャップ
+Armor_103_Head;ラバーキャップ ★
+Armor_104_Head;ラバーキャップ ★★
+Armor_105_Head;ラバーキャップ ★★★
+Armor_106_Head;ラバーキャップ ★★★★
 Armor_046_Lower;ラバータイツ
+Armor_103_Lower;ラバータイツ ★
+Armor_104_Lower;ラバータイツ ★★
+Armor_105_Lower;ラバータイツ ★★★
+Armor_106_Lower;ラバータイツ ★★★★
 Armor_046_Upper;ラバースーツ
+Armor_103_Upper;ラバースーツ ★
+Armor_104_Upper;ラバースーツ ★★
+Armor_105_Upper;ラバースーツ ★★★
+Armor_106_Upper;ラバースーツ ★★★★
 Armor_048_Head;蛮族の兜
+Armor_111_Head;蛮族の兜 ★
+Armor_112_Head;蛮族の兜 ★★
+Armor_113_Head;蛮族の兜 ★★★
+Armor_114_Head;蛮族の兜 ★★★★
 Armor_048_Lower;蛮族の腰巻き
+Armor_111_Lower;蛮族の腰巻き ★
+Armor_112_Lower;蛮族の腰巻き ★★
+Armor_113_Lower;蛮族の腰巻き ★★★
+Armor_114_Lower;蛮族の腰巻き ★★★★
 Armor_048_Upper;蛮族の服
+Armor_111_Upper;蛮族の服 ★
+Armor_112_Upper;蛮族の服 ★★
+Armor_113_Upper;蛮族の服 ★★★
+Armor_114_Upper;蛮族の服 ★★★★
 Armor_049_Lower;サンドブーツ
+Armor_152_Lower;サンドブーツ ★
+Armor_153_Lower;サンドブーツ ★★
+Armor_154_Lower;サンドブーツ ★★★
+Armor_155_Lower;サンドブーツ ★★★★
 Armor_055_Head;リザルフォスマスク
 Armor_056_Head;ライネルマスク
 Armor_1006_Head;グライドマスク
+Armor_1007_Head;グライドマスク ★
+Armor_1008_Head;グライドマスク ★★
+Armor_1009_Head;グライドマスク ★★★
+Armor_1010_Head;グライドマスク ★★★★
 Armor_1006_Lower;グライドタイツ
+Armor_1007_Lower;グライドタイツ ★
+Armor_1008_Lower;グライドタイツ ★★
+Armor_1009_Lower;グライドタイツ ★★★
+Armor_1010_Lower;グライドタイツ ★★★★
 Armor_1006_Upper;グライドスーツ
+Armor_1007_Upper;グライドスーツ ★
+Armor_1008_Upper;グライドスーツ ★★
+Armor_1009_Upper;グライドスーツ ★★★
+Armor_1010_Upper;グライドスーツ ★★★★
 Armor_1036_Head;古の勇者の魂
+Armor_1037_Head;古の勇者の魂 ★
+Armor_1038_Head;古の勇者の魂 ★★
+Armor_1039_Head;古の勇者の魂 ★★★
+Armor_1040_Head;古の勇者の魂 ★★★★
 Armor_1043_Lower;古びた下履き
 Armor_1043_Upper;古びたトーガ
 Armor_1044_Lower;古びた防寒着
 Armor_1046_Head;カワズの頭巾
+Armor_1047_Head;カワズの頭巾 ★
+Armor_1048_Head;カワズの頭巾 ★★
+Armor_1049_Head;カワズの頭巾 ★★★
+Armor_1050_Head;カワズの頭巾 ★★★★
 Armor_1046_Lower;カワズの足袋
+Armor_1047_Lower;カワズの足袋 ★
+Armor_1048_Lower;カワズの足袋 ★★
+Armor_1049_Lower;カワズの足袋 ★★★
+Armor_1050_Lower;カワズの足袋 ★★★★
 Armor_1046_Upper;カワズの手甲
+Armor_1047_Upper;カワズの手甲 ★
+Armor_1048_Upper;カワズの手甲 ★★
+Armor_1049_Upper;カワズの手甲 ★★★
+Armor_1050_Upper;カワズの手甲 ★★★★
 Armor_1051_Head;採掘のマスク
+Armor_1052_Head;採掘のマスク ★
+Armor_1053_Head;採掘のマスク ★★
+Armor_1054_Head;採掘のマスク ★★★
+Armor_1055_Head;採掘のマスク ★★★★
 Armor_1051_Lower;採掘のズボン
+Armor_1052_Lower;採掘のズボン ★
+Armor_1053_Lower;採掘のズボン ★★
+Armor_1054_Lower;採掘のズボン ★★★
+Armor_1055_Lower;採掘のズボン ★★★★
 Armor_1051_Upper;採掘の服
+Armor_1052_Upper;採掘の服 ★
+Armor_1053_Upper;採掘の服 ★★
+Armor_1054_Upper;採掘の服 ★★★
+Armor_1055_Upper;採掘の服 ★★★★
 Armor_1061_Head;火炎の頭飾り
+Armor_1062_Head;火炎の頭飾り ★
+Armor_1063_Head;火炎の頭飾り ★★
+Armor_1064_Head;火炎の頭飾り ★★★
+Armor_1065_Head;火炎の頭飾り ★★★★
 Armor_1061_Lower;火炎のズボン
+Armor_1062_Lower;火炎のズボン ★
+Armor_1063_Lower;火炎のズボン ★★
+Armor_1064_Lower;火炎のズボン ★★★
+Armor_1065_Lower;火炎のズボン ★★★★
 Armor_1061_Upper;火炎の服
+Armor_1062_Upper;火炎の服 ★
+Armor_1063_Upper;火炎の服 ★★
+Armor_1064_Upper;火炎の服 ★★★
+Armor_1065_Upper;火炎の服 ★★★★
 Armor_1066_Head;雷光の頭飾り
+Armor_1067_Head;雷光の頭飾り ★
+Armor_1068_Head;雷光の頭飾り ★★
+Armor_1069_Head;雷光の頭飾り ★★★
+Armor_1070_Head;雷光の頭飾り ★★★★
 Armor_1066_Lower;雷光のズボン
+Armor_1067_Lower;雷光のズボン ★
+Armor_1068_Lower;雷光のズボン ★★
+Armor_1069_Lower;雷光のズボン ★★★
+Armor_1070_Lower;雷光のズボン ★★★★
 Armor_1066_Upper;雷光の服
+Armor_1067_Upper;雷光の服 ★
+Armor_1068_Upper;雷光の服 ★★
+Armor_1069_Upper;雷光の服 ★★★
+Armor_1070_Upper;雷光の服 ★★★★
 Armor_1071_Head;吹雪の頭飾り
+Armor_1072_Head;吹雪の頭飾り ★
+Armor_1073_Head;吹雪の頭飾り ★★
+Armor_1074_Head;吹雪の頭飾り ★★★
+Armor_1075_Head;吹雪の頭飾り ★★★★
 Armor_1071_Lower;吹雪のズボン
+Armor_1072_Lower;吹雪のズボン ★
+Armor_1073_Lower;吹雪のズボン ★★
+Armor_1074_Lower;吹雪のズボン ★★★
+Armor_1075_Lower;吹雪のズボン ★★★★
 Armor_1071_Upper;吹雪の服
+Armor_1072_Upper;吹雪の服 ★
+Armor_1073_Upper;吹雪の服 ★★
+Armor_1074_Upper;吹雪の服 ★★★
+Armor_1075_Upper;吹雪の服 ★★★★
 Armor_1076_Head;サゴノハット
 Armor_1086_Head;精霊のかしら
 Armor_1086_Lower;精霊の袴
 Armor_1086_Upper;精霊の衣
 Armor_1091_Head;ゾナニウムの兜
+Armor_1092_Head;ゾナニウムの兜 ★
+Armor_1093_Head;ゾナニウムの兜 ★★
+Armor_1094_Head;ゾナニウムの兜 ★★★
+Armor_1095_Head;ゾナニウムの兜 ★★★★
 Armor_1091_Lower;ゾナニウムの膝当て
+Armor_1092_Lower;ゾナニウムの膝当て ★
+Armor_1093_Lower;ゾナニウムの膝当て ★★
+Armor_1094_Lower;ゾナニウムの膝当て ★★★
+Armor_1095_Lower;ゾナニウムの膝当て ★★★★
 Armor_1091_Upper;ゾナニウムの前垂れ
+Armor_1092_Upper;ゾナニウムの前垂れ ★
+Armor_1093_Upper;ゾナニウムの前垂れ ★★
+Armor_1094_Upper;ゾナニウムの前垂れ ★★★
+Armor_1095_Upper;ゾナニウムの前垂れ ★★★★
 Armor_1096_Head;夢見の勇者の面
+Armor_1097_Head;夢見の勇者の面 ★
+Armor_1098_Head;夢見の勇者の面 ★★
+Armor_1099_Head;夢見の勇者の面 ★★★
+Armor_1100_Head;夢見の勇者の面 ★★★★
 Armor_1096_Lower;夢見の勇者ズボン
+Armor_1097_Lower;夢見の勇者ズボン ★
+Armor_1098_Lower;夢見の勇者ズボン ★★
+Armor_1099_Lower;夢見の勇者ズボン ★★★
+Armor_1100_Lower;夢見の勇者ズボン ★★★★
 Armor_1096_Upper;夢見の勇者服
+Armor_1097_Upper;夢見の勇者服 ★
+Armor_1098_Upper;夢見の勇者服 ★★
+Armor_1099_Upper;夢見の勇者服 ★★★
+Armor_1100_Upper;夢見の勇者服 ★★★★
 Armor_1106_Upper;新式・英傑の服
+Armor_1107_Upper;新式・英傑の服 ★
+Armor_1108_Upper;新式・英傑の服 ★★
+Armor_1109_Upper;新式・英傑の服 ★★★
+Armor_1110_Upper;新式・英傑の服 ★★★★
 Armor_1125_Head;ホラブリンマスク
 Armor_1141_Head;暗闇の頭巾
+Armor_1142_Head;暗闇の頭巾 ★
+Armor_1143_Head;暗闇の頭巾 ★★
+Armor_1144_Head;暗闇の頭巾 ★★★
+Armor_1145_Head;暗闇の頭巾 ★★★★
 Armor_1141_Lower;暗闇の脚絆
+Armor_1142_Lower;暗闇の脚絆 ★
+Armor_1143_Lower;暗闇の脚絆 ★★
+Armor_1144_Lower;暗闇の脚絆 ★★★
+Armor_1145_Lower;暗闇の脚絆 ★★★★
 Armor_1141_Upper;暗闇の衣
+Armor_1142_Upper;暗闇の衣 ★
+Armor_1143_Upper;暗闇の衣 ★★
+Armor_1144_Upper;暗闇の衣 ★★★
+Armor_1145_Upper;暗闇の衣 ★★★★
 Armor_1151_Head;古びた髪留め
 Armor_1152_Head;ハイリアのフード
+Armor_1153_Head;ハイリアのフード ★
+Armor_1154_Head;ハイリアのフード ★★
+Armor_1155_Head;ハイリアのフード ★★★
+Armor_1156_Head;ハイリアのフード ★★★★
 Armor_115_Head;護雷の兜
 Armor_116_Upper;思い出の服
+Armor_148_Upper;思い出の服 ★
+Armor_149_Upper;思い出の服 ★★
+Armor_150_Upper;思い出の服 ★★★
+Armor_151_Upper;思い出の服 ★★★★
 Armor_1300_Head;イーガ団マスク
+Armor_1301_Head;イーガ団マスク ★
+Armor_1302_Head;イーガ団マスク ★★
+Armor_1303_Head;イーガ団マスク ★★★
+Armor_1304_Head;イーガ団マスク ★★★★
 Armor_1300_Lower;イーガ団タイツ
+Armor_1301_Lower;イーガ団タイツ ★
+Armor_1302_Lower;イーガ団タイツ ★★
+Armor_1303_Lower;イーガ団タイツ ★★★
+Armor_1304_Lower;イーガ団タイツ ★★★★
 Armor_1300_Upper;イーガ団スーツ
+Armor_1301_Upper;イーガ団スーツ ★
+Armor_1302_Upper;イーガ団スーツ ★★
+Armor_1303_Upper;イーガ団スーツ ★★★
+Armor_1304_Upper;イーガ団スーツ ★★★★
 Armor_141_Lower;スノーブーツ
+Armor_156_Lower;スノーブーツ ★
+Armor_157_Lower;スノーブーツ ★★
+Armor_158_Lower;スノーブーツ ★★★
+Armor_159_Lower;スノーブーツ ★★★★
 Armor_160_Head;ダークヘッド
 Armor_160_Lower;ダークレッグ
 Armor_160_Upper;ダークボディ
@@ -285,34 +598,139 @@ Armor_176_Head;コログのお面
 Armor_177_Head;ラヴィオの頭巾
 Armor_178_Head;ザントの兜
 Armor_179_Head;近衛兵の帽子
+Armor_1146_Head;近衛兵の帽子 ★
+Armor_1147_Head;近衛兵の帽子 ★★
+Armor_1148_Head;近衛兵の帽子 ★★★
+Armor_1149_Head;近衛兵の帽子 ★★★★
 Armor_179_Lower;近衛兵のブーツ
+Armor_1146_Lower;近衛兵のブーツ ★
+Armor_1147_Lower;近衛兵のブーツ ★★
+Armor_1148_Lower;近衛兵のブーツ ★★★
+Armor_1149_Lower;近衛兵のブーツ ★★★★
 Armor_179_Upper;近衛兵の服
+Armor_1146_Upper;近衛兵の服 ★
+Armor_1147_Upper;近衛兵の服 ★★
+Armor_1148_Upper;近衛兵の服 ★★★
+Armor_1149_Upper;近衛兵の服 ★★★★
 Armor_180_Head;異次元悪霊の兜
 Armor_180_Lower;異次元悪霊のすねあて
 Armor_180_Upper;異次元悪霊の鎧
 Armor_181_Head;神獣兵装・ルッタ
+Armor_186_Head;神獣兵装・ルッタ ★
+Armor_187_Head;神獣兵装・ルッタ ★★
+Armor_188_Head;神獣兵装・ルッタ ★★★
+Armor_189_Head;神獣兵装・ルッタ ★★★★
 Armor_182_Head;神獣兵装・メドー
+Armor_190_Head;神獣兵装・メドー ★
+Armor_191_Head;神獣兵装・メドー ★★
+Armor_192_Head;神獣兵装・メドー ★★★
+Armor_193_Head;神獣兵装・メドー ★★★★
 Armor_183_Head;神獣兵装・ルーダニア
+Armor_194_Head;神獣兵装・ルーダニア ★
+Armor_195_Head;神獣兵装・ルーダニア ★★
+Armor_196_Head;神獣兵装・ルーダニア ★★★
+Armor_197_Head;神獣兵装・ルーダニア ★★★★
 Armor_184_Head;神獣兵装・ナボリス
+Armor_198_Head;神獣兵装・ナボリス ★
+Armor_199_Head;神獣兵装・ナボリス ★★
+Armor_168_Head;神獣兵装・ナボリス ★★★
+Armor_169_Head;神獣兵装・ナボリス ★★★★
 Armor_200_Head;時の勇者帽子
+Armor_201_Head;時の勇者帽子 ★
+Armor_202_Head;時の勇者帽子 ★★
+Armor_203_Head;時の勇者帽子 ★★★
+Armor_204_Head;時の勇者帽子 ★★★★
 Armor_200_Lower;時の勇者ズボン
+Armor_201_Lower;時の勇者ズボン ★
+Armor_202_Lower;時の勇者ズボン ★★
+Armor_203_Lower;時の勇者ズボン ★★★
+Armor_204_Lower;時の勇者ズボン ★★★★
 Armor_200_Upper;時の勇者服
+Armor_201_Upper;時の勇者服 ★
+Armor_202_Upper;時の勇者服 ★★
+Armor_203_Upper;時の勇者服 ★★★
+Armor_204_Upper;時の勇者服 ★★★★
 Armor_205_Head;風の勇者帽子
+Armor_206_Head;風の勇者帽子 ★
+Armor_207_Head;風の勇者帽子 ★★
+Armor_208_Head;風の勇者帽子 ★★★
+Armor_209_Head;風の勇者帽子 ★★★★
 Armor_205_Lower;風の勇者ズボン
+Armor_206_Lower;風の勇者ズボン ★
+Armor_207_Lower;風の勇者ズボン ★★
+Armor_208_Lower;風の勇者ズボン ★★★
+Armor_209_Lower;風の勇者ズボン ★★★★
 Armor_205_Upper;風の勇者服
+Armor_206_Upper;風の勇者服 ★
+Armor_207_Upper;風の勇者服 ★★
+Armor_208_Upper;風の勇者服 ★★★
+Armor_209_Upper;風の勇者服 ★★★★
 Armor_210_Head;黄昏の勇者帽子
+Armor_211_Head;黄昏の勇者帽子 ★
+Armor_212_Head;黄昏の勇者帽子 ★★
+Armor_213_Head;黄昏の勇者帽子 ★★★
+Armor_214_Head;黄昏の勇者帽子 ★★★★
 Armor_210_Lower;黄昏の勇者ズボン
+Armor_211_Lower;黄昏の勇者ズボン ★
+Armor_212_Lower;黄昏の勇者ズボン ★★
+Armor_213_Lower;黄昏の勇者ズボン ★★★
+Armor_214_Lower;黄昏の勇者ズボン ★★★★
 Armor_210_Upper;黄昏の勇者服
+Armor_211_Upper;黄昏の勇者服 ★
+Armor_212_Upper;黄昏の勇者服 ★★
+Armor_213_Upper;黄昏の勇者服 ★★★
+Armor_214_Upper;黄昏の勇者服 ★★★★
 Armor_215_Head;大空の勇者帽子
+Armor_216_Head;大空の勇者帽子 ★
+Armor_217_Head;大空の勇者帽子 ★★
+Armor_218_Head;大空の勇者帽子 ★★★
+Armor_219_Head;大空の勇者帽子 ★★★★
 Armor_215_Lower;大空の勇者ズボン
+Armor_216_Lower;大空の勇者ズボン ★
+Armor_217_Lower;大空の勇者ズボン ★★
+Armor_218_Lower;大空の勇者ズボン ★★★
+Armor_219_Lower;大空の勇者ズボン ★★★★
 Armor_215_Upper;大空の勇者服
+Armor_216_Upper;大空の勇者服 ★
+Armor_217_Upper;大空の勇者服 ★★
+Armor_218_Upper;大空の勇者服 ★★★
+Armor_219_Upper;大空の勇者服 ★★★★
 Armor_220_Head;シークのマスク
+Armor_221_Head;シークのマスク ★
+Armor_222_Head;シークのマスク ★★
+Armor_223_Head;シークのマスク ★★★
+Armor_224_Head;シークのマスク ★★★★
 Armor_225_Head;鬼神帽子
+Armor_226_Head;鬼神帽子 ★
+Armor_227_Head;鬼神帽子 ★★
+Armor_228_Head;鬼神帽子 ★★★
+Armor_229_Head;鬼神帽子 ★★★★
 Armor_225_Lower;鬼神ブーツ
+Armor_226_Lower;鬼神ブーツ ★
+Armor_227_Lower;鬼神ブーツ ★★
+Armor_228_Lower;鬼神ブーツ ★★★
+Armor_229_Lower;鬼神ブーツ ★★★★
 Armor_225_Upper;鬼神服
+Armor_226_Upper;鬼神服 ★
+Armor_227_Upper;鬼神服 ★★
+Armor_228_Upper;鬼神服 ★★★
+Armor_229_Upper;鬼神服 ★★★★
 Armor_230_Head;始まりの勇者帽子
+Armor_231_Head;始まりの勇者帽子 ★
+Armor_232_Head;始まりの勇者帽子 ★★
+Armor_233_Head;始まりの勇者帽子 ★★★
+Armor_234_Head;始まりの勇者帽子 ★★★★
 Armor_230_Lower;始まりの勇者ズボン
+Armor_231_Lower;始まりの勇者ズボン ★
+Armor_232_Lower;始まりの勇者ズボン ★★
+Armor_233_Lower;始まりの勇者ズボン ★★★
+Armor_234_Lower;始まりの勇者ズボン ★★★★
 Armor_230_Upper;始まりの勇者服
+Armor_231_Upper;始まりの勇者服 ★
+Armor_232_Upper;始まりの勇者服 ★★
+Armor_233_Upper;始まりの勇者服 ★★★
+Armor_234_Upper;始まりの勇者服 ★★★★
+
 Animal_Insect_A;ゴーゴーガエル
 Animal_Insect_AA;ガンバリカブト
 Animal_Insect_AB;ヒケシアゲハ

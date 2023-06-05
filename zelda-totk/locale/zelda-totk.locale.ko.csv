@@ -177,98 +177,411 @@ Weapon_Shield_101;조나니움 방패
 Weapon_Shield_102;튼튼한 조나니움 방패
 Weapon_Shield_103;견고한 조나니움 방패
 Weapon_Shield_107;낡은 나무 방패
+
 Armor_001_Head;하일리아의 후드
+Armor_002_Head;하일리아의 후드 ★
+Armor_003_Head;하일리아의 후드 ★★
+Armor_004_Head;하일리아의 후드 ★★★
+Armor_015_Head;하일리아의 후드 ★★★★
 Armor_001_Lower;하일리아의 바지
+Armor_002_Lower;하일리아의 바지 ★
+Armor_003_Lower;하일리아의 바지 ★★
+Armor_004_Lower;하일리아의 바지 ★★★
+Armor_015_Lower;하일리아의 바지 ★★★★
 Armor_001_Upper;하일리아의 옷
+Armor_002_Upper;하일리아의 옷 ★
+Armor_003_Upper;하일리아의 옷 ★★
+Armor_004_Upper;하일리아의 옷 ★★★
+Armor_015_Upper;하일리아의 옷 ★★★★
 Armor_005_Head;숨결의 용사의 모자
+Armor_035_Head;숨결의 용사의 모자 ★
+Armor_039_Head;숨결의 용사의 모자 ★★
+Armor_060_Head;숨결의 용사의 모자 ★★★
+Armor_061_Head;숨결의 용사의 모자 ★★★★
 Armor_005_Lower;숨결의 용사의 바지
+Armor_035_Lower;숨결의 용사의 바지 ★
+Armor_039_Lower;숨결의 용사의 바지 ★★
+Armor_060_Lower;숨결의 용사의 바지 ★★★
+Armor_061_Lower;숨결의 용사의 바지 ★★★★
 Armor_005_Upper;숨결의 용사의 옷
+Armor_035_Upper;숨결의 용사의 옷 ★
+Armor_039_Upper;숨결의 용사의 옷 ★★
+Armor_060_Upper;숨결의 용사의 옷 ★★★
+Armor_061_Upper;숨결의 용사의 옷 ★★★★
 Armor_006_Head;조라의 투구
+Armor_007_Head;조라의 투구 ★
+Armor_062_Head;조라의 투구 ★★
+Armor_063_Head;조라의 투구 ★★★
+Armor_064_Head;조라의 투구 ★★★★
 Armor_006_Lower;조라의 경갑
+Armor_007_Lower;조라의 경갑 ★
+Armor_062_Lower;조라의 경갑 ★★
+Armor_063_Lower;조라의 경갑 ★★★
+Armor_064_Lower;조라의 경갑 ★★★★
 Armor_006_Upper;조라의 갑옷
+Armor_007_Upper;조라의 갑옷 ★
+Armor_062_Upper;조라의 갑옷 ★★
+Armor_063_Upper;조라의 갑옷 ★★★
+Armor_064_Upper;조라의 갑옷 ★★★★
 Armor_008_Head;사막의 머리 밴드
+Armor_040_Head;사막의 머리 밴드 ★
+Armor_065_Head;사막의 머리 밴드 ★★
+Armor_066_Head;사막의 머리 밴드 ★★★
+Armor_067_Head;사막의 머리 밴드 ★★★★
 Armor_008_Lower;사막의 바지
+Armor_040_Lower;사막의 바지 ★
+Armor_065_Lower;사막의 바지 ★★
+Armor_066_Lower;사막의 바지 ★★★
+Armor_067_Lower;사막의 바지 ★★★★
 Armor_008_Upper;사막의 어깨 보호대
+Armor_040_Upper;사막의 어깨 보호대 ★
+Armor_065_Upper;사막의 어깨 보호대 ★★
+Armor_066_Upper;사막의 어깨 보호대 ★★★
+Armor_067_Upper;사막의 어깨 보호대 ★★★★
 Armor_009_Head;방한 날개 장식
+Armor_036_Head;방한 날개 장식 ★
+Armor_071_Head;방한 날개 장식 ★★
+Armor_072_Head;방한 날개 장식 ★★★
+Armor_073_Head;방한 날개 장식 ★★★★
 Armor_009_Lower;리토의 날개 바지
+Armor_036_Lower;리토의 날개 바지 ★
+Armor_071_Lower;리토의 날개 바지 ★★
+Armor_072_Lower;리토의 날개 바지 ★★★
+Armor_073_Lower;리토의 날개 바지 ★★★★
 Armor_009_Upper;리토의 날개 옷
+Armor_036_Upper;리토의 날개 옷 ★
+Armor_071_Upper;리토의 날개 옷 ★★
+Armor_072_Upper;리토의 날개 옷 ★★★
+Armor_073_Upper;리토의 날개 옷 ★★★★
 Armor_011_Head;방염의 돌투구
+Armor_037_Head;방염의 돌투구 ★
+Armor_074_Head;방염의 돌투구 ★★
+Armor_075_Head;방염의 돌투구 ★★★
+Armor_076_Head;방염의 돌투구 ★★★★
 Armor_011_Lower;방염의 돌신
+Armor_037_Lower;방염의 돌신 ★
+Armor_074_Lower;방염의 돌신 ★★
+Armor_075_Lower;방염의 돌신 ★★★
+Armor_076_Lower;방염의 돌신 ★★★★
 Armor_011_Upper;방염의 돌갑옷
+Armor_037_Upper;방염의 돌갑옷 ★
+Armor_074_Upper;방염의 돌갑옷 ★★
+Armor_075_Upper;방염의 돌갑옷 ★★★
+Armor_076_Upper;방염의 돌갑옷 ★★★★
 Armor_012_Head;은밀 마스크
+Armor_042_Head;은밀 마스크 ★
+Armor_077_Head;은밀 마스크 ★★
+Armor_078_Head;은밀 마스크 ★★★
+Armor_079_Head;은밀 마스크 ★★★★
 Armor_012_Lower;은밀 타이츠
+Armor_042_Lower;은밀 타이츠 ★
+Armor_077_Lower;은밀 타이츠 ★★
+Armor_078_Lower;은밀 타이츠 ★★★
+Armor_079_Lower;은밀 타이츠 ★★★★
 Armor_012_Upper;은밀 슈트
+Armor_042_Upper;은밀 슈트 ★
+Armor_077_Upper;은밀 슈트 ★★
+Armor_078_Upper;은밀 슈트 ★★★
+Armor_079_Upper;은밀 슈트 ★★★★
 Armor_014_Head;클라이밍 두건
+Armor_083_Head;클라이밍 두건 ★
+Armor_084_Head;클라이밍 두건 ★★
+Armor_085_Head;클라이밍 두건 ★★★
+Armor_086_Head;클라이밍 두건 ★★★★
 Armor_014_Lower;클라이밍 슈즈
+Armor_083_Lower;클라이밍 슈즈 ★
+Armor_084_Lower;클라이밍 슈즈 ★★
+Armor_085_Lower;클라이밍 슈즈 ★★★
+Armor_086_Lower;클라이밍 슈즈 ★★★★
 Armor_014_Upper;클라이밍 장비
+Armor_083_Upper;클라이밍 장비 ★
+Armor_084_Upper;클라이밍 장비 ★★
+Armor_085_Upper;클라이밍 장비 ★★★
+Armor_086_Upper;클라이밍 장비 ★★★★
 Armor_017_Head;야광 마스크
+Armor_087_Head;야광 마스크 ★
+Armor_088_Head;야광 마스크 ★★
+Armor_089_Head;야광 마스크 ★★★
+Armor_090_Head;야광 마스크 ★★★★
 Armor_017_Lower;야광 타이츠
+Armor_087_Lower;야광 타이츠 ★
+Armor_088_Lower;야광 타이츠 ★★
+Armor_089_Lower;야광 타이츠 ★★★
+Armor_090_Lower;야광 타이츠 ★★★★
 Armor_017_Upper;야광 슈트
+Armor_087_Upper;야광 슈트 ★
+Armor_088_Upper;야광 슈트 ★★
+Armor_089_Upper;야광 슈트 ★★★
+Armor_090_Upper;야광 슈트 ★★★★
 Armor_020_Head;하일리아 병사의 투구
+Armor_095_Head;하일리아 병사의 투구 ★
+Armor_096_Head;하일리아 병사의 투구 ★★
+Armor_097_Head;하일리아 병사의 투구 ★★★
+Armor_098_Head;하일리아 병사의 투구 ★★★★
 Armor_020_Lower;하일리아 병사의 경갑
+Armor_095_Lower;하일리아 병사의 경갑 ★
+Armor_096_Lower;하일리아 병사의 경갑 ★★
+Armor_097_Lower;하일리아 병사의 경갑 ★★★
+Armor_098_Lower;하일리아 병사의 경갑 ★★★★
 Armor_020_Upper;하일리아 병사의 갑옷
+Armor_095_Upper;하일리아 병사의 갑옷 ★
+Armor_096_Upper;하일리아 병사의 갑옷 ★★
+Armor_097_Upper;하일리아 병사의 갑옷 ★★★
+Armor_098_Upper;하일리아 병사의 갑옷 ★★★★
 Armor_022_Head;보코블린 마스크
 Armor_024_Head;다이아 머리 장식
+Armor_117_Head;다이아 머리 장식 ★
+Armor_118_Head;다이아 머리 장식 ★★
+Armor_119_Head;다이아 머리 장식 ★★★
+Armor_120_Head;다이아 머리 장식 ★★★★
 Armor_025_Head;루비 머리 장식
+Armor_121_Head;루비 머리 장식 ★
+Armor_122_Head;루비 머리 장식 ★★
+Armor_123_Head;루비 머리 장식 ★★★
+Armor_124_Head;루비 머리 장식 ★★★★
 Armor_026_Head;사파이어 머리 장식
+Armor_125_Head;사파이어 머리 장식 ★
+Armor_126_Head;사파이어 머리 장식 ★★
+Armor_127_Head;사파이어 머리 장식 ★★★
+Armor_128_Head;사파이어 머리 장식 ★★★★
 Armor_027_Head;토파즈 귀걸이
+Armor_129_Head;토파즈 귀걸이 ★
+Armor_130_Head;토파즈 귀걸이 ★★
+Armor_131_Head;토파즈 귀걸이 ★★★
+Armor_132_Head;토파즈 귀걸이 ★★★★
 Armor_028_Head;오팔 귀걸이
+Armor_133_Head;오팔 귀걸이 ★
+Armor_134_Head;오팔 귀걸이 ★★
+Armor_135_Head;오팔 귀걸이 ★★★
+Armor_136_Head;오팔 귀걸이 ★★★★
 Armor_029_Head;호박 귀걸이
+Armor_137_Head;호박 귀걸이 ★
+Armor_138_Head;호박 귀걸이 ★★
+Armor_139_Head;호박 귀걸이 ★★★
+Armor_140_Head;호박 귀걸이 ★★★★
 Armor_045_Head;모리블린 마스크
 Armor_046_Head;러버 캡
+Armor_103_Head;러버 캡 ★
+Armor_104_Head;러버 캡 ★★
+Armor_105_Head;러버 캡 ★★★
+Armor_106_Head;러버 캡 ★★★★
 Armor_046_Lower;러버 타이츠
+Armor_103_Lower;러버 타이츠 ★
+Armor_104_Lower;러버 타이츠 ★★
+Armor_105_Lower;러버 타이츠 ★★★
+Armor_106_Lower;러버 타이츠 ★★★★
 Armor_046_Upper;러버 슈트
+Armor_103_Upper;러버 슈트 ★
+Armor_104_Upper;러버 슈트 ★★
+Armor_105_Upper;러버 슈트 ★★★
+Armor_106_Upper;러버 슈트 ★★★★
 Armor_048_Head;야만족의 투구
+Armor_111_Head;야만족의 투구 ★
+Armor_112_Head;야만족의 투구 ★★
+Armor_113_Head;야만족의 투구 ★★★
+Armor_114_Head;야만족의 투구 ★★★★
 Armor_048_Lower;야만족의 하의
+Armor_111_Lower;야만족의 하의 ★
+Armor_112_Lower;야만족의 하의 ★★
+Armor_113_Lower;야만족의 하의 ★★★
+Armor_114_Lower;야만족의 하의 ★★★★
 Armor_048_Upper;야만족의 옷
+Armor_111_Upper;야만족의 옷 ★
+Armor_112_Upper;야만족의 옷 ★★
+Armor_113_Upper;야만족의 옷 ★★★
+Armor_114_Upper;야만족의 옷 ★★★★
 Armor_049_Lower;샌드 부츠
+Armor_152_Lower;샌드 부츠 ★
+Armor_153_Lower;샌드 부츠 ★★
+Armor_154_Lower;샌드 부츠 ★★★
+Armor_155_Lower;샌드 부츠 ★★★★
 Armor_055_Head;리잘포스 마스크
 Armor_056_Head;라이넬 마스크
 Armor_1006_Head;글라이딩 마스크
+Armor_1007_Head;글라이딩 마스크 ★
+Armor_1008_Head;글라이딩 마스크 ★★
+Armor_1009_Head;글라이딩 마스크 ★★★
+Armor_1010_Head;글라이딩 마스크 ★★★★
 Armor_1006_Lower;글라이딩 타이츠
+Armor_1007_Lower;글라이딩 타이츠 ★
+Armor_1008_Lower;글라이딩 타이츠 ★★
+Armor_1009_Lower;글라이딩 타이츠 ★★★
+Armor_1010_Lower;글라이딩 타이츠 ★★★★
 Armor_1006_Upper;글라이딩 슈트
+Armor_1007_Upper;글라이딩 슈트 ★
+Armor_1008_Upper;글라이딩 슈트 ★★
+Armor_1009_Upper;글라이딩 슈트 ★★★
+Armor_1010_Upper;글라이딩 슈트 ★★★★
 Armor_1036_Head;고대의 용사의 영혼
+Armor_1037_Head;고대의 용사의 영혼 ★
+Armor_1038_Head;고대의 용사의 영혼 ★★
+Armor_1039_Head;고대의 용사의 영혼 ★★★
+Armor_1040_Head;고대의 용사의 영혼 ★★★★
 Armor_1043_Lower;낡은 하의
 Armor_1043_Upper;낡은 토가
 Armor_1044_Lower;낡은 방한복
 Armor_1046_Head;개구리의 두건
+Armor_1047_Head;개구리의 두건 ★
+Armor_1048_Head;개구리의 두건 ★★
+Armor_1049_Head;개구리의 두건 ★★★
+Armor_1050_Head;개구리의 두건 ★★★★
 Armor_1046_Lower;개구리의 덧신
+Armor_1047_Lower;개구리의 덧신 ★
+Armor_1048_Lower;개구리의 덧신 ★★
+Armor_1049_Lower;개구리의 덧신 ★★★
+Armor_1050_Lower;개구리의 덧신 ★★★★
 Armor_1046_Upper;개구리의 토시
+Armor_1047_Upper;개구리의 토시 ★
+Armor_1048_Upper;개구리의 토시 ★★
+Armor_1049_Upper;개구리의 토시 ★★★
+Armor_1050_Upper;개구리의 토시 ★★★★
 Armor_1051_Head;채굴용 마스크
+Armor_1052_Head;채굴용 마스크 ★
+Armor_1053_Head;채굴용 마스크 ★★
+Armor_1054_Head;채굴용 마스크 ★★★
+Armor_1055_Head;채굴용 마스크 ★★★★
 Armor_1051_Lower;채굴용 바지
+Armor_1052_Lower;채굴용 바지 ★
+Armor_1053_Lower;채굴용 바지 ★★
+Armor_1054_Lower;채굴용 바지 ★★★
+Armor_1055_Lower;채굴용 바지 ★★★★
 Armor_1051_Upper;채굴용 옷
+Armor_1052_Upper;채굴용 옷 ★
+Armor_1053_Upper;채굴용 옷 ★★
+Armor_1054_Upper;채굴용 옷 ★★★
+Armor_1055_Upper;채굴용 옷 ★★★★
 Armor_1061_Head;화염의 머리 장식
+Armor_1062_Head;화염의 머리 장식 ★
+Armor_1063_Head;화염의 머리 장식 ★★
+Armor_1064_Head;화염의 머리 장식 ★★★
+Armor_1065_Head;화염의 머리 장식 ★★★★
 Armor_1061_Lower;화염의 바지
+Armor_1062_Lower;화염의 바지 ★
+Armor_1063_Lower;화염의 바지 ★★
+Armor_1064_Lower;화염의 바지 ★★★
+Armor_1065_Lower;화염의 바지 ★★★★
 Armor_1061_Upper;화염의 옷
+Armor_1062_Upper;화염의 옷 ★
+Armor_1063_Upper;화염의 옷 ★★
+Armor_1064_Upper;화염의 옷 ★★★
+Armor_1065_Upper;화염의 옷 ★★★★
 Armor_1066_Head;뇌광의 머리 장식
+Armor_1067_Head;뇌광의 머리 장식 ★
+Armor_1068_Head;뇌광의 머리 장식 ★★
+Armor_1069_Head;뇌광의 머리 장식 ★★★
+Armor_1070_Head;뇌광의 머리 장식 ★★★★
 Armor_1066_Lower;뇌광의 바지
+Armor_1067_Lower;뇌광의 바지 ★
+Armor_1068_Lower;뇌광의 바지 ★★
+Armor_1069_Lower;뇌광의 바지 ★★★
+Armor_1070_Lower;뇌광의 바지 ★★★★
 Armor_1066_Upper;뇌광의 옷
+Armor_1067_Upper;뇌광의 옷 ★
+Armor_1068_Upper;뇌광의 옷 ★★
+Armor_1069_Upper;뇌광의 옷 ★★★
+Armor_1070_Upper;뇌광의 옷 ★★★★
 Armor_1071_Head;눈보라의 머리 장식
+Armor_1072_Head;눈보라의 머리 장식 ★
+Armor_1073_Head;눈보라의 머리 장식 ★★
+Armor_1074_Head;눈보라의 머리 장식 ★★★
+Armor_1075_Head;눈보라의 머리 장식 ★★★★
 Armor_1071_Lower;눈보라의 바지
+Armor_1072_Lower;눈보라의 바지 ★
+Armor_1073_Lower;눈보라의 바지 ★★
+Armor_1074_Lower;눈보라의 바지 ★★★
+Armor_1075_Lower;눈보라의 바지 ★★★★
 Armor_1071_Upper;눈보라의 옷
+Armor_1072_Upper;눈보라의 옷 ★
+Armor_1073_Upper;눈보라의 옷 ★★
+Armor_1074_Upper;눈보라의 옷 ★★★
+Armor_1075_Upper;눈보라의 옷 ★★★★
 Armor_1076_Head;사고노 해트
 Armor_1086_Head;정령의 가발
 Armor_1086_Lower;정령의 하의
 Armor_1086_Upper;정령의 상의
 Armor_1091_Head;조나니움 투구
+Armor_1092_Head;조나니움 투구 ★
+Armor_1093_Head;조나니움 투구 ★★
+Armor_1094_Head;조나니움 투구 ★★★
+Armor_1095_Head;조나니움 투구 ★★★★
 Armor_1091_Lower;조나니움 무릎 보호대
+Armor_1092_Lower;조나니움 무릎 보호대 ★
+Armor_1093_Lower;조나니움 무릎 보호대 ★★
+Armor_1094_Lower;조나니움 무릎 보호대 ★★★
+Armor_1095_Lower;조나니움 무릎 보호대 ★★★★
 Armor_1091_Upper;조나니움 가슴 보호대
+Armor_1092_Upper;조나니움 가슴 보호대 ★
+Armor_1093_Upper;조나니움 가슴 보호대 ★★
+Armor_1094_Upper;조나니움 가슴 보호대 ★★★
+Armor_1095_Upper;조나니움 가슴 보호대 ★★★★
 Armor_1096_Head;꿈꾸는 용사의 가면
+Armor_1097_Head;꿈꾸는 용사의 가면 ★
+Armor_1098_Head;꿈꾸는 용사의 가면 ★★
+Armor_1099_Head;꿈꾸는 용사의 가면 ★★★
+Armor_1100_Head;꿈꾸는 용사의 가면 ★★★★
 Armor_1096_Lower;꿈꾸는 용사의 바지
+Armor_1097_Lower;꿈꾸는 용사의 바지 ★
+Armor_1098_Lower;꿈꾸는 용사의 바지 ★★
+Armor_1099_Lower;꿈꾸는 용사의 바지 ★★★
+Armor_1100_Lower;꿈꾸는 용사의 바지 ★★★★
 Armor_1096_Upper;꿈꾸는 용사의 옷
+Armor_1097_Upper;꿈꾸는 용사의 옷 ★
+Armor_1098_Upper;꿈꾸는 용사의 옷 ★★
+Armor_1099_Upper;꿈꾸는 용사의 옷 ★★★
+Armor_1100_Upper;꿈꾸는 용사의 옷 ★★★★
 Armor_1106_Upper;신식·영걸의 옷
+Armor_1107_Upper;신식·영걸의 옷 ★
+Armor_1108_Upper;신식·영걸의 옷 ★★
+Armor_1109_Upper;신식·영걸의 옷 ★★★
+Armor_1110_Upper;신식·영걸의 옷 ★★★★
 Armor_1125_Head;호러블린 마스크
 Armor_1141_Head;어둠의 두건
+Armor_1142_Head;어둠의 두건 ★
+Armor_1143_Head;어둠의 두건 ★★
+Armor_1144_Head;어둠의 두건 ★★★
+Armor_1145_Head;어둠의 두건 ★★★★
 Armor_1141_Lower;어둠의 각반
+Armor_1142_Lower;어둠의 각반 ★
+Armor_1143_Lower;어둠의 각반 ★★
+Armor_1144_Lower;어둠의 각반 ★★★
+Armor_1145_Lower;어둠의 각반 ★★★★
 Armor_1141_Upper;어둠의 옷
+Armor_1142_Upper;어둠의 옷 ★
+Armor_1143_Upper;어둠의 옷 ★★
+Armor_1144_Upper;어둠의 옷 ★★★
+Armor_1145_Upper;어둠의 옷 ★★★★
 Armor_1151_Head;낡은 머리 장식
 Armor_1152_Head;하일리아의 후드
+Armor_1153_Head;하일리아의 후드 ★
+Armor_1154_Head;하일리아의 후드 ★★
+Armor_1155_Head;하일리아의 후드 ★★★
+Armor_1156_Head;하일리아의 후드 ★★★★
 Armor_115_Head;호뢰의 투구
 Armor_116_Upper;추억의 옷
+Armor_148_Upper;추억의 옷 ★
+Armor_149_Upper;추억의 옷 ★★
+Armor_150_Upper;추억의 옷 ★★★
+Armor_151_Upper;추억의 옷 ★★★★
 Armor_1300_Head;이가단 마스크
+Armor_1301_Head;이가단 마스크 ★
+Armor_1302_Head;이가단 마스크 ★★
+Armor_1303_Head;이가단 마스크 ★★★
+Armor_1304_Head;이가단 마스크 ★★★★
 Armor_1300_Lower;이가단 타이츠
+Armor_1301_Lower;이가단 타이츠 ★
+Armor_1302_Lower;이가단 타이츠 ★★
+Armor_1303_Lower;이가단 타이츠 ★★★
+Armor_1304_Lower;이가단 타이츠 ★★★★
 Armor_1300_Upper;이가단 슈트
+Armor_1301_Upper;이가단 슈트 ★
+Armor_1302_Upper;이가단 슈트 ★★
+Armor_1303_Upper;이가단 슈트 ★★★
+Armor_1304_Upper;이가단 슈트 ★★★★
 Armor_141_Lower;스노 부츠
+Armor_156_Lower;스노 부츠 ★
+Armor_157_Lower;스노 부츠 ★★
+Armor_158_Lower;스노 부츠 ★★★
+Armor_159_Lower;스노 부츠 ★★★★
 Armor_160_Head;다크 헤드
 Armor_160_Lower;다크 레그
 Armor_160_Upper;다크 바디
@@ -285,34 +598,139 @@ Armor_176_Head;코로그의 가면
 Armor_177_Head;라비오의 후드
 Armor_178_Head;젠트의 투구
 Armor_179_Head;근위병의 모자
+Armor_1146_Head;근위병의 모자 ★
+Armor_1147_Head;근위병의 모자 ★★
+Armor_1148_Head;근위병의 모자 ★★★
+Armor_1149_Head;근위병의 모자 ★★★★
 Armor_179_Lower;근위병의 부츠
+Armor_1146_Lower;근위병의 부츠 ★
+Armor_1147_Lower;근위병의 부츠 ★★
+Armor_1148_Lower;근위병의 부츠 ★★★
+Armor_1149_Lower;근위병의 부츠 ★★★★
 Armor_179_Upper;근위병의 옷
+Armor_1146_Upper;근위병의 옷 ★
+Armor_1147_Upper;근위병의 옷 ★★
+Armor_1148_Upper;근위병의 옷 ★★★
+Armor_1149_Upper;근위병의 옷 ★★★★
 Armor_180_Head;이차원악령의 투구
 Armor_180_Lower;이차원악령의 경갑
 Armor_180_Upper;이차원악령의 갑옷
 Armor_181_Head;신수 병기·루타
+Armor_186_Head;신수 병기·루타 ★
+Armor_187_Head;신수 병기·루타 ★★
+Armor_188_Head;신수 병기·루타 ★★★
+Armor_189_Head;신수 병기·루타 ★★★★
 Armor_182_Head;신수 병기·메도
+Armor_190_Head;신수 병기·메도 ★
+Armor_191_Head;신수 병기·메도 ★★
+Armor_192_Head;신수 병기·메도 ★★★
+Armor_193_Head;신수 병기·메도 ★★★★
 Armor_183_Head;신수 병기·루다니아
+Armor_194_Head;신수 병기·루다니아 ★
+Armor_195_Head;신수 병기·루다니아 ★★
+Armor_196_Head;신수 병기·루다니아 ★★★
+Armor_197_Head;신수 병기·루다니아 ★★★★
 Armor_184_Head;신수 병기·나보리스
+Armor_198_Head;신수 병기·나보리스 ★
+Armor_199_Head;신수 병기·나보리스 ★★
+Armor_168_Head;신수 병기·나보리스 ★★★
+Armor_169_Head;신수 병기·나보리스 ★★★★
 Armor_200_Head;시간의 용사의 모자
+Armor_201_Head;시간의 용사의 모자 ★
+Armor_202_Head;시간의 용사의 모자 ★★
+Armor_203_Head;시간의 용사의 모자 ★★★
+Armor_204_Head;시간의 용사의 모자 ★★★★
 Armor_200_Lower;시간의 용사의 바지
+Armor_201_Lower;시간의 용사의 바지 ★
+Armor_202_Lower;시간의 용사의 바지 ★★
+Armor_203_Lower;시간의 용사의 바지 ★★★
+Armor_204_Lower;시간의 용사의 바지 ★★★★
 Armor_200_Upper;시간의 용사의 옷
+Armor_201_Upper;시간의 용사의 옷 ★
+Armor_202_Upper;시간의 용사의 옷 ★★
+Armor_203_Upper;시간의 용사의 옷 ★★★
+Armor_204_Upper;시간의 용사의 옷 ★★★★
 Armor_205_Head;바람의 용사의 모자
+Armor_206_Head;바람의 용사의 모자 ★
+Armor_207_Head;바람의 용사의 모자 ★★
+Armor_208_Head;바람의 용사의 모자 ★★★
+Armor_209_Head;바람의 용사의 모자 ★★★★
 Armor_205_Lower;바람의 용사의 바지
+Armor_206_Lower;바람의 용사의 바지 ★
+Armor_207_Lower;바람의 용사의 바지 ★★
+Armor_208_Lower;바람의 용사의 바지 ★★★
+Armor_209_Lower;바람의 용사의 바지 ★★★★
 Armor_205_Upper;바람의 용사의 옷
+Armor_206_Upper;바람의 용사의 옷 ★
+Armor_207_Upper;바람의 용사의 옷 ★★
+Armor_208_Upper;바람의 용사의 옷 ★★★
+Armor_209_Upper;바람의 용사의 옷 ★★★★
 Armor_210_Head;황혼의 용사의 모자
+Armor_211_Head;황혼의 용사의 모자 ★
+Armor_212_Head;황혼의 용사의 모자 ★★
+Armor_213_Head;황혼의 용사의 모자 ★★★
+Armor_214_Head;황혼의 용사의 모자 ★★★★
 Armor_210_Lower;황혼의 용사의 바지
+Armor_211_Lower;황혼의 용사의 바지 ★
+Armor_212_Lower;황혼의 용사의 바지 ★★
+Armor_213_Lower;황혼의 용사의 바지 ★★★
+Armor_214_Lower;황혼의 용사의 바지 ★★★★
 Armor_210_Upper;황혼의 용사의 옷
+Armor_211_Upper;황혼의 용사의 옷 ★
+Armor_212_Upper;황혼의 용사의 옷 ★★
+Armor_213_Upper;황혼의 용사의 옷 ★★★
+Armor_214_Upper;황혼의 용사의 옷 ★★★★
 Armor_215_Head;하늘의 용사의 모자
+Armor_216_Head;하늘의 용사의 모자 ★
+Armor_217_Head;하늘의 용사의 모자 ★★
+Armor_218_Head;하늘의 용사의 모자 ★★★
+Armor_219_Head;하늘의 용사의 모자 ★★★★
 Armor_215_Lower;하늘의 용사의 바지
+Armor_216_Lower;하늘의 용사의 바지 ★
+Armor_217_Lower;하늘의 용사의 바지 ★★
+Armor_218_Lower;하늘의 용사의 바지 ★★★
+Armor_219_Lower;하늘의 용사의 바지 ★★★★
 Armor_215_Upper;하늘의 용사의 옷
+Armor_216_Upper;하늘의 용사의 옷 ★
+Armor_217_Upper;하늘의 용사의 옷 ★★
+Armor_218_Upper;하늘의 용사의 옷 ★★★
+Armor_219_Upper;하늘의 용사의 옷 ★★★★
 Armor_220_Head;시크의 마스크
+Armor_221_Head;시크의 마스크 ★
+Armor_222_Head;시크의 마스크 ★★
+Armor_223_Head;시크의 마스크 ★★★
+Armor_224_Head;시크의 마스크 ★★★★
 Armor_225_Head;귀신의 모자
+Armor_226_Head;귀신의 모자 ★
+Armor_227_Head;귀신의 모자 ★★
+Armor_228_Head;귀신의 모자 ★★★
+Armor_229_Head;귀신의 모자 ★★★★
 Armor_225_Lower;귀신의 부츠
+Armor_226_Lower;귀신의 부츠 ★
+Armor_227_Lower;귀신의 부츠 ★★
+Armor_228_Lower;귀신의 부츠 ★★★
+Armor_229_Lower;귀신의 부츠 ★★★★
 Armor_225_Upper;귀신의 옷
+Armor_226_Upper;귀신의 옷 ★
+Armor_227_Upper;귀신의 옷 ★★
+Armor_228_Upper;귀신의 옷 ★★★
+Armor_229_Upper;귀신의 옷 ★★★★
 Armor_230_Head;시작의 용사의 모자
+Armor_231_Head;시작의 용사의 모자 ★
+Armor_232_Head;시작의 용사의 모자 ★★
+Armor_233_Head;시작의 용사의 모자 ★★★
+Armor_234_Head;시작의 용사의 모자 ★★★★
 Armor_230_Lower;시작의 용사의 바지
+Armor_231_Lower;시작의 용사의 바지 ★
+Armor_232_Lower;시작의 용사의 바지 ★★
+Armor_233_Lower;시작의 용사의 바지 ★★★
+Armor_234_Lower;시작의 용사의 바지 ★★★★
 Armor_230_Upper;시작의 용사의 옷
+Armor_231_Upper;시작의 용사의 옷 ★
+Armor_232_Upper;시작의 용사의 옷 ★★
+Armor_233_Upper;시작의 용사의 옷 ★★★
+Armor_234_Upper;시작의 용사의 옷 ★★★★
+
 Animal_Insect_A;고고개구리
 Animal_Insect_AA;원기장수풍뎅이
 Animal_Insect_AB;방염호랑나비

@@ -177,98 +177,411 @@ Weapon_Shield_101;Zonanium schild
 Weapon_Shield_102;Zonanium schild+
 Weapon_Shield_103;Zonanium schild++
 Weapon_Shield_107;Oud houten schild
+
 Armor_001_Head;Hyliaanse kap
+Armor_002_Head;Hyliaanse kap ★
+Armor_003_Head;Hyliaanse kap ★★
+Armor_004_Head;Hyliaanse kap ★★★
+Armor_015_Head;Hyliaanse kap ★★★★
 Armor_001_Lower;Hyliaanse broek
+Armor_002_Lower;Hyliaanse broek ★
+Armor_003_Lower;Hyliaanse broek ★★
+Armor_004_Lower;Hyliaanse broek ★★★
+Armor_015_Lower;Hyliaanse broek ★★★★
 Armor_001_Upper;Hyliaans hemd
+Armor_002_Upper;Hyliaans hemd ★
+Armor_003_Upper;Hyliaans hemd ★★
+Armor_004_Upper;Hyliaans hemd ★★★
+Armor_015_Upper;Hyliaans hemd ★★★★
 Armor_005_Head;Wildernismuts
+Armor_035_Head;Wildernismuts ★
+Armor_039_Head;Wildernismuts ★★
+Armor_060_Head;Wildernismuts ★★★
+Armor_061_Head;Wildernismuts ★★★★
 Armor_005_Lower;Wildernisbroek
+Armor_035_Lower;Wildernisbroek ★
+Armor_039_Lower;Wildernisbroek ★★
+Armor_060_Lower;Wildernisbroek ★★★
+Armor_061_Lower;Wildernisbroek ★★★★
 Armor_005_Upper;Wilderniskostuum
+Armor_035_Upper;Wilderniskostuum ★
+Armor_039_Upper;Wilderniskostuum ★★
+Armor_060_Upper;Wilderniskostuum ★★★
+Armor_061_Upper;Wilderniskostuum ★★★★
 Armor_006_Head;Zora-helm
+Armor_007_Head;Zora-helm ★
+Armor_062_Head;Zora-helm ★★
+Armor_063_Head;Zora-helm ★★★
+Armor_064_Head;Zora-helm ★★★★
 Armor_006_Lower;Zora-scheenplaten
+Armor_007_Lower;Zora-scheenplaten ★
+Armor_062_Lower;Zora-scheenplaten ★★
+Armor_063_Lower;Zora-scheenplaten ★★★
+Armor_064_Lower;Zora-scheenplaten ★★★★
 Armor_006_Upper;Zora-pantser
+Armor_007_Upper;Zora-pantser ★
+Armor_062_Upper;Zora-pantser ★★
+Armor_063_Upper;Zora-pantser ★★★
+Armor_064_Upper;Zora-pantser ★★★★
 Armor_008_Head;Woestijnhaarband
+Armor_040_Head;Woestijnhaarband ★
+Armor_065_Head;Woestijnhaarband ★★
+Armor_066_Head;Woestijnhaarband ★★★
+Armor_067_Head;Woestijnhaarband ★★★★
 Armor_008_Lower;Woestijnbroek
+Armor_040_Lower;Woestijnbroek ★
+Armor_065_Lower;Woestijnbroek ★★
+Armor_066_Lower;Woestijnbroek ★★★
+Armor_067_Lower;Woestijnbroek ★★★★
 Armor_008_Upper;Woestijnarmstuk
+Armor_040_Upper;Woestijnarmstuk ★
+Armor_065_Upper;Woestijnarmstuk ★★
+Armor_066_Upper;Woestijnarmstuk ★★★
+Armor_067_Upper;Woestijnarmstuk ★★★★
 Armor_009_Head;Rito-veren
+Armor_036_Head;Rito-veren ★
+Armor_071_Head;Rito-veren ★★
+Armor_072_Head;Rito-veren ★★★
+Armor_073_Head;Rito-veren ★★★★
 Armor_009_Lower;Rito-broek
+Armor_036_Lower;Rito-broek ★
+Armor_071_Lower;Rito-broek ★★
+Armor_072_Lower;Rito-broek ★★★
+Armor_073_Lower;Rito-broek ★★★★
 Armor_009_Upper;Rito-hemd
+Armor_036_Upper;Rito-hemd ★
+Armor_071_Upper;Rito-hemd ★★
+Armor_072_Upper;Rito-hemd ★★★
+Armor_073_Upper;Rito-hemd ★★★★
 Armor_011_Head;Anti-vuurhelm
+Armor_037_Head;Anti-vuurhelm ★
+Armor_074_Head;Anti-vuurhelm ★★
+Armor_075_Head;Anti-vuurhelm ★★★
+Armor_076_Head;Anti-vuurhelm ★★★★
 Armor_011_Lower;Anti-vuurlaarzen
+Armor_037_Lower;Anti-vuurlaarzen ★
+Armor_074_Lower;Anti-vuurlaarzen ★★
+Armor_075_Lower;Anti-vuurlaarzen ★★★
+Armor_076_Lower;Anti-vuurlaarzen ★★★★
 Armor_011_Upper;Anti-vuurpantser
+Armor_037_Upper;Anti-vuurpantser ★
+Armor_074_Upper;Anti-vuurpantser ★★
+Armor_075_Upper;Anti-vuurpantser ★★★
+Armor_076_Upper;Anti-vuurpantser ★★★★
 Armor_012_Head;Ninjamasker
+Armor_042_Head;Ninjamasker ★
+Armor_077_Head;Ninjamasker ★★
+Armor_078_Head;Ninjamasker ★★★
+Armor_079_Head;Ninjamasker ★★★★
 Armor_012_Lower;Ninjabroek
+Armor_042_Lower;Ninjabroek ★
+Armor_077_Lower;Ninjabroek ★★
+Armor_078_Lower;Ninjabroek ★★★
+Armor_079_Lower;Ninjabroek ★★★★
 Armor_012_Upper;Ninja-outfit
+Armor_042_Upper;Ninja-outfit ★
+Armor_077_Upper;Ninja-outfit ★★
+Armor_078_Upper;Ninja-outfit ★★★
+Armor_079_Upper;Ninja-outfit ★★★★
 Armor_014_Head;Klimbandana
+Armor_083_Head;Klimbandana ★
+Armor_084_Head;Klimbandana ★★
+Armor_085_Head;Klimbandana ★★★
+Armor_086_Head;Klimbandana ★★★★
 Armor_014_Lower;Klimschoenen
+Armor_083_Lower;Klimschoenen ★
+Armor_084_Lower;Klimschoenen ★★
+Armor_085_Lower;Klimschoenen ★★★
+Armor_086_Lower;Klimschoenen ★★★★
 Armor_014_Upper;Klimhandschoen
+Armor_083_Upper;Klimhandschoen ★
+Armor_084_Upper;Klimhandschoen ★★
+Armor_085_Upper;Klimhandschoen ★★★
+Armor_086_Upper;Klimhandschoen ★★★★
 Armor_017_Head;Lichtgevend masker
+Armor_087_Head;Lichtgevend masker ★
+Armor_088_Head;Lichtgevend masker ★★
+Armor_089_Head;Lichtgevend masker ★★★
+Armor_090_Head;Lichtgevend masker ★★★★
 Armor_017_Lower;Lichtgevende legging
+Armor_087_Lower;Lichtgevende legging ★
+Armor_088_Lower;Lichtgevende legging ★★
+Armor_089_Lower;Lichtgevende legging ★★★
+Armor_090_Lower;Lichtgevende legging ★★★★
 Armor_017_Upper;Lichtgevend hemd
+Armor_087_Upper;Lichtgevend hemd ★
+Armor_088_Upper;Lichtgevend hemd ★★
+Armor_089_Upper;Lichtgevend hemd ★★★
+Armor_090_Upper;Lichtgevend hemd ★★★★
 Armor_020_Head;Hyliaanse helm
+Armor_095_Head;Hyliaanse helm ★
+Armor_096_Head;Hyliaanse helm ★★
+Armor_097_Head;Hyliaanse helm ★★★
+Armor_098_Head;Hyliaanse helm ★★★★
 Armor_020_Lower;Hyliaanse scheenplaten
+Armor_095_Lower;Hyliaanse scheenplaten ★
+Armor_096_Lower;Hyliaanse scheenplaten ★★
+Armor_097_Lower;Hyliaanse scheenplaten ★★★
+Armor_098_Lower;Hyliaanse scheenplaten ★★★★
 Armor_020_Upper;Hyliaans harnas
+Armor_095_Upper;Hyliaans harnas ★
+Armor_096_Upper;Hyliaans harnas ★★
+Armor_097_Upper;Hyliaans harnas ★★★
+Armor_098_Upper;Hyliaans harnas ★★★★
 Armor_022_Head;Bokoblin-masker
 Armor_024_Head;Diadeem met diamant
+Armor_117_Head;Diadeem met diamant ★
+Armor_118_Head;Diadeem met diamant ★★
+Armor_119_Head;Diadeem met diamant ★★★
+Armor_120_Head;Diadeem met diamant ★★★★
 Armor_025_Head;Diadeem met robijn
+Armor_121_Head;Diadeem met robijn ★
+Armor_122_Head;Diadeem met robijn ★★
+Armor_123_Head;Diadeem met robijn ★★★
+Armor_124_Head;Diadeem met robijn ★★★★
 Armor_026_Head;Diadeem met saffier
+Armor_125_Head;Diadeem met saffier ★
+Armor_126_Head;Diadeem met saffier ★★
+Armor_127_Head;Diadeem met saffier ★★★
+Armor_128_Head;Diadeem met saffier ★★★★
 Armor_027_Head;Topazen oorbellen
+Armor_129_Head;Topazen oorbellen ★
+Armor_130_Head;Topazen oorbellen ★★
+Armor_131_Head;Topazen oorbellen ★★★
+Armor_132_Head;Topazen oorbellen ★★★★
 Armor_028_Head;Opalen oorbellen
+Armor_133_Head;Opalen oorbellen ★
+Armor_134_Head;Opalen oorbellen ★★
+Armor_135_Head;Opalen oorbellen ★★★
+Armor_136_Head;Opalen oorbellen ★★★★
 Armor_029_Head;Barnstenen oorbellen
+Armor_137_Head;Barnstenen oorbellen ★
+Armor_138_Head;Barnstenen oorbellen ★★
+Armor_139_Head;Barnstenen oorbellen ★★★
+Armor_140_Head;Barnstenen oorbellen ★★★★
 Armor_045_Head;Moblin-masker
 Armor_046_Head;Rubberen helm
+Armor_103_Head;Rubberen helm ★
+Armor_104_Head;Rubberen helm ★★
+Armor_105_Head;Rubberen helm ★★★
+Armor_106_Head;Rubberen helm ★★★★
 Armor_046_Lower;Rubberen broek
+Armor_103_Lower;Rubberen broek ★
+Armor_104_Lower;Rubberen broek ★★
+Armor_105_Lower;Rubberen broek ★★★
+Armor_106_Lower;Rubberen broek ★★★★
 Armor_046_Upper;Rubberen harnas
+Armor_103_Upper;Rubberen harnas ★
+Armor_104_Upper;Rubberen harnas ★★
+Armor_105_Upper;Rubberen harnas ★★★
+Armor_106_Upper;Rubberen harnas ★★★★
 Armor_048_Head;Barbarenhelm
+Armor_111_Head;Barbarenhelm ★
+Armor_112_Head;Barbarenhelm ★★
+Armor_113_Head;Barbarenhelm ★★★
+Armor_114_Head;Barbarenhelm ★★★★
 Armor_048_Lower;Barbarenbroek
+Armor_111_Lower;Barbarenbroek ★
+Armor_112_Lower;Barbarenbroek ★★
+Armor_113_Lower;Barbarenbroek ★★★
+Armor_114_Lower;Barbarenbroek ★★★★
 Armor_048_Upper;Barbarenharnas
+Armor_111_Upper;Barbarenharnas ★
+Armor_112_Upper;Barbarenharnas ★★
+Armor_113_Upper;Barbarenharnas ★★★
+Armor_114_Upper;Barbarenharnas ★★★★
 Armor_049_Lower;Zandlaarzen
+Armor_152_Lower;Zandlaarzen ★
+Armor_153_Lower;Zandlaarzen ★★
+Armor_154_Lower;Zandlaarzen ★★★
+Armor_155_Lower;Zandlaarzen ★★★★
 Armor_055_Head;Lizalfos-masker
 Armor_056_Head;Lynel-masker
 Armor_1006_Head;Aerodynamisch masker
+Armor_1007_Head;Aerodynamisch masker ★
+Armor_1008_Head;Aerodynamisch masker ★★
+Armor_1009_Head;Aerodynamisch masker ★★★
+Armor_1010_Head;Aerodynamisch masker ★★★★
 Armor_1006_Lower;Aerodynamische broek
+Armor_1007_Lower;Aerodynamische broek ★
+Armor_1008_Lower;Aerodynamische broek ★★
+Armor_1009_Lower;Aerodynamische broek ★★★
+Armor_1010_Lower;Aerodynamische broek ★★★★
 Armor_1006_Upper;Aerodynamisch hemd
+Armor_1007_Upper;Aerodynamisch hemd ★
+Armor_1008_Upper;Aerodynamisch hemd ★★
+Armor_1009_Upper;Aerodynamisch hemd ★★★
+Armor_1010_Upper;Aerodynamisch hemd ★★★★
 Armor_1036_Head;Held-van-weleergedaante
+Armor_1037_Head;Held-van-weleergedaante ★
+Armor_1038_Head;Held-van-weleergedaante ★★
+Armor_1039_Head;Held-van-weleergedaante ★★★
+Armor_1040_Head;Held-van-weleergedaante ★★★★
 Armor_1043_Lower;Afgedragen schoeisel
 Armor_1043_Upper;Afgedragen toga
 Armor_1044_Lower;Afgedragen warme laarzen
 Armor_1046_Head;Kikkerkap
+Armor_1047_Head;Kikkerkap ★
+Armor_1048_Head;Kikkerkap ★★
+Armor_1049_Head;Kikkerkap ★★★
+Armor_1050_Head;Kikkerkap ★★★★
 Armor_1046_Lower;Kikkerscheenplaten
+Armor_1047_Lower;Kikkerscheenplaten ★
+Armor_1048_Lower;Kikkerscheenplaten ★★
+Armor_1049_Lower;Kikkerscheenplaten ★★★
+Armor_1050_Lower;Kikkerscheenplaten ★★★★
 Armor_1046_Upper;Kikkerarmstuk
+Armor_1047_Upper;Kikkerarmstuk ★
+Armor_1048_Upper;Kikkerarmstuk ★★
+Armor_1049_Upper;Kikkerarmstuk ★★★
+Armor_1050_Upper;Kikkerarmstuk ★★★★
 Armor_1051_Head;Mijnwerkersmasker
+Armor_1052_Head;Mijnwerkersmasker ★
+Armor_1053_Head;Mijnwerkersmasker ★★
+Armor_1054_Head;Mijnwerkersmasker ★★★
+Armor_1055_Head;Mijnwerkersmasker ★★★★
 Armor_1051_Lower;Mijnwerkersbroek
+Armor_1052_Lower;Mijnwerkersbroek ★
+Armor_1053_Lower;Mijnwerkersbroek ★★
+Armor_1054_Lower;Mijnwerkersbroek ★★★
+Armor_1055_Lower;Mijnwerkersbroek ★★★★
 Armor_1051_Upper;Mijnwerkersvest
+Armor_1052_Upper;Mijnwerkersvest ★
+Armor_1053_Upper;Mijnwerkersvest ★★
+Armor_1054_Upper;Mijnwerkersvest ★★★
+Armor_1055_Upper;Mijnwerkersvest ★★★★
 Armor_1061_Head;Vuurhoofdband
+Armor_1062_Head;Vuurhoofdband ★
+Armor_1063_Head;Vuurhoofdband ★★
+Armor_1064_Head;Vuurhoofdband ★★★
+Armor_1065_Head;Vuurhoofdband ★★★★
 Armor_1061_Lower;Vuurbroek
+Armor_1062_Lower;Vuurbroek ★
+Armor_1063_Lower;Vuurbroek ★★
+Armor_1064_Lower;Vuurbroek ★★★
+Armor_1065_Lower;Vuurbroek ★★★★
 Armor_1061_Upper;Vuurhemd
+Armor_1062_Upper;Vuurhemd ★
+Armor_1063_Upper;Vuurhemd ★★
+Armor_1064_Upper;Vuurhemd ★★★
+Armor_1065_Upper;Vuurhemd ★★★★
 Armor_1066_Head;Bliksemhoofdband
+Armor_1067_Head;Bliksemhoofdband ★
+Armor_1068_Head;Bliksemhoofdband ★★
+Armor_1069_Head;Bliksemhoofdband ★★★
+Armor_1070_Head;Bliksemhoofdband ★★★★
 Armor_1066_Lower;Bliksembroek
+Armor_1067_Lower;Bliksembroek ★
+Armor_1068_Lower;Bliksembroek ★★
+Armor_1069_Lower;Bliksembroek ★★★
+Armor_1070_Lower;Bliksembroek ★★★★
 Armor_1066_Upper;Bliksemhemd
+Armor_1067_Upper;Bliksemhemd ★
+Armor_1068_Upper;Bliksemhemd ★★
+Armor_1069_Upper;Bliksemhemd ★★★
+Armor_1070_Upper;Bliksemhemd ★★★★
 Armor_1071_Head;Sneeuwstormhoofdband
+Armor_1072_Head;Sneeuwstormhoofdband ★
+Armor_1073_Head;Sneeuwstormhoofdband ★★
+Armor_1074_Head;Sneeuwstormhoofdband ★★★
+Armor_1075_Head;Sneeuwstormhoofdband ★★★★
 Armor_1071_Lower;Sneeuwstormbroek
+Armor_1072_Lower;Sneeuwstormbroek ★
+Armor_1073_Lower;Sneeuwstormbroek ★★
+Armor_1074_Lower;Sneeuwstormbroek ★★★
+Armor_1075_Lower;Sneeuwstormbroek ★★★★
 Armor_1071_Upper;Sneeuwstormhemd
+Armor_1072_Upper;Sneeuwstormhemd ★
+Armor_1073_Upper;Sneeuwstormhemd ★★
+Armor_1074_Upper;Sneeuwstormhemd ★★★
+Armor_1075_Upper;Sneeuwstormhemd ★★★★
 Armor_1076_Head;Cece-hoed
 Armor_1086_Head;Geestenhoofdtooi
 Armor_1086_Lower;Geestenbroek
 Armor_1086_Upper;Geestentuniek
 Armor_1091_Head;Zonanium helm
+Armor_1092_Head;Zonanium helm ★
+Armor_1093_Head;Zonanium helm ★★
+Armor_1094_Head;Zonanium helm ★★★
+Armor_1095_Head;Zonanium helm ★★★★
 Armor_1091_Lower;Zonanium kniebeschermers
+Armor_1092_Lower;Zonanium kniebeschermers ★
+Armor_1093_Lower;Zonanium kniebeschermers ★★
+Armor_1094_Lower;Zonanium kniebeschermers ★★★
+Armor_1095_Lower;Zonanium kniebeschermers ★★★★
 Armor_1091_Upper;Zonanium outfit
+Armor_1092_Upper;Zonanium outfit ★
+Armor_1093_Upper;Zonanium outfit ★★
+Armor_1094_Upper;Zonanium outfit ★★★
+Armor_1095_Upper;Zonanium outfit ★★★★
 Armor_1096_Head;Droommasker
+Armor_1097_Head;Droommasker ★
+Armor_1098_Head;Droommasker ★★
+Armor_1099_Head;Droommasker ★★★
+Armor_1100_Head;Droommasker ★★★★
 Armor_1096_Lower;Droombroek
+Armor_1097_Lower;Droombroek ★
+Armor_1098_Lower;Droombroek ★★
+Armor_1099_Lower;Droombroek ★★★
+Armor_1100_Lower;Droombroek ★★★★
 Armor_1096_Upper;Droomkostuum
+Armor_1097_Upper;Droomkostuum ★
+Armor_1098_Upper;Droomkostuum ★★
+Armor_1099_Upper;Droomkostuum ★★★
+Armor_1100_Upper;Droomkostuum ★★★★
 Armor_1106_Upper;Nieuw Hemd der Uitverkorenen
+Armor_1107_Upper;Nieuw Hemd der Uitverkorenen ★
+Armor_1108_Upper;Nieuw Hemd der Uitverkorenen ★★
+Armor_1109_Upper;Nieuw Hemd der Uitverkorenen ★★★
+Armor_1110_Upper;Nieuw Hemd der Uitverkorenen ★★★★
 Armor_1125_Head;Horriblin-masker
 Armor_1141_Head;Duisterniskap
+Armor_1142_Head;Duisterniskap ★
+Armor_1143_Head;Duisterniskap ★★
+Armor_1144_Head;Duisterniskap ★★★
+Armor_1145_Head;Duisterniskap ★★★★
 Armor_1141_Lower;Duisternisbeenkappen
+Armor_1142_Lower;Duisternisbeenkappen ★
+Armor_1143_Lower;Duisternisbeenkappen ★★
+Armor_1144_Lower;Duisternisbeenkappen ★★★
+Armor_1145_Lower;Duisternisbeenkappen ★★★★
 Armor_1141_Upper;Duisternistuniek
+Armor_1142_Upper;Duisternistuniek ★
+Armor_1143_Upper;Duisternistuniek ★★
+Armor_1144_Upper;Duisternistuniek ★★★
+Armor_1145_Upper;Duisternistuniek ★★★★
 Armor_1151_Head;Afgedragen haaraccessoire
 Armor_1152_Head;Hyliaanse kap
+Armor_1153_Head;Hyliaanse kap ★
+Armor_1154_Head;Hyliaanse kap ★★
+Armor_1155_Head;Hyliaanse kap ★★★
+Armor_1156_Head;Hyliaanse kap ★★★★
 Armor_115_Head;Bliksemafweerhelm
 Armor_116_Upper;Hemd der Herinneringen
+Armor_148_Upper;Hemd der Herinneringen ★
+Armor_149_Upper;Hemd der Herinneringen ★★
+Armor_150_Upper;Hemd der Herinneringen ★★★
+Armor_151_Upper;Hemd der Herinneringen ★★★★
 Armor_1300_Head;Yiga-masker
+Armor_1301_Head;Yiga-masker ★
+Armor_1302_Head;Yiga-masker ★★
+Armor_1303_Head;Yiga-masker ★★★
+Armor_1304_Head;Yiga-masker ★★★★
 Armor_1300_Lower;Yiga-legging
+Armor_1301_Lower;Yiga-legging ★
+Armor_1302_Lower;Yiga-legging ★★
+Armor_1303_Lower;Yiga-legging ★★★
+Armor_1304_Lower;Yiga-legging ★★★★
 Armor_1300_Upper;Yiga-harnas
+Armor_1301_Upper;Yiga-harnas ★
+Armor_1302_Upper;Yiga-harnas ★★
+Armor_1303_Upper;Yiga-harnas ★★★
+Armor_1304_Upper;Yiga-harnas ★★★★
 Armor_141_Lower;Sneeuwlaarzen
+Armor_156_Lower;Sneeuwlaarzen ★
+Armor_157_Lower;Sneeuwlaarzen ★★
+Armor_158_Lower;Sneeuwlaarzen ★★★
+Armor_159_Lower;Sneeuwlaarzen ★★★★
 Armor_160_Head;Schaduwmuts
 Armor_160_Lower;Schaduwbroek
 Armor_160_Upper;Schaduwkostuum
@@ -285,34 +598,139 @@ Armor_176_Head;Korok-masker
 Armor_177_Head;Ravio's muts
 Armor_178_Head;Zants helm
 Armor_179_Head;Lijfwachtbaret
+Armor_1146_Head;Lijfwachtbaret ★
+Armor_1147_Head;Lijfwachtbaret ★★
+Armor_1148_Head;Lijfwachtbaret ★★★
+Armor_1149_Head;Lijfwachtbaret ★★★★
 Armor_179_Lower;Lijfwachtlaarzen
+Armor_1146_Lower;Lijfwachtlaarzen ★
+Armor_1147_Lower;Lijfwachtlaarzen ★★
+Armor_1148_Lower;Lijfwachtlaarzen ★★★
+Armor_1149_Lower;Lijfwachtlaarzen ★★★★
 Armor_179_Upper;Lijfwachtuniform
+Armor_1146_Upper;Lijfwachtuniform ★
+Armor_1147_Upper;Lijfwachtuniform ★★
+Armor_1148_Upper;Lijfwachtuniform ★★★
+Armor_1149_Upper;Lijfwachtuniform ★★★★
 Armor_180_Head;Kwaadaardig masker
 Armor_180_Lower;Kwaadaardige scheenplaten
 Armor_180_Upper;Kwaadaardig pantser
 Armor_181_Head;Vah Ruta-helm
+Armor_186_Head;Vah Ruta-helm ★
+Armor_187_Head;Vah Ruta-helm ★★
+Armor_188_Head;Vah Ruta-helm ★★★
+Armor_189_Head;Vah Ruta-helm ★★★★
 Armor_182_Head;Vah Medoh-helm
+Armor_190_Head;Vah Medoh-helm ★
+Armor_191_Head;Vah Medoh-helm ★★
+Armor_192_Head;Vah Medoh-helm ★★★
+Armor_193_Head;Vah Medoh-helm ★★★★
 Armor_183_Head;Vah Rudania-helm
+Armor_194_Head;Vah Rudania-helm ★
+Armor_195_Head;Vah Rudania-helm ★★
+Armor_196_Head;Vah Rudania-helm ★★★
+Armor_197_Head;Vah Rudania-helm ★★★★
 Armor_184_Head;Vah Naboris-helm
+Armor_198_Head;Vah Naboris-helm ★
+Armor_199_Head;Vah Naboris-helm ★★
+Armor_168_Head;Vah Naboris-helm ★★★
+Armor_169_Head;Vah Naboris-helm ★★★★
 Armor_200_Head;Tijdmuts
+Armor_201_Head;Tijdmuts ★
+Armor_202_Head;Tijdmuts ★★
+Armor_203_Head;Tijdmuts ★★★
+Armor_204_Head;Tijdmuts ★★★★
 Armor_200_Lower;Tijdbroek
+Armor_201_Lower;Tijdbroek ★
+Armor_202_Lower;Tijdbroek ★★
+Armor_203_Lower;Tijdbroek ★★★
+Armor_204_Lower;Tijdbroek ★★★★
 Armor_200_Upper;Tijdkostuum
+Armor_201_Upper;Tijdkostuum ★
+Armor_202_Upper;Tijdkostuum ★★
+Armor_203_Upper;Tijdkostuum ★★★
+Armor_204_Upper;Tijdkostuum ★★★★
 Armor_205_Head;Windmuts
+Armor_206_Head;Windmuts ★
+Armor_207_Head;Windmuts ★★
+Armor_208_Head;Windmuts ★★★
+Armor_209_Head;Windmuts ★★★★
 Armor_205_Lower;Windbroek
+Armor_206_Lower;Windbroek ★
+Armor_207_Lower;Windbroek ★★
+Armor_208_Lower;Windbroek ★★★
+Armor_209_Lower;Windbroek ★★★★
 Armor_205_Upper;Windkostuum
+Armor_206_Upper;Windkostuum ★
+Armor_207_Upper;Windkostuum ★★
+Armor_208_Upper;Windkostuum ★★★
+Armor_209_Upper;Windkostuum ★★★★
 Armor_210_Head;Schemermuts
+Armor_211_Head;Schemermuts ★
+Armor_212_Head;Schemermuts ★★
+Armor_213_Head;Schemermuts ★★★
+Armor_214_Head;Schemermuts ★★★★
 Armor_210_Lower;Schemerbroek
+Armor_211_Lower;Schemerbroek ★
+Armor_212_Lower;Schemerbroek ★★
+Armor_213_Lower;Schemerbroek ★★★
+Armor_214_Lower;Schemerbroek ★★★★
 Armor_210_Upper;Schemerkostuum
+Armor_211_Upper;Schemerkostuum ★
+Armor_212_Upper;Schemerkostuum ★★
+Armor_213_Upper;Schemerkostuum ★★★
+Armor_214_Upper;Schemerkostuum ★★★★
 Armor_215_Head;Hemelmuts
+Armor_216_Head;Hemelmuts ★
+Armor_217_Head;Hemelmuts ★★
+Armor_218_Head;Hemelmuts ★★★
+Armor_219_Head;Hemelmuts ★★★★
 Armor_215_Lower;Hemelbroek
+Armor_216_Lower;Hemelbroek ★
+Armor_217_Lower;Hemelbroek ★★
+Armor_218_Lower;Hemelbroek ★★★
+Armor_219_Lower;Hemelbroek ★★★★
 Armor_215_Upper;Hemelkostuum
+Armor_216_Upper;Hemelkostuum ★
+Armor_217_Upper;Hemelkostuum ★★
+Armor_218_Upper;Hemelkostuum ★★★
+Armor_219_Upper;Hemelkostuum ★★★★
 Armor_220_Head;Sheiks masker
+Armor_221_Head;Sheiks masker ★
+Armor_222_Head;Sheiks masker ★★
+Armor_223_Head;Sheiks masker ★★★
+Armor_224_Head;Sheiks masker ★★★★
 Armor_225_Head;Fierce Deity-masker
+Armor_226_Head;Fierce Deity-masker ★
+Armor_227_Head;Fierce Deity-masker ★★
+Armor_228_Head;Fierce Deity-masker ★★★
+Armor_229_Head;Fierce Deity-masker ★★★★
 Armor_225_Lower;Fierce Deity-laarzen
+Armor_226_Lower;Fierce Deity-laarzen ★
+Armor_227_Lower;Fierce Deity-laarzen ★★
+Armor_228_Lower;Fierce Deity-laarzen ★★★
+Armor_229_Lower;Fierce Deity-laarzen ★★★★
 Armor_225_Upper;Fierce Deity-harnas
+Armor_226_Upper;Fierce Deity-harnas ★
+Armor_227_Upper;Fierce Deity-harnas ★★
+Armor_228_Upper;Fierce Deity-harnas ★★★
+Armor_229_Upper;Fierce Deity-harnas ★★★★
 Armor_230_Head;Heldenmuts
+Armor_231_Head;Heldenmuts ★
+Armor_232_Head;Heldenmuts ★★
+Armor_233_Head;Heldenmuts ★★★
+Armor_234_Head;Heldenmuts ★★★★
 Armor_230_Lower;Heldenbroek
+Armor_231_Lower;Heldenbroek ★
+Armor_232_Lower;Heldenbroek ★★
+Armor_233_Lower;Heldenbroek ★★★
+Armor_234_Lower;Heldenbroek ★★★★
 Armor_230_Upper;Heldenkostuum
+Armor_231_Upper;Heldenkostuum ★
+Armor_232_Upper;Heldenkostuum ★★
+Armor_233_Upper;Heldenkostuum ★★★
+Armor_234_Upper;Heldenkostuum ★★★★
+
 Animal_Insect_A;Sprintkikker
 Animal_Insect_AA;Krachtkever
 Animal_Insect_AB;Doofvlinder

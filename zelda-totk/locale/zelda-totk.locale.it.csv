@@ -177,98 +177,411 @@ Weapon_Shield_101;Scudo di zonanio
 Weapon_Shield_102;Scudo di zonanio rinforzato
 Weapon_Shield_103;Scudo di zonanio massiccio
 Weapon_Shield_107;Scudo di legno antico
+
 Armor_001_Head;Cappuccio Hylia
+Armor_002_Head;Cappuccio Hylia ★
+Armor_003_Head;Cappuccio Hylia ★★
+Armor_004_Head;Cappuccio Hylia ★★★
+Armor_015_Head;Cappuccio Hylia ★★★★
 Armor_001_Lower;Pantaloni Hylia
+Armor_002_Lower;Pantaloni Hylia ★
+Armor_003_Lower;Pantaloni Hylia ★★
+Armor_004_Lower;Pantaloni Hylia ★★★
+Armor_015_Lower;Pantaloni Hylia ★★★★
 Armor_001_Upper;Tunica Hylia
+Armor_002_Upper;Tunica Hylia ★
+Armor_003_Upper;Tunica Hylia ★★
+Armor_004_Upper;Tunica Hylia ★★★
+Armor_015_Upper;Tunica Hylia ★★★★
 Armor_005_Head;Cappello terre selvagge
+Armor_035_Head;Cappello terre selvagge ★
+Armor_039_Head;Cappello terre selvagge ★★
+Armor_060_Head;Cappello terre selvagge ★★★
+Armor_061_Head;Cappello terre selvagge ★★★★
 Armor_005_Lower;Pantaloni terre selvagge
+Armor_035_Lower;Pantaloni terre selvagge ★
+Armor_039_Lower;Pantaloni terre selvagge ★★
+Armor_060_Lower;Pantaloni terre selvagge ★★★
+Armor_061_Lower;Pantaloni terre selvagge ★★★★
 Armor_005_Upper;Tunica terre selvagge
+Armor_035_Upper;Tunica terre selvagge ★
+Armor_039_Upper;Tunica terre selvagge ★★
+Armor_060_Upper;Tunica terre selvagge ★★★
+Armor_061_Upper;Tunica terre selvagge ★★★★
 Armor_006_Head;Elmo Zora
+Armor_007_Head;Elmo Zora ★
+Armor_062_Head;Elmo Zora ★★
+Armor_063_Head;Elmo Zora ★★★
+Armor_064_Head;Elmo Zora ★★★★
 Armor_006_Lower;Gambali Zora
+Armor_007_Lower;Gambali Zora ★
+Armor_062_Lower;Gambali Zora ★★
+Armor_063_Lower;Gambali Zora ★★★
+Armor_064_Lower;Gambali Zora ★★★★
 Armor_006_Upper;Armatura Zora
+Armor_007_Upper;Armatura Zora ★
+Armor_062_Upper;Armatura Zora ★★
+Armor_063_Upper;Armatura Zora ★★★
+Armor_064_Upper;Armatura Zora ★★★★
 Armor_008_Head;Fascia da deserto
+Armor_040_Head;Fascia da deserto ★
+Armor_065_Head;Fascia da deserto ★★
+Armor_066_Head;Fascia da deserto ★★★
+Armor_067_Head;Fascia da deserto ★★★★
 Armor_008_Lower;Pantaloni da deserto
+Armor_040_Lower;Pantaloni da deserto ★
+Armor_065_Lower;Pantaloni da deserto ★★
+Armor_066_Lower;Pantaloni da deserto ★★★
+Armor_067_Lower;Pantaloni da deserto ★★★★
 Armor_008_Upper;Spallaccio da deserto
+Armor_040_Upper;Spallaccio da deserto ★
+Armor_065_Upper;Spallaccio da deserto ★★
+Armor_066_Upper;Spallaccio da deserto ★★★
+Armor_067_Upper;Spallaccio da deserto ★★★★
 Armor_009_Head;Piume antineve
+Armor_036_Head;Piume antineve ★
+Armor_071_Head;Piume antineve ★★
+Armor_072_Head;Piume antineve ★★★
+Armor_073_Head;Piume antineve ★★★★
 Armor_009_Lower;Pantaloni Rito
+Armor_036_Lower;Pantaloni Rito ★
+Armor_071_Lower;Pantaloni Rito ★★
+Armor_072_Lower;Pantaloni Rito ★★★
+Armor_073_Lower;Pantaloni Rito ★★★★
 Armor_009_Upper;Tunica Rito
+Armor_036_Upper;Tunica Rito ★
+Armor_071_Upper;Tunica Rito ★★
+Armor_072_Upper;Tunica Rito ★★★
+Armor_073_Upper;Tunica Rito ★★★★
 Armor_011_Head;Elmoroccia ignifugo
+Armor_037_Head;Elmoroccia ignifugo ★
+Armor_074_Head;Elmoroccia ignifugo ★★
+Armor_075_Head;Elmoroccia ignifugo ★★★
+Armor_076_Head;Elmoroccia ignifugo ★★★★
 Armor_011_Lower;Scarperoccia ignifughe
+Armor_037_Lower;Scarperoccia ignifughe ★
+Armor_074_Lower;Scarperoccia ignifughe ★★
+Armor_075_Lower;Scarperoccia ignifughe ★★★
+Armor_076_Lower;Scarperoccia ignifughe ★★★★
 Armor_011_Upper;Armaturoccia ignifuga
+Armor_037_Upper;Armaturoccia ignifuga ★
+Armor_074_Upper;Armaturoccia ignifuga ★★
+Armor_075_Upper;Armaturoccia ignifuga ★★★
+Armor_076_Upper;Armaturoccia ignifuga ★★★★
 Armor_012_Head;Maschera furtiva
+Armor_042_Head;Maschera furtiva ★
+Armor_077_Head;Maschera furtiva ★★
+Armor_078_Head;Maschera furtiva ★★★
+Armor_079_Head;Maschera furtiva ★★★★
 Armor_012_Lower;Calzamaglia furtiva
+Armor_042_Lower;Calzamaglia furtiva ★
+Armor_077_Lower;Calzamaglia furtiva ★★
+Armor_078_Lower;Calzamaglia furtiva ★★★
+Armor_079_Lower;Calzamaglia furtiva ★★★★
 Armor_012_Upper;Completo furtivo
+Armor_042_Upper;Completo furtivo ★
+Armor_077_Upper;Completo furtivo ★★
+Armor_078_Upper;Completo furtivo ★★★
+Armor_079_Upper;Completo furtivo ★★★★
 Armor_014_Head;Bandana da scalata
+Armor_083_Head;Bandana da scalata ★
+Armor_084_Head;Bandana da scalata ★★
+Armor_085_Head;Bandana da scalata ★★★
+Armor_086_Head;Bandana da scalata ★★★★
 Armor_014_Lower;Scarpette da scalata
+Armor_083_Lower;Scarpette da scalata ★
+Armor_084_Lower;Scarpette da scalata ★★
+Armor_085_Lower;Scarpette da scalata ★★★
+Armor_086_Lower;Scarpette da scalata ★★★★
 Armor_014_Upper;Tenuta da scalata
+Armor_083_Upper;Tenuta da scalata ★
+Armor_084_Upper;Tenuta da scalata ★★
+Armor_085_Upper;Tenuta da scalata ★★★
+Armor_086_Upper;Tenuta da scalata ★★★★
 Armor_017_Head;Maschera lumisera
+Armor_087_Head;Maschera lumisera ★
+Armor_088_Head;Maschera lumisera ★★
+Armor_089_Head;Maschera lumisera ★★★
+Armor_090_Head;Maschera lumisera ★★★★
 Armor_017_Lower;Calzamaglia lumisera
+Armor_087_Lower;Calzamaglia lumisera ★
+Armor_088_Lower;Calzamaglia lumisera ★★
+Armor_089_Lower;Calzamaglia lumisera ★★★
+Armor_090_Lower;Calzamaglia lumisera ★★★★
 Armor_017_Upper;Maglia lumisera
+Armor_087_Upper;Maglia lumisera ★
+Armor_088_Upper;Maglia lumisera ★★
+Armor_089_Upper;Maglia lumisera ★★★
+Armor_090_Upper;Maglia lumisera ★★★★
 Armor_020_Head;Elmo Hylia
+Armor_095_Head;Elmo Hylia ★
+Armor_096_Head;Elmo Hylia ★★
+Armor_097_Head;Elmo Hylia ★★★
+Armor_098_Head;Elmo Hylia ★★★★
 Armor_020_Lower;Gambali Hylia
+Armor_095_Lower;Gambali Hylia ★
+Armor_096_Lower;Gambali Hylia ★★
+Armor_097_Lower;Gambali Hylia ★★★
+Armor_098_Lower;Gambali Hylia ★★★★
 Armor_020_Upper;Armatura Hylia
+Armor_095_Upper;Armatura Hylia ★
+Armor_096_Upper;Armatura Hylia ★★
+Armor_097_Upper;Armatura Hylia ★★★
+Armor_098_Upper;Armatura Hylia ★★★★
 Armor_022_Head;Maschera da boblin
 Armor_024_Head;Diadema con diamante
+Armor_117_Head;Diadema con diamante ★
+Armor_118_Head;Diadema con diamante ★★
+Armor_119_Head;Diadema con diamante ★★★
+Armor_120_Head;Diadema con diamante ★★★★
 Armor_025_Head;Diadema con rubino
+Armor_121_Head;Diadema con rubino ★
+Armor_122_Head;Diadema con rubino ★★
+Armor_123_Head;Diadema con rubino ★★★
+Armor_124_Head;Diadema con rubino ★★★★
 Armor_026_Head;Diadema con zaffiro
+Armor_125_Head;Diadema con zaffiro ★
+Armor_126_Head;Diadema con zaffiro ★★
+Armor_127_Head;Diadema con zaffiro ★★★
+Armor_128_Head;Diadema con zaffiro ★★★★
 Armor_027_Head;Orecchini con topazi
+Armor_129_Head;Orecchini con topazi ★
+Armor_130_Head;Orecchini con topazi ★★
+Armor_131_Head;Orecchini con topazi ★★★
+Armor_132_Head;Orecchini con topazi ★★★★
 Armor_028_Head;Orecchini con opale
+Armor_133_Head;Orecchini con opale ★
+Armor_134_Head;Orecchini con opale ★★
+Armor_135_Head;Orecchini con opale ★★★
+Armor_136_Head;Orecchini con opale ★★★★
 Armor_029_Head;Orecchini in ambra
+Armor_137_Head;Orecchini in ambra ★
+Armor_138_Head;Orecchini in ambra ★★
+Armor_139_Head;Orecchini in ambra ★★★
+Armor_140_Head;Orecchini in ambra ★★★★
 Armor_045_Head;Maschera da grublin
 Armor_046_Head;Elmo di gomma
+Armor_103_Head;Elmo di gomma ★
+Armor_104_Head;Elmo di gomma ★★
+Armor_105_Head;Elmo di gomma ★★★
+Armor_106_Head;Elmo di gomma ★★★★
 Armor_046_Lower;Calzamaglia di gomma
+Armor_103_Lower;Calzamaglia di gomma ★
+Armor_104_Lower;Calzamaglia di gomma ★★
+Armor_105_Lower;Calzamaglia di gomma ★★★
+Armor_106_Lower;Calzamaglia di gomma ★★★★
 Armor_046_Upper;Completo di gomma
+Armor_103_Upper;Completo di gomma ★
+Armor_104_Upper;Completo di gomma ★★
+Armor_105_Upper;Completo di gomma ★★★
+Armor_106_Upper;Completo di gomma ★★★★
 Armor_048_Head;Maschera da barbaro
+Armor_111_Head;Maschera da barbaro ★
+Armor_112_Head;Maschera da barbaro ★★
+Armor_113_Head;Maschera da barbaro ★★★
+Armor_114_Head;Maschera da barbaro ★★★★
 Armor_048_Lower;Pantaloncini da barbaro
+Armor_111_Lower;Pantaloncini da barbaro ★
+Armor_112_Lower;Pantaloncini da barbaro ★★
+Armor_113_Lower;Pantaloncini da barbaro ★★★
+Armor_114_Lower;Pantaloncini da barbaro ★★★★
 Armor_048_Upper;Vestiti da barbaro
+Armor_111_Upper;Vestiti da barbaro ★
+Armor_112_Upper;Vestiti da barbaro ★★
+Armor_113_Upper;Vestiti da barbaro ★★★
+Armor_114_Upper;Vestiti da barbaro ★★★★
 Armor_049_Lower;Stivali da sabbia
+Armor_152_Lower;Stivali da sabbia ★
+Armor_153_Lower;Stivali da sabbia ★★
+Armor_154_Lower;Stivali da sabbia ★★★
+Armor_155_Lower;Stivali da sabbia ★★★★
 Armor_055_Head;Maschera da lizalfos
 Armor_056_Head;Maschera da lynel
 Armor_1006_Head;Maschera aerodinamica
+Armor_1007_Head;Maschera aerodinamica ★
+Armor_1008_Head;Maschera aerodinamica ★★
+Armor_1009_Head;Maschera aerodinamica ★★★
+Armor_1010_Head;Maschera aerodinamica ★★★★
 Armor_1006_Lower;Pantaloni aerodinamici
+Armor_1007_Lower;Pantaloni aerodinamici ★
+Armor_1008_Lower;Pantaloni aerodinamici ★★
+Armor_1009_Lower;Pantaloni aerodinamici ★★★
+Armor_1010_Lower;Pantaloni aerodinamici ★★★★
 Armor_1006_Upper;Veste aerodinamica
+Armor_1007_Upper;Veste aerodinamica ★
+Armor_1008_Upper;Veste aerodinamica ★★
+Armor_1009_Upper;Veste aerodinamica ★★★
+Armor_1010_Upper;Veste aerodinamica ★★★★
 Armor_1036_Head;Spirito dell'eroe ancestrale
+Armor_1037_Head;Spirito dell'eroe ancestrale ★
+Armor_1038_Head;Spirito dell'eroe ancestrale ★★
+Armor_1039_Head;Spirito dell'eroe ancestrale ★★★
+Armor_1040_Head;Spirito dell'eroe ancestrale ★★★★
 Armor_1043_Lower;Sandali logori
 Armor_1043_Upper;Tunica logora
 Armor_1044_Lower;Schinieri antifreddo
 Armor_1046_Head;Copricapo anfibio
+Armor_1047_Head;Copricapo anfibio ★
+Armor_1048_Head;Copricapo anfibio ★★
+Armor_1049_Head;Copricapo anfibio ★★★
+Armor_1050_Head;Copricapo anfibio ★★★★
 Armor_1046_Lower;Gambali anfibi
+Armor_1047_Lower;Gambali anfibi ★
+Armor_1048_Lower;Gambali anfibi ★★
+Armor_1049_Lower;Gambali anfibi ★★★
+Armor_1050_Lower;Gambali anfibi ★★★★
 Armor_1046_Upper;Manica anfibia
+Armor_1047_Upper;Manica anfibia ★
+Armor_1048_Upper;Manica anfibia ★★
+Armor_1049_Upper;Manica anfibia ★★★
+Armor_1050_Upper;Manica anfibia ★★★★
 Armor_1051_Head;Maschera da minatore
+Armor_1052_Head;Maschera da minatore ★
+Armor_1053_Head;Maschera da minatore ★★
+Armor_1054_Head;Maschera da minatore ★★★
+Armor_1055_Head;Maschera da minatore ★★★★
 Armor_1051_Lower;Pantaloni da minatore
+Armor_1052_Lower;Pantaloni da minatore ★
+Armor_1053_Lower;Pantaloni da minatore ★★
+Armor_1054_Lower;Pantaloni da minatore ★★★
+Armor_1055_Lower;Pantaloni da minatore ★★★★
 Armor_1051_Upper;Corazza da minatore
+Armor_1052_Upper;Corazza da minatore ★
+Armor_1053_Upper;Corazza da minatore ★★
+Armor_1054_Upper;Corazza da minatore ★★★
+Armor_1055_Upper;Corazza da minatore ★★★★
 Armor_1061_Head;Copricapo del fuoco
+Armor_1062_Head;Copricapo del fuoco ★
+Armor_1063_Head;Copricapo del fuoco ★★
+Armor_1064_Head;Copricapo del fuoco ★★★
+Armor_1065_Head;Copricapo del fuoco ★★★★
 Armor_1061_Lower;Pantaloni del fuoco
+Armor_1062_Lower;Pantaloni del fuoco ★
+Armor_1063_Lower;Pantaloni del fuoco ★★
+Armor_1064_Lower;Pantaloni del fuoco ★★★
+Armor_1065_Lower;Pantaloni del fuoco ★★★★
 Armor_1061_Upper;Veste del fuoco
+Armor_1062_Upper;Veste del fuoco ★
+Armor_1063_Upper;Veste del fuoco ★★
+Armor_1064_Upper;Veste del fuoco ★★★
+Armor_1065_Upper;Veste del fuoco ★★★★
 Armor_1066_Head;Copricapo del fulmine
+Armor_1067_Head;Copricapo del fulmine ★
+Armor_1068_Head;Copricapo del fulmine ★★
+Armor_1069_Head;Copricapo del fulmine ★★★
+Armor_1070_Head;Copricapo del fulmine ★★★★
 Armor_1066_Lower;Pantaloni del fulmine
+Armor_1067_Lower;Pantaloni del fulmine ★
+Armor_1068_Lower;Pantaloni del fulmine ★★
+Armor_1069_Lower;Pantaloni del fulmine ★★★
+Armor_1070_Lower;Pantaloni del fulmine ★★★★
 Armor_1066_Upper;Lorica del fulmine
+Armor_1067_Upper;Lorica del fulmine ★
+Armor_1068_Upper;Lorica del fulmine ★★
+Armor_1069_Upper;Lorica del fulmine ★★★
+Armor_1070_Upper;Lorica del fulmine ★★★★
 Armor_1071_Head;Copricapo della bufera
+Armor_1072_Head;Copricapo della bufera ★
+Armor_1073_Head;Copricapo della bufera ★★
+Armor_1074_Head;Copricapo della bufera ★★★
+Armor_1075_Head;Copricapo della bufera ★★★★
 Armor_1071_Lower;Pantaloni della bufera
+Armor_1072_Lower;Pantaloni della bufera ★
+Armor_1073_Lower;Pantaloni della bufera ★★
+Armor_1074_Lower;Pantaloni della bufera ★★★
+Armor_1075_Lower;Pantaloni della bufera ★★★★
 Armor_1071_Upper;Veste della bufera
+Armor_1072_Upper;Veste della bufera ★
+Armor_1073_Upper;Veste della bufera ★★
+Armor_1074_Upper;Veste della bufera ★★★
+Armor_1075_Upper;Veste della bufera ★★★★
 Armor_1076_Head;Cappello Sagono
 Armor_1086_Head;Copricapo degli spiriti
 Armor_1086_Lower;Pantaloni degli spiriti
 Armor_1086_Upper;Tunica degli spiriti
 Armor_1091_Head;Elmo di zonanio
+Armor_1092_Head;Elmo di zonanio ★
+Armor_1093_Head;Elmo di zonanio ★★
+Armor_1094_Head;Elmo di zonanio ★★★
+Armor_1095_Head;Elmo di zonanio ★★★★
 Armor_1091_Lower;Ginocchiere di zonanio
+Armor_1092_Lower;Ginocchiere di zonanio ★
+Armor_1093_Lower;Ginocchiere di zonanio ★★
+Armor_1094_Lower;Ginocchiere di zonanio ★★★
+Armor_1095_Lower;Ginocchiere di zonanio ★★★★
 Armor_1091_Upper;Lorica di zonanio
+Armor_1092_Upper;Lorica di zonanio ★
+Armor_1093_Upper;Lorica di zonanio ★★
+Armor_1094_Upper;Lorica di zonanio ★★★
+Armor_1095_Upper;Lorica di zonanio ★★★★
 Armor_1096_Head;Maschera del risveglio
+Armor_1097_Head;Maschera del risveglio ★
+Armor_1098_Head;Maschera del risveglio ★★
+Armor_1099_Head;Maschera del risveglio ★★★
+Armor_1100_Head;Maschera del risveglio ★★★★
 Armor_1096_Lower;Pantaloni del risveglio
+Armor_1097_Lower;Pantaloni del risveglio ★
+Armor_1098_Lower;Pantaloni del risveglio ★★
+Armor_1099_Lower;Pantaloni del risveglio ★★★
+Armor_1100_Lower;Pantaloni del risveglio ★★★★
 Armor_1096_Upper;Tunica del risveglio
+Armor_1097_Upper;Tunica del risveglio ★
+Armor_1098_Upper;Tunica del risveglio ★★
+Armor_1099_Upper;Tunica del risveglio ★★★
+Armor_1100_Upper;Tunica del risveglio ★★★★
 Armor_1106_Upper;Nuova tunica del campione
+Armor_1107_Upper;Nuova tunica del campione ★
+Armor_1108_Upper;Nuova tunica del campione ★★
+Armor_1109_Upper;Nuova tunica del campione ★★★
+Armor_1110_Upper;Nuova tunica del campione ★★★★
 Armor_1125_Head;Maschera da obbroblin
 Armor_1141_Head;Cappuccio delle tenebre
+Armor_1142_Head;Cappuccio delle tenebre ★
+Armor_1143_Head;Cappuccio delle tenebre ★★
+Armor_1144_Head;Cappuccio delle tenebre ★★★
+Armor_1145_Head;Cappuccio delle tenebre ★★★★
 Armor_1141_Lower;Ghette delle tenebre
+Armor_1142_Lower;Ghette delle tenebre ★
+Armor_1143_Lower;Ghette delle tenebre ★★
+Armor_1144_Lower;Ghette delle tenebre ★★★
+Armor_1145_Lower;Ghette delle tenebre ★★★★
 Armor_1141_Upper;Tunica delle tenebre
+Armor_1142_Upper;Tunica delle tenebre ★
+Armor_1143_Upper;Tunica delle tenebre ★★
+Armor_1144_Upper;Tunica delle tenebre ★★★
+Armor_1145_Upper;Tunica delle tenebre ★★★★
 Armor_1151_Head;Vecchio nastro
 Armor_1152_Head;Cappuccio Hylia
+Armor_1153_Head;Cappuccio Hylia ★
+Armor_1154_Head;Cappuccio Hylia ★★
+Armor_1155_Head;Cappuccio Hylia ★★★
+Armor_1156_Head;Cappuccio Hylia ★★★★
 Armor_115_Head;Elmo scacciatuono
 Armor_116_Upper;Tunica dei ricordi
+Armor_148_Upper;Tunica dei ricordi ★
+Armor_149_Upper;Tunica dei ricordi ★★
+Armor_150_Upper;Tunica dei ricordi ★★★
+Armor_151_Upper;Tunica dei ricordi ★★★★
 Armor_1300_Head;Maschera Yiga
+Armor_1301_Head;Maschera Yiga ★
+Armor_1302_Head;Maschera Yiga ★★
+Armor_1303_Head;Maschera Yiga ★★★
+Armor_1304_Head;Maschera Yiga ★★★★
 Armor_1300_Lower;Calzamaglia Yiga
+Armor_1301_Lower;Calzamaglia Yiga ★
+Armor_1302_Lower;Calzamaglia Yiga ★★
+Armor_1303_Lower;Calzamaglia Yiga ★★★
+Armor_1304_Lower;Calzamaglia Yiga ★★★★
 Armor_1300_Upper;Tunica Yiga
+Armor_1301_Upper;Tunica Yiga ★
+Armor_1302_Upper;Tunica Yiga ★★
+Armor_1303_Upper;Tunica Yiga ★★★
+Armor_1304_Upper;Tunica Yiga ★★★★
 Armor_141_Lower;Stivali da neve
+Armor_156_Lower;Stivali da neve ★
+Armor_157_Lower;Stivali da neve ★★
+Armor_158_Lower;Stivali da neve ★★★
+Armor_159_Lower;Stivali da neve ★★★★
 Armor_160_Head;Cappuccio oscuro
 Armor_160_Lower;Pantaloni oscuri
 Armor_160_Upper;Tunica oscura
@@ -285,34 +598,139 @@ Armor_176_Head;Maschera Korogu
 Armor_177_Head;Cappuccio di Lavio
 Armor_178_Head;Elmo di Zant
 Armor_179_Head;Basco da guardia reale
+Armor_1146_Head;Basco da guardia reale ★
+Armor_1147_Head;Basco da guardia reale ★★
+Armor_1148_Head;Basco da guardia reale ★★★
+Armor_1149_Head;Basco da guardia reale ★★★★
 Armor_179_Lower;Stivali da guardia reale
+Armor_1146_Lower;Stivali da guardia reale ★
+Armor_1147_Lower;Stivali da guardia reale ★★
+Armor_1148_Lower;Stivali da guardia reale ★★★
+Armor_1149_Lower;Stivali da guardia reale ★★★★
 Armor_179_Upper;Uniforme da guardia reale
+Armor_1146_Upper;Uniforme da guardia reale ★
+Armor_1147_Upper;Uniforme da guardia reale ★★
+Armor_1148_Upper;Uniforme da guardia reale ★★★
+Armor_1149_Upper;Uniforme da guardia reale ★★★★
 Armor_180_Head;Maschera spirito del male
 Armor_180_Lower;Schinieri spirito del male
 Armor_180_Upper;Armatura spirito del male
 Armor_181_Head;Elmo sacro di Ruta
+Armor_186_Head;Elmo sacro di Ruta ★
+Armor_187_Head;Elmo sacro di Ruta ★★
+Armor_188_Head;Elmo sacro di Ruta ★★★
+Armor_189_Head;Elmo sacro di Ruta ★★★★
 Armor_182_Head;Elmo sacro di Medoh
+Armor_190_Head;Elmo sacro di Medoh ★
+Armor_191_Head;Elmo sacro di Medoh ★★
+Armor_192_Head;Elmo sacro di Medoh ★★★
+Armor_193_Head;Elmo sacro di Medoh ★★★★
 Armor_183_Head;Elmo sacro di Rudania
+Armor_194_Head;Elmo sacro di Rudania ★
+Armor_195_Head;Elmo sacro di Rudania ★★
+Armor_196_Head;Elmo sacro di Rudania ★★★
+Armor_197_Head;Elmo sacro di Rudania ★★★★
 Armor_184_Head;Elmo sacro di Naboris
+Armor_198_Head;Elmo sacro di Naboris ★
+Armor_199_Head;Elmo sacro di Naboris ★★
+Armor_168_Head;Elmo sacro di Naboris ★★★
+Armor_169_Head;Elmo sacro di Naboris ★★★★
 Armor_200_Head;Cappello eroe del tempo
+Armor_201_Head;Cappello eroe del tempo ★
+Armor_202_Head;Cappello eroe del tempo ★★
+Armor_203_Head;Cappello eroe del tempo ★★★
+Armor_204_Head;Cappello eroe del tempo ★★★★
 Armor_200_Lower;Pantaloni eroe del tempo
+Armor_201_Lower;Pantaloni eroe del tempo ★
+Armor_202_Lower;Pantaloni eroe del tempo ★★
+Armor_203_Lower;Pantaloni eroe del tempo ★★★
+Armor_204_Lower;Pantaloni eroe del tempo ★★★★
 Armor_200_Upper;Tunica eroe del tempo
+Armor_201_Upper;Tunica eroe del tempo ★
+Armor_202_Upper;Tunica eroe del tempo ★★
+Armor_203_Upper;Tunica eroe del tempo ★★★
+Armor_204_Upper;Tunica eroe del tempo ★★★★
 Armor_205_Head;Cappello eroe dei venti
+Armor_206_Head;Cappello eroe dei venti ★
+Armor_207_Head;Cappello eroe dei venti ★★
+Armor_208_Head;Cappello eroe dei venti ★★★
+Armor_209_Head;Cappello eroe dei venti ★★★★
 Armor_205_Lower;Pantaloni eroe dei venti
+Armor_206_Lower;Pantaloni eroe dei venti ★
+Armor_207_Lower;Pantaloni eroe dei venti ★★
+Armor_208_Lower;Pantaloni eroe dei venti ★★★
+Armor_209_Lower;Pantaloni eroe dei venti ★★★★
 Armor_205_Upper;Tunica eroe dei venti
+Armor_206_Upper;Tunica eroe dei venti ★
+Armor_207_Upper;Tunica eroe dei venti ★★
+Armor_208_Upper;Tunica eroe dei venti ★★★
+Armor_209_Upper;Tunica eroe dei venti ★★★★
 Armor_210_Head;Cappello del crepuscolo
+Armor_211_Head;Cappello del crepuscolo ★
+Armor_212_Head;Cappello del crepuscolo ★★
+Armor_213_Head;Cappello del crepuscolo ★★★
+Armor_214_Head;Cappello del crepuscolo ★★★★
 Armor_210_Lower;Pantaloni del crepuscolo
+Armor_211_Lower;Pantaloni del crepuscolo ★
+Armor_212_Lower;Pantaloni del crepuscolo ★★
+Armor_213_Lower;Pantaloni del crepuscolo ★★★
+Armor_214_Lower;Pantaloni del crepuscolo ★★★★
 Armor_210_Upper;Tunica del crepuscolo
+Armor_211_Upper;Tunica del crepuscolo ★
+Armor_212_Upper;Tunica del crepuscolo ★★
+Armor_213_Upper;Tunica del crepuscolo ★★★
+Armor_214_Upper;Tunica del crepuscolo ★★★★
 Armor_215_Head;Cappello eroe del cielo
+Armor_216_Head;Cappello eroe del cielo ★
+Armor_217_Head;Cappello eroe del cielo ★★
+Armor_218_Head;Cappello eroe del cielo ★★★
+Armor_219_Head;Cappello eroe del cielo ★★★★
 Armor_215_Lower;Pantaloni eroe del cielo
+Armor_216_Lower;Pantaloni eroe del cielo ★
+Armor_217_Lower;Pantaloni eroe del cielo ★★
+Armor_218_Lower;Pantaloni eroe del cielo ★★★
+Armor_219_Lower;Pantaloni eroe del cielo ★★★★
 Armor_215_Upper;Tunica eroe del cielo
+Armor_216_Upper;Tunica eroe del cielo ★
+Armor_217_Upper;Tunica eroe del cielo ★★
+Armor_218_Upper;Tunica eroe del cielo ★★★
+Armor_219_Upper;Tunica eroe del cielo ★★★★
 Armor_220_Head;Maschera di Sheik
+Armor_221_Head;Maschera di Sheik ★
+Armor_222_Head;Maschera di Sheik ★★
+Armor_223_Head;Maschera di Sheik ★★★
+Armor_224_Head;Maschera di Sheik ★★★★
 Armor_225_Head;Maschera furia divina
+Armor_226_Head;Maschera furia divina ★
+Armor_227_Head;Maschera furia divina ★★
+Armor_228_Head;Maschera furia divina ★★★
+Armor_229_Head;Maschera furia divina ★★★★
 Armor_225_Lower;Stivali furia divina
+Armor_226_Lower;Stivali furia divina ★
+Armor_227_Lower;Stivali furia divina ★★
+Armor_228_Lower;Stivali furia divina ★★★
+Armor_229_Lower;Stivali furia divina ★★★★
 Armor_225_Upper;Tunica furia divina
+Armor_226_Upper;Tunica furia divina ★
+Armor_227_Upper;Tunica furia divina ★★
+Armor_228_Upper;Tunica furia divina ★★★
+Armor_229_Upper;Tunica furia divina ★★★★
 Armor_230_Head;Cappello delle origini
+Armor_231_Head;Cappello delle origini ★
+Armor_232_Head;Cappello delle origini ★★
+Armor_233_Head;Cappello delle origini ★★★
+Armor_234_Head;Cappello delle origini ★★★★
 Armor_230_Lower;Pantaloni delle origini
+Armor_231_Lower;Pantaloni delle origini ★
+Armor_232_Lower;Pantaloni delle origini ★★
+Armor_233_Lower;Pantaloni delle origini ★★★
+Armor_234_Lower;Pantaloni delle origini ★★★★
 Armor_230_Upper;Tunica delle origini
+Armor_231_Upper;Tunica delle origini ★
+Armor_232_Upper;Tunica delle origini ★★
+Armor_233_Upper;Tunica delle origini ★★★
+Armor_234_Upper;Tunica delle origini ★★★★
+
 Animal_Insect_A;Rana lesta
 Animal_Insect_AA;Scarabeo aitante
 Animal_Insect_AB;Farfalla ignifuga
