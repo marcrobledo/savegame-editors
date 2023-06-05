@@ -147,7 +147,7 @@ var Schematics={
 		[3562, -588-105, 2209], //Bridge (Schema stone)
 		[2946, -453-105, 3338], //Dirigible (Schema stone)
 		[3986, -576-105, -1583], //Instant Cannon (Schema stone)
-		[-3403, -482-105, 222], //Instant Scaffold (Schema stone)
+		[-3210, -475-105, 2473], //Instant Scaffold (Schema stone)
 		[1796, -629-105, 1226], //Launch Pad (Schema stone)
 		[1641, -824-105, -2397], //Automated Ally (Schema stone)
 		[-256, 20-105, -153], //Hot-Air Balloon (Schema stone)
@@ -172,7 +172,7 @@ var Schematics={
 		[3618, -455-105, 569], //Icebreaker
 		[-130, -634-105, -2867], //Aerial Cannon
 		[-2865, -931-105, -2918], //Floodlights
-		[-3210, -475-105, 2473], //Instant Scaffold (Yiga schematic)
+		[-3403, -482-105, 222], //Instant Scaffold (Yiga schematic)
 		[-1225, -480-105, 2611], //Monocycle
 		[-4546, -489-105, 2170], //Raiding Plane
 		[-1620, -482-105, -247], //Bomb Bouquet
