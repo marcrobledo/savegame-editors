@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230604
+	The legend of Zelda: Tears of the Kingdom savegame editor v20230608
 
 	by Marc Robledo 2023
 */
@@ -8,7 +8,7 @@ var currentEditingItem;
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
 	Filename:['progress.sav','caption.sav'],
-	Version:20230604,
+	Version:20230608,
 	noDemo:true,
 
 	/* Settings */
@@ -29,82 +29,92 @@ SavegameEditor={
 
 	/* Hashes */
 	Hashes:[
-		0xfbe01da1, 'MaxHearts',
-		0xa77921d7, 'CurrentRupees',
-		//0x31ab5580, 'CurrentHearts',
-		0xf9212c74, 'MaxStamina',
-		0x15ec5858, 'PonyPoints',
-		0xe573f564, 'Playtime',
-		0xafd01d68, 'MaxBattery',
+		0xfbe01da1, 'PlayerStatus.MaxLife', false,
+		0xa77921d7, 'PlayerStatus.CurrentRupee', false,
+		//0x31ab5580, 'PlayerStatus.Life',
+		0xf9212c74, 'PlayerStatus.MaxStamina', false,
+		0x15ec5858, 'HorseInnMemberPoint', false,
+		0xe573f564, 'Playtime', false, //unknown key
+		0xafd01d68, 'PlayerStatus.MaxEnergy', false,
 
-		0xc884818d, 'PlayerPos', //Vector3F
-		0xd7a3f6ba, 'ArrayPouchSwords',
-		0xc61785c2, 'ArrayPouchBows',
-		0x05271e7d, 'ArrayPouchShields',
+		0xc884818d, 'PlayerStatus.SavePos', true, //Vector3F
+		0xd7a3f6ba, 'Pouch.Weapon.ValidNum', true,
+		0xc61785c2, 'Pouch.Bow.ValidNum', true,
+		0x05271e7d, 'Pouch.Shield.ValidNum', true,
 
-		0x65efd0be, 'ArrayWeaponIds',
-		0x8b12d062, 'ArrayWeaponDurabilities',
-		0xdd846288, 'ArrayWeaponModifiers',
-		0xfda1d214, 'ArrayWeaponModifierValues',
-		0x80707cad, 'ArrayWeaponFuseIds',
-		0x791c4a0b, 'ArrayBowIds',
-		0x60589200, 'ArrayBowDurabilities',
-		0xd59aeed5, 'ArrayBowModifiers',
-		0xdfd216f2, 'ArrayBowModifierValues',
-		0x273190f4, 'ArrayShieldIds',
-		0xc3416d19, 'ArrayShieldDurabilities',
-		0x464b410c, 'ArrayShieldModifiers',
-		0xa6a38304, 'ArrayShieldModifierValues',
-		0xc95833d9, 'ArrayShieldFuseIds',
-		0x754e8549, 'ArrayArmorIds',
-		0x183e2a32, 'ArrayArmorDyeColors',
-		0x24dd3262, 'ArrayArrowIds',
-		0x53b27d94, 'ArrayArrowQuantities',
-		0xd96ebf12, 'ArrayMaterialIds',
-		0xde2d8500, 'ArrayMaterialQuantities',
-		0x7c0f89ad, 'ArrayFoodIds',
-		0x2a952a60, 'ArrayFoodQuantities',
-		0x6f743e98, 'ArrayFoodEffects',
-		0x9d3b5847, 'ArrayFoodEffectsHearts',
-		0x904a7213, 'ArrayFoodEffectsMultiplier',
-		0xf097cefa, 'ArrayFoodEffectsTime', // in seconds
-		0x2e470848, 'ArrayFoodEffectsUnknown1', //???
-		0xa86f2f10, 'ArrayDeviceIds',
-		0x60d16ab0, 'ArrayDeviceQuantities',
-		0x22c6530a, 'ArrayKeyIds',
-		0x60fac288, 'ArrayKeyQuantities',
+		0x65efd0be, 'Pouch.Weapon.Content.Name', true,
+		0x8b12d062, 'Pouch.Weapon.Content.Life', true, //durability
+		0xdd846288, 'Pouch.Weapon.Content.Effect.Type', true, //modifier
+		0xfda1d214, 'Pouch.Weapon.Content.Effect.Value', true, //modifier value
+		0x80707cad, 'Pouch.Weapon.Content.Combined.Name', true, //fuse id
+		//0x6796852b, 'Pouch.Weapon.Content.Combined.Life', true, //fuse durability
+		//0x12ffda6b, 'Pouch.Weapon.Content.ExtraLife', true,
+		//0xbf321621, 'Pouch.Weapon.Content.RecordExtraLife', true,
+		0x791c4a0b, 'Pouch.Bow.Content.Name', true,
+		0x60589200, 'Pouch.Bow.Content.Life', true,
+		0xd59aeed5, 'Pouch.Bow.Content.Effect.Type', true,
+		0xdfd216f2, 'Pouch.Bow.Content.Effect.Value', true,
+		0x273190f4, 'Pouch.Shield.Content.Name', true,
+		0xc3416d19, 'Pouch.Shield.Content.Life', true,
+		0x464b410c, 'Pouch.Shield.Content.Effect.Type', true,
+		0xa6a38304, 'Pouch.Shield.Content.Effect.Value', true,
+		0xc95833d9, 'Pouch.Shield.Content.Combined.Name', true,
+		//0x7a20968b, 'Pouch.Shield.Content.Combined.Life', true, //fuse durability
+		//0x0c1dafcb, 'Pouch.Shield.Content.ExtraLife', true,
+		0x754e8549, 'Pouch.Armor.Content.Name', true,
+		0x183e2a32, 'Pouch.Armor.Content.ColorVariation', true,
+		0x24dd3262, 'Pouch.Arrow.Content.Name', true,
+		0x53b27d94, 'Pouch.Arrow.Content.StockNum', true,
+		0xd96ebf12, 'Pouch.Material.Content.Name', true,
+		0xde2d8500, 'Pouch.Material.Content.StockNum', true,
+		//0xb532a540, 'Pouch.Material.Content.GetOrder', true,
+		//0xe50dcb79, 'Pouch.Material.Content.UseOrder', true,
+		0x7c0f89ad, 'Pouch.Food.Content.Name', true,
+		0x2a952a60, 'Pouch.Food.Content.StockNum', true,
+		0x9d3b5847, 'Pouch.Food.Content.LifeRecover', true,
+		0x6f743e98, 'Pouch.Food.Content.Effect.Type', true,
+		0x904a7213, 'Pouch.Food.Content.Effect.Level', true,
+		0xf097cefa, 'Pouch.Food.Content.Effect.Time', true, // in seconds
+		0x2e470848, 'Pouch.Food.Content.Price', true,
+		//0x919ad411, 'Pouch.Food.Content.MaterialName', true,
+		0xa86f2f10, 'Pouch.SpecialParts.Content.Name', true,
+		0x60d16ab0, 'Pouch.SpecialParts.Content.StockNum', true,
+		0x3bdba89c, 'Pouch.SpecialParts.Content.UseOrder', true,
+		0x22c6530a, 'Pouch.KeyItem.Content.Name', true,
+		0x60fac288, 'Pouch.KeyItem.Content.StockNum', true,
 
-		0x7bde80e9, 'ArrayHorseIds',
-		0xd2ddb868, 'ArrayHorseNames',
-		0x54049354, 'ArrayHorseManes',
-		0x1daf6cb4, 'ArrayHorseSaddles',
-		0xfee5cd77, 'ArrayHorseReins',
-		0xdcd9f005, 'ArrayHorseBonds',
-		0xcea848b6, 'ArrayHorseSpecialTypes',
-		0xafe462c3, 'ArrayHorseStatsStrength',
-		0xc0775abf, 'ArrayHorseStatsSpeed',
-		0xc8454f7c, 'ArrayHorseStatsStamina',
-		0x10d564d7, 'ArrayHorseStatsPull',
-		0xfbf44df2, 'ArrayHorseIconPatterns',
-		0x48bfcf08, 'ArrayHorseIconEyeColors',
-		0xa0e854ea, 'WildTammedHorseId',
+		0x7bde80e9, 'OwnedHorseList.ActorName', true,
+		0xd2ddb868, 'OwnedHorseList.Name', true,
+		0x54049354, 'OwnedHorseList.Mane', true,
+		0x1daf6cb4, 'OwnedHorseList.Saddle', true,
+		0xfee5cd77, 'OwnedHorseList.Rein', true,
+		0xdcd9f005, 'OwnedHorseList.Familiarity', true, //bond
+		0xcea848b6, 'OwnedHorseList.HorseType', true,
+		0xafe462c3, 'OwnedHorseList.Toughness', true, //stats strength (life)
+		0xc0775abf, 'OwnedHorseList.Speed', true,
+		0xc8454f7c, 'OwnedHorseList.ChargeNum', true, //stats stamina
+		0x10d564d7, 'OwnedHorseList.HorsePower', true, //stats pull
+		0xfbf44df2, 'OwnedHorseList.Body.Pattern', true,
+		0x48bfcf08, 'OwnedHorseList.Body.EyeColor', true,
+		//0xf4505b59, 'OwnedHorseList.ColorType', true,
+		//0xbf41c181, 'OwnedHorseList.FootType', true,
+		//0xaabf3198, 'OwnedHorseList.UidHash', true,
+		//0x5dd10d95, 'OwnedHorseList.Body.NoseColor.Blue', true, //icon only
+		//0xfec02192, 'OwnedHorseList.Body.NoseColor.Green', true, //icon only
+		//0x9e10d432, 'OwnedHorseList.Body.NoseColor.Red', true, //icon only
+
+		0xa0e854ea, 'LastWildHorse.ActorName', true,
 
 
-		0x14d7f4c4, 'ArrayMapPinIcons',
-		0xf24fc2e7, 'ArrayMapPinCoordinates',
-		0xd2025694, 'ArrayMapPinMap',
+		0x14d7f4c4, 'MapData.IconData.StampData.Type', true,
+		0xf24fc2e7, 'MapData.IconData.StampData.Pos', true,
+		0xd2025694, 'MapData.IconData.StampData.Layer', true,
 
-		//0xe5b21993, 'ActiveMode', //???
-		//0x84328ce6, 'AutoBuilder',
-		//0x8ad36c62, 'AutoBuilder.Draft',
-		//0x55cb3b43, 'AutoBuilder.Draft.Content',
-		0xd27f8651, 'AutoBuilder.Draft.Content.Index', //S32, length=30
-		0xa56722b6, 'AutoBuilder.Draft.Content.CombinedActorInfo', //binary data (size=6688), length=0?
-		0xc5bf2815, 'AutoBuilder.Draft.Content.CameraPos', //Vector3F, length=30
-		0xef74dca7, 'AutoBuilder.Draft.Content.CameraAt', //Vector3F, length=30
-		0x67f4b46b, 'AutoBuilder.Draft.Content.IsFavorite' //S32?, length=30
-		//0x4058267a, 'AutoBuilder.Draft.Content.SerialNumber',
-		//0xb1c6f532, 'AutoBuilder.Draft.Content.IsValid'
+		0xd27f8651, 'AutoBuilder.Draft.Content.Index', true, //S32, length=30
+		0xa56722b6, 'AutoBuilder.Draft.Content.CombinedActorInfo', true, //binary data (size=6688), length=0?
+		0xc5bf2815, 'AutoBuilder.Draft.Content.CameraPos', true, //Vector3F, length=30
+		0xef74dca7, 'AutoBuilder.Draft.Content.CameraAt', true, //Vector3F, length=30
+		0x67f4b46b, 'AutoBuilder.Draft.Content.IsFavorite', true //S32?, length=30
 	],
 
 
@@ -327,13 +337,13 @@ SavegameEditor={
 			if(hash===0xa3db7114){ //found MetaData.SaveTypeHash
 				break;
 			}else if(foundHashIndex!==-1){
-				if(/^(Array|PlayerPos|AutoBuilder)/.test(this.Hashes[foundHashIndex+1]))
+				if(this.Hashes[foundHashIndex+2]) //isPointer
 					this.Offsets[this.Hashes[foundHashIndex+1]]=tempFile.readU32(i+4);
 				else
 					this.Offsets[this.Hashes[foundHashIndex+1]]=i+4;
 			}
 		}
-		for(var i=0; i<this.Hashes.length; i+=2){
+		for(var i=0; i<this.Hashes.length; i+=3){
 			if(typeof this.Offsets[this.Hashes[i+1]] === 'undefined'){
 				console.error('hash '+this.Hashes[i+1]+' not found');
 				ret=false;
@@ -409,7 +419,7 @@ SavegameEditor={
 				lastColumn.appendChild(item._htmlInputFoodEffectHearts);
 				lastColumn.appendChild(item._htmlInputFoodEffectMultiplier);
 				lastColumn.appendChild(item._htmlInputFoodEffectTime);
-				//lastColumn.appendChild(item._htmlSpanFoodEffectUnknownValue);
+				lastColumn.appendChild(item._htmlInputFoodPrice);
 			}
 		}else if(item.category==='armors'){
 			lastColumn.appendChild(item._htmlSpanColor);
@@ -491,8 +501,8 @@ SavegameEditor={
 	},
 
 	addItem:function(catId, itemId, quantity){
-		var categoryHash=capitalizeCategoryId(catId);
-		var maxItems=SavegameEditor.readU32('Array'+categoryHash+'Ids');
+		var categoryHash=getInternalCategoryId(catId);
+		var maxItems=SavegameEditor.readU32('Pouch.'+categoryHash+'.Content.Name');
 
 		var lastItem=this.getLastItem(catId);
 
@@ -517,11 +527,7 @@ SavegameEditor={
 			return quantity;
 		}
 
-		var itemList=this.getTranslationHash(catId);
-		var itemListArray=[];
-		for(var id in itemList){
-			itemListArray.push(id);
-		}
+		var itemListArray=this.getAvailableItems(catId);
 
 		var newId;
 		if(lastItem){
@@ -552,6 +558,8 @@ SavegameEditor={
 		document.getElementById('container-'+newItem.category).appendChild(row);
 		row.scrollIntoView({behavior:'smooth',block:'center'});
 
+		if(catId==='arrows')
+			this.refreshAddArrowsButton();
 		return true;
 	},
 
@@ -568,15 +576,15 @@ SavegameEditor={
 		return null;
 	},
 
-	getTranslationHash:function(catId){
+	getAvailableItems:function(catId){
 		if(catId==='weapons' || catId==='bows' || catId==='shields')
-			return Equipment.TRANSLATIONS[catId];
+			return Equipment.AVAILABILITY[catId];
 		else if(catId==='armors')
-			return Armor.TRANSLATIONS;
+			return Armor.AVAILABILITY;
 		else if(catId==='arrows' || catId==='materials' || catId==='food' || catId==='devices' || catId==='key')
-			return Item.TRANSLATIONS[catId];
+			return Item.AVAILABILITY[catId];
 		else if(catId==='horses')
-			return Horse.TRANSLATIONS;
+			return Horse.AVAILABILITY;
 		return null;
 	},
 
@@ -586,11 +594,11 @@ SavegameEditor={
 		/* prepare edit item selector */		
 		if(this.selectItem.lastCategory !== item.category){
 			this.selectItem.innerHTML='';
-			var itemList=this.getTranslationHash(item.category);
-			for(var itemId in itemList){
+			var itemList=this.getAvailableItems(item.category);
+			for(var i=0; i<itemList.length; i++){
 				var opt=document.createElement('option');
-				opt.value=itemId;
-				opt.innerHTML=Locale._(itemId) || itemList[itemId];
+				opt.value=itemList[i];
+				opt.innerHTML=Locale._(itemList[i]);
 				this.selectItem.appendChild(opt);
 			}
 
@@ -619,10 +627,6 @@ SavegameEditor={
 		var oldRow=document.getElementById('row-item-'+item.category+'-'+item.index);
 		var newRow=this._createItemRow(item);
 		oldRow.parentElement.replaceChild(newRow, oldRow);
-
-		//TOTK_Icons.setIcon(document.getElementById('icon'+i), newId);
-		//if(document.getElementById('number-item'+i))
-		//	document.getElementById('number-item'+i).maxValue=this._getItemMaximumQuantity(newId);
 	},
 
 	restoreDurability:function(catId){
@@ -631,54 +635,6 @@ SavegameEditor={
 		});
 	},
 
-	addMapPin:function(icon, x, y, z){
-		for(var i=0; i<this.currentItems.mapPins.length; i++){
-			if(this.currentItems.mapPins[i].isFree() && !MapPin.find(this.currentItems.mapPins, x, y, z)){
-				this.currentItems.mapPins[i].icon=icon;
-				this.currentItems.mapPins[i].coordinates={x:x, y:y};
-				this.currentItems.mapPins[i].map=MapPin.getMapByZ(z);
-				this.refreshMapPinsCounter();
-				return true;
-			}
-		}
-		return false;
-	},
-	addLocationPins:function(flags, coordinates, icon){
-		var count=0;
-		var offsets=this._getOffsetsByHashes(flags);
-		for(var i=0; i<flags.length; i++){
-			if(!tempFile.readU32(offsets[flags[i]]) && this.addMapPin(icon, coordinates[i][0], coordinates[i][2], coordinates[i][1])) //vector3f is turned into a vector2f --> z->y
-				count++;
-		}
-
-		this.refreshMapPinsCounter();
-		MarcDialogs.alert(count+' map pins added');
-		return count;
-	},
-	addPinsKoroksHidden:function(){
-		return this.addLocationPins(Korok.HASHES_FOUND_HIDDEN, Korok.COORDINATES_HIDDEN, MapPin.ICON_LEAF);
-	},
-	addPinsKoroksCarry:function(){
-		var count=0;
-		var offsets=this._getOffsetsByHashes(Korok.HASHES_FOUND_CARRY);
-		for(var i=0; i<Korok.HASHES_FOUND_CARRY.length; i++){
-			if(tempFile.readU32(offsets[Korok.HASHES_FOUND_CARRY[i]])===Korok.CARRY_STATUS_FALSE && this.addMapPin(MapPin.ICON_LEAF, Korok.COORDINATES_CARRY[i][0], Korok.COORDINATES_CARRY[i][2], Korok.COORDINATES_CARRY[i][1])) //vector3f is turned into a vector2f --> z->y
-				count++;
-		}
-
-		this.refreshMapPinsCounter();
-		MarcDialogs.alert(count+' map pins added');
-		return count;
-	},
-	addPinsShrines:function(){
-		return this.addLocationPins(Shrine.HASHES_FOUND, Shrine.COORDINATES, MapPin.ICON_CRYSTAL);
-	},
-	addPinsLightroots:function(){
-		return this.addLocationPins(Lightroot.HASHES_FOUND, Lightroot.COORDINATES, MapPin.ICON_CRYSTAL);
-	},
-	addPinsSchematics:function(){
-		return this.addLocationPins(Schematics.HASHES_FOUND, Schematics.COORDINATES, MapPin.ICON_DIAMOND);
-	},
 	clearAllMapPins:function(){
 		var count=0;
 		for(var i=0; i<this.currentItems.mapPins.length; i++){
@@ -686,35 +642,151 @@ SavegameEditor={
 				count++;
 		}
 
-		this.refreshMapPinsCounter();
+		this.refreshCounterMapPins();
 		MarcDialogs.alert(count+' map pins removed');
 		return count;
+	},
+	addMapPin:function(icon, x, y, z){
+		for(var i=0; i<this.currentItems.mapPins.length; i++){
+			if(this.currentItems.mapPins[i].isFree() && !MapPin.find(this.currentItems.mapPins, x, y, z)){
+				this.currentItems.mapPins[i].icon=icon;
+				this.currentItems.mapPins[i].coordinates={x:x, y:y};
+				this.currentItems.mapPins[i].map=MapPin.getMapByZ(z);
+				//this.refreshCounterMapPins();
+				return true;
+			}
+		}
+		return false;
+	},
+	addLocationPins:function(flags, coordinates, icon, limit, valueFalse){
+		if(typeof icon==='string')
+			icon=murmurHash3.x86.hash32(icon);
+
+		if(typeof valueFalse==='string')
+			valueFalse=murmurHash3.x86.hash32(valueFalse);
+		else if(typeof valueFalse==='number')
+			valueFalse=valueFalse;
+		else
+			valueFalse=0;
+
+		if(typeof icon==='string')
+			icon=murmurHash3.x86.hash32(icon);
+
+		var count=0;
+		var offsets=this._getOffsetsByHashes(flags);
+		for(var i=0; i<flags.length; i++){
+			if(tempFile.readU32(offsets[flags[i]])===valueFalse && this.addMapPin(icon, coordinates[i][0], coordinates[i][2], coordinates[i][1])){ //vector3f is turned into a vector2f --> z->y
+				count++;
+				if(count===limit)
+					break;
+			}
+		}
+
+		this.refreshCounterMapPins();
+		MarcDialogs.alert(count+' map pins added');
+		return count;
+	},
+	addPinsShrines:function(){
+		return this.addLocationPins(CompletismHashes.SHRINES_FOUND, Coordinates.SHRINES, MapPin.ICON_CRYSTAL, 50);
+	},
+	addPinsLightroots:function(){
+		return this.addLocationPins(CompletismHashes.LIGHTROOTS_FOUND, Coordinates.LIGHTROOTS, MapPin.ICON_CRYSTAL, 50);
+	},
+	addPinsKoroksHidden:function(){
+		return this.addLocationPins(CompletismHashes.KOROKS_HIDDEN, Coordinates.KOROKS_HIDDEN, MapPin.ICON_LEAF, 50);
+	},
+	addPinsKoroksCarry:function(){
+		return this.addLocationPins(CompletismHashes.KOROKS_CARRY, Coordinates.KOROKS_CARRY, MapPin.ICON_LEAF, 25, 'NotClear');
+	},
+	addPinsBossesHinox:function(){
+		return this.addLocationPins(CompletismHashes.BOSSES_HINOXES_DEFEATED, Coordinates.BOSSES_HINOXES, MapPin.ICON_SKULL, 25);
+	},
+	addPinsBossesTalus:function(){
+		return this.addLocationPins(CompletismHashes.BOSSES_TALUSES_DEFEATED, Coordinates.BOSSES_TALUSES, MapPin.ICON_SKULL, 25);
+	},
+	addPinsBossesMolduga:function(){
+		return this.addLocationPins(CompletismHashes.BOSSES_MOLDUGAS_DEFEATED, Coordinates.BOSSES_MOLDUGAS, MapPin.ICON_SKULL);
+	},
+	addPinsBossesFlux:function(){
+		return this.addLocationPins(CompletismHashes.BOSSES_FLUX_CONSTRUCT_DEFEATED, Coordinates.BOSSES_FLUX_CONSTRUCT, MapPin.ICON_SKULL, 20);
+	},
+	addPinsBossesFrox:function(){
+		return this.addLocationPins(CompletismHashes.BOSSES_FROXS_DEFEATED, Coordinates.BOSSES_FROXS, MapPin.ICON_SKULL, 20);
+	},
+	addPinsBossesGleeok:function(){
+		return this.addLocationPins(CompletismHashes.BOSSES_GLEEOKS_DEFEATED, Coordinates.BOSSES_GLEEOKS, MapPin.ICON_SKULL, 5);
+	},
+	addPinsSchematicsStone:function(){
+		return this.addLocationPins(CompletismHashes.SCHEMATICS_STONE_FOUND, Coordinates.SCHEMATICS_STONE, MapPin.ICON_DIAMOND);
+	},
+	addPinsSchematicsYiga:function(){
+		return this.addLocationPins(CompletismHashes.SCHEMATICS_YIGA_FOUND, Coordinates.SCHEMATICS_YIGA, MapPin.ICON_DIAMOND);
 	},
 
 	_refreshCounter:function(container, val, max){
 		setValue(container+'-counter', val+'<small>/'+max+'</small>');
+		
+		var percentage=((val/max) * 100);
+		var progressBar=document.createElement('div');
+		progressBar.className='progress-bar';
+		progressBar.title=Math.floor(percentage)+'%';
+		var progress=document.createElement('div');
+		if(percentage===100)
+			progress.className='progress complete';
+		else
+			progress.className='progress';
+		progress.style.width=percentage+'%';
+
+		progressBar.appendChild(progress);
+		getField(container+'-counter').appendChild(progressBar);
 	},
-	refreshKoroksCounter:function(){
-		this._refreshCounter('korok-hidden', Korok.countHidden(), Korok.HASHES_FOUND_HIDDEN.length);
-		this._refreshCounter('korok-carry', Korok.countCarry(), Korok.HASHES_FOUND_CARRY.length);
-	},
-	refreshMapPinsCounter:function(){
+	refreshCounterMapPins:function(){
 		this._refreshCounter('pin', MapPin.count(this.currentItems.mapPins), MapPin.MAX);
 	},
-	refreshCompendiumCounter:function(){
-		this._refreshCounter('compendium', Compendium.count().total, Compendium.HASHES_GOT_FLAGS.length);
+	refreshCounterShrinesFound:function(){
+		this._refreshCounter('shrines-found', Completism.countShrinesFound(), CompletismHashes.SHRINES_FOUND.length);
 	},
-	refreshShrineCounters:function(){
-		this._refreshCounter('shrines-found', Shrine.countFound(), Shrine.HASHES_FOUND.length);
-		this._refreshCounter('shrines-clear', Shrine.countClear(), Shrine.HASHES_STATUS.length);
+	refreshCounterShrinesClear:function(){
+		this._refreshCounter('shrines-clear', Completism.countShrinesClear(), CompletismHashes.SHRINES_STATUS.length);
 	},
-	refreshLightrootCounters:function(){
-		this._refreshCounter('lightroots-found', Lightroot.countFound(), Lightroot.HASHES_FOUND.length);
-		this._refreshCounter('lightroots-clear', Lightroot.countClear(), Lightroot.HASHES_STATUS.length);
+	refreshCounterLighrootsFound:function(){
+		this._refreshCounter('lightroots-found', Completism.countLightrootsFound(), CompletismHashes.LIGHTROOTS_FOUND.length);
 	},
-	refreshSchematicsCounters:function(){
-		this._refreshCounter('schematics', Schematics.count(), Schematics.HASHES_FOUND.length);
+	refreshCounterLighrootsClear:function(){
+		this._refreshCounter('lightroots-clear', Completism.countLightrootsClear(), CompletismHashes.LIGHTROOTS_STATUS.length);
 	},
+	refreshCounterKoroksHidden:function(){
+		this._refreshCounter('korok-hidden', Completism.countKoroksHidden(), CompletismHashes.KOROKS_HIDDEN.length);
+	},
+	refreshCounterKoroksCarry:function(){
+		this._refreshCounter('korok-carry', Completism.countKoroksCarry(), CompletismHashes.KOROKS_CARRY.length);
+	},
+	refreshCounterLocationCaves:function(){
+		this._refreshCounter('location-caves', Completism.countLocationCaves(), CompletismHashes.LOCATION_CAVES_VISITED.length);
+	},
+	refreshCounterLocationWells:function(){
+		this._refreshCounter('location-wells', Completism.countLocationWells(), CompletismHashes.LOCATION_WELLS_VISITED.length);
+	},
+	refreshCounterBossesHinox:function(){this._refreshCounter('boss-hinox', Completism.countBossesHinox(), CompletismHashes.BOSSES_HINOXES_DEFEATED.length);},
+	refreshCounterBossesTalus:function(){this._refreshCounter('boss-talus', Completism.countBossesTalus(), CompletismHashes.BOSSES_TALUSES_DEFEATED.length);},
+	refreshCounterBossesMolduga:function(){this._refreshCounter('boss-molduga', Completism.countBossesMolduga(), CompletismHashes.BOSSES_MOLDUGAS_DEFEATED.length);},
+	refreshCounterBossesFlux:function(){this._refreshCounter('boss-flux', Completism.countBossesFlux(), CompletismHashes.BOSSES_FLUX_CONSTRUCT_DEFEATED.length);},
+	refreshCounterBossesFrox:function(){this._refreshCounter('boss-frox', Completism.countBossesFrox(), CompletismHashes.BOSSES_FROXS_DEFEATED.length);},
+	refreshCounterBossesGleeok:function(){this._refreshCounter('boss-gleeok', Completism.countBossesGleeok(), CompletismHashes.BOSSES_GLEEOKS_DEFEATED.length);},
+	refreshCounterCaves:function(){
+	},
+	refreshCounterWells:function(){
+	},
+	refreshCounterSchematicsStone:function(){
+		this._refreshCounter('schematics-stone', Completism.countSchematicsStone(), CompletismHashes.SCHEMATICS_STONE_FOUND.length);
+	},
+	refreshCounterSchematicsYiga:function(){
+		this._refreshCounter('schematics-yiga', Completism.countSchematicsYiga(), CompletismHashes.SCHEMATICS_YIGA_FOUND.length);
+	},
+	refreshCounterCompendium:function(){
+		this._refreshCounter('compendium', Completism.countCompendium(), CompletismHashes.COMPENDIUM_STATUS.length);
+	},
+
 	refreshItemTab:function(catId){
 		empty('container-'+catId);
 		SavegameEditor.currentItems[catId].forEach(function(item, j){
@@ -781,9 +853,6 @@ SavegameEditor={
 
 
 	preload:function(){
-		this.loadSettings();
-		Locale.set(this.Settings.lang);
-
 		this.selectItem=document.createElement('select');
 		this.selectItem.addEventListener('blur', function(){
 			//console.log('blur');
@@ -794,26 +863,7 @@ SavegameEditor={
 		}, false);
 
 		/* prepare fusable items list */
-		Equipment.KNOWN_FUSABLE_MATERIALS.forEach(function(itemId){
-			Equipment.FUSABLE_ITEMS.push({value:itemId,name:'*Material: '+Item.TRANSLATIONS.materials[itemId] || itemId})
-		});
-
-		Equipment.KNOWN_FUSABLE_OBJECTS.forEach(function(itemId){
-			Equipment.FUSABLE_ITEMS.push({value:itemId,name:'Environment: '+itemId})
-		});
-		for(var itemId in Equipment.TRANSLATIONS.weapons){
-			if(!/^Weapon_Sword_07/.test(itemId))
-				Equipment.FUSABLE_ITEMS.push({value:itemId, name:'Weapon: '+Equipment.TRANSLATIONS.weapons[itemId]})
-		}
-		for(var itemId in Equipment.TRANSLATIONS.shields){
-			Equipment.FUSABLE_ITEMS.push({value:itemId, name:'Shield: '+Equipment.TRANSLATIONS.shields[itemId]})
-		}
-		for(var itemId in Item.TRANSLATIONS.materials){
-			Equipment.FUSABLE_ITEMS.push({value:itemId, name:'Material: '+Item.TRANSLATIONS.materials[itemId]})
-		}
-		for(var itemId in Item.TRANSLATIONS.devices){
-			Equipment.FUSABLE_ITEMS.push({value:itemId.replace('_Capsule',''), name:'Zonai device: '+Item.TRANSLATIONS.devices[itemId]})
-		}
+		Equipment.buildFusableItemsOptions();
 
 		setNumericRange('rupees', 0, 999999);
 		setNumericRange('pony-points', 0, 999999);
@@ -876,6 +926,7 @@ SavegameEditor={
 			SavegameEditor.Settings.lang=this.value;
 			Locale.set(this.value);
 			SavegameEditor.saveSettings();
+			document.getElementById('warning-language').style.display='block';		
 		});
 		get('checkbox-warning-delete').addEventListener('change', function(evt){
 			SavegameEditor.Settings.removeWarning=this.checked;
@@ -893,11 +944,29 @@ SavegameEditor={
 		return parseInt(timeVal/3600)+':'+minutes+':'+seconds;
 	},
 
+	refreshAddArrowsButton:function(){
+		document.getElementById('button-add-arrows').disabled=!!this.currentItems.arrows.length;
+	},
 	/* load function */
 	load:function(){
 		tempFile.fileName='progress.sav';
 
 		this.selectItem.lastCategory=null;
+	
+		/* prepare editor */
+		setValue('playtime', this._timeToString(this.readU32('Playtime')));
+
+		setValue('rupees', this.readU32('PlayerStatus.CurrentRupee'));
+		setValue('max-hearts', this.readU32('PlayerStatus.MaxLife'));
+		setValue('max-stamina', this.readU32('PlayerStatus.MaxStamina'));
+		setValue('max-battery', this.readF32('PlayerStatus.MaxEnergy'));
+		setValue('pony-points', this.readU32('HorseInnMemberPoint'));
+
+		setValue('number-pouch-size-swords', this.readU32Array('Pouch.Weapon.ValidNum', 0));
+		setValue('number-pouch-size-bows', this.readU32Array('Pouch.Bow.ValidNum', 0));
+		setValue('number-pouch-size-shields', this.readU32Array('Pouch.Shield.ValidNum', 0));
+
+
 
 		/* read items */
 		this.currentItems={
@@ -915,40 +984,39 @@ SavegameEditor={
 			
 			'mapPins':MapPin.readAll()
 		};
-	
-		/* prepare editor */
-		setValue('playtime', this._timeToString(this.readU32('Playtime')));
-
-		setValue('rupees', this.readU32('CurrentRupees'));
-		setValue('max-hearts', this.readU32('MaxHearts'));
-		setValue('max-stamina', this.readU32('MaxStamina'));
-		setValue('max-battery', this.readF32('MaxBattery'));
-		setValue('pony-points', this.readU32('PonyPoints'));
-
-		setValue('number-pouch-size-swords', this.readU32Array('ArrayPouchSwords', 0));
-		setValue('number-pouch-size-bows', this.readU32Array('ArrayPouchBows', 0));
-		setValue('number-pouch-size-shields', this.readU32Array('ArrayPouchShields', 0));
+		this.refreshAddArrowsButton();
+		/* build item containers */
+		this.refreshItemTabs();
 
 
 
 		/* coordinates */
-		var playerPos=this.readVector3F('PlayerPos');
+		var playerPos=this.readVector3F('PlayerStatus.SavePos');
 		setValue('pos-x', playerPos.x);
 		setValue('pos-y', -playerPos.z);
 		setValue('pos-z', playerPos.y-105);
 
 		/* map pins */
-		this.refreshMapPinsCounter();
+		this.refreshCounterMapPins();
 
 		/* completionism */
-		this.refreshKoroksCounter();
-		this.refreshCompendiumCounter();
-		this.refreshShrineCounters();
-		this.refreshLightrootCounters();
-		this.refreshSchematicsCounters();
-
-		/* build item containers */
-		this.refreshItemTabs();
+		this.refreshCounterShrinesFound();
+		this.refreshCounterShrinesClear();
+		this.refreshCounterLighrootsFound();
+		this.refreshCounterLighrootsClear();
+		this.refreshCounterKoroksHidden();
+		this.refreshCounterKoroksCarry();
+		this.refreshCounterLocationCaves();
+		this.refreshCounterLocationWells();
+		this.refreshCounterBossesHinox();
+		this.refreshCounterBossesTalus();
+		this.refreshCounterBossesMolduga();
+		this.refreshCounterBossesFlux();
+		this.refreshCounterBossesFrox();
+		this.refreshCounterBossesGleeok();
+		this.refreshCounterSchematicsStone();
+		this.refreshCounterSchematicsYiga();
+		this.refreshCounterCompendium();
 
 		if(TOTKMasterEditor.isLoaded())
 			TOTKMasterEditor.forceFindOffsets=true;
@@ -959,16 +1027,16 @@ SavegameEditor={
 	/* save function */
 	save:function(){
 		/* STATS */
-		this.writeU32('CurrentRupees', null, getValue('rupees'));
+		this.writeU32('PlayerStatus.CurrentRupee', null, getValue('rupees'));
 		/*this.writeU32('Mons', getValue('mons'));*/
-		this.writeU32('MaxHearts', null, getValue('max-hearts'));
-		this.writeU32('MaxStamina', null, getValue('max-stamina'));
-		this.writeF32('MaxBattery', null, getValue('max-battery'));
-		this.writeU32('PonyPoints', null, getValue('pony-points'));
+		this.writeU32('PlayerStatus.MaxLife', null, getValue('max-hearts'));
+		this.writeU32('PlayerStatus.MaxStamina', null, getValue('max-stamina'));
+		this.writeF32('PlayerStatus.MaxEnergy', null, getValue('max-battery'));
+		this.writeU32('HorseInnMemberPoint', null, getValue('pony-points'));
 
-		this.writeU32('ArrayPouchSwords', 0, getValue('pouch-size-swords'));
-		this.writeU32('ArrayPouchBows', 0, getValue('pouch-size-bows'));
-		this.writeU32('ArrayPouchShields', 0, getValue('pouch-size-shields'));
+		this.writeU32('Pouch.Weapon.ValidNum', 0, getValue('pouch-size-swords'));
+		this.writeU32('Pouch.Bow.ValidNum', 0, getValue('pouch-size-bows'));
+		this.writeU32('Pouch.Shield.ValidNum', 0, getValue('pouch-size-shields'));
 
 
 		var playerPos={
@@ -976,7 +1044,7 @@ SavegameEditor={
 			z:-getValue('pos-y'),
 			y:getValue('pos-z')+105
 		};
-		this.writeVector3F('PlayerPos', null, playerPos);
+		this.writeVector3F('PlayerStatus.SavePos', null, playerPos);
 
 		/*tempFile.writeU32(this.Offsets.RELIC_GERUDO, getValue('relic-gerudo'));
 		tempFile.writeU32(this.Offsets.RELIC_GORON, getValue('relic-goron'));
@@ -1049,19 +1117,40 @@ var MarcTooltips=function(){var n=/MSIE 8/.test(navigator.userAgent);function d(
 
 
 
+window.addEventListener('DOMContentLoaded', function(){
+	SavegameEditor.loadSettings();
+	Locale.set(SavegameEditor.Settings.lang);
+});
 
-var UI={
-	setLoading:function(fileName){
-		if(fileName){
-			setValue('span-loading-filename', fileName);
-			document.getElementById('toast-loading').style.display='block';
-		}else{
-			document.getElementById('toast-loading').style.display='none';
+
+var UI=(function(sge){
+	return{
+		setSelectLanguageStatus:function(status){
+			document.getElementById('select-language').disabled=!status;	
+		},
+		translate:function(){
+			sge.refreshItemTabs();
+		},
+		toast:function(msg){
+			if(msg){
+				document.getElementById('toast-loading').innerHTML=msg;
+				document.getElementById('toast-loading').style.display='block';
+			}else{
+				document.getElementById('toast-loading').style.display='none';
+			}
 		}
 	}
-};
+}(SavegameEditor));
 
-
-function capitalizeCategoryId(catId){
+function getInternalCategoryId(catId){
+	catId=catId.toLowerCase().replace(/s$/, '');
+	if(catId==='device')
+		return 'SpecialParts';
+	else if(catId==='key')
+		return 'KeyItem';
+	
+	
+	
+	//else: weapon,bow,arrow,armor,material,food
 	return (catId.charAt(0).toUpperCase() + catId.substr(1)).replace(/s$/, '')
 }

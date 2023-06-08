@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom - Master editor v20230603
+	The legend of Zelda: Tears of the Kingdom - Master editor v20230608
 
 	by Marc Robledo 2023
 */
@@ -84,13 +84,16 @@ var TOTKMasterEditor=(function(){
 			}
 		}
 
-		_addCustomHashesBoolean(Korok.HASHES_FOUND_HIDDEN, 'Korok found');
-		_addCustomHashesEnum(Korok.HASHES_FOUND_CARRY, 'Korok carried', ['NotClear','Clear']);
-		_addCustomHashesBoolean(Shrine.HASHES_FOUND, 'Shrine location found');
-		_addCustomHashesEnum(Shrine.HASHES_STATUS, 'Shrine status', ['Hidden','Appear','Open','Enter','Clear']);
-		_addCustomHashesBoolean(Lightroot.HASHES_FOUND, 'Lightroot location found');
-		_addCustomHashesEnum(Lightroot.HASHES_STATUS, 'Lightroot status', ['Close','Open']);
-		_addCustomHashesEnum(Compendium.HASHES_GOT_FLAGS, 'Compendium picture status', ['Unopened','TakePhoto','Buy']);
+		_addCustomHashesBoolean(CompletismHashes.SHRINES_FOUND, 'Shrine location found');
+		_addCustomHashesEnum(CompletismHashes.SHRINES_STATUS, 'Shrine status', ['Hidden','Appear','Open','Enter','Clear']);
+		_addCustomHashesBoolean(CompletismHashes.LIGHTROOTS_FOUND, 'Lightroot location found');
+		_addCustomHashesEnum(CompletismHashes.LIGHTROOTS_STATUS, 'Lightroot status', ['Close','Open']);
+		_addCustomHashesBoolean(CompletismHashes.KOROKS_HIDDEN, 'Korok found');
+		_addCustomHashesEnum(CompletismHashes.KOROKS_CARRY, 'Korok carried', ['NotClear','Clear']);
+		_addCustomHashesBoolean(CompletismHashes.LOCATION_CAVES_VISITED, 'IsVisitLocation.Cave_*');
+		_addCustomHashesBoolean(CompletismHashes.LOCATION_WELLS_VISITED, 'IsVisitLocation.Well_*');
+		_addCustomHashesBoolean(CompletismHashes.LOCATION_WELLS_VISITED2, 'IsVisitLocationArea_CaveEntrance.*');
+		_addCustomHashesEnum(CompletismHashes.COMPENDIUM_STATUS, 'Compendium picture status', ['Unopened','TakePhoto','Buy']);
 	};
 
 	var _setBoolean=function(){

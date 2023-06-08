@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Horse class) v20230526
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Horse class) v20230608
 
 	by Marc Robledo 2023
 	horse data thanks to JonJaded, Ozymandias07 and Karlos007
@@ -96,19 +96,19 @@ Horse.prototype.getItemTranslation=function(){
 	return Horse.TRANSLATIONS[this.id] || this.id;
 }
 Horse.prototype.save=function(){
-	SavegameEditor.writeString64('ArrayHorseIds', this.index, this.id);
-	SavegameEditor.writeStringUTF8('ArrayHorseNames', this.index, this.name);
-	SavegameEditor.writeU32('ArrayHorseManes', this.index, this.mane);
-	SavegameEditor.writeU32('ArrayHorseSaddles', this.index, this.saddles);
-	SavegameEditor.writeU32('ArrayHorseReins', this.index, this.reins);
-	SavegameEditor.writeF32('ArrayHorseBonds', this.index, this.bond);
-	SavegameEditor.writeU32('ArrayHorseSpecialTypes', this.index, this.specialType);
-	SavegameEditor.writeU32('ArrayHorseStatsStrength', this.index, this.statsStrength);
-	SavegameEditor.writeU32('ArrayHorseStatsSpeed', this.index, this.statsSpeed);
-	SavegameEditor.writeU32('ArrayHorseStatsStamina', this.index, this.statsStamina);
-	SavegameEditor.writeU32('ArrayHorseStatsPull', this.index, this.statsPull);
-	SavegameEditor.writeU32('ArrayHorseIconPatterns', this.index, this.iconPattern);
-	SavegameEditor.writeU32('ArrayHorseIconEyeColors', this.index, this.iconEyeColor);
+	SavegameEditor.writeString64('OwnedHorseList.ActorName', this.index, this.id);
+	SavegameEditor.writeStringUTF8('OwnedHorseList.Name', this.index, this.name);
+	SavegameEditor.writeU32('OwnedHorseList.Mane', this.index, this.mane);
+	SavegameEditor.writeU32('OwnedHorseList.Saddle', this.index, this.saddles);
+	SavegameEditor.writeU32('OwnedHorseList.Rein', this.index, this.reins);
+	SavegameEditor.writeF32('OwnedHorseList.Familiarity', this.index, this.bond);
+	SavegameEditor.writeU32('OwnedHorseList.HorseType', this.index, this.specialType);
+	SavegameEditor.writeU32('OwnedHorseList.Toughness', this.index, this.statsStrength);
+	SavegameEditor.writeU32('OwnedHorseList.Speed', this.index, this.statsSpeed);
+	SavegameEditor.writeU32('OwnedHorseList.ChargeNum', this.index, this.statsStamina);
+	SavegameEditor.writeU32('OwnedHorseList.HorsePower', this.index, this.statsPull);
+	SavegameEditor.writeU32('OwnedHorseList.Body.Pattern', this.index, this.iconPattern);
+	SavegameEditor.writeU32('OwnedHorseList.Body.EyeColor', this.index, this.iconEyeColor);
 }
 
 Horse.buildHtmlElements=function(item){
@@ -122,29 +122,29 @@ Horse.buildHtmlElements=function(item){
 			newVal='a';
 		item.name=newVal;
 	});
-	item._htmlInputName.title='Horse name';
+	item._htmlInputName.title=Locale._('Horse name');
 	item._htmlInputName.maxLength=9;
 
 	item._htmlSelectMane=select('horse-mane-'+item.index, Horse.MANES, function(){
 		item.mane=this.value;
 	}, item.mane);
-	item._htmlSelectMane.title='Mane';
+	item._htmlSelectMane.title=Locale._('Mane');
 
 	item._htmlSelectSaddles=select('horse-saddles-'+item.index, Horse.SADDLES, function(){
 		item.saddles=this.value;
 	}, item.saddles);
-	item._htmlSelectSaddles.title='Saddles';
+	item._htmlSelectSaddles.title=Locale._('Saddle');
 
 	item._htmlSelectReins=select('horse-reins-'+item.index, Horse.REINS, function(){
 		item.reins=this.value;
 	}, item.reins);
-	item._htmlSelectReins.title='Reins';
+	item._htmlSelectReins.title=Locale._('Reins');
 
 	item._htmlInputBond=inputFloat('bond-'+item.category+'-'+item.index,0,100,item.bond*100);
 	item._htmlInputBond.addEventListener('change', function(){
 		item.bond=parseFloat(this.value) / 100;
 	});
-	item._htmlInputBond.title='Bond';
+	item._htmlInputBond.title=Locale._('Bond');
 
 
 	var stats=[
@@ -164,19 +164,19 @@ Horse.buildHtmlElements=function(item){
 	item._htmlInputStatsStrength.addEventListener('change', function(){
 		item.statsStrength=parseInt(this.value);
 	});
-	item._htmlInputStatsStrength.title='Stats: Strength';
+	item._htmlInputStatsStrength.title=Locale._('Stats: Strength');
 	item._htmlSelectStatsSpeed=select('horse-stats-speed-'+item.index, stats, function(){
 		item.statsSpeed=parseInt(this.value);
 	}, item.statsSpeed);
-	item._htmlSelectStatsSpeed.title='Stats: Speed';
+	item._htmlSelectStatsSpeed.title=Locale._('Stats: Speed');
 	item._htmlSelectStatsStamina=select('horse-stats-stamina-'+item.index, statsStamina, function(){
 		item.statsStamina=parseInt(this.value);
 	}, item.statsStamina);
-	item._htmlSelectStatsStamina.title='Stats: Stamina';
+	item._htmlSelectStatsStamina.title=Locale._('Stats: Stamina');
 	item._htmlSelectStatsPull=select('horse-stats-pull-'+item.index, stats, function(){
 		item.statsPull=parseInt(this.value);
 	}, item.statsPull);
-	item._htmlSelectStatsPull.title='Stats: Pull';
+	item._htmlSelectStatsPull.title=Locale._('Stats: Pull');
 
 
 
@@ -184,34 +184,34 @@ Horse.buildHtmlElements=function(item){
 	item._htmlSelectIconPattern=select('horse-icon-pattern-'+item.index, Horse.ICON_PATTERNS, function(){
 		item.iconPattern=parseInt(this.value);
 	}, item.iconPattern);
-	item._htmlSelectIconPattern.title='Icon pattern';
+	item._htmlSelectIconPattern.title=Locale._('Icon: pattern');
 
 	item._htmlSelectIconEyeColor=select('horse-icon-eye-color-'+item.index, Horse.ICON_EYE_COLORS, function(){
 		item.iconEyeColor=parseInt(this.value);
 	}, item.iconEyeColor);
-	item._htmlSelectIconEyeColor.title='Icon eye color';
+	item._htmlSelectIconEyeColor.title=Locale._('Icon: eye color');
 }
 
 Horse.readAll=function(){
-	var horsesIds=SavegameEditor.readString64Array('ArrayHorseIds');
+	var horsesIds=SavegameEditor.readString64Array('OwnedHorseList.ActorName');
 	var validHorses=[];
 	for(var i=0; i<horsesIds.length; i++){
 		if(horsesIds[i]){
 			validHorses.push(new Horse(
 				i,
 				horsesIds[i],
-				SavegameEditor.readStringUTF8('ArrayHorseNames', i),
-				SavegameEditor.readU32('ArrayHorseManes', i),
-				SavegameEditor.readU32('ArrayHorseSaddles', i),
-				SavegameEditor.readU32('ArrayHorseReins', i),
-				SavegameEditor.readF32('ArrayHorseBonds', i),
-				SavegameEditor.readU32('ArrayHorseSpecialTypes', i),
-				SavegameEditor.readU32('ArrayHorseStatsStrength', i),
-				SavegameEditor.readU32('ArrayHorseStatsSpeed', i),
-				SavegameEditor.readU32('ArrayHorseStatsStamina', i),
-				SavegameEditor.readU32('ArrayHorseStatsPull', i),
-				SavegameEditor.readU32('ArrayHorseIconPatterns', i),
-				SavegameEditor.readU32('ArrayHorseIconEyeColors', i)
+				SavegameEditor.readStringUTF8('OwnedHorseList.Name', i),
+				SavegameEditor.readU32('OwnedHorseList.Mane', i),
+				SavegameEditor.readU32('OwnedHorseList.Saddle', i),
+				SavegameEditor.readU32('OwnedHorseList.Rein', i),
+				SavegameEditor.readF32('OwnedHorseList.Familiarity', i),
+				SavegameEditor.readU32('OwnedHorseList.HorseType', i),
+				SavegameEditor.readU32('OwnedHorseList.Toughness', i),
+				SavegameEditor.readU32('OwnedHorseList.Speed', i),
+				SavegameEditor.readU32('OwnedHorseList.ChargeNum', i),
+				SavegameEditor.readU32('OwnedHorseList.HorsePower', i),
+				SavegameEditor.readU32('OwnedHorseList.Body.Pattern', i),
+				SavegameEditor.readU32('OwnedHorseList.Body.EyeColor', i)
 			));
 		}
 	}

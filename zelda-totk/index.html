@@ -10,16 +10,13 @@
 	<link type="text/css" rel="stylesheet" href="./zelda-totk.css" media="all"/>
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./zelda-totk.js"></script>
-	<script defer type="text/javascript" src="./zelda-totk.class.armor.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.class.equipment.js"></script>
-	<script defer type="text/javascript" src="./zelda-totk.class.horse.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.class.armor.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.class.item.js"></script>
-	<script defer type="text/javascript" src="./zelda-totk.class.korok.js"></script>
-	<script defer type="text/javascript" src="./zelda-totk.class.mappin.js"></script>
-	<script defer type="text/javascript" src="./zelda-totk.class.shrine.js"></script>
-	<script defer type="text/javascript" src="./zelda-totk.class.schematics.js"></script>
-	<script defer type="text/javascript" src="./zelda-totk.class.compendium.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.class.horse.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.class.autobuilder.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.completism.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.coordinates.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.locale.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.master.js"></script>
 	<script defer type="text/javascript" src="./murmurhash3js.min.js"></script>
@@ -52,20 +49,20 @@
 	<div id="toolbar" class="hidden padding-vertical">
 		<div class="row wrapper">
 			<div class="twelve columns text-center">
-				<button id="tab-button-home" title="Home" class="tab-button active" onclick="showTab('home')"><i class="tab-icon home"></i></button>
-				<button id="tab-button-weapons" title="Weapons" class="tab-button" onclick="showTab('weapons')"><i class="tab-icon weapons"></i></button>
-				<button id="tab-button-bows" title="Bows" class="tab-button" onclick="showTab('bows')"><i class="tab-icon bows"></i></button>
-				<button id="tab-button-shields" title="Shields" class="tab-button" onclick="showTab('shields')"><i class="tab-icon shields"></i></button>
-				<button id="tab-button-armors" title="Armors" class="tab-button" onclick="showTab('armors')"><i class="tab-icon clothes"></i></button>
-				<button id="tab-button-materials" title="Materials" class="tab-button" onclick="showTab('materials')"><i class="tab-icon materials"></i></button>
-				<button id="tab-button-food" title="Food" class="tab-button" onclick="showTab('food')"><i class="tab-icon food"></i></button>
-				<button id="tab-button-devices" title="Zonai devices" class="tab-button" onclick="showTab('devices')"><i class="tab-icon devices"></i></button>
-				<button id="tab-button-key" title="Key items" class="tab-button" onclick="showTab('key')"><i class="tab-icon other"></i></button>
-				<button id="tab-button-horses" title="Horses" class="tab-button" onclick="showTab('horses')"><i class="tab-icon horses"></i></button>
-				<button id="tab-button-master" title="Master editor" class="tab-button" onclick="showTab('master')"><i class="tab-icon master"></i></button>
-				<button id="tab-button-settings" title="Settings" class="tab-button" onclick="showTab('settings')"><i class="tab-icon settings"></i></button>
-				| <button class="button with-icon icon3" onclick="closeFile()">Close file</button>
-				<button class="button colored blue with-icon icon9" onclick="saveChanges()">Save changes</button>
+				<button id="tab-button-home" data-translate-title="Home" title="Home" class="tab-button active" onclick="showTab('home')"><i class="tab-icon home"></i></button>
+				<button id="tab-button-weapons" data-translate-title="Weapons" title="Weapons" class="tab-button" onclick="showTab('weapons')"><i class="tab-icon weapons"></i></button>
+				<button id="tab-button-bows" data-translate-title="Bows" title="Bows" class="tab-button" onclick="showTab('bows')"><i class="tab-icon bows"></i></button>
+				<button id="tab-button-shields" data-translate-title="Shields" title="Shields" class="tab-button" onclick="showTab('shields')"><i class="tab-icon shields"></i></button>
+				<button id="tab-button-armors" data-translate-title="Armors" title="Armors" class="tab-button" onclick="showTab('armors')"><i class="tab-icon clothes"></i></button>
+				<button id="tab-button-materials" data-translate-title="Materials" title="Materials" class="tab-button" onclick="showTab('materials')"><i class="tab-icon materials"></i></button>
+				<button id="tab-button-food" data-translate-title="Food" title="Food" class="tab-button" onclick="showTab('food')"><i class="tab-icon food"></i></button>
+				<button id="tab-button-devices" data-translate-title="Zonai devices" title="Zonai devices" class="tab-button" onclick="showTab('devices')"><i class="tab-icon devices"></i></button>
+				<button id="tab-button-key" data-translate-title="Key items" title="Key items" class="tab-button" onclick="showTab('key')"><i class="tab-icon other"></i></button>
+				<button id="tab-button-horses" data-translate-title="Horses" title="Horses" class="tab-button" onclick="showTab('horses')"><i class="tab-icon horses"></i></button>
+				<button id="tab-button-master" data-translate-title="Master editor" title="Master editor" class="tab-button" onclick="showTab('master')"><i class="tab-icon master"></i></button>
+				<button id="tab-button-settings" data-translate-title="Settings" title="Settings" class="tab-button" onclick="showTab('settings')"><i class="tab-icon settings"></i></button>
+				| <button class="button with-icon icon3" data-translate="Close file" onclick="closeFile()">Close file</button>
+				<button class="button colored blue with-icon icon9" data-translate="Save changes" onclick="saveChanges()">Save changes</button>
 			</div>
 		</div>
 	</div>
@@ -79,42 +76,21 @@
 	<!-- TAB: HOME -->
 	<div id="tab-home">
 		<!-- RUPEES -->
-		<h3 class="border-red">Stats</h3>
+		<h3 class="border-red" data-translate="Status">Status</h3>
 		<div class="row mb-10">
-			<div class="ten columns"><label>Game version</label></div>
+			<div class="ten columns"><label data-translate="Game version">Game version</label></div>
 			<div class="two columns text-right"><span id="span-version"></span></div>
 		</div>
 		<div class="row mb-10">
-			<div class="ten columns"><label>Playtime</label></div>
+			<div class="ten columns"><label data-translate="Playtime">Playtime</label></div>
 			<div class="two columns text-right"><span id="span-playtime"></span></div>
 		</div>
 		<div class="row mb-5">
-			<div class="ten columns"><label for="number-rupees">Rupees</label></div>
+			<div class="ten columns"><label for="number-rupees" data-translate="Rupees">Rupees</label></div>
 			<div class="two columns"><input id="number-rupees" class="full-width" type="text" /></div>
 		</div>
-		<!-- 
-		<div class="row">
-			<div class="ten columns"><label for="number-mons">Mons</label></div>
-			<div class="two columns"><input id="number-mons" class="full-width" type="text" /></div>
-		</div>
-		<div class="row">
-			<div class="ten columns"><label for="number-relic-gerudo">Gerudo relic remaining uses</label></div>
-			<div class="two columns text-right"><input id="number-relic-gerudo" class="small" type="text" /></div>
-		</div>
-		<div class="row">
-			<div class="ten columns"><label for="number-relic-goron">Goron relic remaining uses</label></div>
-			<div class="two columns text-right"><input id="number-relic-goron" class="small" type="text" /></div>
-		</div>
-		<div class="row">
-			<div class="ten columns"><label for="number-relic-rito">Rito relic remaining uses</label></div>
-			<div class="two columns text-right"><input id="number-relic-rito" class="small" type="text" /></div>
-		</div>
-		<div class="row" id="row-motorcycle">
-			<div class="ten columns"><label for="checkbox-motorcycle">Motorcycle</label></div>
-			<div class="two columns text-right"><input id="checkbox-motorcycle" type="checkbox" value="1" /></div>
-		</div>-->
 		<div class="row mb-5">
-			<div class="ten columns"><label for="select-max-hearts">Max. hearts</label></div>
+			<div class="ten columns"><label for="select-max-hearts" data-translate="Max. hearts">Max. hearts</label></div>
 			<div class="two columns">
 				<select id="select-max-hearts" class="full-width">
 					<option value="4">1 heart</option>
@@ -161,7 +137,7 @@
 			</div>
 		</div>
 		<div class="row mb-5">
-			<div class="ten columns"><label for="select-max-stamina">Max. stamina</label></div>
+			<div class="ten columns"><label for="select-max-stamina" data-translate="Max. stamina">Max. stamina</label></div>
 			<div class="two columns">
 				<select id="select-max-stamina" class="full-width">
 					<option value="1148846080">1 wheel</option>
@@ -179,7 +155,7 @@
 			</div>
 		</div>
 		<div class="row mb-5">
-			<div class="ten columns"><label for="select-max-battery">Battery size</label></div>
+			<div class="ten columns"><label for="select-max-battery" data-translate="Battery size">Battery size</label></div>
 			<div class="two columns">
 				<select id="select-max-battery" class="full-width">
 					<option value="3000">3000</option>
@@ -232,151 +208,163 @@
 			</div>
 		</div>
 		<div class="row mb-5">
-			<div class="ten columns"><label for="number-pony-points">Pony points</label></div>
+			<div class="ten columns"><label for="number-pony-points" data-translate="Pony points">Pony points</label></div>
 			<div class="two columns"><input id="number-pony-points" class="full-width" type="text" /></div>
 		</div>
 		
 		<!-- Pouch size -->
 		<h3 class="border-green">Pouch size</h3>
 		<div class="row mb-5">
-			<div class="ten columns"><label for="number-pouch-size-swords">Sword pouch size</label></div>
+			<div class="ten columns"><label for="number-pouch-size-swords" data-translate="Sword pouch size">Sword pouch size</label></div>
 			<div class="two columns"><input id="number-pouch-size-swords" class="full-width" type="text" /></div>
 		</div>
 		<div class="row mb-5">
-			<div class="ten columns"><label for="number-pouch-size-bows">Bow pouch size</label></div>
+			<div class="ten columns"><label for="number-pouch-size-bows" data-translate="Bow pouch size">Bow pouch size</label></div>
 			<div class="two columns"><input id="number-pouch-size-bows" class="full-width" type="text" /></div>
 		</div>
 		<div class="row">
-			<div class="ten columns"><label for="number-pouch-size-shields">Shield pouch size</label></div>
+			<div class="ten columns"><label for="number-pouch-size-shields" data-translate="Shield pouch size">Shield pouch size</label></div>
 			<div class="two columns"><input id="number-pouch-size-shields" class="full-width" type="text" /></div>
 		</div>
 	
 		<!-- Coordinates -->
-		<h3 class="border-orange">Coordinates</h3>
+		<h3 class="border-orange" data-translate="Coordinates">Coordinates</h3>
 		<div class="row">
-			<div class="six columns"><label for="float-pos-x">Current Link coordinates (XYZ)</label></div>
+			<div class="six columns"><label for="float-pos-x" data-translate="Current Link coordinates">Current Link coordinates</label> (XYZ)</div>
 			<div class="two columns"><input id="float-pos-x" class="full-width" type="text" /></div>
 			<div class="two columns"><input id="float-pos-y" class="full-width" type="text" /></div>
 			<div class="two columns"><input id="float-pos-z" class="full-width" type="text" /></div>
 		</div>
-		<!-- <div class="row">
-			<div class="six columns"><label for="select-pos-maptype">Map</label></div>
-			<div class="three columns"><select id="select-pos-maptype"></select></div>
-			<div class="three columns"><select id="select-pos-map"></select></div>
-		</div> -->
-
-
-	
 	
 
 
 		<!-- MAP PINS -->
-		<h3 class="border-blue">Map pins</h3>
+		<h3 class="border-blue" data-translate="Map pins">Map pins</h3>
 		<div class="row mb-10">
-			<div class="four columns">Map pins <span id="span-pin-counter"></span></div>
+			<div class="four columns"><span data-translate="Map pins">Map pins</span> <span id="span-pin-counter"></span></div>
 			<div class="eight columns text-right">
-				<button onclick="SavegameEditor.clearAllMapPins()">Remove all map pins</button>
+				<button onclick="SavegameEditor.clearAllMapPins()" data-translate="Remove all map pins" class="button with-icon icon3">Remove all map pins</button>
 			</div>
 		</div>
-		<div class="row mb-10">
-			<div class="four columns">Koroks</div>
-			<div class="eight columns text-right">
-				<button onclick="SavegameEditor.addPinsKoroksHidden()">Pin missing koroks in map</button>
-				<button onclick="SavegameEditor.addPinsKoroksCarry()">Pin missing koroks&times;2 in map</button>
-			</div>
+		<div class="mb-10">
+			<span data-translate="Pin missing collectibles in map">Pin missing collectibles in map</span>
 		</div>
-		<div class="row mb-10">
-			<div class="four columns">Shrines/lightroots</div>
-			<div class="eight columns text-right">
-				<button onclick="SavegameEditor.addPinsShrines()">Pin missing shrines in map</button>
-				<button onclick="SavegameEditor.addPinsLightroots()">Pin missing lightroots in map</button>
-			</div>
+		<div class="mb-10 text-center">
+			<button onclick="SavegameEditor.addPinsShrines()" data-translate="Shrines">Shrines</button>
+			<button onclick="SavegameEditor.addPinsLightroots()" data-translate="Lightroots">Lightroots</button>
+			<button onclick="SavegameEditor.addPinsKoroksHidden()" data-translate="Koroks">Hidden koroks</button>
+			<button onclick="SavegameEditor.addPinsKoroksCarry()" data-translate="Strayed koroks (&times;2)">Strayed koroks (&times;2)</button>
 		</div>
-		<div class="row mb-10">
-			<div class="four columns">Schematics</div>
-			<div class="eight columns text-right">
-				<button onclick="SavegameEditor.addPinsSchematics()">Pin missing schematics in map</button>
-			</div>
+		<div class="mb-10 text-center">
+			<span data-translate="Bosses">Bosses</span>:
+			<button onclick="SavegameEditor.addPinsBossesHinox()" data-translate="Hinox">Hinox</button>
+			<button onclick="SavegameEditor.addPinsBossesTalus()" data-translate="Talus">Talus</button>
+			<button onclick="SavegameEditor.addPinsBossesMolduga()" data-translate="Molduga">Molduga</button>
+			<button onclick="SavegameEditor.addPinsBossesFlux()" data-translate="Flux Construct">Flux Construct</button>
+			<button onclick="SavegameEditor.addPinsBossesFrox()" data-translate="Frox">Frox</button>
+			<button onclick="SavegameEditor.addPinsBossesGleeok()" data-translate="Gleeok">Gleeok</button>
+		</div>
+		<div class="mb-10 text-center">
+			<span data-translate="Schematics">Schematics</span>:
+			<button onclick="SavegameEditor.addPinsSchematicsStone()" data-translate="Schema stones">Schema stones</button>
+			<button onclick="SavegameEditor.addPinsSchematicsYiga()" data-translate="Yiga schematics">Yiga schematics</button>
 		</div>
 
 		<!-- COMPLETIONISM -->
-		<h3 class="border-red">Completionism</h3>
+		<h3 class="border-red" data-translate="Completionism">Completionism</h3>
 		<div class="row mb-10">
 			<div class="four columns">
-				Koroks - <span id="span-korok-hidden-counter"></span>
-				- Carried: <span id="span-korok-carry-counter"></span> (&times;2)
+				<span data-translate="Shrines">Shrines</span><br/>
+				<span data-translate="Found">Found</span>: <span id="span-shrines-found-counter"></span><br/>
+				<span data-translate="Cleared">Cleared</span>: <span id="span-shrines-clear-counter"></span>
 			</div>
 			<div class="eight columns text-right">
-				<button onclick="Korok.setAllHiddenAsFound()">Set all 800 koroks as found</button>
-				<button onclick="Korok.setAllCarryAsFound()">Set all 100 koroks as carried</button>
-			</div>
-		</div>
-
-		<!-- <div class="row">
-			<div class="seven columns"><label for="number-defeated-hinox">Defeated Hinox</label></div>
-			<div class="five columns text-right">
-				<input type="text" id="number-defeated-hinox" style="width:50px" disabled />
-				<button onclick="defeatAllHinox()">Defeat all</button>
-				<button onclick="addHinoxToMap()">Add pins to Map</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="seven columns"><label for="number-defeated-talus">Defeated Talus</label></div>
-			<div class="five columns text-right">
-				<input type="text" id="number-defeated-talus" style="width:50px" disabled />
-				<button onclick="defeatAllTalus()">Defeat all</button>
-				<button onclick="addTalusToMap()">Add pins to Map</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="seven columns"><label for="number-defeated-molduga">Defeated Molduga</label></div>
-			<div class="five columns text-right">
-				<input type="text" id="number-defeated-molduga" style="width:50px" disabled />
-				<button onclick="defeatAllMolduga()">Defeat all</button>
-				<button onclick="addMoldugaToMap()">Add pins to Map</button>
-			</div>
-		</div> -->
-		<div class="row mb-10">
-			<div class="four columns">Hyrule Compendium - <span id="span-compendium-counter"></span></div>
-			<div class="eight columns text-right">
-				<button onclick="Compendium.setToStock(false)">Set current to stock</button>
-				<button onclick="Compendium.setToStock(true)">Unlock missing</button>
+				<button onclick="Completism.setShrinesAsFound()" data-translate="Set all shrines as found">Set all shrines as found</button>
+				<button onclick="Completism.setShrinesAsClear()" data-translate="Set all shrines as cleared">Set all shrines as cleared</button>
 			</div>
 		</div>
 		<div class="row mb-10">
-			<div class="four columns">Shrines - Found: <span id="span-shrines-found-counter"></span> - Cleared: <span id="span-shrines-clear-counter"></span></div>
+			<div class="four columns">
+				<span data-translate="Lightroots">Lightroots</span><br/>
+				<span data-translate="Found">Found</span>: <span id="span-lightroots-found-counter"></span><br/>
+				<span data-translate="Cleared">Cleared</span>: <span id="span-lightroots-clear-counter"></span>
+			</div>
 			<div class="eight columns text-right">
-				<button onclick="Shrine.setAllAsFound()">Set all shrines as found</button>
-				<button onclick="Shrine.setAllAsClear()">Set all shrines as cleared</button>
+				<button onclick="Completism.setLightrootsAsFound()" data-translate="Set all lightroots as found">Set all lightroots as found</button>
+				<button onclick="Completism.setLightrootsAsClear()" data-translate="Set all lightroots as activated">Set all lightroots as activated</button>
 			</div>
 		</div>
 		<div class="row mb-10">
-			<div class="four columns">Lightroots - Found: <span id="span-lightroots-found-counter"></span> - Cleared: <span id="span-lightroots-clear-counter"></span></div>
+			<div class="four columns">
+				<span data-translate="Koroks">Koroks</span><br/>
+				<span data-translate="Found">Found</span>: <span id="span-korok-hidden-counter"></span><br/>
+				<span data-translate="Carried">Carried</span>: <span id="span-korok-carry-counter"></span> <small>(&times;2)</small>
+			</div>
 			<div class="eight columns text-right">
-				<button onclick="Lightroot.setAllAsFound()">Set all lightroots as found</button>
-				<button onclick="Lightroot.setAllAsClear()">Set all lightroots as activated</button>
+				<button onclick="Completism.setKoroksAsFound()" data-translate="Set all 800 koroks as found">Set all 800 koroks as found</button>
+				<button onclick="Completism.setKoroksAsCarried()" data-translate="Set all 100 koroks as carried">Set all 100 koroks as carried</button>
 			</div>
 		</div>
 		<div class="row mb-10">
-			<div class="four columns">Schematics - Found: <span id="span-schematics-counter"></span></div>
+			<div class="four columns">
+				<span data-translate="Locations">Locations</span><br/>
+				<span data-translate="Caves">Caves</span>: <span id="span-location-caves-counter"></span><br/>
+				<span data-translate="Wells">Wells</span>: <span id="span-location-wells-counter"></span>
+			</div>
 			<div class="eight columns text-right">
-				<button onclick="Schematics.setAllAsFound()">Set all schematics as found</button>
+				<span data-translate="Set locations as visited">Set locations as visited</span>:
+				<button onclick="Completism.visitLocationCaves()" data-translate="Caves">Caves</button>
+				<button onclick="Completism.visitLocationWells()" data-translate="Wells">Wells</button>
 			</div>
 		</div>
-
-		<!-- <div class="row">
-			<div class="seven columns">Visited locations</div>
-			<div class="five columns text-right">
-				<button onclick="visitAllLocations()">Visit all</button>
-				<button onclick="addLocationsToMap()">Add pins to Map</button>
+		<div class="row mb-10">
+			<div class="four columns">
+				<span data-translate="Bosses">Bosses</span><br/>
+				<span data-translate="Hinox">Hinox</span>: <span id="span-boss-hinox-counter"></span><br/>
+				<span data-translate="Talus">Talus</span>: <span id="span-boss-talus-counter"></span><br/>
+				<span data-translate="Molduga">Molduga</span>: <span id="span-boss-molduga-counter"></span><br/>
+				<span data-translate="Flux Construct">Flux Construct</span>: <span id="span-boss-flux-counter"></span><br/>
+				<span data-translate="Frox">Frox</span>: <span id="span-boss-frox-counter"></span><br/>
+				<span data-translate="Gleeok">Gleeok</span>: <span id="span-boss-gleeok-counter"></span>
 			</div>
-		</div> -->
+			<div class="eight columns text-right">
+				<span data-translate="Set bosses as defeated">Set bosses as defeated</span>:
+				<button onclick="Completism.defeatBossesHinox()" data-translate="Hinox">Hinox</button>
+				<button onclick="Completism.defeatBossesTalus()" data-translate="Talus">Talus</button>
+				<button onclick="Completism.defeatBossesMolduga()" data-translate="Molduga">Molduga</button>
+				<button onclick="Completism.defeatBossesFlux()" data-translate="Flux Construct">Flux Construct</button>
+				<button onclick="Completism.defeatBossesFrox()" data-translate="Frox">Frox</button>
+				<button onclick="Completism.defeatBossesGleeok()" data-translate="Gleeok">Gleeok</button>
+			</div>
+		</div>
+		<div class="row mb-10">
+			<div class="four columns">
+				<span data-translate="Schematics">Schematics</span><br/>
+				<span data-translate="Schema stones">Schema stones</span>: <span id="span-schematics-stone-counter"></span><br/>
+				<span data-translate="Yiga schematics">Yiga schematics</span>: <span id="span-schematics-yiga-counter"></span>
+			</div>
+			<div class="eight columns text-right">
+				<span data-translate="Set schematics as found">Set schematics as found</span>:
+				<button onclick="Completism.setSchematicStonesAsFound()" data-translate="Schema stones">Schema stones</button>
+				<button onclick="Completism.setSchematicYigaAsFound()" data-translate="Yiga schematics">Yiga schematics</button>
+			</div>
+		</div>
+		<div class="row mb-10">
+			<div class="four columns">
+				<span data-translate="Hyrule Compendium">Hyrule Compendium</span><br/>
+				<span id="span-compendium-counter"></span>
+			</div>
+			<div class="eight columns text-right">
+				<button onclick="Completism.setCompendiumAsStockCurrentOnly()" data-translate="Set current to stock">Set current to stock</button>
+				<button onclick="Completism.setCompendiumAsBought()" data-translate="Unlock missing">Unlock missing</button>
+			</div>
+		</div>
 
 		<!-- AUTOBUILDER -->
-		<h3 class="border-grey">Autobuilder</h3>
+		<h3 class="border-grey" data-translate="Autobuilder">Autobuilder</h3>
 		<div class="row mb-10">
 			<div class="twelve columns">
-				<label>Design <select id="select-autobuilder-index" style="width:auto">
+				<label><span data-translate="Design">Design</span> <select id="select-autobuilder-index" style="width:auto">
 					<option value="0">01</option>
 					<option value="1">02</option>
 					<option value="2">03</option>
@@ -408,85 +396,87 @@
 					<option value="28">29</option>
 					<option value="29">30</option>
 				</select></label>
-				<button id="button-autobuilder-export">Export</button>
-				<button id="button-autobuilder-import">Import</button>
+				<button id="button-autobuilder-export" data-translate="Export">Export</button>
+				<button id="button-autobuilder-import" data-translate="Import">Import</button>
 				<input id="input-file-autobuilder-import" type="file" accept=".totkab" style="display:none" />
-				<span style="color:red"><strong>Currently on alpha</strong>. Use this on your own risk!</span>
 			</div>
 		</div>
 	</div>
 	
 	<!-- TAB: WEAPONS -->
 	<div id="tab-weapons">
-		<h3>Weapons</h3><div id="container-weapons"></div>
+		<h3 data-translate="Weapons">Weapons</h3><div id="container-weapons"></div>
 		<div class="text-center">
-			<button onclick="SavegameEditor.restoreDurability('weapons')">Restore durability</button>
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('weapons')">Add weapon</button>
+			<button onclick="SavegameEditor.restoreDurability('weapons')" data-translate="Restore durability">Restore durability</button>
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('weapons')" data-translate="Add weapon">Add weapon</button>
 		</div>
 	</div>
 
 	<!-- TAB: BOWS -->
 	<div id="tab-bows">
-		<h3>Bows</h3><div id="container-bows"></div>
+		<h3 data-translate="Bows">Bows</h3><div id="container-bows"></div>
 		<div class="text-center">
-			<button onclick="SavegameEditor.restoreDurability('bows')">Restore durability</button>
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('bows')">Add bow</button>
+			<button onclick="SavegameEditor.restoreDurability('bows')" data-translate="Restore durability">Restore durability</button>
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('bows')" data-translate="Add bow">Add bow</button>
 		</div>
-		<h3>Arrows</h3><div id="container-arrows"></div>
+		<h3 data-translate="Arrows">Arrows</h3><div id="container-arrows"></div>
+		<div class="text-center">
+			<button id="button-add-arrows" class="with-icon icon1" onclick="SavegameEditor.addItem('arrows')" data-translate="Add arrows">Add arrows</button>
+		</div>
 	</div>
 
 	<!-- TAB: SHIELDS -->
 	<div id="tab-shields">
-		<h3>Shields</h3><div id="container-shields"></div>
+		<h3 data-translate="Shields">Shields</h3><div id="container-shields"></div>
 		<div class="text-center">
-			<button onclick="SavegameEditor.restoreDurability('shields')">Restore durability</button>
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('shields')">Add shield</button>
+			<button onclick="SavegameEditor.restoreDurability('shields')" data-translate="Restore durability">Restore durability</button>
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('shields')" data-translate="Add shield">Add shield</button>
 		</div>
 	</div>
 
 	<!-- TAB: ARMORS -->
 	<div id="tab-armors">
-		<h3>Armors</h3><div id="container-armors"></div>
+		<h3 data-translate="Armors">Armors</h3><div id="container-armors"></div>
 		<div class="text-center">
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('armors')">Add armor</button>
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('armors')" data-translate="Add armor">Add armor</button>
 		</div>
 	</div>
 
 	<!-- TAB: MATERIALS -->
 	<div id="tab-materials">
-		<h3>Materials</h3><div id="container-materials"></div>
+		<h3 data-translate="Materials">Materials</h3><div id="container-materials"></div>
 		<div class="text-center">
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('materials')">Add material</button>
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('materials')" data-translate="Add material">Add material</button>
 		</div>
 	</div>
 
 	<!-- TAB: FOOD -->
 	<div id="tab-food">
-		<h3>Food</h3><div id="container-food"></div>
+		<h3 data-translate="Food">Food</h3><div id="container-food"></div>
 		<div class="text-center">
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('food')">Add food</button>
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('food')" data-translate="Add food">Add food</button>
 		</div>
 	</div>
 
 	<!-- TAB: ZONAI DEVICES -->
 	<div id="tab-devices">
-		<h3>Zonai devices</h3><div id="container-devices"></div>
+		<h3 data-translate="Zonai devices">Zonai devices</h3><div id="container-devices"></div>
 		<div class="text-center">
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('devices')">Add zonai device</button>
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('devices')" data-translate="Add zonai device">Add zonai device</button>
 		</div>
 	</div>
 
 	<!-- TAB: KEY -->
 	<div id="tab-key">
-		<h3>Key items</h3><div id="container-key"></div>
+		<h3 data-translate="Key items">Key items</h3><div id="container-key"></div>
 		<div class="text-center">
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('key')">Add key item</button>
+			<button class="with-icon icon1" onclick="SavegameEditor.addItem('key')" data-translate="Add key item">Add key item</button>
 		</div>
 	</div>
 
 	<!-- TAB: HORSES -->
 	<div id="tab-horses">
-		<h3 class="border-blue">Horses</h3>
+		<h3 data-translate="Horses" class="border-blue">Horses</h3>
 		<div id="container-horses"></div>
 		<!-- <div class="row"><div class="twelve columns">Untammed horse</div></div>
 		<div class="row" id="row-horse10">
@@ -502,10 +492,11 @@
 
 	<!-- TAB: MASTER EDITOR -->
 	<div id="tab-master">
+		<h3 data-translate="Master editor">Master editor</h3>
 		<div id="master-editor-loading" class="text-center">Master editor is loading...</div>
 		<div id="master-editor-hidden" class="hidden">
-			<div>
-				<label>Search <input id="input-custom-filter" type="text" list="knownHashes" placeholder="Search variables" onchange="TOTKMasterEditor.refreshResults()" /></label>
+			<div class="mb-10">
+				<label><span data-translate="Search">Search</span> <input id="input-custom-filter" type="text" list="knownHashes" placeholder="Search variables" onchange="TOTKMasterEditor.refreshResults()" /></label>
 				<datalist id="knownHashes">
 					<option value="paraglider fabric">Usable paraglider fabrics</option>
 					<option value="tower">Hyrule tower activation</option>
@@ -521,7 +512,7 @@
 
 			<table id="table"></table>
 			<div class="text-center">
-				<label for="select-page">Page: </label>
+				<label for="select-page"><span data-translate="Page">Page</span>: </label>
 				<button id="page-prev" onclick="TOTKMasterEditor.prevPage()">&laquo;</button>
 				<select id="select-page" class="small" onchange="TOTKMasterEditor.setPage(this.selectedIndex)"></select>
 				<button id="page-next" onclick="TOTKMasterEditor.nextPage()">&raquo;</button>
@@ -531,7 +522,7 @@
 
 	<!-- TAB: SETTINGS -->
 	<div id="tab-settings">
-		<h3 class="border-orange">Settings</h3>
+		<h3 class="border-orange" data-translate="Settings">Settings</h3>
 		<div id="box-settings">
 			<div>
 				<label for="select-language">Item language</label>
@@ -551,6 +542,7 @@
 					<option value="zh_alt">Chinese (traditional)</option>
 				</select>
 			</div>
+			<div id="warning-language">*Requires the app to be <strong>restarted</strong> for changes take effect</div>
 			<div>
 				<label><input type="checkbox" id="checkbox-warning-delete" checked> Warn when deleting item</select>
 			</div>
@@ -565,8 +557,6 @@
 <div id="dialog-caption" class="dialog text-center"></div>
 
 
-<div id="toast-loading" style="display:none">
-	Loading <span id="span-loading-filename"></span>...
-</div>
+<div id="toast-loading" style="display:none"></div>
 </body>
 </html>

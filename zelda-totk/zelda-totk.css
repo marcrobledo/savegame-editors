@@ -1,4 +1,4 @@
-/* Zelda TOTK Savegame editor by Marc Robledo v20230604 */
+/* Zelda TOTK Savegame editor by Marc Robledo v20230608 */
 /* minify at https://cssminifier.com/ + https://www.base64-image.de/ (sprites */
 
 /* @FONT-FACES */
@@ -25,7 +25,7 @@ tr:last-child{border-bottom:none}
 tr:hover{background-color:#121710}
 
 
-/* loading backdrop */
+/* toast */
 #toast-loading{
 	position:fixed;
 	bottom: 10px;
@@ -35,6 +35,31 @@ tr:hover{background-color:#121710}
 	background-color:rgba(0,0,0,.91);
 	z-index:1000;
 }
+
+#box-settings #warning-language{
+	color:orange;
+	display:none;
+}
+
+/* progress bar */
+.progress-bar{
+	display:inline-block;
+	vertical-align:middle;
+	background-color:#01130d;
+	width:80px;
+	height:4px;
+	border-radius:8px;
+	margin-left:8px;
+}
+.progress{
+	background-color:#c8ac5a;
+	height:100%;
+	border-radius:8px;
+}
+.progress.complete{
+	background-color:#2ba46b;
+}
+
 
 /* TOTK */
 .dye-color{
@@ -544,7 +569,7 @@ button.no-text.with-icon:before{margin-right:0px}
 
 
 .wrapper{
-	max-width:920px;
+	max-width:940px;
 	margin:0 auto
 }
 

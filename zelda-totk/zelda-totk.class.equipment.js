@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Equipment class) v20230604
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Equipment class) v20230608
 
 	by Marc Robledo 2023
 	research and item names compiled by Echocolat, Exincracci, HylianLZ, Karlos007 and ApacheThunder
@@ -21,9 +21,7 @@ function Equipment(catId, index, id, durability, modifier, modifierValue, fuseId
 	Equipment.buildHtmlElements(this);
 }
 Equipment.prototype.getItemTranslation=function(){
-	if(Locale._(this.id))
-		return Locale._(this.id);
-	return Equipment.TRANSLATIONS[this.category][this.id] || this.id;
+	return Locale._(this.id);
 }
 Equipment.prototype.isFusable=function(){
 	return (this.category==='weapons' || this.category==='shields')
@@ -61,14 +59,14 @@ Equipment.prototype.copy=function(index, newId){
 	);
 }
 Equipment.prototype.save=function(){
-	var categoryHash=capitalizeCategoryId(this.category);
-	SavegameEditor.writeString64('Array'+categoryHash+'Ids', this.index, this.id);
-	SavegameEditor.writeU32('Array'+categoryHash+'Durabilities', this.index, this.durability);
-	SavegameEditor.writeU32('Array'+categoryHash+'Modifiers', this.index, this.modifier);
-	SavegameEditor.writeU32('Array'+categoryHash+'ModifierValues', this.index, this.modifierValue);
+	var categoryHash=getInternalCategoryId(this.category);
+	SavegameEditor.writeString64('Pouch.'+categoryHash+'.Content.Name', this.index, this.id);
+	SavegameEditor.writeU32('Pouch.'+categoryHash+'.Content.Life', this.index, this.durability);
+	SavegameEditor.writeU32('Pouch.'+categoryHash+'.Content.Effect.Type', this.index, this.modifier);
+	SavegameEditor.writeU32('Pouch.'+categoryHash+'.Content.Effect.Value', this.index, this.modifierValue);
 
 	if(this.isFusable())
-		SavegameEditor.writeString64('Array'+categoryHash+'FuseIds', this.index, this.fuseId);
+		SavegameEditor.writeString64('Pouch.'+categoryHash+'.Content.Combined.Name', this.index, this.fuseId);
 }
 
 
@@ -80,28 +78,29 @@ Equipment.buildHtmlElements=function(item){
 		if(!isNaN(newVal) && newVal>0)
 			item.durability=newVal;
 	});
-	item._htmlInputDurability.title='Durability';
+	item._htmlInputDurability.dataset.translateTitle='Durability';
+	item._htmlInputDurability.title=Locale._('Durability');
 	item._htmlInputDurability.maxValue=item.getMaximumDurability();
 	item._htmlInputDurability.value=item.durability;
 
 	//build html elements
 	var modifiers=[
-		{name:'No bonus', value:Equipment.MODIFIER_NO_BONUS},
-		{name:'Attack ↑', value:Equipment.MODIFIER_ATTACK},
-		{name:'Attack ↑↑', value:Equipment.MODIFIER_ATTACK2},
-		{name:'Durability ↑', value:Equipment.MODIFIER_DURABILITY},
-		{name:'Durability ↑↑', value:Equipment.MODIFIER_DURABILITY2}
+		{name:Locale._('No bonus'), value:Equipment.MODIFIER_NO_BONUS},
+		{name:Locale._('Attack')+' ↑', value:Equipment.MODIFIER_ATTACK},
+		{name:Locale._('Attack')+' ↑↑', value:Equipment.MODIFIER_ATTACK2},
+		{name:Locale._('Durability')+' ↑', value:Equipment.MODIFIER_DURABILITY},
+		{name:Locale._('Durability')+' ↑↑', value:Equipment.MODIFIER_DURABILITY2}
 	];
 	if(item.category==='weapons'){
-		modifiers.push({name:'Critical Hit↑', value:Equipment.MODIFIER_CRITICAL_HIT});
-		modifiers.push({name:'Throw ↑↑', value:Equipment.MODIFIER_THROW});
+		modifiers.push({name:Locale._('Critical Hit')+' ↑', value:Equipment.MODIFIER_CRITICAL_HIT});
+		modifiers.push({name:Locale._('Throw')+' ↑↑', value:Equipment.MODIFIER_THROW});
 	}else if(item.category==='bows'){
-		modifiers.push({name:'Quick Shot', value:Equipment.MODIFIER_QUICK_SHOT});
+		modifiers.push({name:Locale._('Quick Shot'), value:Equipment.MODIFIER_QUICK_SHOT});
 		//modifiers.push({name:'Arrow Shot x3', value:Equipment.MODIFIER_ARROWX3}); //???
-		modifiers.push({name:'Arrow Shot x5', value:Equipment.MODIFIER_ARROWX5});
+		modifiers.push({name:Locale._('Arrow Shot')+' x5', value:Equipment.MODIFIER_ARROWX5});
 	}else if(item.category==='shields'){
-		modifiers.push({name:'Block ↑', value:Equipment.MODIFIER_BLOCK});
-		modifiers.push({name:'Block ↑↑', value:Equipment.MODIFIER_BLOCK2});
+		modifiers.push({name:Locale._('Block')+' ↑', value:Equipment.MODIFIER_BLOCK});
+		modifiers.push({name:Locale._('Block')+' ↑↑', value:Equipment.MODIFIER_BLOCK2});
 	}
 	var unknownModifier=[
 		Equipment.MODIFIER_NO_BONUS,
@@ -118,7 +117,7 @@ Equipment.buildHtmlElements=function(item){
 		Equipment.MODIFIER_BLOCK2
 	].indexOf(item.modifier)===-1;
 	if(unknownModifier){
-		modifiers.push({name:'Unknown: '+item.modifier.toString(16), value:item.modifier});
+		modifiers.push({name:'Unknown: '+SavegameEditor._toHexInt(item.modifier), value:item.modifier});
 	}
 	item._htmlSelectModifier=select('item-modifier-'+item.category+'-'+item.index, modifiers, function(){
 		var fromNoBonus=item.modifier===Equipment.MODIFIER_NO_BONUS;
@@ -139,7 +138,8 @@ Equipment.buildHtmlElements=function(item){
 			item.restoreDurability();
 		}
 	}, item.modifier);
-	item._htmlSelectModifier.title='Modifier';
+	item._htmlSelectModifier.dataset.translateTitle='Modifier';
+	item._htmlSelectModifier.title=Locale._('Modifier');
 	item._htmlSelectModifier.disabled=unknownModifier;
 
 	//build html elements
@@ -153,7 +153,8 @@ Equipment.buildHtmlElements=function(item){
 			}
 		}
 	});
-	item._htmlInputModifierValue.title='Modifier value';
+	item._htmlInputModifierValue.dataset.translateTitle='Modifier value';
+	item._htmlInputModifierValue.title=Locale._('Modifier value');
 
 	//build html elements
 	if(item.isFusable()){
@@ -162,13 +163,14 @@ Equipment.buildHtmlElements=function(item){
 			item.restoreDurability();
 			item.fixValues();
 		}, item.fuseId);
-		item._htmlSelectFusion.title='Fusion';
+		item._htmlSelectFusion.dataset.translateTitle='Fusion';
+		item._htmlSelectFusion.title=Locale._('Fusion');
 	}
 }
 
 Equipment.readAll=function(catId){
-	var categoryHash=capitalizeCategoryId(catId);
-	var equipmentIds=SavegameEditor.readString64Array('Array'+categoryHash+'Ids');
+	var categoryHash=getInternalCategoryId(catId);
+	var equipmentIds=SavegameEditor.readString64Array('Pouch.'+categoryHash+'.Content.Name');
 	var isFusable=(catId==='weapons' || catId==='shields');
 	var validEquipment=[];
 	for(var i=0; i<equipmentIds.length; i++){
@@ -177,10 +179,10 @@ Equipment.readAll=function(catId){
 				catId,
 				i,
 				equipmentIds[i],
-				SavegameEditor.readU32('Array'+categoryHash+'Durabilities', i),
-				SavegameEditor.readU32('Array'+categoryHash+'Modifiers', i),
-				SavegameEditor.readU32('Array'+categoryHash+'ModifierValues', i),
-				isFusable? SavegameEditor.readString64('Array'+categoryHash+'FuseIds', i) : null
+				SavegameEditor.readU32('Pouch.'+categoryHash+'.Content.Life', i),
+				SavegameEditor.readU32('Pouch.'+categoryHash+'.Content.Effect.Type', i),
+				SavegameEditor.readU32('Pouch.'+categoryHash+'.Content.Effect.Value', i),
+				isFusable? SavegameEditor.readString64('Pouch.'+categoryHash+'.Content.Combined.Name', i) : null
 			));
 		}
 	}
@@ -388,205 +390,225 @@ Equipment.DEFAULT_DURABILITY={
 	Weapon_Shield_107:12,
 };
 
-Equipment.TRANSLATIONS={
-'weapons':{
-Weapon_Sword_001:'Traveler\'s Sword',
-Weapon_Sword_002:'Soldier\'s Broadsword',
-Weapon_Sword_003:'Knight\'s Broadsword',
-Weapon_Sword_019:'Bokoblin Arm',
-Weapon_Sword_020:'Lizalfos Arm',
-Weapon_Sword_021:'Rusty Broadsword',
-Weapon_Sword_022:'Soup Ladle',
-Weapon_Sword_024:'Royal Broadsword',
-Weapon_Sword_025:'Forest Dweller\'s Sword',
-Weapon_Sword_027:'Zora Sword',
-Weapon_Sword_029:'Gerudo Scimitar',
-Weapon_Sword_031:'Feathered Edge',
-Weapon_Sword_041:'Eightfold Blade',
-Weapon_Sword_043:'Torch',
-Weapon_Sword_044:'Tree Branch',
-Weapon_Sword_047:'Royal Guard\'s Sword',
-Weapon_Sword_051:'Boomerang',
-Weapon_Sword_052:'Scimitar of the Seven',
-Weapon_Sword_057:'White Sword of the Sky',
-Weapon_Sword_058:'Sword of the Hero',
-Weapon_Sword_059:'Sea-Breeze Boomerang',
-Weapon_Sword_070:'Master Sword',
-Weapon_Sword_101:'Zonaite Sword',
-Weapon_Sword_103:'Wooden Stick',
-Weapon_Sword_105:'Boomerang',
-Weapon_Sword_106:'Traveler\'s Sword (decayed)',
-Weapon_Sword_107:'Lizal Boomerang',
-Weapon_Sword_108:'Sturdy Wooden Stick',
-Weapon_Sword_109:'Gnarled Wooden Stick',
-Weapon_Sword_112:'Soldier\'s Broadsword (decayed)',
-Weapon_Sword_113:'Knight\'s Broadsword (decayed)',
-Weapon_Sword_114:'Eightfold Blade (decayed)',
-Weapon_Sword_124:'Royal Broadsword (decayed)',
-Weapon_Sword_125:'Forest Dweller\'s Sword (decayed)',
-Weapon_Sword_127:'Zora Sword (decayed)',
-Weapon_Sword_129:'Gerudo Scimitar (decayed)',
-Weapon_Sword_131:'Feathered Edge (decayed)',
-Weapon_Sword_147:'Royal Guard\'s Sword (decayed)',
-Weapon_Sword_161:'Magic Rod',
-Weapon_Sword_163:'Strong Zonaite Sword',
-Weapon_Sword_164:'Mighty Zonaite Sword',
-Weapon_Sword_166:'Gloom Sword',
-Weapon_Sword_167:'Tree Branch (sky)',
-Weapon_Sword_168:'Wooden Stick (decayed)',
-Weapon_Sword_077:'Master Sword (glitched)',
+Equipment.AVAILABILITY={
+	'weapons':[
+		'Weapon_Sword_001', //Traveler's Sword
+		'Weapon_Sword_002', //Soldier's Broadsword
+		'Weapon_Sword_003', //Knight's Broadsword
+		'Weapon_Sword_019', //Bokoblin Arm
+		'Weapon_Sword_020', //Lizalfos Arm
+		'Weapon_Sword_021', //Rusty Broadsword
+		'Weapon_Sword_022', //Soup Ladle
+		'Weapon_Sword_024', //Royal Broadsword
+		'Weapon_Sword_025', //Forest Dweller's Sword
+		'Weapon_Sword_027', //Zora Sword
+		'Weapon_Sword_029', //Gerudo Scimitar
+		'Weapon_Sword_031', //Feathered Edge
+		'Weapon_Sword_041', //Eightfold Blade
+		'Weapon_Sword_043', //Torch
+		'Weapon_Sword_044', //Tree Branch
+		'Weapon_Sword_047', //Royal Guard's Sword
+		'Weapon_Sword_051', //Boomerang
+		'Weapon_Sword_052', //Scimitar of the Seven
+		'Weapon_Sword_057', //White Sword of the Sky
+		'Weapon_Sword_058', //Sword of the Hero
+		'Weapon_Sword_059', //Sea-Breeze Boomerang
+		'Weapon_Sword_070', //Master Sword
+		'Weapon_Sword_101', //Zonaite Sword
+		'Weapon_Sword_103', //Wooden Stick
+		'Weapon_Sword_105', //Boomerang
+		'Weapon_Sword_106', //Traveler's Sword (decayed)
+		'Weapon_Sword_107', //Lizal Boomerang
+		'Weapon_Sword_108', //Sturdy Wooden Stick
+		'Weapon_Sword_109', //Gnarled Wooden Stick
+		'Weapon_Sword_112', //Soldier's Broadsword (decayed)
+		'Weapon_Sword_113', //Knight's Broadsword (decayed)
+		'Weapon_Sword_114', //Eightfold Blade (decayed)
+		'Weapon_Sword_124', //Royal Broadsword (decayed)
+		'Weapon_Sword_125', //Forest Dweller's Sword (decayed)
+		'Weapon_Sword_127', //Zora Sword (decayed)
+		'Weapon_Sword_129', //Gerudo Scimitar (decayed)
+		'Weapon_Sword_131', //Feathered Edge (decayed)
+		'Weapon_Sword_147', //Royal Guard's Sword (decayed)
+		'Weapon_Sword_161', //Magic Rod
+		'Weapon_Sword_163', //Strong Zonaite Sword
+		'Weapon_Sword_164', //Mighty Zonaite Sword
+		'Weapon_Sword_166', //Gloom Sword
+		'Weapon_Sword_167', //Tree Branch (sky)
+		'Weapon_Sword_168', //Wooden Stick (decayed)
+		'Weapon_Sword_077', //Master Sword (glitched)
 
-Npc_Zelda_Torch:'*Zelda\'s intro torch (unused)',
+		'Npc_Zelda_Torch', //*Zelda's intro torch (unused)
 
-Weapon_Lsword_001:'Traveler\'s Claymore',
-Weapon_Lsword_002:'Soldier\'s Claymore',
-Weapon_Lsword_003:'Knight\'s Claymore',
-Weapon_Lsword_019:'Moblin Arm',
-Weapon_Lsword_020:'Rusty Claymore',
-Weapon_Lsword_024:'Royal Claymore',
-Weapon_Lsword_027:'Zora Longsword',
-Weapon_Lsword_029:'Gerudo Claymore',
-Weapon_Lsword_036:'Cobble Crusher',
-Weapon_Lsword_038:'Boat Oar',
-Weapon_Lsword_041:'Eightfold Longblade',
-Weapon_Lsword_045:'Farming Hoe',
-Weapon_Lsword_047:'Royal Guard\'s Claymore',
-Weapon_Lsword_051:'Giant Boomerang',
-Weapon_Lsword_054:'Boulder Breaker',
-Weapon_Lsword_057:'Dusk Claymore',
-Weapon_Lsword_059:'Biggoron\'s Sword',
-Weapon_Lsword_060:'Fierce Deity Sword',
-Weapon_Lsword_101:'Zonaite Longsword',
-Weapon_Lsword_103:'Thick Stick',
-Weapon_Lsword_106:'Traveler\'s Claymore (decayed)',
-Weapon_Lsword_108:'Sturdy Thick Stick',
-Weapon_Lsword_109:'Gnarled Thick Stick',
-Weapon_Lsword_112:'Soldier\'s Claymore (decayed)',
-Weapon_Lsword_113:'Knight\'s Claymore (decayed)',
-Weapon_Lsword_114:'Eightfold Longblade (decayed)',
-Weapon_Lsword_124:'Royal Claymore (decayed)',
-Weapon_Lsword_127:'Zora Longsword (decayed)',
-Weapon_Lsword_129:'Gerudo Claymore (decayed)',
-Weapon_Lsword_136:'Cobble Crusher (decayed)',
-Weapon_Lsword_147:'Royal Guard\'s Claymore (decayed)',
-Weapon_Lsword_161:'Magic Scepter',
-Weapon_Lsword_163:'Strong Zonaite Longsword',
-Weapon_Lsword_164:'Mighty Zonaite Longsword',
-Weapon_Lsword_166:'Gloom Club',
-Weapon_Lsword_168:'Thick Stick (decayed)',
-Weapon_Lsword_174:'Giant Boomerang (decayed)',
+		'Weapon_Lsword_001', //Traveler's Claymore
+		'Weapon_Lsword_002', //Soldier's Claymore
+		'Weapon_Lsword_003', //Knight's Claymore
+		'Weapon_Lsword_019', //Moblin Arm
+		'Weapon_Lsword_020', //Rusty Claymore
+		'Weapon_Lsword_024', //Royal Claymore
+		'Weapon_Lsword_027', //Zora Longsword
+		'Weapon_Lsword_029', //Gerudo Claymore
+		'Weapon_Lsword_036', //Cobble Crusher
+		'Weapon_Lsword_038', //Boat Oar
+		'Weapon_Lsword_041', //Eightfold Longblade
+		'Weapon_Lsword_045', //Farming Hoe
+		'Weapon_Lsword_047', //Royal Guard's Claymore
+		'Weapon_Lsword_051', //Giant Boomerang
+		'Weapon_Lsword_054', //Boulder Breaker
+		'Weapon_Lsword_057', //Dusk Claymore
+		'Weapon_Lsword_059', //Biggoron's Sword
+		'Weapon_Lsword_060', //Fierce Deity Sword
+		'Weapon_Lsword_101', //Zonaite Longsword
+		'Weapon_Lsword_103', //Thick Stick
+		'Weapon_Lsword_106', //Traveler's Claymore (decayed)
+		'Weapon_Lsword_108', //Sturdy Thick Stick
+		'Weapon_Lsword_109', //Gnarled Thick Stick
+		'Weapon_Lsword_112', //Soldier's Claymore (decayed)
+		'Weapon_Lsword_113', //Knight's Claymore (decayed)
+		'Weapon_Lsword_114', //Eightfold Longblade (decayed)
+		'Weapon_Lsword_124', //Royal Claymore (decayed)
+		'Weapon_Lsword_127', //Zora Longsword (decayed)
+		'Weapon_Lsword_129', //Gerudo Claymore (decayed)
+		'Weapon_Lsword_136', //Cobble Crusher (decayed)
+		'Weapon_Lsword_147', //Royal Guard's Claymore (decayed)
+		'Weapon_Lsword_161', //Magic Scepter
+		'Weapon_Lsword_163', //Strong Zonaite Longsword
+		'Weapon_Lsword_164', //Mighty Zonaite Longsword
+		'Weapon_Lsword_166', //Gloom Club
+		'Weapon_Lsword_168', //Thick Stick (decayed)
+		'Weapon_Lsword_174', //Giant Boomerang (decayed)
 
-Weapon_Spear_001:'Traveler\'s Spear',
-Weapon_Spear_002:'Soldier\'s Spear',
-Weapon_Spear_003:'Knight\'s Halberd',
-Weapon_Spear_021:'Rusty Halberd',
-Weapon_Spear_022:'Farmer\'s Pitchfork',
-Weapon_Spear_024:'Royal Halberd',
-Weapon_Spear_025:'Forest Dweller\'s Spear',
-Weapon_Spear_027:'Zora Spear',
-Weapon_Spear_029:'Gerudo Spear',
-Weapon_Spear_030:'Throwing Spear',
-Weapon_Spear_032:'Feathered Spear',
-Weapon_Spear_036:'Wooden Mop',
-Weapon_Spear_038:'Fishing Harpoon',
-Weapon_Spear_047:'Royal Guard\'s Spear',
-Weapon_Spear_050:'Lightscale Trident',
-Weapon_Spear_101:'Zonaite Spear',
-Weapon_Spear_103:'Long Stick',
-Weapon_Spear_106:'Traveler\'s Spear (decayed)',
-Weapon_Spear_108:'Sturdy Long Stick',
-Weapon_Spear_109:'Gnarled Long Stick',
-Weapon_Spear_112:'Soldier\'s Spear (decayed)',
-Weapon_Spear_113:'Knight\'s Halberd (decayed)',
-Weapon_Spear_124:'Royal Halberd (decayed)',
-Weapon_Spear_125:'Forest Dweller\'s Spear (decayed)',
-Weapon_Spear_127:'Zora Spear (decayed)',
-Weapon_Spear_129:'Gerudo Spear (decayed)',
-Weapon_Spear_132:'Feathered Spear (decayed)',
-Weapon_Spear_147:'Royal Guard\'s Spear (decayed)',
-Weapon_Spear_161:'Magic Staff',
-Weapon_Spear_163:'Strong Zonaite Spear',
-Weapon_Spear_164:'Mighty Zonaite Spear',
-Weapon_Spear_166:'Gloom Spear',
-Weapon_Spear_168:'Long Stick (decayed)',
-Weapon_Spear_173:'Throwing Spear (decayed)'
-},
+		'Weapon_Spear_001', //Traveler's Spear
+		'Weapon_Spear_002', //Soldier's Spear
+		'Weapon_Spear_003', //Knight's Halberd
+		'Weapon_Spear_021', //Rusty Halberd
+		'Weapon_Spear_022', //Farmer's Pitchfork
+		'Weapon_Spear_024', //Royal Halberd
+		'Weapon_Spear_025', //Forest Dweller's Spear
+		'Weapon_Spear_027', //Zora Spear
+		'Weapon_Spear_029', //Gerudo Spear
+		'Weapon_Spear_030', //Throwing Spear
+		'Weapon_Spear_032', //Feathered Spear
+		'Weapon_Spear_036', //Wooden Mop
+		'Weapon_Spear_038', //Fishing Harpoon
+		'Weapon_Spear_047', //Royal Guard's Spear
+		'Weapon_Spear_050', //Lightscale Trident
+		'Weapon_Spear_101', //Zonaite Spear
+		'Weapon_Spear_103', //Long Stick
+		'Weapon_Spear_106', //Traveler's Spear (decayed)
+		'Weapon_Spear_108', //Sturdy Long Stick
+		'Weapon_Spear_109', //Gnarled Long Stick
+		'Weapon_Spear_112', //Soldier's Spear (decayed)
+		'Weapon_Spear_113', //Knight's Halberd (decayed)
+		'Weapon_Spear_124', //Royal Halberd (decayed)
+		'Weapon_Spear_125', //Forest Dweller's Spear (decayed)
+		'Weapon_Spear_127', //Zora Spear (decayed)
+		'Weapon_Spear_129', //Gerudo Spear (decayed)
+		'Weapon_Spear_132', //Feathered Spear (decayed)
+		'Weapon_Spear_147', //Royal Guard's Spear (decayed)
+		'Weapon_Spear_161', //Magic Staff
+		'Weapon_Spear_163', //Strong Zonaite Spear
+		'Weapon_Spear_164', //Mighty Zonaite Spear
+		'Weapon_Spear_166', //Gloom Spear
+		'Weapon_Spear_168', //Long Stick (decayed)
+		'Weapon_Spear_173', //Throwing Spear (decayed)
+	],
 
-'bows':{
-Weapon_Bow_001:'Traveler\'s Bow',
-Weapon_Bow_002:'Soldier\'s Bow',
-Weapon_Bow_003:'Spiked Boko Bow',
-Weapon_Bow_004:'Boko Bow',
-Weapon_Bow_006:'Lizal Bow',
-Weapon_Bow_009:'Lynel Bow',
-Weapon_Bow_011:'Strengthened Lizal Bow',
-Weapon_Bow_013:'Forest Dweller\'s Bow',
-Weapon_Bow_014:'Zora Bow',
-Weapon_Bow_015:'Gerudo Bow',
-Weapon_Bow_016:'Swallow Bow',
-Weapon_Bow_017:'Falcon Bow',
-Weapon_Bow_026:'Mighty Lynel Bow',
-Weapon_Bow_027:'Dragonbone Boko Bow',
-Weapon_Bow_028:'Great Eagle Bow',
-Weapon_Bow_029:'Phrenic Bow',
-Weapon_Bow_030:'Steel Lizal Bow',
-Weapon_Bow_032:'Savage Lynel Bow',
-Weapon_Bow_033:'Royal Guard\'s Bow',
-Weapon_Bow_035:'Knight\'s Bow',
-Weapon_Bow_036:'Royal Bow',
-Weapon_Bow_038:'Wooden Bow',
-Weapon_Bow_040:'Duplex Bow',
-Weapon_Bow_072:'Dusk Bow',
-Weapon_Bow_101:'Zonaite Bow',
-Weapon_Bow_104:'Construct Bow',
-Weapon_Bow_105:'Strong Construct Bow',
-Weapon_Bow_106:'Mighty Construct Bow',
-Weapon_Bow_107:'Old Wooden Bow',
-Weapon_Bow_166:'Demon King\'s Bow'
-},
+	'bows':[
+		'Weapon_Bow_001', //Traveler's Bow
+		'Weapon_Bow_002', //Soldier's Bow
+		'Weapon_Bow_003', //Spiked Boko Bow
+		'Weapon_Bow_004', //Boko Bow
+		'Weapon_Bow_006', //Lizal Bow
+		'Weapon_Bow_009', //Lynel Bow
+		'Weapon_Bow_011', //Strengthened Lizal Bow
+		'Weapon_Bow_013', //Forest Dweller's Bow
+		'Weapon_Bow_014', //Zora Bow
+		'Weapon_Bow_015', //Gerudo Bow
+		'Weapon_Bow_016', //Swallow Bow
+		'Weapon_Bow_017', //Falcon Bow
+		'Weapon_Bow_026', //Mighty Lynel Bow
+		'Weapon_Bow_027', //Dragonbone Boko Bow
+		'Weapon_Bow_028', //Great Eagle Bow
+		'Weapon_Bow_029', //Phrenic Bow
+		'Weapon_Bow_030', //Steel Lizal Bow
+		'Weapon_Bow_032', //Savage Lynel Bow
+		'Weapon_Bow_033', //Royal Guard's Bow
+		'Weapon_Bow_035', //Knight's Bow
+		'Weapon_Bow_036', //Royal Bow
+		'Weapon_Bow_038', //Wooden Bow
+		'Weapon_Bow_040', //Duplex Bow
+		'Weapon_Bow_072', //Dusk Bow
+		'Weapon_Bow_101', //Zonaite Bow
+		'Weapon_Bow_104', //Construct Bow
+		'Weapon_Bow_105', //Strong Construct Bow
+		'Weapon_Bow_106', //Mighty Construct Bow
+		'Weapon_Bow_107', //Old Wooden Bow
+		'Weapon_Bow_166', //Demon King's Bow
+	],
 
-'shields':{
-Weapon_Shield_001:'Wooden Shield',
-Weapon_Shield_002:'Soldier\'s Shield',
-Weapon_Shield_003:'Knight\'s Shield',
-Weapon_Shield_004:'Boko Shield',
-Weapon_Shield_005:'Spiked Boko Shield',
-Weapon_Shield_006:'Dragonbone Boko Shield',
-Weapon_Shield_007:'Lizal Shield',
-Weapon_Shield_008:'Reinforced Lizal Shield',
-Weapon_Shield_009:'Steel Lizal Shield',
-Weapon_Shield_016:'Lynel Shield',
-Weapon_Shield_017:'Mighty Lynel Shield',
-Weapon_Shield_018:'Savage Lynel Shield',
-Weapon_Shield_021:'Rusty Shield',
-Weapon_Shield_022:'Royal Shield',
-Weapon_Shield_023:'Forest Dweller\'s Shield',
-Weapon_Shield_025:'Zora Shield',
-Weapon_Shield_026:'Gerudo Shield',
-Weapon_Shield_030:'Hylian Shield',
-Weapon_Shield_031:'Hunter\'s Shield',
-Weapon_Shield_032:'Fisherman\'s Shield',
-Weapon_Shield_033:'Royal Guard\'s Shield',
-Weapon_Shield_034:'Emblazoned Shield',
-Weapon_Shield_035:'Traveler\'s Shield',
-Weapon_Shield_036:'Radiant Shield',
-Weapon_Shield_037:'Daybreaker',
-Weapon_Shield_040:'Pot Lid',
-Weapon_Shield_041:'Shield of the Mind\'s Eye',
-Weapon_Shield_042:'Kite Shield',
-Weapon_Shield_057:'Sea-Breeze Shield',
-Weapon_Shield_101:'Zonaite Shield',
-Weapon_Shield_102:'Strong Zonaite Shield',
-Weapon_Shield_103:'Mighty Zonaite Shield',
-Weapon_Shield_107:'Old Wooden Shield'
-}
+	'shields':[
+		'Weapon_Shield_001', //Wooden Shield
+		'Weapon_Shield_002', //Soldier's Shield
+		'Weapon_Shield_003', //Knight's Shield
+		'Weapon_Shield_004', //Boko Shield
+		'Weapon_Shield_005', //Spiked Boko Shield
+		'Weapon_Shield_006', //Dragonbone Boko Shield
+		'Weapon_Shield_007', //Lizal Shield
+		'Weapon_Shield_008', //Reinforced Lizal Shield
+		'Weapon_Shield_009', //Steel Lizal Shield
+		'Weapon_Shield_016', //Lynel Shield
+		'Weapon_Shield_017', //Mighty Lynel Shield
+		'Weapon_Shield_018', //Savage Lynel Shield
+		'Weapon_Shield_021', //Rusty Shield
+		'Weapon_Shield_022', //Royal Shield
+		'Weapon_Shield_023', //Forest Dweller's Shield
+		'Weapon_Shield_025', //Zora Shield
+		'Weapon_Shield_026', //Gerudo Shield
+		'Weapon_Shield_030', //Hylian Shield
+		'Weapon_Shield_031', //Hunter's Shield
+		'Weapon_Shield_032', //Fisherman's Shield
+		'Weapon_Shield_033', //Royal Guard's Shield
+		'Weapon_Shield_034', //Emblazoned Shield
+		'Weapon_Shield_035', //Traveler's Shield
+		'Weapon_Shield_036', //Radiant Shield
+		'Weapon_Shield_037', //Daybreaker
+		'Weapon_Shield_040', //Pot Lid
+		'Weapon_Shield_041', //Shield of the Mind's Eye
+		'Weapon_Shield_042', //Kite Shield
+		'Weapon_Shield_057', //Sea-Breeze Shield
+		'Weapon_Shield_101', //Zonaite Shield
+		'Weapon_Shield_102', //Strong Zonaite Shield
+		'Weapon_Shield_103', //Mighty Zonaite Shield
+		'Weapon_Shield_107', //Old Wooden Shield
+	]
 };
 
-Equipment.FUSABLE_ITEMS=[
-{value:'',name:'No fusion'}
-];
 
+Equipment.buildFusableItemsOptions=function(){
+	Equipment.FUSABLE_ITEMS=[
+		{value:'', name:Locale._('No fusion')}
+	];
 
+	Equipment.KNOWN_FUSABLE_MATERIALS.forEach(function(itemId){
+		Equipment.FUSABLE_ITEMS.push({value:itemId,name:'*'+Locale._('Material')+': '+Locale._(itemId)})
+	});
+	Equipment.KNOWN_FUSABLE_OBJECTS.forEach(function(itemId){
+		Equipment.FUSABLE_ITEMS.push({value:itemId,name:Locale._('Environment')+': '+Locale._(itemId)})
+	});
+	Equipment.AVAILABILITY.weapons.forEach(function(itemId){
+		Equipment.FUSABLE_ITEMS.push({value:itemId,name:Locale._('Weapon')+': '+Locale._(itemId)})
+	});
+	Equipment.AVAILABILITY.shields.forEach(function(itemId){
+		Equipment.FUSABLE_ITEMS.push({value:itemId,name:Locale._('Shield')+': '+Locale._(itemId)})
+	});
+	Item.AVAILABILITY.materials.forEach(function(itemId){
+		Equipment.FUSABLE_ITEMS.push({value:itemId,name:Locale._('Material')+': '+Locale._(itemId)})
+	});
+	Item.AVAILABILITY.devices.forEach(function(itemId){
+		Equipment.FUSABLE_ITEMS.push({value:itemId.replace('_Capsule',''),name:Locale._('Zonai device')+': '+Locale._(itemId)})
+	});
+}
 Equipment.KNOWN_FUSABLE_MATERIALS=[
 	'Item_Enemy_137',
 	'Item_Enemy_138',
