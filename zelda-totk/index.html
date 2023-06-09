@@ -254,6 +254,13 @@
 			<button onclick="SavegameEditor.addPinsLightroots()" data-translate="Lightroots">Lightroots</button>
 			<button onclick="SavegameEditor.addPinsKoroksHidden()" data-translate="Koroks">Hidden koroks</button>
 			<button onclick="SavegameEditor.addPinsKoroksCarry()" data-translate="Strayed koroks (&times;2)">Strayed koroks (&times;2)</button>
+			<button onclick="SavegameEditor.addPinsBubbuls()" data-translate="Bubbuls">Bubbuls</button>
+		</div>
+		<div class="mb-10 text-center">
+			<span data-translate="Locations">Locations</span>:
+			<button onclick="SavegameEditor.addPinsLocationsCaves()" data-translate="Caves">Caves</button>
+			<button onclick="SavegameEditor.addPinsLocationsWells()" data-translate="Wells">Wells</button>
+			<span style="color:red">*Experimental, caves/bubbuls coordinates may be wrong</span>
 		</div>
 		<div class="mb-10 text-center">
 			<span data-translate="Bosses">Bosses</span>:
@@ -303,6 +310,15 @@
 			<div class="eight columns text-right">
 				<button onclick="Completism.setKoroksAsFound()" data-translate="Set all 800 koroks as found">Set all 800 koroks as found</button>
 				<button onclick="Completism.setKoroksAsCarried()" data-translate="Set all 100 koroks as carried">Set all 100 koroks as carried</button>
+			</div>
+		</div>
+		<div class="row mb-10">
+			<div class="four columns">
+				<span data-translate="Bubbuls">Bubbuls</span><br/>
+				<span data-translate="Defeated">Defeated</span>: <span id="span-bubbuls-counter"></span>
+			</div>
+			<div class="eight columns text-right">
+				<button onclick="Completism.defeatBubbuls()" data-translate="Set bubbuls as defeated">Set bubbuls as defeated</button>
 			</div>
 		</div>
 		<div class="row mb-10">

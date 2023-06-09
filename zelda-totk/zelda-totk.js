@@ -695,8 +695,17 @@ SavegameEditor={
 	addPinsKoroksHidden:function(){
 		return this.addLocationPins(CompletismHashes.KOROKS_HIDDEN, Coordinates.KOROKS_HIDDEN, MapPin.ICON_LEAF, 50);
 	},
+	addPinsBubbuls:function(){
+		return this.addLocationPins(CompletismHashes.BUBBULS_DEFEATED, Coordinates.LOCATION_CAVES, MapPin.ICON_HEART, 50);
+	},
 	addPinsKoroksCarry:function(){
 		return this.addLocationPins(CompletismHashes.KOROKS_CARRY, Coordinates.KOROKS_CARRY, MapPin.ICON_LEAF, 25, 'NotClear');
+	},
+	addPinsLocationsCaves:function(){
+		return this.addLocationPins(CompletismHashes.LOCATION_CAVES_VISITED, Coordinates.LOCATION_CAVES, MapPin.ICON_HEART, 50);
+	},
+	addPinsLocationsWells:function(){
+		return this.addLocationPins(CompletismHashes.LOCATION_WELLS_VISITED, Coordinates.LOCATION_WELLS, MapPin.ICON_DIAMOND, 25);
 	},
 	addPinsBossesHinox:function(){
 		return this.addLocationPins(CompletismHashes.BOSSES_HINOXES_DEFEATED, Coordinates.BOSSES_HINOXES, MapPin.ICON_SKULL, 25);
@@ -717,10 +726,10 @@ SavegameEditor={
 		return this.addLocationPins(CompletismHashes.BOSSES_GLEEOKS_DEFEATED, Coordinates.BOSSES_GLEEOKS, MapPin.ICON_SKULL, 5);
 	},
 	addPinsSchematicsStone:function(){
-		return this.addLocationPins(CompletismHashes.SCHEMATICS_STONE_FOUND, Coordinates.SCHEMATICS_STONE, MapPin.ICON_DIAMOND);
+		return this.addLocationPins(CompletismHashes.SCHEMATICS_STONE_FOUND, Coordinates.SCHEMATICS_STONE, MapPin.ICON_CHEST);
 	},
 	addPinsSchematicsYiga:function(){
-		return this.addLocationPins(CompletismHashes.SCHEMATICS_YIGA_FOUND, Coordinates.SCHEMATICS_YIGA, MapPin.ICON_DIAMOND);
+		return this.addLocationPins(CompletismHashes.SCHEMATICS_YIGA_FOUND, Coordinates.SCHEMATICS_YIGA, MapPin.ICON_CHEST);
 	},
 
 	_refreshCounter:function(container, val, max){
@@ -761,21 +770,32 @@ SavegameEditor={
 	refreshCounterKoroksCarry:function(){
 		this._refreshCounter('korok-carry', Completism.countKoroksCarry(), CompletismHashes.KOROKS_CARRY.length);
 	},
+	refreshCounterBubbuls:function(){
+		this._refreshCounter('bubbuls', Completism.countBubbuls(), CompletismHashes.BUBBULS_DEFEATED.length);
+	},
 	refreshCounterLocationCaves:function(){
 		this._refreshCounter('location-caves', Completism.countLocationCaves(), CompletismHashes.LOCATION_CAVES_VISITED.length);
 	},
 	refreshCounterLocationWells:function(){
 		this._refreshCounter('location-wells', Completism.countLocationWells(), CompletismHashes.LOCATION_WELLS_VISITED.length);
 	},
-	refreshCounterBossesHinox:function(){this._refreshCounter('boss-hinox', Completism.countBossesHinox(), CompletismHashes.BOSSES_HINOXES_DEFEATED.length);},
-	refreshCounterBossesTalus:function(){this._refreshCounter('boss-talus', Completism.countBossesTalus(), CompletismHashes.BOSSES_TALUSES_DEFEATED.length);},
-	refreshCounterBossesMolduga:function(){this._refreshCounter('boss-molduga', Completism.countBossesMolduga(), CompletismHashes.BOSSES_MOLDUGAS_DEFEATED.length);},
-	refreshCounterBossesFlux:function(){this._refreshCounter('boss-flux', Completism.countBossesFlux(), CompletismHashes.BOSSES_FLUX_CONSTRUCT_DEFEATED.length);},
-	refreshCounterBossesFrox:function(){this._refreshCounter('boss-frox', Completism.countBossesFrox(), CompletismHashes.BOSSES_FROXS_DEFEATED.length);},
-	refreshCounterBossesGleeok:function(){this._refreshCounter('boss-gleeok', Completism.countBossesGleeok(), CompletismHashes.BOSSES_GLEEOKS_DEFEATED.length);},
-	refreshCounterCaves:function(){
+	refreshCounterBossesHinox:function(){
+		this._refreshCounter('boss-hinox', Completism.countBossesHinox(), CompletismHashes.BOSSES_HINOXES_DEFEATED.length);
 	},
-	refreshCounterWells:function(){
+	refreshCounterBossesTalus:function(){
+		this._refreshCounter('boss-talus', Completism.countBossesTalus(), CompletismHashes.BOSSES_TALUSES_DEFEATED.length);
+	},
+	refreshCounterBossesMolduga:function(){
+		this._refreshCounter('boss-molduga', Completism.countBossesMolduga(), CompletismHashes.BOSSES_MOLDUGAS_DEFEATED.length);
+	},
+	refreshCounterBossesFlux:function(){
+		this._refreshCounter('boss-flux', Completism.countBossesFlux(), CompletismHashes.BOSSES_FLUX_CONSTRUCT_DEFEATED.length);
+	},
+	refreshCounterBossesFrox:function(){
+		this._refreshCounter('boss-frox', Completism.countBossesFrox(), CompletismHashes.BOSSES_FROXS_DEFEATED.length);
+	},
+	refreshCounterBossesGleeok:function(){
+		this._refreshCounter('boss-gleeok', Completism.countBossesGleeok(), CompletismHashes.BOSSES_GLEEOKS_DEFEATED.length);
 	},
 	refreshCounterSchematicsStone:function(){
 		this._refreshCounter('schematics-stone', Completism.countSchematicsStone(), CompletismHashes.SCHEMATICS_STONE_FOUND.length);
@@ -1006,6 +1026,7 @@ SavegameEditor={
 		this.refreshCounterLighrootsClear();
 		this.refreshCounterKoroksHidden();
 		this.refreshCounterKoroksCarry();
+		this.refreshCounterBubbuls();
 		this.refreshCounterLocationCaves();
 		this.refreshCounterLocationWells();
 		this.refreshCounterBossesHinox();
