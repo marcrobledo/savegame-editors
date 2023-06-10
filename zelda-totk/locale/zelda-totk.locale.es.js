@@ -1458,7 +1458,47 @@ Obj_SubstituteCloth_Default:'Tela común',
 Obj_TreasureMap_00:'Mapa viejo',
 Obj_WarpDLC:'Teletransportador',
 Obj_WarpDLC_Prototype:'Prototipo de teletransportador',
-Parasail:'Paravela'
+Parasail:'Paravela',
+
+
+
+
+GameRomHorse00:'Caballo 00',
+GameRomHorse01:'Caballo 01',
+GameRomHorse02:'Caballo 02',
+GameRomHorse03:'Caballo 03',
+GameRomHorse04:'Caballo 04',
+GameRomHorse05:'Caballo 05',
+GameRomHorse06:'Caballo 06',
+GameRomHorse07:'Caballo 07',
+GameRomHorse08:'Caballo 08',
+GameRomHorse09:'Caballo 09',
+GameRomHorse10:'Caballo 10',
+GameRomHorse11:'Caballo 11',
+GameRomHorse12:'Caballo 12',
+GameRomHorse13:'Caballo 13',
+GameRomHorse14:'Caballo 14',
+GameRomHorse15:'Caballo 15',
+GameRomHorse16:'Caballo 16',
+GameRomHorse17:'Caballo 17',
+GameRomHorse18:'Caballo 18',
+GameRomHorse19:'Caballo 19',
+GameRomHorse20:'Caballo 20',
+GameRomHorse21:'Caballo 21',
+GameRomHorse22:'Caballo 22',
+GameRomHorse23:'Caballo 23',
+GameRomHorse25:'Caballo 25',
+GameRomHorse26:'Caballo 26',
+GameRomHorseEpona:'Epona (amiibo)',
+GameRomHorseZelda:'Royal White Stallion',
+GameRomHorse00L:'Giant Black Stallion',
+GameRomHorse01L:'Giant White Stallion',
+GameRomHorseGold:'Caballo dorado',
+GameRomHorseSpPattern:'Spot',
+GameRomHorseBone:'*Stalhorse',
+GameRomHorseBone_AllDay:'*Stalhorse (daytime)',
+GameRomHorseForStreetVender:'*Merchant',
+GameRomHorseNushi:'*Señor de la Montaña'
 });
 
 Locale.add('es_alt', {

@@ -1338,7 +1338,47 @@ Obj_SubstituteCloth_56:'卡邦达亲手制作的布料',
 Obj_SubstituteCloth_Default:'普通的布料',
 Obj_TreasureMap_00:'残旧的地图',
 Obj_WarpDLC_Prototype:'试制的传送标记器',
-Parasail:'滑翔帆'
+Parasail:'滑翔帆',
+
+
+
+
+GameRomHorse00:'Horse 00',
+GameRomHorse01:'Horse 01',
+GameRomHorse02:'Horse 02',
+GameRomHorse03:'Horse 03',
+GameRomHorse04:'Horse 04',
+GameRomHorse05:'Horse 05',
+GameRomHorse06:'Horse 06',
+GameRomHorse07:'Horse 07',
+GameRomHorse08:'Horse 08',
+GameRomHorse09:'Horse 09',
+GameRomHorse10:'Horse 10',
+GameRomHorse11:'Horse 11',
+GameRomHorse12:'Horse 12',
+GameRomHorse13:'Horse 13',
+GameRomHorse14:'Horse 14',
+GameRomHorse15:'Horse 15',
+GameRomHorse16:'Horse 16',
+GameRomHorse17:'Horse 17',
+GameRomHorse18:'Horse 18',
+GameRomHorse19:'Horse 19',
+GameRomHorse20:'Horse 20',
+GameRomHorse21:'Horse 21',
+GameRomHorse22:'Horse 22',
+GameRomHorse23:'Horse 23',
+GameRomHorse25:'Horse 25',
+GameRomHorse26:'Horse 26',
+GameRomHorseEpona:'Epona (amiibo)',
+GameRomHorseZelda:'Royal White Stallion',
+GameRomHorse00L:'Giant Black Stallion',
+GameRomHorse01L:'Giant White Stallion',
+GameRomHorseGold:'Golden',
+GameRomHorseSpPattern:'Spot',
+GameRomHorseBone:'*Stalhorse',
+GameRomHorseBone_AllDay:'*Stalhorse (daytime)',
+GameRomHorseForStreetVender:'*Merchant',
+GameRomHorseNushi:'*Lord of the Mountain'
 });
 
 

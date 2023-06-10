@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Horse class) v20230608
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Horse class) v20230610
 
 	by Marc Robledo 2023
 	horse data thanks to JonJaded, Ozymandias07 and Karlos007
@@ -93,7 +93,7 @@ Horse.prototype.fixValues=function(ignoreEquipment){
 	}
 }
 Horse.prototype.getItemTranslation=function(){
-	return Horse.TRANSLATIONS[this.id] || this.id;
+	return Locale._(this.id);
 }
 Horse.prototype.save=function(){
 	SavegameEditor.writeString64('OwnedHorseList.ActorName', this.index, this.id);
@@ -218,49 +218,48 @@ Horse.readAll=function(){
 	return validHorses;
 }
 
-Horse.TRANSLATIONS={
-	'GameRomHorse00':'Horse 00',
-	'GameRomHorse01':'Horse 01',
-	'GameRomHorse02':'Horse 02',
-	'GameRomHorse03':'Horse 03',
-	'GameRomHorse04':'Horse 04',
-	'GameRomHorse05':'Horse 05',
-	'GameRomHorse06':'Horse 06',
-	'GameRomHorse07':'Horse 07',
-	'GameRomHorse08':'Horse 08',
-	'GameRomHorse09':'Horse 09',
-	'GameRomHorse10':'Horse 10',
-	'GameRomHorse11':'Horse 11',
-	'GameRomHorse12':'Horse 12',
-	'GameRomHorse13':'Horse 13',
-	'GameRomHorse14':'Horse 14',
-	'GameRomHorse15':'Horse 15',
-	'GameRomHorse16':'Horse 16',
-	'GameRomHorse17':'Horse 17',
-	'GameRomHorse18':'Horse 18',
-	'GameRomHorse19':'Horse 19',
-	'GameRomHorse20':'Horse 20',
-	'GameRomHorse21':'Horse 21',
-	'GameRomHorse22':'Horse 22',
-	'GameRomHorse23':'Horse 23',
-	'GameRomHorse25':'Horse 25',
-	'GameRomHorse26':'Horse 26',
-	'GameRomHorseEpona':'Epona (amiibo)',
-	'GameRomHorseZelda':'Royal White Stallion',
-	'GameRomHorse00L':'Giant Black Stallion',
-	'GameRomHorse01L':'Giant White Stallion',
-	'GameRomHorseGold':'Golden',
-	'GameRomHorseSpPattern':'Spot',
+Horse.AVAILABILITY=[
+	'GameRomHorse00',
+	'GameRomHorse01',
+	'GameRomHorse02',
+	'GameRomHorse03',
+	'GameRomHorse04',
+	'GameRomHorse05',
+	'GameRomHorse06',
+	'GameRomHorse07',
+	'GameRomHorse08',
+	'GameRomHorse09',
+	'GameRomHorse10',
+	'GameRomHorse11',
+	'GameRomHorse12',
+	'GameRomHorse13',
+	'GameRomHorse14',
+	'GameRomHorse15',
+	'GameRomHorse16',
+	'GameRomHorse17',
+	'GameRomHorse18',
+	'GameRomHorse19',
+	'GameRomHorse20',
+	'GameRomHorse21',
+	'GameRomHorse22',
+	'GameRomHorse23',
+	'GameRomHorse25',
+	'GameRomHorse26',
+	'GameRomHorseEpona',
+	'GameRomHorseZelda',
+	'GameRomHorse00L',
+	'GameRomHorse01L',
+	'GameRomHorseGold',
+	'GameRomHorseSpPattern',
 
 	//untammable
-	//'GameRomHorse00S':'*Donkey',
-	'GameRomHorseBone':'*Stalhorse',
-	'GameRomHorseBone_AllDay':'*Stalhorse (daytime)',
-	'GameRomHorseForStreetVender':'*Merchant',
-	'GameRomHorseNushi':'*Lord of the Mountain',
-	'Animal_Bear_A':'*Bear A',
-	'Animal_Bear_B':'*Bear B'
-};
+	'GameRomHorseBone',
+	'GameRomHorseBone_AllDay',
+	'GameRomHorseForStreetVender',
+	'GameRomHorseNushi'
+	//'Animal_Bear_A',
+	//'Animal_Bear_B'
+];
 
 
 Horse.TYPE_NORMAL=1; //normal
