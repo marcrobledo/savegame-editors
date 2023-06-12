@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Item class) v20230608
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Item class) v20230612
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -267,17 +267,15 @@ Item.fixKeyAvailabilityFlags=function(){
 	});
 
 	if(changes){
-		//console.warn(changes+' paraglider fabric availability flags have been fixed');
-		MarcDialogs.alert(changes+' paraglider fabric availability flags have been fixed');
-		if(currentTab==='master' && TOTKMasterEditor.isLoaded()){
+		MarcDialogs.alert(changes+' some key flags have been fixed');
+		if(currentTab==='master' && TOTKMasterEditor.isLoaded())
 			TOTKMasterEditor.refreshResults();
-		}
 	}
 	return changes;
 }
 
 Item.AvailabilityFlags={
-	/* paraglider fabrics */
+	/* paraglider fabrics (OwnedParasailPattern.*) */
 	Obj_SubstituteCloth_Default:0x7ff848d1,
 	Obj_SubstituteCloth_00:0xb65bc9d7,
 	Obj_SubstituteCloth_01:0x41929f49,
@@ -330,9 +328,24 @@ Item.AvailabilityFlags={
 	Obj_SubstituteCloth_52:0xeaae73a3,
 	Obj_SubstituteCloth_53:0xa5ecfeec,
 	Obj_SubstituteCloth_55:0x93e7260f,
-	Obj_SubstituteCloth_56:0x6688319b
-}
+	Obj_SubstituteCloth_56:0x6688319b,
 
+	/* horse reins (OwnedCustomizableHorseTack_Reins.*) */
+	GameRomHorseReins_01:0x4a5fd1ed, //Traveler's Bridle
+	GameRomHorseReins_02:0x2ab85fc5, //Royal Reins
+	GameRomHorseReins_03:0x7ed8afec, //Knight's Bridle
+	GameRomHorseReins_04:0x02b23771, //Monster Bridle
+	GameRomHorseReins_05:0xeee51703, //Extravagant Bridle
+	/* horse saddles (OwnedCustomizableHorseTack_Saddle.*) */
+	GameRomHorseSaddle_01:0xac64346a, //Traveler's Saddle
+	GameRomHorseSaddle_02:0x5e6d9a72, //Royal Saddle
+	GameRomHorseSaddle_03:0x7a50263f, //Knight's Saddle
+	GameRomHorseSaddle_04:0x38033224, //Monster Saddle
+	GameRomHorseSaddle_05:0xe9220149, //Extravagant Saddle
+	GameRomHorseSaddle_07:0x9dda81a1 //Towing Harness
+	//GameRomHorseSaddle_07:0xecbbc704, //GameRomHorseSaddle_07_ExternalCoupler
+	//GameRomHorseSaddle_07:0x663f0238 //GameRomHorseSaddle_07_WithWagon
+}
 
 
 

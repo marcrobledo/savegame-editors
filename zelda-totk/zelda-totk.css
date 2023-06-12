@@ -1,4 +1,4 @@
-/* Zelda TOTK Savegame editor by Marc Robledo v20230608 */
+/* Zelda TOTK Savegame editor by Marc Robledo v20230612 */
 /* minify at https://cssminifier.com/ + https://www.base64-image.de/ (sprites */
 
 /* @FONT-FACES */
@@ -151,7 +151,7 @@ tr:hover{background-color:#121710}
 /* useful classes */
 .help:hover{cursor:help}
 .hidden{display:none}
-.mono{}
+.mono{font-family:monospace;}
 .clickable{cursor:pointer} /* also Safari iOS fix for clickable elements */
 .text-ellipsis{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .text-left{text-align:left}

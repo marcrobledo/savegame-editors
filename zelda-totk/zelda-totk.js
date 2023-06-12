@@ -1047,6 +1047,9 @@ SavegameEditor={
 
 	/* save function */
 	save:function(){
+		if(currentTab==='master')
+			return false;
+
 		/* STATS */
 		this.writeU32('PlayerStatus.CurrentRupee', null, getValue('rupees'));
 		/*this.writeU32('Mons', getValue('mons'));*/
