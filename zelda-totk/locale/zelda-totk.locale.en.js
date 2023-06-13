@@ -45,6 +45,7 @@ Weapon_Sword_167:'Tree Branch (sky)',
 Weapon_Sword_168:'Wooden Stick (decayed)',
 Weapon_Sword_077:'Master Sword (glitched)',
 
+Weapon_Sword_070_Broken:'*Decayed Master Sword (unused)',
 Npc_Zelda_Torch:'*Zelda\'s intro torch (unused)',
 
 Weapon_Lsword_001:'Traveler\'s Claymore',

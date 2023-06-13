@@ -250,6 +250,7 @@ Equipment.DEFAULT_DURABILITY={
 	Weapon_Sword_167:4,
 	Weapon_Sword_168:12,
 	Weapon_Sword_077:30,
+	Weapon_Sword_070_Broken:6,
 	Npc_Zelda_Torch:8,
 
 	Weapon_Lsword_001:20,
@@ -438,6 +439,7 @@ Equipment.AVAILABILITY={
 		'Weapon_Sword_168', //Wooden Stick (decayed)
 		'Weapon_Sword_077', //Master Sword (glitched)
 
+		'Weapon_Sword_070_Broken', //*Decayed Master Sword (unused)
 		'Npc_Zelda_Torch', //*Zelda's intro torch (unused)
 
 		'Weapon_Lsword_001', //Traveler's Claymore
