@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Completism) v20230608
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Completism) v20230613
 
 	by Marc Robledo 2023
 	research & information compiled by MacSpazzy, Karlos007 and Echocolat
@@ -137,8 +137,6 @@ var Completism={
 	setLightrootsAsClear:function(limit){
 		var changes=this._set(CompletismHashes.LIGHTROOTS_STATUS, limit, 'Open'); //possible values: Close,Open
 		MarcDialogs.alert(changes+' lightroots set as clear.');
-		if(changes)
-			SavegameEditor.addItem('key', 'Obj_DungeonClearSeal', changes);
 		SavegameEditor.refreshCounterLighrootsClear();
 		return changes;
 	},
