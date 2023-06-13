@@ -141,8 +141,17 @@ var Completism={
 		return changes;
 	},
 	setKoroksAsFound:function(limit){
+		var currentKorokCount=this.countKoroksHidden();
+		var half=false;
+		if(currentKorokCount<421){
+			limit=421-currentKorokCount;
+			half=true;
+		}
 		var changes=this._set(CompletismHashes.KOROKS_HIDDEN, limit);
-		MarcDialogs.alert(changes+' koroks set as found.');
+		if(half)
+			MarcDialogs.alert(changes+' koroks set as found.<br/>Click the button again to set the rest.');
+		else
+			MarcDialogs.alert(changes+' koroks set as found.');
 		if(changes)
 			SavegameEditor.addItem('key', 'Obj_KorokNuts', changes);
 		SavegameEditor.refreshCounterKoroksHidden();
