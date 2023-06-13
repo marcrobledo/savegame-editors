@@ -297,7 +297,9 @@ Armor.AVAILABILITY=[
 
 	'Armor_1300_Head','Armor_1301_Head','Armor_1302_Head','Armor_1303_Head','Armor_1304_Head', //Yiga Mask
 	'Armor_1300_Upper','Armor_1301_Upper','Armor_1302_Upper','Armor_1303_Upper','Armor_1304_Upper', //Yiga Armor
-	'Armor_1300_Lower','Armor_1301_Lower','Armor_1302_Lower','Armor_1303_Lower','Armor_1304_Lower' //Yiga Tight
+	'Armor_1300_Lower','Armor_1301_Lower','Armor_1302_Lower','Armor_1303_Lower','Armor_1304_Lower', //Yiga Tight
+
+	'Armor_1150_Upper' //*Tunic of memories (intro, unused)
 ];
 
 Armor.UPGRADEABLE=[

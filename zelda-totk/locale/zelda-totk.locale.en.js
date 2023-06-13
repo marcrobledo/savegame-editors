@@ -817,6 +817,7 @@ Armor_1302_Lower:'Yiga Tights ★★',
 Armor_1303_Lower:'Yiga Tights ★★★',
 Armor_1304_Lower:'Yiga Tights ★★★★',
 
+Armor_1150_Upper:'*Tunic of memories (intro, unused)',
 
 
 
