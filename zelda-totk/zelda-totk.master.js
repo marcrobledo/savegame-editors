@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom - Master editor v20230612
+	The legend of Zelda: Tears of the Kingdom - Master editor v20230615
 	by Marc Robledo 2023	
 	
 	thanks to the immeasurable work, hash crack and research of MacSpazzy, MrCheeze and Karlos007
@@ -8,64 +8,44 @@
 var TOTKMasterEditor=(function(){
 	const HASHES_PER_PAGE=100;
 
-	const buildEnumOptions=function(value){
-		return {value:murmurHash3.x86.hash32(value), name:value};
-	};
-	const COMMON_ENUMS={
-		ShrineStatus:['Hidden','Appear','Open','Enter','Clear'],
-		ShrineCrystalStatus:['Hidden','Point','Unlock','Open','Enter','Clear','UnlockToOpen','PointAndActiveWarp','ChangeToKeyStone','PresentedKeyCrystal'],
-		LightrootStatus:['Close','Open'],
-		KorokCarry:['NotClear','Clear'],
-		CompendiumPhotos:['Unopened','TakePhoto','Buy'],
-		
-		HorseListBodyEyeColor:['Black','Blue'],
-		HorseListBodyPattern:['00','01','02','03','04','05','06'],
-		HorseListMane:['None','Horse_Link_Mane','Horse_Link_Mane_01','Horse_Link_Mane_02','Horse_Link_Mane_03','Horse_Link_Mane_04','Horse_Link_Mane_05','Horse_Link_Mane_06','Horse_Link_Mane_07','Horse_Link_Mane_08','Horse_Link_Mane_09','Horse_Link_Mane_00L','Horse_Link_Mane_00S','Horse_Link_Mane_10','Horse_Link_Mane_11','Horse_Link_Mane_12','Horse_Link_Mane_01L'],
-		HorseListRein:['None','GameRomHorseReins_00','GameRomHorseReins_01','GameRomHorseReins_02','GameRomHorseReins_03','GameRomHorseReins_04','GameRomHorseReins_05','GameRomHorseReins_06','GameRomHorseReins_00L','GameRomHorseReins_00S'],
-		HorseListSaddle:['None','GameRomHorseSaddle_00','GameRomHorseSaddle_01','GameRomHorseSaddle_02','GameRomHorseSaddle_03','GameRomHorseSaddle_04','GameRomHorseSaddle_05','GameRomHorseSaddle_06','GameRomHorseSaddle_00L','GameRomHorseSaddle_00S','GameRomHorseSaddle_07']
-	};
-
 	var loaded=false;	
 	var hashes=[];
 	var allHashes=[];
 	var filteredHashes;
 
 	var _parseHashFile=function(responseText){
+		var enumValues=[];
 		var lines=responseText.split('\n');
 
 		for(var i=0; i<lines.length; i++){
-			if(lines[i]){
+			if(/^EnumValues;/.test(lines[i])){
+				var data=lines[i].split(';');
+				var matches=data[1].split(',');
+				var options=data[2].split(',').map(function(value){
+					return {value:murmurHash3.x86.hash32(value), name:value};
+				});
+				for(var j=0; j<matches.length; j++){
+					enumValues.push({
+						regex:new RegExp('^'+matches[j].replace(/\./g, '\\.').replace(/\*/g, '.+?')+'$'),
+						options:options
+					});
+				}
+			}else if(/^[0-9a-f]{8};/.test(lines[i])){
 				var data=lines[i].split(';');
 				var hashInt=parseInt(data[0], 16);
 				var options=null;
 				if(data[1]==='Enum' || data[1]==='EnumArray'){
-					if(data[3]){
-						options=data[3].split(',').map(buildEnumOptions);
-					}else if(/^KeyCrystalDungeonState\.Dungeon/.test(data[2])){
-						options=COMMON_ENUMS.ShrineCrystalStatus;
-					}else if(/^DungeonState\.Dungeon/.test(data[2])){
-						options=COMMON_ENUMS.ShrineStatus;
-					}else if(/^ArrivalPointState\.CheckPoint/.test(data[2])){
-						options=COMMON_ENUMS.LightrootStatus;
-					}else if(/^KorokCarryProgress\./.test(data[2])){
-						options=COMMON_ENUMS.KorokCarry;
-					}else if(/^PictureBookData\.(.*?)\.State/.test(data[2])){
-						options=COMMON_ENUMS.CompendiumPhotos;
-					}else if(/HorseList\.Body\.EyeColor/.test(data[2])){
-						options=COMMON_ENUMS.HorseListBodyEyeColor;
-					}else if(/HorseList\.Body\.Pattern/.test(data[2])){
-						options=COMMON_ENUMS.HorseListBodyPattern;
-					}else if(/HorseList\.Mane/.test(data[2])){
-						options=COMMON_ENUMS.HorseListMane;
-					}else if(/HorseList\.Rein/.test(data[2])){
-						options=COMMON_ENUMS.HorseListRein;
-					}else if(/HorseList\.Saddle/.test(data[2])){
-						options=COMMON_ENUMS.HorseListSaddle;
+					for(var j=0; j<enumValues.length; j++){
+						if(enumValues[j].regex.test(data[2])){
+							options=enumValues[j].options;
+							break;
+						}
 					}
 				}
-				
+
 				if(data[2]==='Unknown')
 					data[2]+=' <span class="mono">'+data[0]+'</span>';
+
 				hashes.push({
 					hash:hashInt,
 					hashHex:data[0],
@@ -152,6 +132,7 @@ var TOTKMasterEditor=(function(){
 		var fieldId=hash.hashHex+(typeof arrayIndex==='number'? '_'+arrayIndex:'');
 
 		tr.children[0].appendChild(label(fieldId, hash.id+(typeof arrayIndex==='number'? ' ['+arrayIndex+']':'')));
+		tr.children[0].title='Hash: '+hash.hashHex+' - Offset: '+SavegameEditor._toHexInt(hash.offset);
 		tr.children[1].className='text-right';
 
 
@@ -310,15 +291,20 @@ var TOTKMasterEditor=(function(){
 					.then(res => res.text()) // Gets the response and returns it as a blob
 					.then(responseText => {
 						loaded=true;
-						for(var field in COMMON_ENUMS){
-							COMMON_ENUMS[field]=COMMON_ENUMS[field].map(buildEnumOptions);
-						}
 						
 						_parseHashFile(responseText);
 						TOTKMasterEditor.findOffsets();
 
 						document.getElementById('master-editor-loading').style.display='none';
 						document.getElementById('master-editor-hidden').style.display='block';
+
+						get('input-custom-filter').addEventListener('change', function(){
+							this.value=this.value.replace(/[^A-Za-z0-9_\.\*]/g,'').trim();
+							TOTKMasterEditor.refreshResults();
+						});
+						
+						
+						
 						TOTKMasterEditor.focus();
 					})
 					.catch(function(){
@@ -367,7 +353,7 @@ var TOTKMasterEditor=(function(){
 
 					_createHashInputRow(container, hash, null);
 				}
-				get('table').appendChild(container);
+				window.requestAnimationFrame(function(){get('table').appendChild(container)});;
 			}			
 		},
 		prevPage:function(){this.setPage(this.currentPage-1);},
@@ -376,7 +362,11 @@ var TOTKMasterEditor=(function(){
 		refreshResults:function(){
 			var customFilter=getValue('custom-filter').trim();
 			if(customFilter){
-				this.filterHashes(new RegExp(customFilter, 'i'));
+				var regexes=[];
+				customFilter.split(' OR ').forEach(function(f){
+					regexes.push(f.replace(/\./g, '\\.').replace(/\*/g, '.+?'));
+				});
+				this.filterHashes(new RegExp(regexes.join('|'), 'i'));
 			}else{
 				this.filterHashes(null);
 			}
