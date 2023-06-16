@@ -366,7 +366,7 @@ SavegameEditor={
 		}
 		for(var i=0; i<hashes.length; i++){
 			if(typeof offsets[hashes[i]] === 'undefined'){
-				alert('hash ['+i+']:'+hashes[i].toString(16)+' not found');
+				console.error('hash ['+i+']:'+hashes[i].toString(16)+' not found');
 			}
 		}
 		if(single)
