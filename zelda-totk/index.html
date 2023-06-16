@@ -17,6 +17,7 @@
 	<script defer type="text/javascript" src="./zelda-totk.class.autobuilder.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.completism.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.coordinates.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.exp-calculator.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.locale.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.master.js"></script>
 	<script defer type="text/javascript" src="./murmurhash3js.min.js"></script>
@@ -418,6 +419,25 @@
 				<input id="input-file-autobuilder-import" type="file" accept=".totkab" style="display:none" />
 			</div>
 		</div>
+
+		<!-- EXPERIENCE -->
+		<h3 class="border-grey" data-translate="Experience">Experience</h3>
+		<div class="row mb-10">
+			<div class="four columns">
+				<span data-translate="Total experience">Total experience</span>: <span id="span-experience" style="font-weight:bold"></span>
+				<span id="span-experience-edit" class="clickable" data-translate="Manual edit">Manual edit</span>
+			</div>
+			<div class="eight columns text-right">
+				<button id="button-experience-reset" data-translate="Reset">Reset</button>
+				<button id="button-experience-calculate" data-translate="Recalculate">Recalculate</button>
+			</div>
+		</div>
+		<div class="row mb-10">
+			<div class="four columns">
+				<span data-translate="Current enemy tier">Current enemy tier</span>
+			</div>
+			<div class="eight columns text-right" id="experience-enemy-tiers"></div>
+		</div>
 	</div>
 	
 	<!-- TAB: WEAPONS -->
@@ -515,7 +535,7 @@
 			<div class="mb-10">
 				<label><span data-translate="Search">Search</span> <input id="input-custom-filter" type="text" list="knownHashes" placeholder="Search variables" /></label>
 				<datalist id="knownHashes">
-					<option value="DefeatedEnemyNum">Defeated enemy numbers</option>
+					<option value="DefeatedEnemyNum.* OR EnemyBattleData.*">Experience</option>
 					<option value="HorseList">Horses</option>
 					<option value="AutoBuilder.">Autobuilder</option>
 					<option value="OwnedParasailPattern.">Usable paraglider fabrics</option>

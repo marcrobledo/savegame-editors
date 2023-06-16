@@ -1,5 +1,4 @@
-/* Zelda TOTK Savegame editor by Marc Robledo v20230612 */
-/* minify at https://cssminifier.com/ + https://www.base64-image.de/ (sprites */
+/* Zelda TOTK Savegame editor by Marc Robledo v20230616 */
 
 /* @FONT-FACES */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,800');
@@ -414,7 +413,14 @@ input[type=text]:disabled, select:disabled{
 }
 
 
-
+#tab-home span.clickable{
+	text-decoration:underline;
+	font-size:12px;
+	color:#c8ac5a;
+}
+#tab-home span.clickable:hover{
+	color:white;
+}
 
 /* buttons */
 button{
