@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
 	<title>Savegame Editors</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,9 +15,7 @@
 					imgs[i].src=imgs[i].id.replace('thumb-','')+'/thumb.jpg';
 		}, false);
 	</script>
-
 </head>
-
 <style>
 	html, body {margin: 0;padding: 0;}
 	html {
@@ -39,8 +34,8 @@
 	}
 	.title {
 		background-color:#21212165;
-		backdrop-filter: blur(16px)  saturate(120%);
-		-webkit-backdrop-filter: blur(16px)  saturate(120%);
+		backdrop-filter: blur(8px)  saturate(120%);
+		-webkit-backdrop-filter: blur(8px)  saturate(120%);
 		border-radius: 0 0 12px 12px;
 		border: solid .5px #ffffff45;
 		border-top: none;
@@ -89,15 +84,18 @@
 	}
 	.game {
 		background-color:#21212165;
-		backdrop-filter: blur(16px)  saturate(120%);
-		-webkit-backdrop-filter: blur(16px)  saturate(120%);
+		backdrop-filter: blur(8px)  saturate(120%);
+		-webkit-backdrop-filter: blur(8px)  saturate(120%);
 		border: solid .5px #ffffff45;
     	box-shadow:5px 5px 20px #00000050;
 	}
 	.game:hover {
-		background-color:#9cc93355;
+		background-color:#ffffff45;
         transition: ease-in-out .125s;
         transform: scale(.98);
+	}
+	.game div:hover {
+		border-color:#9cc933;
 	}
 	.game div {padding: .15in}
 	.game b {
@@ -109,8 +107,8 @@
 	}
 	footer {
 		background-color:#21212165;
-		backdrop-filter: blur(16px)  saturate(120%);
-		-webkit-backdrop-filter: blur(16px)  saturate(120%);
+		backdrop-filter: blur(8px)  saturate(120%);
+		-webkit-backdrop-filter: blur(8px)  saturate(120%);
 		border-radius: 12px 12px 0 0;
 		border: solid .5px #ffffff45;
 		border-bottom: none;
@@ -131,13 +129,10 @@
 		border-color:#9cc933;
 	}
 </style>
-
 <body>
-
 	<div class="title">
 		<h1><small>HTML5</small><br>Savegame Editors</h1>
 	</div>
-
 	<div class="wrapper">
 		<div class="row">
 			<a class="three columns game" href="zelda-totk/index.html"><img src="thumb.png" id="thumb-zelda-totk" /><b>NEW!</b><div>The legend of Zelda:<br>Tears of the Kingdom</div></a>
@@ -167,12 +162,9 @@
 			<a class="four columns game" href="rhythm-paradise-megamix/index.html"><img src="thumb.png" id="thumb-rhythm-paradise-megamix" /><div>Rhythm Paradise Megamix</div></a>
 		</div>
 	</div>
-
 	<footer>
 		<a href="https://github.com/marcrobledo/savegame-editors/blob/master/savegame-editor.js" target="_blank">savegame-editor.js</a> library made by <a href="https://twitter.com/marc_robledo" target="_blank">@marc_robledo</a><br/>
-		<a href="https://github.com/marcrobledo/savegame-editors/" target="_blank">See on GitHub</a> | <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
+		<a href="https://github.com/marcrobledo/savegame-editors" target="_blank">See on GitHub</a> | <a href="https://www.paypal.com/paypalme/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
 	</footer>
-
 </body>
-
 </html>
