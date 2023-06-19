@@ -1,132 +1,178 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
-	<title>HTML5 Savegame Editors</title>
-	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+
+	<title>Savegame Editors</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="A compilation of game savegame editors, made with my own small library save-editor.js"/>
 	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, 3ds, wii u, zelda, breath of the wild, team kirby clash deluxe, hyrule warriors, kid icarus uprising, picross 3d round 2, rhythm paradise megamix, rhythm heaven megamix, streetpass mii plaza, unlock, amiibo, materials, experience, weapon"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-	<style type="text/css"><!--
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,800');
 
-body{
-	background-color:#252525;
-	color:#e8e8e8;
-	font-family:'Open Sans',sans-serif;
-	margin:0;
-	font-size:14px
-}
+	<script type="text/javascript">
+		window.addEventListener('load', function(){
+			var imgs=document.getElementsByTagName('img');
+			for(var i=0; i<imgs.length; i++)
+				if(imgs[i].id.startsWith('thumb-'))
+					imgs[i].src=imgs[i].id.replace('thumb-','')+'/thumb.jpg';
+		}, false);
+	</script>
 
-h1{text-align:center;color:#49c5ff;margin:3% 0;}
-
-.wrapper{
-	max-width:960px;
-	margin:0 auto;
-}
-.row{
-	display:flex;/* or inline-flex */
-	flex-direction:row;
-	justify-content:space-between;
-	margin-bottom:30px;
-}
-.three.columns{flex-basis:32%}
-.four.columns{flex-basis:23.5%}
-.game{
-	color:white;
-	text-decoration:none;
-}
-.game img{
-	width:100%;
-	opacity:.92;
-	margin:0;
-	display:block;
-}
-.game a{display:block}
-.game:hover img{
-	opacity:1
-}
-.game{background-color:#353535}
-.game:hover{background-color:#434343}
-.game>div{padding: 15px 10px}
-.game b{
-	background-color:yellow;
-	color:black;
-	font-size:80%;
-	padding: 2px 4px;
-	border-radius:3px;
-}
-hr{
-	border:none;
-	border-top:1px solid #333;
-}
-h6{
-	font-size:85%;
-	font-weight:normal;
-	text-align:center;
-	color:#696969;
-	line-height:2
-}
-h6 a{
-	color:#999;
-	text-decoration:none;
-	border-bottom:1px solid #555
-}
-h6 a:hover{
-	color:white;
-	border-color:#9cc933;
-}
---></style>
-	<script type="text/javascript"><!--
-	window.addEventListener('load', function(){
-		var imgs=document.getElementsByTagName('img');
-		for(var i=0; i<imgs.length; i++)
-			if(imgs[i].id.startsWith('thumb-'))
-				imgs[i].src=imgs[i].id.replace('thumb-','')+'/thumb.jpg';
-	}, false);
---></script>
 </head>
+
+<style>
+	html, body {margin: 0;padding: 0;}
+	html {
+		-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;
+    	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI Variable', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+		background-color:#212121;
+    	background-image: url('./bg_black.png');
+		background-attachment: fixed;
+		color:white;
+		font-size:14px;
+		margin: 0 .5in;
+	}
+	body {
+		margin: 0 auto;
+		max-width:960px;
+	}
+	.title {
+		background-color:#21212165;
+		backdrop-filter: blur(16px)  saturate(120%);
+		-webkit-backdrop-filter: blur(16px)  saturate(120%);
+		border-radius: 0 0 12px 12px;
+		border: solid .5px #ffffff45;
+		border-top: none;
+    	box-shadow:5px 5px 20px #00000050;
+		margin-bottom: .25in;
+
+	}
+	h1 {
+		text-align:center;
+		color:white;
+		margin: 0;
+		padding: .25in 0 .5in 0;
+		font-size: 28pt;
+	}
+	h1 small{
+		color:#9cc933;
+		font-size: 20pt;
+	}
+	.wrapper {
+		margin:0;
+	}
+	.row {
+		display:flex;
+		flex-direction:row;
+		justify-content:space-between;
+		margin-bottom:.25in;
+	}
+	.three.columns {flex-basis:32%}
+	.four.columns {flex-basis:23.5%}
+	.game {
+		color:white;
+		text-decoration:none;
+		font-weight: bold;
+		border-radius: 12px;
+	}
+	.game img {
+		width:100%;
+		opacity:.92;
+		border-radius: 12px 12px 0 0;
+		margin:0;
+		display:block;
+	}
+	.game a {display:block}
+	.game:hover img {
+		opacity:1
+	}
+	.game {
+		background-color:#21212165;
+		backdrop-filter: blur(16px)  saturate(120%);
+		-webkit-backdrop-filter: blur(16px)  saturate(120%);
+		border: solid .5px #ffffff45;
+    	box-shadow:5px 5px 20px #00000050;
+	}
+	.game:hover {
+		background-color:#9cc93355;
+        transition: ease-in-out .125s;
+        transform: scale(.98);
+	}
+	.game div {padding: .15in}
+	.game b {
+		background-color:#49c5ff99;
+		color:white;
+		border-radius: 0 0 0 3px;
+		padding: 3px 8px;
+		float: right;
+	}
+	footer {
+		background-color:#21212165;
+		backdrop-filter: blur(16px)  saturate(120%);
+		-webkit-backdrop-filter: blur(16px)  saturate(120%);
+		border-radius: 12px 12px 0 0;
+		border: solid .5px #ffffff45;
+		border-bottom: none;
+    	box-shadow:5px 5px 20px #00000050;
+		padding: 8px;
+		font-weight:normal;
+		text-align:center;
+		color:#696969;
+		line-height:2
+	}
+	footer a {
+		color:#999;
+		text-decoration:none;
+		border-bottom:1px solid #555
+	}
+	footer a:hover {
+		color:white;
+		border-color:#9cc933;
+	}
+</style>
+
 <body>
 
-<!-- HEADER -->
-<h1>HTML5 Savegame Editors</h1>
-
-
-<div class="wrapper">
-	<div class="row">
-		<a class="three columns game" href="zelda-totk/"><img src="thumb.png" id="thumb-zelda-totk" /><div>The legend of Zelda: Tears of the Kingdom <b>NEW!</b></div></a>
-		<a class="three columns game" href="zelda-botw/"><img src="thumb.png" id="thumb-zelda-botw" /><div>The legend of Zelda: Breath of the wild</div></a>
-		<a class="three columns game" href="/acnl-editor/"><img src="thumb.png" id="thumb-acnl" /><div>Animal Crossing: New Leaf <small>(Welcome amiibo!)</small></div></a>
-	</div>
-	<div class="row">
-		<a class="three columns game" href="kid-icarus-uprising/"><img src="thumb.png" id="thumb-kid-icarus-uprising" /><div>Kid Icarus: Uprising</div></a>
-		<a class="three columns game" href="hyrule-warriors/"><img src="thumb.png" id="thumb-hyrule-warriors" /><div>Hyrule Warriors</div></a>
-		<a class="three columns game" href="smash-bros-ultimate/"><img src="thumb.png" id="thumb-smash-bros-ultimate" /><div>Super Smash Bros. Ultimate</div></a>
-	</div>
-	<div class="row">
-		<a class="four columns game" href="pokemon-shuffle/"><img src="thumb.png" id="thumb-pokemon-shuffle" /><div>Pokémon Shuffle</div></a>
-		<a class="four columns game" href="sushi-striker/"><img src="thumb.png" id="thumb-sushi-striker" /><div>Sushi Striker</div></a>
-		<a class="four columns game" href="final-fantasy-explorers/"><img src="thumb.png" id="thumb-final-fantasy-explorers" /><div>Final Fantasy Explorers</div></a>
-		<a class="four columns game" href="pokemon-picross/"><img src="thumb.png" id="thumb-pokemon-picross" /><div>Pokémon Picross</div></a>
-	</div>
-	<div class="row">
-		<a class="four columns game" href="super-kirby-clash/"><img src="thumb.png" id="thumb-super-kirby-clash" /><div>Super Kirby Clash</div></a>
-		<a class="four columns game" href="kirbys-blowout-blast/"><img src="thumb.png" id="thumb-kirbys-blowout-blast" /><div>Kirby's Blowout Blast</div></a>
-		<a class="four columns game" href="team-kirby-clash-dx/"><img src="thumb.png" id="thumb-team-kirby-clash-dx" /><div>Team Kirby Clash Deluxe</div></a>
-		<a class="four columns game" href="mario-kart-7/"><img src="thumb.png" id="thumb-mario-kart-7" /><div>Mario Kart 7</div></a>
-	</div>
-	<div class="row">
-		<a class="four columns game" href="streetpass-mii-plaza/"><img src="thumb.png" id="thumb-streetpass-mii-plaza" /><div>StreetPass Mii Plaza</div></a>
-		<a class="four columns game" href="picross-3d-round-2/"><img src="thumb.png" id="thumb-picross-3d-round-2" /><div>Picross 3D: Round 2</div></a>
-		<a class="four columns game" href="rhythm-paradise-megamix/"><img src="thumb.png" id="thumb-rhythm-paradise-megamix" /><div>Rhythm Paradise Megamix</div></a>
+	<div class="title">
+		<h1><small>HTML5</small><br>Savegame Editors</h1>
 	</div>
 
-	<hr/>
-	<div id="footer">
-		<h6>
-			<a href="https://github.com/marcrobledo/savegame-editors/blob/master/savegame-editor.js" target="_blank">savegame-editor.js</a> library made by <a href="https://twitter.com/marc_robledo" target="_blank">@marc_robledo</a><br/>
-			<a href="https://github.com/marcrobledo/savegame-editors/" target="_blank">See on GitHub</a> | <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a></h6>
+	<div class="wrapper">
+		<div class="row">
+			<a class="three columns game" href="zelda-totk/index.html"><img src="thumb.png" id="thumb-zelda-totk" /><b>NEW!</b><div>The legend of Zelda:<br>Tears of the Kingdom</div></a>
+			<a class="three columns game" href="zelda-botw/index.html"><img src="thumb.png" id="thumb-zelda-botw" /><div>The legend of Zelda:<br>Breath of the wild</div></a>
+			<a class="three columns game" href=""><img src="thumb.png" id="thumb-acnl" /><div>Animal Crossing: New Leaf<br><small>(Welcome amiibo!)</small></div></a>
+		</div>
+		<div class="row">
+			<a class="three columns game" href="kid-icarus-uprising/index.html"><img src="thumb.png" id="thumb-kid-icarus-uprising" /><div>Kid Icarus: Uprising</div></a>
+			<a class="three columns game" href="hyrule-warriors/index.html"><img src="thumb.png" id="thumb-hyrule-warriors" /><div>Hyrule Warriors</div></a>
+			<a class="three columns game" href="smash-bros-ultimate/index.html"><img src="thumb.png" id="thumb-smash-bros-ultimate" /><div>Super Smash Bros. Ultimate</div></a>
+		</div>
+		<div class="row">
+			<a class="four columns game" href="pokemon-shuffle/index.html"><img src="thumb.png" id="thumb-pokemon-shuffle" /><div>Pokémon Shuffle</div></a>
+			<a class="four columns game" href="sushi-striker/index.html"><img src="thumb.png" id="thumb-sushi-striker" /><div>Sushi Striker</div></a>
+			<a class="four columns game" href="final-fantasy-explorers/index.html"><img src="thumb.png" id="thumb-final-fantasy-explorers" /><div>Final Fantasy Explorers</div></a>
+			<a class="four columns game" href="pokemon-picross/index.html"><img src="thumb.png" id="thumb-pokemon-picross" /><div>Pokémon Picross</div></a>
+		</div>
+		<div class="row">
+			<a class="four columns game" href="super-kirby-clash/index.html"><img src="thumb.png" id="thumb-super-kirby-clash" /><div>Super Kirby Clash</div></a>
+			<a class="four columns game" href="kirbys-blowout-blast/index.html"><img src="thumb.png" id="thumb-kirbys-blowout-blast" /><div>Kirby's Blowout Blast</div></a>
+			<a class="four columns game" href="team-kirby-clash-dx/index.html"><img src="thumb.png" id="thumb-team-kirby-clash-dx" /><div>Team Kirby Clash Deluxe</div></a>
+			<a class="four columns game" href="mario-kart-7/index.html"><img src="thumb.png" id="thumb-mario-kart-7" /><div>Mario Kart 7</div></a>
+		</div>
+		<div class="row">
+			<a class="four columns game" href="streetpass-mii-plaza/index.html"><img src="thumb.png" id="thumb-streetpass-mii-plaza" /><div>StreetPass Mii Plaza</div></a>
+			<a class="four columns game" href="picross-3d-round-2/index.html"><img src="thumb.png" id="thumb-picross-3d-round-2" /><div>Picross 3D: Round 2</div></a>
+			<a class="four columns game" href="rhythm-paradise-megamix/index.html"><img src="thumb.png" id="thumb-rhythm-paradise-megamix" /><div>Rhythm Paradise Megamix</div></a>
+		</div>
 	</div>
-</div>
+
+	<footer>
+		<a href="https://github.com/marcrobledo/savegame-editors/blob/master/savegame-editor.js" target="_blank">savegame-editor.js</a> library made by <a href="https://twitter.com/marc_robledo" target="_blank">@marc_robledo</a><br/>
+		<a href="https://github.com/marcrobledo/savegame-editors/" target="_blank">See on GitHub</a> | <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
+	</footer>
 
 </body>
+
 </html>
