@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230608
+	The legend of Zelda: Tears of the Kingdom savegame editor v20230616
 
 	by Marc Robledo 2023
 */
@@ -372,6 +372,47 @@ SavegameEditor={
 		if(single)
 			return false;
 		return offsets;
+	},
+	_cacheStructOffsets:function(structInfo){
+		var allCached=true;
+		for(var i=0; i<structInfo.length; i++){
+			if(typeof structInfo[i].hash==='string'){
+				structInfo[i].hashText=structInfo[i].hash;
+				structInfo[i].hash=murmurHash3.x86.hash32(structInfo[i].hash);
+			}
+
+			if(!this.Offsets[structInfo[i].hash])
+				allCached=false;
+		}
+
+		if(!allCached){
+			var offsets=this._getOffsetsByHashes(structInfo.map(function(obj){
+				return obj.hash;
+			}))
+			for(var i=0; i<structInfo.length; i++){
+				if(/Array|Vector|String/.test(structInfo[i].type)){
+					this.Offsets[structInfo[i].hash]=tempFile.readU32(offsets[structInfo[i].hash]);
+				}else{
+					this.Offsets[structInfo[i].hash]=offsets[structInfo[i].hash];
+				}
+			}
+		}
+	},
+	_readStruct:function(structInfo){
+		this._cacheStructOffsets(structInfo);
+
+		var ret={};
+		for(var i=0; i<structInfo.length; i++){
+			var val;
+
+			if(structInfo[i].type==='AnotherType'){
+			}else{
+				//type not defined, assuming Int/Bool
+				val=tempFile.readS32(this.Offsets[structInfo[i].hash]);
+			}
+			ret[structInfo[i].hashText]=val;
+		}
+		return ret;
 	},
 
 	_createItemRow:function(item){
@@ -807,6 +848,32 @@ SavegameEditor={
 		this._refreshCounter('compendium', Completism.countCompendium(), CompletismHashes.COMPENDIUM_STATUS.length);
 	},
 
+
+	experienceCalculate:function(){
+		var totalExperience=ExperienceCalculator.calculate();
+		setValue('span-experience', totalExperience);
+
+		document.getElementById('experience-enemy-tiers').innerHTML='';
+		ExperienceCalculator.getEnemyTiers(totalExperience).forEach(function(enemy, i){
+			var span=document.createElement('span');
+			span.innerHTML=Locale._(enemy);
+			span.className='text-center';
+			span.style.display='inline-block';
+			span.style.minWidth='33%';
+			document.getElementById('experience-enemy-tiers').appendChild(span);
+		});
+	},
+
+
+	experienceReset:function(){
+		MarcDialogs.confirm(Locale._('Do you want to reset all your defeated enemy count?<br/>Note: this can\'t be undone.'), function(){
+			Completism._set(ExperienceCalculator.generateHashes(), null, 0);
+			SavegameEditor.experienceCalculate();
+			MarcDialogs.close();
+		});
+	},
+
+
 	refreshItemTab:function(catId){
 		empty('container-'+catId);
 		SavegameEditor.currentItems[catId].forEach(function(item, j){
@@ -939,6 +1006,14 @@ SavegameEditor={
 			get('input-file-autobuilder-import').click();
 		});
 
+		/* experience */
+		get('button-experience-calculate').addEventListener('click', SavegameEditor.experienceCalculate);
+		get('button-experience-reset').addEventListener('click', SavegameEditor.experienceReset);
+		get('span-experience-edit').addEventListener('click', function(evt){
+			get('input-custom-filter').value='DefeatedEnemyNum.* OR EnemyBattleData.*';
+			showTab('master');
+		});
+
 		/* settings */
 		select('language').value=this.Settings.lang;
 		get('checkbox-warning-delete').checked=this.Settings.removeWarning;
@@ -1039,6 +1114,9 @@ SavegameEditor={
 		this.refreshCounterSchematicsYiga();
 		this.refreshCounterCompendium();
 
+		/* experience */
+		SavegameEditor.experienceCalculate();
+
 		if(TOTKMasterEditor.isLoaded())
 			TOTKMasterEditor.forceFindOffsets=true;
 
@@ -1047,6 +1125,9 @@ SavegameEditor={
 
 	/* save function */
 	save:function(){
+		if(currentTab==='master')
+			return false;
+
 		/* STATS */
 		this.writeU32('PlayerStatus.CurrentRupee', null, getValue('rupees'));
 		/*this.writeU32('Mons', getValue('mons'));*/
@@ -1066,15 +1147,6 @@ SavegameEditor={
 			y:getValue('pos-z')+105
 		};
 		this.writeVector3F('PlayerStatus.SavePos', null, playerPos);
-
-		/*tempFile.writeU32(this.Offsets.RELIC_GERUDO, getValue('relic-gerudo'));
-		tempFile.writeU32(this.Offsets.RELIC_GORON, getValue('relic-goron'));
-		tempFile.writeU32(this.Offsets.RELIC_RITO, getValue('relic-rito'));
-
-		tempFile.writeU32(this.Offsets.DEFEATED_HINOX_COUNTER, getValue('defeated-hinox'));
-		tempFile.writeU32(this.Offsets.DEFEATED_TALUS_COUNTER, getValue('defeated-talus'));
-		tempFile.writeU32(this.Offsets.DEFEATED_MOLDUGA_COUNTER, getValue('defeated-molduga'));*/
-
 
 		/* COORDINATES */
 		/*this._writeString(this.Offsets.MAP, getValue('pos-map'))

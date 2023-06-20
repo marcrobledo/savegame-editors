@@ -17,6 +17,7 @@
 	<script defer type="text/javascript" src="./zelda-totk.class.autobuilder.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.completism.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.coordinates.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.exp-calculator.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.locale.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.master.js"></script>
 	<script defer type="text/javascript" src="./murmurhash3js.min.js"></script>
@@ -151,6 +152,7 @@
 					<option value="1159888896">2 wheels+3/5</option>
 					<option value="1160708096">2 wheels+4/5</option>
 					<option value="1161527296">3 wheels</option>
+					<option value="1342177279">*Infinite</option>
 				</select>
 			</div>
 		</div>
@@ -417,6 +419,25 @@
 				<input id="input-file-autobuilder-import" type="file" accept=".totkab" style="display:none" />
 			</div>
 		</div>
+
+		<!-- EXPERIENCE -->
+		<h3 class="border-grey" data-translate="Experience">Experience</h3>
+		<div class="row mb-10">
+			<div class="four columns">
+				<span data-translate="Total experience">Total experience</span>: <span id="span-experience" style="font-weight:bold"></span>
+				<span id="span-experience-edit" class="clickable" data-translate="Manual edit">Manual edit</span>
+			</div>
+			<div class="eight columns text-right">
+				<button id="button-experience-reset" data-translate="Reset">Reset</button>
+				<button id="button-experience-calculate" data-translate="Recalculate">Recalculate</button>
+			</div>
+		</div>
+		<div class="row mb-10">
+			<div class="four columns">
+				<span data-translate="Current enemy tier">Current enemy tier</span>
+			</div>
+			<div class="eight columns text-right" id="experience-enemy-tiers"></div>
+		</div>
 	</div>
 	
 	<!-- TAB: WEAPONS -->
@@ -512,17 +533,22 @@
 		<div id="master-editor-loading" class="text-center">Master editor is loading...</div>
 		<div id="master-editor-hidden" class="hidden">
 			<div class="mb-10">
-				<label><span data-translate="Search">Search</span> <input id="input-custom-filter" type="text" list="knownHashes" placeholder="Search variables" onchange="TOTKMasterEditor.refreshResults()" /></label>
+				<label><span data-translate="Search">Search</span> <input id="input-custom-filter" type="text" list="knownHashes" placeholder="Search variables" style="width:400px" /></label>
 				<datalist id="knownHashes">
-					<option value="paraglider fabric">Usable paraglider fabrics</option>
+					<option value="DefeatedEnemyNum.* OR EnemyBattleData.*">Experience</option>
+					<option value="HorseList">Horses</option>
+					<option value="AutoBuilder.">Autobuilder</option>
+					<option value="OwnedParasailPattern.">Usable paraglider fabrics</option>
 					<option value="tower">Hyrule tower activation</option>
-					<option value="dragon coordinates">Dragon coordinates</option>
-					<option value="korok found">Korok found</option>
-					<option value="korok carried">Korok carried</option>
-					<option value="shrine">Shrines</option>
-					<option value="lightroot">Lighroots</option>
-					<option value="compendium">Compendium status</option>
+					<option value="Dragon_">Dragon coordinates</option>
+					<option value="IsAppearKorok.">Korok found</option>
+					<option value="KorokCarryProgress.">Korok carried</option>
+					<option value="DungeonState.Dungeon">Shrines</option>
+					<option value="ArrivalPointState.">Lighroots</option>
+					<option value="PictureBookData.">Compendium status</option>
+					<option value="IsFindTreasureMap.*">Treasure maps</option>
 					<option value="event">Quests</option>
+					<option value="amiibo">Amiibo</option>
 				</datalist>
 			</div>
 

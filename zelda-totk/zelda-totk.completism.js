@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Completism) v20230608
+	The legend of Zelda: Tears of the Kingdom Savegame Editor (Completism) v20230613
 
 	by Marc Robledo 2023
 	research & information compiled by MacSpazzy, Karlos007 and Echocolat
@@ -137,14 +137,21 @@ var Completism={
 	setLightrootsAsClear:function(limit){
 		var changes=this._set(CompletismHashes.LIGHTROOTS_STATUS, limit, 'Open'); //possible values: Close,Open
 		MarcDialogs.alert(changes+' lightroots set as clear.');
-		if(changes)
-			SavegameEditor.addItem('key', 'Obj_DungeonClearSeal', changes);
 		SavegameEditor.refreshCounterLighrootsClear();
 		return changes;
 	},
 	setKoroksAsFound:function(limit){
+		var currentKorokCount=this.countKoroksHidden();
+		var half=false;
+		if(currentKorokCount<421){
+			limit=421-currentKorokCount;
+			half=true;
+		}
 		var changes=this._set(CompletismHashes.KOROKS_HIDDEN, limit);
-		MarcDialogs.alert(changes+' koroks set as found.');
+		if(half)
+			MarcDialogs.alert(changes+' koroks set as found.<br/>Click the button again to set the rest.');
+		else
+			MarcDialogs.alert(changes+' koroks set as found.');
 		if(changes)
 			SavegameEditor.addItem('key', 'Obj_KorokNuts', changes);
 		SavegameEditor.refreshCounterKoroksHidden();
