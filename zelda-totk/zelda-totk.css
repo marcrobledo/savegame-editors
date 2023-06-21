@@ -72,6 +72,13 @@ tr:hover{background-color:#121710}
 	top: calc(50% - 8px - 1px);
 	right: 158px;
 }
+.dye-color-container{
+	position: relative;
+}
+#armors-upgrade-level{
+	width: auto;
+	vertical-align: middle;
+}
 .floating{
 	display:none;
 	position:absolute;

@@ -463,8 +463,10 @@ SavegameEditor={
 				lastColumn.appendChild(item._htmlInputFoodPrice);
 			}
 		}else if(item.category==='armors'){
-			lastColumn.appendChild(item._htmlSpanColor);
-			lastColumn.appendChild(item._htmlSelectDyeColor);
+			lastColumn.appendChild(item._htmlSelecDyeContainer);
+			if (item.isUpgradeable()){
+				lastColumn.appendChild(item._htmlSelectArmorUpgrade);
+			}
 		}else if(item.category==='horses'){
 			lastColumn.appendChild(item._htmlInputName);
 			lastColumn.appendChild(item._htmlSelectMane);
@@ -620,8 +622,8 @@ SavegameEditor={
 	getAvailableItems:function(catId){
 		if(catId==='weapons' || catId==='bows' || catId==='shields')
 			return Equipment.AVAILABILITY[catId];
-		else if(catId==='armors')
-			return Armor.AVAILABILITY;
+		else if(catId==='armors') // flatMap the array of armor + upgrades
+			return Armor.AVAILABILITY.flatMap(armor => [ armor.base, ...(armor.upgrades||[]) ]);
 		else if(catId==='arrows' || catId==='materials' || catId==='food' || catId==='devices' || catId==='key')
 			return Item.AVAILABILITY[catId];
 		else if(catId==='horses')
@@ -673,6 +675,13 @@ SavegameEditor={
 	restoreDurability:function(catId){
 		this.currentItems[catId].forEach(function(equipment, i){
 			equipment.restoreDurability();
+		});
+	},
+
+	setAllArmorsUpgradeLevel:function(){
+		this.currentItems.armors.forEach(function(armor){
+			let upgradeLevel = parseInt(document.getElementById('armors-upgrade-level').value);
+			armor.setUpgradeLevel(upgradeLevel);
 		});
 	},
 

@@ -476,6 +476,14 @@
 		<h3 data-translate="Armors">Armors</h3><div id="container-armors"></div>
 		<div class="text-center">
 			<button class="with-icon icon1" onclick="SavegameEditor.addItem('armors')" data-translate="Add armor">Add armor</button>
+			<button onclick="SavegameEditor.setAllArmorsUpgradeLevel()" data-translate="Upgrade all armors to:">Upgrade all armors to:</button>
+			<select id="armors-upgrade-level">
+				<option value="-1">No upgrade</option>
+				<option value="0">★</option>
+				<option value="1">★★</option>
+				<option value="2">★★★</option>
+				<option value="3">★★★★</option>
+			</select>
 		</div>
 	</div>
 
