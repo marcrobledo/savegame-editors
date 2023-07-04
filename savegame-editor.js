@@ -1,5 +1,5 @@
 /*
-	savegame-editor.js v20230519
+	savegame-editor.js v20230701
 	A library that lets you create easily a savegame editor. Made with vanilla JS.
 
 	by Marc Robledo 2016-2023
@@ -151,7 +151,9 @@ function closeFileConfirm(){
 function closeFile(){
 	show('dragzone');
 	hide('the-editor');
-	hide('toolbar');	
+	hide('toolbar');
+	if(typeof SavegameEditor.unload==='function')
+		SavegameEditor.unload();
 }
 
 function getSavegameDefaultName(){
