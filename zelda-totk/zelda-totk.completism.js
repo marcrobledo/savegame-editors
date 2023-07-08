@@ -143,7 +143,7 @@ var Completism={
 	},
 	setLightrootsAsClear:function(limit){
 		var changes=this._set(CompletismHashes.LIGHTROOTS_STATUS, limit, 'Open'); //possible values: Close,Open
-		UI.toast(_('%s lightroots set as clear').replace('%s', changes), 'lightroots-clear');
+		UI.toast(_('%s lightroots set as activated').replace('%s', changes), 'lightroots-clear');
 		SavegameEditor.refreshCounterLighrootsClear();
 		return changes;
 	},
@@ -241,7 +241,7 @@ var Completism={
 	},
 	setSchematicStonesAsFound:function(limit){
 		var changes=this._set(CompletismHashes.SCHEMATICS_STONE_FOUND, limit);
-		UI.toast(_('%s schematic stones set as found').replace('%s', changes), 'schematic-stones-found');
+		UI.toast(_('%s schema stones set as found').replace('%s', changes), 'schematic-stones-found');
 		if(changes)
 			SavegameEditor.addItem('key', 'Obj_AutoBuilderDraft_00', changes);
 		SavegameEditor.refreshCounterSchematicsStone();
@@ -259,7 +259,7 @@ var Completism={
 		var changes=this._set(CompletismHashes.COMPENDIUM_STATUS, limit, 'Buy', 'TakePhoto'); //possible values: Unopened,TakePhoto,Buy
 		var message=_('%s pictures set to stock').replace('%s', changes);
 		if(changes)
-			message+='<br/>You can now delete all .jpg images in /picturebook/ folder.';
+			message+='<br/>'+_('You can now delete all .jpg images in /picturebook/ folder.');
 		UI.toast(message, 'stock-compendium');
 		return changes;
 	},

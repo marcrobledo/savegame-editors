@@ -171,30 +171,30 @@ Equipment.buildHtmlElements=function(item){
 
 Equipment.OPTIONS_MODIFIERS={
 	'weapons':[
-		{name:_('No bonus'), value:hash('None')},
-		{name:_('Durability')+' ↑', value:hash('DurabilityUp')},
-		{name:_('Durability')+' ↑↑', value:hash('DurabilityUpPlus')},
-		{name:_('Attack')+' ↑', value:hash('AttackUp')},
-		{name:_('Attack')+' ↑↑', value:hash('AttackUpPlus')},
-		{name:_('Critical Hit')+' ↑', value:hash('FinishBlow')},
-		{name:_('Throw')+' ↑↑', value:hash('LongThrow')}
+		{originalName:'No bonus', value:hash('None')},
+		{originalName:'Durability ↑', value:hash('DurabilityUp')},
+		{originalName:'Durability ↑↑', value:hash('DurabilityUpPlus')},
+		{originalName:'Attack ↑', value:hash('AttackUp')},
+		{originalName:'Attack ↑↑', value:hash('AttackUpPlus')},
+		{originalName:'Critical Hit ↑', value:hash('FinishBlow')},
+		{originalName:'Throw ↑↑', value:hash('LongThrow')}
 	],
 	'bows':[
-		{name:_('No bonus'), value:hash('None')},
-		{name:_('Durability')+' ↑', value:hash('DurabilityUp')},
-		{name:_('Durability')+' ↑↑', value:hash('DurabilityUpPlus')},
-		{name:_('Attack')+' ↑', value:hash('AttackUp')},
-		{name:_('Attack')+' ↑↑', value:hash('AttackUpPlus')},
-		{name:_('Quick Shot'), value:hash('RapidFire')},
-		//{name:'Arrow Shot x3', value:hash('ThreeWayZoom')}, //???
-		{name:_('Arrow Shot')+' x5', value:hash('FiveWay')}
+		{originalName:'No bonus', value:hash('None')},
+		{originalName:'Durability ↑', value:hash('DurabilityUp')},
+		{originalName:'Durability ↑↑', value:hash('DurabilityUpPlus')},
+		{originalName:'Attack ↑', value:hash('AttackUp')},
+		{originalName:'Attack ↑↑', value:hash('AttackUpPlus')},
+		{originalName:'Quick Shot', value:hash('RapidFire')},
+		//{originalName:'Arrow Shot x3', value:hash('ThreeWayZoom')}, //???
+		{originalName:'Arrow Shot x5', value:hash('FiveWay')}
 	],
 	'shields':[
-		{name:_('No bonus'), value:hash('None')},
-		{name:_('Durability')+' ↑', value:hash('DurabilityUp')},
-		{name:_('Durability')+' ↑↑', value:hash('DurabilityUpPlus')},
-		{name:_('Block')+' ↑', value:hash('GuardUp')},
-		{name:_('Block')+' ↑↑', value:hash('GuardUpPlus')}
+		{originalName:'No bonus', value:hash('None')},
+		{originalName:'Durability ↑', value:hash('DurabilityUp')},
+		{originalName:'Durability ↑↑', value:hash('DurabilityUpPlus')},
+		{originalName:'Block ↑', value:hash('GuardUp')},
+		{originalName:'Block ↑↑', value:hash('GuardUpPlus')}
 	],
 };
 Equipment.DEFAULT_DURABILITY={
@@ -616,30 +616,7 @@ Equipment.WEAPONS_DECAYED_TO_PRISTINE={
 	'Weapon_Spear_168':'Weapon_Spear_103' //Long Stick
 };
 
-Equipment.buildFusableItemsOptions=function(){
-	Equipment.FUSABLE_ITEMS=[
-		{value:'', name:_('No fusion')}
-	];
 
-	Equipment.KNOWN_FUSABLE_MATERIALS.forEach(function(itemId){
-		Equipment.FUSABLE_ITEMS.push({value:itemId,name:'*'+_('Material')+': '+_(itemId)})
-	});
-	Equipment.KNOWN_FUSABLE_OBJECTS.forEach(function(itemId){
-		Equipment.FUSABLE_ITEMS.push({value:itemId,name:_('Environment')+': '+_(itemId)})
-	});
-	Equipment.AVAILABILITY.weapons.forEach(function(itemId){
-		Equipment.FUSABLE_ITEMS.push({value:itemId,name:_('Weapon')+': '+_(itemId)})
-	});
-	Equipment.AVAILABILITY.shields.forEach(function(itemId){
-		Equipment.FUSABLE_ITEMS.push({value:itemId,name:_('Shield')+': '+_(itemId)})
-	});
-	Item.AVAILABILITY.materials.forEach(function(itemId){
-		Equipment.FUSABLE_ITEMS.push({value:itemId,name:_('Material')+': '+_(itemId)})
-	});
-	Item.AVAILABILITY.devices.forEach(function(itemId){
-		Equipment.FUSABLE_ITEMS.push({value:itemId.replace('_Capsule',''),name:_('Zonai device')+': '+_(itemId)})
-	});
-}
 Equipment.KNOWN_FUSABLE_MATERIALS=[
 	'Item_Enemy_137',
 	'Item_Enemy_138',
@@ -1090,3 +1067,33 @@ Equipment.KNOWN_FUSABLE_OBJECTS=[
 	'Zonau_BlockMaster_Block_Senior',
 	'Zonau_BlockMaster_Block_Senior_ForAttachment'
 ];
+
+Equipment.FUSABLE_ITEMS=(function(){
+	var options=[
+		{value:'', originalName:'No fusion'}
+	];
+
+	Equipment.KNOWN_FUSABLE_MATERIALS.forEach(function(itemId){
+		options.push({value:itemId, originalName:itemId, originalNamePrefix:'*Material'})
+	});
+	Equipment.KNOWN_FUSABLE_OBJECTS.forEach(function(itemId){
+		options.push({value:itemId, originalName:itemId, originalNamePrefix:'Environment'})
+	});
+	Equipment.AVAILABILITY.weapons.forEach(function(itemId){
+		options.push({value:itemId, originalName:itemId, originalNamePrefix:'Weapon'})
+	});
+	Equipment.AVAILABILITY.bows.forEach(function(itemId){
+		options.push({value:itemId, originalName:itemId, originalNamePrefix:'Bow'})
+	});
+	Equipment.AVAILABILITY.shields.forEach(function(itemId){
+		options.push({value:itemId, originalName:itemId, originalNamePrefix:'Shield'})
+	});
+	Item.AVAILABILITY.materials.forEach(function(itemId){
+		options.push({value:itemId, originalName:itemId, originalNamePrefix:'Material'})
+	});
+	Item.AVAILABILITY.devices.forEach(function(itemId){
+		options.push({value:itemId.replace('_Capsule',''), originalName:itemId, originalNamePrefix:'Zonai device'})
+	});
+
+	return options;
+}());

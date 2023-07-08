@@ -145,7 +145,7 @@ Horse.OPTIONS_STATS_STAMINA=[
 	{value:3, name:'★★★'},
 	{value:4, name:'★★★★'},
 	{value:5, name:'★★★★★'},
-	{value:0, name:_('Infinite')}
+	{value:0, originalName:'Infinite'}
 ];
 Horse.AVAILABILITY=[
 	'GameRomHorse',
@@ -262,49 +262,47 @@ Horse.DEFAULT_VALUES={
 	{value:hash('06'), name:'06 (Special: Gold)'}
 ];*/
 Horse.MANES=[
-	{value:hash('None'), name:'None'},
-	{value:hash('Horse_Link_Mane'), name:'Normal Mane'},
-	{value:hash('Horse_Link_Mane_01'), name:'Mane 01'},
-	{value:hash('Horse_Link_Mane_02'), name:'Mane 02'},
-	{value:hash('Horse_Link_Mane_03'), name:'Mane 03'},
-	{value:hash('Horse_Link_Mane_04'), name:'Mane 04'},
-	{value:hash('Horse_Link_Mane_05'), name:'Mane 05'},
-	{value:hash('Horse_Link_Mane_06'), name:'Mane 06'},
-	{value:hash('Horse_Link_Mane_07'), name:'Mane 07'},
-	{value:hash('Horse_Link_Mane_08'), name:'Mane 08'},
-	{value:hash('Horse_Link_Mane_09'), name:'Mane 09'},
-	{value:hash('Horse_Link_Mane_10'), name:'Mane 10'},
-	{value:hash('Horse_Link_Mane_11'), name:'Mane 11'},
-	{value:hash('Horse_Link_Mane_12'), name:'Mane 12'},
-	{value:hash('Horse_Link_Mane_00L'), name:'Giant black mane'},
-	{value:hash('Horse_Link_Mane_01L'), name:'Giant white mane'},
-	{value:hash('Horse_Link_Mane_00S'), name:'*Donkey mane'}
+	{value:hash('None'), originalName:'None'},
+	{value:hash('Horse_Link_Mane'), originalName:'Normal Mane'},
+	{value:hash('Horse_Link_Mane_01'), originalName:'Mane 01'},
+	{value:hash('Horse_Link_Mane_02'), originalName:'Mane 02'},
+	{value:hash('Horse_Link_Mane_03'), originalName:'Mane 03'},
+	{value:hash('Horse_Link_Mane_04'), originalName:'Mane 04'},
+	{value:hash('Horse_Link_Mane_05'), originalName:'Mane 05'},
+	{value:hash('Horse_Link_Mane_06'), originalName:'Mane 06'},
+	{value:hash('Horse_Link_Mane_07'), originalName:'Mane 07'},
+	{value:hash('Horse_Link_Mane_08'), originalName:'Mane 08'},
+	{value:hash('Horse_Link_Mane_09'), originalName:'Mane 09'},
+	{value:hash('Horse_Link_Mane_10'), originalName:'Mane 10'},
+	{value:hash('Horse_Link_Mane_11'), originalName:'Mane 11'},
+	{value:hash('Horse_Link_Mane_12'), originalName:'Mane 12'},
+	{value:hash('Horse_Link_Mane_00L'), originalName:'Giant black mane'},
+	{value:hash('Horse_Link_Mane_01L'), originalName:'Giant white mane'},
+	{value:hash('Horse_Link_Mane_00S'), originalName:'*Donkey mane'}
 ];
 
-Horse.buildHorseOptions=function(){
-	Horse.SADDLES=[
-		{value:hash('None'), name:_('None')},
-		{value:hash('GameRomHorseSaddle_00'), name:_('GameRomHorseSaddle_00')},
-		{value:hash('GameRomHorseSaddle_01'), name:_('GameRomHorseSaddle_01')},
-		{value:hash('GameRomHorseSaddle_02'), name:_('GameRomHorseSaddle_02')},
-		{value:hash('GameRomHorseSaddle_03'), name:_('GameRomHorseSaddle_03')},
-		{value:hash('GameRomHorseSaddle_04'), name:_('GameRomHorseSaddle_04')},
-		{value:hash('GameRomHorseSaddle_05'), name:_('GameRomHorseSaddle_05')},
-		{value:hash('GameRomHorseSaddle_06'), name:_('GameRomHorseSaddle_06')},
-		{value:hash('GameRomHorseSaddle_07'), name:_('GameRomHorseSaddle_07')},
-		{value:hash('GameRomHorseSaddle_00L'), name:_('GameRomHorseSaddle_00L')},
-		{value:hash('GameRomHorseSaddle_00S'), name:_('GameRomHorseSaddle_00S')}
-	];
-	Horse.REINS=[
-		{value:hash('None'), name:_('None')},
-		{value:hash('GameRomHorseReins_00'), name:_('GameRomHorseReins_00')},
-		{value:hash('GameRomHorseReins_01'), name:_('GameRomHorseReins_01')},
-		{value:hash('GameRomHorseReins_02'), name:_('GameRomHorseReins_02')},
-		{value:hash('GameRomHorseReins_03'), name:_('GameRomHorseReins_03')},
-		{value:hash('GameRomHorseReins_04'), name:_('GameRomHorseReins_04')},
-		{value:hash('GameRomHorseReins_05'), name:_('GameRomHorseReins_05')},
-		{value:hash('GameRomHorseReins_06'), name:_('GameRomHorseReins_06')},
-		{value:hash('GameRomHorseReins_00L'), name:_('GameRomHorseReins_00L')},
-		{value:hash('GameRomHorseReins_00S'), name:_('GameRomHorseReins_00S')}
-	];
-}
+Horse.SADDLES=[
+	{value:hash('None'), originalName:'None'},
+	{value:hash('GameRomHorseSaddle_00'), originalName:'GameRomHorseSaddle_00'},
+	{value:hash('GameRomHorseSaddle_01'), originalName:'GameRomHorseSaddle_01'},
+	{value:hash('GameRomHorseSaddle_02'), originalName:'GameRomHorseSaddle_02'},
+	{value:hash('GameRomHorseSaddle_03'), originalName:'GameRomHorseSaddle_03'},
+	{value:hash('GameRomHorseSaddle_04'), originalName:'GameRomHorseSaddle_04'},
+	{value:hash('GameRomHorseSaddle_05'), originalName:'GameRomHorseSaddle_05'},
+	{value:hash('GameRomHorseSaddle_06'), originalName:'GameRomHorseSaddle_06'},
+	{value:hash('GameRomHorseSaddle_07'), originalName:'GameRomHorseSaddle_07'},
+	{value:hash('GameRomHorseSaddle_00L'), originalName:'GameRomHorseSaddle_00L'},
+	{value:hash('GameRomHorseSaddle_00S'), originalName:'GameRomHorseSaddle_00S'}
+];
+Horse.REINS=[
+	{value:hash('None'), originalName:'None'},
+	{value:hash('GameRomHorseReins_00'), originalName:'GameRomHorseReins_00'},
+	{value:hash('GameRomHorseReins_01'), originalName:'GameRomHorseReins_01'},
+	{value:hash('GameRomHorseReins_02'), originalName:'GameRomHorseReins_02'},
+	{value:hash('GameRomHorseReins_03'), originalName:'GameRomHorseReins_03'},
+	{value:hash('GameRomHorseReins_04'), originalName:'GameRomHorseReins_04'},
+	{value:hash('GameRomHorseReins_05'), originalName:'GameRomHorseReins_05'},
+	{value:hash('GameRomHorseReins_06'), originalName:'GameRomHorseReins_06'},
+	{value:hash('GameRomHorseReins_00L'), originalName:'GameRomHorseReins_00L'},
+	{value:hash('GameRomHorseReins_00S'), originalName:'GameRomHorseReins_00S'}
+];

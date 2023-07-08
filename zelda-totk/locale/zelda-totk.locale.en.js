@@ -43,10 +43,10 @@ Weapon_Sword_164:'Mighty Zonaite Sword',
 Weapon_Sword_166:'Gloom Sword',
 Weapon_Sword_167:'Tree Branch (sky)',
 Weapon_Sword_168:'Wooden Stick (decayed)',
-Weapon_Sword_077:'Master Sword (glitched)',
 
-Weapon_Sword_070_Broken:'*Decayed Master Sword (unused)',
-Npc_Zelda_Torch:'*Zelda\'s intro torch (unused)',
+Weapon_Sword_077:'*Master Sword (glitched)',
+Weapon_Sword_070_Broken:'*Decayed Master Sword (unobtainable)',
+Npc_Zelda_Torch:'*Zelda\'s intro torch (unobtainable)',
 
 Weapon_Lsword_001:'Traveler\'s Claymore',
 Weapon_Lsword_002:'Soldier\'s Claymore',
@@ -802,7 +802,7 @@ Armor_1302_Lower:'Yiga Tights ★★',
 Armor_1303_Lower:'Yiga Tights ★★★',
 Armor_1304_Lower:'Yiga Tights ★★★★',
 
-Armor_1150_Upper:'*Tunic of memories (intro, unused)',
+Armor_1150_Upper:'*Tunic of memories (unobtainable)',
 
 
 

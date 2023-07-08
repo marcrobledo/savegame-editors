@@ -58,22 +58,22 @@ Armor.buildHtmlElements=function(item){
 
 
 Armor.OPTIONS_DYE_COLORS=[
-	{name:_('Default color'), value:hash('None')},
-	{name:_('Blue'), value:hash('Blue')},
-	{name:_('Red'), value:hash('Red')},
-	{name:_('Yellow'), value:hash('Yellow')},
-	{name:_('White'), value:hash('White')},
-	{name:_('Black'), value:hash('Black')},
-	{name:_('Purple'), value:hash('Purple')},
-	{name:_('Green'), value:hash('Green')},
-	{name:_('Light blue'), value:hash('LightBlue')},
-	{name:_('Navy'), value:hash('Navy')},
-	{name:_('Orange'), value:hash('Orange')},
-	{name:_('Pink'), value:hash('Pink')},
-	{name:_('Crimson'), value:hash('Crimson')},
-	{name:_('Light yellow'), value:hash('LightYellow')},
-	{name:_('Brown'), value:hash('Brown')},
-	{name:_('Gray'), value:hash('Gray')}
+	{originalName:'Default color', value:hash('None')},
+	{originalName:'Blue', value:hash('Blue')},
+	{originalName:'Red', value:hash('Red')},
+	{originalName:'Yellow', value:hash('Yellow')},
+	{originalName:'White', value:hash('White')},
+	{originalName:'Black', value:hash('Black')},
+	{originalName:'Purple', value:hash('Purple')},
+	{originalName:'Green', value:hash('Green')},
+	{originalName:'Light blue', value:hash('LightBlue')},
+	{originalName:'Navy', value:hash('Navy')},
+	{originalName:'Orange', value:hash('Orange')},
+	{originalName:'Pink', value:hash('Pink')},
+	{originalName:'Crimson', value:hash('Crimson')},
+	{originalName:'Light yellow', value:hash('LightYellow')},
+	{originalName:'Brown', value:hash('Brown')},
+	{originalName:'Gray', value:hash('Gray')}
 ];
 Armor.AVAILABILITY=[
 	'Armor_001_Head','Armor_002_Head','Armor_003_Head','Armor_004_Head','Armor_015_Head', //Hylian Hood

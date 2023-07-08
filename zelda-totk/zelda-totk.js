@@ -997,9 +997,6 @@ SavegameEditor={
 			currentEditingItem=null;
 		}, false);
 
-		/* prepare fusable items list */
-		Equipment.buildFusableItemsOptions();
-
 		setNumericRange('rupees', 0, 999999);
 		setNumericRange('pony-points', 0, 999999);
 
@@ -1158,6 +1155,19 @@ SavegameEditor={
 	refreshAddArrowsButton:function(){
 		document.getElementById('button-add-arrows').disabled=!!this.pouches.arrows.items.length;
 	},
+	
+	retranslateSelectOptions:function(options){
+		options.forEach(function(option){
+			if(typeof option.originalName==='string'){
+				if(typeof option.originalNamePrefix==='string'){
+					option.name=_(option.originalNamePrefix)+': '+_(option.originalName);
+				}else{
+					option.name=_(option.originalName);
+				}
+			}
+		});
+	},
+
 	/* load function */
 	load:function(){
 		tempFile.fileName='progress.sav';
@@ -1165,7 +1175,16 @@ SavegameEditor={
 		$('#container-startup').hide();
 		Variable.resetCache();
 		UI.reset();
-		Horse.buildHorseOptions();
+		this.retranslateSelectOptions(Equipment.OPTIONS_MODIFIERS.weapons);
+		this.retranslateSelectOptions(Equipment.OPTIONS_MODIFIERS.bows);
+		this.retranslateSelectOptions(Equipment.OPTIONS_MODIFIERS.shields);
+		this.retranslateSelectOptions(Equipment.FUSABLE_ITEMS);
+		this.retranslateSelectOptions(Armor.OPTIONS_DYE_COLORS);
+		this.retranslateSelectOptions(Item.FOOD_EFFECTS);
+		this.retranslateSelectOptions(Horse.OPTIONS_STATS_STAMINA);
+		this.retranslateSelectOptions(Horse.MANES);
+		this.retranslateSelectOptions(Horse.SADDLES);
+		this.retranslateSelectOptions(Horse.REINS);
 
 		this.selectItem.lastCategory=null;
 
