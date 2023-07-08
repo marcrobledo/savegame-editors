@@ -1,4 +1,14 @@
 Locale.add('nl', {
+/*
+	HOW TO TRANSLATE ZELDA TOTK SAVEGAME EDITOR TO YOUR LANGUAGE
+	at this moment, the only completed localization is the spanish one (zelda-totk.locale.es.js)
+	just copy all lines (but the items lines) from that file, paste them here
+	and start translating to your language
+*/
+
+
+
+
 /* fusable only materials */
 Item_Enemy_137:'Stone Talus Heart',
 Item_Enemy_138:'Luminous Stole Talus Heart',

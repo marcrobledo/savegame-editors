@@ -1,4 +1,12 @@
 Locale.add('zh', {
+/*
+	Zelda TOTK Savegame Editor - Chinese translations
+	by tingod and eUnisk
+*/
+
+
+
+
 /* fusable only materials */
 Item_Enemy_137:'Stone Talus Heart',
 Item_Enemy_138:'Luminous Stole Talus Heart',
