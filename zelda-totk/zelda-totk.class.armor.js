@@ -314,7 +314,6 @@ Armor.INFO=(function(upgrades, dyeables){
 	['014','083','084','085','086'], //Climbers Bandanna/Gear/Boots
 	['017','087','088','089','090'], //Radiant Mask/Shirt/Tights
 	['020','095','096','097','098'], //Soldiers Helm/Armor/Greaves
-	['021','099','100','101','102'], //Ancient Helm/Cuirass/Greaves
 	['024','117','118','119','120'], //Diamond Circlet
 	['025','121','122','123','124'], //Ruby Circlet
 	['026','125','126','127','128'], //Sapphire Circlet
