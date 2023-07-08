@@ -1468,6 +1468,12 @@ Arrows:'箭矢',
 "Add key item":'增加重要物品',
 Search:'搜索',
 Page:'页数',
+Experience:'经验值',
+"Total experience":'总经验值',
+"Manual edit":'手动编辑',
+Reset:'重置归零',
+Recalculate:'重新计算',
+"Current enemy tier":'当前怪物等级',
 });
 
 

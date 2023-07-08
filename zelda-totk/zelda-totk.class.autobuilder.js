@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Autobuilder class) v20230604
+	The legend of Zelda: Tears of the Kingdom savegame editor - Autobuilder class (last update 2023-07-08)
 
 	by Marc Robledo 2023
 	thanks to SuperSpazzy's hash crack
@@ -13,43 +13,39 @@ function AutoBuilder(_index, index, combinedActorInfo, cameraPos, cameraAt, isFa
 	this.isFavorite=isFavorite;
 }
 AutoBuilder.prototype.export=function(){
-	var file=new MarcFile(AutoBuilder.FILE_SIZE + this.combinedActorInfo.length);
-	file.fileName='my_autobuilder_'+(this.index+1)+'.totkab';
-	var offset=0;
-	file.writeString(offset, AutoBuilder.EXPORTED_HEADER, AutoBuilder.EXPORTED_HEADER.length);
-	offset+=AutoBuilder.EXPORTED_HEADER.length;
-	file.writeU32(offset, this.index);
-	offset+=4;
-	file.writeF32(offset+0, this.cameraPos.x);
-	file.writeF32(offset+4, this.cameraPos.y);
-	file.writeF32(offset+8, this.cameraPos.z);
-	offset+=12;
-	file.writeF32(offset+0, this.cameraAt.x);
-	file.writeF32(offset+4, this.cameraAt.y);
-	file.writeF32(offset+8, this.cameraAt.z);
-	offset+=12;
-	file.writeS32(offset, this.isFavorite);
-	offset+=4;
-	file.writeBytes(offset, this.combinedActorInfo);
+	var file=new MarcFile(AutoBuilder.CAI_EDITOR_SIZE);
+	file.fileName='my_autobuilder_'+(this.index+1)+'.cai';
+	file.littleEndian=true;
+	file.writeBytes(0, this.combinedActorInfo);
+	file.writeF32(AutoBuilder.CAI_SIZE+0, this.cameraPos.x);
+	file.writeF32(AutoBuilder.CAI_SIZE+4, this.cameraPos.y);
+	file.writeF32(AutoBuilder.CAI_SIZE+8, this.cameraPos.z);
+	file.writeF32(AutoBuilder.CAI_SIZE+12, this.cameraAt.x);
+	file.writeF32(AutoBuilder.CAI_SIZE+16, this.cameraAt.y);
+	file.writeF32(AutoBuilder.CAI_SIZE+20, this.cameraAt.z);
 
 	return file;
 }
 AutoBuilder.prototype.save=function(){
 	SavegameEditor.writeU32('AutoBuilder.Draft.Content.Index', this._index, this.index);
-	SavegameEditor.writeDynamicData('AutoBuilder.Draft.Content.CombinedActorInfo', this._index, this.combinedActorInfo);
+	SavegameEditor.writeBinary('AutoBuilder.Draft.Content.CombinedActorInfo', this._index, this.combinedActorInfo);
 	SavegameEditor.writeVector3F('AutoBuilder.Draft.Content.CameraPos', this._index, this.cameraPos);
 	SavegameEditor.writeVector3F('AutoBuilder.Draft.Content.CameraAt', this._index, this.cameraAt);
 	SavegameEditor.writeS32('AutoBuilder.Draft.Content.IsFavorite', this._index, this.isFavorite);
 }
 
-AutoBuilder.EXPORTED_HEADER='TOTKAutoBuilder1';
-AutoBuilder.FILE_SIZE=(AutoBuilder.EXPORTED_HEADER.length + 4 + 12 + 12 + 4);
+AutoBuilder.CAI_HEADER='CmbAct';
+AutoBuilder.CAI_SIZE=6688;
+AutoBuilder.CAI_DRAFT_SIZE=AutoBuilder.CAI_SIZE + 1152; //yiga schematic + schema stones internal files
+AutoBuilder.CAI_EDITOR_SIZE=AutoBuilder.CAI_SIZE + 12 + 12; //cameraPos + cameraAt
+
+
 AutoBuilder.readSingle=function(autobuilderIndex){
 	var _index=AutoBuilder.getIndexByAutobuilderIndex(autobuilderIndex);
 	if(_index===-1)
 		return null;
 	var index=SavegameEditor.readU32Array('AutoBuilder.Draft.Content.Index', _index);
-	var combinedActorInfo=SavegameEditor.readDynamicDataArray('AutoBuilder.Draft.Content.CombinedActorInfo', _index);
+	var combinedActorInfo=SavegameEditor.readBinaryArray('AutoBuilder.Draft.Content.CombinedActorInfo', _index);
 	var cameraPos=SavegameEditor.readVector3FArray('AutoBuilder.Draft.Content.CameraPos', _index);
 	var cameraAt=SavegameEditor.readVector3FArray('AutoBuilder.Draft.Content.CameraAt', _index);
 	var isFavorite=SavegameEditor.readS32Array('AutoBuilder.Draft.Content.IsFavorite', _index);
@@ -63,39 +59,35 @@ AutoBuilder.readSingle=function(autobuilderIndex){
 	);
 }
 AutoBuilder.fromFile=function(file){
-	if(file.length<AutoBuilder.FILE_SIZE){
-		return null;
-	}else if(file.readString(0, AutoBuilder.EXPORTED_HEADER.length)!==AutoBuilder.EXPORTED_HEADER){
-		return null;
-	}
+	file.littleEndian=true;
+	if((file.fileSize===AutoBuilder.CAI_SIZE || file.fileSize===AutoBuilder.CAI_DRAFT_SIZE || file.fileSize===AutoBuilder.CAI_EDITOR_SIZE) && file.readString(0, 6)===AutoBuilder.CAI_HEADER){
+		var cameraPos={x:0,y:0,z:0};
+		var cameraAt={x:0,y:0,z:0};
+		var caiData=file.readBytes(0, AutoBuilder.CAI_SIZE);
+		
+		if(file.fileSize===AutoBuilder.CAI_EDITOR_SIZE){
+			cameraPos={
+				x:file.readF32(AutoBuilder.CAI_SIZE+0),
+				y:file.readF32(AutoBuilder.CAI_SIZE+4),
+				z:file.readF32(AutoBuilder.CAI_SIZE+8),
+			}
+			cameraAt={
+				x:file.readF32(AutoBuilder.CAI_SIZE+12),
+				y:file.readF32(AutoBuilder.CAI_SIZE+16),
+				z:file.readF32(AutoBuilder.CAI_SIZE+20),
+			}
+		}
 
-	var offset=AutoBuilder.EXPORTED_HEADER.length;
-	var index=file.readU32(offset);
-	offset+=4;
-	var cameraPos={
-		x:file.readF32(offset+0),
-		y:file.readF32(offset+4),
-		z:file.readF32(offset+8),
+		return new AutoBuilder(
+			null,
+			null,
+			caiData,
+			cameraPos,
+			cameraAt,
+			-1
+		);
 	}
-	offset+=12;
-	var cameraAt={
-		x:file.readF32(offset+0),
-		y:file.readF32(offset+4),
-		z:file.readF32(offset+8),
-	}
-	offset+=12;
-	var isFavorite=file.readS32(offset);
-	offset+=4;
-	var combinedActorInfo=file.readBytes(offset, file.fileSize - AutoBuilder.FILE_SIZE);
-
-	return new AutoBuilder(
-		0,
-		index,
-		combinedActorInfo,
-		cameraPos,
-		cameraAt,
-		isFavorite
-	);
+	return null;
 }
 AutoBuilder.getIndexByAutobuilderIndex=function(autobuilderIndex){
 	return SavegameEditor.readU32Array('AutoBuilder.Draft.Content.Index').indexOf(autobuilderIndex);
@@ -103,7 +95,7 @@ AutoBuilder.getIndexByAutobuilderIndex=function(autobuilderIndex){
 
 /*AutoBuilder.readAll=function(){
 	var index=SavegameEditor.readU32Array('AutoBuilder.Draft.Content.Index');
-	var combinedActorInfo=SavegameEditor.readDynamicDataArray('AutoBuilder.Draft.Content.CombinedActorInfo');
+	var combinedActorInfo=SavegameEditor.readBinaryArray('AutoBuilder.Draft.Content.CombinedActorInfo');
 	var cameraPos=SavegameEditor.readVector3FArray('AutoBuilder.Draft.Content.CameraPos');
 	var cameraAt=SavegameEditor.readVector3FArray('AutoBuilder.Draft.Content.CameraAt');
 	var isFavorite=SavegameEditor.readS32Array('AutoBuilder.Draft.Content.IsFavorite');

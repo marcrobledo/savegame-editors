@@ -1,224 +1,154 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Horse class) v20230610
+	The legend of Zelda: Tears of the Kingdom savegame editor - Horse class (last update 2023-07-08)
 
 	by Marc Robledo 2023
 	horse data thanks to JonJaded, Ozymandias07 and Karlos007
 */
 
-function Horse(index, id, name, mane, saddles, reins, bond, specialType, statsStrength, statsSpeed, statsStamina, statsPull, iconPattern, iconEyeColor){
+function Horse(itemData, overrideId){
 	this.category='horses';
-	this.index=index;
 
-	this.id=id;
-	this.name=name;
-	this.mane=mane;
-	this.saddles=saddles;
-	this.reins=reins;
-	this.bond=bond;
-	this.specialType=specialType;
-	this.statsStrength=statsStrength;
-	this.statsSpeed=statsSpeed;
-	this.statsStamina=statsStamina;
-	this.statsPull=statsPull;
-	this.iconPattern=iconPattern;
-	this.iconEyeColor=iconEyeColor;
+	this.id=itemData.id;
+	this.name=itemData.name;
+	this.mane=typeof itemData.mane==='string'? hash(itemData.mane): itemData.mane;
+	this.saddles=typeof itemData.saddles==='string'? hash(itemData.saddles): itemData.saddles;
+	this.reins=typeof itemData.reins==='string'? hash(itemData.reins): itemData.reins;
+	this.bond=itemData.bond;
+	this.bondChecked=itemData.bondChecked;
+	this.statsStrength=itemData.statsStrength;
+	this.statsSpeed=itemData.statsSpeed;
+	this.statsStamina=itemData.statsStamina;
+	this.statsPull=itemData.statsPull;
+	this.horseType=itemData.horseType;
+	this.colorType=itemData.colorType;
+	this.footType=itemData.footType;
+	this.amiiboUidHash=typeof itemData.amiiboUidHash==='string'? BigInt(itemData.amiiboUidHash) : itemData.amiiboUidHash;
+	this.roomId=itemData.roomId;
 
+	this.iconPattern=itemData.iconPattern;
+	this.iconEyeColor=itemData.iconEyeColor;
+	this.iconPrimaryColorRed=itemData.iconPrimaryColorRed;
+	this.iconPrimaryColorGreen=itemData.iconPrimaryColorGreen;
+	this.iconPrimaryColorBlue=itemData.iconPrimaryColorBlue;
+	this.iconSecondaryColorRed=itemData.iconSecondaryColorRed;
+	this.iconSecondaryColorGreen=itemData.iconSecondaryColorGreen;
+	this.iconSecondaryColorBlue=itemData.iconSecondaryColorBlue;
+	this.iconNoseColorRed=itemData.iconNoseColorRed;
+	this.iconNoseColorGreen=itemData.iconNoseColorGreen;
+	this.iconNoseColorBlue=itemData.iconNoseColorBlue;
+	this.iconHairPrimaryColorRed=itemData.iconHairPrimaryColorRed;
+	this.iconHairPrimaryColorGreen=itemData.iconHairPrimaryColorGreen;
+	this.iconHairPrimaryColorBlue=itemData.iconHairPrimaryColorBlue;
+	this.iconHairSecondaryColorRed=itemData.iconHairSecondaryColorRed;
+	this.iconHairSecondaryColorGreen=itemData.iconHairSecondaryColorGreen;
+	this.iconHairSecondaryColorBlue=itemData.iconHairSecondaryColorBlue;
+	
 	if(
-		specialType!==Horse.TYPE_NORMAL && 
-		specialType!==Horse.TYPE_ZELDA &&
-		specialType!==Horse.TYPE_EPONA &&
-		specialType!==Horse.TYPE_GIANT_BLACK &&
-		specialType!==Horse.TYPE_GIANT_WHITE &&
-		specialType!==Horse.TYPE_SPOT &&
-		specialType!==Horse.TYPE_GOLD
+		this.horseType!==Horse.TYPE_NORMAL && 
+		this.horseType!==Horse.TYPE_ZELDA &&
+		this.horseType!==Horse.TYPE_EPONA &&
+		this.horseType!==Horse.TYPE_GIANT_BLACK &&
+		this.horseType!==Horse.TYPE_GIANT_WHITE &&
+		this.horseType!==Horse.TYPE_SPOT &&
+		this.horseType!==Horse.TYPE_GOLD
 	)
-		console.warn('unknown horse['+index+'].specialType value: '+specialType);
-
-	Horse.buildHtmlElements(this);
-	this.fixValues(true);
+		console.warn('unknown horse horseType value: '+this.horseType);
 }
 
 
-Horse.prototype.fixValues=function(ignoreEquipment){
-	if(this.id==='GameRomHorseZelda'){
-		this.specialType=Horse.TYPE_ZELDA;
-		this._htmlSelectIconPattern.disabled=true;
-		this._htmlSelectIconEyeColor.disabled=true;
-		//this.temperament='wild';
-	}else if(this.id==='GameRomHorse00L'){
-		this.specialType=Horse.TYPE_GIANT_BLACK;
-		if(!ignoreEquipment){
-			this.mane=this._htmlSelectMane.value=0x9cd4f27b;
-			this.saddles=this._htmlSelectSaddles.value=0xf1435392;
-			this.reins=this._htmlSelectReins.value=0x4dbf2061;
-		}
-		this._htmlSelectIconPattern.disabled=true;
-		this._htmlSelectIconEyeColor.disabled=true;
-		//this.temperament='wild';
-	}else if(this.id==='GameRomHorse01L'){
-		this.specialType=Horse.TYPE_GIANT_WHITE;
-		if(!ignoreEquipment){
-			this.mane=this._htmlSelectMane.value=0x55365b10;
-			this.saddles=this._htmlSelectSaddles.value=0xf1435392;
-			this.reins=this._htmlSelectReins.value=0x4dbf2061;
-		}
-		this._htmlSelectIconPattern.disabled=true;
-		this._htmlSelectIconEyeColor.disabled=true;
-		//this.temperament='wild';
-	}else if(this.id==='GameRomHorseSpPattern'){
-		this.specialType=Horse.TYPE_SPOT;
-		this._htmlSelectIconPattern.disabled=true;
-		this._htmlSelectIconEyeColor.disabled=true;
-		//this.temperament='wild'; //???
-	}else if(this.id==='GameRomHorseGold'){
-		this.specialType=Horse.TYPE_GOLD;
-		this._htmlSelectIconPattern.disabled=true;
-		this._htmlSelectIconEyeColor.disabled=true;
-		//this.temperament='wild'; //???
-	}else if(this.id==='GameRomHorseEpona'){
-		this.specialType=Horse.TYPE_EPONA;
-		this._htmlSelectIconPattern.disabled=true;
-		this._htmlSelectIconEyeColor.disabled=true;
-		//this.temperament='wild'; //???
-	}else{
-		this.specialType=Horse.TYPE_NORMAL;
-		if(!ignoreEquipment && this.id==='GameRomHorse00S'){
-			this.mane=this._htmlSelectMane.value=0xbad4c4a9;
-			this.saddles=this._htmlSelectSaddles.value=0x8c5bd272;
-			this.reins=this._htmlSelectReins.value=0xe8fe6ab7;
-		}
-		this._htmlSelectIconPattern.disabled=false;
-		this._htmlSelectIconEyeColor.disabled=false;
-		//this.temperament='gentle'; //???
+Horse.prototype.getItemTranslation=function(){
+	return _(this.id);
+}
+Horse.prototype.export=function(){
+	return{
+		totkStruct:Pouch.getCategoryItemStructId(this.category),
+		id:this.id,
+		name:this.name,
+		mane:this.mane,
+		saddles:this.saddles,
+		reins:this.reins,
+		bond:this.bond,
+		bondChecked:this.bondChecked,
+		statsStrength:this.statsStrength,
+		statsSpeed:this.statsSpeed,
+		statsStamina:this.statsStamina,
+		statsPull:this.statsPull,
+		horseType:this.horseType,
+		colorType:this.colorType,
+		footType:this.footType,
+		amiiboUidHash:this.amiiboUidHash.toString(),
+		roomId:this.roomId,
+
+		iconPattern:this.iconPattern,
+		iconEyeColor:this.iconEyeColor,
+		iconPrimaryColorRed:this.iconPrimaryColorRed,
+		iconPrimaryColorGreen:this.iconPrimaryColorGreen,
+		iconPrimaryColorBlue:this.iconPrimaryColorBlue,
+		iconSecondaryColorRed:this.iconSecondaryColorRed,
+		iconSecondaryColorGreen:this.iconSecondaryColorGreen,
+		iconSecondaryColorBlue:this.iconSecondaryColorBlue,
+		iconNoseColorRed:this.iconNoseColorRed,
+		iconNoseColorGreen:this.iconNoseColorGreen,
+		iconNoseColorBlue:this.iconNoseColorBlue,
+		iconHairPrimaryColorRed:this.iconHairPrimaryColorRed,
+		iconHairPrimaryColorGreen:this.iconHairPrimaryColorGreen,
+		iconHairPrimaryColorBlue:this.iconHairPrimaryColorBlue,
+		iconHairSecondaryColorRed:this.iconHairSecondaryColorRed,
+		iconHairSecondaryColorGreen:this.iconHairSecondaryColorGreen,
+		iconHairSecondaryColorBlue:this.iconHairSecondaryColorBlue
 	}
 }
-Horse.prototype.getItemTranslation=function(){
-	return Locale._(this.id);
+Horse.prototype.refreshHtmlInputs=function(fixValues, ignoreEquipment){
+	if(fixValues){
+		var defaultValues=Horse.DEFAULT_VALUES[this.id] || Horse.DEFAULT_VALUES['GameRomHorse'];
+		if(defaultValues.horseType)
+			this.horseType=defaultValues.horseType;
+		if(defaultValues.mane)
+			this.mane=defaultValues.mane;
+		if(defaultValues.saddles)
+			this.saddles=defaultValues.saddles;
+		if(defaultValues.reins)
+			this.reins=defaultValues.reins;
+	}
+	this._htmlInputs.colorType.disabled=(this.horseType!==Horse.TYPE_NORMAL);
+	this._htmlInputs.footType.disabled=(this.horseType!==Horse.TYPE_NORMAL);
 }
-Horse.prototype.save=function(){
-	SavegameEditor.writeString64('OwnedHorseList.ActorName', this.index, this.id);
-	SavegameEditor.writeStringUTF8('OwnedHorseList.Name', this.index, this.name);
-	SavegameEditor.writeU32('OwnedHorseList.Mane', this.index, this.mane);
-	SavegameEditor.writeU32('OwnedHorseList.Saddle', this.index, this.saddles);
-	SavegameEditor.writeU32('OwnedHorseList.Rein', this.index, this.reins);
-	SavegameEditor.writeF32('OwnedHorseList.Familiarity', this.index, this.bond);
-	SavegameEditor.writeU32('OwnedHorseList.HorseType', this.index, this.specialType);
-	SavegameEditor.writeU32('OwnedHorseList.Toughness', this.index, this.statsStrength);
-	SavegameEditor.writeU32('OwnedHorseList.Speed', this.index, this.statsSpeed);
-	SavegameEditor.writeU32('OwnedHorseList.ChargeNum', this.index, this.statsStamina);
-	SavegameEditor.writeU32('OwnedHorseList.HorsePower', this.index, this.statsPull);
-	SavegameEditor.writeU32('OwnedHorseList.Body.Pattern', this.index, this.iconPattern);
-	SavegameEditor.writeU32('OwnedHorseList.Body.EyeColor', this.index, this.iconEyeColor);
-}
+
+
 
 Horse.buildHtmlElements=function(item){
-	//build html elements
-	item._htmlInputName=input('name-'+item.category+'-'+item.index, item.name);
-	item._htmlInputName.addEventListener('change', function(){
-		var newVal=this.value;
-		if(newVal.length>9)
-			newVal=newVal.substr(0,9);
-		if(!newVal)
-			newVal='a';
-		item.name=newVal;
-	});
-	item._htmlInputName.title=Locale._('Horse name');
-	item._htmlInputName.maxLength=9;
-
-	item._htmlSelectMane=select('horse-mane-'+item.index, Horse.MANES, function(){
-		item.mane=this.value;
-	}, item.mane);
-	item._htmlSelectMane.title=Locale._('Mane');
-
-	item._htmlSelectSaddles=select('horse-saddles-'+item.index, Horse.SADDLES, function(){
-		item.saddles=this.value;
-	}, item.saddles);
-	item._htmlSelectSaddles.title=Locale._('Saddle');
-
-	item._htmlSelectReins=select('horse-reins-'+item.index, Horse.REINS, function(){
-		item.reins=this.value;
-	}, item.reins);
-	item._htmlSelectReins.title=Locale._('Reins');
-
-	item._htmlInputBond=inputFloat('bond-'+item.category+'-'+item.index,0,100,item.bond*100);
-	item._htmlInputBond.addEventListener('change', function(){
-		item.bond=parseFloat(this.value) / 100;
-	});
-	item._htmlInputBond.title=Locale._('Bond');
-
-
-	var stats=[
-		{value:1, name:'★★'},
-		{value:2, name:'★★★'},
-		{value:3, name:'★★★★'},
-		{value:4, name:'★★★★★'}
-	];
-	var statsStamina=[
-		{value:2, name:'★★'},
-		{value:3, name:'★★★'},
-		{value:4, name:'★★★★'},
-		{value:5, name:'★★★★★'},
-		{value:0, name:'Infinite'}
-	];
-	item._htmlInputStatsStrength=inputNumber('horse-stats-strength-'+item.index,100,350,item.statsStrength);
-	item._htmlInputStatsStrength.addEventListener('change', function(){
-		item.statsStrength=parseInt(this.value);
-	});
-	item._htmlInputStatsStrength.title=Locale._('Stats: Strength');
-	item._htmlSelectStatsSpeed=select('horse-stats-speed-'+item.index, stats, function(){
-		item.statsSpeed=parseInt(this.value);
-	}, item.statsSpeed);
-	item._htmlSelectStatsSpeed.title=Locale._('Stats: Speed');
-	item._htmlSelectStatsStamina=select('horse-stats-stamina-'+item.index, statsStamina, function(){
-		item.statsStamina=parseInt(this.value);
-	}, item.statsStamina);
-	item._htmlSelectStatsStamina.title=Locale._('Stats: Stamina');
-	item._htmlSelectStatsPull=select('horse-stats-pull-'+item.index, stats, function(){
-		item.statsPull=parseInt(this.value);
-	}, item.statsPull);
-	item._htmlSelectStatsPull.title=Locale._('Stats: Pull');
-
-
-
-
-	item._htmlSelectIconPattern=select('horse-icon-pattern-'+item.index, Horse.ICON_PATTERNS, function(){
-		item.iconPattern=parseInt(this.value);
-	}, item.iconPattern);
-	item._htmlSelectIconPattern.title=Locale._('Icon: pattern');
-
-	item._htmlSelectIconEyeColor=select('horse-icon-eye-color-'+item.index, Horse.ICON_EYE_COLORS, function(){
-		item.iconEyeColor=parseInt(this.value);
-	}, item.iconEyeColor);
-	item._htmlSelectIconEyeColor.title=Locale._('Icon: eye color');
+	item._htmlInputs={
+		name:Pouch.createItemInput(item, 'name', 'WString16', {maxLength:9, label:_('Horse name')}),
+		mane:Pouch.createItemInput(item, 'mane', 'Enum', {enumValues:Horse.MANES, label:_('Mane')}),
+		saddles:Pouch.createItemInput(item, 'saddles', 'Enum', {enumValues:Horse.SADDLES, label:_('Saddle')}),
+		reins:Pouch.createItemInput(item, 'reins', 'Enum', {enumValues:Horse.REINS, label:_('Reins')}),
+		bond:Pouch.createItemInput(item, 'bond', 'Float', {min:0, max:100, label:_('Bond')}),
+		statsStrength:Pouch.createItemInput(item, 'statsStrength', 'Int', {min:100, max:350, label:_('Stats: Strength')}),
+		statsSpeed:Pouch.createItemInput(item, 'statsSpeed', 'Int', {enumValues:Horse.OPTIONS_STATS, label:_('Stats: Speed')}),
+		statsStamina:Pouch.createItemInput(item, 'statsStamina', 'Int', {enumValues:Horse.OPTIONS_STATS_STAMINA, label:_('Stats: Stamina')}),
+		statsPull:Pouch.createItemInput(item, 'statsPull', 'Int', {enumValues:Horse.OPTIONS_STATS, label:_('Stats: Pull')}),
+		//horseType:Pouch.createItemInput(item, 'horseType', 'Int', {min:1, max:100, label:_('Horse type')}),
+		colorType:Pouch.createItemInput(item, 'colorType', 'Int', {min:1, max:100, label:_('Horse color')}),
+		footType:Pouch.createItemInput(item, 'footType', 'Int', {min:0, max:1, label:_('Foot type')})
+	};
 }
 
-Horse.readAll=function(){
-	var horsesIds=SavegameEditor.readString64Array('OwnedHorseList.ActorName');
-	var validHorses=[];
-	for(var i=0; i<horsesIds.length; i++){
-		if(horsesIds[i]){
-			validHorses.push(new Horse(
-				i,
-				horsesIds[i],
-				SavegameEditor.readStringUTF8('OwnedHorseList.Name', i),
-				SavegameEditor.readU32('OwnedHorseList.Mane', i),
-				SavegameEditor.readU32('OwnedHorseList.Saddle', i),
-				SavegameEditor.readU32('OwnedHorseList.Rein', i),
-				SavegameEditor.readF32('OwnedHorseList.Familiarity', i),
-				SavegameEditor.readU32('OwnedHorseList.HorseType', i),
-				SavegameEditor.readU32('OwnedHorseList.Toughness', i),
-				SavegameEditor.readU32('OwnedHorseList.Speed', i),
-				SavegameEditor.readU32('OwnedHorseList.ChargeNum', i),
-				SavegameEditor.readU32('OwnedHorseList.HorsePower', i),
-				SavegameEditor.readU32('OwnedHorseList.Body.Pattern', i),
-				SavegameEditor.readU32('OwnedHorseList.Body.EyeColor', i)
-			));
-		}
-	}
-	return validHorses;
-}
 
+Horse.OPTIONS_STATS=[
+	{value:1, name:'★★'},
+	{value:2, name:'★★★'},
+	{value:3, name:'★★★★'},
+	{value:4, name:'★★★★★'}
+];
+Horse.OPTIONS_STATS_STAMINA=[
+	{value:2, name:'★★'},
+	{value:3, name:'★★★'},
+	{value:4, name:'★★★★'},
+	{value:5, name:'★★★★★'},
+	{value:0, name:_('Infinite')}
+];
 Horse.AVAILABILITY=[
+	'GameRomHorse',
 	'GameRomHorse00',
 	'GameRomHorse01',
 	'GameRomHorse02',
@@ -257,9 +187,8 @@ Horse.AVAILABILITY=[
 	'GameRomHorseBone_AllDay',
 	'GameRomHorseForStreetVender',
 	'GameRomHorseNushi'
-	//'Animal_Bear_A',
-	//'Animal_Bear_B'
 ];
+
 
 
 Horse.TYPE_NORMAL=1; //normal
@@ -270,63 +199,112 @@ Horse.TYPE_GIANT_WHITE=13; //01L (Giant White Stallion)
 Horse.TYPE_GOLD=12; //Gold
 Horse.TYPE_SPOT=8; //SpPattern
 
-Horse.ICON_PATTERNS=[
-	{value:0x8ff7b62d, name:'00'}, //00
-	{value:0x61ec6600, name:'01'}, //01
-	{value:0x43caa47b, name:'02'}, //02
-	{value:0xb8872476, name:'03'}, //03
-	{value:0xfdcaa775, name:'04'}, //04
-	{value:0xb28f2118, name:'05'}, //05
-	{value:0xe7fc193e, name:'06 (Special: Gold)'}, //06	
-];
-Horse.ICON_EYE_COLORS=[
-	{value:0x6cbc3cb4, name:'Black'},
-	{value:0xe2911aba, name:'Blue'}
-];
+Horse.TYPE_DEER=0; //deer
+Horse.TYPE_DONKEY=7; //Donkey
+Horse.TYPE_STALHORSE=5; //Stalhorse
+Horse.TYPE_LORD=9; //Lord of the mountain
+Horse.TYPE_BEAR=10; //Bear
+
+Horse.DEFAULT_VALUES={
+	GameRomHorse:{
+		horseType:Horse.TYPE_NORMAL
+	},
+	GameRomHorseZelda:{
+		horseType:Horse.TYPE_ZELDA
+	},
+	GameRomHorseSpPattern:{
+		horseType:Horse.TYPE_SPOT
+	},
+	GameRomHorseGold:{
+		horseType:Horse.TYPE_GOLD
+	},
+	GameRomHorseEpona:{
+		horseType:Horse.TYPE_EPONA
+	},
+	GameRomHorse00L:{
+		horseType:Horse.TYPE_GIANT_BLACK,
+		mane:hash('Horse_Link_Mane_00L'),
+		saddles:hash('GameRomHorseSaddle_00L'),
+		reins:hash('GameRomHorseReins_00L')
+	},
+	GameRomHorse01L:{
+		horseType:Horse.TYPE_GIANT_WHITE,
+		mane:hash('Horse_Link_Mane_01L'),
+		saddles:hash('GameRomHorseSaddle_00L'),
+		reins:hash('GameRomHorseReins_00L')
+	},
+	GameRomHorse00S:{
+		//horseType:Horse.TYPE_DONKEY,
+		horseType:Horse.TYPE_NORMAL,
+		mane:hash('Horse_Link_Mane_00S'),
+		saddles:hash('GameRomHorseSaddle_00S'),
+		reins:hash('GameRomHorseReins_00S')
+	},
+	GameRomHorseBone:{
+		horseType:Horse.TYPE_STALHORSE
+	},
+	GameRomHorseBone_AllDay:{
+		horseType:Horse.TYPE_STALHORSE
+	},
+	GameRomHorseNushi:{
+		horseType:Horse.TYPE_LORD
+	}
+}
+
+
+/*Horse.ICON_PATTERNS=[
+	{value:hash('00'), name:'00'},
+	{value:hash('01'), name:'01'},
+	{value:hash('02'), name:'02'},
+	{value:hash('03'), name:'03'},
+	{value:hash('04'), name:'04'},
+	{value:hash('05'), name:'05'},
+	{value:hash('06'), name:'06 (Special: Gold)'}
+];*/
 Horse.MANES=[
-	{value:0xb6eede09, name:'None'}, //None
-	{value:0xb93d9e3b, name:'Normal Mane'}, //Horse_Link_Mane
-	{value:0x3a84d601, name:'Mane 01'}, //Horse_Link_Mane_01
-	{value:0x0bffd92a, name:'Mane 02'}, //Horse_Link_Mane_02
-	{value:0xe8125091, name:'Mane 03'}, //Horse_Link_Mane_03
-	{value:0xfdb103b2, name:'Mane 04'}, //Horse_Link_Mane_04
-	{value:0x75677ada, name:'Mane 05'}, //Horse_Link_Mane_05
-	{value:0x9cbf81f2, name:'Mane 06'}, //Horse_Link_Mane_06
-	{value:0x8140f2f9, name:'Mane 07'}, //Horse_Link_Mane_07
-	{value:0xd749201c, name:'Mane 08'}, //Horse_Link_Mane_08
-	{value:0xac2a896d, name:'Mane 09'}, //Horse_Link_Mane_09
-	{value:0x87d9391f, name:'Mane 10'}, //Horse_Link_Mane_10
-	{value:0xd6a61738, name:'Mane 11'}, //Horse_Link_Mane_11
-	{value:0x12dd95d6, name:'Mane 12'}, //Horse_Link_Mane_12
-	{value:0x9cd4f27b, name:'Giant black mane'}, //Horse_Link_Mane_00L
-	{value:0x55365b10, name:'Giant white mane'}, //Horse_Link_Mane_01L
-	{value:0xbad4c4a9, name:'*Donkey mane'} //Horse_Link_Mane_00S
+	{value:hash('None'), name:'None'},
+	{value:hash('Horse_Link_Mane'), name:'Normal Mane'},
+	{value:hash('Horse_Link_Mane_01'), name:'Mane 01'},
+	{value:hash('Horse_Link_Mane_02'), name:'Mane 02'},
+	{value:hash('Horse_Link_Mane_03'), name:'Mane 03'},
+	{value:hash('Horse_Link_Mane_04'), name:'Mane 04'},
+	{value:hash('Horse_Link_Mane_05'), name:'Mane 05'},
+	{value:hash('Horse_Link_Mane_06'), name:'Mane 06'},
+	{value:hash('Horse_Link_Mane_07'), name:'Mane 07'},
+	{value:hash('Horse_Link_Mane_08'), name:'Mane 08'},
+	{value:hash('Horse_Link_Mane_09'), name:'Mane 09'},
+	{value:hash('Horse_Link_Mane_10'), name:'Mane 10'},
+	{value:hash('Horse_Link_Mane_11'), name:'Mane 11'},
+	{value:hash('Horse_Link_Mane_12'), name:'Mane 12'},
+	{value:hash('Horse_Link_Mane_00L'), name:'Giant black mane'},
+	{value:hash('Horse_Link_Mane_01L'), name:'Giant white mane'},
+	{value:hash('Horse_Link_Mane_00S'), name:'*Donkey mane'}
 ];
-Horse.SADDLES=[
-	//{value:0xb6eede09, name:'None'}, //None
-	{value:0x8573ae34, name:'Stable Saddle'}, //GameRomHorseSaddle_00
-	{value:0x04c6c17b, name:'Traveler\'s Saddle'}, //GameRomHorseSaddle_01
-	{value:0x47d0c84e, name:'Royal Saddle'}, //GameRomHorseSaddle_02
-	{value:0xaeab565a, name:'Knight\'s Saddle'}, //GameRomHorseSaddle_03
-	{value:0xcf167805, name:'Monster Saddle'}, //GameRomHorseSaddle_04
-	{value:0x6e2db559, name:'Extravagant Saddle'}, //GameRomHorseSaddle_05
-	{value:0xb926ed8b, name:'Towing Harness'}, //GameRomHorseSaddle_07
-	{value:0xf1435392, name:'Giant Saddle'}, //GameRomHorseSaddle_00L
-	{value:0x7feaa5c0, name:'*Saddle 06'}, //GameRomHorseSaddle_06
-	{value:0x8c5bd272, name:'*Donkey Saddle'} //GameRomHorseSaddle_00S
-	//{value:0xdeadbeef, name:'*Saddle 07_ExternalCoupler'}, //GameRomHorseSaddle_07_ExternalCoupler
-	//{value:0xdeadbeef, name:'*Towing Harness (+ wagon)'}, //GameRomHorseSaddle_07_WithWagon
-	//{value:0xdeadbeef, name:'*Saddle 00S_AncientAssistant'} //GameRomHorseSaddle_00S_AncientAssistant
-];
-Horse.REINS=[
-	//{value:0xb6eede09, name:'None'}, //None
-	{value:0x1864234b, name:'Stable Bridle'}, //GameRomHorseReins_00
-	{value:0x094f807a, name:'Traveler\'s Bridle'}, //GameRomHorseReins_01
-	{value:0xe54abe55, name:'Royal Reins'}, //GameRomHorseReins_02
-	{value:0x0200441d, name:'Knight\'s Bridle'}, //GameRomHorseReins_03
-	{value:0x85610de7, name:'Monster Bridle'}, //GameRomHorseReins_04
-	{value:0xbdc6a58b, name:'Extravagant Bridle'}, //GameRomHorseReins_05
-	{value:0x4dbf2061, name:'Giant Bridle'}, //GameRomHorseReins_00L
-	{value:0x79c2c72f, name:'*Bridle 06'}, //GameRomHorseReins_06
-	{value:0xe8fe6ab7, name:'*Donkey Bridle'} //GameRomHorseReins_00S
-];
+
+Horse.buildHorseOptions=function(){
+	Horse.SADDLES=[
+		{value:hash('None'), name:_('None')},
+		{value:hash('GameRomHorseSaddle_00'), name:_('GameRomHorseSaddle_00')},
+		{value:hash('GameRomHorseSaddle_01'), name:_('GameRomHorseSaddle_01')},
+		{value:hash('GameRomHorseSaddle_02'), name:_('GameRomHorseSaddle_02')},
+		{value:hash('GameRomHorseSaddle_03'), name:_('GameRomHorseSaddle_03')},
+		{value:hash('GameRomHorseSaddle_04'), name:_('GameRomHorseSaddle_04')},
+		{value:hash('GameRomHorseSaddle_05'), name:_('GameRomHorseSaddle_05')},
+		{value:hash('GameRomHorseSaddle_06'), name:_('GameRomHorseSaddle_06')},
+		{value:hash('GameRomHorseSaddle_07'), name:_('GameRomHorseSaddle_07')},
+		{value:hash('GameRomHorseSaddle_00L'), name:_('GameRomHorseSaddle_00L')},
+		{value:hash('GameRomHorseSaddle_00S'), name:_('GameRomHorseSaddle_00S')}
+	];
+	Horse.REINS=[
+		{value:hash('None'), name:_('None')},
+		{value:hash('GameRomHorseReins_00'), name:_('GameRomHorseReins_00')},
+		{value:hash('GameRomHorseReins_01'), name:_('GameRomHorseReins_01')},
+		{value:hash('GameRomHorseReins_02'), name:_('GameRomHorseReins_02')},
+		{value:hash('GameRomHorseReins_03'), name:_('GameRomHorseReins_03')},
+		{value:hash('GameRomHorseReins_04'), name:_('GameRomHorseReins_04')},
+		{value:hash('GameRomHorseReins_05'), name:_('GameRomHorseReins_05')},
+		{value:hash('GameRomHorseReins_06'), name:_('GameRomHorseReins_06')},
+		{value:hash('GameRomHorseReins_00L'), name:_('GameRomHorseReins_00L')},
+		{value:hash('GameRomHorseReins_00S'), name:_('GameRomHorseReins_00S')}
+	];
+}

@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom - Master editor v20230612
+	The legend of Zelda: Tears of the Kingdom - Master editor v20230617
 	by Marc Robledo 2023	
 	
 	thanks to the immeasurable work, hash crack and research of MacSpazzy, MrCheeze and Karlos007
@@ -8,75 +8,58 @@
 var TOTKMasterEditor=(function(){
 	const HASHES_PER_PAGE=100;
 
-	const buildEnumOptions=function(value){
-		return {value:murmurHash3.x86.hash32(value), name:value};
-	};
-	const COMMON_ENUMS={
-		ShrineStatus:['Hidden','Appear','Open','Enter','Clear'],
-		ShrineCrystalStatus:['Hidden','Point','Unlock','Open','Enter','Clear','UnlockToOpen','PointAndActiveWarp','ChangeToKeyStone','PresentedKeyCrystal'],
-		LightrootStatus:['Close','Open'],
-		KorokCarry:['NotClear','Clear'],
-		CompendiumPhotos:['Unopened','TakePhoto','Buy'],
-		
-		HorseListBodyEyeColor:['Black','Blue'],
-		HorseListBodyPattern:['00','01','02','03','04','05','06'],
-		HorseListMane:['None','Horse_Link_Mane','Horse_Link_Mane_01','Horse_Link_Mane_02','Horse_Link_Mane_03','Horse_Link_Mane_04','Horse_Link_Mane_05','Horse_Link_Mane_06','Horse_Link_Mane_07','Horse_Link_Mane_08','Horse_Link_Mane_09','Horse_Link_Mane_00L','Horse_Link_Mane_00S','Horse_Link_Mane_10','Horse_Link_Mane_11','Horse_Link_Mane_12','Horse_Link_Mane_01L'],
-		HorseListRein:['None','GameRomHorseReins_00','GameRomHorseReins_01','GameRomHorseReins_02','GameRomHorseReins_03','GameRomHorseReins_04','GameRomHorseReins_05','GameRomHorseReins_06','GameRomHorseReins_00L','GameRomHorseReins_00S'],
-		HorseListSaddle:['None','GameRomHorseSaddle_00','GameRomHorseSaddle_01','GameRomHorseSaddle_02','GameRomHorseSaddle_03','GameRomHorseSaddle_04','GameRomHorseSaddle_05','GameRomHorseSaddle_06','GameRomHorseSaddle_00L','GameRomHorseSaddle_00S','GameRomHorseSaddle_07']
-	};
-
 	var loaded=false;	
 	var hashes=[];
 	var allHashes=[];
 	var filteredHashes;
 
+	var currentMini;
+
 	var _parseHashFile=function(responseText){
+		var enumValues=[];
 		var lines=responseText.split('\n');
 
 		for(var i=0; i<lines.length; i++){
-			if(lines[i]){
+			if(/^EnumValues;/.test(lines[i])){
+				var data=lines[i].split(';');
+				var matches=data[1].split(',');
+				var options=data[2].split(',').map(function(value){
+					return {value:hash(value), name:value};
+				});
+				for(var j=0; j<matches.length; j++){
+					enumValues.push({
+						regex:new RegExp('^'+matches[j].replace(/\./g, '\\.').replace(/\*/g, '.+?')+'$'),
+						options:options
+					});
+				}
+			}else if(/^[0-9a-f]{8};/.test(lines[i])){
 				var data=lines[i].split(';');
 				var hashInt=parseInt(data[0], 16);
 				var options=null;
 				if(data[1]==='Enum' || data[1]==='EnumArray'){
-					if(data[3]){
-						options=data[3].split(',').map(buildEnumOptions);
-					}else if(/^KeyCrystalDungeonState\.Dungeon/.test(data[2])){
-						options=COMMON_ENUMS.ShrineCrystalStatus;
-					}else if(/^DungeonState\.Dungeon/.test(data[2])){
-						options=COMMON_ENUMS.ShrineStatus;
-					}else if(/^ArrivalPointState\.CheckPoint/.test(data[2])){
-						options=COMMON_ENUMS.LightrootStatus;
-					}else if(/^KorokCarryProgress\./.test(data[2])){
-						options=COMMON_ENUMS.KorokCarry;
-					}else if(/^PictureBookData\.(.*?)\.State/.test(data[2])){
-						options=COMMON_ENUMS.CompendiumPhotos;
-					}else if(/HorseList\.Body\.EyeColor/.test(data[2])){
-						options=COMMON_ENUMS.HorseListBodyEyeColor;
-					}else if(/HorseList\.Body\.Pattern/.test(data[2])){
-						options=COMMON_ENUMS.HorseListBodyPattern;
-					}else if(/HorseList\.Mane/.test(data[2])){
-						options=COMMON_ENUMS.HorseListMane;
-					}else if(/HorseList\.Rein/.test(data[2])){
-						options=COMMON_ENUMS.HorseListRein;
-					}else if(/HorseList\.Saddle/.test(data[2])){
-						options=COMMON_ENUMS.HorseListSaddle;
+					for(var j=0; j<enumValues.length; j++){
+						if(enumValues[j].regex.test(data[2])){
+							options=enumValues[j].options;
+							break;
+						}
 					}
 				}
-				
+
 				if(data[2]==='Unknown')
 					data[2]+=' <span class="mono">'+data[0]+'</span>';
+
 				hashes.push({
 					hash:hashInt,
 					hashHex:data[0],
+					hashText:data[2],
 					type:data[1],
-					id:data[2],
 					enumValues:options
 				});
 				allHashes.push(hashInt);
 			}
 		}
 	};
+
 
 	var _setBoolean=function(){
 		tempFile.writeU32(this.offset, this.checked? 1: 0);
@@ -110,18 +93,18 @@ var TOTKMasterEditor=(function(){
 		tempFile.writeF32(this.offset, val? -val : 0); //just in case, avoid storing -0
 	}
 
-	var _createHashInputRow=function(container, hash, arrayIndex){
+	var _createHashInputRow=function(container, hashInfo, arrayIndex){
 		var tr=document.createElement('tr');
 		tr.appendChild(document.createElement('td'));
 		tr.appendChild(document.createElement('td'));
 
-		var offset=hash.offset;
+		var offset=hashInfo.offset;
 		if(!offset)
 			return;
 
-		var hashType=hash.type;
+		var hashType=hashInfo.type;
 		if(/String|Vector|Array/.test(hashType)){
-			offset=tempFile.readU32(hash.offset);
+			offset=tempFile.readU32(hashInfo.offset);
 			
 			if(/Array$/.test(hashType)){
 				if(typeof arrayIndex==='number'){
@@ -142,16 +125,18 @@ var TOTKMasterEditor=(function(){
 				}else{
 					var len=tempFile.readU32(offset);
 					for(var i=0; i<len; i++){
-						_createHashInputRow(container, hash, i);
+						_createHashInputRow(container, hashInfo, i);
 					}
 					return;
 				}
 			}
 		}
 
-		var fieldId=hash.hashHex+(typeof arrayIndex==='number'? '_'+arrayIndex:'');
+		var fieldId=hashInfo.hashHex+(typeof arrayIndex==='number'? '_'+arrayIndex:'');
+		var hashLabel=hashInfo.label || hashInfo.hashText;
 
-		tr.children[0].appendChild(label(fieldId, hash.id+(typeof arrayIndex==='number'? ' ['+arrayIndex+']':'')));
+		tr.children[0].appendChild(label(fieldId, hashLabel+(typeof arrayIndex==='number'? ' ['+arrayIndex+']':'')));
+		tr.children[0].title='Hash: '+hashInfo.hashHex+' - Offset: '+SavegameEditor._toHexInt(hashInfo.offset);
 		tr.children[1].className='text-right';
 
 
@@ -178,12 +163,12 @@ var TOTKMasterEditor=(function(){
 				field.className='text-right';
 				field.offset=offset;
 				field.arrayIndex=arrayIndex;
-				field.addEventListener('change', _setS32);
+				field.addEventListener('change',_setS32);
 			}
 
 			tr.children[1].appendChild(field);
-		}else if(hashType==='Enum' && hash.enumValues){
-			var field=select(fieldId, hash.enumValues, null, tempFile.readU32(offset));
+		}else if(hashType==='Enum' && hashInfo.enumValues){
+			var field=select(fieldId, hashInfo.enumValues, null, tempFile.readU32(offset));
 			field.offset=offset;
 			field.arrayIndex=arrayIndex;
 			field.addEventListener('change', _setU32);
@@ -289,7 +274,7 @@ var TOTKMasterEditor=(function(){
 				hashes[i].offset=offsets[hashes[i].hash];
 
 				/*if(hashes[i].offset){
-					debugText+=hashes[i].hashHex+';'+hashes[i].type+';'+hashes[i].id;
+					debugText+=hashes[i].hashHex+';'+hashes[i].type+';'+hashes[i].hashText;
 					if(hashes[i].enumValues)
 						debugText+=';'+hashes[i].enumValues.map(function(a){return a.name}).join(',');
 					debugText+='\n<br/>';
@@ -310,15 +295,20 @@ var TOTKMasterEditor=(function(){
 					.then(res => res.text()) // Gets the response and returns it as a blob
 					.then(responseText => {
 						loaded=true;
-						for(var field in COMMON_ENUMS){
-							COMMON_ENUMS[field]=COMMON_ENUMS[field].map(buildEnumOptions);
-						}
 						
 						_parseHashFile(responseText);
 						TOTKMasterEditor.findOffsets();
 
 						document.getElementById('master-editor-loading').style.display='none';
 						document.getElementById('master-editor-hidden').style.display='block';
+
+						get('input-custom-filter').addEventListener('change', function(){
+							this.value=this.value.replace(/[^A-Za-z0-9_\.\*]/g,'').trim();
+							TOTKMasterEditor.refreshResults();
+						});
+						
+						
+						
 						TOTKMasterEditor.focus();
 					})
 					.catch(function(){
@@ -334,7 +324,7 @@ var TOTKMasterEditor=(function(){
 
 			if(regexFilter){
 				filteredHashes=hashes.filter(function(a){
-					return regexFilter.test(a.id);
+					return regexFilter.test(a.hashText);
 				});
 			}else{
 				filteredHashes=hashes;
@@ -362,12 +352,13 @@ var TOTKMasterEditor=(function(){
 				var paginatedHashes=filteredHashes.slice(this.currentPage*HASHES_PER_PAGE, HASHES_PER_PAGE+this.currentPage*HASHES_PER_PAGE);
 				empty('table');
 				var container=document.createElement('tbody');
-				for(var i=0; i<paginatedHashes.length; i++){
-					var hash=paginatedHashes[i];
 
-					_createHashInputRow(container, hash, null);
+				for(var i=0; i<paginatedHashes.length; i++){
+					var hashInfo=paginatedHashes[i];
+
+					_createHashInputRow(container, hashInfo, null);
 				}
-				get('table').appendChild(container);
+				window.requestAnimationFrame(function(){get('table').appendChild(container)});;
 			}			
 		},
 		prevPage:function(){this.setPage(this.currentPage-1);},
@@ -376,10 +367,107 @@ var TOTKMasterEditor=(function(){
 		refreshResults:function(){
 			var customFilter=getValue('custom-filter').trim();
 			if(customFilter){
-				this.filterHashes(new RegExp(customFilter, 'i'));
+				var regexes=[];
+				customFilter.split(' OR ').forEach(function(f){
+					regexes.push(f.replace(/\./g, '\\.').replace(/\*/g, '.+?'));
+				});
+				this.filterHashes(new RegExp(regexes.join('|'), 'i'));
 			}else{
 				this.filterHashes(null);
 			}
+		},
+
+
+
+
+
+
+
+		mini:function(struct, buttons, modalTitle, onSave){
+			currentMini={
+				struct:struct,
+				onSave:onSave,
+			};
+
+			var container=$('#modal-hash-editor-body').empty();
+			struct.buildHtmlInputRows().forEach(function(row){
+				container.append(row);
+			});
+
+			$('#modal-hash-editor-footer-right').empty();
+
+			$('#modal-hash-editor-footer-right')
+				.append(
+					$('<button></button>')
+						.addClass('btn')
+						.html(Locale._('Cancel'))
+						.on('click', function(){
+							$(this).parent().parent().parent().get(0).close();
+						})
+				)
+			if(buttons){
+				if(!buttons.length)
+					buttons=[buttons];
+
+				for(var i=0; i<buttons.length; i++){
+					$('#modal-hash-editor-footer-right')
+						.append(
+							$('<button></button>')
+								.addClass('btn')
+								.html(Locale._(buttons[i].label))
+								.on('click', buttons[i].action)
+						);
+				}
+			}
+			$('#modal-hash-editor-footer-right')
+				.append(
+					$('<button></button>')
+						.html(Locale._('Save'))
+						.addClass('btn btn-primary')
+						.on('click', function(){
+							currentMini.struct.saveAll();
+							if(currentMini.onSave)
+								currentMini.onSave.call();
+							$(this).parent().parent().parent().get(0).close();
+						})
+				);
+
+			$('#modal-hash-editor-header').html(modalTitle)
+			UI.modal('hash-editor');
+		},
+		miniResetAll:function(){
+			var nChanges=0;
+			currentMini.struct.variables.forEach(function(variable){
+				if(variable._structId)
+					return false;
+				if(variable.value!==0){
+					variable.value=0;
+					variable.updateHtmlInputValue();
+					nChanges++;
+				}
+			});
+			return nChanges;
+		},
+		miniSetAllToOneAtLeast:function(){
+			var nChanges=0;
+			currentMini.struct.variables.forEach(function(variable){
+				if(variable._structId)
+					return false;
+				if(variable.value===0){
+					variable.value=1;
+					variable.updateHtmlInputValue();
+					nChanges++;
+				}
+			});
+			return nChanges;
+		},
+		miniExport:function(){
+			var myJson=currentMini.struct.export();
+			var blob = new Blob([JSON.stringify(myJson, null, '\t')], {type: 'application/json;charset=utf-8'});
+			saveAs(blob, 'totk_'+currentMini.struct._structId+'.json');
+		},
+		miniImport:function(importedObject){
+			return currentMini.struct.import(importedObject);
 		}
 	}
 }());
