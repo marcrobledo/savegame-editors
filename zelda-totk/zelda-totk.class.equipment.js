@@ -242,7 +242,7 @@ Equipment.DEFAULT_DURABILITY={
 	Weapon_Sword_166:15,
 	Weapon_Sword_167:4,
 	Weapon_Sword_168:12,
-	Weapon_Sword_077:30,
+	Weapon_Sword_077:40,
 	Weapon_Sword_070_Broken:6,
 	Npc_Zelda_Torch:8,
 
