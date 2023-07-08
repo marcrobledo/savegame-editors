@@ -9,7 +9,7 @@ function Armor(itemData, overrideId){
 	this.category='armors';
 
 	this.id=overrideId || itemData.id;
-	this.dyeColor=Variable.enumToInt(itemData.dyeColor);
+	this.dyeColor=this.canBeDyed()? Variable.enumToInt(itemData.dyeColor) : hash('None');
 }
 Armor.prototype.getBaseId=function(){
 	return Armor.INFO[this.id].base;
@@ -116,10 +116,6 @@ Armor.AVAILABILITY=[
 	'Armor_020_Head','Armor_095_Head','Armor_096_Head','Armor_097_Head','Armor_098_Head', //Soldier's Helm
 	'Armor_020_Upper','Armor_095_Upper','Armor_096_Upper','Armor_097_Upper','Armor_098_Upper', //Soldier's Armor
 	'Armor_020_Lower','Armor_095_Lower','Armor_096_Lower','Armor_097_Lower','Armor_098_Lower', //Soldier's Greaves
-
-	'Armor_021_Head','Armor_099_Head','Armor_100_Head','Armor_101_Head','Armor_102_Head', //Ancient Helm
-	'Armor_021_Upper','Armor_099_Upper','Armor_100_Upper','Armor_101_Upper','Armor_102_Upper', //Ancient Cuirass
-	'Armor_021_Lower','Armor_099_Lower','Armor_100_Lower','Armor_101_Lower','Armor_102_Lower', //Ancient Greaves
 
 	'Armor_024_Head','Armor_117_Head','Armor_118_Head','Armor_119_Head','Armor_120_Head', //Diamond Circlet
 	'Armor_025_Head','Armor_121_Head','Armor_122_Head','Armor_123_Head','Armor_124_Head', //Ruby Circlet
