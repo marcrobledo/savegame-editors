@@ -21,7 +21,7 @@ SavegameEditor={
 	Constants:{
 		GAME_VERSIONS:[
 			{version:'v1.0', fileSize:2307552, header:0x0046c3c8, metaDataStart:0x0003c050},
-			{version:'v1.1.x', fileSize:2307656, header:0x0047e0f4, metaDataStart:0x0003c088}
+			{version:'v1.1.x/v1.2.0', fileSize:2307656, header:0x0047e0f4, metaDataStart:0x0003c088}
 		]
 	},
 
