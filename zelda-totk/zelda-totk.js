@@ -1,20 +1,20 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor v20230616
+	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-07-08)
 
 	by Marc Robledo 2023
 */
+
 var currentEditingItem;
 
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
 	Filename:['progress.sav','caption.sav'],
-	Version:20230608,
+	Version:20230708,
 	noDemo:true,
 
 	/* Settings */
 	Settings:{
-		lang:'en',
-		removeWarning:true
+		lang:'en'
 	},
 
 	/* Constants */
@@ -22,9 +22,7 @@ SavegameEditor={
 		GAME_VERSIONS:[
 			{version:'v1.0', fileSize:2307552, header:0x0046c3c8, metaDataStart:0x0003c050},
 			{version:'v1.1.x', fileSize:2307656, header:0x0047e0f4, metaDataStart:0x0003c088}
-		],
-
-		BLANK_ICON_PATH:'./assets/_blank.png'
+		]
 	},
 
 	/* Hashes */
@@ -38,83 +36,20 @@ SavegameEditor={
 		0xafd01d68, 'PlayerStatus.MaxEnergy', false,
 
 		0xc884818d, 'PlayerStatus.SavePos', true, //Vector3F
+		0x1d6189da, 'Sequence_CurrentBanc', true, //String64
 		0xd7a3f6ba, 'Pouch.Weapon.ValidNum', true,
 		0xc61785c2, 'Pouch.Bow.ValidNum', true,
 		0x05271e7d, 'Pouch.Shield.ValidNum', true,
-
-		0x65efd0be, 'Pouch.Weapon.Content.Name', true,
-		0x8b12d062, 'Pouch.Weapon.Content.Life', true, //durability
-		0xdd846288, 'Pouch.Weapon.Content.Effect.Type', true, //modifier
-		0xfda1d214, 'Pouch.Weapon.Content.Effect.Value', true, //modifier value
-		0x80707cad, 'Pouch.Weapon.Content.Combined.Name', true, //fuse id
-		//0x6796852b, 'Pouch.Weapon.Content.Combined.Life', true, //fuse durability
-		//0x12ffda6b, 'Pouch.Weapon.Content.ExtraLife', true,
-		//0xbf321621, 'Pouch.Weapon.Content.RecordExtraLife', true,
-		0x791c4a0b, 'Pouch.Bow.Content.Name', true,
-		0x60589200, 'Pouch.Bow.Content.Life', true,
-		0xd59aeed5, 'Pouch.Bow.Content.Effect.Type', true,
-		0xdfd216f2, 'Pouch.Bow.Content.Effect.Value', true,
-		0x273190f4, 'Pouch.Shield.Content.Name', true,
-		0xc3416d19, 'Pouch.Shield.Content.Life', true,
-		0x464b410c, 'Pouch.Shield.Content.Effect.Type', true,
-		0xa6a38304, 'Pouch.Shield.Content.Effect.Value', true,
-		0xc95833d9, 'Pouch.Shield.Content.Combined.Name', true,
-		//0x7a20968b, 'Pouch.Shield.Content.Combined.Life', true, //fuse durability
-		//0x0c1dafcb, 'Pouch.Shield.Content.ExtraLife', true,
-		0x754e8549, 'Pouch.Armor.Content.Name', true,
-		0x183e2a32, 'Pouch.Armor.Content.ColorVariation', true,
-		0x24dd3262, 'Pouch.Arrow.Content.Name', true,
-		0x53b27d94, 'Pouch.Arrow.Content.StockNum', true,
-		0xd96ebf12, 'Pouch.Material.Content.Name', true,
-		0xde2d8500, 'Pouch.Material.Content.StockNum', true,
-		//0xb532a540, 'Pouch.Material.Content.GetOrder', true,
-		//0xe50dcb79, 'Pouch.Material.Content.UseOrder', true,
-		0x7c0f89ad, 'Pouch.Food.Content.Name', true,
-		0x2a952a60, 'Pouch.Food.Content.StockNum', true,
-		0x9d3b5847, 'Pouch.Food.Content.LifeRecover', true,
-		0x6f743e98, 'Pouch.Food.Content.Effect.Type', true,
-		0x904a7213, 'Pouch.Food.Content.Effect.Level', true,
-		0xf097cefa, 'Pouch.Food.Content.Effect.Time', true, // in seconds
-		0x2e470848, 'Pouch.Food.Content.Price', true,
-		//0x919ad411, 'Pouch.Food.Content.MaterialName', true,
-		0xa86f2f10, 'Pouch.SpecialParts.Content.Name', true,
-		0x60d16ab0, 'Pouch.SpecialParts.Content.StockNum', true,
-		0x3bdba89c, 'Pouch.SpecialParts.Content.UseOrder', true,
-		0x22c6530a, 'Pouch.KeyItem.Content.Name', true,
-		0x60fac288, 'Pouch.KeyItem.Content.StockNum', true,
-
-		0x7bde80e9, 'OwnedHorseList.ActorName', true,
-		0xd2ddb868, 'OwnedHorseList.Name', true,
-		0x54049354, 'OwnedHorseList.Mane', true,
-		0x1daf6cb4, 'OwnedHorseList.Saddle', true,
-		0xfee5cd77, 'OwnedHorseList.Rein', true,
-		0xdcd9f005, 'OwnedHorseList.Familiarity', true, //bond
-		0xcea848b6, 'OwnedHorseList.HorseType', true,
-		0xafe462c3, 'OwnedHorseList.Toughness', true, //stats strength (life)
-		0xc0775abf, 'OwnedHorseList.Speed', true,
-		0xc8454f7c, 'OwnedHorseList.ChargeNum', true, //stats stamina
-		0x10d564d7, 'OwnedHorseList.HorsePower', true, //stats pull
-		0xfbf44df2, 'OwnedHorseList.Body.Pattern', true,
-		0x48bfcf08, 'OwnedHorseList.Body.EyeColor', true,
-		//0xf4505b59, 'OwnedHorseList.ColorType', true,
-		//0xbf41c181, 'OwnedHorseList.FootType', true,
-		//0xaabf3198, 'OwnedHorseList.UidHash', true,
-		//0x5dd10d95, 'OwnedHorseList.Body.NoseColor.Blue', true, //icon only
-		//0xfec02192, 'OwnedHorseList.Body.NoseColor.Green', true, //icon only
-		//0x9e10d432, 'OwnedHorseList.Body.NoseColor.Red', true, //icon only
-
-		0xa0e854ea, 'LastWildHorse.ActorName', true,
-
 
 		0x14d7f4c4, 'MapData.IconData.StampData.Type', true,
 		0xf24fc2e7, 'MapData.IconData.StampData.Pos', true,
 		0xd2025694, 'MapData.IconData.StampData.Layer', true,
 
-		0xd27f8651, 'AutoBuilder.Draft.Content.Index', true, //S32, length=30
-		0xa56722b6, 'AutoBuilder.Draft.Content.CombinedActorInfo', true, //binary data (size=6688), length=0?
-		0xc5bf2815, 'AutoBuilder.Draft.Content.CameraPos', true, //Vector3F, length=30
-		0xef74dca7, 'AutoBuilder.Draft.Content.CameraAt', true, //Vector3F, length=30
-		0x67f4b46b, 'AutoBuilder.Draft.Content.IsFavorite', true //S32?, length=30
+		0xd27f8651, 'AutoBuilder.Draft.Content.Index', true, //S32, array length=30
+		0xa56722b6, 'AutoBuilder.Draft.Content.CombinedActorInfo', true, //binary data (size=6688)
+		0xc5bf2815, 'AutoBuilder.Draft.Content.CameraPos', true, //Vector3F
+		0xef74dca7, 'AutoBuilder.Draft.Content.CameraAt', true, //Vector3F
+		0x67f4b46b, 'AutoBuilder.Draft.Content.IsFavorite', true //S32
 	],
 
 
@@ -208,7 +143,7 @@ SavegameEditor={
 	readStringUTF8Array:function(hashKey, arrayIndex){
 		return this._readArray(hashKey, arrayIndex, this.readStringUTF8);
 	},
-	readDynamicDataArray:function(hashKey, arrayIndex){
+	readBinaryArray:function(hashKey, arrayIndex){
 		var allData=[];
 		var offset=this.Offsets[hashKey];
 		var max=tempFile.readU32(offset);
@@ -289,7 +224,7 @@ SavegameEditor={
 			tempFile.writeF32(this.Offsets[hashKey] + 0x08, vector.z);
 		}
 	},
-	writeDynamicData:function(hashKey, arrayIndex, data){
+	writeBinary:function(hashKey, arrayIndex, data){
 		var offset=this.Offsets[hashKey];
 		var max=tempFile.readU32(offset);
 		offset+=4;
@@ -312,9 +247,6 @@ SavegameEditor={
 			var loadedSettings=JSON.parse(localStorage.getItem('zelda-totk-sge-settings'));
 			if(typeof loadedSettings.lang==='string'){
 				this.Settings.lang=loadedSettings.lang.toLowerCase().trim();
-			}
-			if(typeof loadedSettings.removeWarning==='boolean'){
-				this.Settings.removeWarning=loadedSettings.removeWarning;
 			}
 		}
 	},
@@ -378,7 +310,7 @@ SavegameEditor={
 		for(var i=0; i<structInfo.length; i++){
 			if(typeof structInfo[i].hash==='string'){
 				structInfo[i].hashText=structInfo[i].hash;
-				structInfo[i].hash=murmurHash3.x86.hash32(structInfo[i].hash);
+				structInfo[i].hash=hash(structInfo[i].hash);
 			}
 
 			if(!this.Offsets[structInfo[i].hash])
@@ -415,158 +347,40 @@ SavegameEditor={
 		return ret;
 	},
 
-	_createItemRow:function(item){
-		var img=new Image();
-		img.id='icon-'+item.category+'-'+item.index;
-		img.loading='lazy';
-		img.onerror=function(){
-			this.removeEventListener('error', this.onerror);
-			//console.error('icon '+this.src+' not found');
-			img.src=SavegameEditor.Constants.BLANK_ICON_PATH;
+	_removeItem:function(catId, itemToRemove){
+		var pouch=this.pouches[catId];
+		var removedItem=pouch.remove(itemToRemove);
+		if(removedItem){
+			document.getElementById('container-'+catId).removeChild(removedItem._htmlRow);
+			
+			if(catId==='arrows')
+				SavegameEditor.refreshAddArrowsButton();
 		}
-		if(item.category==='armors')
-			img.src='./assets/icons/'+item.category+'/'+Armor.ICONS[item.id]+'.png';
-		else
-			img.src='./assets/icons/'+item.category+'/'+item.id+'.png';
-
-		var itemNumber=document.createElement('span');
-		itemNumber.className='item-number';
-		itemNumber.innerHTML='#'+item.index;
-
-		var spanItemId=document.createElement('span');
-		spanItemId.className='item-name clickable';
-		spanItemId.id='item-name-'+item.category+'-'+item.index;
-		spanItemId.innerHTML=item.getItemTranslation();
-		if(item.getItemTranslation()===item.id){
-			spanItemId.style.color='red';
-		}
-		spanItemId.addEventListener('click', function(){
-			SavegameEditor.editItem(item);
-		}, false);
-
-
-		var lastColumn=document.createElement('div');
-		if(item.category==='weapons' || item.category==='bows' || item.category==='shields'){
-			lastColumn.appendChild(item._htmlInputDurability);
-			lastColumn.appendChild(item._htmlSelectModifier);
-			lastColumn.appendChild(item._htmlInputModifierValue);
-			if(item.isFusable()){
-				lastColumn.appendChild(item._htmlSelectFusion);
-			}
-		}else if(item.quantity!==0xffffffff && (item.category==='arrows' || item.category==='materials' || item.category==='food' || item.category==='devices' || item.category==='key')){
-			lastColumn.appendChild(item._htmlInputQuantity);
-			if(item.category==='food'){
-				lastColumn.appendChild(item._htmlSelectFoodEffect);
-				lastColumn.appendChild(item._htmlInputFoodEffectHearts);
-				lastColumn.appendChild(item._htmlInputFoodEffectMultiplier);
-				lastColumn.appendChild(item._htmlInputFoodEffectTime);
-				lastColumn.appendChild(item._htmlInputFoodPrice);
-			}
-		}else if(item.category==='armors'){
-			lastColumn.appendChild(item._htmlSpanColor);
-			lastColumn.appendChild(item._htmlSelectDyeColor);
-		}else if(item.category==='horses'){
-			lastColumn.appendChild(item._htmlInputName);
-			lastColumn.appendChild(item._htmlSelectMane);
-			lastColumn.appendChild(item._htmlSelectSaddles);
-			lastColumn.appendChild(item._htmlSelectReins);
-			lastColumn.appendChild(item._htmlInputBond);
-			lastColumn.appendChild(item._htmlInputStatsStrength);
-			lastColumn.appendChild(item._htmlSelectStatsSpeed);
-			lastColumn.appendChild(item._htmlSelectStatsStamina);
-			lastColumn.appendChild(item._htmlSelectStatsPull);
-			lastColumn.appendChild(item._htmlSelectIconPattern);
-			lastColumn.appendChild(item._htmlSelectIconEyeColor);
-		}
-		
-		if(item.removable){
-			item._htmlDeleteButton=document.createElement('button');
-			item._htmlDeleteButton.className='button colored red with-icon icon3 floating';
-			item._htmlDeleteButton.addEventListener('click', function(){
-				if(SavegameEditor.Settings.removeWarning){
-					MarcDialogs.confirm('Are you sure you want to delete <strong>'+item.getItemTranslation()+'</strong>?<br/><div style="color:red">Warning: use this feature at your own risk</div>', function(){
-						MarcDialogs.close();
-						SavegameEditor._removeItem(item.category, item.index);
-					});
-				}else{
-					SavegameEditor._removeItem(item.category, item.index);
-				}
-			});
-			lastColumn.appendChild(item._htmlDeleteButton);
-		}
-
-		var r=row([1,6,3,2],
-			img,
-			spanItemId,
-			document.createElement('div'), /* modifier column */
-			lastColumn
-		);
-		r.className+=' row-items';
-		r.id='row-item-'+item.category+'-'+item.index;
-		r.children[1].appendChild(itemNumber);
-		
-		return r;
-	},
-
-	_removeItem:function(catId, index){
-		var items=this.currentItems[catId];
-		if(typeof index==='object')
-			index=items.indexOf(index);
-
-		items.splice(index, 1);
-		document.getElementById('container-'+catId).removeChild(document.getElementById('container-'+catId).children[index]);
-
-		for(var i=index; i<items.length; i++){
-			items[i].index--;
-			document.getElementById('container-'+catId).children[i].querySelector('.item-number').innerHTML='#'+items[i].index;
-		}
-
-		var fakeItem;
-		if(catId==='weapons' || catId==='bows' || catId==='shields'){
-			fakeItem=new Equipment(catId, items.length, '', 0xffffffff, Equipment.MODIFIER_NO_BONUS, 0xffffffff);
-		}else if(catId==='armors'){
-			fakeItem=new Armor(items.length, '', Armor.DYE_NONE);
-		}else if(catId==='materials' || catId==='food' || catId==='devices' || catId==='key'){
-			fakeItem=new Item(catId, items.length, '', 0xffffffff)
-		}
-		fakeItem.save();
-	},
-
-	_findItem:function(catId, itemId){
-		var items=this.currentItems[catId];
-		for(var i=0; i<items.length; i++){
-			if(items[i].id===itemId)
-				return items[i];
-		}
-		return false;
 	},
 
 	addItem:function(catId, itemId, quantity){
-		var categoryHash=getInternalCategoryId(catId);
-		var maxItems=SavegameEditor.readU32('Pouch.'+categoryHash+'.Content.Name');
-
-		var lastItem=this.getLastItem(catId);
-
-		if(lastItem && lastItem.index===(maxItems -1)){
-			console.warn('not enough space in '+catId);
-			return false;
-		}
+		var pouch=this.pouches[catId];
 
 
 		if(typeof itemId==='string'){
 			quantity=typeof quantity==='number' && quantity>0? quantity : 1;
-			var foundItem=SavegameEditor._findItem(catId,itemId);
+			var foundItem=pouch.findItemById(itemId);
 			if(foundItem){
 				foundItem.quantity+=quantity;
-				foundItem._htmlInputQuantity.value=foundItem.quantity;
-			}else{
-				var newItem=new Item(catId, SavegameEditor.currentItems[catId].length, itemId, quantity);
-				newItem.removable=true;
-				SavegameEditor.currentItems[catId].push(newItem);
-				document.getElementById('container-'+catId).appendChild(SavegameEditor._createItemRow(newItem));
+				Pouch.updateItemRow(foundItem);
+			}else if(!pouch.isFull()){
+				var newItem=pouch.add({id:itemId, quantity:quantity});
+				document.getElementById('container-'+catId).appendChild(Pouch.updateItemRow(newItem));
 			}
 			return quantity;
 		}
+
+		if(pouch.isFull()){
+			console.warn('not enough space in '+catId);
+			return false;
+		}
+
+		var lastItem=pouch.getLast();
 
 		var itemListArray=this.getAvailableItems(catId);
 
@@ -575,46 +389,65 @@ SavegameEditor={
 			var nextIndexId=itemListArray.indexOf(lastItem.id)+1;
 			if(nextIndexId===itemListArray.length)
 				nextIndexId=0;
+
 			newId=itemListArray[nextIndexId];
+
+			if(catId==='armors')
+				while(Armor.INFO[newId].base !== newId){
+					newId=itemListArray[nextIndexId++];
+				}
 		}else{
 			newId=itemListArray[0];
 		}
 
-		var newItem, maxItems;
-		if(catId==='weapons' || catId==='bows' || catId==='shields'){
-			newItem=lastItem? lastItem.copy(lastItem.index+1, newId) : new Equipment(catId, 0, newId);
-			if(lastItem)
-				newItem.restoreDurability();
-		}else if(catId==='armors'){
-			newItem=lastItem? lastItem.copy(lastItem.index+1, newId) : new Armor(0, newId);
-		}else if(catId==='arrows' || catId==='materials' || catId==='food' || catId==='devices' || catId==='key'){
-			newItem=lastItem? lastItem.copy(lastItem.index+1, newId) : new Item(catId, 0, newId);
+		var newItem;
+		if(lastItem){
+			var newItemData=lastItem.export();
+			newItemData.id=newId;
+			newItem=pouch.add(newItemData);
+		}else{
+			newItem=pouch.add({id:newId});
 		}
-		newItem.removable=true;
 
-	
 
-		this.currentItems[catId].push(newItem);
-		var row=this._createItemRow(newItem);
+		var row=Pouch.updateItemRow(newItem);
 		document.getElementById('container-'+newItem.category).appendChild(row);
-		row.scrollIntoView({behavior:'smooth',block:'center'});
+		Pouch.scrollToItem(newItem);
 
-		if(catId==='arrows')
+		if(catId==='arrows'){
+			var equipIndex=new Variable('Pouch.Arrow.EquipIndex', 'IntArray');
+			if(equipIndex.value[0]===-1){
+				equipIndex.value[0]=0;
+				equipIndex.save();
+				UI.toast('Fixed arrows equip index');
+			}
 			this.refreshAddArrowsButton();
+		}
+
+		SavegameEditor.fixItemAvailabilityFlag(newItem);
+
 		return true;
 	},
 
 
-	getLastItem:function(catId){
-		var lastIndex=-1;
-		for(var i=0; i<SavegameEditor.currentItems[catId].length; i++){
-			if(SavegameEditor.currentItems[catId][i].index > lastIndex)
-				lastIndex=SavegameEditor.currentItems[catId][i].index;
+	fixItemAvailabilityFlag:function(item){
+		if(item.category==='key'){
+			var fixed=false;
+
+			var variable;
+			if(/^Obj_SubstituteCloth_/.test(item.id)){
+				variable=new Variable('OwnedParasailPattern.'+item.id.replace('Obj_SubstituteCloth_','Pattern').replace('PatternDefault','Default'), 'Bool');
+			}else if(/^GameRomHorseReins_/.test(item.id)){
+				variable=new Variable('OwnedCustomizableHorseTack_Reins.'+item.id, 'Bool');
+			}else if(/^GameRomHorseSaddle_/.test(item.id)){
+				variable=new Variable('OwnedCustomizableHorseTack_Saddle.'+item.id, 'Bool');
+			}
+			if(variable && !variable.value){
+				variable.value=true;
+				variable.save();
+				UI.toast(_('Fixed necessary usability flags for %s').replace('%s', '<strong>'+_(item.getItemTranslation())+'</strong>'), 'flags-fixed');
+			}
 		}
-		if((lastIndex+1)===SavegameEditor.currentItems[catId].length)
-			return SavegameEditor.currentItems[catId][lastIndex];
-		console.error('invalid '+catId+' index');
-		return null;
 	},
 
 	getAvailableItems:function(catId){
@@ -639,7 +472,7 @@ SavegameEditor={
 			for(var i=0; i<itemList.length; i++){
 				var opt=document.createElement('option');
 				opt.value=itemList[i];
-				opt.innerHTML=Locale._(itemList[i]);
+				opt.innerHTML=_(itemList[i]);
 				this.selectItem.appendChild(opt);
 			}
 
@@ -654,46 +487,110 @@ SavegameEditor={
 			this.selectItem.value=item.id;
 		}
 
-		document.getElementById('item-name-'+item.category+'-'+item.index).innerHTML='';
-		document.getElementById('item-name-'+item.category+'-'+item.index).parentElement.appendChild(this.selectItem);
+		item._htmlItemId.style.display='none';
+		item._htmlRow.children[0].appendChild(this.selectItem);
 		this.selectItem.focus();
 		this.selectItem.click();
+
+		item.lastInputChanged='id';
+		for(var prop in item._htmlInputs){
+			item._htmlInputs[prop].disabled=true;
+		}
 	},
-	editItem2:function(item, newId){
-		item.id=newId;
-		if(typeof item.fixValues==='function'){
-			item.fixValues();
+
+	restoreDurability:function(equipment){
+		if(equipment.restoreDurability()){
+			Pouch.updateItemRow(equipment);
+			return true;
 		}
 
-		var oldRow=document.getElementById('row-item-'+item.category+'-'+item.index);
-		var newRow=this._createItemRow(item);
-		oldRow.parentElement.replaceChild(newRow, oldRow);
+		return false;
 	},
-
-	restoreDurability:function(catId){
-		this.currentItems[catId].forEach(function(equipment, i){
-			equipment.restoreDurability();
+	restoreDurabilityAll:function(catId){
+		var nChanges=0;
+		this.pouches[catId].items.forEach(function(equipment, i){
+			if(SavegameEditor.restoreDurability(equipment))
+				nChanges++;
 		});
+
+		UI.toast(_('%s '+catId+' were restored').replace('%s', nChanges), 'restore-durability');
+		return nChanges;
+	},
+	restoreDecay:function(equipment){
+		if(equipment.restoreDecay()){
+			Pouch.updateItemIcon(equipment);
+			return true;
+		}
+
+		return false;
+	},
+	restoreDecayAll:function(){
+		var nChanges=0;
+		this.pouches.weapons.items.forEach(function(equipment, i){
+			if(SavegameEditor.restoreDecay(equipment))
+				nChanges++;
+		});
+
+		UI.toast(_('%s weapons were switched to pristine').replace('%s', nChanges), 'restore-decay');
+		return nChanges;
+	},
+	setInfiniteDurability:function(equipment){
+		if(equipment.setInfiniteDurability()){
+			Pouch.updateItemRow(equipment);
+			return true;
+		}
+
+		Pouch.updateItemRow(equipment);
+		return false;
+	},
+	setInfiniteDurabilityAll:function(catId){
+		var nChanges=0;
+		this.pouches[catId].items.forEach(function(equipment, i){
+			if(SavegameEditor.setInfiniteDurability(equipment))
+				nChanges++;
+		});
+
+		UI.toast(_('%s '+catId+' have now infinite durability').replace('%s', nChanges), 'restore-durability');
+		return nChanges;
+	},
+	upgradeArmor:function(armor){
+		if(armor.upgrade()){
+			Pouch.updateItemRow(armor);
+			return true;
+		}
+
+		return false;
+	},
+	upgradeArmorAll:function(){
+		var nChanges=0;
+		this.pouches.armors.items.forEach(function(armor, i){
+			if(SavegameEditor.upgradeArmor(armor))
+				nChanges++;
+		});
+
+		UI.toast(_('%s armors were upgraded').replace('%s', nChanges), 'upgrade-armor');
+		return nChanges;
 	},
 
-	clearAllMapPins:function(){
+	clearAllMapPins:function(onlyIcon){
 		var count=0;
 		for(var i=0; i<this.currentItems.mapPins.length; i++){
-			if(this.currentItems.mapPins[i].clear())
+			if(this.currentItems.mapPins[i].clear(onlyIcon))
 				count++;
 		}
 
 		this.refreshCounterMapPins();
-		MarcDialogs.alert(count+' map pins removed');
+		UI.toast(_('%s map pins removed').replace('%s', count), 'map-pin-removed');
 		return count;
 	},
 	addMapPin:function(icon, x, y, z){
 		for(var i=0; i<this.currentItems.mapPins.length; i++){
 			if(this.currentItems.mapPins[i].isFree() && !MapPin.find(this.currentItems.mapPins, x, y, z)){
 				this.currentItems.mapPins[i].icon=icon;
-				this.currentItems.mapPins[i].coordinates={x:x, y:y};
+				this.currentItems.mapPins[i].coordinates={x:MapPin.formatFloat(x), y:MapPin.formatFloat(y)};
+				//console.log(z);
+				//console.log(hashReverse(MapPin.getMapByZ(z)));
 				this.currentItems.mapPins[i].map=MapPin.getMapByZ(z);
-				//this.refreshCounterMapPins();
 				return true;
 			}
 		}
@@ -701,17 +598,17 @@ SavegameEditor={
 	},
 	addLocationPins:function(flags, coordinates, icon, limit, valueFalse){
 		if(typeof icon==='string')
-			icon=murmurHash3.x86.hash32(icon);
+			icon=hash(icon);
 
 		if(typeof valueFalse==='string')
-			valueFalse=murmurHash3.x86.hash32(valueFalse);
+			valueFalse=hash(valueFalse);
 		else if(typeof valueFalse==='number')
 			valueFalse=valueFalse;
 		else
 			valueFalse=0;
 
 		if(typeof icon==='string')
-			icon=murmurHash3.x86.hash32(icon);
+			icon=hash(icon);
 
 		var count=0;
 		var offsets=this._getOffsetsByHashes(flags);
@@ -723,8 +620,13 @@ SavegameEditor={
 			}
 		}
 
-		this.refreshCounterMapPins();
-		MarcDialogs.alert(count+' map pins added');
+		if(count){
+			this.refreshCounterMapPins();
+			UI.toast(_('%s map pins added').replace('%s', '<strong>'+count+'</strong>'));
+		}else{
+			UI.toast(_('No map pins added'), 'map-pins-none');
+		}
+
 		return count;
 	},
 	addPinsShrines:function(){
@@ -736,17 +638,17 @@ SavegameEditor={
 	addPinsKoroksHidden:function(){
 		return this.addLocationPins(CompletismHashes.KOROKS_HIDDEN, Coordinates.KOROKS_HIDDEN, MapPin.ICON_LEAF, 50);
 	},
-	addPinsBubbuls:function(){
-		return this.addLocationPins(CompletismHashes.BUBBULS_DEFEATED, Coordinates.LOCATION_CAVES, MapPin.ICON_HEART, 50);
-	},
 	addPinsKoroksCarry:function(){
-		return this.addLocationPins(CompletismHashes.KOROKS_CARRY, Coordinates.KOROKS_CARRY, MapPin.ICON_LEAF, 25, 'NotClear');
+		return this.addLocationPins(CompletismHashes.KOROKS_CARRY, Coordinates.KOROKS_CARRY, MapPin.ICON_HUMAN, 25, 'NotClear');
+	},
+	addPinsBubbuls:function(){
+		return this.addLocationPins(CompletismHashes.BUBBULS_DEFEATED, Coordinates.LOCATION_BUBBULS, MapPin.ICON_HEART, 50);
 	},
 	addPinsLocationsCaves:function(){
-		return this.addLocationPins(CompletismHashes.LOCATION_CAVES_VISITED, Coordinates.LOCATION_CAVES, MapPin.ICON_HEART, 50);
+		return this.addLocationPins(CompletismHashes.LOCATION_CAVES_VISITED2, Coordinates.LOCATION_CAVES, MapPin.ICON_DIAMOND, 50);
 	},
 	addPinsLocationsWells:function(){
-		return this.addLocationPins(CompletismHashes.LOCATION_WELLS_VISITED, Coordinates.LOCATION_WELLS, MapPin.ICON_DIAMOND, 25);
+		return this.addLocationPins(CompletismHashes.LOCATION_WELLS_VISITED2, Coordinates.LOCATION_WELLS, MapPin.ICON_DIAMOND, 25);
 	},
 	addPinsBossesHinox:function(){
 		return this.addLocationPins(CompletismHashes.BOSSES_HINOXES_DEFEATED, Coordinates.BOSSES_HINOXES, MapPin.ICON_SKULL, 25);
@@ -765,6 +667,9 @@ SavegameEditor={
 	},
 	addPinsBossesGleeok:function(){
 		return this.addLocationPins(CompletismHashes.BOSSES_GLEEOKS_DEFEATED, Coordinates.BOSSES_GLEEOKS, MapPin.ICON_SKULL, 5);
+	},
+	addPinsOldMaps:function(){
+		return this.addLocationPins(CompletismHashes.TREASURE_MAPS_FOUND, Coordinates.TREASURE_MAPS, MapPin.ICON_CHEST);
 	},
 	addPinsSchematicsStone:function(){
 		return this.addLocationPins(CompletismHashes.SCHEMATICS_STONE_FOUND, Coordinates.SCHEMATICS_STONE, MapPin.ICON_CHEST);
@@ -791,7 +696,7 @@ SavegameEditor={
 		getField(container+'-counter').appendChild(progressBar);
 	},
 	refreshCounterMapPins:function(){
-		this._refreshCounter('pin', MapPin.count(this.currentItems.mapPins), MapPin.MAX);
+		SavegameEditor._refreshCounter('pin', MapPin.count(SavegameEditor.currentItems.mapPins), MapPin.MAX);
 	},
 	refreshCounterShrinesFound:function(){
 		this._refreshCounter('shrines-found', Completism.countShrinesFound(), CompletismHashes.SHRINES_FOUND.length);
@@ -838,6 +743,9 @@ SavegameEditor={
 	refreshCounterBossesGleeok:function(){
 		this._refreshCounter('boss-gleeok', Completism.countBossesGleeok(), CompletismHashes.BOSSES_GLEEOKS_DEFEATED.length);
 	},
+	refreshCounterOldMaps:function(){
+		this._refreshCounter('old-maps', Completism.countOldMaps(), CompletismHashes.TREASURE_MAPS_FOUND.length);
+	},
 	refreshCounterSchematicsStone:function(){
 		this._refreshCounter('schematics-stone', Completism.countSchematicsStone(), CompletismHashes.SCHEMATICS_STONE_FOUND.length);
 	},
@@ -846,6 +754,32 @@ SavegameEditor={
 	},
 	refreshCounterCompendium:function(){
 		this._refreshCounter('compendium', Completism.countCompendium(), CompletismHashes.COMPENDIUM_STATUS.length);
+	},
+	refreshCounterPristineWeapons:function(){
+		this._refreshCounter('pristine-weapons', ExperienceCalculator.countPristineWeapons(), ExperienceCalculator.BROKEN_WEAPON_HASHES.length);
+	},
+	refreshCounterAll:function(){
+		this.refreshCounterShrinesFound();
+		this.refreshCounterShrinesClear();
+		this.refreshCounterLighrootsFound();
+		this.refreshCounterLighrootsClear();
+		this.refreshCounterKoroksHidden();
+		this.refreshCounterKoroksCarry();
+		this.refreshCounterBubbuls();
+		this.refreshCounterLocationCaves();
+		this.refreshCounterLocationWells();
+		this.refreshCounterBossesHinox();
+		this.refreshCounterBossesTalus();
+		this.refreshCounterBossesMolduga();
+		this.refreshCounterBossesFlux();
+		this.refreshCounterBossesFrox();
+		this.refreshCounterBossesGleeok();
+		this.refreshCounterOldMaps();
+		this.refreshCounterSchematicsStone();
+		this.refreshCounterSchematicsYiga();
+		this.refreshCounterCompendium();
+		this.refreshCounterPristineWeapons();
+		this.refreshMissingPristineWeapons();
 	},
 
 
@@ -856,41 +790,41 @@ SavegameEditor={
 		document.getElementById('experience-enemy-tiers').innerHTML='';
 		ExperienceCalculator.getEnemyTiers(totalExperience).forEach(function(enemy, i){
 			var span=document.createElement('span');
-			span.innerHTML=Locale._(enemy);
+			span.innerHTML=_(enemy);
 			span.className='text-center';
 			span.style.display='inline-block';
 			span.style.minWidth='33%';
 			document.getElementById('experience-enemy-tiers').appendChild(span);
 		});
 	},
+	refreshMissingPristineWeapons:function(){
+		var missingPristineWeapons=ExperienceCalculator.getMissingPristineWeapons();
+		
+		$('#experience-pristine-weapons').empty();
 
-
-	experienceReset:function(){
-		MarcDialogs.confirm(Locale._('Do you want to reset all your defeated enemy count?<br/>Note: this can\'t be undone.'), function(){
-			Completism._set(ExperienceCalculator.generateHashes(), null, 0);
-			SavegameEditor.experienceCalculate();
-			MarcDialogs.close();
-		});
+		if(missingPristineWeapons.length){
+			missingPristineWeapons.forEach(function(weaponId){
+				var span=document.createElement('span');
+				span.innerHTML=_(weaponId);
+				span.className='text-center';
+				span.style.display='inline-block';
+				span.style.minWidth='33%';
+				document.getElementById('experience-pristine-weapons').appendChild(span);
+			});
+		}else{
+			$('<div></div>').addClass('text-center').html(_('None')).appendTo($('#experience-pristine-weapons'));
+		}
 	},
 
 
 	refreshItemTab:function(catId){
 		empty('container-'+catId);
-		SavegameEditor.currentItems[catId].forEach(function(item, j){
-			document.getElementById('container-'+item.category).appendChild(
-				SavegameEditor._createItemRow(item)
-			);
+		SavegameEditor.pouches[catId].items.forEach(function(item, j){
+			Pouch.updateItemRow(item);
+			document.getElementById('container-'+item.category).appendChild(item._htmlRow);
 		});
-		MarcTooltips.add('#container-'+catId+' select',{position:'bottom',align:'right'});
-		MarcTooltips.add('#container-'+catId+' input',{position:'bottom',align:'right'});
-	},
-	refreshItemTabs:function(){
-		if(this.currentItems){
-			var ITEM_CATS=['weapons','bows','shields','armors','arrows','materials','food','devices','key','horses'];
-			ITEM_CATS.forEach(function(catId, i){
-				SavegameEditor.refreshItemTab(catId);
-			});
-		}
+		MarcTooltips.add('#container-'+catId+' select',{position:'left'});
+		MarcTooltips.add('#container-'+catId+' input',{position:'left',align:'center'});
 	},
 
 	/* check if savegame is valid */
@@ -939,13 +873,127 @@ SavegameEditor={
 	},
 
 
-	preload:function(){
+	preload:function(){		
+		/* completiosnim mode */
+		$('#input-radio-completionism-map, #input-radio-completionism-unlock').on('change', function(evt){
+			if(this.value==='unlock'){
+				$('.completionism-actions-map').hide();
+				$('.completionism-actions-unlock').show();
+			}else{
+				$('.completionism-actions-map').show();
+				$('.completionism-actions-unlock').hide();
+			}
+		});
+		/* dropdown */
+		$('#dropdown-item-button-pristine').on('click', function(evt){
+			if(SavegameEditor.restoreDecay(currentEditingItem))
+				Pouch.updateItemRow(currentEditingItem);
+		});
+		$('#dropdown-item-button-durability').on('click', function(evt){
+			if(SavegameEditor.restoreDurability(currentEditingItem))
+				Pouch.updateItemRow(currentEditingItem);
+		});
+		$('#dropdown-item-button-infinite').on('click', function(evt){
+			if(SavegameEditor.setInfiniteDurability(currentEditingItem))
+				Pouch.updateItemRow(currentEditingItem);
+		});
+		$('#dropdown-item-button-upgrade').on('click', function(evt){
+			if(SavegameEditor.upgradeArmor(currentEditingItem))
+				Pouch.updateItemRow(currentEditingItem);
+		});
+		$('#dropdown-item-button-duplicate').on('click', function(evt){
+			var newItem=SavegameEditor.pouches[currentEditingItem.category].add(currentEditingItem);
+			if(newItem){
+				UI.toast(_('Item duplicated'), 'duplicate');
+				document.getElementById('container-'+newItem.category).appendChild(Pouch.updateItemRow(newItem));
+				Pouch.scrollToItem(newItem);
+			}
+		});
+		$('#dropdown-item-button-export').on('click', function(evt){
+			var myJson=currentEditingItem.export();
+			var blob = new Blob([JSON.stringify(myJson, null, '\t')], {type: 'application/json;charset=utf-8'});
+			var fileName='totk_'+currentEditingItem.category.replace(/s$/,'')+'_';
+			if(currentEditingItem.category==='horses')
+				fileName+=_(currentEditingItem.name);
+			else
+				fileName+=_(currentEditingItem.id);
+			if(currentEditingItem.category==='weapons' || currentEditingItem.category==='bows' || currentEditingItem.category==='shields')
+				fileName+='_'+myJson.modifier;
+
+			saveAs(blob, fileName+'.json');
+		});
+		$('#dropdown-item-button-import').on('click', function(evt){
+			$('#input-file-pouch-import').trigger('click');
+		});
+		$('#input-file-pouch-import').on('change', function(evt){
+			var fileReader=new FileReader();
+			fileReader.onload=function(evt){
+				try{
+					var jsonObject=JSON.parse(evt.target.result);
+					var pouch=SavegameEditor.pouches[currentEditingItem.category];
+					var pouchItems=pouch.items;
+					var index=pouchItems.indexOf(currentEditingItem);
+
+					if(Pouch.getCategoryItemStructId(currentEditingItem.category)===jsonObject.totkStruct){
+						if(currentEditingItem.category==='weapons' || currentEditingItem.category==='bows' || currentEditingItem.category==='shields'){
+							pouchItems[index]=new Equipment(currentEditingItem.category, jsonObject);
+						}else if(currentEditingItem.category==='armors'){
+							pouchItems[index]=new Armor(jsonObject);
+						}else if(currentEditingItem.category==='horses'){
+							pouchItems[index]=new Horse(jsonObject);
+						}else{
+							pouchItems[index]=new Item(currentEditingItem.category, jsonObject);
+						}
+
+						Pouch.updateItemRow(pouchItems[index]);
+						document.getElementById('container-'+currentEditingItem.category).replaceChild(pouchItems[index]._htmlRow, currentEditingItem._htmlRow);
+					}
+				}catch(err){
+					console.error(err);
+				}
+			};
+			fileReader.readAsText(event.target.files[0]);
+		});
+		$('#dropdown-item-button-delete').on('click', function(evt){
+			var showWarning=$('#checkbox-delete-item-warning').prop('checked');
+			if(showWarning){
+				$('#modal-delete-item-text').html(_('Are you sure you want to delete %s?').replace('%s', '<strong>'+currentEditingItem.getItemTranslation()+'</strong>'))
+				UI.modal('delete-item');
+			}else{
+				SavegameEditor._removeItem(currentEditingItem.category, currentEditingItem);
+			}
+		});
+		$('#btn-delete-item-confirm').on('click', function(evt){
+			SavegameEditor._removeItem(currentEditingItem.category, currentEditingItem);
+		});
+
+
+
+
+
+
+
+
+
+
+
+		
 		this.selectItem=document.createElement('select');
+		this.selectItem.addEventListener('change', function(){
+			//console.log('change');
+			currentEditingItem.id=this.value;
+			Pouch.updateItemIcon(currentEditingItem);
+		}, false);
 		this.selectItem.addEventListener('blur', function(){
 			//console.log('blur');
-			SavegameEditor.editItem2(currentEditingItem, this.value);
-			//document.getElementById('item-name-'+currentEditingItem.category+'-'+currentEditingItem.index).innerHTML=SavegameEditor._getItemTranslation(currentEditingItem.id);
-			//this.parentElement.removeChild(this);
+			for(var prop in currentEditingItem._htmlInputs){
+				currentEditingItem._htmlInputs[prop].disabled=false;
+			}
+			Pouch.updateItemRow(currentEditingItem);
+			SavegameEditor.fixItemAvailabilityFlag(currentEditingItem);
+			currentEditingItem._htmlItemId.style.display='inline';
+			this.parentElement.removeChild(this);
+
 			currentEditingItem=null;
 		}, false);
 
@@ -988,9 +1036,9 @@ SavegameEditor={
 						importedAutobuilder.index=autobuilderOld.index;
 						importedAutobuilder.isFavorite=autobuilderOld.isFavorite;
 						importedAutobuilder.save();
-						MarcDialogs.alert('Successfully imported schema at '+(importedAutobuilder.index+1));
+						UI.toast('Successfully imported schema at '+(selectedIndex+1));
 					}else{
-						MarcDialogs.alert('Error while importing schema at '+(importedAutobuilder.index+1));
+						UI.toast('Error while importing schema at '+(selectedIndex+1));
 					}
 				}
 			});
@@ -1007,28 +1055,96 @@ SavegameEditor={
 		});
 
 		/* experience */
-		get('button-experience-calculate').addEventListener('click', SavegameEditor.experienceCalculate);
-		get('button-experience-reset').addEventListener('click', SavegameEditor.experienceReset);
-		get('span-experience-edit').addEventListener('click', function(evt){
-			get('input-custom-filter').value='DefeatedEnemyNum.* OR EnemyBattleData.*';
-			showTab('master');
+		get('map-pins-edit').addEventListener('click', function(){
+			TOTKMasterEditor.mini(
+				new Struct('mapPins', [
+					{
+						structArray:'markers',
+						variablesInfo:[
+							{hash:'MapData.IconData.MapPinData.Type', type:'EnumArray', label:'Marker color', propertyName:'color', enumValues:['Invalid','Red','Blue','Yellow','Green','Purple','LightBlue']},
+							{hash:'MapData.IconData.MapPinData.Pos', type:'Vector3Array', label:'Marker position', propertyName:'position'}
+						]
+					},{
+						structArray:'teleporters',
+						variablesInfo:[
+							{hash:'MapData.IconData.WarpMarkerData.Index', type:'IntArray', label:'Teleporter index', propertyName:'index'},
+							{hash:'MapData.IconData.WarpMarkerData.Pos', type:'Vector3Array', label:'Teleporter position', propertyName:'position'},
+							{hash:'MapData.IconData.WarpMarkerData.Rot', type:'Vector3Array', label:'Teleporter rotation', propertyName:'rotation'}
+						]
+					},{
+						structArray:'pins',
+						variablesInfo:[
+							{hash:'MapData.IconData.StampData.Type', type:'EnumArray', label:'Pin icon', propertyName:'icon', enumValues:['Invalid','Sword','Pot','Human','Rhombus','Heart','Star','TreasureBox','Skull','Leaf','Ore']},
+							{hash:'MapData.IconData.StampData.Layer', type:'EnumArray', label:'Pin map', propertyName:'layer', enumValues:['Sky','Ground','Underground']},
+							{hash:'MapData.IconData.StampData.Pos', type:'Vector2Array', label:'Pin position', propertyName:'position'}
+						]
+					}
+				]),
+				null,
+				_('Map pins editor'),
+				SavegameEditor.refreshCounterMapPins
+			);
+		});
+		get('pristine-weapons-edit').addEventListener('click', function(){
+			TOTKMasterEditor.mini(
+				new Struct('brokenWeapons', Object.keys(Equipment.WEAPONS_DECAYED_TO_PRISTINE).map(function(weaponId){
+					return {
+						hash:'EquipmentDeathCount.'+weaponId,
+						label:_('Broken times')+' '+_(weaponId),
+						type:'Int'
+					};
+				})),
+				[
+					{label:'Unlock all', action:TOTKMasterEditor.miniSetAllToOneAtLeast},
+					{
+						label:'Reset ghost seeds', action:function(){
+							var nChanges=ExperienceCalculator.resetGhostStatuesSeeds();
+							if(nChanges)
+								UI.alert(nChanges+' ghost seeds were reset');
+						}
+					},
+				],
+				_('Broken weapons editor'),
+				function(){
+					SavegameEditor.refreshCounterPristineWeapons();
+					SavegameEditor.refreshMissingPristineWeapons();
+				}
+			);
+		});
+		get('span-experience-edit').addEventListener('click', function(){
+			TOTKMasterEditor.mini(
+				new Struct('experience', ExperienceCalculator.generateHashesTextAll().map(function(hashText){
+					return {
+						hash:hashText,
+						label:ExperienceCalculator.getPrettifiedHashLabel(hashText),
+						type:'Int'
+					};
+				})),
+				[{label:'Reset', action:TOTKMasterEditor.miniResetAll}],
+				_('Experience editor'),
+				SavegameEditor.experienceCalculate
+			);
 		});
 
-		/* settings */
-		select('language').value=this.Settings.lang;
-		get('checkbox-warning-delete').checked=this.Settings.removeWarning;
-		select('language').addEventListener('change', function(evt){
-			SavegameEditor.Settings.lang=this.value;
-			Locale.set(this.value);
-			SavegameEditor.saveSettings();
-			document.getElementById('warning-language').style.display='block';		
+		/* master editor mini */
+		$('#button-hash-editor-export').on('click', TOTKMasterEditor.miniExport);
+		$('#button-hash-editor-import').on('click', function(evt){
+			$('#input-file-hash-editor-import').trigger('click');
 		});
-		get('checkbox-warning-delete').addEventListener('change', function(evt){
-			SavegameEditor.Settings.removeWarning=this.checked;
-			SavegameEditor.saveSettings();
+		$('#input-file-hash-editor-import').on('change', function(evt){
+			var fileReader=new FileReader();
+			fileReader.onload=function(evt){
+				try{
+					var jsonObject=JSON.parse(evt.target.result);
+					TOTKMasterEditor.miniImport(jsonObject);
+				}catch(err){
+					console.error(err);
+				}
+			};
+			fileReader.readAsText(event.target.files[0]);
 		});
 
-		MarcTooltips.add('.tab-button',{className:'dark',fixed:true});
+		MarcTooltips.add('#nav button',{className:'dark',fixed:true});
 	},
 
 	_timeToString:function(timeVal){
@@ -1040,14 +1156,20 @@ SavegameEditor={
 	},
 
 	refreshAddArrowsButton:function(){
-		document.getElementById('button-add-arrows').disabled=!!this.currentItems.arrows.length;
+		document.getElementById('button-add-arrows').disabled=!!this.pouches.arrows.items.length;
 	},
 	/* load function */
 	load:function(){
 		tempFile.fileName='progress.sav';
 
+		$('#container-startup').hide();
+		Variable.resetCache();
+		UI.reset();
+		Horse.buildHorseOptions();
+
 		this.selectItem.lastCategory=null;
-	
+
+
 		/* prepare editor */
 		setValue('playtime', this._timeToString(this.readU32('Playtime')));
 
@@ -1063,25 +1185,27 @@ SavegameEditor={
 
 
 
+		/* read pouches */
+		this.pouches={
+			weapons:new Pouch('weapons'),
+			bows:new Pouch('bows'),
+			shields:new Pouch('shields'),
+			armors:new Pouch('armors'),
+			arrows:new Pouch('arrows'),
+			materials:new Pouch('materials'),
+			food:new Pouch('food'),
+			devices:new Pouch('devices'),
+			key:new Pouch('key'),
+			horses:new Pouch('horses')
+		}
+
+
+
+
 		/* read items */
 		this.currentItems={
-			'weapons':Equipment.readAll('weapons'),
-			'bows':Equipment.readAll('bows'),
-			'shields':Equipment.readAll('shields'),
-			'armors':Armor.readAll(),
-			'arrows':Item.readAll('arrows'),
-			'materials':Item.readAll('materials'),
-			'food':Item.readAll('food'),
-			'devices':Item.readAll('devices'),
-			'key':Item.readAll('key'),
-			
-			'horses':Horse.readAll(),
-			
 			'mapPins':MapPin.readAll()
 		};
-		this.refreshAddArrowsButton();
-		/* build item containers */
-		this.refreshItemTabs();
 
 
 
@@ -1095,24 +1219,7 @@ SavegameEditor={
 		this.refreshCounterMapPins();
 
 		/* completionism */
-		this.refreshCounterShrinesFound();
-		this.refreshCounterShrinesClear();
-		this.refreshCounterLighrootsFound();
-		this.refreshCounterLighrootsClear();
-		this.refreshCounterKoroksHidden();
-		this.refreshCounterKoroksCarry();
-		this.refreshCounterBubbuls();
-		this.refreshCounterLocationCaves();
-		this.refreshCounterLocationWells();
-		this.refreshCounterBossesHinox();
-		this.refreshCounterBossesTalus();
-		this.refreshCounterBossesMolduga();
-		this.refreshCounterBossesFlux();
-		this.refreshCounterBossesFrox();
-		this.refreshCounterBossesGleeok();
-		this.refreshCounterSchematicsStone();
-		this.refreshCounterSchematicsYiga();
-		this.refreshCounterCompendium();
+		this.refreshCounterAll();
 
 		/* experience */
 		SavegameEditor.experienceCalculate();
@@ -1120,17 +1227,20 @@ SavegameEditor={
 		if(TOTKMasterEditor.isLoaded())
 			TOTKMasterEditor.forceFindOffsets=true;
 
-		showTab('home');
+		UI.showTab('home');
+	},
+
+	unload:function(){
+		$('#container-startup').show();
 	},
 
 	/* save function */
 	save:function(){
-		if(currentTab==='master')
+		if(UI.getCurrentTab()==='master')
 			return false;
 
 		/* STATS */
 		this.writeU32('PlayerStatus.CurrentRupee', null, getValue('rupees'));
-		/*this.writeU32('Mons', getValue('mons'));*/
 		this.writeU32('PlayerStatus.MaxLife', null, getValue('max-hearts'));
 		this.writeU32('PlayerStatus.MaxStamina', null, getValue('max-stamina'));
 		this.writeF32('PlayerStatus.MaxEnergy', null, getValue('max-battery'));
@@ -1153,19 +1263,10 @@ SavegameEditor={
 		this._writeString(this.Offsets.MAPTYPE, getValue('pos-maptype'))*/
 
 
-		/* ITEMS */
-		['weapons','bows','shields','armors','arrows','materials','food','devices','key'].forEach(function(catId, i){
-			SavegameEditor.currentItems[catId].forEach(function(item, j){
-				item.save();
-			});
-		});
-		Item.fixKeyAvailabilityFlags();
-
-
-		/* HORSES */
-		for(var i=0; i<SavegameEditor.currentItems.horses.length; i++){
-			SavegameEditor.currentItems.horses[i].save();
-		}
+		/* save pouches */
+		for(var pouchId in SavegameEditor.pouches){
+			SavegameEditor.pouches[pouchId].save();
+		};
 
 
 		/* MAP PINS */
@@ -1179,28 +1280,6 @@ SavegameEditor={
 
 
 
-/* TABS */
-var availableTabs=['home','weapons','bows','shields','armors','materials','food','devices','key','horses','master','settings'];
-
-
-var currentTab;
-function showTab(newTab){
-	currentTab=newTab;
-	for(var i=0; i<availableTabs.length; i++){
-		document.getElementById('tab-button-'+availableTabs[i]).className=currentTab===availableTabs[i]?'tab-button active':'tab-button';
-		document.getElementById('tab-'+availableTabs[i]).style.display=currentTab===availableTabs[i]?'block':'none';
-	}
-
-	if(newTab==='master'){
-		if(TOTKMasterEditor.isLoaded()){
-			if(TOTKMasterEditor.forceFindOffsets)
-				TOTKMasterEditor.findOffsets();
-			TOTKMasterEditor.focus();
-		}else{
-			TOTKMasterEditor.initialize();
-		}
-	}
-}
 
 
 
@@ -1212,25 +1291,206 @@ var MarcTooltips=function(){var n=/MSIE 8/.test(navigator.userAgent);function d(
 
 window.addEventListener('DOMContentLoaded', function(){
 	SavegameEditor.loadSettings();
+	$('#select-language').val(SavegameEditor.Settings.lang);
 	Locale.set(SavegameEditor.Settings.lang);
+
+	UI._attachEvents();
 });
 
 
+
+
+
+
+
+
+
+
 var UI=(function(sge){
-	return{
-		setSelectLanguageStatus:function(status){
-			document.getElementById('select-language').disabled=!status;	
-		},
-		translate:function(){
-			sge.refreshItemTabs();
-		},
-		toast:function(msg){
-			if(msg){
-				document.getElementById('toast-loading').innerHTML=msg;
-				document.getElementById('toast-loading').style.display='block';
+	var _attachedEvents=false;
+
+	var REFRESHABLE_TABS=['weapons','bows','shields','armors','materials','food','devices','key','horses'];
+	var tabCache;
+	var currentTab;
+	var _showTab=function (newTab){
+		currentTab=newTab;
+		$('#nav .nav-link').each(function(i, navLink){
+			if(navLink.dataset.target===newTab){
+				navLink.className='nav-link active';
+				document.getElementById('tab-'+navLink.dataset.target).style.display='block';
 			}else{
-				document.getElementById('toast-loading').style.display='none';
+				navLink.className='nav-link';
+				document.getElementById('tab-'+navLink.dataset.target).style.display='none';
 			}
+		});
+
+		if(!tabCache[newTab] && REFRESHABLE_TABS.indexOf(newTab)!==-1){
+			SavegameEditor.refreshItemTab(newTab);
+			if(newTab==='bows'){
+				SavegameEditor.refreshItemTab('arrows');
+				SavegameEditor.refreshAddArrowsButton();
+			}
+			tabCache[newTab]=true;
+		}else if(newTab==='master'){
+			if(TOTKMasterEditor.isLoaded()){
+				if(TOTKMasterEditor.forceFindOffsets)
+					TOTKMasterEditor.findOffsets();
+				TOTKMasterEditor.focus();
+			}else{
+				TOTKMasterEditor.initialize();
+			}
+		}
+	}
+
+
+
+
+
+	var _setLockScroll=function(status){
+		document.body.style.overflow=status? 'hidden':'';
+	};
+	var _closeMyModal=function(evt){
+		$(this).closest('dialog.modal').get(0).close();
+	};
+	var _showDropdown=function(dropdownMenu){
+		var offset=$(dropdownMenu.attachedTo).offset();
+		//offset.right=($(window).width() - (offset.left + $(trigger).outerWidth()));
+		$(dropdownMenu)
+			.css('top', Math.floor(offset.top + 8)+'px')
+			//.css('right', Math.floor(offset.right)+'px')
+			.css('left', Math.floor(offset.left + 8)+'px');
+	};
+
+	return{
+		_attachEvents:function(){
+			if(_attachedEvents)
+				return;
+
+			/* nav */
+			$('#toolbar button.nav-link[data-target]').on('click', function(evt){
+				_showTab(this.dataset.target);
+			});
+
+			/* modals */
+			$('button[data-dismiss="modal"]').on('click', _closeMyModal);
+
+			/* dropdowns */
+			$(document.body).on('click', function(){
+				$('.dropdown-menu').hide();
+			});
+			$(window).on('resize', function(){
+				var dropdownMenus=document.querySelectorAll('.dropdown-menu');
+				for(var i=0; i<dropdownMenus.length; i++){
+					if(dropdownMenus[i].style.display==='block')
+						_showDropdown(dropdownMenus[i]);
+				}
+			});
+
+			/* language selector */
+			$('#select-language').on('change', function(evt){
+				SavegameEditor.Settings.lang=this.value;
+				Locale.set(this.value);
+				SavegameEditor.saveSettings();	
+			});
+			_attachedEvents=true;
+		},
+		reset:function(){
+			tabCache={};
+			$('#checkbox-delete-item-warning').prop('checked', true);
+			
+			$('.completionism-actions-map, .completionism-actions-unlock').hide();
+			$('#input-radio-completionism-map, #input-radio-completionism-unlock').prop('checked', false);
+		},
+		showTab:function(newTab){
+			_showTab(newTab);
+		},
+		getCurrentTab:function(){
+			return currentTab;
+		},
+
+
+		dropdown:function(dropdownId, attachTo){
+			var dropdownMenu=document.getElementById('dropdown-'+dropdownId);
+			dropdownMenu.attachedTo=attachTo;
+			_showDropdown(dropdownMenu);
+			dropdownMenu.style.display='block';
+		},
+		toast:function(msg, id, timeoutClose){
+			var toastId='toast-'+(id || (new Date()).getTime());
+			var exists=document.getElementById(toastId);
+
+			if(exists && exists.closeTimeout){
+				window.clearTimeout(exists.closeTimeout);
+			}
+
+			var toast=exists || $('<div></div>').attr('id', toastId).addClass('toast').appendTo($('#toasts-container')).get(0);
+			if(msg)
+				$(toast).html(msg);
+			else
+				$(toast).remove();
+			
+
+			if(typeof timeoutClose==='undefined')
+				timeoutClose=3000;
+
+
+			if(msg && timeoutClose){
+				toast.closeTimeout=window.setTimeout(function(){
+					$(toast).remove();
+				}, timeoutClose)
+			}
+		},
+		octicon:function(iconId){
+			var img=new Image();
+			img.src='assets/octicons/octicon_'+iconId+'.svg'
+			img.className='octicon';
+			return img;
+		},
+		modal:function(id){
+			_setLockScroll(true);
+			
+			var dialog=document.getElementById('modal-'+id);
+			if(!dialog.initialized){
+				dialog.addEventListener('close', function(){
+					_setLockScroll(false);
+				});
+				dialog.initialized=true;
+			}
+			dialog.showModal();
+		},
+		alert:function(text){
+			$('<dialog></dialog>')
+				.addClass('modal')
+				.append($('<div></div>').addClass('modal-body text-center').html(text))
+				.append(
+					$('<div></div>')
+						.addClass('modal-footer text-center')
+						.append($('<button></button>').addClass('btn').html(_('Accept')).on('click', _closeMyModal))
+				)
+				.appendTo(document.body)
+				.on('close', function(evt){
+					$(this).remove();
+				})
+				.get(0).showModal();
+		},
+		confirm:function(text, onConfirm){
+			$('<dialog></dialog>')
+				.addClass('modal')
+				.append($('<div></div>').addClass('modal-body text-center').html(text))
+				.append(
+					$('<div></div>')
+						.addClass('modal-footer text-center')
+						.append($('<button></button>').addClass('btn').html(_('Cancel')).on('click', _closeMyModal))
+						.append($('<button></button>').addClass('btn btn-primary').html(_('Accept')).on('click', function(evt){
+							_closeMyModal(evt);
+							onConfirm.call();
+						}))
+				)
+				.appendTo(document.body)
+				.on('close', function(evt){
+					$(this).remove();
+				})
+				.get(0).showModal();
 		}
 	}
 }(SavegameEditor));

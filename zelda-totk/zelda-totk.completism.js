@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Completism) v20230613
+	The legend of Zelda: Tears of the Kingdom savegame editor - Completism (last update 2023-07-08)
 
 	by Marc Robledo 2023
 	research & information compiled by MacSpazzy, Karlos007 and Echocolat
@@ -9,7 +9,7 @@
 var Completism={
 	_count:function(booleanHashes, valueTrue){
 		if(typeof valueTrue==='string')
-			valueTrue=murmurHash3.x86.hash32(valueTrue);
+			valueTrue=hash(valueTrue);
 		else if(typeof valueTrue==='number')
 			valueTrue=valueTrue;
 		else
@@ -72,6 +72,9 @@ var Completism={
 	countBossesGleeok:function(){
 		return this._count(CompletismHashes.BOSSES_GLEEOKS_DEFEATED);
 	},
+	countOldMaps:function(){
+		return this._count(CompletismHashes.TREASURE_MAPS_FOUND);
+	},
 	countSchematicsStone:function(){
 		return this._count(CompletismHashes.SCHEMATICS_STONE_FOUND);
 	},
@@ -85,14 +88,14 @@ var Completism={
 
 	_set:function(booleanHashes, limit, valueTrue, onlyWhen){
 		if(typeof valueTrue==='string')
-			valueTrue=murmurHash3.x86.hash32(valueTrue);
+			valueTrue=hash(valueTrue);
 		else if(typeof valueTrue==='number')
 			valueTrue=valueTrue;
 		else
 			valueTrue=1;
 
 		if(typeof onlyWhen==='string')
-			onlyWhen=murmurHash3.x86.hash32(onlyWhen);
+			onlyWhen=hash(onlyWhen);
 		else if(typeof onlyWhen==='number')
 			onlyWhen=onlyWhen;
 		else
@@ -114,15 +117,19 @@ var Completism={
 	},
 	setShrinesAsFound:function(limit){
 		var changes=this._set(CompletismHashes.SHRINES_FOUND, limit);
-		MarcDialogs.alert(changes+' shrines set as found.');
-		//console.info(this._set(CompletismHashes.SHRINES_STATUS, limit, 'Open', 'Hidden')+' shrines switched from Hidden to Open');
-		//console.info(this._set(CompletismHashes.SHRINES_STATUS, limit, 'Open', 'Appear')+' shrines switched from Appear to Open');
+		UI.toast(_('%s shrines set as found').replace('%s', changes), 'shrines-found');
+		var switchedFromHidden=this._set(CompletismHashes.SHRINES_STATUS, limit, 'Open', 'Hidden');
+		if(switchedFromHidden)
+			UI.toast(_('%s shrines switched from Hidden to Open').replace('%s', switchedFromHidden), 'shrines-found1');
+		var switchedFromAppear=this._set(CompletismHashes.SHRINES_STATUS, limit, 'Open', 'Appear');
+		if(switchedFromAppear)
+			UI.toast(_('%s shrines switched from Appear to Open').replace('%s', switchedFromAppear), 'shrines-found2');
 		SavegameEditor.refreshCounterShrinesFound();
 		return changes;
 	},
 	setShrinesAsClear:function(limit){
 		var changes=this._set(CompletismHashes.SHRINES_STATUS, limit, 'Clear'); //possible values: Hidden,Appear,Open,Enter,Clear
-		MarcDialogs.alert(changes+' shrines set as clear.');
+		UI.toast(_('%s shrines set as clear').replace('%s', changes), 'shrines-clear');
 		if(changes)
 			SavegameEditor.addItem('key', 'Obj_DungeonClearSeal', changes);
 		SavegameEditor.refreshCounterShrinesClear();
@@ -130,13 +137,13 @@ var Completism={
 	},
 	setLightrootsAsFound:function(limit){
 		var changes=this._set(CompletismHashes.LIGHTROOTS_FOUND, limit);
-		MarcDialogs.alert(changes+' lightroots set as found.');
+		UI.toast(_('%s lightroots set as found').replace('%s', changes), 'lightroots-found');
 		SavegameEditor.refreshCounterLighrootsFound();
 		return changes;
 	},
 	setLightrootsAsClear:function(limit){
 		var changes=this._set(CompletismHashes.LIGHTROOTS_STATUS, limit, 'Open'); //possible values: Close,Open
-		MarcDialogs.alert(changes+' lightroots set as clear.');
+		UI.toast(_('%s lightroots set as clear').replace('%s', changes), 'lightroots-clear');
 		SavegameEditor.refreshCounterLighrootsClear();
 		return changes;
 	},
@@ -148,10 +155,7 @@ var Completism={
 			half=true;
 		}
 		var changes=this._set(CompletismHashes.KOROKS_HIDDEN, limit);
-		if(half)
-			MarcDialogs.alert(changes+' koroks set as found.<br/>Click the button again to set the rest.');
-		else
-			MarcDialogs.alert(changes+' koroks set as found.');
+		UI.toast(_('%s koroks set as found').replace('%s', changes), 'koroks-found');
 		if(changes)
 			SavegameEditor.addItem('key', 'Obj_KorokNuts', changes);
 		SavegameEditor.refreshCounterKoroksHidden();
@@ -159,7 +163,7 @@ var Completism={
 	},
 	setKoroksAsCarried:function(limit){
 		var changes=this._set(CompletismHashes.KOROKS_CARRY, limit, 'Clear'); //possible values: NotClear,Clear
-		MarcDialogs.alert(changes+' koroks set as carried.');
+		UI.toast(_('%s koroks set as carried').replace('%s', changes), 'koroks-carried');
 		if(changes)
 			SavegameEditor.addItem('key', 'Obj_KorokNuts', changes*2);
 		SavegameEditor.refreshCounterKoroksCarry();
@@ -167,64 +171,77 @@ var Completism={
 	},
 	defeatBubbuls:function(limit){
 		var changes=this._set(CompletismHashes.BUBBULS_DEFEATED, limit);
-		MarcDialogs.alert(changes+' bubbuls set as defeated.');
-		if(changes)
+		UI.toast(_('%s bubbuls set as defeated').replace('%s', changes), 'bubbuls-defeated');
+		if(changes){
 			SavegameEditor.addItem('key', 'CaveMasterMedal', changes);
+			var defeatBubbulsTotal=new Variable('DefeatedEnemyNum.Enemy_CaveMaster_000', 'UInt');
+			defeatBubbulsTotal.value+=changes;
+			defeatBubbulsTotal.save();
+		}
 		SavegameEditor.refreshCounterBubbuls();
 		return changes;
 	},
 	visitLocationCaves:function(limit){
 		var changes=this._set(CompletismHashes.LOCATION_CAVES_VISITED, limit);
-		MarcDialogs.alert(changes+' caves set as visited.');
+		UI.toast(_('%s caves set as visited').replace('%s', changes), 'caves-visited');
 		SavegameEditor.refreshCounterLocationCaves();
+		this._set(CompletismHashes.LOCATION_CAVES_VISITED2, limit);
 		return changes;
 	},
 	visitLocationWells:function(limit){
 		var changes=this._set(CompletismHashes.LOCATION_WELLS_VISITED, limit);
-		MarcDialogs.alert(changes+' wells set as visited.');
+		UI.toast(_('%s wells set as visited').replace('%s', changes), 'wells-visited');
 		SavegameEditor.refreshCounterLocationWells();
 		this._set(CompletismHashes.LOCATION_WELLS_VISITED2, limit);
 		return changes;
 	},
 	defeatBossesHinox:function(limit){
 		var changes=this._set(CompletismHashes.BOSSES_HINOXES_DEFEATED, limit);
-		MarcDialogs.alert(changes+' hinoxes set as defeated.');
+		UI.toast(_('%s hinoxes set as defeated').replace('%s', changes), 'hinoxes-defeated');
 		SavegameEditor.refreshCounterBossesHinox();
 		return changes;
 	},
 	defeatBossesTalus:function(limit){
 		var changes=this._set(CompletismHashes.BOSSES_TALUSES_DEFEATED, limit);
-		MarcDialogs.alert(changes+' taluses set as defeated.');
+		UI.toast(_('%s taluses set as defeated').replace('%s', changes), 'taluses-defeated');
 		SavegameEditor.refreshCounterBossesTalus();
 		return changes;
 	},
 	defeatBossesMolduga:function(limit){
 		var changes=this._set(CompletismHashes.BOSSES_MOLDUGAS_DEFEATED, limit);
-		MarcDialogs.alert(changes+' moldugas set as defeated.');
+		UI.toast(_('%s moldugas set as defeated').replace('%s', changes), 'moldugas-defeated');
 		SavegameEditor.refreshCounterBossesMolduga();
 		return changes;
 	},
 	defeatBossesFlux:function(limit){
 		var changes=this._set(CompletismHashes.BOSSES_FLUX_CONSTRUCT_DEFEATED, limit);
-		MarcDialogs.alert(changes+' flux constructs set as defeated.');
+		UI.toast(_('%s flux constructs set as defeated').replace('%s', changes), 'flux-constructs-defeated');
 		SavegameEditor.refreshCounterBossesFlux();
 		return changes;
 	},
 	defeatBossesFrox:function(limit){
 		var changes=this._set(CompletismHashes.BOSSES_FROXS_DEFEATED, limit);
-		MarcDialogs.alert(changes+' froxs set as defeated.');
+		UI.toast(_('%s froxs set as defeated').replace('%s', changes), 'froxs-defeated');
 		SavegameEditor.refreshCounterBossesFrox();
 		return changes;
 	},
 	defeatBossesGleeok:function(limit){
 		var changes=this._set(CompletismHashes.BOSSES_GLEEOKS_DEFEATED, limit);
-		MarcDialogs.alert(changes+' gleoks set as defeated.');
+		UI.toast(_('%s gleeoks set as defeated').replace('%s', changes), 'gleeoks-defeated');
 		SavegameEditor.refreshCounterBossesGleeok();
+		return changes;
+	},
+	setOldMapsAsFound:function(limit){
+		var changes=this._set(CompletismHashes.TREASURE_MAPS_FOUND, limit);
+		UI.toast(_('%s treasure maps set as found').replace('%s', changes), 'treasure-maps-found');
+		if(changes)
+			SavegameEditor.addItem('key', 'Obj_TreasureMap_00', changes);
+		SavegameEditor.refreshCounterOldMaps();
 		return changes;
 	},
 	setSchematicStonesAsFound:function(limit){
 		var changes=this._set(CompletismHashes.SCHEMATICS_STONE_FOUND, limit);
-		MarcDialogs.alert(changes+' schematic stones set as found.');
+		UI.toast(_('%s schematic stones set as found').replace('%s', changes), 'schematic-stones-found');
 		if(changes)
 			SavegameEditor.addItem('key', 'Obj_AutoBuilderDraft_00', changes);
 		SavegameEditor.refreshCounterSchematicsStone();
@@ -232,7 +249,7 @@ var Completism={
 	},
 	setSchematicYigaAsFound:function(limit){
 		var changes=this._set(CompletismHashes.SCHEMATICS_YIGA_FOUND, limit);
-		MarcDialogs.alert(changes+' yiga schematics set as found.');
+		UI.toast(_('%s yiga schematics set as found').replace('%s', changes), 'yiga-schematics-found');
 		if(changes)
 			SavegameEditor.addItem('key', 'Obj_AutoBuilderDraftAssassin_00', changes);
 		SavegameEditor.refreshCounterSchematicsYiga();
@@ -240,12 +257,15 @@ var Completism={
 	},
 	setCompendiumAsStockCurrentOnly:function(limit){
 		var changes=this._set(CompletismHashes.COMPENDIUM_STATUS, limit, 'Buy', 'TakePhoto'); //possible values: Unopened,TakePhoto,Buy
-		MarcDialogs.alert(changes+' pictures set to stock.<br/>You can now delete all .jpg images in /picturebook/ folder.');
+		var message=_('%s pictures set to stock').replace('%s', changes);
+		if(changes)
+			message+='<br/>You can now delete all .jpg images in /picturebook/ folder.';
+		UI.toast(message, 'stock-compendium');
 		return changes;
 	},
 	setCompendiumAsBought:function(limit){
 		var changes=this._set(CompletismHashes.COMPENDIUM_STATUS, limit, 'Buy'); //possible values: Unopened,TakePhoto,Buy
-		MarcDialogs.alert(changes+' pictures unlocked');
+		UI.toast(_('%s pictures unlocked').replace('%s', changes), 'bought-compendium');
 		SavegameEditor.refreshCounterCompendium();
 		return changes;
 	},
@@ -500,7 +520,7 @@ var CompletismHashes={
 		0xbf72ba80, //GerudoDesert_0039
 		0x1af6b3fb, //GerudoDesert_0040
 		0x3cddd610, //GerudoDesert_0041
-		0xfb66a60d, //GerudoDesert_0043
+		//0xfb66a60d, //GerudoDesert_0043 (chasm)
 		0xfd2f1edf, //GerudoDesert_0044
 		0xb630844a, //GerudoDesert_0045
 		0xcc03b90a, //GerudoDesert_0046
@@ -550,7 +570,7 @@ var CompletismHashes={
 		0x0fefb1eb, //HyruleRidge_0000
 		0xc1e94df7, //HyruleRidge_0002
 		0x42307003, //HyruleRidge_0003
-		0x05911ba1, //HyruleRidge_0004
+		//0x05911ba1, //HyruleRidge_0004 (chasm)
 		0x382483d5, //HyruleRidge_0005
 		0xa5f140bd, //HyruleRidge_0006
 		0x0ca0ce73, //HyruleRidge_0007
@@ -566,14 +586,14 @@ var CompletismHashes={
 		0x13821c00, //Lanayru_0036
 		0x89efde88, //Lanayru_0048
 		0x3f894c25, //Lanayru_0049
-		0xd9289883, //Lanayru_0050
+		//0xd9289883, //Lanayru_0050 (chasm)
 		0xa84390b1, //Lanayru_0052
 		0x4144f094, //Lanayru_0053
 		0x22946539, //Lanayru_0055
 		0xfe23935a, //Lanayru_0057
 		0xee2118bf, //Lanayru_0060
 		0x8f2ddec1, //Lanayru_0061
-		0x9aa7f2f0, //Lanayru_0063
+		//0x9aa7f2f0, //Lanayru_0063 (chasm)
 		0xc5c5e0be, //LanayruMountain_0002
 		0x5d32a152, //LanayruMountain_0006
 		0x4aeb16ce, //LanayruMountain_0008
@@ -586,7 +606,214 @@ var CompletismHashes={
 		0x008c809a, //LanayruMountain_0026
 		0x8b7dd33a, //Tabantha_0001
 		0xcce3e817, //Tabantha_0002
-		0xbe289d21 //Tabantha_0003
+		0xbe289d21, //Tabantha_0003
+		0xd7ab50ca, //Zora_Imperial_Palace
+		0xdaaf89ad, //ZoraZonauTerminal
+		0x1d484a39 //IsVisitLocation.Well_0043B //counts as Komo Shoreline Cave
+	],
+	LOCATION_CAVES_VISITED2:[
+		// IsVisitLocationArea_CaveEntrance.
+		hash('IsVisitLocationArea_CaveEntrance.5202740261947854689'), //Cave_Akkala_0000
+		hash('IsVisitLocationArea_CaveEntrance.9055438594216366561'), //Cave_Akkala_0003
+		hash('IsVisitLocationArea_CaveEntrance.15335926447545138291'), //Cave_Akkala_0003
+		hash('IsVisitLocationArea_CaveEntrance.11946399843865969720'), //Cave_Akkala_0005
+		hash('IsVisitLocationArea_CaveEntrance.3457555777151736032'), //Cave_Akkala_0007
+		hash('IsVisitLocationArea_CaveEntrance.11671013565008628074'), //Cave_Akkala_0007
+		hash('IsVisitLocationArea_CaveEntrance.9956353720691210968'), //Cave_Akkala_0010
+		hash('IsVisitLocationArea_CaveEntrance.5431129856634400544'), //Cave_Akkala_0011
+		hash('IsVisitLocationArea_CaveEntrance.1926489202404534798'), //Cave_Akkala_0014
+		hash('IsVisitLocationArea_CaveEntrance.8513000792751676936'), //Cave_Akkala_0014
+		hash('IsVisitLocationArea_CaveEntrance.10142666355873547918'), //Cave_Akkala_0017
+		hash('IsVisitLocationArea_CaveEntrance.7141907819268688467'), //Cave_CentralHyrule_0008
+		hash('IsVisitLocationArea_CaveEntrance.11762902907749850765'), //Cave_CentralHyrule_0008
+		hash('IsVisitLocationArea_CaveEntrance.12880309941609668216'), //Cave_CentralHyrule_0009
+		hash('IsVisitLocationArea_CaveEntrance.3657960895423460399'), //Cave_CentralHyrule_0011
+		hash('IsVisitLocationArea_CaveEntrance.6165471125931240097'), //Cave_CentralHyrule_0011
+		hash('IsVisitLocationArea_CaveEntrance.389621003349275914'), //Cave_CentralHyrule_0013
+		hash('IsVisitLocationArea_CaveEntrance.9927661949732117451'), //Cave_CentralHyrule_0013
+		hash('IsVisitLocationArea_CaveEntrance.2527573203000697251'), //Cave_CentralHyrule_0017
+		hash('IsVisitLocationArea_CaveEntrance.12906757512422296002'), //Cave_CentralHyrule_0017
+		hash('IsVisitLocationArea_CaveEntrance.16097313038490651380'), //Cave_CentralHyrule_0018
+		hash('IsVisitLocationArea_CaveEntrance.16115459957567200699'), //Cave_CentralHyrule_0018
+		hash('IsVisitLocationArea_CaveEntrance.17220565559925033058'), //Cave_CentralHyrule_0018
+		hash('IsVisitLocationArea_CaveEntrance.2989256867079414765'), //Cave_CentralHyrule_0019
+		hash('IsVisitLocationArea_CaveEntrance.8543871419045106707'), //Cave_CentralHyrule_0019
+		hash('IsVisitLocationArea_CaveEntrance.15319933969162710085'), //Cave_CentralHyrule_0020
+		hash('IsVisitLocationArea_CaveEntrance.9124311164147940922'), //Cave_CentralHyrule_0021
+		hash('IsVisitLocationArea_CaveEntrance.8802583314912760024'), //Cave_CentralHyrule_0022
+		hash('IsVisitLocationArea_CaveEntrance.17183873816236198710'), //Cave_CentralHyrule_0023
+		hash('IsVisitLocationArea_CaveEntrance.17925324815156417966'), //Cave_CentralHyrule_0030
+		hash('IsVisitLocationArea_CaveEntrance.2820182978785847885'), //Cave_Eldin_0020
+		hash('IsVisitLocationArea_CaveEntrance.5498372046996718881'), //Cave_Eldin_0021
+		hash('IsVisitLocationArea_CaveEntrance.8060741823458164069'), //Cave_Eldin_0022
+		hash('IsVisitLocationArea_CaveEntrance.16322463971808075566'), //Cave_Eldin_0023
+		hash('IsVisitLocationArea_CaveEntrance.10155351167282120417'), //Cave_Eldin_0025
+		hash('IsVisitLocationArea_CaveEntrance.12604202893589555443'), //Cave_Eldin_0026
+		hash('IsVisitLocationArea_CaveEntrance.12239969978811659575'), //Cave_Eldin_0027
+		hash('IsVisitLocationArea_CaveEntrance.7529527728072030710'), //Cave_Eldin_0028
+		hash('IsVisitLocationArea_CaveEntrance.540094550995474204'), //Cave_Eldin_0029
+		hash('IsVisitLocationArea_CaveEntrance.2334228652024532918'), //Cave_Eldin_0030
+		hash('IsVisitLocationArea_CaveEntrance.10136447089337963341'), //Cave_Eldin_0031
+		hash('IsVisitLocationArea_CaveEntrance.13003868390287574459'), //Cave_Eldin_0033
+		hash('IsVisitLocationArea_CaveEntrance.15630240560201477046'), //Cave_Eldin_0034
+		hash('IsVisitLocationArea_CaveEntrance.1801494508290714306'), //Cave_Eldin_0035
+		hash('IsVisitLocationArea_CaveEntrance.10838082017355715677'), //Cave_Eldin_0037
+		hash('IsVisitLocationArea_CaveEntrance.11860991231750302286'), //Cave_Eldin_0037
+		hash('IsVisitLocationArea_CaveEntrance.6579778402399415550'), //Cave_Eldin_0038
+		hash('IsVisitLocationArea_CaveEntrance.14328941808872340282'), //Cave_Eldin_0039
+		hash('IsVisitLocationArea_CaveEntrance.6252906961473836647'), //Cave_Firone_0002
+		hash('IsVisitLocationArea_CaveEntrance.16931302655167485859'), //Cave_Firone_0008
+		hash('IsVisitLocationArea_CaveEntrance.12887654214926357542'), //Cave_Firone_0009
+		hash('IsVisitLocationArea_CaveEntrance.2291495962666291037'), //Cave_Firone_0016
+		hash('IsVisitLocationArea_CaveEntrance.17794289268484220296'), //Cave_Firone_0016
+		hash('IsVisitLocationArea_CaveEntrance.7325726685713060531'), //Cave_Firone_0020
+		hash('IsVisitLocationArea_CaveEntrance.15876372107227050247'), //Cave_Firone_0022
+		hash('IsVisitLocationArea_CaveEntrance.15142163600578211343'), //Cave_Firone_0023
+		hash('IsVisitLocationArea_CaveEntrance.8786178415487831994'), //Cave_Firone_0024
+		hash('IsVisitLocationArea_CaveEntrance.2282125024947853696'), //Cave_Firone_0029
+		hash('IsVisitLocationArea_CaveEntrance.12199381830158178871'), //Cave_FirstPlateau_0001
+		hash('IsVisitLocationArea_CaveEntrance.9940203994076185236'), //Cave_FirstPlateau_0002
+		hash('IsVisitLocationArea_CaveEntrance.11576020347893843241'), //Cave_GerudoDesert_0007
+		hash('IsVisitLocationArea_CaveEntrance.16690736945446424880'), //Cave_GerudoDesert_0007
+		hash('IsVisitLocationArea_CaveEntrance.12510038422293123766'), //Cave_GerudoDesert_0008
+		hash('IsVisitLocationArea_CaveEntrance.16913007828139583251'), //Cave_GerudoDesert_0015
+		hash('IsVisitLocationArea_CaveEntrance.4202665969653539342'), //Cave_GerudoDesert_0022
+		hash('IsVisitLocationArea_CaveEntrance.10518009420437986971'), //Cave_GerudoDesert_0022
+		hash('IsVisitLocationArea_CaveEntrance.11690670861852633792'), //Cave_GerudoDesert_0030
+		hash('IsVisitLocationArea_CaveEntrance.11996803931487605126'), //Cave_GerudoDesert_0031
+		hash('IsVisitLocationArea_CaveEntrance.15033213358038028919'), //Cave_GerudoDesert_0032
+		hash('IsVisitLocationArea_CaveEntrance.10188228423800036434'), //Cave_GerudoDesert_0035
+		hash('IsVisitLocationArea_CaveEntrance.16166623820286719993'), //Cave_GerudoDesert_0036
+		hash('IsVisitLocationArea_CaveEntrance.9086788533805343256'), //Cave_GerudoDesert_0037
+		hash('IsVisitLocationArea_CaveEntrance.1313747287247900726'), //Cave_GerudoDesert_0039
+		hash('IsVisitLocationArea_CaveEntrance.5912572320237750059'), //Cave_GerudoDesert_0040
+		hash('IsVisitLocationArea_CaveEntrance.10615886098827534628'), //Cave_GerudoDesert_0041
+		hash('IsVisitLocationArea_CaveEntrance.11364247050530626523'), //Cave_GerudoDesert_0041
+		//hash('IsVisitLocationArea_CaveEntrance.12690494979007497354'), //Cave_GerudoDesert_0043 (chasm)
+		hash('IsVisitLocationArea_CaveEntrance.2575716733240401024'), //Cave_GerudoDesert_0044
+		hash('IsVisitLocationArea_CaveEntrance.2733724849251422098'), //Cave_GerudoDesert_0044
+		hash('IsVisitLocationArea_CaveEntrance.3159585809076870306'), //Cave_GerudoDesert_0044
+		hash('IsVisitLocationArea_CaveEntrance.5472907972497701967'), //Cave_GerudoDesert_0044
+		hash('IsVisitLocationArea_CaveEntrance.5917955570761207273'), //Cave_GerudoDesert_0044
+		hash('IsVisitLocationArea_CaveEntrance.6434272510662827856'), //Cave_GerudoDesert_0044
+		hash('IsVisitLocationArea_CaveEntrance.8469685058221282368'), //Cave_GerudoDesert_0044
+		hash('IsVisitLocationArea_CaveEntrance.9697862465374992030'), //Cave_GerudoDesert_0044
+		hash('IsVisitLocationArea_CaveEntrance.10959407977416225522'), //Cave_GerudoDesert_0044
+		hash('IsVisitLocationArea_CaveEntrance.12487379951772716063'), //Cave_GerudoDesert_0044
+		hash('IsVisitLocationArea_CaveEntrance.13271954650858439886'), //Cave_GerudoDesert_0044
+		hash('IsVisitLocationArea_CaveEntrance.16209457192430544208'), //Cave_GerudoDesert_0044
+		hash('IsVisitLocationArea_CaveEntrance.9984383196680075552'), //Cave_GerudoDesert_0045
+		hash('IsVisitLocationArea_CaveEntrance.11848909698461881619'), //Cave_GerudoDesert_0046
+		hash('IsVisitLocationArea_CaveEntrance.15998502860260676292'), //Cave_GerudoDesert_0049
+		hash('IsVisitLocationArea_CaveEntrance.1536461930295375687'), //Cave_GerudoDesert_0050
+		hash('IsVisitLocationArea_CaveEntrance.2556267233275928801'), //Cave_GerudoDesert_0051
+		hash('IsVisitLocationArea_CaveEntrance.17113070533003917624'), //Cave_GerudoDesert_0051
+		hash('IsVisitLocationArea_CaveEntrance.4956085668477112851'), //Cave_GerudoHighlands_0002
+		hash('IsVisitLocationArea_CaveEntrance.13402022485127452447'), //Cave_GerudoHighlands_0008
+		hash('IsVisitLocationArea_CaveEntrance.3829441701169624334'), //Cave_GerudoHighlands_0014
+		hash('IsVisitLocationArea_CaveEntrance.10200413539234062667'), //Cave_GerudoHighlands_0017
+		hash('IsVisitLocationArea_CaveEntrance.5245490651623528104'), //Cave_HateruEast_0000
+		hash('IsVisitLocationArea_CaveEntrance.6098009852430490669'), //Cave_HateruEast_0000
+		hash('IsVisitLocationArea_CaveEntrance.6612796801182890824'), //Cave_HateruEast_0002
+		hash('IsVisitLocationArea_CaveEntrance.17467478120509332272'), //Cave_HateruEast_0002
+		hash('IsVisitLocationArea_CaveEntrance.8024413190787260035'), //Cave_HateruEast_0006
+		hash('IsVisitLocationArea_CaveEntrance.16727300130829770739'), //Cave_HateruEast_0007
+		hash('IsVisitLocationArea_CaveEntrance.6802930745954475552'), //Cave_HateruEast_0008
+		hash('IsVisitLocationArea_CaveEntrance.15520389346876570879'), //Cave_HateruEast_0008
+		hash('IsVisitLocationArea_CaveEntrance.5716892940673620530'), //Cave_HateruEast_0009
+		hash('IsVisitLocationArea_CaveEntrance.8281733242675322304'), //Cave_HateruEast_0013
+		hash('IsVisitLocationArea_CaveEntrance.11546223674095079102'), //Cave_HateruEast_0014
+		hash('IsVisitLocationArea_CaveEntrance.17405104512511432097'), //Cave_HateruEast_0016
+		hash('IsVisitLocationArea_CaveEntrance.2377079948731926345'), //Cave_HateruWest_0002
+		hash('IsVisitLocationArea_CaveEntrance.11536545672066358783'), //Cave_HateruWest_0002
+		hash('IsVisitLocationArea_CaveEntrance.14452390387851187371'), //Cave_HateruWest_0005
+		hash('IsVisitLocationArea_CaveEntrance.4113707437011094988'), //Cave_HateruWest_0006
+		hash('IsVisitLocationArea_CaveEntrance.12637708079017963512'), //Cave_HateruWest_0008
+		hash('IsVisitLocationArea_CaveEntrance.14001688345205756141'), //Cave_HateruWest_0008
+		hash('IsVisitLocationArea_CaveEntrance.5582460455199843960'), //Cave_HateruWest_0011
+		hash('IsVisitLocationArea_CaveEntrance.9741614762982953500'), //Cave_HateruWest_0012
+		hash('IsVisitLocationArea_CaveEntrance.3318512786570605776'), //Cave_Hebra_0000
+		hash('IsVisitLocationArea_CaveEntrance.16469865345460228668'), //Cave_Hebra_0013
+		hash('IsVisitLocationArea_CaveEntrance.237924683186779881'), //Cave_Hebra_0015
+		hash('IsVisitLocationArea_CaveEntrance.11736261478102397242'), //Cave_Hebra_0016
+		hash('IsVisitLocationArea_CaveEntrance.3195307747504654540'), //Cave_Hebra_0019
+		hash('IsVisitLocationArea_CaveEntrance.16325049645669939578'), //Cave_Hebra_0019
+		hash('IsVisitLocationArea_CaveEntrance.2105704342604321749'), //Cave_Hebra_0021
+		hash('IsVisitLocationArea_CaveEntrance.10291314157862112744'), //Cave_Hebra_0022
+		hash('IsVisitLocationArea_CaveEntrance.16902444185789897887'), //Cave_Hebra_0023
+		hash('IsVisitLocationArea_CaveEntrance.12796923671859794342'), //Cave_Hebra_0025
+		hash('IsVisitLocationArea_CaveEntrance.4880616531421497220'), //Cave_Hebra_0026
+		hash('IsVisitLocationArea_CaveEntrance.9544967013646230266'), //Cave_Hebra_0030
+		hash('IsVisitLocationArea_CaveEntrance.14012515669863855641'), //Cave_Hebra_0030
+		hash('IsVisitLocationArea_CaveEntrance.10347911355422425929'), //Cave_Hebra_0035
+		hash('IsVisitLocationArea_CaveEntrance.351273480328625563'), //Cave_Hebra_0036
+		hash('IsVisitLocationArea_CaveEntrance.4424842077643087931'), //Cave_Hebra_0037
+		hash('IsVisitLocationArea_CaveEntrance.15195878330545621010'), //Cave_Hebra_0039
+		hash('IsVisitLocationArea_CaveEntrance.331854384806019930'), //Cave_Hebra_0040
+		hash('IsVisitLocationArea_CaveEntrance.2414130203331476311'), //Cave_Hebra_0041
+		hash('IsVisitLocationArea_CaveEntrance.16911046087036530198'), //Cave_Hebra_0041
+		hash('IsVisitLocationArea_CaveEntrance.3626583673838507069'), //Cave_HyruleForest_0001
+		hash('IsVisitLocationArea_CaveEntrance.17919446484334912137'), //Cave_HyruleForest_0006
+		hash('IsVisitLocationArea_CaveEntrance.17492986739704260639'), //Cave_HyruleForest_0007
+		hash('IsVisitLocationArea_CaveEntrance.15069346870719132772'), //Cave_HyruleForest_0008
+		hash('IsVisitLocationArea_CaveEntrance.7031213641441648501'), //Cave_HyruleRidge_0000
+		hash('IsVisitLocationArea_CaveEntrance.13526831088096570570'), //Cave_HyruleRidge_0000
+		hash('IsVisitLocationArea_CaveEntrance.7396388418196389866'), //Cave_HyruleRidge_0002
+		hash('IsVisitLocationArea_CaveEntrance.7109308500424591297'), //Cave_HyruleRidge_0003
+		//hash('IsVisitLocationArea_CaveEntrance.10595346751399989600'), //Cave_HyruleRidge_0004 (chasm)
+		hash('IsVisitLocationArea_CaveEntrance.16086200349282513170'), //Cave_HyruleRidge_0005
+		hash('IsVisitLocationArea_CaveEntrance.7161951218916542562'), //Cave_HyruleRidge_0006
+		hash('IsVisitLocationArea_CaveEntrance.9727847847192093009'), //Cave_HyruleRidge_0007
+		hash('IsVisitLocationArea_CaveEntrance.1001017030533157593'), //Cave_HyruleRidge_0008
+		hash('IsVisitLocationArea_CaveEntrance.2995591950375801309'), //Cave_Lanayru_0006
+		hash('IsVisitLocationArea_CaveEntrance.18330400566032353940'), //Cave_Lanayru_0006
+		hash('IsVisitLocationArea_CaveEntrance.364284787858635830'), //Cave_Lanayru_0008
+		hash('IsVisitLocationArea_CaveEntrance.12971684091903964185'), //Cave_Lanayru_0014
+		hash('IsVisitLocationArea_CaveEntrance.121149631314393175'), //Cave_Lanayru_0019
+		hash('IsVisitLocationArea_CaveEntrance.4222074271666944644'), //Cave_Lanayru_0019
+		hash('IsVisitLocationArea_CaveEntrance.11770869278850880411'), //Cave_Lanayru_0019
+		hash('IsVisitLocationArea_CaveEntrance.2181612675989647998'), //Cave_Lanayru_0024
+		hash('IsVisitLocationArea_CaveEntrance.2568930561223619483'), //Cave_Lanayru_0024
+		hash('IsVisitLocationArea_CaveEntrance.6920893920509135660'), //Cave_Lanayru_0024
+		hash('IsVisitLocationArea_CaveEntrance.9861517874279084103'), //Cave_Lanayru_0024
+		hash('IsVisitLocationArea_CaveEntrance.6101576164770829020'), //Cave_Lanayru_0032
+		hash('IsVisitLocationArea_CaveEntrance.11067701219318302721'), //Cave_Lanayru_0032
+		hash('IsVisitLocationArea_CaveEntrance.1267684059742163273'), //Cave_Lanayru_0033
+		hash('IsVisitLocationArea_CaveEntrance.8479679440708631302'), //Cave_Lanayru_0033
+		hash('IsVisitLocationArea_CaveEntrance.11416496034161895623'), //Cave_Lanayru_0035
+		hash('IsVisitLocationArea_CaveEntrance.18173532972070437383'), //Cave_Lanayru_0036
+		hash('IsVisitLocationArea_CaveEntrance.6400766332894249911'), //Cave_Lanayru_0048
+		hash('IsVisitLocationArea_CaveEntrance.17915364811553875307'), //Cave_Lanayru_0048
+		hash('IsVisitLocationArea_CaveEntrance.7674390140845792498'), //Cave_Lanayru_0049
+		//hash('IsVisitLocationArea_CaveEntrance.12292698567036544880'), //Cave_Lanayru_0050 (chasm)
+		hash('IsVisitLocationArea_CaveEntrance.8187778331917385311'), //Cave_Lanayru_0052
+		hash('IsVisitLocationArea_CaveEntrance.16226687335351902745'), //Cave_Lanayru_0053
+		hash('IsVisitLocationArea_CaveEntrance.8431162680466675195'), //Cave_Lanayru_0055
+		hash('IsVisitLocationArea_CaveEntrance.1879125739105223517'), //Cave_Lanayru_0057
+		hash('IsVisitLocationArea_CaveEntrance.11232051547730571904'), //Cave_Lanayru_0060
+		hash('IsVisitLocationArea_CaveEntrance.16836248457949403705'), //Cave_Lanayru_0061
+		//hash('IsVisitLocationArea_CaveEntrance.15007569538535704822'), //Cave_Lanayru_0063 (chasm)
+		hash('IsVisitLocationArea_CaveEntrance.5030128869675891494'), //Cave_LanayruMountain_0002
+		hash('IsVisitLocationArea_CaveEntrance.4833086368491217811'), //Cave_LanayruMountain_0006
+		hash('IsVisitLocationArea_CaveEntrance.12154058839145194445'), //Cave_LanayruMountain_0008
+		hash('IsVisitLocationArea_CaveEntrance.7159625979791517502'), //Cave_LanayruMountain_0010
+		hash('IsVisitLocationArea_CaveEntrance.7666999484368155152'), //Cave_LanayruMountain_0010
+		hash('IsVisitLocationArea_CaveEntrance.7764210204243066165'), //Cave_LanayruMountain_0014
+		hash('IsVisitLocationArea_CaveEntrance.306314842763820419'), //Cave_LanayruMountain_0016
+		hash('IsVisitLocationArea_CaveEntrance.2241190132839882887'), //Cave_LanayruMountain_0016
+		hash('IsVisitLocationArea_CaveEntrance.14931006272035364254'), //Cave_LanayruMountain_0022
+		hash('IsVisitLocationArea_CaveEntrance.3729378174235672710'), //Cave_LanayruMountain_0024
+		hash('IsVisitLocationArea_CaveEntrance.6248504940692771516'), //Cave_LanayruMountain_0025
+		hash('IsVisitLocationArea_CaveEntrance.11652366925193288374'), //Cave_LanayruMountain_0025
+		hash('IsVisitLocationArea_CaveEntrance.6874178767484973104'), //Cave_LanayruMountain_0026
+		hash('IsVisitLocationArea_CaveEntrance.12943662571339111896'), //Cave_Tabantha_0001
+		hash('IsVisitLocationArea_CaveEntrance.13346964772528420448'), //Cave_Tabantha_0001
+		hash('IsVisitLocationArea_CaveEntrance.8952894420645753579'), //Cave_Tabantha_0002
+		hash('IsVisitLocationArea_CaveEntrance.14339936005749917162'), //Cave_Tabantha_0003
+		hash('IsVisitLocationArea_CaveEntrance.61885230894290162'), //Zora_Imperial_Palace
+		hash('IsVisitLocationArea_CaveEntrance.16374285261465503098'), //Zora_Imperial_Palace
+		hash('IsVisitLocation.ZoraZonauTerminal'), //ZoraZonauTerminal - IsVisitLocationArea_CaveEntrance.741356389245422926????
+		hash('IsVisitLocationArea_CaveEntrance.11637077966753549118') //Well_0043B
 	],
 	LOCATION_WELLS_VISITED:[
 		//IsVisitLocation.Well_
@@ -627,7 +854,6 @@ var CompletismHashes={
 		0xd48a39a6, //0041
 		0x4046d03d, //0042
 		0xc34379ae, //0043
-		//0x1d484a39, //IsVisitLocation.Well_0043B //counts as Komo Shoreline Cave
 		0x10358cdf, //0044
 		0x52446b30, //0045
 		0x0b01b135, //0046
@@ -777,7 +1003,7 @@ var CompletismHashes={
 		0x542a183e, //GerudoDesert_0039
 		0x173aaee7, //GerudoDesert_0040
 		0x6728247e, //GerudoDesert_0041
-		0x29e4a302, //GerudoDesert_0043
+		//0x29e4a302, //GerudoDesert_0043 (chasm)
 		0xa8c973a3, //GerudoDesert_0044
 		0xb8f1f3c1, //GerudoDesert_0045
 		0x393e032c, //GerudoDesert_0046
@@ -827,7 +1053,7 @@ var CompletismHashes={
 		0x0c4fa74c, //HyruleRidge_0000
 		0x52b7f157, //HyruleRidge_0002
 		0x67acbeb9, //HyruleRidge_0003
-		0xca24f955, //HyruleRidge_0004
+		//0xca24f955, //HyruleRidge_0004 (chasm)
 		0xe6e5f556, //HyruleRidge_0005
 		0xc7aa5ca0, //HyruleRidge_0006
 		0x1f24ce09, //HyruleRidge_0007
@@ -843,14 +1069,14 @@ var CompletismHashes={
 		0xbf93c5f7, //Lanayru_0036
 		0xfbe18fd6, //Lanayru_0048
 		0x0aadbad2, //Lanayru_0049
-		0x6ade83b3, //Lanayru_0050
+		//0x6ade83b3, //Lanayru_0050 (chasm)
 		0x61cabc09, //Lanayru_0052
 		0xe6a0230a, //Lanayru_0053
 		0x8d797c20, //Lanayru_0055
 		0xe349a05c, //Lanayru_0057
 		0xa05c2ee9, //Lanayru_0060
 		0x6df6538a, //Lanayru_0061
-		0x52e5cfba, //Lanayru_0063
+		//0x52e5cfba, //Lanayru_0063 (chasm)
 		0xae1f8688, //LanayruMountain_0002
 		0xe9fd11b0, //LanayruMountain_0006
 		0xd99ae420, //LanayruMountain_0008
@@ -863,7 +1089,10 @@ var CompletismHashes={
 		0x57acfa65, //LanayruMountain_0026
 		0x801e08e3, //Tabantha_0001
 		0x891f9219, //Tabantha_0002
-		0xf8017f51 //Tabantha_0003
+		0xf8017f51, //Tabantha_0003
+		0x825b96c0, //Zora_Imperial_Palace
+		0x5b4fdd02, //ZoraZonauTerminal
+		0x1f859e86 //IsVisitLocation.Well_0043B //counts as Komo Shoreline Cave
 	],
 
 	SCHEMATICS_STONE_FOUND:[
@@ -1249,6 +1478,41 @@ var CompletismHashes={
 		0xffb3f46b //8899164221420779612 - Enemy_DungeonBoss_Goron_Underground
 	],
 
+
+
+	TREASURE_MAPS_FOUND:[
+		0x78351b17, //IsFindTreasureMap.Armor_230_Head
+		0xa77d686d, //IsFindTreasureMap.Armor_230_Upper
+		0x17110169, //IsFindTreasureMap.Armor_230_Lower
+		0x2b60b4b7, //IsFindTreasureMap.Armor_200_Head
+		0x28ae6f1c, //IsFindTreasureMap.Armor_200_Upper
+		0x7a1d84a5, //IsFindTreasureMap.Armor_200_Lower
+		0x56aa6296, //IsFindTreasureMap.Armor_205_Head
+		0x5a06eebb, //IsFindTreasureMap.Armor_205_Upper
+		0xdd8a40d8, //IsFindTreasureMap.Armor_205_Lower
+		0x17aea64c, //IsFindTreasureMap.Armor_210_Head
+		0x29889eb8, //IsFindTreasureMap.Armor_210_Upper
+		0xc576b6bd, //IsFindTreasureMap.Armor_210_Lower
+		0x3044e564, //IsFindTreasureMap.Armor_215_Head
+		0xad134aed, //IsFindTreasureMap.Armor_215_Upper
+		0x5aa6fa9f, //IsFindTreasureMap.Armor_215_Lower
+		0xfb332413, //IsFindTreasureMap.Armor_005_Head
+		0xdfdded1c, //IsFindTreasureMap.Armor_005_Upper
+		0x00e34536, //IsFindTreasureMap.Armor_005_Lower
+		0xbb11e8f5, //IsFindTreasureMap.Armor_176_Head
+		0xb672271b, //IsFindTreasureMap.Armor_220_Head
+		0x7b5a8ac8, //IsFindTreasureMap.Armor_172_Head
+		0xeb171a92, //IsFindTreasureMap.Armor_173_Head
+		0x05b058c7, //IsFindTreasureMap.Armor_177_Head
+		0x91916a39, //IsFindTreasureMap.Armor_178_Head
+		0x24fd5dc6, //IsFindTreasureMap.Weapon_Sword_058
+		0xde966d31, //IsFindTreasureMap.Weapon_Lsword_059
+		0x8a67682c, //IsFindTreasureMap.Weapon_Sword_059
+		0xa2c5ee99, //IsFindTreasureMap.Weapon_Shield_057
+		0x5875357a, //IsFindTreasureMap.Armor_1051_Head
+		0x840cfa81, //IsFindTreasureMap.Armor_1051_Upper
+		0xe112f9e2 //IsFindTreasureMap.Armor_1051_Lower
+	],
 
 
 	COMPENDIUM_STATUS:[

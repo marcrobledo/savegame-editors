@@ -1,150 +1,134 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Item class) v20230612
+	The legend of Zelda: Tears of the Kingdom savegame editor - Item class (last update 2023-07-08)
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
 */
 
-function Item(catId, index, id, quantity, foodEffect, foodEffectHearts, foodEffectMultiplier, foodEffectTime, foodPrice){
+function Item(catId, itemData, overrideId){
 	this.category=catId;
-	this.index=index;
-	this.removable=catId!=='arrows';
 
-	this.id=id;
-	this.quantity=typeof quantity==='number'? quantity : 1;
+	this.id=overrideId || itemData.id;
+	this.quantity=typeof itemData.quantity==='number'? itemData.quantity : 1;
 
-	if(catId==='food'){
-		this.foodEffect=typeof foodEffect==='number'? foodEffect : Item.FOOD_EFFECTS[0].value;
-		this.foodEffectHearts=typeof foodEffectHearts==='number'? foodEffectHearts : 4;
-		this.foodEffectMultiplier=typeof foodEffectMultiplier==='number'? foodEffectMultiplier : 0;
-		this.foodEffectTime=typeof foodEffectTime==='number'? foodEffectTime : 0;
-		this.foodPrice=typeof foodPrice==='number'? foodPrice : 1;
+	if(catId==='materials'){
+		this.getOrder=typeof itemData.getOrder==='number'? itemData.getOrder : 0;
+		this.useOrder=typeof itemData.useOrder==='number'? itemData.useOrder : 0;
+	}else if(catId==='devices'){
+		this.useOrder=typeof itemData.useOrder==='number'? itemData.useOrder : 0;
+	}else if(catId==='food'){
+		this.heartsHeal=typeof itemData.heartsHeal==='number'? itemData.heartsHeal : 4;
+		this.effect=Variable.enumToInt(itemData.effect);
+		this.effectMultiplier=typeof itemData.effectMultiplier==='number'? itemData.effectMultiplier : 0;
+		this.effectTime=typeof itemData.effectTime==='number'? itemData.effectTime : 0;
+		this.price=typeof itemData.price==='number'? itemData.price : 1;
+		this.recipe=typeof itemData.recipe==='object' && itemData.recipe.length===5? itemData.recipe : ['','','','',''];
 	}
-	Item.buildHtmlElements(this);
 }
 
 Item.prototype.getItemTranslation=function(){
-	return Locale._(this.id);
+	return _(this.id);
 }
-Item.prototype.copy=function(index, newId){
-	var quantity;
-	if(this.category==='key'){
-		if(Item.KEY_COUNTABLE.indexOf(newId)===-1){
-			quantity=0xffffffff; //-1
-		}else{
-			quantity=1;
+Item.prototype.export=function(){
+	if(this.category==='materials'){
+		return{
+			totkStruct:Pouch.getCategoryItemStructId(this.category),
+			id:this.id,
+			quantity:this.quantity,
+			getOrder:this.getOrder,
+			useOrder:this.useOrder
+		}
+	}else if(this.category==='devices'){
+		return{
+			totkStruct:Pouch.getCategoryItemStructId(this.category),
+			id:this.id,
+			quantity:this.quantity,
+			useOrder:this.useOrder
+		}
+	}else if(this.category==='arrows' || this.category==='key'){
+		return{
+			totkStruct:Pouch.getCategoryItemStructId(this.category),
+			id:this.id,
+			quantity:this.quantity
+		}
+	}else if(this.category==='food'){
+		return{
+			totkStruct:Pouch.getCategoryItemStructId(this.category),
+			id:this.id,
+			quantity:this.quantity,
+			heartsHeal:this.heartsHeal,
+			effect:this.effect,
+			effectMultiplier:this.effectMultiplier,
+			effectTime:this.effectTime,
+			price:this.price,
+			recipe:this.recipe
 		}
 	}else{
-		quantity=this.quantity;
+		throw new Error('Invalid item category');
 	}
-	return new Item(
-		this.category,
-		index,
-		typeof newId==='string'? newId : this.id,
-		quantity,
-		this.category==='food'? this.foodEffect : null,
-		this.category==='food'? this.foodEffectHearts : null,
-		this.category==='food'? this.foodEffectMultiplier : null,
-		this.category==='food'? this.foodEffectTime : null,
-		this.category==='food'? this.foodPrice : null
-	);
+}
+Item.prototype.refreshHtmlInputs=function(fixValues){
+	var isCountable=this.category !== 'key' || Item.KEY_COUNTABLE.indexOf(this.id)!==-1;
+	if(fixValues){
+		if(this.category==='food'){
+			if(this.lastInputChanged==='effect'){
+				if(this.id==='Item_Cook_C_17' && Item.VALID_ELIXIR_EFFECTS.indexOf(hashReverse(this.effect))!==-1)
+					Pouch.updateItemIcon(this);
+				if(this.effect===hash('None')){
+					this.effectMultiplier=0;
+					this.effectTime=0;
+				}
+			}
+		}else if(this.category==='key'){
+			if(isCountable && this.quantity<1)
+				this.quantity=1;
+			else if(!isCountable && this.lastInputChanged==='id')
+				this.quantity=-1;
+		}
+	}
+
+
+	this._htmlInputs.quantity.disabled=!isCountable;
+	//this._htmlInputs.quantity.style.visibility=this._htmlInputs.quantity.disabled? 'hidden':'visible';
+
+	if(this.category==='food' && (!fixValues || this.lastInputChanged==='effect')){
+		var effectText;
+		try{
+			effectText=hashReverse(this.effect);
+		}catch(err){
+			effectText='None';
+		}
+
+		if(effectText && effectText!=='None')
+			this._htmlInputs.effectMultiplier.style.backgroundImage='url(assets/tokt_ui_icons/bonus_'+effectText+'.svg)';
+		else
+			this._htmlInputs.effectMultiplier.style.backgroundImage='none';
+
+		this._htmlInputs.effectMultiplier.disabled=this._htmlInputs.effectTime.disabled=(!effectText || effectText==='None');
+	}
 }
 
-Item.prototype.save=function(){
-	var categoryHash=getInternalCategoryId(this.category);
-	SavegameEditor.writeString64('Pouch.'+categoryHash+'.Content.Name', this.index, this.id);
-	SavegameEditor.writeU32('Pouch.'+categoryHash+'.Content.StockNum', this.index, this.quantity);
-	if(this.category==='food'){
-		SavegameEditor.writeU32('Pouch.Food.Content.Effect.Type', this.index, this.foodEffect);
-		SavegameEditor.writeU32('Pouch.Food.Content.LifeRecover', this.index, this.foodEffectHearts);
-		SavegameEditor.writeU32('Pouch.Food.Content.Effect.Level', this.index, this.foodEffectMultiplier);
-		SavegameEditor.writeU32('Pouch.Food.Content.Effect.Time', this.index, this.foodEffectTime);
-		SavegameEditor.writeU32('Pouch.Food.Content.Price', this.index, this.foodPrice);
-	}
-}
 
 
 
 Item.buildHtmlElements=function(item){
-	//build html elements
-	var maxValue=Item.MAXIMUM_QUANTITY[item.id] || 999;
-	item._htmlInputQuantity=inputNumber('item-quantity-'+item.category+'-'+item.index, 1, maxValue, item.quantity);
-	item._htmlInputQuantity.addEventListener('change', function(){
-		var newVal=parseInt(this.value);
-		if(!isNaN(newVal) && newVal>0)
-			item.quantity=newVal;
-	});
-	item._htmlInputQuantity.dataset.translateTitle='Quantity';
-	item._htmlInputQuantity.title=Locale._('Quantity');
-
+	var maxQuantity=Item.MAXIMUM_QUANTITY[item.id] || 999;
 
 	if(item.category==='food'){
-		item._htmlSelectFoodEffect=select('item-food-effects-'+item.category+'-'+item.index, Item.FOOD_EFFECTS, function(){
-			item.foodEffect=parseInt(this.value);
-		}, item.foodEffect);
-		item._htmlSelectFoodEffect.dataset.translateTitle='Food effect';
-		item._htmlSelectFoodEffect.title=Locale._('Food effect');
-
-		item._htmlInputFoodEffectHearts=inputNumber('item-food-effects-hearts-'+item.category+'-'+item.index, 0, 40*4, item.foodEffectHearts);
-		item._htmlInputFoodEffectHearts.addEventListener('change', function(){
-			var newVal=parseInt(this.value);
-			if(!isNaN(newVal) && newVal>0)
-				item.foodEffectHearts=newVal;
-		});
-		item._htmlInputFoodEffectHearts.dataset.translateTitle='Heart quarters heal';
-		item._htmlInputFoodEffectHearts.title=Locale._('Heart quarters heal');
-
-		item._htmlInputFoodEffectMultiplier=inputNumber('item-food-effects-multiplier-'+item.category+'-'+item.index, 1, 250, item.foodEffectMultiplier);
-		item._htmlInputFoodEffectMultiplier.addEventListener('change', function(){
-			var newVal=parseInt(this.value);
-			if(!isNaN(newVal) && newVal>0)
-				item.foodEffectMultiplier=newVal;
-		});
-		item._htmlInputFoodEffectMultiplier.dataset.translateTitle='Multiplier';
-		item._htmlInputFoodEffectMultiplier.title=Locale._('Multiplier');
-
-		item._htmlInputFoodEffectTime=inputNumber('item-food-effects-time-'+item.category+'-'+item.index, 0, 59999, item.foodEffectTime);
-		item._htmlInputFoodEffectTime.addEventListener('change', function(){
-			var newVal=parseInt(this.value);
-			if(!isNaN(newVal) && newVal>=0)
-				item.foodEffectTime=newVal;
-		});
-		item._htmlInputFoodEffectTime.dataset.translateTitle='Duration (in seconds)';
-		item._htmlInputFoodEffectTime.title=Locale._('Duration (in seconds)');
-
-
-		item._htmlInputFoodPrice=inputNumber('item-food-price-'+item.category+'-'+item.index, 1, 999999, item.foodPrice);
-		item._htmlInputFoodPrice.addEventListener('change', function(){
-			var newVal=parseInt(this.value);
-			if(!isNaN(newVal) && newVal>0)
-				item.foodPrice=newVal;
-		});
-		item._htmlInputFoodPrice.dataset.translateTitle='Price';
-		item._htmlInputFoodPrice.title=Locale._('Price');
+		item._htmlInputs={
+			quantity:Pouch.createItemInput(item, 'quantity', 'Int', {min:1, max:maxQuantity, label:_('Quantity')}),
+			heartsHeal:Pouch.createItemInput(item, 'heartsHeal', 'Int', {min:-1, max:40*4, label:_('Heart quarters heal')}),
+			effect:Pouch.createItemInput(item, 'effect', 'Enum', {enumValues:Item.FOOD_EFFECTS, label:_('Food effect')}),
+			effectMultiplier:Pouch.createItemInput(item, 'effectMultiplier', 'Int', {min:-1, max:250, label:_('Multiplier')}),
+			effectTime:Pouch.createItemInput(item, 'effectTime', 'Int', {min:-1, max:59999, label:_('Duration (in seconds)')}),
+			price:Pouch.createItemInput(item, 'price', 'Int', {min:1, max:999999, label:_('Price')})
+		};
+		item._htmlInputs.effectMultiplier.className+=' with-icon';
+	}else{
+		item._htmlInputs={
+			quantity:Pouch.createItemInput(item, 'quantity', 'Int', {min:-1, max:maxQuantity, label:_('Quantity')})
+		};
 	}
-}
-
-Item.readAll=function(catId){
-	var categoryHash=getInternalCategoryId(catId);
-	var itemIds=SavegameEditor.readString64Array('Pouch.'+categoryHash+'.Content.Name');
-	var isFood=(catId==='food');
-	var validItems=[];
-	for(var i=0; i<itemIds.length; i++){
-		if(itemIds[i]){
-			validItems.push(new Item(
-				catId,
-				i,
-				itemIds[i],
-				SavegameEditor.readU32('Pouch.'+categoryHash+'.Content.StockNum', i),
-				isFood? SavegameEditor.readU32('Pouch.Food.Content.Effect.Type', i) : null,
-				isFood? SavegameEditor.readU32('Pouch.Food.Content.LifeRecover', i) : null,
-				isFood? SavegameEditor.readU32('Pouch.Food.Content.Effect.Level', i) : null,
-				isFood? SavegameEditor.readU32('Pouch.Food.Content.Effect.Time', i) : null,
-				isFood? SavegameEditor.readU32('Pouch.Food.Content.Price', i) : null
-			));
-		}
-	}
-	return validItems;
 }
 
 
@@ -173,179 +157,46 @@ Item.KEY_COUNTABLE=[
 
 
 
-Item.FOOD_EFFECTS=[
-{name:'None', value:0xb6eede09}, //None
-{name:'Heat Resistance', value:0x1df7a011}, //ResistHot
-{name:'Flame Guard', value:0x11383afd}, //ResistBurn
-{name:'Cold Resistance', value:0x9b6d98fb}, //ResistCold
-{name:'Shock Resistance', value:0x183cd822}, //ResistElectric
-{name:'Lightning Proof', value:0x25293142}, //ResitLightning
-{name:'UnFreezable', value:0xf5e2a20c}, //ResistFreeze
-//{name:'*ResistAncient', value:0xe53962df},
-{name:'Swim Speed Up', value:0x67866c6d}, //SwimSpeedUp
-{name:'Swim Dash Stamina Up', value:0x87645022}, //DecreaseSwimStamina
-//{name:'*SpinAttack', value:0x1e082215},
-//{name:'*ClimbWaterfall', value:0x9119b797},
-{name:'Climb Speed Up', value:0xdc7faf6e}, //ClimbSpeedUp
-//{name:'*ClimbSpeedUpOnlyHorizontaly', value:0x81e9dab0},
-{name:'Attack Up', value:0xa9384c6c}, //AttackUp
-{name:'Cold Weather Attack Up', value:0x4a3e58f6}, //AttackUpCold
-{name:'Hot Weather Attack Up', value:0x4c6a85d2}, //AttackUpHot
-{name:'Stormy Weather Attack Up', value:0xff347a38}, //AttackUpThunderstorm
-//{name:'*AttackUpDark', value:0xa2d97a77},
-//{name:'*AttackUpBone', value:0x51f5ed93},
-{name:'Stealth Up', value:0x74141898}, //QuietnessUp
-{name:'Sand Speed Up', value:0x9add92a3}, //SandMoveUp
-{name:'Snow Speed Up', value:0x33261e44}, //SnowMoveUp
-//{name:'*WakeWind', value:0x29e7073a},
-//{name:'*TwiceJump', value:0xca81b8ab},
-//{name:'*EmergencyAvoid', value:0x8674a913},
-{name:'Defense Up', value:0xa0a00c0e}, //DefenseUp
-{name:'Speed Up', value:0xb3f6b87a}, //AllSpeed
-{name:'Gloom Resistance', value:0x4d1e8af4}, //MiasmaGuard
-//{name:'*MaskBokoblin', value:0x6b9c735f},
-//{name:'*MaskMoriblin', value:0xcd1c7892},
-//{name:'*MaskLizalfos', value:0x18c0a6f1},
-//{name:'*MaskLynel', value:0x4d70d744},
-//{name:'*YigaDisguise', value:0x2c403cd2},
-//{name:'*StalDisguise', value:0x4d91c91b},
-//{name:'*LifeRecover', value:0x515632a9},
-{name:'Extra Heart', value:0xc1db0965}, //LifeMaxUp
-{name:'Stamina Recovery', value:0xe9a30056}, //StaminaRecover
-{name:'Extra Stamina', value:0x60d8315d}, //ExStaminaMaxUp
-{name:'Gloom Recovery', value:0x03459853}, //LifeRepair
-{name:'Skydive Mobility Up', value:0x6775f470}, //DivingMobilityUp
-{name:'Slip Resistance', value:0x2b0cb1e9}, //NotSlippy
-//{name:'*Moisturizing', value:0x994b605e},
-{name:'Glow', value:0x4939dca1}, //LightEmission
-{name:'Rupee Padding', value:0xcfd032db}, //RupeeGuard
-//{name:'*FallResist', value:0x8b6e916c},
-{name:'Master Sword Beam Up', value:0x59be2cc3}, //SwordBeamUp
-//{name:'*VisualizeLife', value:0x5d85e03c},
-{name:'Night Speed Up', value:0x82638f9d}, //NightMoveSpeedUp
-//{name:'*NightGlow', value:0x7d5014ab},
-{name:'Climbing Jump Stamina Up', value:0x0d1d9ef3}, //DecreaseWallJumpStamina
-{name:' Charge Atk. Stamina Up', value:0x48aa5ddf}, //DecreaseChargeAttackStamina
-//{name:'*EmitTerror', value:0xe6202c76},
-{name:'Fireproof', value:0x2f3b7069}, //NoBurning
-{name:'Impact Proof', value:0xc5def427}, //NoFallDamage
-{name:'Slip Proof', value:0x346a7abc}, //NoSlip
-//{name:'*RupeeGuardRate', value:0x56b27b1f},
-//{name:'*MaskAll', value:0xc03cbd09},
-{name:'Energy Up', value:0xa3b0355e}, //DecreaseZonauEnergy
-{name:'Energy Recharge Up', value:0x52fad704}, //ZonauEnergyHealUp
-//{name:'*MaskHorablin', value:0x719be063},
-{name:'Gloom Attack Resist', value:0x671dbe0d}, //MiasmaDefenseUp
-{name:'Cold Weather Charge', value:0xf563b129}, //ChargePowerUpCold
-{name:'Hot Weather Charge', value:0x4fb7ed09}, //ChargePowerUpHot
-{name:'Stormy Weather Charge', value:0x8f4fdaf4}, //ChargePowerUpThunderstorm
-{name:'Shining Steps', value:0x1d249847} //LightFootprint
-//{name:'*SoulPowerUpLightning', value:0xfbfc055b},
-//{name:'*SoulPowerUpWater', value:0x77b8c024},
-//{name:'*SoulPowerUpWind', value:0xc4cf428c},
-//{name:'*SoulPowerUpFire', value:0xf149c0c0},
-//{name:'*SoulPowerUpSpirit', value:0xf9c555e6},
-//{name:'*EnableUseSwordBeam', value:0xaa04e165}
+Item.FOOD_EFFECTS_RAW=[
+'ResistHot', 'ResistBurn', 'ResistCold', 'ResistElectric', 'ResitLightning', 'ResistFreeze', 'SwimSpeedUp',
+'ClimbSpeedUp', 'AttackUp', 'AttackUpCold', 'AttackUpHot', 'AttackUpThunderstorm', 'QuietnessUp', 'SandMoveUp',
+'SnowMoveUp', 'DefenseUp', 'AllSpeed', 'MiasmaGuard', 'LifeMaxUp', 'StaminaRecover', 'ExStaminaMaxUp', 'LifeRepair',
+'DivingMobilityUp', 'NotSlippy', 'LightEmission', 'RupeeGuard', 'SwordBeamUp', 'NightMoveSpeedUp', 'DecreaseWallJumpStamina', 'DecreaseChargeAttackStamina',
+'NoBurning', 'NoFallDamage', 'NoSlip', 'DecreaseZonauEnergy', 'ZonauEnergyHealUp', 'MiasmaDefenseUp', 'ChargePowerUpCold', 'ChargePowerUpHot',
+'ChargePowerUpThunderstorm', 'LightFootprint'
+//unusable in food?
+//ResistFreeze, ResitLightning, RupeeGuard
+//ResistAncient, SpinAttack, ClimbWaterfall, ClimbSpeedUpOnlyHorizontaly, AttackUpDark, AttackUpBone, WakeWind, TwiceJump
+//EmergencyAvoid, MaskBokoblin, MaskMoriblin, MaskLizalfos, MaskLynel, YigaDisguise, StalDisguise, LifeRecover
+//Moisturizing, FallResist, VisualizeLife, NightGlow, EmitTerror, RupeeGuardRate, MaskAll, MaskHorablin
+//SoulPowerUpLightning, SoulPowerUpWater, SoulPowerUpWind, SoulPowerUpFire, SoulPowerUpSpirit, EnableUseSwordBeam
 ];
-
-
-
-
-Item.fixKeyAvailabilityFlags=function(){
-	var changes=0;
-	SavegameEditor.currentItems.key.forEach(function(item, i){
-		if(Item.AvailabilityFlags[item.id]){
-			var offset=SavegameEditor._getOffsetsByHashes([Item.AvailabilityFlags[item.id]], true);
-			if(offset){
-				var originalValue=tempFile.readU32(offset);
-				if(originalValue===0){
-					tempFile.writeU32(offset, 1);
-					changes++;
-				}
-			}
-		}
-	});
-
-	if(changes){
-		MarcDialogs.alert(changes+' some key flags have been fixed');
-		if(currentTab==='master' && TOTKMasterEditor.isLoaded())
-			TOTKMasterEditor.refreshResults();
-	}
-	return changes;
-}
-
-Item.AvailabilityFlags={
-	/* paraglider fabrics (OwnedParasailPattern.*) */
-	Obj_SubstituteCloth_Default:0x7ff848d1,
-	Obj_SubstituteCloth_00:0xb65bc9d7,
-	Obj_SubstituteCloth_01:0x41929f49,
-	Obj_SubstituteCloth_02:0x084da01f,
-	Obj_SubstituteCloth_03:0x31a2d1cc,
-	Obj_SubstituteCloth_04:0x865f713d,
-	Obj_SubstituteCloth_05:0x30669b55,
-	Obj_SubstituteCloth_06:0x022aef11,
-	Obj_SubstituteCloth_07:0x112734b9,
-	Obj_SubstituteCloth_08:0xdbc821f2,
-	Obj_SubstituteCloth_09:0x1ecc8c93,
-	Obj_SubstituteCloth_10:0x405203b9,
-	Obj_SubstituteCloth_11:0x7c38e018,
-	Obj_SubstituteCloth_12:0x0636a9e7,
-	Obj_SubstituteCloth_13:0x09865592,
-	Obj_SubstituteCloth_14:0x57129d72,
-	Obj_SubstituteCloth_15:0xf4035866,
-	Obj_SubstituteCloth_16:0xc80d0bf1,
-	Obj_SubstituteCloth_17:0x96427113,
-	Obj_SubstituteCloth_18:0x8ef713e8,
-	Obj_SubstituteCloth_19:0x92754bbd,
-	Obj_SubstituteCloth_20:0x94d2472d,
-	Obj_SubstituteCloth_21:0xe6cacf83,
-	Obj_SubstituteCloth_22:0x85a4e8e3,
-	Obj_SubstituteCloth_23:0xca1847dd,
-	Obj_SubstituteCloth_24:0x8c007dbc,
-	Obj_SubstituteCloth_25:0xa2aec992,
-	Obj_SubstituteCloth_26:0x7c552e01,
-	Obj_SubstituteCloth_27:0xca76a631,
-	Obj_SubstituteCloth_28:0xd9c206b1,
-	Obj_SubstituteCloth_29:0x6443f768,
-	Obj_SubstituteCloth_30:0x397217b2,
-	Obj_SubstituteCloth_31:0x6fb24dcc,
-	Obj_SubstituteCloth_32:0x38267d74,
-	Obj_SubstituteCloth_33:0xca2baf8b,
-	Obj_SubstituteCloth_34:0x500ce8e9,
-	Obj_SubstituteCloth_35:0x861db450,
-	Obj_SubstituteCloth_36:0x8dbea34c,
-	Obj_SubstituteCloth_37:0xd552e642,
-	Obj_SubstituteCloth_38:0x6199467d,
-	Obj_SubstituteCloth_39:0x6625f898,
-	Obj_SubstituteCloth_40:0x63452b97,
-	Obj_SubstituteCloth_41:0x53e2da50,
-	Obj_SubstituteCloth_43:0xee3f78e3,
-	Obj_SubstituteCloth_45:0xf2d50ecf,
-	Obj_SubstituteCloth_46:0xa4bf8025,
-	Obj_SubstituteCloth_48:0x0f1e166d,
-	Obj_SubstituteCloth_49:0xc9ab8463,
-	Obj_SubstituteCloth_51:0x21170251,
-	Obj_SubstituteCloth_52:0xeaae73a3,
-	Obj_SubstituteCloth_53:0xa5ecfeec,
-	Obj_SubstituteCloth_55:0x93e7260f,
-	Obj_SubstituteCloth_56:0x6688319b,
-
-	/* horse reins (OwnedCustomizableHorseTack_Reins.*) */
-	GameRomHorseReins_01:0x4a5fd1ed, //Traveler's Bridle
-	GameRomHorseReins_02:0x2ab85fc5, //Royal Reins
-	GameRomHorseReins_03:0x7ed8afec, //Knight's Bridle
-	GameRomHorseReins_04:0x02b23771, //Monster Bridle
-	GameRomHorseReins_05:0xeee51703, //Extravagant Bridle
-	/* horse saddles (OwnedCustomizableHorseTack_Saddle.*) */
-	GameRomHorseSaddle_01:0xac64346a, //Traveler's Saddle
-	GameRomHorseSaddle_02:0x5e6d9a72, //Royal Saddle
-	GameRomHorseSaddle_03:0x7a50263f, //Knight's Saddle
-	GameRomHorseSaddle_04:0x38033224, //Monster Saddle
-	GameRomHorseSaddle_05:0xe9220149, //Extravagant Saddle
-	GameRomHorseSaddle_07:0x9dda81a1 //Towing Harness
-	//GameRomHorseSaddle_07:0xecbbc704, //GameRomHorseSaddle_07_ExternalCoupler
-	//GameRomHorseSaddle_07:0x663f0238 //GameRomHorseSaddle_07_WithWagon
-}
+Item.FOOD_EFFECTS=[
+{name:'None', value:hash('None')},
+{name:'Heat Resistance', value:hash('ResistHot')},
+{name:'Flame Guard', value:hash('ResistBurn')},
+{name:'Cold Resistance', value:hash('ResistCold')},
+{name:'Shock Resistance', value:hash('ResistElectric')},
+{name:'Swim Speed Up', value:hash('SwimSpeedUp')},
+{name:'Climb Speed Up', value:hash('ClimbSpeedUp')},
+{name:'Attack Up', value:hash('AttackUp')},
+{name:'Cold Weather Attack Up', value:hash('AttackUpCold')},
+{name:'Hot Weather Attack Up', value:hash('AttackUpHot')},
+{name:'Stormy Weather Attack Up', value:hash('AttackUpThunderstorm')},
+{name:'Stealth Up', value:hash('QuietnessUp')},
+{name:'Sand Speed Up', value:hash('SandMoveUp')},
+{name:'Snow Speed Up', value:hash('SnowMoveUp')},
+{name:'Defense Up', value:hash('DefenseUp')},
+{name:'Speed Up', value:hash('AllSpeed')},
+{name:'Gloom Resistance', value:hash('MiasmaGuard')},
+{name:'Extra Heart', value:hash('LifeMaxUp')},
+{name:'Stamina Recovery', value:hash('StaminaRecover')},
+{name:'Extra Stamina', value:hash('ExStaminaMaxUp')},
+{name:'Gloom Recovery', value:hash('LifeRepair')},
+{name:'Skydive Mobility Up', value:hash('DivingMobilityUp')},
+{name:'Slip Resistance', value:hash('NotSlippy')},
+{name:'Glow', value:hash('LightEmission')}
+];
 
 
 
@@ -849,33 +700,33 @@ Item.AVAILABILITY={
 	],
 
 	'devices':[
-		'SpObj_EnergyBank_Capsule_A_01', //Battery
-		'SpObj_EnergyBank_Capsule_A_02', //Big Battery
+		'SpObj_WindGenerator_Capsule_A_01', //Fan
+		'SpObj_LiftGeneratorWing_Capsule_A_01', //Wing
+		'SpObj_Cart_Capsule_A_01', //Cart
+		'SpObj_BalloonEnvelope_Capsule_A_01', //Balloon
+		'SpObj_Rocket_Capsule_A_01', //Rocket
+		'SpObj_TimerBomb_Capsule_A_01', //Time Bomb
 		'SpObj_CookSet_Capsule_A_01', //Portable Pot
-		'SpObj_Beamos_Capsule_A_01', //Beam Emitter
 		'SpObj_FlameThrower_Capsule_A_01', //Flame Emitter
 		'SpObj_SnowMachine_Capsule_A_01', //Frost Emitter
 		'SpObj_ElectricBoxGenerator_Capsule_A_01', //Shock Emitter
-		'SpObj_BalloonEnvelope_Capsule_A_01', //Balloon
-		'SpObj_Cannon_Capsule_A_01', //Cannon
-		'SpObj_Cart_Capsule_A_01', //Cart
-		'SpObj_Chaser_Capsule_A_01', //Homing Cart
-		'SpObj_ControlStick_Capsule_A_01', //Steering Stick
-		'SpObj_GolemHead_Capsule_A_01', //Construct Head
-		'SpObj_WindGenerator_Capsule_A_01', //Fan
-		'SpObj_FloatingStone_Capsule_A_01', //Hover Stone
+		'SpObj_Beamos_Capsule_A_01', //Beam Emitter
 		'SpObj_LiftableWaterPump_Capsule_A_01', //Hydrant
-		'SpObj_FlashLight_Capsule_A_01', //Light
-		'SpObj_LightMirror_Capsule_A_01', //Mirror
-		'SpObj_Rocket_Capsule_A_01', //Rocket
-		'SpObj_SlipBoard_Capsule_A_01', //Sled
-		'SpObj_SpringPiston_Capsule_A_01', //Spring
-		'SpObj_TiltingDoll_Capsule_A_01', //Stabilizer
-		'SpObj_Pile_Capsule_A_01', //Stake
-		'SpObj_FastWheel_Capsule_A_01', //Small Wheel
+		'SpObj_ControlStick_Capsule_A_01', //Steering Stick
 		'SpObj_FastWheel_Capsule_B_01', //Big Wheel
-		'SpObj_LiftGeneratorWing_Capsule_A_01', //Wing
-		'SpObj_TimerBomb_Capsule_A_01', //Time Bomb
+		'SpObj_FastWheel_Capsule_A_01', //Small Wheel
+		'SpObj_SlipBoard_Capsule_A_01', //Sled
+		'SpObj_EnergyBank_Capsule_A_01', //Battery
+		'SpObj_EnergyBank_Capsule_A_02', //Big Battery
+		'SpObj_SpringPiston_Capsule_A_01', //Spring
+		'SpObj_Cannon_Capsule_A_01', //Cannon
+		'SpObj_TiltingDoll_Capsule_A_01', //Stabilizer
+		'SpObj_FloatingStone_Capsule_A_01', //Hover Stone
+		'SpObj_FlashLight_Capsule_A_01', //Light
+		'SpObj_Pile_Capsule_A_01', //Stake
+		'SpObj_LightMirror_Capsule_A_01', //Mirror
+		'SpObj_Chaser_Capsule_A_01', //Homing Cart
+		'SpObj_GolemHead_Capsule_A_01' //Construct Head
 	],
 
 	'key':[
@@ -993,3 +844,7 @@ Item.AVAILABILITY={
 		'Obj_SubstituteCloth_56' //Addison's Fabric
 	]
 };
+
+
+Item.VALID_ELIXIR_EFFECTS=['AllSpeed','AttackUp','DefenseUp','ExStaminaMaxUp','LifeMaxUp','LightEmission','NotSlippy','QuietnessUp','ResistBurn','ResistCold','ResistElectric','ResistHot','StaminaRecover'];
+Item.VALID_ELIXIR_EFFECTS.forEach(hash);

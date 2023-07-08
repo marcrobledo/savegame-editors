@@ -8,8 +8,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 	<link rel="shortcut icon" href="./favicon.png"/>
 	<link type="text/css" rel="stylesheet" href="./zelda-totk.css" media="all"/>
+	<script type="text/javascript" src="./lib/cash.min.js"></script>
+	<script type="text/javascript" src="./lib/murmurhash3js.min.js"></script>
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./zelda-totk.js"></script>
+	<script type="text/javascript" src="./zelda-totk.locale.js"></script>
+	<script type="text/javascript" src="./zelda-totk.variables.js"></script>
+	<script defer type="text/javascript" src="./zelda-totk.class.pouch.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.class.equipment.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.class.armor.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.class.item.js"></script>
@@ -18,9 +23,7 @@
 	<script defer type="text/javascript" src="./zelda-totk.completism.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.coordinates.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.exp-calculator.js"></script>
-	<script defer type="text/javascript" src="./zelda-totk.locale.js"></script>
 	<script defer type="text/javascript" src="./zelda-totk.master.js"></script>
-	<script defer type="text/javascript" src="./murmurhash3js.min.js"></script>
 	<script type="text/javascript"><!--
 		/* service worker */
 		/*var FORCE_HTTPS=true;
@@ -36,41 +39,69 @@
 
 <!-- HEADER -->
 <div id="header">
-	<div id="header-top">
-		<div class="row wrapper padding-vertical">
-			<h1>Savegame Editor for The legend of Zelda: TOTK</h1>
-			<div class="six columns text-left"><img src="./assets/logo.png" style="max-width:90%"/></div>
-			<div class="six columns text-right header-buttons">
-				by <a href="/" class="author">Marc Robledo</a>
-				<a href="https://github.com/marcrobledo/savegame-editors/tree/master/zelda-totk" target="_blank" class="button"><span class="sprite github"></span> See on GitHub</a>
-				<a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow" class="donate button"><span class="sprite heart"></span> Donate</a>
+	<div class="wrapper">
+		<div id="header-top">
+			<div class="row padding-vertical">
+				<h1>Savegame Editor for The legend of Zelda: TOTK</h1>
+				<div class="text-left"><img src="./assets/logo.png" style="max-width:90%"/></div>
+				<div class="text-right header-buttons">
+					by <a href="/" class="author">Marc Robledo</a>
+					<a href="https://github.com/marcrobledo/savegame-editors/tree/master/zelda-totk" target="_blank" class="button"><img src="assets/octicons/octicon_github.svg" loading="lazy" class="octicon" /> See on GitHub</a>
+					<a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow" class="donate button"><img src="assets/octicons/octicon_heart.svg" loading="lazy" class="octicon" /> Donate</a>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div id="toolbar" class="hidden padding-vertical">
-		<div class="row wrapper">
-			<div class="twelve columns text-center">
-				<button id="tab-button-home" data-translate-title="Home" title="Home" class="tab-button active" onclick="showTab('home')"><i class="tab-icon home"></i></button>
-				<button id="tab-button-weapons" data-translate-title="Weapons" title="Weapons" class="tab-button" onclick="showTab('weapons')"><i class="tab-icon weapons"></i></button>
-				<button id="tab-button-bows" data-translate-title="Bows" title="Bows" class="tab-button" onclick="showTab('bows')"><i class="tab-icon bows"></i></button>
-				<button id="tab-button-shields" data-translate-title="Shields" title="Shields" class="tab-button" onclick="showTab('shields')"><i class="tab-icon shields"></i></button>
-				<button id="tab-button-armors" data-translate-title="Armors" title="Armors" class="tab-button" onclick="showTab('armors')"><i class="tab-icon clothes"></i></button>
-				<button id="tab-button-materials" data-translate-title="Materials" title="Materials" class="tab-button" onclick="showTab('materials')"><i class="tab-icon materials"></i></button>
-				<button id="tab-button-food" data-translate-title="Food" title="Food" class="tab-button" onclick="showTab('food')"><i class="tab-icon food"></i></button>
-				<button id="tab-button-devices" data-translate-title="Zonai devices" title="Zonai devices" class="tab-button" onclick="showTab('devices')"><i class="tab-icon devices"></i></button>
-				<button id="tab-button-key" data-translate-title="Key items" title="Key items" class="tab-button" onclick="showTab('key')"><i class="tab-icon other"></i></button>
-				<button id="tab-button-horses" data-translate-title="Horses" title="Horses" class="tab-button" onclick="showTab('horses')"><i class="tab-icon horses"></i></button>
-				<button id="tab-button-master" data-translate-title="Master editor" title="Master editor" class="tab-button" onclick="showTab('master')"><i class="tab-icon master"></i></button>
-				<button id="tab-button-settings" data-translate-title="Settings" title="Settings" class="tab-button" onclick="showTab('settings')"><i class="tab-icon settings"></i></button>
-				| <button class="button with-icon icon3" data-translate="Close file" onclick="closeFile()">Close file</button>
-				<button class="button colored blue with-icon icon9" data-translate="Save changes" onclick="saveChanges()">Save changes</button>
+		<div id="toolbar" class="hide">
+			<div class="row">
+				<div id="nav">
+					<button class="nav-link" data-translate-title="Home" title="Home" data-target="home"><i class="tab-icon home"></i></button>
+					<button class="nav-link" data-translate-title="Weapons" title="Weapons" data-target="weapons"><i class="tab-icon weapons"></i></button>
+					<button class="nav-link" data-translate-title="Bows" title="Bows" data-target="bows"><i class="tab-icon bows"></i></button>
+					<button class="nav-link" data-translate-title="Shields" title="Shields" data-target="shields"><i class="tab-icon shields"></i></button>
+					<button class="nav-link" data-translate-title="Armors" title="Armors" data-target="armors"><i class="tab-icon clothes"></i></button>
+					<button class="nav-link" data-translate-title="Materials" title="Materials" data-target="materials"><i class="tab-icon materials"></i></button>
+					<button class="nav-link" data-translate-title="Food" title="Food" data-target="food"><i class="tab-icon food"></i></button>
+					<button class="nav-link" data-translate-title="Zonai devices" title="Zonai devices" data-target="devices"><i class="tab-icon devices"></i></button>
+					<button class="nav-link" data-translate-title="Key items" title="Key items" data-target="key"><i class="tab-icon other"></i></button>
+					<button class="nav-link" data-translate-title="Horses" title="Horses" data-target="horses"><i class="tab-icon horses"></i></button>
+					<button class="nav-link" data-translate-title="Master editor" title="Master editor" data-target="master"><i class="tab-icon master"></i></button>
+				</div>
+				<div>
+					<button class="btn" onclick="closeFile()"><img src="assets/octicons/octicon_x.svg" loading="lazy" class="octicon" /> <span data-translate="Close file">Close file</span></button>
+					<button class="btn btn-primary" onclick="saveChanges()"><img src="assets/octicons/octicon_check.svg" loading="lazy" class="octicon" /> <span data-translate="Save changes">Save changes</span></button>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
 <!-- THE EDITOR -->
-<div id="the-editor" class="wrapper hidden">
+<div id="container-startup" class="wrapper">
+	<div id="alert-troubleshooting" class="alert alert-info">
+		
+		<p><strong>Troubleshooting</strong>: Please read the <a href="https://github.com/marcrobledo/savegame-editors/wiki/TOTK-known-issues-&-FAQ" target="_blank">list of known issues</a> if you are having problems when loading/saving your edited savegame.</p>
+		<p class="alert-danger"><strong>Always remember to make backups of your savegames before editing. Use this savegame editor at your own risk. By using it, you are responsible of any data lost.</strong></p>		
+	</div>
+	<div id="container-language" class="text-center">
+		<label for="select-language">Select your language</label>
+		<select id="select-language">
+			<option value="en">English</option>
+			<option value="fr">Français</option>
+			<option value="fr_alt">Français (Canada)</option>
+			<option value="de">Deutsch</option>
+			<option value="it">Italiano</option>
+			<option value="es">Español</option>
+			<option value="es_alt">Español latino</option>
+			<option value="nl">Dutch</option>
+			<option value="ru">Russian</option>
+			<option value="ja">Japanese</option>
+			<option value="ko">Korean</option>
+			<option value="zh">Chinese (simplified)</option>
+			<option value="zh_alt">Chinese (traditional)</option>
+		</select>
+	</div>
+</div>
+<div id="the-editor" class="wrapper hide">
 	<!-- DEBUG -->
 	<div id="debug"></div>
 	
@@ -79,20 +110,20 @@
 		<!-- RUPEES -->
 		<h3 class="border-red" data-translate="Status">Status</h3>
 		<div class="row mb-10">
-			<div class="ten columns"><label data-translate="Game version">Game version</label></div>
-			<div class="two columns text-right"><span id="span-version"></span></div>
+			<div><label data-translate="Game version">Game version</label></div>
+			<div><span id="span-version"></span></div>
 		</div>
 		<div class="row mb-10">
-			<div class="ten columns"><label data-translate="Playtime">Playtime</label></div>
-			<div class="two columns text-right"><span id="span-playtime"></span></div>
+			<div><label data-translate="Playtime">Playtime</label></div>
+			<div><span id="span-playtime"></span></div>
 		</div>
 		<div class="row mb-5">
-			<div class="ten columns"><label for="number-rupees" data-translate="Rupees">Rupees</label></div>
-			<div class="two columns"><input id="number-rupees" class="full-width" type="text" /></div>
+			<div><label for="number-rupees" data-translate="Rupees">Rupees</label></div>
+			<div class="col-right"><input id="number-rupees" class="full-width" type="text" /></div>
 		</div>
 		<div class="row mb-5">
-			<div class="ten columns"><label for="select-max-hearts" data-translate="Max. hearts">Max. hearts</label></div>
-			<div class="two columns">
+			<div><label for="select-max-hearts" data-translate="Max. hearts">Max. hearts</label></div>
+			<div class="col-right">
 				<select id="select-max-hearts" class="full-width">
 					<option value="4">1 heart</option>
 					<option value="8">2 hearts</option>
@@ -138,8 +169,8 @@
 			</div>
 		</div>
 		<div class="row mb-5">
-			<div class="ten columns"><label for="select-max-stamina" data-translate="Max. stamina">Max. stamina</label></div>
-			<div class="two columns">
+			<div><label for="select-max-stamina" data-translate="Max. stamina">Max. stamina</label></div>
+			<div class="col-right">
 				<select id="select-max-stamina" class="full-width">
 					<option value="1148846080">1 wheel</option>
 					<option value="1150681088">1 wheel+1/5</option>
@@ -157,8 +188,8 @@
 			</div>
 		</div>
 		<div class="row mb-5">
-			<div class="ten columns"><label for="select-max-battery" data-translate="Battery size">Battery size</label></div>
-			<div class="two columns">
+			<div><label for="select-max-battery" data-translate="Battery size">Battery size</label></div>
+			<div class="col-right">
 				<select id="select-max-battery" class="full-width">
 					<option value="3000">3000</option>
 					<option value="4000">4000</option>
@@ -210,178 +241,452 @@
 			</div>
 		</div>
 		<div class="row mb-5">
-			<div class="ten columns"><label for="number-pony-points" data-translate="Pony points">Pony points</label></div>
-			<div class="two columns"><input id="number-pony-points" class="full-width" type="text" /></div>
+			<div><label for="number-pony-points" data-translate="Pony points">Pony points</label></div>
+			<div class="col-right"><input id="number-pony-points" class="full-width" type="text" /></div>
 		</div>
 		
 		<!-- Pouch size -->
 		<h3 class="border-green">Pouch size</h3>
 		<div class="row mb-5">
-			<div class="ten columns"><label for="number-pouch-size-swords" data-translate="Sword pouch size">Sword pouch size</label></div>
-			<div class="two columns"><input id="number-pouch-size-swords" class="full-width" type="text" /></div>
+			<div><label for="number-pouch-size-swords" data-translate="Sword pouch size">Sword pouch size</label></div>
+			<div class="col-right"><input id="number-pouch-size-swords" class="full-width" type="text" /></div>
 		</div>
 		<div class="row mb-5">
-			<div class="ten columns"><label for="number-pouch-size-bows" data-translate="Bow pouch size">Bow pouch size</label></div>
-			<div class="two columns"><input id="number-pouch-size-bows" class="full-width" type="text" /></div>
+			<div><label for="number-pouch-size-bows" data-translate="Bow pouch size">Bow pouch size</label></div>
+			<div class="col-right"><input id="number-pouch-size-bows" class="full-width" type="text" /></div>
 		</div>
 		<div class="row">
-			<div class="ten columns"><label for="number-pouch-size-shields" data-translate="Shield pouch size">Shield pouch size</label></div>
-			<div class="two columns"><input id="number-pouch-size-shields" class="full-width" type="text" /></div>
+			<div><label for="number-pouch-size-shields" data-translate="Shield pouch size">Shield pouch size</label></div>
+			<div class="col-right"><input id="number-pouch-size-shields" class="full-width" type="text" /></div>
 		</div>
 	
 		<!-- Coordinates -->
-		<h3 class="border-orange" data-translate="Coordinates">Coordinates</h3>
-		<div class="row">
-			<div class="six columns"><label for="float-pos-x" data-translate="Current Link coordinates">Current Link coordinates</label> (XYZ)</div>
-			<div class="two columns"><input id="float-pos-x" class="full-width" type="text" /></div>
-			<div class="two columns"><input id="float-pos-y" class="full-width" type="text" /></div>
-			<div class="two columns"><input id="float-pos-z" class="full-width" type="text" /></div>
+		<h3 class="border-orange" data-translate="Coordinates">Link position</h3>
+		<div class="row mb-10">
+			<div><label for="float-pos-x" data-translate="Coordinates">Coordinates</label> (XYZ)</div>
+			<div class="col-right">
+				<input id="float-pos-x" class="medium" type="text" />
+				<input id="float-pos-y" class="medium" type="text" />
+				<input id="float-pos-z" class="medium" type="text" />
+			</div>
 		</div>
+		<!-- <div class="row">
+			<div><label for="map" data-translate="Map">Map</label></div>
+			<div class="col-right">
+				<select id="map">
+					<option value="OpeningField">OpeningField</option>
+					<option value="MainField">MainField</option>
+					<option value="Dungeon000">Dungeon000</option>
+					<option value="Dungeon001">Dungeon001</option>
+					<option value="Dungeon002">Dungeon002</option>
+					<option value="Dungeon003">Dungeon003</option>
+					<option value="Dungeon004">Dungeon004</option>
+					<option value="Dungeon005">Dungeon005</option>
+					<option value="Dungeon006">Dungeon006</option>
+					<option value="Dungeon007">Dungeon007</option>
+					<option value="Dungeon008">Dungeon008</option>
+					<option value="Dungeon009">Dungeon009</option>
+					<option value="Dungeon010">Dungeon010</option>
+					<option value="Dungeon011">Dungeon011</option>
+					<option value="Dungeon012">Dungeon012</option>
+					<option value="Dungeon013">Dungeon013</option>
+					<option value="Dungeon014">Dungeon014</option>
+					<option value="Dungeon015">Dungeon015</option>
+					<option value="Dungeon016">Dungeon016</option>
+					<option value="Dungeon017">Dungeon017</option>
+					<option value="Dungeon018">Dungeon018</option>
+					<option value="Dungeon019">Dungeon019</option>
+					<option value="Dungeon020">Dungeon020</option>
+					<option value="Dungeon021">Dungeon021</option>
+					<option value="Dungeon022">Dungeon022</option>
+					<option value="Dungeon023">Dungeon023</option>
+					<option value="Dungeon024">Dungeon024</option>
+					<option value="Dungeon025">Dungeon025</option>
+					<option value="Dungeon026">Dungeon026</option>
+					<option value="Dungeon027">Dungeon027</option>
+					<option value="Dungeon028">Dungeon028</option>
+					<option value="Dungeon029">Dungeon029</option>
+					<option value="Dungeon030">Dungeon030</option>
+					<option value="Dungeon031">Dungeon031</option>
+					<option value="Dungeon032">Dungeon032</option>
+					<option value="Dungeon033">Dungeon033</option>
+					<option value="Dungeon034">Dungeon034</option>
+					<option value="Dungeon035">Dungeon035</option>
+					<option value="Dungeon036">Dungeon036</option>
+					<option value="Dungeon037">Dungeon037</option>
+					<option value="Dungeon038">Dungeon038</option>
+					<option value="Dungeon039">Dungeon039</option>
+					<option value="Dungeon040">Dungeon040</option>
+					<option value="Dungeon041">Dungeon041</option>
+					<option value="Dungeon042">Dungeon042</option>
+					<option value="Dungeon043">Dungeon043</option>
+					<option value="Dungeon044">Dungeon044</option>
+					<option value="Dungeon045">Dungeon045</option>
+					<option value="Dungeon046">Dungeon046</option>
+					<option value="Dungeon047">Dungeon047</option>
+					<option value="Dungeon048">Dungeon048</option>
+					<option value="Dungeon049">Dungeon049</option>
+					<option value="Dungeon050">Dungeon050</option>
+					<option value="Dungeon051">Dungeon051</option>
+					<option value="Dungeon052">Dungeon052</option>
+					<option value="Dungeon053">Dungeon053</option>
+					<option value="Dungeon054">Dungeon054</option>
+					<option value="Dungeon055">Dungeon055</option>
+					<option value="Dungeon056">Dungeon056</option>
+					<option value="Dungeon057">Dungeon057</option>
+					<option value="Dungeon058">Dungeon058</option>
+					<option value="Dungeon059">Dungeon059</option>
+					<option value="Dungeon060">Dungeon060</option>
+					<option value="Dungeon061">Dungeon061</option>
+					<option value="Dungeon062">Dungeon062</option>
+					<option value="Dungeon063">Dungeon063</option>
+					<option value="Dungeon064">Dungeon064</option>
+					<option value="Dungeon065">Dungeon065</option>
+					<option value="Dungeon066">Dungeon066</option>
+					<option value="Dungeon067">Dungeon067</option>
+					<option value="Dungeon068">Dungeon068</option>
+					<option value="Dungeon069">Dungeon069</option>
+					<option value="Dungeon070">Dungeon070</option>
+					<option value="Dungeon071">Dungeon071</option>
+					<option value="Dungeon072">Dungeon072</option>
+					<option value="Dungeon073">Dungeon073</option>
+					<option value="Dungeon074">Dungeon074</option>
+					<option value="Dungeon075">Dungeon075</option>
+					<option value="Dungeon076">Dungeon076</option>
+					<option value="Dungeon077">Dungeon077</option>
+					<option value="Dungeon078">Dungeon078</option>
+					<option value="Dungeon079">Dungeon079</option>
+					<option value="Dungeon080">Dungeon080</option>
+					<option value="Dungeon081">Dungeon081</option>
+					<option value="Dungeon082">Dungeon082</option>
+					<option value="Dungeon083">Dungeon083</option>
+					<option value="Dungeon084">Dungeon084</option>
+					<option value="Dungeon085">Dungeon085</option>
+					<option value="Dungeon086">Dungeon086</option>
+					<option value="Dungeon087">Dungeon087</option>
+					<option value="Dungeon088">Dungeon088</option>
+					<option value="Dungeon089">Dungeon089</option>
+					<option value="Dungeon090">Dungeon090</option>
+					<option value="Dungeon091">Dungeon091</option>
+					<option value="Dungeon092">Dungeon092</option>
+					<option value="Dungeon093">Dungeon093</option>
+					<option value="Dungeon094">Dungeon094</option>
+					<option value="Dungeon095">Dungeon095</option>
+					<option value="Dungeon096">Dungeon096</option>
+					<option value="Dungeon097">Dungeon097</option>
+					<option value="Dungeon098">Dungeon098</option>
+					<option value="Dungeon099">Dungeon099</option>
+					<option value="Dungeon100">Dungeon100</option>
+					<option value="Dungeon101">Dungeon101</option>
+					<option value="Dungeon102">Dungeon102</option>
+					<option value="Dungeon103">Dungeon103</option>
+					<option value="Dungeon104">Dungeon104</option>
+					<option value="Dungeon105">Dungeon105</option>
+					<option value="Dungeon106">Dungeon106</option>
+					<option value="Dungeon107">Dungeon107</option>
+					<option value="Dungeon108">Dungeon108</option>
+					<option value="Dungeon109">Dungeon109</option>
+					<option value="Dungeon110">Dungeon110</option>
+					<option value="Dungeon111">Dungeon111</option>
+					<option value="Dungeon112">Dungeon112</option>
+					<option value="Dungeon113">Dungeon113</option>
+					<option value="Dungeon114">Dungeon114</option>
+					<option value="Dungeon115">Dungeon115</option>
+					<option value="Dungeon116">Dungeon116</option>
+					<option value="Dungeon117">Dungeon117</option>
+					<option value="Dungeon118">Dungeon118</option>
+					<option value="Dungeon119">Dungeon119</option>
+					<option value="Dungeon120">Dungeon120</option>
+					<option value="Dungeon121">Dungeon121</option>
+					<option value="Dungeon122">Dungeon122</option>
+					<option value="Dungeon123">Dungeon123</option>
+					<option value="Dungeon124">Dungeon124</option>
+					<option value="Dungeon125">Dungeon125</option>
+					<option value="Dungeon126">Dungeon126</option>
+					<option value="Dungeon127">Dungeon127</option>
+					<option value="Dungeon128">Dungeon128</option>
+					<option value="Dungeon129">Dungeon129</option>
+					<option value="Dungeon130">Dungeon130</option>
+					<option value="Dungeon131">Dungeon131</option>
+					<option value="Dungeon132">Dungeon132</option>
+					<option value="Dungeon133">Dungeon133</option>
+					<option value="Dungeon134">Dungeon134</option>
+					<option value="Dungeon135">Dungeon135</option>
+					<option value="Dungeon136">Dungeon136</option>
+					<option value="Dungeon137">Dungeon137</option>
+					<option value="Dungeon138">Dungeon138</option>
+					<option value="Dungeon139">Dungeon139</option>
+					<option value="Dungeon140">Dungeon140</option>
+					<option value="Dungeon141">Dungeon141</option>
+					<option value="Dungeon142">Dungeon142</option>
+					<option value="Dungeon143">Dungeon143</option>
+					<option value="Dungeon144">Dungeon144</option>
+					<option value="Dungeon145">Dungeon145</option>
+					<option value="Dungeon146">Dungeon146</option>
+					<option value="Dungeon147">Dungeon147</option>
+					<option value="Dungeon148">Dungeon148</option>
+					<option value="Dungeon149">Dungeon149</option>
+					<option value="Dungeon150">Dungeon150</option>
+					<option value="Dungeon151">Dungeon151</option>
+				</select>
+			</div>
+		</div> -->
 	
 
 
 		<!-- MAP PINS -->
 		<h3 class="border-blue" data-translate="Map pins">Map pins</h3>
 		<div class="row mb-10">
-			<div class="four columns"><span data-translate="Map pins">Map pins</span> <span id="span-pin-counter"></span></div>
-			<div class="eight columns text-right">
-				<button onclick="SavegameEditor.clearAllMapPins()" data-translate="Remove all map pins" class="button with-icon icon3">Remove all map pins</button>
+			<div>
+				<div id="map-pins-edit" class="container-counter clickable">
+					<span data-translate="Map pins">Map pins</span><br/>
+					<span id="span-pin-counter"></span>
+				</div>
 			</div>
-		</div>
-		<div class="mb-10">
-			<span data-translate="Pin missing collectibles in map">Pin missing collectibles in map</span>
-		</div>
-		<div class="mb-10 text-center">
-			<button onclick="SavegameEditor.addPinsShrines()" data-translate="Shrines">Shrines</button>
-			<button onclick="SavegameEditor.addPinsLightroots()" data-translate="Lightroots">Lightroots</button>
-			<button onclick="SavegameEditor.addPinsKoroksHidden()" data-translate="Koroks">Hidden koroks</button>
-			<button onclick="SavegameEditor.addPinsKoroksCarry()" data-translate="Strayed koroks (&times;2)">Strayed koroks (&times;2)</button>
-			<button onclick="SavegameEditor.addPinsBubbuls()" data-translate="Bubbuls">Bubbuls</button>
-		</div>
-		<div class="mb-10 text-center">
-			<span data-translate="Locations">Locations</span>:
-			<button onclick="SavegameEditor.addPinsLocationsCaves()" data-translate="Caves">Caves</button>
-			<button onclick="SavegameEditor.addPinsLocationsWells()" data-translate="Wells">Wells</button>
-			<span style="color:red">*Experimental, caves/bubbuls coordinates may be wrong</span>
-		</div>
-		<div class="mb-10 text-center">
-			<span data-translate="Bosses">Bosses</span>:
-			<button onclick="SavegameEditor.addPinsBossesHinox()" data-translate="Hinox">Hinox</button>
-			<button onclick="SavegameEditor.addPinsBossesTalus()" data-translate="Talus">Talus</button>
-			<button onclick="SavegameEditor.addPinsBossesMolduga()" data-translate="Molduga">Molduga</button>
-			<button onclick="SavegameEditor.addPinsBossesFlux()" data-translate="Flux Construct">Flux Construct</button>
-			<button onclick="SavegameEditor.addPinsBossesFrox()" data-translate="Frox">Frox</button>
-			<button onclick="SavegameEditor.addPinsBossesGleeok()" data-translate="Gleeok">Gleeok</button>
-		</div>
-		<div class="mb-10 text-center">
-			<span data-translate="Schematics">Schematics</span>:
-			<button onclick="SavegameEditor.addPinsSchematicsStone()" data-translate="Schema stones">Schema stones</button>
-			<button onclick="SavegameEditor.addPinsSchematicsYiga()" data-translate="Yiga schematics">Yiga schematics</button>
+			<div>
+				<button onclick="SavegameEditor.clearAllMapPins()" class="btn"><img src="assets/octicons/octicon_pin_slash.svg" loading="lazy" class="octicon" /> <span data-translate="Remove all map pins">Remove all map pins</span></button>
+			</div>
 		</div>
 
 		<!-- COMPLETIONISM -->
 		<h3 class="border-red" data-translate="Completionism">Completionism</h3>
-		<div class="row mb-10">
-			<div class="four columns">
-				<span data-translate="Shrines">Shrines</span><br/>
-				<span data-translate="Found">Found</span>: <span id="span-shrines-found-counter"></span><br/>
-				<span data-translate="Cleared">Cleared</span>: <span id="span-shrines-clear-counter"></span>
+		<div class="mb-10 text-center">
+			<span data-translate="Choose completionism mode">Choose completionism mode</span>:
+			<label class="clickable"><input id="input-radio-completionism-map" type="radio" name="completionism" value="map" /> <span data-translate="Pin to map">Pin to map</span></label>
+			<label class="clickable"><input id="input-radio-completionism-unlock" type="radio" name="completionism" value="unlock" /> <span data-translate="Unlock">Unlock</span></label>
+		</div>
+		<div class="mb-10 text-center">
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Shrines">Shrines</strong></div>
+				<div><span data-translate="Found">Found</span>:<br/><span id="span-shrines-found-counter"></span></div>
+				<div><span data-translate="Cleared">Cleared</span>:<br/><span id="span-shrines-clear-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsShrines()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.setShrinesAsFound()" data-translate="Set all as found">Set all as found</button> | 
+						<button onclick="Completism.setShrinesAsClear()" data-translate="Set all as cleared">Set all as cleared</button>
+					</div>
+				</div>
 			</div>
-			<div class="eight columns text-right">
-				<button onclick="Completism.setShrinesAsFound()" data-translate="Set all shrines as found">Set all shrines as found</button>
-				<button onclick="Completism.setShrinesAsClear()" data-translate="Set all shrines as cleared">Set all shrines as cleared</button>
+
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Lightroots">Lightroots</strong></div>
+				<div><span data-translate="Found">Found</span>:<br/><span id="span-lightroots-found-counter"></span></div>
+				<div><span data-translate="Cleared">Cleared</span>:<br/><span id="span-lightroots-clear-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsLightroots()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.setLightrootsAsFound()" data-translate="Set all as found">Set all as found</button> | 
+						<button onclick="Completism.setLightrootsAsClear()" data-translate="Set all as cleared">Set all as cleared</button>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="row mb-10">
-			<div class="four columns">
-				<span data-translate="Lightroots">Lightroots</span><br/>
-				<span data-translate="Found">Found</span>: <span id="span-lightroots-found-counter"></span><br/>
-				<span data-translate="Cleared">Cleared</span>: <span id="span-lightroots-clear-counter"></span>
+
+		<div class="mb-10 text-center">
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Koroks">Koroks</strong></div>
+				<div><span id="span-korok-hidden-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsKoroksHidden()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.setKoroksAsFound()" data-translate="Set all as found">Set all as found</button>
+					</div>
+				</div>
 			</div>
-			<div class="eight columns text-right">
-				<button onclick="Completism.setLightrootsAsFound()" data-translate="Set all lightroots as found">Set all lightroots as found</button>
-				<button onclick="Completism.setLightrootsAsClear()" data-translate="Set all lightroots as activated">Set all lightroots as activated</button>
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Strayed koroks">Strayed koroks</strong> <small>(&times;2)</small></div>
+				<div><span id="span-korok-carry-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsKoroksCarry()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.setKoroksAsCarried()" data-translate="Set all as carried">Set all as carried</button>
+					</div>
+				</div>
 			</div>
-		</div>
-		<div class="row mb-10">
-			<div class="four columns">
-				<span data-translate="Koroks">Koroks</span><br/>
-				<span data-translate="Found">Found</span>: <span id="span-korok-hidden-counter"></span><br/>
-				<span data-translate="Carried">Carried</span>: <span id="span-korok-carry-counter"></span> <small>(&times;2)</small>
-			</div>
-			<div class="eight columns text-right">
-				<button onclick="Completism.setKoroksAsFound()" data-translate="Set all 800 koroks as found">Set all 800 koroks as found</button>
-				<button onclick="Completism.setKoroksAsCarried()" data-translate="Set all 100 koroks as carried">Set all 100 koroks as carried</button>
-			</div>
-		</div>
-		<div class="row mb-10">
-			<div class="four columns">
-				<span data-translate="Bubbuls">Bubbuls</span><br/>
-				<span data-translate="Defeated">Defeated</span>: <span id="span-bubbuls-counter"></span>
-			</div>
-			<div class="eight columns text-right">
-				<button onclick="Completism.defeatBubbuls()" data-translate="Set bubbuls as defeated">Set bubbuls as defeated</button>
-			</div>
-		</div>
-		<div class="row mb-10">
-			<div class="four columns">
-				<span data-translate="Locations">Locations</span><br/>
-				<span data-translate="Caves">Caves</span>: <span id="span-location-caves-counter"></span><br/>
-				<span data-translate="Wells">Wells</span>: <span id="span-location-wells-counter"></span>
-			</div>
-			<div class="eight columns text-right">
-				<span data-translate="Set locations as visited">Set locations as visited</span>:
-				<button onclick="Completism.visitLocationCaves()" data-translate="Caves">Caves</button>
-				<button onclick="Completism.visitLocationWells()" data-translate="Wells">Wells</button>
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Bubbuls">Bubbuls</strong></div>
+				<div><span id="span-bubbuls-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsBubbuls()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.defeatBubbuls()" data-translate="Set all as defeated">Set all as defeated</button>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="row mb-10">
-			<div class="four columns">
-				<span data-translate="Bosses">Bosses</span><br/>
-				<span data-translate="Hinox">Hinox</span>: <span id="span-boss-hinox-counter"></span><br/>
-				<span data-translate="Talus">Talus</span>: <span id="span-boss-talus-counter"></span><br/>
-				<span data-translate="Molduga">Molduga</span>: <span id="span-boss-molduga-counter"></span><br/>
-				<span data-translate="Flux Construct">Flux Construct</span>: <span id="span-boss-flux-counter"></span><br/>
-				<span data-translate="Frox">Frox</span>: <span id="span-boss-frox-counter"></span><br/>
-				<span data-translate="Gleeok">Gleeok</span>: <span id="span-boss-gleeok-counter"></span>
+
+		<div class="mb-10 text-center">
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Caves">Caves</strong></div>
+				<div><span id="span-location-caves-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsLocationsCaves()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.visitLocationCaves()" data-translate="Set all as visited">Set all as visited</button>
+					</div>
+				</div>
 			</div>
-			<div class="eight columns text-right">
-				<span data-translate="Set bosses as defeated">Set bosses as defeated</span>:
-				<button onclick="Completism.defeatBossesHinox()" data-translate="Hinox">Hinox</button>
-				<button onclick="Completism.defeatBossesTalus()" data-translate="Talus">Talus</button>
-				<button onclick="Completism.defeatBossesMolduga()" data-translate="Molduga">Molduga</button>
-				<button onclick="Completism.defeatBossesFlux()" data-translate="Flux Construct">Flux Construct</button>
-				<button onclick="Completism.defeatBossesFrox()" data-translate="Frox">Frox</button>
-				<button onclick="Completism.defeatBossesGleeok()" data-translate="Gleeok">Gleeok</button>
-			</div>
-		</div>
-		<div class="row mb-10">
-			<div class="four columns">
-				<span data-translate="Schematics">Schematics</span><br/>
-				<span data-translate="Schema stones">Schema stones</span>: <span id="span-schematics-stone-counter"></span><br/>
-				<span data-translate="Yiga schematics">Yiga schematics</span>: <span id="span-schematics-yiga-counter"></span>
-			</div>
-			<div class="eight columns text-right">
-				<span data-translate="Set schematics as found">Set schematics as found</span>:
-				<button onclick="Completism.setSchematicStonesAsFound()" data-translate="Schema stones">Schema stones</button>
-				<button onclick="Completism.setSchematicYigaAsFound()" data-translate="Yiga schematics">Yiga schematics</button>
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Wells">Wells</strong></div>
+				<div><span id="span-location-wells-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsLocationsWells()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.visitLocationWells()" data-translate="Set all as visited">Set all as visited</button>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="row mb-10">
-			<div class="four columns">
-				<span data-translate="Hyrule Compendium">Hyrule Compendium</span><br/>
-				<span id="span-compendium-counter"></span>
+
+		<div class="mb-10 text-center">
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Hinox">Hinox</strong></div>
+				<div><span id="span-boss-hinox-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsBossesHinox()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.defeatBossesHinox()" data-translate="Set all as defeated">Set all as defeated</button>
+					</div>
+				</div>
 			</div>
-			<div class="eight columns text-right">
-				<button onclick="Completism.setCompendiumAsStockCurrentOnly()" data-translate="Set current to stock">Set current to stock</button>
-				<button onclick="Completism.setCompendiumAsBought()" data-translate="Unlock missing">Unlock missing</button>
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Talus">Talus</strong></div>
+				<div><span id="span-boss-talus-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsBossesTalus()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.defeatBossesTalus()" data-translate="Set all as defeated">Set all as defeated</button>
+					</div>
+				</div>
+			</div>
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Molduga">Molduga</strong></div>
+				<div><span id="span-boss-molduga-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsBossesMolduga()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.defeatBossesMolduga()" data-translate="Set all as defeated">Set all as defeated</button>
+					</div>
+				</div>
 			</div>
 		</div>
+		<div class="mb-10 text-center">
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Flux Construct">Flux Construct</strong></div>
+				<div><span id="span-boss-flux-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsBossesFlux()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.defeatBossesFlux()" data-translate="Set all as defeated">Set all as defeated</button>
+					</div>
+				</div>
+			</div>
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Frox">Frox</strong></div>
+				<div><span id="span-boss-frox-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsBossesFrox()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.defeatBossesFrox()" data-translate="Set all as defeated">Set all as defeated</button>
+					</div>
+				</div>
+			</div>
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Gleeok">Gleeok</strong></div>
+				<div><span id="span-boss-gleeok-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsBossesGleeok()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.defeatBossesGleeok()" data-translate="Set all as defeated">Set all as defeated</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="mb-10 text-center">
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Old maps">Old maps</strong></div>
+				<div><span id="span-old-maps-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsOldMaps()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.setOldMapsAsFound()" data-translate="Set all as found">Set all as found</button>
+					</div>
+				</div>
+			</div>
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Schema stones">Schema stones</strong></div>
+				<div><span id="span-schematics-stone-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsSchematicsStone()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.setSchematicStonesAsFound()" data-translate="Set all as found">Set all as found</button>
+					</div>
+				</div>
+			</div>
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Yiga schematics">Yiga schematics</strong></div>
+				<div><span id="span-schematics-yiga-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsSchematicsYiga()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.setSchematicYigaAsFound()" data-translate="Set all as found">Set all as found</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="mb-10 text-center">
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Hyrule Compendium">Hyrule Compendium</strong></div>
+				<div><span id="span-compendium-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.setCompendiumAsStockCurrentOnly()" data-translate="Set current to stock">Set current to stock</button> | 
+						<button onclick="Completism.setCompendiumAsBought()" data-translate="Unlock missing">Unlock missing</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 		<!-- AUTOBUILDER -->
 		<h3 class="border-grey" data-translate="Autobuilder">Autobuilder</h3>
 		<div class="row mb-10">
-			<div class="twelve columns">
+			<div>
 				<label><span data-translate="Design">Design</span> <select id="select-autobuilder-index" style="width:auto">
 					<option value="0">01</option>
 					<option value="1">02</option>
@@ -414,29 +719,35 @@
 					<option value="28">29</option>
 					<option value="29">30</option>
 				</select></label>
-				<button id="button-autobuilder-export" data-translate="Export">Export</button>
-				<button id="button-autobuilder-import" data-translate="Import">Import</button>
-				<input id="input-file-autobuilder-import" type="file" accept=".totkab" style="display:none" />
+				<button class="btn" id="button-autobuilder-export"><img src="assets/octicons/octicon_download.svg" loading="lazy" class="octicon" /> <span data-translate="Export">Export</span></button>
+				<button class="btn" id="button-autobuilder-import"><img src="assets/octicons/octicon_upload.svg" loading="lazy" class="octicon" /> <span data-translate="Import">Import</span></button>
+				<input id="input-file-autobuilder-import" type="file" accept=".cai" class="hide" />
 			</div>
 		</div>
 
 		<!-- EXPERIENCE -->
 		<h3 class="border-grey" data-translate="Experience">Experience</h3>
-		<div class="row mb-10">
-			<div class="four columns">
-				<span data-translate="Total experience">Total experience</span>: <span id="span-experience" style="font-weight:bold"></span>
-				<span id="span-experience-edit" class="clickable" data-translate="Manual edit">Manual edit</span>
+		<div class="text-center mb-10">
+			<div id="span-experience-edit" class="container-counter clickable">
+				<span data-translate="Total experience">Total experience</span><br/>
+				<span id="span-experience" style="font-weight:bold"></span>
 			</div>
-			<div class="eight columns text-right">
-				<button id="button-experience-reset" data-translate="Reset">Reset</button>
-				<button id="button-experience-calculate" data-translate="Recalculate">Recalculate</button>
+			<div id="pristine-weapons-edit" class="container-counter clickable">
+				<span data-translate="Unlocked pristine weapons">Unlocked pristine weapons</span><br/>
+				<span id="span-pristine-weapons-counter"></span>
 			</div>
 		</div>
 		<div class="row mb-10">
-			<div class="four columns">
-				<span data-translate="Current enemy tier">Current enemy tier</span>
+			<div style="min-width:144px">
+				<strong data-translate="Current enemy tier">Current enemy tier</strong>
 			</div>
-			<div class="eight columns text-right" id="experience-enemy-tiers"></div>
+			<div id="experience-enemy-tiers"></div>
+		</div>
+		<div class="row mb-10">
+			<div style="min-width:144px">
+				<strong data-translate="Locked pristine weapons">Locked pristine weapons</strong>
+			</div>
+			<div id="experience-pristine-weapons"></div>
 		</div>
 	</div>
 	
@@ -444,8 +755,9 @@
 	<div id="tab-weapons">
 		<h3 data-translate="Weapons">Weapons</h3><div id="container-weapons"></div>
 		<div class="text-center">
-			<button onclick="SavegameEditor.restoreDurability('weapons')" data-translate="Restore durability">Restore durability</button>
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('weapons')" data-translate="Add weapon">Add weapon</button>
+			<button class="btn" onclick="SavegameEditor.restoreDecayAll()" data-translate="Restore decay">Restore decay</button>
+			<button class="btn" onclick="SavegameEditor.restoreDurabilityAll('weapons')" data-translate="Restore durability">Restore durability</button>
+			<button class="btn" onclick="SavegameEditor.addItem('weapons')"><img src="assets/octicons/octicon_plus_circle.svg" loading="lazy" class="octicon" /> <span data-translate="Add weapon">Add weapon</span></button>
 		</div>
 	</div>
 
@@ -453,12 +765,12 @@
 	<div id="tab-bows">
 		<h3 data-translate="Bows">Bows</h3><div id="container-bows"></div>
 		<div class="text-center">
-			<button onclick="SavegameEditor.restoreDurability('bows')" data-translate="Restore durability">Restore durability</button>
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('bows')" data-translate="Add bow">Add bow</button>
+			<button class="btn" onclick="SavegameEditor.restoreDurabilityAll('bows')" data-translate="Restore durability">Restore durability</button>
+			<button class="btn" onclick="SavegameEditor.addItem('bows')"><img src="assets/octicons/octicon_plus_circle.svg" loading="lazy" class="octicon" /> <span data-translate="Add bow">Add bow</span></button>
 		</div>
 		<h3 data-translate="Arrows">Arrows</h3><div id="container-arrows"></div>
 		<div class="text-center">
-			<button id="button-add-arrows" class="with-icon icon1" onclick="SavegameEditor.addItem('arrows')" data-translate="Add arrows">Add arrows</button>
+			<button id="button-add-arrows" class="btn" onclick="SavegameEditor.addItem('arrows')"><img src="assets/octicons/octicon_plus_circle.svg" loading="lazy" class="octicon" /> <span data-translate="Add arrows">Add arrows</span></button>
 		</div>
 	</div>
 
@@ -466,8 +778,8 @@
 	<div id="tab-shields">
 		<h3 data-translate="Shields">Shields</h3><div id="container-shields"></div>
 		<div class="text-center">
-			<button onclick="SavegameEditor.restoreDurability('shields')" data-translate="Restore durability">Restore durability</button>
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('shields')" data-translate="Add shield">Add shield</button>
+			<button class="btn" onclick="SavegameEditor.restoreDurabilityAll('shields')" data-translate="Restore durability">Restore durability</button>
+			<button class="btn" onclick="SavegameEditor.addItem('shields')"><img src="assets/octicons/octicon_plus_circle.svg" loading="lazy" class="octicon" /> <span data-translate="Add shield">Add shield</span></button>
 		</div>
 	</div>
 
@@ -475,7 +787,8 @@
 	<div id="tab-armors">
 		<h3 data-translate="Armors">Armors</h3><div id="container-armors"></div>
 		<div class="text-center">
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('armors')" data-translate="Add armor">Add armor</button>
+			<button class="btn" onclick="SavegameEditor.upgradeArmorAll()"><span data-translate="Upgrade all">Upgrade all</span></button>
+			<button class="btn" onclick="SavegameEditor.addItem('armors')"><img src="assets/octicons/octicon_plus_circle.svg" loading="lazy" class="octicon" /> <span data-translate="Add armor">Add armor</span></button>
 		</div>
 	</div>
 
@@ -483,7 +796,7 @@
 	<div id="tab-materials">
 		<h3 data-translate="Materials">Materials</h3><div id="container-materials"></div>
 		<div class="text-center">
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('materials')" data-translate="Add material">Add material</button>
+			<button class="btn" onclick="SavegameEditor.addItem('materials')"><img src="assets/octicons/octicon_plus_circle.svg" loading="lazy" class="octicon" /> <span data-translate="Add material">Add material</span></button>
 		</div>
 	</div>
 
@@ -491,7 +804,7 @@
 	<div id="tab-food">
 		<h3 data-translate="Food">Food</h3><div id="container-food"></div>
 		<div class="text-center">
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('food')" data-translate="Add food">Add food</button>
+			<button class="btn" onclick="SavegameEditor.addItem('food')"><img src="assets/octicons/octicon_plus_circle.svg" loading="lazy" class="octicon" /> <span data-translate="Add food">Add food</span></button>
 		</div>
 	</div>
 
@@ -499,7 +812,7 @@
 	<div id="tab-devices">
 		<h3 data-translate="Zonai devices">Zonai devices</h3><div id="container-devices"></div>
 		<div class="text-center">
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('devices')" data-translate="Add zonai device">Add zonai device</button>
+			<button class="btn" onclick="SavegameEditor.addItem('devices')"><img src="assets/octicons/octicon_plus_circle.svg" loading="lazy" class="octicon" /> <span data-translate="Add zonai device">Add zonai device</span></button>
 		</div>
 	</div>
 
@@ -507,7 +820,7 @@
 	<div id="tab-key">
 		<h3 data-translate="Key items">Key items</h3><div id="container-key"></div>
 		<div class="text-center">
-			<button class="with-icon icon1" onclick="SavegameEditor.addItem('key')" data-translate="Add key item">Add key item</button>
+			<button class="btn" onclick="SavegameEditor.addItem('key')"><img src="assets/octicons/octicon_plus_circle.svg" loading="lazy" class="octicon" /> <span data-translate="Add key item">Add key item</span></button>
 		</div>
 	</div>
 
@@ -515,15 +828,15 @@
 	<div id="tab-horses">
 		<h3 data-translate="Horses" class="border-blue">Horses</h3>
 		<div id="container-horses"></div>
-		<!-- <div class="row"><div class="twelve columns">Untammed horse</div></div>
+		<!-- <div class="row"><div>Untammed horse</div></div>
 		<div class="row" id="row-horse10">
 			<div class="three columns end"><select id="select-horse10-type"></select></div>
 		</div>
 		<div class="row">
 			<div class="six columns"><label for="float-pos-x-horse">Current horse coordinates (XYZ)</label></div>
-			<div class="two columns"><input id="float-pos-x-horse" class="full-width" type="text" /></div>
-			<div class="two columns"><input id="float-pos-y-horse" class="full-width" type="text" /></div>
-			<div class="two columns"><input id="float-pos-z-horse" class="full-width" type="text" /></div>
+			<div class="col-right"><input id="float-pos-x-horse" class="full-width" type="text" /></div>
+			<div class="col-right"><input id="float-pos-y-horse" class="full-width" type="text" /></div>
+			<div class="col-right"><input id="float-pos-z-horse" class="full-width" type="text" /></div>
 		</div> -->
 	</div>
 
@@ -531,7 +844,7 @@
 	<div id="tab-master">
 		<h3 data-translate="Master editor">Master editor</h3>
 		<div id="master-editor-loading" class="text-center">Master editor is loading...</div>
-		<div id="master-editor-hidden" class="hidden">
+		<div id="master-editor-hidden" class="hide">
 			<div class="mb-10">
 				<label><span data-translate="Search">Search</span> <input id="input-custom-filter" type="text" list="knownHashes" placeholder="Search variables" style="width:400px" /></label>
 				<datalist id="knownHashes">
@@ -561,44 +874,61 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- TAB: SETTINGS -->
-	<div id="tab-settings">
-		<h3 class="border-orange" data-translate="Settings">Settings</h3>
-		<div id="box-settings">
-			<div>
-				<label for="select-language">Item language</label>
-				<select id="select-language">
-					<option value="en">English</option>
-					<option value="fr">Français</option>
-					<option value="fr_alt">Français (Canada)</option>
-					<option value="de">Deutsch</option>
-					<option value="it">Italiano</option>
-					<option value="es">Español</option>
-					<option value="es_alt">Español latino</option>
-					<option value="nl">Dutch</option>
-					<option value="ru">Russian</option>
-					<option value="ja">Japanese</option>
-					<option value="ko">Korean</option>
-					<option value="zh">Chinese (simplified)</option>
-					<option value="zh_alt">Chinese (traditional)</option>
-				</select>
-			</div>
-			<div id="warning-language">*Requires the app to be <strong>restarted</strong> for changes take effect</div>
-			<div>
-				<label><input type="checkbox" id="checkbox-warning-delete" checked> Warn when deleting item</select>
-			</div>
-		</div>
-		<h3 class="border-blue">Troubleshooting</h3>
-
-		<p>Please read and check the <a href="https://github.com/marcrobledo/savegame-editors/wiki/TOTK-known-issues-&-FAQ" target="_blank">list of known issues</a> if you are having problems when loading/saving your edited savegame.</p>
-		<p><strong>Always remember to make backups of your savegames before editing. Use this savegame editor at your own risk. By using it, you are responsible of any data lost.</strong></p>		
-	</div>
 </div>
 
 <div id="dialog-caption" class="dialog text-center"></div>
 
 
-<div id="toast-loading" style="display:none"></div>
+<div id="toasts-container"></div>
+
+
+
+<ul id="dropdown-item" class="dropdown-menu">
+	<li><button id="dropdown-item-button-pristine" class="dropdown-item" type="button"><img src="assets/octicons/octicon_sparkle_fill.svg" loading="lazy" class="octicon invert" /> <span data-translate="Restore decay">Restore decay</span></button></li>
+	<li><button id="dropdown-item-button-durability" class="dropdown-item" type="button"><img src="assets/octicons/octicon_tools.svg" loading="lazy" class="octicon invert" /> <span data-translate="Restore durability">Restore durability</span></button></li>
+	<li><button id="dropdown-item-button-infinite" class="dropdown-item" type="button"><img src="assets/octicons/octicon_infinity.svg" loading="lazy" class="octicon invert" /> <span data-translate="Infinite durability">Infinite durability</span></button></li>
+	<li><button id="dropdown-item-button-upgrade" class="dropdown-item" type="button"><img src="assets/octicons/octicon_star_fill.svg" loading="lazy" class="octicon invert" /> <span data-translate="Upgrade">Upgrade</span></button></li>
+	<li><button id="dropdown-item-button-duplicate" class="dropdown-item" type="button"><img src="assets/octicons/octicon_copy.svg" loading="lazy" class="octicon invert" /> <span data-translate="Duplicate">Duplicate</span></button></li>
+	<li><button id="dropdown-item-button-export" class="dropdown-item" type="button"><img src="assets/octicons/octicon_download.svg" loading="lazy" class="octicon invert" /> <span data-translate="Export">Export</span></button></li>
+	<li><button id="dropdown-item-button-import" class="dropdown-item" type="button"><img src="assets/octicons/octicon_upload.svg" loading="lazy" class="octicon invert" /> <span data-translate="Import">Import</span></button></li>
+	<li><hr class="dropdown-divider"/></li>
+	<li><button id="dropdown-item-button-delete" class="dropdown-item btn-danger" type="button"><img src="assets/octicons/octicon_trash.svg" loading="lazy" class="octicon" /> <span data-translate="Delete">Delete</span></button></li>
+</ul>
+
+
+<input id="input-file-pouch-import" type="file" accept=".json" class="hide" />
+
+<dialog id="modal-hash-editor" class="modal">
+	<div id="modal-hash-editor-header" class="modal-header"></div>
+	<div id="modal-hash-editor-body" class="modal-body"></div>
+	<div id="modal-hash-editor-footer" class="modal-footer row">
+		<div id="modal-hash-editor-footer-left">
+			<button id="button-hash-editor-export" class="btn btn-sm" title="Export" data-translate-title="Export"><img src="assets/octicons/octicon_download.svg" loading="lazy" class="octicon" /></button>
+			<button id="button-hash-editor-import" class="btn btn-sm" title="Import" data-translate-title="Import"><img src="assets/octicons/octicon_upload.svg" loading="lazy" class="octicon" /></button>
+		</div>
+		<div id="modal-hash-editor-footer-right">
+		</div>
+	</div>
+	<input id="input-file-hash-editor-import" type="file" accept=".json" class="hide" />
+</dialog>
+
+
+
+<dialog id="modal-delete-item" class="modal">
+	<div class="modal-body">
+		<div class="text-center mb-10" id="modal-delete-item-text"></div>
+		<div class="text-center mb-10">
+			<label><input id="checkbox-delete-item-warning" type="checkbox" checked /> <span data-translate="Show this warning next time">Show this warning next time</span></label>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<div class="text-center">
+			<button class="btn btn-sm" data-dismiss="modal" data-translate="Cancel">Cancel</button>
+			<button class="btn btn-sm btn-danger" data-dismiss="modal" id="btn-delete-item-confirm"><img src="assets/octicons/octicon_trash.svg" loading="lazy" class="octicon" /> <span data-translate="Delete">Delete</span></button>
+		</div>
+	</div>
+</dialog>
+
+
 </body>
 </html>

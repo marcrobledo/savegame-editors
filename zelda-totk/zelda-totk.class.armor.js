@@ -1,106 +1,80 @@
 /*
-	The legend of Zelda: Tears of the Kingdom Savegame Editor (Armor class) v20230605
+	The legend of Zelda: Tears of the Kingdom savegame editor - Armor class (last update 2023-07-08)
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
 */
 
-function Armor(index, id, dyeColor){
+function Armor(itemData, overrideId){
 	this.category='armors';
-	this.index=index;
-	this.removable=false;
 
-	this.id=id;
-	this.dyeColor=dyeColor || Armor.DYE_NONE;
-
-	Armor.buildHtmlElements(this);
-	this.refreshHtmlColor();
+	this.id=overrideId || itemData.id;
+	this.dyeColor=Variable.enumToInt(itemData.dyeColor);
 }
-Armor.prototype.refreshHtmlColor=function(){
-	var colorIndex=this._htmlSelectDyeColor.selectedIndex;
-	var colors=['transparent','#2641ea','#ec3b18','#ffe13e','#f8f8f8','#080808','#b03af4','#4bf130','#78e7ff','#527abc','#ff9b2f','#ff85d0','#f62ba7','#ffef98','#8f3a20','#808080']
-	this._htmlSpanColor.style.backgroundColor=colors[colorIndex];
+Armor.prototype.getBaseId=function(){
+	return Armor.INFO[this.id].base;
+}
+Armor.prototype.canBeUpgraded=function(){
+	return Armor.INFO[this.id].upgradeable;
+}
+Armor.prototype.upgrade=function(){
+	var upgradeId=this.canBeUpgraded();
+	if(upgradeId)
+		this.id=upgradeId;
+
+	return upgradeId;
+}
+Armor.prototype.canBeDyed=function(){
+	return Armor.INFO[this.id].dyeable;
 }
 Armor.prototype.getItemTranslation=function(){
-	return Locale._(this.id);
+	return _(this.id);
 }
-Armor.prototype.copy=function(index, newId){
-	return new Armor(
-		index,
-		typeof newId==='string'? newId : this.id,
-		this.dyeColor
-	);
+Armor.prototype.export=function(){
+	return{
+		totkStruct:Pouch.getCategoryItemStructId(this.category),
+		id:this.id,
+		dyeColor:this.dyeColor
+	}
 }
-Armor.prototype.save=function(){
-	SavegameEditor.writeString64('Pouch.Armor.Content.Name', this.index, this.id);
-	SavegameEditor.writeU32('Pouch.Armor.Content.ColorVariation', this.index, this.dyeColor);
+Armor.prototype.refreshHtmlInputs=function(fixValues){
+	if(fixValues){
+		if(!this.canBeDyed())
+			this.dyeColor=hash('None');
+	}
+
+	this._htmlInputs.dyeColor.disabled=!this.canBeDyed();
+	Pouch.updateItemIcon(this);
 }
+
 
 
 Armor.buildHtmlElements=function(item){
-	//build html elements
-	var dyeColors=[
-		{name:Locale._('Default color'), value:Armor.DYE_NONE},
-		{name:Locale._('Blue'), value:Armor.DYE_BLUE},
-		{name:Locale._('Red'), value:Armor.DYE_RED},
-		{name:Locale._('Yellow'), value:Armor.DYE_YELLOW},
-		{name:Locale._('White'), value:Armor.DYE_WHITE},
-		{name:Locale._('Black'), value:Armor.DYE_BLACK},
-		{name:Locale._('Purple'), value:Armor.DYE_PURPLE},
-		{name:Locale._('Green'), value:Armor.DYE_GREEN},
-		{name:Locale._('Light blue'), value:Armor.DYE_LIGHT_BLUE},
-		{name:Locale._('Navy'), value:Armor.DYE_NAVY},
-		{name:Locale._('Orange'), value:Armor.DYE_ORANGE},
-		{name:Locale._('Pink'), value:Armor.DYE_PINK},
-		{name:Locale._('Crimson'), value:Armor.DYE_CRIMSON},
-		{name:Locale._('Light yellow'), value:Armor.DYE_LIGHT_YELLOW},
-		{name:Locale._('Brown'), value:Armor.DYE_BROWN},
-		{name:Locale._('Gray'), value:Armor.DYE_GRAY}
-	];
-	item._htmlSelectDyeColor=select('armor-dye-'+item.category+'-'+item.index, dyeColors, function(){
-		item.dyeColor=parseInt(this.value);
-		item.refreshHtmlColor();
-	}, item.dyeColor);
-	item._htmlSelectDyeColor.dataset.translateTitle='Dye color';
-	item._htmlSelectDyeColor.title=Locale._('Dye color');
-
-	item._htmlSpanColor=document.createElement('span');
-	item._htmlSpanColor.className='dye-color';
-}
-
-Armor.readAll=function(){
-	var armorIds=SavegameEditor.readString64Array('Pouch.Armor.Content.Name');
-	var validArmors=[];
-	for(var i=0; i<armorIds.length; i++){
-		if(armorIds[i]){
-			validArmors.push(new Armor(
-				i,
-				armorIds[i],
-				SavegameEditor.readU32Array('Pouch.Armor.Content.ColorVariation', i)
-			));
-		}
-	}
-	return validArmors;
+	item._htmlInputs={
+		dyeColor:Pouch.createItemInput(item, 'dyeColor', 'Enum', {enumValues:Armor.OPTIONS_DYE_COLORS, label:_('Dye color')})
+	};
 }
 
 
-Armor.DYE_NONE=0xb6eede09; //None
-Armor.DYE_BLUE=0xe2911aba; //Blue
-Armor.DYE_RED=0x6e1a9181; //Red
-Armor.DYE_YELLOW=0xc03f6678; //Yellow
-Armor.DYE_WHITE=0x4402060c; //White
-Armor.DYE_BLACK=0x6cbc3cb4; //Black
-Armor.DYE_PURPLE=0x7f0ae256; //Purple
-Armor.DYE_GREEN=0x7c9b6ddb; //Green
-Armor.DYE_LIGHT_BLUE=0x01666931; //LightBlue
-Armor.DYE_NAVY=0xadfd3a1; //Navy
-Armor.DYE_ORANGE=0x619ec353; //Orange
-Armor.DYE_PINK=0xeaf26a09; //Pink
-Armor.DYE_CRIMSON=0xf8bdf528; //Crimson
-Armor.DYE_LIGHT_YELLOW=0xdf26c6da; //LightYellow
-Armor.DYE_BROWN=0xb364bb2c; //Brown
-Armor.DYE_GRAY=0x762266bf; //Gray
 
+Armor.OPTIONS_DYE_COLORS=[
+	{name:_('Default color'), value:hash('None')},
+	{name:_('Blue'), value:hash('Blue')},
+	{name:_('Red'), value:hash('Red')},
+	{name:_('Yellow'), value:hash('Yellow')},
+	{name:_('White'), value:hash('White')},
+	{name:_('Black'), value:hash('Black')},
+	{name:_('Purple'), value:hash('Purple')},
+	{name:_('Green'), value:hash('Green')},
+	{name:_('Light blue'), value:hash('LightBlue')},
+	{name:_('Navy'), value:hash('Navy')},
+	{name:_('Orange'), value:hash('Orange')},
+	{name:_('Pink'), value:hash('Pink')},
+	{name:_('Crimson'), value:hash('Crimson')},
+	{name:_('Light yellow'), value:hash('LightYellow')},
+	{name:_('Brown'), value:hash('Brown')},
+	{name:_('Gray'), value:hash('Gray')}
+];
 Armor.AVAILABILITY=[
 	'Armor_001_Head','Armor_002_Head','Armor_003_Head','Armor_004_Head','Armor_015_Head', //Hylian Hood
 	'Armor_1152_Head','Armor_1153_Head','Armor_1154_Head','Armor_1155_Head','Armor_1156_Head', //Hylian Hood (lowered)
@@ -302,74 +276,121 @@ Armor.AVAILABILITY=[
 	'Armor_1150_Upper' //*Tunic of memories (intro, unused)
 ];
 
-Armor.UPGRADEABLE=[
+Armor.INFO=(function(upgrades, dyeables){
+	var info={};
+	Armor.AVAILABILITY.forEach(function(itemId){
+		var numberId=itemId.replace(/[^\d]/g,'');
+
+		var level=null;
+		var base=itemId;
+		var upgradeable=false;
+		for(var i=0; i<upgrades.length; i++){
+			var index=upgrades[i].indexOf(numberId);
+			if(index!==-1){
+				level=index;
+				base=itemId.replace(/\d+/, upgrades[i][0]);
+				if(index<4)
+					upgradeable=itemId.replace(/\d+/, upgrades[i][index+1]);
+				break;
+			}
+		}
+
+		var dyeable=dyeables.indexOf(base.replace(/[^\d]/g,''))!==-1;
+
+		info[itemId]={
+			base:base,
+			level:level,
+			upgradeable:upgradeable,
+			dyeable:dyeable
+		}
+	});
+	return info;
+}([
+	/* upgrades */
+	['1152','1153','1154','1155','1156'], //Hylian Hood (lowered)
+	['001','002','003','004','015'], //Hylian Hood/Tunic/Hylian Trousers
+	['005','035','039','060','061'], //Cap/Tunic/Trousers of the Wild
+	['006','007','062','063','064'], //Zora Helm/Armor/Greaves
+	['008','040','065','066','067'], //Desert Voe Headband/Spaulder/Trousers
+	['009','036','071','072','073'], //Snowquill Headdress/Tunic/Trousers
+	['011','037','074','075','076'], //Flamebreaker Helm/Armor/Boots
+	['012','042','077','078','079'], //Stealth Mask/Chest Guard/Tights
+	['014','083','084','085','086'], //Climbers Bandanna/Gear/Boots
+	['017','087','088','089','090'], //Radiant Mask/Shirt/Tights
+	['020','095','096','097','098'], //Soldiers Helm/Armor/Greaves
+	['021','099','100','101','102'], //Ancient Helm/Cuirass/Greaves
+	['024','117','118','119','120'], //Diamond Circlet
+	['025','121','122','123','124'], //Ruby Circlet
+	['026','125','126','127','128'], //Sapphire Circlet
+	['027','129','130','131','132'], //Topaz Earrings
+	['028','133','134','135','136'], //Opal Earrings
+	['029','137','138','139','140'], //Amber Earrings
+	['046','103','104','105','106'], //Rubber Helm/Armor/Tights
+	['048','111','112','113','114'], //Barbarian Helm/Armor/Leg Wraps
+	['049','152','153','154','155'], //Sand Boots
+	['116','148','149','150','151'], //Tunic of Memories
+	['141','156','157','158','159'], //Snow Boots
+	['179','1146','1147','1148','1149'], //Royal Guard Cap/Uniform/Boots
+	['181','186','187','188','189'], //Vah Ruta Divine Helm
+	['182','190','191','192','193'], //Vah Medoh Divine Helm
+	['183','194','195','196','197'], //Vah Rudania Divine Helm
+	['184','198','199','168','169'], //Vah Naboris Divine Helm
+	['200','201','202','203','204'], //Cap/Tunic/Trousers of Time
+	['205','206','207','208','209'], //Cap/Tunic/Trousers of the Wind
+	['210','211','212','213','214'], //Cap/Tunic/Trousers of Twilight
+	['215','216','217','218','219'], //Cap/Tunic/Trousers of the Sky
+	['220','221','222','223','224'], //Sheiks Mask
+	['225','226','227','228','229'], //Fierce Deity Mask/Armor/Boots
+	['230','231','232','233','234'], //Cap/Tunic/Trousers of the Hero
+	['1006','1007','1008','1009','1010'], //Glide Mask/Shirt/Tights
+	['1036','1037','1038','1039','1040'], //Ancient Heros Aspect
+	['1046','1047','1048','1049','1050'], //Froggy Hood/Sleeve/Leggings
+	['1051','1052','1053','1054','1055'], //Miners Mask/Top/Trousers
+	['1061','1062','1063','1064','1065'], //Ember Headdress/Shirt/Trousers
+	['1066','1067','1068','1069','1070'], //Charged Headdress/Shirt/Trousers
+	['1071','1072','1073','1074','1075'], //Frostbite Headdress/Shirt/Trousers
+	['1091','1092','1093','1094','1095'], //Zonaite Helm/Waistguard/Shin Guards
+	['1096','1097','1098','1099','1100'], //Mask/Tunic/Trousers of Awakening
+	['1106','1107','1108','1109','1110'], //Champions Leather
+	['1141','1142','1143','1144','1145'], //Hood/Tunic/Gaiters of the Depths
+	['1300','1301','1302','1303','1304'] //Yiga Mask/Armor/Tight
+], [
+	/* dyeable */
+	'1043', //Archaic Tunic/Legwear
+	'1044', //Archaic Warm Greaves
+
+	'1152', //Hylian Hood (lowered)
 	'001', //Hylian Hood/Tunic/Trousers
-	'005', //Cap/Tunic/Trousers of the Wild
-	'006', //Zora Helm/Armor/Greaves
-	'008', //Desert Voe Headband/Spaulder/Trousers
+
+	'020', //Soldier's Helm/Armor/Greaves
 	'009', //Snowquill Headdress/Tunic/Trousers
 	'011', //Flamebreaker Helm/Armor/Boots
+	'006', //Zora Helm/Armor/Greaves
+	'008', //Desert Voe Headband/Spaulde/Trousers
+	'046', //Rubber Helm/Armor/Tights
 	'012', //Stealth Mask/Chest Guard/Tights
 	'014', //Climber's Bandanna/Gear/Boots
-	'017', //Radiant Mask/Shirt/Tights
-	'020', //Soldier's Helm/Armor/Greaves
-	'021', //Ancient Helm/Cuirass/Greaves
-	'046', //Rubber Helm/Armor/Tights
 	'048', //Barbarian Helm/Armor/Leg Wraps
-	'179', //Royal Guard Cap/Uniform/Boots
-	'200', //Cap/Tunic/Trousers of Time
-	'205', //Cap/Tunic/Trousers of the Wind
-	'210', //Cap/Tunic/Trousers of Twilight
-	'215', //Cap/Tunic/Trousers of the Sky
-	'225', //Fierce Deity Mask/Armor/Boots
-	'230', //Cap/Tunic/Trousers of the Hero
-	'1006', //Glide Mask/Shirt/Tights
+	'017', //Radiant Mask/Shirt/Tights
 	'1046', //Froggy Hood/Sleeve/Leggings
+	'1006', //Glide Mask/Shirt/Tights
+	'1141', //Hood/Tunic/Gaiters of the Depths
 	'1051', //Miner's Mask/Top/Trousers
+	'1086', //Mystic Headpiece/Robe/Trousers
 	'1061', //Ember Headdress/Shirt/Trousers
 	'1066', //Charged Headdress/Shirt/Trousers
 	'1071', //Frostbite Headdress/Shirt/Trousers
-	'1091', //Zonaite Helm/Waistguard/Shin Guards
-	'1096', //Mask/Tunic/Trousers of Awakening
-	'1141', //Hood/Tunic/Gaiters of the Depths
-	'1300', //Yiga Mask/Armor/Tight
+	'1300', //Yiga Mask/Armor/Tights
 
-	'1152', //Hylian Hood (lowered)
-	'024', //Diamond Circlet
-	'025', //Ruby Circlet
-	'026', //Sapphire Circlet
-	'027', //Topaz Earrings
-	'028', //Opal Earrings
-	'029', //Amber Earrings
 	'181', //Vah Ruta Divine Helm
 	'182', //Vah Medoh Divine Helm
 	'183', //Vah Rudania Divine Helm
 	'184', //Vah Naboris Divine Helm
-	'220', //Sheik's Mask
-	'1036', //Ancient Hero's Aspect
 
-	'116', //Tunic of Memories
-	'1106', //Champion's Leather
+	'1091', //Zonaite Helm/Waistguard/Shin Guards
 
 	'049', //Sand Boots
-	'141' //Snow Boots
-];
-Armor.ICONS=(function(){
-	/* for this to work correctly, upgradeable armor ids in Armor.AVAILABILITY must be always next to the base one */
-	var stars=0;
-	var icons={};
-	var lastUpgradeableArmorId;
-	Armor.AVAILABILITY.forEach(function(armorId, i){
-		if(stars){
-			icons[armorId]=lastUpgradeableArmorId;
-			stars--;
-		}else{
-			icons[armorId]=armorId;
-			if(Armor.UPGRADEABLE.indexOf(armorId.replace(/[^\d]/g, ''))!==-1){
-				lastUpgradeableArmorId=armorId;
-				stars=4;
-			}
-		}
-	});
-	return icons;
-}());
+	'141', //Snow Boots
+
+	'005' //Cap/Tunic/Trousers of the Wild
+]));

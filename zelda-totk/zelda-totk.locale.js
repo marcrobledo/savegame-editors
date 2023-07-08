@@ -11,6 +11,10 @@ var Locale=(function(ui){
 	var _currentLocaleAlt=null;
 	var _cachedLocales={};
 
+	var _setSelectLanguageStatus=function(status){
+		if(document.getElementById('select-language'))
+			document.getElementById('select-language').disabled=!status;	
+	};
 	var _setLocale=function(langCode){
 		_currentLocale=_cachedLocales[langCode];
 		if(/_alt$/.test(langCode)){
@@ -18,9 +22,6 @@ var Locale=(function(ui){
 		}else{
 			_currentLocaleAlt=null;
 		}
-
-		if(ui && typeof ui.translate==='function')
-			ui.translate();
 
 		document.querySelectorAll('*[data-translate-title]')
 			.forEach(function(elem){
@@ -48,20 +49,19 @@ var Locale=(function(ui){
 			}else if(VALID_LOCALES.indexOf(langCode)!==-1){
 				var langCodeAll=langCode.replace('_alt','');
 
-				ui.toast('Loading '+langCodeAll.toUpperCase()+' translation...');
-				ui.setSelectLanguageStatus(false);
+				ui.toast('Loading '+langCodeAll.toUpperCase()+' translation...', 'locale');
+				_setSelectLanguageStatus(false);
 
 				var script=document.createElement('script');
 				script.type='text/javascript';
 				script.onload=function(){
-					ui.toast(false);
-					ui.setSelectLanguageStatus(true);
+					ui.toast(false, 'locale');
+					_setSelectLanguageStatus(true);
 					_setLocale(langCode);
 				}
 				script.onerror=function(){
-					ui.toast(false);
-					ui.setSelectLanguageStatus(true);
-					alert('Unexpected error: can\'t download locale file');
+					ui.toast('Unexpected error: can\'t download locale file', 'locale');
+					_setSelectLanguageStatus(true);
 				}
 				script.src='./locale/zelda-totk.locale.'+langCodeAll+'.js';
 				document.head.appendChild(script);
@@ -72,3 +72,8 @@ var Locale=(function(ui){
 		}
 	}
 }(UI));
+
+
+function _(str){
+	return Locale._(str);
+}
