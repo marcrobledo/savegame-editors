@@ -647,6 +647,9 @@ SavegameEditor={
 	addPinsBubbuls:function(){
 		return this.addLocationPins(CompletismHashes.BUBBULS_DEFEATED, Coordinates.LOCATION_BUBBULS, MapPin.ICON_HEART, 50);
 	},
+	addPinsLocations:function(){
+		return this.addLocationPins(CompletismHashes.LOCATIONS_VISITED, Coordinates.LOCATIONS, MapPin.ICON_DIAMOND, 50);
+	},
 	addPinsLocationsCaves:function(){
 		return this.addLocationPins(CompletismHashes.LOCATION_CAVES_VISITED2, Coordinates.LOCATION_CAVES, MapPin.ICON_DIAMOND, 50);
 	},
@@ -731,6 +734,9 @@ SavegameEditor={
 	refreshCounterBubbuls:function(){
 		this._refreshCounter('bubbuls', Completism.countBubbuls(), CompletismHashes.BUBBULS_DEFEATED.length);
 	},
+	refreshCounterLocations:function(){
+		this._refreshCounter('locations', Completism.countLocations(), CompletismHashes.LOCATIONS_VISITED.length);
+	},
 	refreshCounterLocationCaves:function(){
 		this._refreshCounter('location-caves', Completism.countLocationCaves(), CompletismHashes.LOCATION_CAVES_VISITED.length);
 	},
@@ -783,6 +789,7 @@ SavegameEditor={
 		this.refreshCounterKoroksHidden();
 		this.refreshCounterKoroksCarry();
 		this.refreshCounterBubbuls();
+		this.refreshCounterLocations();
 		this.refreshCounterLocationCaves();
 		this.refreshCounterLocationWells();
 		this.refreshCounterLocationChasms();
