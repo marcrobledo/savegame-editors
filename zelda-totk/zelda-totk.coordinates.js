@@ -1,9 +1,8 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - MapPin class and collectible map raw coordinates (last update 2023-07-08)
+	The legend of Zelda: Tears of the Kingdom savegame editor - MapPin class and collectible map raw coordinates (last update 2023-07-09)
 
 	by Marc Robledo 2023
-	research & information compiled by MacSpazzy, Karlos007 and Echocolat
-	korok unused hashes filtered by Karlos007
+	research & information compiled by MacSpazzy, Phil, savage13, Karlos007 and Echocolat
 */
 
 
@@ -121,6 +120,24 @@ fromRaw:function(rawCoordinates){
 	//	return Coordinates.toRaw(rawCoordinates.x, rawCoordinates.y, rawCoordinates.z);
 	return [rawCoordinates[0], -rawCoordinates[2], rawCoordinates[1]-105]
 },
+
+TOWERS:[
+	[-298.85, 142.85, 18.94],
+	[-1909.59, 1245.30, 290.71],
+	[-2311.49, 3062.49, 437.00],
+	[1641.81, 1190.82, 219.42],
+	[3499.00, 2026.00, 181.86],
+	[1341.11, -1177.86, 160.26],
+	[2866.06, 581.19, 373.33],
+	[-761.28, -1019.23, 58.42],
+	[-2438.85, -2182.76, 300.62],
+	[-3960.88, -1305.60, 416.37],
+	[2420.00, -2754.89, 216.00],
+	[343.67, 3141.65, 173.56],
+	[604.84, -2126.88, 92.33],
+	[3847.64, -1314.91, 532.81],
+	[-3679.59, 2346.40, 226.74]
+],
 
 SHRINES:[
 	[343.85880,135.69970,1009.02600], //3706669599997098509
@@ -1828,7 +1845,44 @@ LOCATION_WELLS:[
 	[394.5,138,3387], //15893213395873888747 - Well_0058
 	[-2958.587,260.9558,-531.9565] //9748532938243040102 - Well_0059
 ],
-
+LOCATION_CHASMS:[
+	[3246.82, 3441.88, -43.11], //3260756095246822508 - DeepHole_AkkareSkull
+	[-3430.18, -1333.44, 279.69], //4644498897174716641 - DeepHole_B-6_AssasisnBoss
+	[-3685.63, -1859.87, 33.61], //5549059218061366633 - DeepHole_B-6_Tower
+	[4707.78, 1307.87, 119.23], //9628499964670546231 - DeepHole_Chikurun
+	[418.01, 2193.41, 143.69], //9713548750532017250 - DeepHole_Cokiri
+	[2534.50, 2602.50, 643.50], //18175304942163261028 - DeepHole_DeathMountain
+	[1305.00, -2396.66, 62.28], //5901788378855460870 - DeepHole_Firone
+	[-452.50, -1992.98, 67.28], //15905392722740304 - DeepHole_FirstLandEast
+	[-664.93, -1509.75, 49.49], //1435983989598451303 - DeepHole_FirstLandNorth
+	[-932.83, -2317.51, 163.54], //5328634591570328090 - DeepHole_FirstLandSouth
+	[-1431.69, -1992.55, 225.82], //12664920886408899240 - DeepHole_FirstLandWest
+	[-1794.92, -3461.76, 44.36], //397255910733783029 - DeepHole_GerudoMaze
+	[-4203.36, -637.66, 643.08], //6383879160737498330 - DeepHole_GerudoSummit
+	[4029.55, 2180.88, -96.18], //10687953805007878473 - DeepHole_Higakkare
+	[2513.71, -2380.70, 131.29], //8270027616370949329 - DeepHole_HimeidaMt
+	[-254.00, 1012.17, -210.00], //18137312076250302730 - DeepHole_HyruleCastle
+	[169.99, 882.16, -48.18], //12644792830451791701 - DeepHole_HyruleCastleEast
+	[-922.61, 666.79, -9.48], //3643485269032630633 - DeepHole_HyruleCastleWest
+	[-332.00, -2598.02, -51.82], //13929777954014421303 - DeepHole_HyruleLake
+	[-255.03, -299.58, -1.53], //12420116610575098418 - DeepHole_HyrulePlains
+	[-456.88, 1722.35, 169.39], //12232431606697414475 - DeepHole_ImeruMt
+	[1974.49, -846.13, 115.51], //5810770272691429369 - DeepHole_Kakariko_EastHill
+	[1059.43, 1668.10, 149.87], //4789371614404322252 - DeepHole_KiyanbaTrees
+	[4655.00, 3697.47, 26.50], //1595756749757738282 - DeepHole_LomeiIsland
+	[3296.86, 1286.69, 124.95], //4734326941896126368 - DeepHole_Minakkare
+	[-71.04, 2983.78, 126.93], //2258222317531786547 - DeepHole_RirimukuMt
+	[-3573.46, 1801.97, 119.04], //17183754997239633264 - DeepHole_Rito
+	[4507.12, -3459.30, -17.06], //11336577741930217675 - DeepHole_Saihateno
+	[221.94, -2118.77, -2.12], //11031454923833399536 - DeepHole_SanaePlateau
+	[-814.48, 3534.70, 220.20], //16896066116062008519 - DeepHole_TabantaMaze
+	[3604.59, -1343.98, 118.14], //7545616274530289895 - DeepHole_YuaSnow
+	[-127.97, -1657.81, -31.99], //14174745585506950773 - DeepHole_ZifForest
+	[-2491.19, -3067.74, 6.24], //12690494979007497354 - Cave_GerudoDesert_0043
+	[-2644.24, 1126.02, 142.63], //10595346751399989600 - Cave_HyruleRidge_0004
+	[1726.92, 162.05, -4.81], //12292698567036544880 - Cave_Lanayru_0050
+	[3271.55, 441.59, -20.69] //15007569538535704822 - Cave_Lanayru_0063
+],
 
 
 SCHEMATICS_STONE:[

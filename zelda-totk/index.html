@@ -457,6 +457,21 @@
 		</div>
 		<div class="mb-10 text-center">
 			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Skyview Towers">Skyview Towers</strong></div>
+				<div><span data-translate="Found">Found</span>:<br/><span id="span-towers-found-counter"></span></div>
+				<div><span data-translate="Activated">Activated</span>:<br/><span id="span-towers-clear-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsTowers()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.setTowersAsFound()" data-translate="Set all as found">Set all as found</button> | 
+						<button onclick="Completism.setTowersAsClear()" data-translate="Set all as activated">Set all as activated</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="container-counter">
 				<div class="mb-10"><strong data-translate="Shrines">Shrines</strong></div>
 				<div><span data-translate="Found">Found</span>:<br/><span id="span-shrines-found-counter"></span></div>
 				<div><span data-translate="Cleared">Cleared</span>:<br/><span id="span-shrines-clear-counter"></span></div>
@@ -474,14 +489,14 @@
 			<div class="container-counter">
 				<div class="mb-10"><strong data-translate="Lightroots">Lightroots</strong></div>
 				<div><span data-translate="Found">Found</span>:<br/><span id="span-lightroots-found-counter"></span></div>
-				<div><span data-translate="Cleared">Cleared</span>:<br/><span id="span-lightroots-clear-counter"></span></div>
+				<div><span data-translate="Activated">Activated</span>:<br/><span id="span-lightroots-clear-counter"></span></div>
 				<div class="completionism-actions">
 					<div class="completionism-actions-map">
 						<button onclick="SavegameEditor.addPinsLightroots()" data-translate="Pin missing to map">Pin missing to map</button>
 					</div>
 					<div class="completionism-actions-unlock">
 						<button onclick="Completism.setLightrootsAsFound()" data-translate="Set all as found">Set all as found</button> | 
-						<button onclick="Completism.setLightrootsAsClear()" data-translate="Set all as cleared">Set all as cleared</button>
+						<button onclick="Completism.setLightrootsAsClear()" data-translate="Set all as activated">Set all as activated</button>
 					</div>
 				</div>
 			</div>
@@ -548,6 +563,18 @@
 					</div>
 					<div class="completionism-actions-unlock">
 						<button onclick="Completism.visitLocationWells()" data-translate="Set all as visited">Set all as visited</button>
+					</div>
+				</div>
+			</div>
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Chasms">Chasms</strong></div>
+				<div><span id="span-location-chasms-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsLocationsChasms()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.visitLocationChasms()" data-translate="Set all as visited">Set all as visited</button>
 					</div>
 				</div>
 			</div>

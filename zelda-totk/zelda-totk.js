@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-07-08)
+	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-07-09)
 
 	by Marc Robledo 2023
 */
@@ -9,7 +9,7 @@ var currentEditingItem;
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
 	Filename:['progress.sav','caption.sav'],
-	Version:20230708,
+	Version:20230709,
 	noDemo:true,
 
 	/* Settings */
@@ -629,6 +629,9 @@ SavegameEditor={
 
 		return count;
 	},
+	addPinsTowers:function(){
+		return this.addLocationPins(CompletismHashes.TOWERS_FOUND, Coordinates.TOWERS, MapPin.ICON_CRYSTAL, 15);
+	},
 	addPinsShrines:function(){
 		return this.addLocationPins(CompletismHashes.SHRINES_FOUND, Coordinates.SHRINES, MapPin.ICON_CRYSTAL, 50);
 	},
@@ -649,6 +652,9 @@ SavegameEditor={
 	},
 	addPinsLocationsWells:function(){
 		return this.addLocationPins(CompletismHashes.LOCATION_WELLS_VISITED2, Coordinates.LOCATION_WELLS, MapPin.ICON_DIAMOND, 25);
+	},
+	addPinsLocationsChasms:function(){
+		return this.addLocationPins(CompletismHashes.LOCATION_CHASMS_VISITED2, Coordinates.LOCATION_CHASMS, MapPin.ICON_DIAMOND, 20);
 	},
 	addPinsBossesHinox:function(){
 		return this.addLocationPins(CompletismHashes.BOSSES_HINOXES_DEFEATED, Coordinates.BOSSES_HINOXES, MapPin.ICON_SKULL, 25);
@@ -698,6 +704,12 @@ SavegameEditor={
 	refreshCounterMapPins:function(){
 		SavegameEditor._refreshCounter('pin', MapPin.count(SavegameEditor.currentItems.mapPins), MapPin.MAX);
 	},
+	refreshCounterTowersFound:function(){
+		this._refreshCounter('towers-found', Completism.countTowersFound(), CompletismHashes.TOWERS_FOUND.length);
+	},
+	refreshCounterTowersClear:function(){
+		this._refreshCounter('towers-clear', Completism.countTowersClear(), CompletismHashes.TOWERS_ACTIVATED.length);
+	},
 	refreshCounterShrinesFound:function(){
 		this._refreshCounter('shrines-found', Completism.countShrinesFound(), CompletismHashes.SHRINES_FOUND.length);
 	},
@@ -724,6 +736,9 @@ SavegameEditor={
 	},
 	refreshCounterLocationWells:function(){
 		this._refreshCounter('location-wells', Completism.countLocationWells(), CompletismHashes.LOCATION_WELLS_VISITED.length);
+	},
+	refreshCounterLocationChasms:function(){
+		this._refreshCounter('location-chasms', Completism.countLocationChasms(), CompletismHashes.LOCATION_CHASMS_VISITED.length);
 	},
 	refreshCounterBossesHinox:function(){
 		this._refreshCounter('boss-hinox', Completism.countBossesHinox(), CompletismHashes.BOSSES_HINOXES_DEFEATED.length);
@@ -759,6 +774,8 @@ SavegameEditor={
 		this._refreshCounter('pristine-weapons', ExperienceCalculator.countPristineWeapons(), ExperienceCalculator.BROKEN_WEAPON_HASHES.length);
 	},
 	refreshCounterAll:function(){
+		this.refreshCounterTowersFound();
+		this.refreshCounterTowersClear();
 		this.refreshCounterShrinesFound();
 		this.refreshCounterShrinesClear();
 		this.refreshCounterLighrootsFound();
@@ -768,6 +785,7 @@ SavegameEditor={
 		this.refreshCounterBubbuls();
 		this.refreshCounterLocationCaves();
 		this.refreshCounterLocationWells();
+		this.refreshCounterLocationChasms();
 		this.refreshCounterBossesHinox();
 		this.refreshCounterBossesTalus();
 		this.refreshCounterBossesMolduga();

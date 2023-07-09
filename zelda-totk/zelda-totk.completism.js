@@ -1,9 +1,8 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Completism (last update 2023-07-08)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Completism (last update 2023-07-09)
 
 	by Marc Robledo 2023
-	research & information compiled by MacSpazzy, Karlos007 and Echocolat
-	korok unused hashes filtered by Karlos007
+	research & information compiled by MacSpazzy, Phil, savage13, Karlos007 and Echocolat
 */
 
 var Completism={
@@ -26,6 +25,12 @@ var Completism={
 	},
 	_countReverse:function(booleanHashes, valueFalse){
 		return booleanHashes.length - this._count(booleanHashes, valueFalse);
+	},
+	countTowersFound:function(){
+		return this._count(CompletismHashes.TOWERS_FOUND);
+	},
+	countTowersClear:function(){
+		return this._count(CompletismHashes.TOWERS_ACTIVATED);
 	},
 	countShrinesFound:function(){
 		return this._count(CompletismHashes.SHRINES_FOUND);
@@ -53,6 +58,9 @@ var Completism={
 	},
 	countLocationWells:function(){
 		return this._count(CompletismHashes.LOCATION_WELLS_VISITED);
+	},
+	countLocationChasms:function(){
+		return this._count(CompletismHashes.LOCATION_CHASMS_VISITED);
 	},
 	countBossesHinox:function(){
 		return this._count(CompletismHashes.BOSSES_HINOXES_DEFEATED);
@@ -114,6 +122,19 @@ var Completism={
 		}
 
 		return count;
+	},
+	setTowersAsFound:function(limit){
+		var changes=this._set(CompletismHashes.TOWERS_FOUND, limit);
+		UI.toast(_('%s skyview towers set as found').replace('%s', changes), 'towers-found');
+		SavegameEditor.refreshCounterTowersFound();
+		return changes;
+	},
+	setTowersAsClear:function(limit){
+		var changes=this._set(CompletismHashes.TOWERS_ACTIVATED, limit);
+		UI.toast(_('%s skyview towers set as activated').replace('%s', changes), 'towers-clear');
+		changes+=this._set(CompletismHashes.TOWERS_MAP_REVEALED, limit);
+		SavegameEditor.refreshCounterTowersClear();
+		return changes;
 	},
 	setShrinesAsFound:function(limit){
 		var changes=this._set(CompletismHashes.SHRINES_FOUND, limit);
@@ -195,6 +216,13 @@ var Completism={
 		this._set(CompletismHashes.LOCATION_WELLS_VISITED2, limit);
 		return changes;
 	},
+	visitLocationChasms:function(limit){
+		var changes=this._set(CompletismHashes.LOCATION_CHASMS_VISITED, limit);
+		UI.toast(_('%s chasms set as visited').replace('%s', changes), 'chasms-visited');
+		SavegameEditor.refreshCounterLocationChasms();
+		this._set(CompletismHashes.LOCATION_CHASMS_VISITED2, limit);
+		return changes;
+	},
 	defeatBossesHinox:function(limit){
 		var changes=this._set(CompletismHashes.BOSSES_HINOXES_DEFEATED, limit);
 		UI.toast(_('%s hinoxes set as defeated').replace('%s', changes), 'hinoxes-defeated');
@@ -272,6 +300,35 @@ var Completism={
 };
 
 var CompletismHashes={
+	TOWERS_FOUND:[
+		/* IsVisitLocation.TowerXXX (01-15) */
+		0x3c07217a, //Lookout Landing
+		0xec38c3be, //Lindor's Brow
+		0x6ee7a9b4, //Pikida Stonegrove
+		0xc1b1272e, //Eldin Canyon
+		0xbc9458f6, //Ulri Mountain
+		0x6bbc4bc5, //Sahasra Slope
+		0x9304ce23, //Upland Zorana
+		0x5eee2b50, //Hyrule Field
+		0xe0418686, //Gerudo Canyon
+		0x89b01713, //Gerudo Highlands
+		0x97ec4114, //Rabella Wetlands
+		0x8fabb43f, //Thyphlo Ruins
+		0xdb253c3e, //Popla Foothills
+		0xa7aea58b, //Mount Lanayru
+		0xf4415c10 //Rospro Pass
+	],
+	TOWERS_ACTIVATED:[
+		/* IsActivateCannon.TowerXXX (01-15) */
+		0xb8fb6253,0xd0236be5,0x1f4b2837,0x1f365304,0x8da52227,0x8462f080,0xb0ef5321,0xe8931088,
+		0x0aab3354,0x9ee68f49,0xb2295624,0xfcb4ddb7,0x71fb216e,0xdc645a4b,0xf6c6d844
+	],
+	TOWERS_MAP_REVEALED:[
+		/* IsOpenCannon.TowerXXX (01-15) */
+		0x034a2acf,0x1b6b8850,0x41791b8b,0xca45e956,0x0d153cc2,0x1dc77e40,0xf43e73ac,0xdaa808e8,
+		0x46404d81,0xd1b133ab,0x0acfd32d,0x81393e2f,0x14763a6d,0xd4258836,0x436547d5
+	],
+
 	SHRINES_FOUND:[
 		// IsVisitLocation.DungeonXXX (000-151)
 		0xa487c021,0xab281eb6,0xda2de4a7,0x4e2394a9,0x3ccbcd89,0xf736a246,0x9c9e1c68,0xa091a056,0x39afd018,0x180db7f3,
@@ -939,6 +996,85 @@ var CompletismHashes={
 		0x580b10e3 //9748532938243040102 - Well_0059
 	],
 
+	LOCATION_CHASMS_VISITED:[
+		//IsVisitLocation.DeepHole_
+		hash('IsVisitLocation.DeepHole_AkkareSkull'), //DeepHole_AkkareSkull
+		hash('IsVisitLocation.DeepHole_B-6_AssasisnBoss'), //DeepHole_B-6_AssasisnBoss
+		hash('IsVisitLocation.DeepHole_B-6_Tower'), //DeepHole_B-6_Tower
+		hash('IsVisitLocation.DeepHole_Chikurun'), //DeepHole_Chikurun
+		hash('IsVisitLocation.DeepHole_Cokiri'), //DeepHole_Cokiri
+		hash('IsVisitLocation.DeepHole_DeathMountain'), //DeepHole_DeathMountain
+		hash('IsVisitLocation.DeepHole_Firone'), //DeepHole_Firone
+		hash('IsVisitLocation.DeepHole_FirstLandEast'), //DeepHole_FirstLandEast
+		hash('IsVisitLocation.DeepHole_FirstLandNorth'), //DeepHole_FirstLandNorth
+		hash('IsVisitLocation.DeepHole_FirstLandSouth'), //DeepHole_FirstLandSouth
+		hash('IsVisitLocation.DeepHole_FirstLandWest'), //DeepHole_FirstLandWest
+		hash('IsVisitLocation.DeepHole_GerudoMaze'), //DeepHole_GerudoMaze
+		hash('IsVisitLocation.DeepHole_GerudoSummit'), //DeepHole_GerudoSummit
+		hash('IsVisitLocation.DeepHole_Higakkare'), //DeepHole_Higakkare
+		hash('IsVisitLocation.DeepHole_HimeidaMt'), //DeepHole_HimeidaMt
+		hash('IsVisitLocation.DeepHole_HyruleCastle'), //DeepHole_HyruleCastle
+		hash('IsVisitLocation.DeepHole_HyruleCastleEast'), //DeepHole_HyruleCastleEast
+		hash('IsVisitLocation.DeepHole_HyruleCastleWest'), //DeepHole_HyruleCastleWest
+		hash('IsVisitLocation.DeepHole_HyruleLake'), //DeepHole_HyruleLake
+		hash('IsVisitLocation.DeepHole_HyrulePlains'), //DeepHole_HyrulePlains
+		hash('IsVisitLocation.DeepHole_ImeruMt'), //DeepHole_ImeruMt
+		hash('IsVisitLocation.DeepHole_Kakariko_EastHill'), //DeepHole_Kakariko_EastHill
+		hash('IsVisitLocation.DeepHole_KiyanbaTrees'), //DeepHole_KiyanbaTrees
+		hash('IsVisitLocation.DeepHole_LomeiIsland'), //DeepHole_LomeiIsland
+		hash('IsVisitLocation.DeepHole_Minakkare'), //DeepHole_Minakkare
+		hash('IsVisitLocation.DeepHole_RirimukuMt'), //DeepHole_RirimukuMt
+		hash('IsVisitLocation.DeepHole_Rito'), //DeepHole_Rito
+		hash('IsVisitLocation.DeepHole_Saihateno'), //DeepHole_Saihateno
+		hash('IsVisitLocation.DeepHole_SanaePlateau'), //DeepHole_SanaePlateau
+		hash('IsVisitLocation.DeepHole_TabantaMaze'), //DeepHole_TabantaMaze
+		hash('IsVisitLocation.DeepHole_YuaSnow'), //DeepHole_YuaSnow
+		hash('IsVisitLocation.DeepHole_ZifForest'), //DeepHole_ZifForest
+		hash('IsVisitLocation.Cave_GerudoDesert_0043'), //Cave_GerudoDesert_0043
+		hash('IsVisitLocation.Cave_HyruleRidge_0004'), //Cave_HyruleRidge_0004
+		hash('IsVisitLocation.Cave_Lanayru_0050'), //Cave_Lanayru_0050
+		hash('IsVisitLocation.Cave_Lanayru_0063') //Cave_Lanayru_0063
+	],
+	LOCATION_CHASMS_VISITED2:[
+		//seems to be needed in order for the icon to appear in map and also to count towards 100%
+		//IsVisitLocationArea_CaveEntrance.
+		hash('IsVisitLocationArea_CaveEntrance.3260756095246822508'), //DeepHole_AkkareSkull
+		hash('IsVisitLocationArea_CaveEntrance.4644498897174716641'), //DeepHole_B-6_AssasisnBoss
+		hash('IsVisitLocationArea_CaveEntrance.5549059218061366633'), //DeepHole_B-6_Tower
+		hash('IsVisitLocationArea_CaveEntrance.9628499964670546231'), //DeepHole_Chikurun
+		hash('IsVisitLocationArea_CaveEntrance.9713548750532017250'), //DeepHole_Cokiri
+		hash('IsVisitLocationArea_CaveEntrance.18175304942163261028'), //DeepHole_DeathMountain
+		hash('IsVisitLocationArea_CaveEntrance.5901788378855460870'), //DeepHole_Firone
+		hash('IsVisitLocationArea_CaveEntrance.15905392722740304'), //DeepHole_FirstLandEast
+		hash('IsVisitLocationArea_CaveEntrance.1435983989598451303'), //DeepHole_FirstLandNorth
+		hash('IsVisitLocationArea_CaveEntrance.5328634591570328090'), //DeepHole_FirstLandSouth
+		hash('IsVisitLocationArea_CaveEntrance.12664920886408899240'), //DeepHole_FirstLandWest
+		hash('IsVisitLocationArea_CaveEntrance.397255910733783029'), //DeepHole_GerudoMaze
+		hash('IsVisitLocationArea_CaveEntrance.6383879160737498330'), //DeepHole_GerudoSummit
+		hash('IsVisitLocationArea_CaveEntrance.10687953805007878473'), //DeepHole_Higakkare
+		hash('IsVisitLocationArea_CaveEntrance.8270027616370949329'), //DeepHole_HimeidaMt
+		hash('IsVisitLocationArea_CaveEntrance.18137312076250302730'), //DeepHole_HyruleCastle
+		hash('IsVisitLocationArea_CaveEntrance.12644792830451791701'), //DeepHole_HyruleCastleEast
+		hash('IsVisitLocationArea_CaveEntrance.3643485269032630633'), //DeepHole_HyruleCastleWest
+		hash('IsVisitLocationArea_CaveEntrance.13929777954014421303'), //DeepHole_HyruleLake
+		hash('IsVisitLocationArea_CaveEntrance.12420116610575098418'), //DeepHole_HyrulePlains
+		hash('IsVisitLocationArea_CaveEntrance.12232431606697414475'), //DeepHole_ImeruMt
+		hash('IsVisitLocationArea_CaveEntrance.5810770272691429369'), //DeepHole_Kakariko_EastHill
+		hash('IsVisitLocationArea_CaveEntrance.4789371614404322252'), //DeepHole_KiyanbaTrees
+		hash('IsVisitLocationArea_CaveEntrance.1595756749757738282'), //DeepHole_LomeiIsland
+		hash('IsVisitLocationArea_CaveEntrance.4734326941896126368'), //DeepHole_Minakkare
+		hash('IsVisitLocationArea_CaveEntrance.2258222317531786547'), //DeepHole_RirimukuMt
+		hash('IsVisitLocationArea_CaveEntrance.17183754997239633264'), //DeepHole_Rito
+		hash('IsVisitLocationArea_CaveEntrance.11336577741930217675'), //DeepHole_Saihateno
+		hash('IsVisitLocationArea_CaveEntrance.11031454923833399536'), //DeepHole_SanaePlateau
+		hash('IsVisitLocationArea_CaveEntrance.16896066116062008519'), //DeepHole_TabantaMaze
+		hash('IsVisitLocationArea_CaveEntrance.7545616274530289895'), //DeepHole_YuaSnow
+		hash('IsVisitLocationArea_CaveEntrance.14174745585506950773'), //DeepHole_ZifForest
+		hash('IsVisitLocationArea_CaveEntrance.12690494979007497354'), //Cave_GerudoDesert_0043
+		hash('IsVisitLocationArea_CaveEntrance.10595346751399989600'), //Cave_HyruleRidge_0004
+		hash('IsVisitLocationArea_CaveEntrance.12292698567036544880'), //Cave_Lanayru_0050
+		hash('IsVisitLocationArea_CaveEntrance.15007569538535704822') //Cave_Lanayru_0063
+	],
 
 	BUBBULS_DEFEATED:[
 		//IsGetCaveMasterMedal.Cave_
