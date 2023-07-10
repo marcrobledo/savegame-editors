@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Horse class (last update 2023-07-08)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Horse class (last update 2023-07-09)
 
 	by Marc Robledo 2023
 	horse data thanks to JonJaded, Ozymandias07 and Karlos007
@@ -43,18 +43,9 @@ function Horse(itemData, overrideId){
 	this.iconHairSecondaryColorGreen=itemData.iconHairSecondaryColorGreen;
 	this.iconHairSecondaryColorBlue=itemData.iconHairSecondaryColorBlue;
 	
-	if(
-		this.horseType!==Horse.TYPE_NORMAL && 
-		this.horseType!==Horse.TYPE_ZELDA &&
-		this.horseType!==Horse.TYPE_EPONA &&
-		this.horseType!==Horse.TYPE_GIANT_BLACK &&
-		this.horseType!==Horse.TYPE_GIANT_WHITE &&
-		this.horseType!==Horse.TYPE_SPOT &&
-		this.horseType!==Horse.TYPE_GOLD
-	)
+	if(this.horseType===6 || this.horseType===11 || this.horseType>13)
 		console.warn('unknown horse horseType value: '+this.horseType);
 }
-
 
 Horse.prototype.getItemTranslation=function(){
 	return _(this.id);
@@ -127,8 +118,7 @@ Horse.buildHtmlElements=function(item){
 		statsSpeed:Pouch.createItemInput(item, 'statsSpeed', 'Int', {enumValues:Horse.OPTIONS_STATS, label:_('Stats: Speed')}),
 		statsStamina:Pouch.createItemInput(item, 'statsStamina', 'Int', {enumValues:Horse.OPTIONS_STATS_STAMINA, label:_('Stats: Stamina')}),
 		statsPull:Pouch.createItemInput(item, 'statsPull', 'Int', {enumValues:Horse.OPTIONS_STATS, label:_('Stats: Pull')}),
-		//horseType:Pouch.createItemInput(item, 'horseType', 'Int', {min:1, max:100, label:_('Horse type')}),
-		colorType:Pouch.createItemInput(item, 'colorType', 'Int', {min:1, max:100, label:_('Horse color')}),
+		colorType:Pouch.createItemInput(item, 'colorType', 'Int', {min:0, max:39, label:_('Horse color')}),
 		footType:Pouch.createItemInput(item, 'footType', 'Int', {min:0, max:1, label:_('Foot type')})
 	};
 }
