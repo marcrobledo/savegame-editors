@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Equipment class (last update 2023-07-08)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Equipment class (last update 2023-07-09)
 
 	by Marc Robledo 2023
 	research and item names compiled by Echocolat, Exincracci, HylianLZ, Karlos007 and ApacheThunder
@@ -32,7 +32,7 @@ Equipment.prototype.canBeRestored=function(){
 	return this.durability !== this.getMaximumDurability();
 }
 Equipment.prototype.canBeSetToInfiniteDurability=function(){
-	return this.id!=='Weapon_Sword_070' && (this.modifier!==hash('DurabilityUpPlus') || this.modifierValue!==2100000000);
+	return this.modifier!==hash('DurabilityUpPlus') || this.modifierValue!==2100000000;
 }
 Equipment.prototype.restoreDurability=function(){
 	if(this.canBeRestored()){
@@ -116,21 +116,9 @@ Equipment.prototype.refreshHtmlInputs=function(fixValues){
 				this.modifierValue=1;
 			}
 		}
-
-
-		if(this.category==='weapons'){
-			if(this.id==='Weapon_Sword_070'){
-				this.modifier=hash('None');
-				this.modifierValue=-1;
-			}else{
-				if(this.modifierValue===-1)
-					this.modifierValue=0;
-			}
-		}
 	}
 
 
-	this._htmlInputs.modifier.disabled=(this.category==='weapons' && this.id==='Weapon_Sword_070');
 	this._htmlInputs.modifierValue.disabled=this.modifier===hash('None');
 
 
