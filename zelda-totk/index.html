@@ -674,6 +674,18 @@
 
 		<div class="mb-10 text-center">
 			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Sage's Wills">Sage's Wills</strong></div>
+				<div><span id="span-sage-wills-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsSageWills()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.setSageWillsAsFound()" data-translate="Set all as found">Set all as found</button>
+					</div>
+				</div>
+			</div>
+			<div class="container-counter">
 				<div class="mb-10"><strong data-translate="Old maps">Old maps</strong></div>
 				<div><span id="span-old-maps-counter"></span></div>
 				<div class="completionism-actions">
@@ -685,6 +697,21 @@
 					</div>
 				</div>
 			</div>
+			<div class="container-counter">
+				<div class="mb-10"><strong data-translate="Addison signposts">Addison signposts</strong></div>
+				<div><span id="span-addison-counter"></span></div>
+				<div class="completionism-actions">
+					<div class="completionism-actions-map">
+						<button onclick="SavegameEditor.addPinsAddison()" data-translate="Pin missing to map">Pin missing to map</button>
+					</div>
+					<div class="completionism-actions-unlock">
+						<button onclick="Completism.setAddisonAsCompleted()" data-translate="Set all as cleared">Set all as cleared</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="mb-10 text-center">
 			<div class="container-counter">
 				<div class="mb-10"><strong data-translate="Schema stones">Schema stones</strong></div>
 				<div><span id="span-schematics-stone-counter"></span></div>

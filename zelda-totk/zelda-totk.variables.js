@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - variable reader/writer (last update 2023-07-08)
+	The legend of Zelda: Tears of the Kingdom savegame editor - variable reader/writer (last update 2023-07-11)
 	by Marc Robledo 2023
 */
 
@@ -125,11 +125,38 @@ Struct.prototype.import=function(jsonObject){
 			continue;
 
 		if(this.variables[i]._structId){
-			nChanges+=this.variables[i].import(jsonObject[propertyName]);
+			var substructId=this.variables[i]._structId; //markers
+			var structVariables=this.variables[i]._originalStructData; //color, vector
+			for(var j=0; j<structVariables.length; j++){
+				if(!jsonObject[substructId])
+					continue;
+
+				var propertyName2;
+				if(typeof structVariables[j].propertyName==='string')
+					propertyName2=structVariables[j].propertyName;
+				else if(typeof structVariables[j].hash==='string')
+					propertyName2=structVariables[j].hash;
+				else
+					throw new Error('invalid JSON object property name while importing');
+
+				if(typeof jsonObject[propertyName]==='object' && jsonObject[propertyName].length){
+					for(var k=0; k<jsonObject[propertyName].length; k++){
+						if(typeof jsonObject[propertyName][k][propertyName2] !== 'undefined'){
+							var newValue=this.variables[i].variables[j].isEnum() && typeof jsonObject[propertyName][k][propertyName2]==='string'? hash(jsonObject[propertyName][k][propertyName2]) : jsonObject[propertyName][k][propertyName2];
+							var changed=(this.variables[i].variables[j].value[k] !== newValue);
+							this.variables[i].variables[j].value[k]=newValue;
+							if(changed){
+								nChanges++;
+								this.variables[i].variables[j].updateHtmlInputValue(k);
+							}
+						}
+					}
+				}
+			}
 		}else{
-			var newValue=this.variables[i].type==='Enum' && typeof this.variables[i].value==='string'? hash() : this.variables[i].value;
-			var changed=(this.variables[i].value !== jsonObject[propertyName]);
-			this.variables[i].value=jsonObject[propertyName];
+			var newValue=this.variables[i].isEnum() && typeof jsonObject[propertyName]==='string'? hash(jsonObject[propertyName]) : jsonObject[propertyName];
+			var changed=(this.variables[i].value !== newValue);
+			this.variables[i].value=newValue;
 			if(changed){
 				nChanges++;
 				this.variables[i].updateHtmlInputValue();
@@ -334,58 +361,69 @@ Variable.prototype.buildHtmlInputs=function(autosave, row){
 		return inputElements;
 	}
 }
-Variable.prototype.updateHtmlInputValue=function(){
+Variable.prototype.updateHtmlInputValue=function(arrayIndex){
 	if(!this._htmlInputs)
 		return false;
 
-	if(this.type==='Bool'){
-		var newValue=!!this.value;
-		if(this._htmlInputs.checked!==newValue){
-			$(this._htmlInputs).prop('checked', newValue).addClass('changed');
+	var htmlInput, variableValue;
+	if(this.isArray() && typeof arrayIndex==='number'){
+		htmlInput=this._htmlInputs[arrayIndex];
+		variableValue=this.value[arrayIndex];
+	}else{
+		htmlInput=this._htmlInputs;
+		variableValue=this.value;
+	}
+
+	var typeSingle=this.getTypeSingle();
+
+	if(typeSingle==='Bool'){
+		var newValue=!!variableValue;
+		if(htmlInput.checked!==newValue){
+			$(htmlInput).prop('checked', newValue).addClass('changed');
 			return true;
 		}else{
-			$(this._htmlInputs).removeClass('changed');
+			$(htmlInput).removeClass('changed');
 			return false;
 		}
-	}else if(this.type==='Vector2'){
-		this._htmlInputs[0].value=this.value.x;
-		this._htmlInputs[1].value=this.value.y;
-	}else if(this.type==='Vector3'){
+	}else if(typeSingle==='Vector2'){
+		htmlInput[0].value=variableValue.x;
+		htmlInput[1].value=variableValue.y;
+	}else if(typeSingle==='Vector3' || typeSingle==='Vector3Array'){
 		var nChanges=0;
-		var newValueX=this.value.x;
-		var newValueY=this.value.y;
-		var newValueZ=this.value.z;
+		var newValueX=variableValue.x;
+		var newValueY=variableValue.y;
+		var newValueZ=variableValue.z;
 
-		if(this._htmlInputs[0].value!=newValueX){
-			$(this._htmlInputs[0]).val(newValueX).addClass('changed');
+		if(htmlInput[0].value!=newValueX){
+			$(htmlInput[0]).val(newValueX).addClass('changed');
 			nChanges++;
 		}else{
-			$(this._htmlInputs[0]).removeClass('changed');
+			$(htmlInput[0]).removeClass('changed');
 		}
-		if(this._htmlInputs[1].value!=newValueY){
-			$(this._htmlInputs[1]).val(newValueY).addClass('changed');
+		if(htmlInput[1].value!=newValueY){
+			$(htmlInput[1]).val(newValueY).addClass('changed');
 			nChanges++;
 		}else{
-			$(this._htmlInputs[1]).removeClass('changed');
+			$(htmlInput[1]).removeClass('changed');
 		}
-		if(this._htmlInputs[2].value!=newValueZ){
-			$(this._htmlInputs[2]).val(newValueZ).addClass('changed');
+		if(htmlInput[2].value!=newValueZ){
+			$(htmlInput[2]).val(newValueZ).addClass('changed');
 			nChanges++;
 		}else{
-			$(this._htmlInputs[2]).removeClass('changed');
+			$(htmlInput[2]).removeClass('changed');
 		}
 
 		return nChanges;
 	}else{ //Int, UInt, Float, Enum, String64, WString16
-		var newValue=this.value;
-		if(this.type==='Enum' && typeof newValue==='string')
+		var newValue=variableValue;
+		if(typeSingle==='Enum' && typeof newValue==='string')
 			newValue=hash(newValue);
 
-		if(this._htmlInputs.value!=newValue){
-			$(this._htmlInputs).val(newValue).addClass('changed');
+		if(htmlInput.value!=newValue){
+			$(htmlInput).val(newValue).addClass('changed');
 			return true;
 		}else{
-			$(this._htmlInputs).removeClass('changed');
+			$(htmlInput).removeClass('changed');
 			return false;
 		}
 	}
@@ -423,9 +461,7 @@ Variable._read=function(offset, type){
 			};
 		}
 	}else if(type==='UInt64'){
-		var lower=Variable.toHexString(tempFile.readU32(offset)).replace('0x','');
-		var upper=Variable.toHexString(tempFile.readU32(offset+4));
-		return BigInt(upper+lower);
+		return Variable.joinUInt64(tempFile.readU32(offset), tempFile.readU32(offset+4));
 	}else if(type==='String64'){
 		return tempFile.readString(offset, 0x40);
 	}else if(type==='WString16'){
@@ -469,11 +505,9 @@ Variable._save=function(offset, type, value){
 			tempFile.writeF32(offset+8, value.z);
 		}
 	}else if(type==='UInt64' && typeof value==='bigint'){
-		var hex=value.toString(16);
-		while(hex.length<16)
-			hex='0'+hex;
-		tempFile.writeU32(offset, parseInt(hex.substr(8,8), 16));
-		tempFile.writeU32(offset+4, parseInt(hex.substr(0,8), 16));
+		value=Variable.splitUInt64(value);
+		tempFile.writeU32(offset, value[0]);
+		tempFile.writeU32(offset+4, value[1]);
 	}else if(type==='String64'){
 		tempFile.writeString(offset, value, Math.min(value.length+1, 0x40));
 	}else if(type==='WString16'){
@@ -574,10 +608,15 @@ Variable._buildHtmlInput=function(variable, inputType, defaultValue, autosave, e
 		input=$('<select></select>')
 			.val(this.value)
 			.on('change', function(){
+				var newVal=parseInt(this.value);
+				try{
+					newVal=hashReverse(newVal);
+				}catch(err){
+				}
 				if(variable.isArray())
-					this.variable.value[arrayIndex]=this.value;
+					this.variable.value[arrayIndex]=newVal;
 				else
-					this.variable.value=this.value;
+					this.variable.value=newVal;
 			})
 			.get(0);
 
@@ -673,6 +712,20 @@ Variable.enumToString=function(param){
 	}
 	return param;
 };
+Variable.splitUInt64=function(bigint){
+	if(typeof bigint==='string')
+		bigint=BigInt(bigint);
+	else if(typeof bigint!=='bigint')
+		throw new Error('Invalid BigInt value');
+
+	return [
+		Number(bigint & BigInt(0xffffffff)),
+		Number(bigint >> BigInt(32))
+	];
+}
+Variable.joinUInt64=function(lower, upper){
+	return (BigInt(upper) << BigInt(32)) | BigInt(lower);
+}
 
 
 Variable.cachedOffsets={};
@@ -695,5 +748,5 @@ function hash(hashText){
 function hashReverse(hash){
 	if(Variable.cachedHashesReverse[hash])
 		return Variable.cachedHashesReverse[hash];
-	throw new Error('Hash '+Variable.toHexString(hash)+' has no precalculated reverse hash');
+	throw new Error(hash + ' has no precalculated reverse hash');
 }

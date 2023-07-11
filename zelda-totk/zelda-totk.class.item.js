@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Item class (last update 2023-07-08)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Item class (last update 2023-07-11)
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -198,7 +198,63 @@ Item.FOOD_EFFECTS=[
 {originalName:'Glow', value:hash('LightEmission')}
 ];
 
-
+/*
+Item.PARASAIL_FABRICS=[
+{value:hash('Default'), originalName:'Obj_SubstituteCloth_Default'},
+{value:hash('Pattern00'), originalName:'Obj_SubstituteCloth_00'},
+{value:hash('Pattern01'), originalName:'Obj_SubstituteCloth_01'},
+{value:hash('Pattern02'), originalName:'Obj_SubstituteCloth_02'},
+{value:hash('Pattern03'), originalName:'Obj_SubstituteCloth_03'},
+{value:hash('Pattern04'), originalName:'Obj_SubstituteCloth_04'},
+{value:hash('Pattern05'), originalName:'Obj_SubstituteCloth_05'},
+{value:hash('Pattern06'), originalName:'Obj_SubstituteCloth_06'},
+{value:hash('Pattern07'), originalName:'Obj_SubstituteCloth_07'},
+{value:hash('Pattern08'), originalName:'Obj_SubstituteCloth_08'},
+{value:hash('Pattern09'), originalName:'Obj_SubstituteCloth_09'},
+{value:hash('Pattern10'), originalName:'Obj_SubstituteCloth_10'},
+{value:hash('Pattern11'), originalName:'Obj_SubstituteCloth_11'},
+{value:hash('Pattern12'), originalName:'Obj_SubstituteCloth_12'},
+{value:hash('Pattern13'), originalName:'Obj_SubstituteCloth_13'},
+{value:hash('Pattern14'), originalName:'Obj_SubstituteCloth_14'},
+{value:hash('Pattern15'), originalName:'Obj_SubstituteCloth_15'},
+{value:hash('Pattern16'), originalName:'Obj_SubstituteCloth_16'},
+{value:hash('Pattern17'), originalName:'Obj_SubstituteCloth_17'},
+{value:hash('Pattern18'), originalName:'Obj_SubstituteCloth_18'},
+{value:hash('Pattern19'), originalName:'Obj_SubstituteCloth_19'},
+{value:hash('Pattern20'), originalName:'Obj_SubstituteCloth_20'},
+{value:hash('Pattern21'), originalName:'Obj_SubstituteCloth_21'},
+{value:hash('Pattern22'), originalName:'Obj_SubstituteCloth_22'},
+{value:hash('Pattern23'), originalName:'Obj_SubstituteCloth_23'},
+{value:hash('Pattern24'), originalName:'Obj_SubstituteCloth_24'},
+{value:hash('Pattern25'), originalName:'Obj_SubstituteCloth_25'},
+{value:hash('Pattern26'), originalName:'Obj_SubstituteCloth_26'},
+{value:hash('Pattern27'), originalName:'Obj_SubstituteCloth_27'},
+{value:hash('Pattern28'), originalName:'Obj_SubstituteCloth_28'},
+{value:hash('Pattern29'), originalName:'Obj_SubstituteCloth_29'},
+{value:hash('Pattern30'), originalName:'Obj_SubstituteCloth_30'},
+{value:hash('Pattern31'), originalName:'Obj_SubstituteCloth_31'},
+{value:hash('Pattern32'), originalName:'Obj_SubstituteCloth_32'},
+{value:hash('Pattern33'), originalName:'Obj_SubstituteCloth_33'},
+{value:hash('Pattern34'), originalName:'Obj_SubstituteCloth_34'},
+{value:hash('Pattern35'), originalName:'Obj_SubstituteCloth_35'},
+{value:hash('Pattern36'), originalName:'Obj_SubstituteCloth_36'},
+{value:hash('Pattern37'), originalName:'Obj_SubstituteCloth_37'},
+{value:hash('Pattern38'), originalName:'Obj_SubstituteCloth_38'},
+{value:hash('Pattern39'), originalName:'Obj_SubstituteCloth_39'},
+{value:hash('Pattern40'), originalName:'Obj_SubstituteCloth_40'},
+{value:hash('Pattern41'), originalName:'Obj_SubstituteCloth_41'},
+{value:hash('Pattern43'), originalName:'Obj_SubstituteCloth_43'},
+{value:hash('Pattern45'), originalName:'Obj_SubstituteCloth_45'},
+{value:hash('Pattern46'), originalName:'Obj_SubstituteCloth_46'},
+{value:hash('Pattern48'), originalName:'Obj_SubstituteCloth_48'},
+{value:hash('Pattern49'), originalName:'Obj_SubstituteCloth_49'},
+{value:hash('Pattern51'), originalName:'Obj_SubstituteCloth_51'},
+{value:hash('Pattern52'), originalName:'Obj_SubstituteCloth_52'},
+{value:hash('Pattern53'), originalName:'Obj_SubstituteCloth_53'},
+{value:hash('Pattern55'), originalName:'Obj_SubstituteCloth_55'},
+{value:hash('Pattern56'), originalName:'Obj_SubstituteCloth_56'}
+];
+*/
 
 Item.AVAILABILITY={
 	'arrows':[

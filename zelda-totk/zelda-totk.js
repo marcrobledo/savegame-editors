@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-07-09)
+	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-07-11)
 
 	by Marc Robledo 2023
 */
@@ -9,7 +9,7 @@ var currentEditingItem;
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
 	Filename:['progress.sav','caption.sav'],
-	Version:20230709,
+	Version:20230711,
 	noDemo:true,
 
 	/* Settings */
@@ -259,14 +259,14 @@ SavegameEditor={
 
 
 	/* private functions */
-	_toHexInt:function(i){var s=i.toString(16);while(s.length<8)s='0'+s;return '0x'+s},
 	_getOffsets:function(){
 		var ret=true;
 		this.Offsets={};
 		for(var i=0x000028; i<0x03c800; i+=8){
 			var hash=tempFile.readU32(i);
 			var foundHashIndex=this.Hashes.indexOf(hash);
-			if(hash===0xa3db7114){ //found MetaData.SaveTypeHash
+			if(hash===0xa3db7114){ //guidsArray
+				this.guidsArrayOffset=tempFile.readU32(i+4);
 				break;
 			}else if(foundHashIndex!==-1){
 				if(this.Hashes[foundHashIndex+2]) //isPointer
@@ -280,6 +280,17 @@ SavegameEditor={
 				console.error('hash '+this.Hashes[i+1]+' not found');
 				ret=false;
 			}
+		}
+		this.guidsArray=[];
+		for(var i=this.guidsArrayOffset; i<tempFile.fileSize; i+=8){
+			var lower=tempFile.readU32(i);
+			var upper=tempFile.readU32(i+4);
+			if(lower===0 && upper===0){
+				break;
+			}
+			lower=Variable.toHexString(lower).replace('0x','');
+			upper=Variable.toHexString(upper);
+			this.guidsArray.push(BigInt(upper+lower));
 		}
 		return ret;
 	},
@@ -304,6 +315,46 @@ SavegameEditor={
 		if(single)
 			return false;
 		return offsets;
+	},
+	_findGuid:function(guid){
+		if(typeof guid==='string')
+			guid=BigInt(guid);
+		else if(typeof guid!=='bigint')
+			throw new Error('Invalid BigInt value');
+
+		for(var i=0; i<this.guidsArray.length; i++){
+			if(guid===this.guidsArray[i])
+				return true;
+		}
+		return false;
+	},
+	_addGuid:function(guid){
+		if(typeof guid==='string')
+			guid=BigInt(guid);
+		else if(typeof guid!=='bigint')
+			throw new Error('Invalid BigInt value');
+
+		this.guidsArray.push(guid);
+	},
+	_saveGuidsArray:function(){
+		this.guidsArray.sort(function(a, b){
+			if(a > b)
+				return 1;
+			else if(a < b)
+				return -1;
+			else
+				return 0;
+		});
+
+		var offset=this.guidsArrayOffset;
+		for(var i=0; i<this.guidsArray.length; i++){
+			var split=Variable.splitUInt64(this.guidsArray[i]);
+			tempFile.writeU32(offset, split[0]);
+			tempFile.writeU32(offset+4, split[1]);
+			offset+=8;
+		}
+		tempFile.writeU32(offset, 0x00000000);
+		tempFile.writeU32(offset+4, 0x00000000);
 	},
 	_cacheStructOffsets:function(structInfo){
 		var allCached=true;
@@ -597,6 +648,8 @@ SavegameEditor={
 		return false;
 	},
 	addLocationPins:function(flags, coordinates, icon, limit, valueFalse){
+		var guidSearch=typeof flags[0]==='string';
+
 		if(typeof icon==='string')
 			icon=hash(icon);
 
@@ -611,12 +664,22 @@ SavegameEditor={
 			icon=hash(icon);
 
 		var count=0;
-		var offsets=this._getOffsetsByHashes(flags);
-		for(var i=0; i<flags.length; i++){
-			if(tempFile.readU32(offsets[flags[i]])===valueFalse && this.addMapPin(icon, coordinates[i][0], coordinates[i][2], coordinates[i][1])){ //vector3f is turned into a vector2f --> z->y
-				count++;
-				if(count===limit)
-					break;
+		if(guidSearch){
+			for(var i=0; i<flags.length; i++){
+				if(!this._findGuid(flags[i]) && this.addMapPin(icon, coordinates[i][0], coordinates[i][2], coordinates[i][1])){ //vector3f is turned into a vector2f --> z->y
+					count++;
+					if(count===limit)
+						break;
+				}
+			}
+		}else{
+			var offsets=this._getOffsetsByHashes(flags);
+			for(var i=0; i<flags.length; i++){
+				if(tempFile.readU32(offsets[flags[i]])===valueFalse && this.addMapPin(icon, coordinates[i][0], coordinates[i][2], coordinates[i][1])){ //vector3f is turned into a vector2f --> z->y
+					count++;
+					if(count===limit)
+						break;
+				}
 			}
 		}
 
@@ -677,8 +740,14 @@ SavegameEditor={
 	addPinsBossesGleeok:function(){
 		return this.addLocationPins(CompletismHashes.BOSSES_GLEEOKS_DEFEATED, Coordinates.BOSSES_GLEEOKS, MapPin.ICON_SKULL, 5);
 	},
+	addPinsSageWills:function(){
+		return this.addLocationPins(CompletismHashes.SAGE_WILLS_FOUND, Coordinates.SAGE_WILLS, MapPin.ICON_CHEST);
+	},
 	addPinsOldMaps:function(){
 		return this.addLocationPins(CompletismHashes.TREASURE_MAPS_FOUND, Coordinates.TREASURE_MAPS, MapPin.ICON_CHEST);
+	},
+	addPinsAddison:function(){
+		return this.addLocationPins(CompletismHashes.ADDISON_COMPLETED, Coordinates.ADDISON, MapPin.ICON_STAR, 25);
 	},
 	addPinsSchematicsStone:function(){
 		return this.addLocationPins(CompletismHashes.SCHEMATICS_STONE_FOUND, Coordinates.SCHEMATICS_STONE, MapPin.ICON_CHEST);
@@ -764,8 +833,14 @@ SavegameEditor={
 	refreshCounterBossesGleeok:function(){
 		this._refreshCounter('boss-gleeok', Completism.countBossesGleeok(), CompletismHashes.BOSSES_GLEEOKS_DEFEATED.length);
 	},
+	refreshCounterSageWills:function(){
+		this._refreshCounter('sage-wills', Completism.countSageWills(), CompletismHashes.SAGE_WILLS_FOUND.length);
+	},
 	refreshCounterOldMaps:function(){
 		this._refreshCounter('old-maps', Completism.countOldMaps(), CompletismHashes.TREASURE_MAPS_FOUND.length);
+	},
+	refreshCounterAddison:function(){
+		this._refreshCounter('addison', Completism.countAddison(), CompletismHashes.ADDISON_COMPLETED.length);
 	},
 	refreshCounterSchematicsStone:function(){
 		this._refreshCounter('schematics-stone', Completism.countSchematicsStone(), CompletismHashes.SCHEMATICS_STONE_FOUND.length);
@@ -799,7 +874,9 @@ SavegameEditor={
 		this.refreshCounterBossesFlux();
 		this.refreshCounterBossesFrox();
 		this.refreshCounterBossesGleeok();
+		this.refreshCounterSageWills();
 		this.refreshCounterOldMaps();
+		this.refreshCounterAddison();
 		this.refreshCounterSchematicsStone();
 		this.refreshCounterSchematicsYiga();
 		this.refreshCounterCompendium();
@@ -1228,6 +1305,17 @@ SavegameEditor={
 		setValue('number-pouch-size-shields', this.readU32Array('Pouch.Shield.ValidNum', 0));
 
 
+		/* parasail pattern */
+		this.parasailPattern=new Variable('PlayerStatus.ParasailPattern', 'Enum', ['Default','Pattern00','Pattern01','Pattern02','Pattern03','Pattern04','Pattern05','Pattern06','Pattern07','Pattern08','Pattern09','Pattern10','Pattern11','Pattern12','Pattern13','Pattern14','Pattern15','Pattern16','Pattern17','Pattern18','Pattern19','Pattern20','Pattern21','Pattern22','Pattern23','Pattern24','Pattern25','Pattern26','Pattern27','Pattern28','Pattern29','Pattern30','Pattern31','Pattern32','Pattern33','Pattern34','Pattern35','Pattern36','Pattern37','Pattern38','Pattern39','Pattern40','Pattern41','Pattern43','Pattern45','Pattern46','Pattern48','Pattern49','Pattern51','Pattern52','Pattern53','Pattern55','Pattern56']);
+		this._htmlSelectParasailPattern=this.parasailPattern.buildHtmlInputs(true);
+		this._htmlSelectParasailPattern.className='full-width';
+		this._htmlSelectParasailPattern.title=_('Fabric');
+		$(this._htmlSelectParasailPattern).on('change', function(evt){
+			//SavegameEditor.parasailPattern.value=hashReverse(parseInt(SavegameEditor.parasailPattern.value));
+			var item=SavegameEditor.pouches.key.findItemById('Parasail');
+			if(item)
+				Pouch.updateItemIcon(item);
+		});
 
 		/* read pouches */
 		this.pouches={

@@ -23,6 +23,14 @@ var Completism={
 		}
 		return count;
 	},
+	_countGuids:function(guids){
+		var count=0;
+		for(var i=0; i<guids.length; i++){
+			if(SavegameEditor._findGuid(guids[i]))
+				count++;
+		}
+		return count;
+	},
 	_countReverse:function(booleanHashes, valueFalse){
 		return booleanHashes.length - this._count(booleanHashes, valueFalse);
 	},
@@ -83,8 +91,14 @@ var Completism={
 	countBossesGleeok:function(){
 		return this._count(CompletismHashes.BOSSES_GLEEOKS_DEFEATED);
 	},
+	countSageWills:function(){
+		return this._countGuids(CompletismHashes.SAGE_WILLS_FOUND);
+	},
 	countOldMaps:function(){
 		return this._count(CompletismHashes.TREASURE_MAPS_FOUND);
+	},
+	countAddison:function(){
+		return this._countGuids(CompletismHashes.ADDISON_COMPLETED);
 	},
 	countSchematicsStone:function(){
 		return this._count(CompletismHashes.SCHEMATICS_STONE_FOUND);
@@ -118,6 +132,19 @@ var Completism={
 			var val=tempFile.readU32(offsets[booleanHashes[i]]);
 			if(val!==valueTrue && (!onlyWhen || val===onlyWhen)){
 				tempFile.writeU32(offsets[booleanHashes[i]], valueTrue);
+				count++;
+				if(limit && count===limit)
+					break;
+			}
+		}
+
+		return count;
+	},
+	_setGuids:function(guids, limit){
+		var count=0;
+		for(var i=0; i<guids.length; i++){
+			if(!SavegameEditor._findGuid(guids[i])){
+				SavegameEditor._addGuid(guids[i]);
 				count++;
 				if(limit && count===limit)
 					break;
@@ -268,12 +295,32 @@ var Completism={
 		SavegameEditor.refreshCounterBossesGleeok();
 		return changes;
 	},
+	setSageWillsAsFound:function(limit){
+		var changes=this._setGuids(CompletismHashes.SAGE_WILLS_FOUND, limit);
+		UI.toast(_('%s sage\'s wills set as found').replace('%s', changes), 'sage-wills-found');
+		if(changes){
+			SavegameEditor.addItem('key', 'Obj_SageWill', changes);
+			SavegameEditor._saveGuidsArray();
+			SavegameEditor.refreshCounterSageWills();
+		}
+		return changes;
+	},
 	setOldMapsAsFound:function(limit){
 		var changes=this._set(CompletismHashes.TREASURE_MAPS_FOUND, limit);
 		UI.toast(_('%s treasure maps set as found').replace('%s', changes), 'treasure-maps-found');
 		if(changes)
 			SavegameEditor.addItem('key', 'Obj_TreasureMap_00', changes);
 		SavegameEditor.refreshCounterOldMaps();
+		return changes;
+	},
+	setAddisonAsCompleted:function(limit){
+		var changes=this._setGuids(CompletismHashes.ADDISON_COMPLETED, limit);
+		UI.toast(_('%s Addison\'s signs set as completed').replace('%s', changes), 'addison-completed');
+		if(changes){
+			SavegameEditor.addItem('key', 'Obj_SubstituteCloth_56', 1);
+			SavegameEditor._saveGuidsArray();
+			SavegameEditor.refreshCounterAddison();
+		}
 		return changes;
 	},
 	setSchematicStonesAsFound:function(limit){
@@ -1627,101 +1674,204 @@ var CompletismHashes={
 		0x5b4fdd02, //ZoraZonauTerminal
 		0x1f859e86 //IsVisitLocation.Well_0043B //counts as Komo Shoreline Cave
 	],
+	BUBBULS_GUIDS:[
+		'0x3deff0b2c6f35893', //Enemy_CaveMaster_Senior - [-3217.25, 60.91, 3120.65]
+		'0x321dc2e01aff8c82', //Enemy_CaveMaster_000 - [-1347.54, 92.22, 242.83]
+		'0xc62e49bdd034722e', //Enemy_CaveMaster_Middle - [607.13, 129.94, 2930.16]
+		'0xb8a703d79052b5bc', //Enemy_CaveMaster_Senior - [861.57, 105.19, 2888.97]
+		'0x06dad54583da93de', //Enemy_CaveMaster_Middle - [471.7, 127.61, 3550.75]
+		'0x885e9854c01d1f50', //Enemy_CaveMaster_Middle - [576.89, 121.7, 3132.62]
+		'0x34518c9cecd51070', //Enemy_CaveMaster_Middle - [1766.89, 424.19, -2062.45]
+		'0x2cf40b1ba20d4010', //Enemy_CaveMaster_Middle - [1873.52, 294.53, 1161.82]
+		'0x5ac2bd45c3f6e8a3', //Enemy_CaveMaster_Senior - [1132, 192.51, 2333.64]
+		'0x0e3190ebdc4c448e', //Enemy_CaveMaster_Senior - [1716.98, 182.05, 3708.3]
+		'0x632df3675d11e8a5', //Enemy_CaveMaster_Senior - [1574.79, 126.33, 2974.5]
+		'0xc608bb69be07fecb', //Enemy_CaveMaster_000 - [2617.98, 304.21, -558.33]
+		'0xfc1296e19576855c', //Enemy_CaveMaster_Middle - [2254.9, 159.05, -102.2]
+		'0xbbde7a7a61d4fcaf', //Enemy_CaveMaster_000 - [2815.69, 301.53, -511.79]
+		'0xcc0e9a1b4171f855', //Enemy_CaveMaster_000 - [2966.04, 271.33, -419.57]
+		'0x84e2e5b45a1ba0cb', //Enemy_CaveMaster_000 - [2651.58, 199.01, -257.61]
+		'0x0ad9f3123d0c10e7', //Enemy_CaveMaster_000 - [2926.48, 206.42, 71.18]
+		'0xee4636bcc57dd2a7', //Enemy_CaveMaster_Middle - [2540.87, 97.14, 1513.25]
+		'0x58f8f85f62f83a7c', //Enemy_CaveMaster_Middle - [2703.4, 217.29, 1459.61]
+		'0x100e8f73ebff5c75', //Enemy_CaveMaster_000 - [3692.69, 304.71, -641.05]
+		'0x072241f662d35cd4', //Enemy_CaveMaster_000 - [3927.83, 324.5, -388.28]
+		'0xb817aeb2581b040c', //Enemy_CaveMaster_000 - [3044.68, 337.7, -741.85]
+		'0x1233a2e566944158', //Enemy_CaveMaster_000 - [3688.23, 408.35, -517.16]
+		'0x0cacfa038648c55c', //Enemy_CaveMaster_000 - [3041.42, 228.91, 215.41]
+		'0xa15f6b4b88baef04', //Enemy_CaveMaster_Middle - [4421.72, 142.25, 754.88]
+		'0xb1677475d92742cd', //Enemy_CaveMaster_Senior - [4604.66, 111.09, 3765.03]
+		'0x97bbbc2bc486219d', //Enemy_CaveMaster_000 - [408.95, 1507.24, 1681.02]
+		'0x1c2a653e0d7517d5', //Enemy_CaveMaster_000 - [246.8, 1479.65, 1612.31]
+		'0x58654bbba3c8d047', //Enemy_CaveMaster_000 - [627.99, 1571.33, 1635.91]
+		'0x50b82b2016f7452d', //Enemy_CaveMaster_000 - [739.14, 1599.76, 1445.08]
+		'0x4a2ef034a266c318', //Enemy_CaveMaster_Middle - [4195.69, 334.19, -607.6]
+		'0x156516036b5f7fc7', //Enemy_CaveMaster_Middle - [4382.61, 244.17, -774.24]
+		'0x6e50fe88e2738a3c', //Enemy_CaveMaster_Senior - [3936.56, 224.86, -1584.05]
+		'0x155fed47fb6077bd', //Enemy_CaveMaster_Senior - [3695.28, 178.77, -1525.86]
+		'0x9b41bd191c8bb899', //Enemy_CaveMaster_Middle - [3327, 423.37, -1530.03]
+		'0xa9ff1552bc313753', //Enemy_CaveMaster_Senior - [3416.99, -18.37, -3382.12]
+		'0x511159c4323fab13', //Enemy_CaveMaster_Middle - [4650.08, 102.05, -3589.66]
+		'0x5bbd526f3daa3081', //Enemy_CaveMaster_Middle - [3278.21, 505.07, -1454.44]
+		'0x7b7909c85ad79904', //Enemy_CaveMaster_000 - [30.94, 140.78, 155.44]
+		'0x1660d416b82cb91e', //Enemy_CaveMaster_Senior - [-783.92, 129.53, 1552.85]
+		'0xb1cb80868f44056b', //Enemy_CaveMaster_Middle - [-217.33, 64.63, -724.5]
+		'0x23b66324b2fbcd2c', //Enemy_CaveMaster_000 - [-1093.33, 84.32, 426.02]
+		'0x159d350c47a80e2b', //Enemy_CaveMaster_000 - [-129.3, 120.94, 1053.79]
+		'0x7dde1613bbe08fce', //Enemy_CaveMaster_000 - [-523.87, 148.48, -195.99]
+		'0x1b60a95b467464e5', //Enemy_CaveMaster_Middle - [-1127.31, 146.6, 1281.52]
+		'0xdefd953612e03084', //Enemy_CaveMaster_Middle - [2692.42, 636.21, -2627.68]
+		'0x1b88a5b0512f7da7', //Enemy_CaveMaster_Middle - [2385.58, 629.36, -2739.17]
+		'0x184db669cf152043', //Enemy_CaveMaster_Middle - [2496.71, 573.22, -2960.78]
+		'0xe22736ed43f4a0b1', //Enemy_CaveMaster_Middle - [1758.44, 344.07, -2923.39]
+		'0xa7ecb0ec036d9b51', //Enemy_CaveMaster_Middle - [1417.87, 399.04, -2201.81]
+		'0x69a87dc5d38237da', //Enemy_CaveMaster_Middle - [2251.05, 505.2, -2116.35]
+		'0xb25955eb61a16781', //Enemy_CaveMaster_Middle - [1615.49, 373.87, -1793.34]
+		'0xb6e3676cf0a11119', //Enemy_CaveMaster_Middle - [1884.52, 398.38, -1820.18]
+		'0xc3552ebff380383b', //Enemy_CaveMaster_Middle - [2247.34, 527.05, -3084.58]
+		'0xb6e06b49e63866ae', //Enemy_CaveMaster_Middle - [2456.34, 251.49, -1946.33]
+		'0xa70272e5417b4a61', //Enemy_CaveMaster_Middle - [1790.91, 472.2, -2918.54]
+		'0xdd7742ab1e6ede08', //Enemy_CaveMaster_Middle - [1580.88, 495.73, -2709.17]
+		'0xcf9929ffddbfc07a', //Enemy_CaveMaster_Middle - [2137.35, 533.71, -2692.01]
+		'0xfb519d90f20dc4ee', //Enemy_CaveMaster_Middle - [2017.01, 237.34, -1397.38]
+		'0xc4355d66a6690f54', //Enemy_CaveMaster_Middle - [2225.51, 270.62, -1537.53]
+		'0xd2ee79393cbbaad9', //Enemy_CaveMaster_Middle - [2540.22, 258.72, -1356.36]
+		'0x458c6cef1846e12b', //Enemy_CaveMaster_000 - [-208.18, 154.52, 2999.91]
+		'0x38bd19020ca751c7', //Enemy_CaveMaster_000 - [154.55, 33.18, 2486.23]
+		'0x31cc9701a074e3b0', //Enemy_CaveMaster_Middle - [620.74, 167.97, 2155.99]
+		'0x050c414f2b5651ca', //Enemy_CaveMaster_Middle - [284.61, 169.98, 3786.18]
+		'0x614231f0d886941b', //Enemy_CaveMaster_Senior - [-1125.22, 250.54, 2189.66]
+		'0xa2b05f3b5f7adc95', //Enemy_CaveMaster_Senior - [-1111.08, 241.99, 1879.9]
+		'0x7482ff34ebf0b87e', //Enemy_CaveMaster_Senior - [-3813.38, 106.25, 2544.51]
+		'0x29a44d4b7fd0af2a', //Enemy_CaveMaster_Senior - [-3794.32, 110.95, 2745.45]
+		'0xe3611f71daf6d5ba', //Enemy_CaveMaster_Senior - [-3335.04, 71.65, 2953.43]
+		'0x8f2597bea617d6e3', //Enemy_CaveMaster_Middle - [-1889.47, 153.29, 1962.06]
+		'0xddef122374bae30a', //Enemy_CaveMaster_Middle - [-1517.78, 102.37, 2228.49]
+		'0xe4c4b48aba3e28a0', //Enemy_CaveMaster_Senior - [-2729.76, 61.46, 2876.6]
+		'0x639b0aae3c2a3ab9', //Enemy_CaveMaster_Senior - [-3673.65, 82.1, 3267.18]
+		'0xddaa275cff3c1b9d', //Enemy_CaveMaster_Middle - [-1784.23, 130.31, 2173.19]
+		'0x0d8028a1c5d3e072', //Enemy_CaveMaster_Middle - [-1766.75, 89.56, 2410.19]
+		'0xaae790dff13c1d4a', //Enemy_CaveMaster_Middle - [-2234.44, 357.05, 2433.9]
+		'0x2eaec0e8f7736bc1', //Enemy_CaveMaster_Senior - [-3005.75, 110.74, 3802.24]
+		'0x7c1f14d70520c5ac', //Enemy_CaveMaster_Middle - [-2198.09, 225.9, 1812.99]
+		'0x6d4f284dfe6f6350', //Enemy_CaveMaster_Senior - [-2513.11, 88.92, 3723.81]
+		'0x32d663740087df2b', //Enemy_CaveMaster_Senior - [-3257.65, 116.02, 2674.62]
+		'0xc0f95a0f2b1217d9', //Enemy_CaveMaster_Senior - [-4988.65, 74, 3885.64]
+		'0x8a2616dd9ff9a322', //Enemy_CaveMaster_Senior - [-4684.69, 115.84, 2061.68]
+		'0x05a685a4a4306b65', //Enemy_CaveMaster_Senior - [-2473.49, 245.92, 1772.23]
+		'0xae059d8746d758a6', //Enemy_CaveMaster_Middle - [-2624.14, 222.54, 2438.58]
+		'0xeb3296c003a30da4', //Enemy_CaveMaster_Senior - [-2558.27, 284.82, 1696]
+		'0xfc0c18ae5b379664', //Enemy_CaveMaster_Senior - [-4391.37, 575.01, 627.65]
+		'0x129a6e312ba13e44', //Enemy_CaveMaster_Senior - [-3929.31, 525.92, 1263.89]
+		'0xe8a252e7e3073d05', //Enemy_CaveMaster_Senior - [-3936.03, 683.73, 746.33]
+		'0xecc4ee76c55ec302', //Enemy_CaveMaster_Senior - [3283.82, 165.92, 3226.71]
+		'0x07b6222221fa43cf', //Enemy_CaveMaster_Senior - [1939.01, 225.18, 2703.57]
+		'0x5462549c77949ebb', //Enemy_CaveMaster_Senior - [1693.06, 282.77, 2956.68]
+		'0xc5ff4da5c9cbe283', //Enemy_CaveMaster_Senior - [1904.22, 81.27, 3033.68]
+		'0x8bc80ac5501a53e2', //Enemy_CaveMaster_Senior - [2005.55, 277.48, 3037.53]
+		'0xdd6da5a8ec813b90', //Enemy_CaveMaster_Senior - [1424.48, 189.26, 3472.36]
+		'0x539de1395915eaf9', //Enemy_CaveMaster_Senior - [2439.83, 184, 3178.45]
+		'0x146889d8bcc6ebb9', //Enemy_CaveMaster_Middle - [1543.45, 127.16, 844.94]
+		'0x01f22fdd1ac86e1b', //Enemy_CaveMaster_Middle - [1985.21, 264.36, 904.76]
+		'0x31eb915eb9b87e34', //Enemy_CaveMaster_000 - [1330.29, 245.92, 1191.05]
+		'0xef574dace04289a3', //Enemy_CaveMaster_000 - [1189.21, 289.33, 1800.13]
+		'0x8b881420387231b3', //Enemy_CaveMaster_Middle - [1154.48, 348.87, 1985.52]
+		'0xb214a36c335cf983', //Enemy_CaveMaster_000 - [-4052.25, 104.67, -2544.17]
+		'0xb442f2023e8b6895', //Enemy_CaveMaster_Middle - [-4437.9, 342.31, -3718.4]
+		'0x4c7d8fe80da677fb', //Enemy_CaveMaster_000 - [-3896.96, 119.69, -2863.25]
+		'0xae002ffdbf50795c', //Enemy_CaveMaster_000 - [-2964.09, 502.45, -2506.61]
+		'0x0157e7f59ed6706a', //Enemy_CaveMaster_Middle - [-2489.12, 413.95, -3209.21]
+		'0x9e6e0d4ee8807b92', //Enemy_CaveMaster_Senior - [-3874.69, 373.54, -3631.23]
+		'0x05ec4f99e19c1280', //Enemy_CaveMaster_000 - [-3005.35, 642.61, -3203.61]
+		'0xef055e0e3b8e0af5', //Enemy_CaveMaster_000 - [-3032.68, 315.44, -1573.12]
+		'0x5a7aaa06f4e9c10c', //Enemy_CaveMaster_000 - [-3447.03, 345, -2473.52]
+		'0x4ea99762c0eafe65', //Enemy_CaveMaster_000 - [-3211.47, 475.13, -2577.99]
+		'0xd77738ea615e5c1e', //Enemy_CaveMaster_000 - [-3286.89, 518.04, -2647.46]
+		'0xcb63483daa6338f9', //Enemy_CaveMaster_000 - [-2881.88, 364.49, -1850.59]
+		'0xacb3135d3bce3194', //Enemy_CaveMaster_000 - [-1438.06, 323.4, -3016.63]
+		'0xbb2c259ad23f4780', //Enemy_CaveMaster_000 - [-2334.06, 288.92, -2258.57]
+		'0xd9cb9c64a5ccc2c0', //Enemy_CaveMaster_000 - [-3594.21, 348.12, -3088.13]
+		'0x7f088bcb3a457925', //Enemy_CaveMaster_000 - [-4035.13, 311.5, -2045.32]
+		'0x45956a5cc5866db6', //Enemy_CaveMaster_000 - [-3961.56, 311.32, -3222.05]
+		'0x2d1cf51b8cdcc098', //Enemy_CaveMaster_000 - [737.74, 160.32, -1402.87]
+		'0x1f71702a095bc012', //Enemy_CaveMaster_Middle - [1311.7, 132.83, -1245.28]
+		'0x04fb29137792797f', //Enemy_CaveMaster_000 - [-640.56, 237.6, -2115.94]
+		'0xe73dca57734e79c3', //Enemy_CaveMaster_Middle - [336.83, 175.37, -3537.09]
+		'0x172ed460a0200fe2', //Enemy_CaveMaster_000 - [-1230.65, 197.84, -776.71]
+		'0x03abb931e9b1aa2e', //Enemy_CaveMaster_Senior - [-2989.29, 126.51, 905.86]
+		'0x18246b7d61b09e14', //Enemy_CaveMaster_000 - [-1818.12, 255.63, -1270.61]
+		'0x660aa6a247d78655', //Enemy_CaveMaster_000 - [-2167.83, 234.06, 580.3]
+		'0x6d93e5630f546a65', //Enemy_CaveMaster_000 - [-2277.61, 208.67, -858.17]
+		'0x6cfcecf99438ae66', //Enemy_CaveMaster_000 - [-2170.85, 60.28, -1534.54]
+		'0xdd7bee885ecdd646', //Enemy_CaveMaster_000 - [-2283.2, 367.19, 472.08]
+		'0xef5aec2cc2af160f', //Enemy_CaveMaster_Middle - [4562.14, 137.8, 2306.81]
+		'0x74ce078aec920a9d', //Enemy_CaveMaster_Middle - [2408.48, 65.86, 2336.82]
+		'0xd7a7dd2925dc8546', //Enemy_CaveMaster_Middle - [3447.29, 168.93, 1210.86]
+		'0xdc667d3492986314', //Enemy_CaveMaster_Middle - [4127.97, 262.16, 1894.01]
+		'0x40faac044e21ecde', //Enemy_CaveMaster_Middle - [4264.23, 102.44, 2128.26]
+		'0xc159d85ff81e95c0', //Enemy_CaveMaster_Senior - [3446.89, 118.39, 3189.47]
+		'0xdbff2f278d4d84e9', //Enemy_CaveMaster_Middle - [2315.76, 123.78, 1642.18]
+		'0x1ea384237cc3eee4', //Enemy_CaveMaster_Middle - [3759.33, 304.35, 2084.74]
+		'0x530d92647e6c8791', //Enemy_CaveMaster_Middle - [1279.39, 150.42, -253.89]
+		'0xd4f4c4181d407220', //Enemy_CaveMaster_Middle - [4214.34, 84.27, 311.49]
+		'0x71bb8b935a627496', //Enemy_CaveMaster_000 - [2847.35, 459.06, -490.74]
+		'0x09e5bb13bec6243d', //Enemy_CaveMaster_Middle - [551.2, 139.76, -779.7]
+		'0x28a1ee52d72d06ae', //Enemy_CaveMaster_Middle - [911.23, 139.74, -56.22]
+		'0x4caa26d3ccac26c9', //Enemy_CaveMaster_000 - [3336.66, 197.32, -539.94]
+		'0x0b393196afa554a8', //Enemy_CaveMaster_Middle - [-3894.91, 193.04, -1019.08]
+		'0xf9afb298ca80e833', //Enemy_CaveMaster_000 - [-3516.7, 333.61, -418.13]
+		'0x81eeb24216b54e96', //Enemy_CaveMaster_000 - [-3484.12, -16.58, -726.99]
+		'0x2a818c0b3e6b54d2' //Enemy_CaveMaster_000 - [3599.01, 140.61, -300.07]
+	],
 
 	SCHEMATICS_STONE_FOUND:[
-		//0xb5480ae1,0xf1a507d7, //isFavorite/isNew
-		0x97e22bf9, //Fanplane (Schema stone)
-		//0x6302b8aa,0x546b533c,
-		0xa07798a6, //Rocket Platform (Schema stone)
-		//0x1cf4716c,0x53362c01,
-		0xaaacf14d, //Hovercraft (Schema stone)
-		//0x8a6e4694,0x3d163460,
-		0x345e7150, //Bolt Boat (Schema stone)
-		//0xf2256caa,0x2ae0f886,
-		0x5109695f, //Bridge (Schema stone)
-		//0x924bfca6,0x94e32644,
-		0x542b78f1, //Dirigible (Schema stone)
-		//0x556e8d23,0xe464e10c,
-		0x9f4ba799, //Instant Cannon (Schema stone)
-		//0xbc0135a2,0x02423fe1,
+		0x97e22bf9, //Fanplane
+		0xa07798a6, //Rocket Platform
+		0xaaacf14d, //Hovercraft
+		0x345e7150, //Bolt Boat
+		0x5109695f, //Bridge
+		0x542b78f1, //Dirigible
+		0x9f4ba799, //Instant Cannon
 		0x2abb2df0, //Instant Scaffold (Schema stone)
-		//0x99005f15,0x91f259ea,
-		0x0cbea150, //Launch Pad (Schema stone)
-		//0x12847cf1,0xd169bf9e,
-		0xb625e1fc, //Automated Ally (Schema stone)
-		//0xe6f76475,0x10ba494b,
-		0x127a75c9, //Hot-Air Balloon (Schema stone)
-		//0x2f938a40,0x008da3ff,
-		0x8fe4140a //Beam Cycle (Schema stone)
+		0x0cbea150, //Launch Pad
+		0xb625e1fc, //Automated Ally
+		0x127a75c9, //Hot-Air Balloon
+		0x8fe4140a //Beam Cycle
 	],
 	SCHEMATICS_YIGA_FOUND:[
-		//0x5024b1fb,0xed077b03, //isFavorite/isNew
 		0x0520dea7, //Tank
-		//0x998094e0,0x7ad1f011,
 		0xeee1492c, //Flamethower Balloon
-		//0xd426b028,0x825295da,
 		0x4ce68be6, //Three Wheeler
-		//0x68054688,0xbcce4cb0,
 		0x8ebfc267, //Fanboat
-		//0xe9477c78,0x217d1cf6,
 		0x6c8fca57, //Headlight Raft
-		//0xf057847f,0x20b529a1,
 		0x14fd96aa, //Beam Turret
-		//0x4d3063d7,0xcb9a491b,
 		0x3385b6c6, //Vertical Escape
-		//0x0c99c31b,0x596bfd65,
 		0x8476f277, //Cargo Carrier
-		//0xbe15581e,0x3abe8a33,
 		0xa7ce2e78, //Big Rig
-		//0xb8bc2487,0x4306aff7,
 		0xd7ac3fc8, //Water Freezer
-		//0xaf5eb5d5,0xdc50e532,
 		0x0cddddbf, //Liftoff Glider
-		//0xdcef38a7,0x18e76632,
 		0xb3752c42, //Shock Trap
-		//0x01206662,0x3ca7cd44,
 		0xa8707e8a, //Fishing Trawler
-		//0xe4b9c7a7,0x41e03a46,
 		0x5fadc4e3, //Wagon
-		//0x3b4db9ae,0x49fd911a,
 		0x260ad4d3, //Instant Kitchen
-		//0xc1ca1a74,0x16dc3d32,
 		0xa7bccf88, //Super Spring
-		//0xbcdbfddb,0x7e336293,
 		0xaf8870c6, //Sprinkler System
-		//0xcc48723f,0x0e126f18,
 		0xabc30ab3, //Icebreaker
-		//0x358a3fbf,0x74545504,
 		0x047dd1a3, //Aerial Cannon
-		//0x4b6c2155,0x9b40811a,
 		0x6206da4f, //Floodlights
-		//0xa1c7a545,0x21c240bb,
 		0x11f75220, //Instant Scaffold (Yiga schematic)
-		//0x021e8d87,0x2b70c123,
 		0xd3f712cc, //Monocycle
-		//0xd10f8764,0x0b91c831,
 		0xfba73b41, //Raiding Plane
-		//0x9f6e72f9,0x9a98c516,
 		0x97c52512, //Bomb Bouquet
-		//0x703b6513,0x69e31bea,
 		0xee3db7d1, //Triple Cannon
-		//0x809df141,0x0243bfe9,
 		0x41b07b33, //Scatter Trap
-		//0xaab0f0c1,0xf2d47a4f,
 		0x45f95172, //Smoke Rocket
-		//0xba20825f,0xa33489ed,
 		0xbe350fdb, //Charged Charger
-		//0xe91f1583,0xbe367566,
 		0x499afa5b, //Rainmaker
-		//0x2b3c1844,0x36abdcc0,
 		0x732c5985, //Whirling Basher
-		//0xd3119d9b,0x97e77394,
 		0x3f9f61fd, //All-Purpose Raft
-		//0x175eeee0,0xb0ad2b0f,
 		0x7708c653, //Excavator
-		//0xdadf7f9a,0x5e9f5609,
 		0x29bcade1, //Assault Cart
-		//0xc71fe378,0x00d72a7d,
 		0x7f86e965 //Beam Spinner
 	],
 
@@ -2012,7 +2162,28 @@ var CompletismHashes={
 	],
 
 
-
+	SAGE_WILLS_FOUND:[
+		'17027564096477698406',
+		'16551922775305595721',
+		'8923401910321011575',
+		'7638258738140520749',
+		'17834526685843804832',
+		'12415947737911523872',
+		'10777930978159296231',
+		'9878961607953221501',
+		'14297746811944729045',
+		'10158452085007421266',
+		'14300441561420407308',
+		'3040862838791505171',
+		'7530653482124541386',
+		'1950552174935191379',
+		'15362114318872927496',
+		'1734683952980485907',
+		'15149725342529566916',
+		'8433656076063719808',
+		'1984953898143305789',
+		'12826721193418470354'
+	],
 	TREASURE_MAPS_FOUND:[
 		0x78351b17, //IsFindTreasureMap.Armor_230_Head
 		0xa77d686d, //IsFindTreasureMap.Armor_230_Upper
@@ -2045,6 +2216,89 @@ var CompletismHashes={
 		0x5875357a, //IsFindTreasureMap.Armor_1051_Head
 		0x840cfa81, //IsFindTreasureMap.Armor_1051_Upper
 		0xe112f9e2 //IsFindTreasureMap.Armor_1051_Lower
+	],
+	ADDISON_COMPLETED:[
+		'0x70d0ac829afa29d1',
+		'0xac8dfd4892ec1064',
+		'0xf63328e966a44b29',
+		'0x7ce90c4cf9bc1d28',
+		'0xea228bcd84f57195',
+		'0x58066ae9cc5c7e30',
+		'0x7dfc58d391aaaa1a',
+		'0xb12f5cc2bc50e436',
+		'0x795394aa6853aacd',
+		'0x1e2ea6eea615f9af',
+		'0xd6e50a904b1498d6',
+		'0x2cdabb21b0740be2',
+		'0x2dae0a784e3f3b42',
+		'0x6b63076055d795c2',
+		'0x88ca2b1f6a4c7d78',
+		'0x28fad8cf1e69f736',
+		'0xb3f22d628157d6e1',
+		'0x5a5cbfadd5c96e98',
+		'0x36d526832b916afb',
+		'0x7b4ef5bc17c55313',
+		'0x52c54803916367ae',
+		'0x5487c62938ff5305',
+		'0xa9a9392f01d9f7b7',
+		'0x054e0c4e09696316',
+		'0x025ad5777d625fd4',
+		'0x18edf5f881bf78b7',
+		'0x992af038c05e340b',
+		'0xef4ab339bd078291',
+		'0x0775a083f6fc7cbb',
+		'0x12670c7211a67e49',
+		'0x04e71b3f13f3fb87',
+		'0x90277e182c6f7068',
+		'0xcb4bddf41421132c',
+		'0x898a7779403b7a4d',
+		'0x5cf07a31a80e90db',
+		'0x45ba9e23614ba0ef',
+		'0xcff2a66b38719aa5',
+		'0x4e5cf820e38d1059',
+		'0x6ef8c1f46cf25d53',
+		'0x8a51d0b213e3422c',
+		'0xfd0db0d8c3e9ad20',
+		'0x66624a2520ef9987',
+		'0xac0c82a7e9005872',
+		'0x78ffced82e203f26',
+		'0x0250007c986f2a38',
+		'0xf474dd13ff28caa7',
+		'0xf3339731c1f40d7c',
+		'0x165306cd7acf32e9',
+		'0x9a8c42b4f5700dbc',
+		'0xcdae104e2fbbe2da',
+		'0x9ac24a0527ff904e',
+		'0xefe03484f79019d4',
+		'0xa3f0d7b685f83f79',
+		'0x38d3fe883550084a',
+		'0x9e2156178428fc30',
+		'0x6905967649cc682d',
+		'0x96d92450f68a70d4',
+		'0x6262fc9b464b6c8e',
+		'0x50fba6ce25a07b0a',
+		'0x1aa259403014052a',
+		'0xaa9aa98e2439914a',
+		'0xc6fda5df0f2a87aa',
+		'0x7c03b68e95da69b9',
+		'0x8c2f9f021e4f14b3',
+		'0xe1c6dcdc73c52ae6',
+		'0x7832f9e29db1022e',
+		'0x0aba53552fd141ee',
+		'0x16a9efd110615889',
+		'0xe4661fe1d68bab2c',
+		'0x5d71afde97895b29',
+		'0x7027f477f1bf0c85',
+		'0xadc55a058327fab5',
+		'0x11dd08c754771a01',
+		'0xcfbf7fe07769846c',
+		'0x4f2bccad0f7677b0',
+		'0x5b1c6145cab7b62d',
+		'0x26fdbcb5335cb130',
+		'0x6f91ae9d5a01e2a4',
+		'0x118aa3c276be57b8',
+		'0xabec660dc1ff14ed',
+		'0x65201b78877fa778'
 	],
 
 

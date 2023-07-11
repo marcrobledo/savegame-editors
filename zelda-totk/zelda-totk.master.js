@@ -136,7 +136,7 @@ var TOTKMasterEditor=(function(){
 		var hashLabel=hashInfo.label || hashInfo.hashText;
 
 		tr.children[0].appendChild(label(fieldId, hashLabel+(typeof arrayIndex==='number'? ' ['+arrayIndex+']':'')));
-		tr.children[0].title='Hash: '+hashInfo.hashHex+' - Offset: '+SavegameEditor._toHexInt(hashInfo.offset);
+		tr.children[0].title='Hash: '+hashInfo.hashHex+' - Offset: '+Variable.toHexString(hashInfo.offset);
 		tr.children[1].className='text-right';
 
 

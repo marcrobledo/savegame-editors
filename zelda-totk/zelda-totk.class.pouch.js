@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Pouch class (last update 2023-07-08)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Pouch class (last update 2023-07-11)
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -185,7 +185,14 @@ Pouch._onChangeInputTextFix=function(evt){
 
 const ICON_PATH='./assets/item_icons/';
 Pouch.updateItemIcon=function(item){
-	if(item.category==='armors')
+	if(item.id==='Parasail'){
+		var parasailPattern=typeof SavegameEditor.parasailPattern.value==='string'? SavegameEditor.parasailPattern.value : hashReverse(SavegameEditor.parasailPattern.value);
+		if(parasailPattern!=='Default'){
+			item._htmlIcon.src=ICON_PATH+item.category+'/'+item.id+'_'+parasailPattern+'.png';
+		}else{
+			item._htmlIcon.src=ICON_PATH+item.category+'/'+item.id+'.png';
+		}
+	}else if(item.category==='armors')
 		if(item.dyeColor===hash('None'))
 			item._htmlIcon.src=ICON_PATH+item.category+'/'+item.getBaseId()+'.png';
 		else
@@ -199,7 +206,6 @@ Pouch.updateItemRow=function(item){
 	if(!item._htmlRow){
 		//create if item row does not exist
 		item._htmlIcon=new Image();
-		item._htmlIcon.id='icon-'+item.category+'-'+item.index;
 		item._htmlIcon.className='item-icon';
 		item._htmlIcon.loading='lazy';
 		item._htmlIcon.onerror=function(){
@@ -231,6 +237,8 @@ Pouch.updateItemRow=function(item){
 		else
 			Item.buildHtmlElements(item);		
 		$(lastColumn).append(Object.values(item._htmlInputs));
+		if(item.category==='key' && item.id==='Parasail')
+			$(lastColumn).append(SavegameEditor._htmlSelectParasailPattern);
 		
 
 		item._htmlRow=document.createElement('div');
