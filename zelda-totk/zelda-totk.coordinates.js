@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - MapPin class and collectible map raw coordinates (last update 2023-07-09)
+	The legend of Zelda: Tears of the Kingdom savegame editor - MapPin class and collectible map raw coordinates (last update 2023-07-11)
 
 	by Marc Robledo 2023
 	research & information compiled by MacSpazzy, Phil, savage13, Karlos007 and Echocolat
@@ -1795,8 +1795,8 @@ LOCATIONS:[
 	[-3457.1, 2048.50, 373.7], //RecycleBoxData.81618141019492151.IsVisit (Device Dispenser)
 	[4510.6, 1221.70, 805.63], //RecycleBoxData.9420253473696152512.IsVisit (Device Dispenser)
 	[2190.61, -857.75, -2640.77], //RecycleBoxData.1366206746798740666.IsVisit (Device Dispenser)
-	[1058.04, -447.98, 2320.7], //RecycleBoxData.18046809928678434263.IsVisit (Device Dispenser)
-	[2217.23, 1254.50, -989.48], //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_03 (Ancient Tablet)
+	[1058.04, -447.98, 2320.7] //RecycleBoxData.18046809928678434263.IsVisit (Device Dispenser)
+	/*[2217.23, 1254.50, -989.48], //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_03 (Ancient Tablet)
 	[2914.51, 907.50, -202.91], //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_04 (Ancient Tablet)
 	[-4042.05, 557.50, -3203.8], //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_05 (Ancient Tablet)
 	[-1365.84, 1016.50, -3574.62], //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_06 (Ancient Tablet)
@@ -1807,7 +1807,7 @@ LOCATIONS:[
 	[-3605.47, 1701.53, 934.76], //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_11 (Ancient Tablet)
 	[-44.98, 1607.83, -2991.76], //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_12 (Ancient Tablet)
 	[-1239.03, 1091.82, 1937.08], //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_13 (Ancient Tablet)
-	[3580.2, 1466.83, -1749.73] //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_14 (Ancient Tablet)
+	[3580.2, 1466.83, -1749.73] //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_14 (Ancient Tablet)*/
 ],
 
 LOCATION_CAVES:[

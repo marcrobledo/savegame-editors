@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Completism (last update 2023-07-09)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Completism (last update 2023-07-11)
 
 	by Marc Robledo 2023
 	research & information compiled by MacSpazzy, Phil, savage13, Karlos007 and Echocolat
@@ -896,8 +896,8 @@ var CompletismHashes={
 		0xbbe67181, //RecycleBoxData.81618141019492151.IsVisit (Device Dispenser)
 		0xd40cb282, //RecycleBoxData.9420253473696152512.IsVisit (Device Dispenser)
 		0xec359b9e, //RecycleBoxData.1366206746798740666.IsVisit (Device Dispenser)
-		0x698c7010, //RecycleBoxData.18046809928678434263.IsVisit (Device Dispenser)
-		0x47336bb0, //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_03 (Ancient Tablet)
+		0x698c7010 //RecycleBoxData.18046809928678434263.IsVisit (Device Dispenser)
+		/*0x47336bb0, //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_03 (Ancient Tablet)
 		0xac6ec598, //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_04 (Ancient Tablet)
 		0x31a3787b, //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_05 (Ancient Tablet)
 		0xe294f6d1, //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_06 (Ancient Tablet)
@@ -908,7 +908,7 @@ var CompletismHashes={
 		0x3918ef9e, //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_11 (Ancient Tablet)
 		0xf068c74c, //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_12 (Ancient Tablet)
 		0xb6b32e0f, //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_13 (Ancient Tablet)
-		0x31dfc96d //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_14 (Ancient Tablet)
+		0x31dfc96d //IsShowSheikahCameraTarget.ZonauReliefSearch.Step1.Obj_Zonau_RockRelief_A_14 (Ancient Tablet)*/
 	],
 
 	LOCATION_CAVES_VISITED:[
