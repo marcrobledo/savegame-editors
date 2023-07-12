@@ -1308,6 +1308,9 @@ SavegameEditor={
 		/* parasail pattern */
 		this.parasailPattern=new Variable('PlayerStatus.ParasailPattern', 'Enum', ['Default','Pattern00','Pattern01','Pattern02','Pattern03','Pattern04','Pattern05','Pattern06','Pattern07','Pattern08','Pattern09','Pattern10','Pattern11','Pattern12','Pattern13','Pattern14','Pattern15','Pattern16','Pattern17','Pattern18','Pattern19','Pattern20','Pattern21','Pattern22','Pattern23','Pattern24','Pattern25','Pattern26','Pattern27','Pattern28','Pattern29','Pattern30','Pattern31','Pattern32','Pattern33','Pattern34','Pattern35','Pattern36','Pattern37','Pattern38','Pattern39','Pattern40','Pattern41','Pattern43','Pattern45','Pattern46','Pattern48','Pattern49','Pattern51','Pattern52','Pattern53','Pattern55','Pattern56']);
 		this._htmlSelectParasailPattern=this.parasailPattern.buildHtmlInputs(true);
+		for(var i=1; i<this._htmlSelectParasailPattern.children.length; i++){
+			$(this._htmlSelectParasailPattern.children[i]).html(_($(this._htmlSelectParasailPattern.children[i]).html().replace('Pattern', 'Obj_SubstituteCloth_')));
+		}
 		this._htmlSelectParasailPattern.className='full-width';
 		this._htmlSelectParasailPattern.title=_('Fabric');
 		$(this._htmlSelectParasailPattern).on('change', function(evt){
