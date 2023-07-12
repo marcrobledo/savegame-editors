@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Completism (last update 2023-07-11)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Completism (last update 2023-07-12)
 
 	by Marc Robledo 2023
 	research & information compiled by MacSpazzy, Phil, savage13, Karlos007 and Echocolat
@@ -871,7 +871,7 @@ var CompletismHashes={
 		0xdca20005, //IsVisitLocation.HorseStableBranchOffice_Gerudo (Mini Stable)
 		0xeab58fa4, //IsVisitLocation.UMiiVillage_JobField (Tarrey Town Race)
 		0x1a95a2c3, //Revive_Restaurant (Restaurant)
-		0x646fdc72, //BuildingMaterialsTutorial_Give (Mini Stable)
+		//0x646fdc72, //BuildingMaterialsTutorial_Give (Mini Stable) - breaks Incomplete Stable quest
 		0x951ae6d0, //IsVisitLocation.RentalZarashiShop_GerudoDesert (Sand-Seal Rental Shop)
 		0xa587ce03, //IsVisitLocation.UMiiVillage (Break-a-Part Shop)
 		0xc14ae332, //TwnObj_DemonStatue_B_01_GetUp (Bargainer Statue)

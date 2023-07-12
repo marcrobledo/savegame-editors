@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - MapPin class and collectible map raw coordinates (last update 2023-07-11)
+	The legend of Zelda: Tears of the Kingdom savegame editor - MapPin class and collectible map raw coordinates (last update 2023-07-12)
 
 	by Marc Robledo 2023
 	research & information compiled by MacSpazzy, Phil, savage13, Karlos007 and Echocolat
@@ -1723,7 +1723,7 @@ LOCATIONS:[
 	[-1693.16, 116.16, 1663.96], //IsVisitLocation.HorseStableBranchOffice_Gerudo (Mini Stable)
 	[3744.3, 198.19, -1679.45], //IsVisitLocation.UMiiVillage_JobField (Tarrey Town Race)
 	[2895.14, 116.80, 3409.98], //Revive_Restaurant (Restaurant)
-	[-248.7, 124.51, -52.31], //BuildingMaterialsTutorial_Give (Mini Stable)
+	//[-248.7, 124.51, -52.31], //BuildingMaterialsTutorial_Give (Mini Stable) - breaks Incomplete Stable quest
 	[-2995.23, 105.00, 2325.03], //IsVisitLocation.RentalZarashiShop_GerudoDesert (Sand-Seal Rental Shop)
 	[3995, 235.22, -1637], //IsVisitLocation.UMiiVillage (Break-a-Part Shop)
 	[-251.26, 126.18, -155.25], //TwnObj_DemonStatue_B_01_GetUp (Bargainer Statue)
