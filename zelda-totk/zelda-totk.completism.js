@@ -59,7 +59,8 @@ var Completism={
 		return this._count(CompletismHashes.KOROKS_CARRY, 'Clear'); //possible values: NotClear,Clear
 	},
 	countBubbuls:function(){
-		return this._count(CompletismHashes.BUBBULS_DEFEATED);
+		//return this._count(CompletismHashes.BUBBULS_DEFEATED);
+		return this._countGuids(CompletismHashes.BUBBULS_GUIDS);
 	},
 	countLocations:function(){
 		return this._count(CompletismHashes.LOCATIONS_VISITED);
@@ -221,16 +222,33 @@ var Completism={
 		return changes;
 	},
 	defeatBubbuls:function(limit){
-		var changes=this._set(CompletismHashes.BUBBULS_DEFEATED, limit);
+		var changes=this._setGuids(CompletismHashes.BUBBULS_GUIDS, limit); //kill them definitively
 		UI.toast(_('%s bubbuls set as defeated').replace('%s', changes), 'bubbuls-defeated');
 		if(changes){
+			this._set(CompletismHashes.BUBBULS_DEFEATED, changes); //add check marks to caves in map
 			SavegameEditor.addItem('key', 'CaveMasterMedal', changes);
-			var defeatBubbulsTotal=new Variable('DefeatedEnemyNum.Enemy_CaveMaster_000', 'UInt');
-			defeatBubbulsTotal.value+=changes;
-			defeatBubbulsTotal.save();
+			SavegameEditor._saveGuidsArray();
+			SavegameEditor.refreshCounterBubbuls();
 		}
-		SavegameEditor.refreshCounterBubbuls();
+		if(this.countBubbuls()===147){
+			//set legit values to some variables (this will also fix glitched bubbul savegames)
+			this._set(CompletismHashes.BUBBULS_DEFEATED);
+			var defeatBubbulsTotal0=new Variable('DefeatedEnemyNum.Enemy_CaveMaster_000', 'UInt');
+			defeatBubbulsTotal0.value=50;
+			defeatBubbulsTotal0.save();
+			var defeatBubbulsTotal1=new Variable('DefeatedEnemyNum.Enemy_CaveMaster_Middle', 'UInt');
+			defeatBubbulsTotal1.value=60;
+			defeatBubbulsTotal1.save();
+			var defeatBubbulsTotal2=new Variable('DefeatedEnemyNum.Enemy_CaveMaster_Senior', 'UInt');
+			defeatBubbulsTotal2.value=37;
+			defeatBubbulsTotal2.save();
+
+			var koltinFlag=new Variable('NushiShop_MedalComplete', 'Bool');
+			koltinFlag.value=true;
+			koltinFlag.save();
+		}
 		return changes;
+
 	},
 	visitLocations:function(limit){
 		var changes=this._set(CompletismHashes.LOCATIONS_VISITED, limit);
@@ -1675,36 +1693,6 @@ var CompletismHashes={
 		0x1f859e86 //IsVisitLocation.Well_0043B //counts as Komo Shoreline Cave
 	],
 	BUBBULS_GUIDS:[
-		'0x3deff0b2c6f35893', //Enemy_CaveMaster_Senior - [-3217.25, 60.91, 3120.65]
-		'0x321dc2e01aff8c82', //Enemy_CaveMaster_000 - [-1347.54, 92.22, 242.83]
-		'0xc62e49bdd034722e', //Enemy_CaveMaster_Middle - [607.13, 129.94, 2930.16]
-		'0xb8a703d79052b5bc', //Enemy_CaveMaster_Senior - [861.57, 105.19, 2888.97]
-		'0x06dad54583da93de', //Enemy_CaveMaster_Middle - [471.7, 127.61, 3550.75]
-		'0x885e9854c01d1f50', //Enemy_CaveMaster_Middle - [576.89, 121.7, 3132.62]
-		'0x34518c9cecd51070', //Enemy_CaveMaster_Middle - [1766.89, 424.19, -2062.45]
-		'0x2cf40b1ba20d4010', //Enemy_CaveMaster_Middle - [1873.52, 294.53, 1161.82]
-		'0x5ac2bd45c3f6e8a3', //Enemy_CaveMaster_Senior - [1132, 192.51, 2333.64]
-		'0x0e3190ebdc4c448e', //Enemy_CaveMaster_Senior - [1716.98, 182.05, 3708.3]
-		'0x632df3675d11e8a5', //Enemy_CaveMaster_Senior - [1574.79, 126.33, 2974.5]
-		'0xc608bb69be07fecb', //Enemy_CaveMaster_000 - [2617.98, 304.21, -558.33]
-		'0xfc1296e19576855c', //Enemy_CaveMaster_Middle - [2254.9, 159.05, -102.2]
-		'0xbbde7a7a61d4fcaf', //Enemy_CaveMaster_000 - [2815.69, 301.53, -511.79]
-		'0xcc0e9a1b4171f855', //Enemy_CaveMaster_000 - [2966.04, 271.33, -419.57]
-		'0x84e2e5b45a1ba0cb', //Enemy_CaveMaster_000 - [2651.58, 199.01, -257.61]
-		'0x0ad9f3123d0c10e7', //Enemy_CaveMaster_000 - [2926.48, 206.42, 71.18]
-		'0xee4636bcc57dd2a7', //Enemy_CaveMaster_Middle - [2540.87, 97.14, 1513.25]
-		'0x58f8f85f62f83a7c', //Enemy_CaveMaster_Middle - [2703.4, 217.29, 1459.61]
-		'0x100e8f73ebff5c75', //Enemy_CaveMaster_000 - [3692.69, 304.71, -641.05]
-		'0x072241f662d35cd4', //Enemy_CaveMaster_000 - [3927.83, 324.5, -388.28]
-		'0xb817aeb2581b040c', //Enemy_CaveMaster_000 - [3044.68, 337.7, -741.85]
-		'0x1233a2e566944158', //Enemy_CaveMaster_000 - [3688.23, 408.35, -517.16]
-		'0x0cacfa038648c55c', //Enemy_CaveMaster_000 - [3041.42, 228.91, 215.41]
-		'0xa15f6b4b88baef04', //Enemy_CaveMaster_Middle - [4421.72, 142.25, 754.88]
-		'0xb1677475d92742cd', //Enemy_CaveMaster_Senior - [4604.66, 111.09, 3765.03]
-		'0x97bbbc2bc486219d', //Enemy_CaveMaster_000 - [408.95, 1507.24, 1681.02]
-		'0x1c2a653e0d7517d5', //Enemy_CaveMaster_000 - [246.8, 1479.65, 1612.31]
-		'0x58654bbba3c8d047', //Enemy_CaveMaster_000 - [627.99, 1571.33, 1635.91]
-		'0x50b82b2016f7452d', //Enemy_CaveMaster_000 - [739.14, 1599.76, 1445.08]
 		'0x4a2ef034a266c318', //Enemy_CaveMaster_Middle - [4195.69, 334.19, -607.6]
 		'0x156516036b5f7fc7', //Enemy_CaveMaster_Middle - [4382.61, 244.17, -774.24]
 		'0x6e50fe88e2738a3c', //Enemy_CaveMaster_Senior - [3936.56, 224.86, -1584.05]
@@ -1715,16 +1703,22 @@ var CompletismHashes={
 		'0x5bbd526f3daa3081', //Enemy_CaveMaster_Middle - [3278.21, 505.07, -1454.44]
 		'0x7b7909c85ad79904', //Enemy_CaveMaster_000 - [30.94, 140.78, 155.44]
 		'0x1660d416b82cb91e', //Enemy_CaveMaster_Senior - [-783.92, 129.53, 1552.85]
+		'0x50b82b2016f7452d', //Enemy_CaveMaster_000 - [739.14, 1599.76, 1445.08]
+		'0x58654bbba3c8d047', //Enemy_CaveMaster_000 - [627.99, 1571.33, 1635.91]
+		'0x1c2a653e0d7517d5', //Enemy_CaveMaster_000 - [246.8, 1479.65, 1612.31]
 		'0xb1cb80868f44056b', //Enemy_CaveMaster_Middle - [-217.33, 64.63, -724.5]
+		'0x97bbbc2bc486219d', //Enemy_CaveMaster_000 - [408.95, 1507.24, 1681.02]
 		'0x23b66324b2fbcd2c', //Enemy_CaveMaster_000 - [-1093.33, 84.32, 426.02]
 		'0x159d350c47a80e2b', //Enemy_CaveMaster_000 - [-129.3, 120.94, 1053.79]
 		'0x7dde1613bbe08fce', //Enemy_CaveMaster_000 - [-523.87, 148.48, -195.99]
 		'0x1b60a95b467464e5', //Enemy_CaveMaster_Middle - [-1127.31, 146.6, 1281.52]
+		'0x321dc2e01aff8c82', //Enemy_CaveMaster_000 - [-1347.54, 92.22, 242.83]
 		'0xdefd953612e03084', //Enemy_CaveMaster_Middle - [2692.42, 636.21, -2627.68]
 		'0x1b88a5b0512f7da7', //Enemy_CaveMaster_Middle - [2385.58, 629.36, -2739.17]
 		'0x184db669cf152043', //Enemy_CaveMaster_Middle - [2496.71, 573.22, -2960.78]
 		'0xe22736ed43f4a0b1', //Enemy_CaveMaster_Middle - [1758.44, 344.07, -2923.39]
 		'0xa7ecb0ec036d9b51', //Enemy_CaveMaster_Middle - [1417.87, 399.04, -2201.81]
+		'0x34518c9cecd51070', //Enemy_CaveMaster_Middle - [1766.89, 424.19, -2062.45]
 		'0x69a87dc5d38237da', //Enemy_CaveMaster_Middle - [2251.05, 505.2, -2116.35]
 		'0xb25955eb61a16781', //Enemy_CaveMaster_Middle - [1615.49, 373.87, -1793.34]
 		'0xb6e3676cf0a11119', //Enemy_CaveMaster_Middle - [1884.52, 398.38, -1820.18]
@@ -1736,7 +1730,12 @@ var CompletismHashes={
 		'0xfb519d90f20dc4ee', //Enemy_CaveMaster_Middle - [2017.01, 237.34, -1397.38]
 		'0xc4355d66a6690f54', //Enemy_CaveMaster_Middle - [2225.51, 270.62, -1537.53]
 		'0xd2ee79393cbbaad9', //Enemy_CaveMaster_Middle - [2540.22, 258.72, -1356.36]
+		'0xb8a703d79052b5bc', //Enemy_CaveMaster_Senior - [861.57, 105.19, 2888.97]
+		'0x885e9854c01d1f50', //Enemy_CaveMaster_Middle - [576.89, 121.7, 3132.62]
+		'0x5ac2bd45c3f6e8a3', //Enemy_CaveMaster_Senior - [1132, 192.51, 2333.64]
 		'0x458c6cef1846e12b', //Enemy_CaveMaster_000 - [-208.18, 154.52, 2999.91]
+		'0xc62e49bdd034722e', //Enemy_CaveMaster_Middle - [607.13, 129.94, 2930.16]
+		'0x632df3675d11e8a5', //Enemy_CaveMaster_Senior - [1574.79, 126.33, 2974.5]
 		'0x38bd19020ca751c7', //Enemy_CaveMaster_000 - [154.55, 33.18, 2486.23]
 		'0x31cc9701a074e3b0', //Enemy_CaveMaster_Middle - [620.74, 167.97, 2155.99]
 		'0x050c414f2b5651ca', //Enemy_CaveMaster_Middle - [284.61, 169.98, 3786.18]
@@ -1752,8 +1751,10 @@ var CompletismHashes={
 		'0xddaa275cff3c1b9d', //Enemy_CaveMaster_Middle - [-1784.23, 130.31, 2173.19]
 		'0x0d8028a1c5d3e072', //Enemy_CaveMaster_Middle - [-1766.75, 89.56, 2410.19]
 		'0xaae790dff13c1d4a', //Enemy_CaveMaster_Middle - [-2234.44, 357.05, 2433.9]
+		'0x3deff0b2c6f35893', //Enemy_CaveMaster_Senior - [-3217.25, 60.91, 3120.65]
 		'0x2eaec0e8f7736bc1', //Enemy_CaveMaster_Senior - [-3005.75, 110.74, 3802.24]
 		'0x7c1f14d70520c5ac', //Enemy_CaveMaster_Middle - [-2198.09, 225.9, 1812.99]
+		//---
 		'0x6d4f284dfe6f6350', //Enemy_CaveMaster_Senior - [-2513.11, 88.92, 3723.81]
 		'0x32d663740087df2b', //Enemy_CaveMaster_Senior - [-3257.65, 116.02, 2674.62]
 		'0xc0f95a0f2b1217d9', //Enemy_CaveMaster_Senior - [-4988.65, 74, 3885.64]
@@ -1769,10 +1770,13 @@ var CompletismHashes={
 		'0x5462549c77949ebb', //Enemy_CaveMaster_Senior - [1693.06, 282.77, 2956.68]
 		'0xc5ff4da5c9cbe283', //Enemy_CaveMaster_Senior - [1904.22, 81.27, 3033.68]
 		'0x8bc80ac5501a53e2', //Enemy_CaveMaster_Senior - [2005.55, 277.48, 3037.53]
+		'0x0e3190ebdc4c448e', //Enemy_CaveMaster_Senior - [1716.98, 182.05, 3708.3]
+		'0xb1677475d92742cd', //Enemy_CaveMaster_Senior - [4604.66, 111.09, 3765.03]
 		'0xdd6da5a8ec813b90', //Enemy_CaveMaster_Senior - [1424.48, 189.26, 3472.36]
 		'0x539de1395915eaf9', //Enemy_CaveMaster_Senior - [2439.83, 184, 3178.45]
 		'0x146889d8bcc6ebb9', //Enemy_CaveMaster_Middle - [1543.45, 127.16, 844.94]
 		'0x01f22fdd1ac86e1b', //Enemy_CaveMaster_Middle - [1985.21, 264.36, 904.76]
+		'0x2cf40b1ba20d4010', //Enemy_CaveMaster_Middle - [1873.52, 294.53, 1161.82]
 		'0x31eb915eb9b87e34', //Enemy_CaveMaster_000 - [1330.29, 245.92, 1191.05]
 		'0xef574dace04289a3', //Enemy_CaveMaster_000 - [1189.21, 289.33, 1800.13]
 		'0x8b881420387231b3', //Enemy_CaveMaster_Middle - [1154.48, 348.87, 1985.52]
@@ -1800,28 +1804,46 @@ var CompletismHashes={
 		'0x172ed460a0200fe2', //Enemy_CaveMaster_000 - [-1230.65, 197.84, -776.71]
 		'0x03abb931e9b1aa2e', //Enemy_CaveMaster_Senior - [-2989.29, 126.51, 905.86]
 		'0x18246b7d61b09e14', //Enemy_CaveMaster_000 - [-1818.12, 255.63, -1270.61]
+		//---
 		'0x660aa6a247d78655', //Enemy_CaveMaster_000 - [-2167.83, 234.06, 580.3]
 		'0x6d93e5630f546a65', //Enemy_CaveMaster_000 - [-2277.61, 208.67, -858.17]
 		'0x6cfcecf99438ae66', //Enemy_CaveMaster_000 - [-2170.85, 60.28, -1534.54]
 		'0xdd7bee885ecdd646', //Enemy_CaveMaster_000 - [-2283.2, 367.19, 472.08]
+		'0x530d92647e6c8791', //Enemy_CaveMaster_Middle - [1279.39, 150.42, -253.89]
+		'0x0cacfa038648c55c', //Enemy_CaveMaster_000 - [3041.42, 228.91, 215.41]
+		'0x0ad9f3123d0c10e7', //Enemy_CaveMaster_000 - [2926.48, 206.42, 71.18]
+		'0x84e2e5b45a1ba0cb', //Enemy_CaveMaster_000 - [2651.58, 199.01, -257.61]
+		'0xfc1296e19576855c', //Enemy_CaveMaster_Middle - [2254.9, 159.05, -102.2]
+		'0xc608bb69be07fecb', //Enemy_CaveMaster_000 - [2617.98, 304.21, -558.33]
+		'0xbbde7a7a61d4fcaf', //Enemy_CaveMaster_000 - [2815.69, 301.53, -511.79]
+		'0xd4f4c4181d407220', //Enemy_CaveMaster_Middle - [4214.34, 84.27, 311.49]
+		'0xa15f6b4b88baef04', //Enemy_CaveMaster_Middle - [4421.72, 142.25, 754.88]
+		'0xcc0e9a1b4171f855', //Enemy_CaveMaster_000 - [2966.04, 271.33, -419.57]
+		'0x71bb8b935a627496', //Enemy_CaveMaster_000 - [2847.35, 459.06, -490.74]
+		//---
+		'0x09e5bb13bec6243d', //Enemy_CaveMaster_Middle - [551.2, 139.76, -779.7]
+		'0x28a1ee52d72d06ae', //Enemy_CaveMaster_Middle - [911.23, 139.74, -56.22]
+		'0x072241f662d35cd4', //Enemy_CaveMaster_000 - [3927.83, 324.5, -388.28]
+		'0x1233a2e566944158', //Enemy_CaveMaster_000 - [3688.23, 408.35, -517.16]
+		'0xb817aeb2581b040c', //Enemy_CaveMaster_000 - [3044.68, 337.7, -741.85]
+		'0x4caa26d3ccac26c9', //Enemy_CaveMaster_000 - [3336.66, 197.32, -539.94]
+		//---
+		'0x58f8f85f62f83a7c', //Enemy_CaveMaster_Middle - [2703.4, 217.29, 1459.61]
 		'0xef5aec2cc2af160f', //Enemy_CaveMaster_Middle - [4562.14, 137.8, 2306.81]
 		'0x74ce078aec920a9d', //Enemy_CaveMaster_Middle - [2408.48, 65.86, 2336.82]
 		'0xd7a7dd2925dc8546', //Enemy_CaveMaster_Middle - [3447.29, 168.93, 1210.86]
+		'0xee4636bcc57dd2a7', //Enemy_CaveMaster_Middle - [2540.87, 97.14, 1513.25]
 		'0xdc667d3492986314', //Enemy_CaveMaster_Middle - [4127.97, 262.16, 1894.01]
 		'0x40faac044e21ecde', //Enemy_CaveMaster_Middle - [4264.23, 102.44, 2128.26]
 		'0xc159d85ff81e95c0', //Enemy_CaveMaster_Senior - [3446.89, 118.39, 3189.47]
-		'0xdbff2f278d4d84e9', //Enemy_CaveMaster_Middle - [2315.76, 123.78, 1642.18]
 		'0x1ea384237cc3eee4', //Enemy_CaveMaster_Middle - [3759.33, 304.35, 2084.74]
-		'0x530d92647e6c8791', //Enemy_CaveMaster_Middle - [1279.39, 150.42, -253.89]
-		'0xd4f4c4181d407220', //Enemy_CaveMaster_Middle - [4214.34, 84.27, 311.49]
-		'0x71bb8b935a627496', //Enemy_CaveMaster_000 - [2847.35, 459.06, -490.74]
-		'0x09e5bb13bec6243d', //Enemy_CaveMaster_Middle - [551.2, 139.76, -779.7]
-		'0x28a1ee52d72d06ae', //Enemy_CaveMaster_Middle - [911.23, 139.74, -56.22]
-		'0x4caa26d3ccac26c9', //Enemy_CaveMaster_000 - [3336.66, 197.32, -539.94]
+		'0xdbff2f278d4d84e9', //Enemy_CaveMaster_Middle - [2315.76, 123.78, 1642.18]
 		'0x0b393196afa554a8', //Enemy_CaveMaster_Middle - [-3894.91, 193.04, -1019.08]
 		'0xf9afb298ca80e833', //Enemy_CaveMaster_000 - [-3516.7, 333.61, -418.13]
 		'0x81eeb24216b54e96', //Enemy_CaveMaster_000 - [-3484.12, -16.58, -726.99]
-		'0x2a818c0b3e6b54d2' //Enemy_CaveMaster_000 - [3599.01, 140.61, -300.07]
+		'0x100e8f73ebff5c75', //Enemy_CaveMaster_000 - [3692.69, 304.71, -641.05]
+		'0x2a818c0b3e6b54d2', //Enemy_CaveMaster_000 - [3599.01, 140.61, -300.07]
+		'0x06dad54583da93de' //Enemy_CaveMaster_Middle - [471.7, 127.61, 3550.75]
 	],
 
 	SCHEMATICS_STONE_FOUND:[

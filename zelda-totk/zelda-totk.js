@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-07-11)
+	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-07-12)
 
 	by Marc Robledo 2023
 */
@@ -9,7 +9,7 @@ var currentEditingItem;
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
 	Filename:['progress.sav','caption.sav'],
-	Version:20230711,
+	Version:20230712,
 	noDemo:true,
 
 	/* Settings */
@@ -705,10 +705,10 @@ SavegameEditor={
 		return this.addLocationPins(CompletismHashes.KOROKS_HIDDEN, Coordinates.KOROKS_HIDDEN, MapPin.ICON_LEAF, 50);
 	},
 	addPinsKoroksCarry:function(){
-		return this.addLocationPins(CompletismHashes.KOROKS_CARRY, Coordinates.KOROKS_CARRY, MapPin.ICON_HUMAN, 25, 'NotClear');
+		return this.addLocationPins(CompletismHashes.KOROKS_CARRY, Coordinates.KOROKS_CARRY, MapPin.ICON_LEAF, 25, 'NotClear');
 	},
 	addPinsBubbuls:function(){
-		return this.addLocationPins(CompletismHashes.BUBBULS_DEFEATED, Coordinates.LOCATION_BUBBULS, MapPin.ICON_HEART, 50);
+		return this.addLocationPins(CompletismHashes.BUBBULS_GUIDS, Coordinates.LOCATION_BUBBULS, MapPin.ICON_HEART, 50);
 	},
 	addPinsLocations:function(){
 		return this.addLocationPins(CompletismHashes.LOCATIONS_VISITED, Coordinates.LOCATIONS, MapPin.ICON_DIAMOND, 50);
@@ -747,7 +747,7 @@ SavegameEditor={
 		return this.addLocationPins(CompletismHashes.TREASURE_MAPS_FOUND, Coordinates.TREASURE_MAPS, MapPin.ICON_CHEST);
 	},
 	addPinsAddison:function(){
-		return this.addLocationPins(CompletismHashes.ADDISON_COMPLETED, Coordinates.ADDISON, MapPin.ICON_STAR, 25);
+		return this.addLocationPins(CompletismHashes.ADDISON_COMPLETED, Coordinates.ADDISON, MapPin.ICON_HUMAN, 25);
 	},
 	addPinsSchematicsStone:function(){
 		return this.addLocationPins(CompletismHashes.SCHEMATICS_STONE_FOUND, Coordinates.SCHEMATICS_STONE, MapPin.ICON_CHEST);
