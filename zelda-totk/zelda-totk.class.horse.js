@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Horse class (last update 2023-07-09)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Horse class (last update 2023-07-18)
 
 	by Marc Robledo 2023
 	horse data thanks to JonJaded, Ozymandias07 and Karlos007
@@ -118,7 +118,7 @@ Horse.buildHtmlElements=function(item){
 		statsSpeed:Pouch.createItemInput(item, 'statsSpeed', 'Int', {enumValues:Horse.OPTIONS_STATS, label:_('Stats: Speed')}),
 		statsStamina:Pouch.createItemInput(item, 'statsStamina', 'Int', {enumValues:Horse.OPTIONS_STATS_STAMINA, label:_('Stats: Stamina')}),
 		statsPull:Pouch.createItemInput(item, 'statsPull', 'Int', {enumValues:Horse.OPTIONS_STATS, label:_('Stats: Pull')}),
-		colorType:Pouch.createItemInput(item, 'colorType', 'Int', {min:0, max:39, label:_('Horse color')}),
+		colorType:Pouch.createItemInput(item, 'colorType', 'Int', {min:0, max:40, label:_('Horse color')}),
 		footType:Pouch.createItemInput(item, 'footType', 'Int', {min:0, max:1, label:_('Foot type')})
 	};
 }
@@ -203,13 +203,31 @@ Horse.DEFAULT_VALUES={
 		horseType:Horse.TYPE_ZELDA
 	},
 	GameRomHorseSpPattern:{
-		horseType:Horse.TYPE_SPOT
+		horseType:Horse.TYPE_SPOT,
+		iconPattern: '05',
+		iconEyeColor: 'Black',
+		iconPrimaryColorRed: 2,
+		iconPrimaryColorGreen: 3,
+		iconPrimaryColorBlue: 2,
+		iconSecondaryColorRed: 51,
+		iconSecondaryColorGreen: 41,
+		iconSecondaryColorBlue: 29,
+		iconNoseColorRed: 42,
+		iconNoseColorGreen: 32,
+		iconNoseColorBlue: 23,
+		iconHairPrimaryColorRed: 255,
+		iconHairPrimaryColorGreen: 255,
+		iconHairPrimaryColorBlue: 255,
+		iconHairSecondaryColorRed: 3,
+		iconHairSecondaryColorGreen: 3,
+		iconHairSecondaryColorBlue: 3
 	},
 	GameRomHorseGold:{
 		horseType:Horse.TYPE_GOLD
 	},
 	GameRomHorseEpona:{
-		horseType:Horse.TYPE_EPONA
+		horseType:Horse.TYPE_EPONA,
+		iconPattern: '06',
 	},
 	GameRomHorse00L:{
 		horseType:Horse.TYPE_GIANT_BLACK,
@@ -248,7 +266,7 @@ Horse.DEFAULT_VALUES={
 	{value:hash('02'), name:'02'},
 	{value:hash('03'), name:'03'},
 	{value:hash('04'), name:'04'},
-	{value:hash('05'), name:'05'},
+	{value:hash('05'), name:'05 (Spotted?)'},
 	{value:hash('06'), name:'06 (Special: Gold)'}
 ];*/
 Horse.MANES=[
