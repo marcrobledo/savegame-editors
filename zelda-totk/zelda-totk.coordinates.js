@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - MapPin class and collectible map raw coordinates (last update 2023-07-13)
+	The legend of Zelda: Tears of the Kingdom savegame editor - MapPin class and collectible map raw coordinates (last update 2023-07-18)
 
 	by Marc Robledo 2023
 	research & information compiled by MacSpazzy, Phil, savage13, Karlos007 and Echocolat
@@ -60,7 +60,7 @@ MapPin.find=function(mapPins, x, y, z){
 	y=MapPin.formatFloat(y);
 	z=MapPin.formatFloat(z);
 	for(var i=0; i<mapPins.length; i++){
-		if(mapPins[i].coordinates.x===x && mapPins[i].coordinates.y===y && mapPins[i].map===MapPin.getMapByZ(z)){
+		if(mapPins[i].coordinates.x===x && mapPins[i].coordinates.y===y && mapPins[i].map===MapPin.getMapByZ(z) && !mapPins[i].isFree()){
 			//console.log(x+', '+y+', '+z);
 			return true;
 		}
