@@ -202,6 +202,26 @@ Pouch.updateItemIcon=function(item){
 	else
 		item._htmlIcon.src=ICON_PATH+item.category+'/'+item.id+'.png';
 };
+Pouch.getItemIcon = function (item) {
+  if (item.id === "Parasail") {
+    var parasailPattern = typeof SavegameEditor.parasailPattern.value === "string" ? SavegameEditor.parasailPattern.value : hashReverse(SavegameEditor.parasailPattern.value);
+    if (parasailPattern !== "Default") {
+      return ICON_PATH + item.category + "/" + item.id + "_" + parasailPattern + ".png";
+    } else {
+      return ICON_PATH + item.category + "/" + item.id + ".png";
+    }
+  } else if (item.category === "armors") {
+    if (item.dyeColor === hash("None")) {
+      return ICON_PATH + item.category + "/" + item.getBaseId() + ".png";
+    } else {
+      return ICON_PATH + item.category + "/dye/" + item.getBaseId() + "_" + hashReverse(item.dyeColor) + ".png";
+    }
+  } else if (item.category === "food" && item.id === "Item_Cook_C_17" && Item.VALID_ELIXIR_EFFECTS.indexOf(hashReverse(item.effect)) !== -1) {
+    return ICON_PATH + item.category + "/Item_Cook_C_17_" + hashReverse(item.effect) + ".png";
+  } else {
+    return ICON_PATH + item.category + "/" + item.id + ".png";
+  }
+},
 Pouch.updateItemRow=function(item){
 	if(!item._htmlRow){
 		//create if item row does not exist

@@ -5,6 +5,7 @@
 */
 
 var currentEditingItem;
+var inputFilter = "";
 
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
@@ -514,40 +515,85 @@ SavegameEditor={
 	},
 
 	editItem:function(item){
+
+    
+    document.body.classList.add("all-disabled");
+
+
 		currentEditingItem=item;
-
 		/* prepare edit item selector */		
-		if(this.selectItem.lastCategory !== item.category){
-			this.selectItem.innerHTML='';
-			var itemList=this.getAvailableItems(item.category);
-			for(var i=0; i<itemList.length; i++){
-				var opt=document.createElement('option');
-				opt.value=itemList[i];
-				opt.innerHTML=_(itemList[i]);
-				this.selectItem.appendChild(opt);
-			}
-
+    this.updateFilterList();
+    if(this.selectItem.lastCategory !== item.category){
 			this.selectItem.lastCategory=item.category;
-		}
-		this.selectItem.value=item.id;
-		if(!this.selectItem.value){
-			var opt=document.createElement('option');
-			opt.value=item.id;
-			opt.innerHTML='Unknown: '+item.id;
-			this.selectItem.appendChild(opt);
-			this.selectItem.value=item.id;
 		}
 
 		item._htmlItemId.style.display='none';
 		item._htmlRow.children[0].appendChild(this.selectItem);
-		this.selectItem.focus();
-		this.selectItem.click();
+		this.selectItem.querySelector(".search-input").setAttribute("placeholder",_(item.id));
+		this.selectItem.querySelector(".search-input").focus();
+		this.selectItem.querySelector(".search-input").click();
 
 		item.lastInputChanged='id';
 		for(var prop in item._htmlInputs){
 			item._htmlInputs[prop].disabled=true;
 		}
 	},
+
+  getName: function(el){
+    if(!this.nameMap){
+      this.nameMap = new Map();
+    }
+    let name = this.nameMap.get(el);
+    if(name){
+      return name;
+    } else {
+      name = _(el);
+      this.nameMap.set(el, name);
+      return name;
+    }
+  },
+
+  updateFilterList: function(){
+    this.searchFilter.innerHTML = "";
+		var itemList=this.getAvailableItems(currentEditingItem.category);
+    var filterList = itemList.filter(el => this.getName(el).toLowerCase().includes(inputFilter));
+    filterList.forEach(el => {
+      var option = document.createElement("div");
+      option.classList.add("option");
+      option.setAttribute("itemId",el);
+      option.addEventListener("click", (event) => {
+        var itemId = event.target.getAttribute("itemid")
+        if(itemId){
+          currentEditingItem.id = itemId;
+          document.body.classList.remove("all-disabled");
+          var endEvent = new Event("editItemEnd");
+          this.searchInput.dispatchEvent(endEvent);
+          this.searchInput.value = "";
+          inputFilter = "";
+        }
+      })
+
+      var pic = new Image();
+      pic.className='item-icon';
+      pic.loading='lazy';
+      pic.onerror=function(){
+        this.src=ICON_PATH+'unknown.png';
+      }
+      if(currentEditingItem instanceof Armor){
+        pic.src = Pouch.getItemIcon(new Armor(Object.assign({...currentEditingItem},{id:el})));
+      } else {
+        pic.src = Pouch.getItemIcon(Object.assign({...currentEditingItem},{id:el}));
+      }
+      option.appendChild(pic);
+
+      var name = document.createElement("span");
+      name.classList.add("item-name");
+      name.innerText = this.getName(el);
+      option.appendChild(name);
+
+      this.searchFilter.appendChild(option);
+    })
+  },
 
 	restoreDurability:function(equipment){
 		if(equipment.restoreDurability()){
@@ -572,7 +618,6 @@ SavegameEditor={
 			Pouch.updateItemIcon(equipment);
 			return true;
 		}
-
 		return false;
 	},
 	restoreDecayAll:function(){
@@ -1078,23 +1123,46 @@ SavegameEditor={
 
 
 
-
+    document.body.addEventListener("click",(event)=>{
+      if(event.target === document.body && document.body.className.includes("all-disabled")){
+        document.body.classList.remove("all-disabled");
+        var endEvent = new Event("editItemEnd");
+        this.searchInput.dispatchEvent(endEvent);
+        this.searchInput.value = "";
+        inputFilter = "";
+      }
+    })
 		
-		this.selectItem=document.createElement('select');
-		this.selectItem.addEventListener('change', function(){
-			//console.log('change');
-			currentEditingItem.id=this.value;
-			Pouch.updateItemIcon(currentEditingItem);
-		}, false);
-		this.selectItem.addEventListener('blur', function(){
-			//console.log('blur');
+		this.selectItem = document.createElement('div');
+    this.selectItem.classList.add("editItem")
+
+    this.searchInput = document.createElement("input");
+    this.searchInput.classList.add("search-input");
+    this.selectItem.appendChild(this.searchInput);
+
+    this.searchFilter = document.createElement("div");
+    this.searchFilter.classList.add("search-filter");
+    this.selectItem.appendChild(this.searchFilter);
+
+    this.searchInput.addEventListener("input",(event)=>{
+      inputFilter = event.target.value;
+      this.updateFilterList();
+      if(this.searchFilter.clientHeight >= this.searchFilter.scrollHeight){
+        this.searchFilter.style.paddingRight = "8px"
+      } else {
+        this.searchFilter.style.paddingRight = "0px"
+      }
+    })
+
+    this.searchInput.addEventListener('editItemEnd', function(){
+      Pouch.updateItemIcon(currentEditingItem);
 			for(var prop in currentEditingItem._htmlInputs){
 				currentEditingItem._htmlInputs[prop].disabled=false;
 			}
 			Pouch.updateItemRow(currentEditingItem);
 			SavegameEditor.fixItemAvailabilityFlag(currentEditingItem);
 			currentEditingItem._htmlItemId.style.display='inline';
-			this.parentElement.removeChild(this);
+			this.parentElement.parentElement.removeChild(this.parentElement);
 
 			currentEditingItem=null;
 		}, false);
