@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-07-12)
+	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-07-29)
 
 	by Marc Robledo 2023
 */
@@ -9,8 +9,7 @@ var currentEditingItem;
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
 	Filename:['progress.sav','caption.sav'],
-	Version:20230712,
-	noDemo:true,
+	Version:20230729,
 
 	/* Settings */
 	Settings:{
