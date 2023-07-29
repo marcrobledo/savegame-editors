@@ -1,5 +1,5 @@
 /*
-	savegame-editor.js v20230701
+	savegame-editor.js v20230729
 	A library that lets you create easily a savegame editor. Made with vanilla JS.
 
 	by Marc Robledo 2016-2023
@@ -206,12 +206,13 @@ window.addEventListener('load', function(){
 		demoMessage.id='demo';
 		demoMessage.innerHTML='Do you want to try it out? <u>Try an example savegame</u>';
 		demoMessage.addEventListener('click', function(){
+			var filename=getSavegameDefaultName();
 			if(typeof window.fetch==='function'){
-				fetch(SavegameEditor.Filename)
+				fetch(filename)
 					.then(res => res.arrayBuffer()) // Gets the response and returns it as a blob
 					.then(ab => {
 						tempFile=new MarcFile(ab.byteLength);
-						tempFile.fileName=SavegameEditor.Filename;
+						tempFile.fileName=filename;
 						tempFile._u8array=new Uint8Array(ab);
 						tempFile._dataView=new DataView(ab);
 						_tempFileLoadFunction();
@@ -221,7 +222,7 @@ window.addEventListener('load', function(){
 					});
 			}else{
 				var oReq=new XMLHttpRequest();
-				oReq.open('GET', SavegameEditor.Filename, true);
+				oReq.open('GET', filename, true);
 				oReq.responseType='arraybuffer';
 
 				oReq.onload=function(oEvent){
@@ -229,7 +230,7 @@ window.addEventListener('load', function(){
 						var ab=oReq.response; //Note: not oReq.responseText
 
 						tempFile=new MarcFile(ab.byteLength);
-						tempFile.fileName=SavegameEditor.Filename;
+						tempFile.fileName=filename;
 						tempFile._u8array=new Uint8Array(ab);
 						tempFile._dataView=new DataView(ab);
 						_tempFileLoadFunction();
