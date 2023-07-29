@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Horse class (last update 2023-07-18)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Horse class (last update 2023-07-29)
 
 	by Marc Robledo 2023
 	horse data thanks to JonJaded, Ozymandias07 and Karlos007
@@ -227,7 +227,33 @@ Horse.DEFAULT_VALUES={
 	},
 	GameRomHorseEpona:{
 		horseType:Horse.TYPE_EPONA,
-		iconPattern: '06',
+		mane: hash('Horse_Link_Mane'),
+		saddles: hash('GameRomHorseSaddle_06') ,
+		reins: hash('GameRomHorseReins_06'),
+		statsStrength: 220,
+		statsSpeed: 3,
+		statsStamina: 4,
+		statsPull: 2,
+		horseType: 4,
+		colorType: 0,
+		footType: 0,
+		iconPattern: '01',
+		iconEyeColor: 'Black',
+		iconPrimaryColorRed: 14,
+		iconPrimaryColorGreen: 5,
+		iconPrimaryColorBlue: 3,
+		iconSecondaryColorRed: 168,
+		iconSecondaryColorGreen: 149,
+		iconSecondaryColorBlue: 104,
+		iconNoseColorRed: 5,
+		iconNoseColorGreen: 4,
+		iconNoseColorBlue: 3,
+		iconHairPrimaryColorRed: 255,
+		iconHairPrimaryColorGreen: 255,
+		iconHairPrimaryColorBlue: 255,
+		iconHairSecondaryColorRed: 197,
+		iconHairSecondaryColorGreen: 179,
+		iconHairSecondaryColorBlue: 136
 	},
 	GameRomHorse00L:{
 		horseType:Horse.TYPE_GIANT_BLACK,
