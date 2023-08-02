@@ -1,4 +1,6 @@
 Locale.add('es', {
+/* Zelda TOTK Savegame Editor - spanish translation */
+
 'Close file':'Cerrar partida',
 'Save changes':'Guardar cambios',
 
@@ -88,7 +90,7 @@ Locale.add('es', {
 'Unlock missing':'Desbloquear restantes',
 
 'Autobuilder':'Generador de esquemas',
-'Design':'Diseño',
+'Blueprint':'Diseño',
 
 'Experience':'Experiencia',
 'Total experience':'Experiencia total',

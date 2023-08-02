@@ -1,4 +1,6 @@
 Locale.add('en', {
+/* Zelda TOTK Savegame Editor - english translation */
+
 Weapon_Sword_001:'Traveler\'s Sword',
 Weapon_Sword_002:'Soldier\'s Broadsword',
 Weapon_Sword_003:'Knight\'s Broadsword',

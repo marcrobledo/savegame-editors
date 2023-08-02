@@ -93,7 +93,7 @@ Locale.add('zh', {
 'Unlock missing':'解锁未发现图鉴',
 
 'Autobuilder':'蓝图',
-'Design':'设计图',
+'Blueprint':'设计图',
 
 'Experience':'履历',
 'Total experience':'综合履历积分',
