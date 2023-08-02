@@ -52,6 +52,7 @@ var TOTKMasterEditor=(function(){
 					hash:hashInt,
 					hashHex:data[0],
 					hashText:data[2],
+					label:data[3],
 					type:data[1],
 					enumValues:options
 				});
@@ -345,7 +346,7 @@ var TOTKMasterEditor=(function(){
 
 			if(regexFilter){
 				filteredHashes=hashes.filter(function(a){
-					return regexFilter.test(a.hashText);
+					return regexFilter.test(a.hashText) || (a.label && regexFilter.test(a.label));
 				});
 			}else{
 				filteredHashes=hashes;

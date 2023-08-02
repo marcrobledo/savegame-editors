@@ -30975,7 +30975,7 @@ b29495c6;UInt;NpcGardenInfo.GrowthElapsedTime
 e99e64b1;UInt;NpcOasisWaterChannel_CookOK
 80673b53;UInt;NpcServeFood.LotteryElapsedTime
 e3c3cc6e;UInt;Unknown
-e573f564;UInt;Unknown
+e573f564;UInt;Unknown;Playtime (in seconds)
 918e65bb;UInt;RandomPlacedItemCreateActor.ElapsedTime
 e8015d59;UInt;RandomPlacedItemCreateActor_SouthernVillage004Shop.ElapsedTime
 7f4e2e3e;UInt;RandomPlacedItemCreateActor_SouthernVillageGamblerShopGift.ElapsedTime
