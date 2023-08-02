@@ -1,4 +1,4 @@
-/* stylesheet for Zelda TOTK Savegame editor (last update 2023-07-08) */
+/* stylesheet for Zelda TOTK Savegame editor (last update 2023-08-02) */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,800');
 
 :root{
@@ -228,6 +228,7 @@ tr:last-child{border-bottom:none}
 .text-right{text-align:right}
 .text-center{text-align:center}
 .text-justify{text-align:justify}
+.text-mute{color:#80a89a;}
 .padding-vertical{padding:20px 0}
 .round{border-radius:3px}
 /* colors */
@@ -242,6 +243,8 @@ tr:last-child{border-bottom:none}
 
 .mb-5{margin-bottom:5px}
 .mb-10{margin-bottom:10px}
+.mb-15{margin-bottom:15px}
+.mb-20{margin-bottom:20px}
 
 
 .btn>span, .octicon{
@@ -251,6 +254,27 @@ tr:last-child{border-bottom:none}
 .octicon.invert{
 	filter: invert(1);
 }
+
+
+
+
+.external-link{
+	color:#f7e2b3;
+}
+.external-link:hover{
+	color:white;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 #the-editor{margin-top:16px}
 

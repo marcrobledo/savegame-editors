@@ -24,6 +24,7 @@
 	<script defer type="text/javascript" src="./zelda-totk.coordinates.js?version=1"></script>
 	<script defer type="text/javascript" src="./zelda-totk.exp-calculator.js?version=1"></script>
 	<script defer type="text/javascript" src="./zelda-totk.master.js?version=1"></script>
+	<script src="https://unpkg.com/fflate@0.8.0"></script>
 	<script type="text/javascript"><!--
 		/* service worker */
 		/*var FORCE_HTTPS=true;
@@ -754,8 +755,8 @@
 
 		<!-- AUTOBUILDER -->
 		<h3 class="border-grey" data-translate="Autobuilder">Autobuilder</h3>
-		<div class="row mb-10">
-			<div>
+		<div class="mb-20">
+			<div class="mb-10">
 				<label><span data-translate="Design">Design</span> <select id="select-autobuilder-index" style="width:auto">
 					<option value="0">01</option>
 					<option value="1">02</option>
@@ -788,9 +789,14 @@
 					<option value="28">29</option>
 					<option value="29">30</option>
 				</select></label>
+				<button class="btn" id="button-autobuilder-preview"><img src="assets/octicons/octicon_eye.svg" loading="lazy" class="octicon" /> <span data-translate="Preview">Preview</span></button>
 				<button class="btn" id="button-autobuilder-export"><img src="assets/octicons/octicon_download.svg" loading="lazy" class="octicon" /> <span data-translate="Export">Export</span></button>
 				<button class="btn" id="button-autobuilder-import"><img src="assets/octicons/octicon_upload.svg" loading="lazy" class="octicon" /> <span data-translate="Import">Import</span></button>
 				<input id="input-file-autobuilder-import" type="file" accept=".cai" class="hide" />
+			</div>
+			<div class="text-mute">
+				<div class="mb-5" style="font-weight:bold">Share your creations via <img src="assets/octicons/octicon_link_external.svg" loading="lazy" class="octicon" /> <a href="https://www.hyruleworks.com/?content=has_blueprint" target="_blank" class="external-link">HyruleWorks</a> - a community database of builds and blueprints</div>
+				<span data-translate="Preview is possible thanks to">Preview is possible thanks to</span> <img src="assets/octicons/octicon_link_external.svg" loading="lazy" class="octicon" /> <a href="http://dev.ssmvc.org:8080/bleh.html" target="_blank" class="external-link">McSpazzy's blueprint viewer/editor</a>
 			</div>
 		</div>
 

@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-07-29)
+	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-08-02)
 
 	by Marc Robledo 2023
 */
@@ -9,7 +9,7 @@ var currentEditingItem;
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
 	Filename:['progress.sav','caption.sav'],
-	Version:20230729,
+	Version:20230802,
 
 	/* Settings */
 	Settings:{
@@ -47,8 +47,7 @@ SavegameEditor={
 		0xd27f8651, 'AutoBuilder.Draft.Content.Index', true, //S32, array length=30
 		0xa56722b6, 'AutoBuilder.Draft.Content.CombinedActorInfo', true, //binary data (size=6688)
 		0xc5bf2815, 'AutoBuilder.Draft.Content.CameraPos', true, //Vector3F
-		0xef74dca7, 'AutoBuilder.Draft.Content.CameraAt', true, //Vector3F
-		0x67f4b46b, 'AutoBuilder.Draft.Content.IsFavorite', true //S32
+		0xef74dca7, 'AutoBuilder.Draft.Content.CameraAt', true //Vector3F
 	],
 
 
@@ -1123,7 +1122,7 @@ SavegameEditor={
 
 
 		/* autobuilder */
-		get('input-file-autobuilder-import').addEventListener('change', function(evt){
+		$('#input-file-autobuilder-import').on('change', function(evt){
 			autobuilderTempFile=new MarcFile(this.files[0], function(){
 				var selectedIndex=parseInt(getValue('select-autobuilder-index'));
 				var autobuilderOld=AutoBuilder.readSingle(selectedIndex);
@@ -1142,18 +1141,38 @@ SavegameEditor={
 			});
 
 		});
-		get('button-autobuilder-export').addEventListener('click', function(evt){
+		$('#button-autobuilder-preview').on('click', function(evt){
+			var selectedIndex=parseInt(getValue('select-autobuilder-index'));
+			var autobuilder=AutoBuilder.readSingle(selectedIndex);
+			if(autobuilder){
+				fflate.gzip(
+					new Uint8Array(autobuilder.combinedActorInfo),
+					{level: 6},
+					function(err, data){
+						if(err){
+							console.error('fflate error: '+err);
+						}else{
+							var charData = data.reduce((value, char) => value + String.fromCharCode(char), "");
+							var base64String = btoa(charData);
+							console.log(base64String);
+							window.open('https://blehditor.ssmvc.org/?view=true&cai='+encodeURIComponent(base64String), '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+						}
+					}
+				);
+			}
+		});
+		$('#button-autobuilder-export').on('click', function(evt){
 			var selectedIndex=parseInt(getValue('select-autobuilder-index'));
 			var autobuilder=AutoBuilder.readSingle(selectedIndex);
 			if(autobuilder)
 				autobuilder.export().save();
 		});
-		get('button-autobuilder-import').addEventListener('click', function(evt){
-			get('input-file-autobuilder-import').click();
+		$('#button-autobuilder-import').on('click', function(evt){
+			$('#input-file-autobuilder-import').trigger('click');
 		});
 
 		/* experience */
-		get('map-pins-edit').addEventListener('click', function(){
+		$('#map-pins-edit').on('click', function(){
 			TOTKMasterEditor.mini(
 				new Struct('mapPins', [
 					{
@@ -1357,6 +1376,32 @@ SavegameEditor={
 
 		/* experience */
 		SavegameEditor.experienceCalculate();
+
+
+
+		/* autobuilder favorites */
+		var autobuilderFavorites=new Variable('AutoBuilder.Draft.Content.IsFavorite', 'BoolArray');
+		var autobuilderIndexes=new Variable('AutoBuilder.Draft.Content.Index', 'IntArray');
+		$('#select-autobuilder-index option').each(function(i, elem){
+			var str;
+			if(i<9)
+				str='0'+(i+1);
+			else
+				str=(i+1).toString();
+
+			var realIndex=autobuilderIndexes.value.indexOf(i);
+			if(realIndex!==-1 && autobuilderFavorites.value[realIndex])
+				str+=' &#9733;';
+
+			$(elem).html(str);
+		});
+
+
+
+
+
+
+
 
 		if(TOTKMasterEditor.isLoaded())
 			TOTKMasterEditor.forceFindOffsets=true;
