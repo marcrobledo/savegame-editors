@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - variable reader/writer (last update 2023-07-11)
+	The legend of Zelda: Tears of the Kingdom savegame editor - variable reader/writer (last update 2023-08-02)
 	by Marc Robledo 2023
 */
 
@@ -229,9 +229,15 @@ Variable.prototype.read=function(){
 		var offset=this.offset + 4;
 		var maxLen=Variable._read(this.offset, 'UInt');
 		this.value=new Array(maxLen);
-		for(var i=0; i<maxLen && i<this.value.length; i++){
-			this.value[i]=Variable._read(offset, typeSingle);
-			offset+=typeSize;
+		if(this.type==='BoolArray'){
+			for(var i=0; i<maxLen && i<this.value.length; i++){
+				this.value[i]=Variable._read(offset, 'BoolArray', i);
+			}
+		}else{
+			for(var i=0; i<maxLen && i<this.value.length; i++){
+				this.value[i]=Variable._read(offset, typeSingle);
+				offset+=typeSize;
+			}
 		}
 	}
 }
@@ -254,9 +260,15 @@ Variable.prototype.save=function(){
 		var typeSize=Variable.getVariableSize(typeSingle);
 		var offset=this.offset + 4;
 		var maxLen=Variable._read(this.offset, 'UInt');
-		for(var i=0; i<maxLen && i<this.value.length; i++){
-			Variable._save(offset, typeSingle, this.value[i]);
-			offset+=typeSize;
+		if(this.type==='BoolArray'){
+			for(var i=0; i<maxLen && i<this.value.length; i++){
+				Variable._save(offset, 'BoolArray', this.value[i], i);
+			}
+		}else{
+			for(var i=0; i<maxLen && i<this.value.length; i++){
+				Variable._save(offset, typeSingle, this.value[i]);
+				offset+=typeSize;
+			}
 		}
 	}
 }
@@ -429,8 +441,11 @@ Variable.prototype.updateHtmlInputValue=function(arrayIndex){
 	}
 }
 
-Variable._read=function(offset, type){
-	if(type==='Bool'){
+Variable._read=function(offset, type, bitIndex){
+	if(type==='BoolArray' && typeof bitIndex==='number'){
+		var byteRead=tempFile.readU8(offset + (Math.floor(bitIndex / 8)));
+		return !!((byteRead >> ((bitIndex % 8))) & 0x01);
+	}else if(type==='Bool'){
 		return tempFile.readU32(offset);
 	}else if(type==='Int'){
 		return tempFile.readS32(offset);
@@ -477,8 +492,17 @@ Variable._read=function(offset, type){
 		throw new Error('Invalid variable type: '+type);
 	}
 }
-Variable._save=function(offset, type, value){
-	if(type==='Bool'){
+Variable._save=function(offset, type, value, bitIndex){
+	if(type==='BoolArray' && typeof bitIndex==='number'){
+		offset+=Math.floor(bitIndex / 8);
+		var fullByte=tempFile.readU8(offset);
+		var bitMask=1 << (bitIndex % 8);
+		if(value)
+			fullByte|=bitMask;
+		else
+			fullByte&=((~bitMask & 0xff) >>> 0);
+		tempFile.writeU8(offset, fullByte);
+	}else if(type==='Bool'){
 		tempFile.writeU32(offset, !!value? 1: 0);
 	}else if(type==='Int'){
 		tempFile.writeS32(offset, value);

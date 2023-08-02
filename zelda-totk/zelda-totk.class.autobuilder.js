@@ -1,16 +1,15 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Autobuilder class (last update 2023-07-08)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Autobuilder class (last update 2023-08-02)
 
 	by Marc Robledo 2023
 	thanks to SuperSpazzy's hash crack
 */
-function AutoBuilder(_index, index, combinedActorInfo, cameraPos, cameraAt, isFavorite){
+function AutoBuilder(_index, index, combinedActorInfo, cameraPos, cameraAt){
 	this._index=_index;
 	this.index=index;
 	this.combinedActorInfo=combinedActorInfo;
 	this.cameraPos=cameraPos;
 	this.cameraAt=cameraAt;
-	this.isFavorite=isFavorite;
 }
 AutoBuilder.prototype.export=function(){
 	var file=new MarcFile(AutoBuilder.CAI_EDITOR_SIZE);
@@ -31,7 +30,6 @@ AutoBuilder.prototype.save=function(){
 	SavegameEditor.writeBinary('AutoBuilder.Draft.Content.CombinedActorInfo', this._index, this.combinedActorInfo);
 	SavegameEditor.writeVector3F('AutoBuilder.Draft.Content.CameraPos', this._index, this.cameraPos);
 	SavegameEditor.writeVector3F('AutoBuilder.Draft.Content.CameraAt', this._index, this.cameraAt);
-	SavegameEditor.writeS32('AutoBuilder.Draft.Content.IsFavorite', this._index, this.isFavorite);
 }
 
 AutoBuilder.CAI_HEADER='CmbAct';
@@ -48,14 +46,13 @@ AutoBuilder.readSingle=function(autobuilderIndex){
 	var combinedActorInfo=SavegameEditor.readBinaryArray('AutoBuilder.Draft.Content.CombinedActorInfo', _index);
 	var cameraPos=SavegameEditor.readVector3FArray('AutoBuilder.Draft.Content.CameraPos', _index);
 	var cameraAt=SavegameEditor.readVector3FArray('AutoBuilder.Draft.Content.CameraAt', _index);
-	var isFavorite=SavegameEditor.readS32Array('AutoBuilder.Draft.Content.IsFavorite', _index);
+
 	return new AutoBuilder(
 		_index,
 		index,
 		combinedActorInfo,
 		cameraPos,
-		cameraAt,
-		isFavorite
+		cameraAt
 	);
 }
 AutoBuilder.fromFile=function(file){
@@ -83,8 +80,7 @@ AutoBuilder.fromFile=function(file){
 			null,
 			caiData,
 			cameraPos,
-			cameraAt,
-			-1
+			cameraAt
 		);
 	}
 	return null;
@@ -92,26 +88,3 @@ AutoBuilder.fromFile=function(file){
 AutoBuilder.getIndexByAutobuilderIndex=function(autobuilderIndex){
 	return SavegameEditor.readU32Array('AutoBuilder.Draft.Content.Index').indexOf(autobuilderIndex);
 }
-
-/*AutoBuilder.readAll=function(){
-	var index=SavegameEditor.readU32Array('AutoBuilder.Draft.Content.Index');
-	var combinedActorInfo=SavegameEditor.readBinaryArray('AutoBuilder.Draft.Content.CombinedActorInfo');
-	var cameraPos=SavegameEditor.readVector3FArray('AutoBuilder.Draft.Content.CameraPos');
-	var cameraAt=SavegameEditor.readVector3FArray('AutoBuilder.Draft.Content.CameraAt');
-	var isFavorite=SavegameEditor.readS32Array('AutoBuilder.Draft.Content.IsFavorite');
-
-	var autobuilders=[];
-	for(var i=0; i<combinedActorInfo.length; i++){
-		autobuilders.push(new AutoBuilder(
-			i,
-			index[i],
-			combinedActorInfo[i],
-			cameraPos[i],
-			cameraAt[i],
-			isFavorite[i]
-		));
-	}
-	return autobuilders.sort(function(a,b){
-		return a.index - b.index;
-	});
-}*/

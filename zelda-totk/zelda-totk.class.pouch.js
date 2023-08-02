@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Pouch class (last update 2023-07-11)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Pouch class (last update 2023-08-02)
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -520,7 +520,7 @@ Pouch.Structs=Object.freeze({
 		{hash:'OwnedHorseList.Saddle', type:'EnumArray', propertyName:'saddles', enumValues:['None','GameRomHorseSaddle_00','GameRomHorseSaddle_01','GameRomHorseSaddle_02','GameRomHorseSaddle_03','GameRomHorseSaddle_04','GameRomHorseSaddle_05','GameRomHorseSaddle_06','GameRomHorseSaddle_07','GameRomHorseSaddle_00L','GameRomHorseSaddle_00S']},
 		{hash:'OwnedHorseList.Rein', type:'EnumArray', propertyName:'reins', enumValues:['None','GameRomHorseReins_00','GameRomHorseReins_01','GameRomHorseReins_02','GameRomHorseReins_03','GameRomHorseReins_04','GameRomHorseReins_05','GameRomHorseReins_06','GameRomHorseReins_00L','GameRomHorseReins_00S']},
 		{hash:'OwnedHorseList.Familiarity', type:'FloatArray', propertyName:'bond'},
-		{hash:'OwnedHorseList.IsFamiliarityChecked', type:'UIntArray', propertyName:'bondChecked'}, //BoolArray but it is indeed a 'BitArray'
+		{hash:'OwnedHorseList.IsFamiliarityChecked', type:'BoolArray', propertyName:'bondChecked'},
 		{hash:'OwnedHorseList.Toughness', type:'IntArray', propertyName:'statsStrength'},
 		{hash:'OwnedHorseList.Speed', type:'IntArray', propertyName:'statsSpeed'},
 		{hash:'OwnedHorseList.ChargeNum', type:'IntArray', propertyName:'statsStamina'},

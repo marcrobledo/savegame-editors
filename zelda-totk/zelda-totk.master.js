@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom - Master editor v20230617
+	The legend of Zelda: Tears of the Kingdom - Master editor v20230802
 	by Marc Robledo 2023	
 	
 	thanks to the immeasurable work, hash crack and research of MacSpazzy, MrCheeze and Karlos007
@@ -61,6 +61,17 @@ var TOTKMasterEditor=(function(){
 	};
 
 
+	var _setBooleanBit=function(){
+		var offset=this.offset;
+		offset+=Math.floor(this.arrayIndex / 8);
+		var fullByte=tempFile.readU8(offset);
+		var bitMask=1 << (this.arrayIndex % 8);
+		if(this.checked)
+			fullByte|=bitMask;
+		else
+			fullByte&=((~bitMask & 0xff) >>> 0);
+		tempFile.writeU8(offset, fullByte);
+	}
 	var _setBoolean=function(){
 		tempFile.writeU32(this.offset, this.checked? 1: 0);
 	}
@@ -109,7 +120,9 @@ var TOTKMasterEditor=(function(){
 			if(/Array$/.test(hashType)){
 				if(typeof arrayIndex==='number'){
 					offset+=0x04;
-					if(/Vector2/.test(hashType)){
+					if(/Bool/.test(hashType)){
+						//if boolArray, calculate bit offset during checkbox change
+					}else if(/Vector2/.test(hashType)){
 						offset+=arrayIndex*0x08;
 					}else if(/Vector3/.test(hashType)){
 						offset+=arrayIndex*0x0c;
@@ -145,9 +158,17 @@ var TOTKMasterEditor=(function(){
 			var field=checkbox(fieldId);
 			field.offset=offset;
 			field.arrayIndex=arrayIndex;
-			field.addEventListener('change', _setBoolean);
-			if(tempFile.readU32(offset))
-				field.checked=true;
+			if(typeof arrayIndex==='number'){
+				field.addEventListener('change', _setBooleanBit);
+				
+				var byteRead=tempFile.readU8(offset + (Math.floor(arrayIndex / 8)));
+				if((byteRead >> ((arrayIndex % 8))) & 0x01)
+					field.checked=true;
+			}else{
+				field.addEventListener('change', _setBoolean);
+				if(tempFile.readU32(offset))
+					field.checked=true;
+			}
 
 			tr.children[1].appendChild(field);
 		}else if(hashType==='Int' || hashType==='UInt'){
