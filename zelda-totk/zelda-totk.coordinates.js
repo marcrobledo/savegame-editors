@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - MapPin class and collectible map raw coordinates (last update 2023-07-18)
+	The legend of Zelda: Tears of the Kingdom savegame editor - MapPin class and collectible map raw coordinates (last update 2023-08-04)
 
 	by Marc Robledo 2023
 	research & information compiled by MacSpazzy, Phil, savage13, Karlos007 and Echocolat
@@ -1620,13 +1620,13 @@ LOCATIONS:[
 	[3148.68, 338.64, -1691.45], //IsVisitLocation.TamurulHatago_02 (South Akkala Stable)
 	[-1693.16, 116.16, 1663.96], //IsVisitLocation.HorseStableBranchOffice_Gerudo (Mini Stable)
 	[3744.3, 198.19, -1679.45], //IsVisitLocation.UMiiVillage_JobField (Tarrey Town Race)
-	[2895.14, 116.80, 3409.98], //Revive_Restaurant (Restaurant)
 	//[-248.7, 124.51, -52.31], //BuildingMaterialsTutorial_Give (Mini Stable) - breaks Incomplete Stable quest
 	[-2995.23, 105.00, 2325.03], //IsVisitLocation.RentalZarashiShop_GerudoDesert (Sand-Seal Rental Shop)
 	[3995, 235.22, -1637], //IsVisitLocation.UMiiVillage (Break-a-Part Shop)
 	[-251.26, 126.18, -155.25], //TwnObj_DemonStatue_B_01_GetUp (Bargainer Statue)
-	[2969.92, 135.36, 3377.71], //Revive_TreasureShop (Lucky Treasure Shop)
-	[2944.61, 134.65, 3437.03], //Revive_Inn (Inn)
+	//[2895.14, 116.80, 3409.98], //Revive_Restaurant (Restaurant) - breaks Lurelin Village recovery quest
+	//[2969.92, 135.36, 3377.71], //Revive_TreasureShop (Lucky Treasure Shop) - breaks Lurelin Village recovery quest
+	//[2944.61, 134.65, 3437.03], //Revive_Inn (Inn) - breaks Lurelin Village recovery quest
 	[357.17, 2410.96, 1651.34], //IsAccessed_BatteryExchangeObj_FirstSkyIsland (Crystal Refinery)
 	[-219.2, 143.64, -191.85], //IsAccessed_BatteryExchangeObj_BaseCamp (Crystal Refinery)
 	[470.04, 1476.32, 1685.7], //HaveTalked.Npc_Zonau_Golem_Servant_FirstIsland_21 (Forge Construct)

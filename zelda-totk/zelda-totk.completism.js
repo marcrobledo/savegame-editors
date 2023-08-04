@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Completism (last update 2023-07-12)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Completism (last update 2023-08-04)
 
 	by Marc Robledo 2023
 	research & information compiled by MacSpazzy, Phil, savage13, Karlos007 and Echocolat
@@ -888,13 +888,13 @@ var CompletismHashes={
 		0x4deb0a7e, //IsVisitLocation.TamurulHatago_02 (South Akkala Stable)
 		0xdca20005, //IsVisitLocation.HorseStableBranchOffice_Gerudo (Mini Stable)
 		0xeab58fa4, //IsVisitLocation.UMiiVillage_JobField (Tarrey Town Race)
-		0x1a95a2c3, //Revive_Restaurant (Restaurant)
 		//0x646fdc72, //BuildingMaterialsTutorial_Give (Mini Stable) - breaks Incomplete Stable quest
 		0x951ae6d0, //IsVisitLocation.RentalZarashiShop_GerudoDesert (Sand-Seal Rental Shop)
 		0xa587ce03, //IsVisitLocation.UMiiVillage (Break-a-Part Shop)
 		0xc14ae332, //TwnObj_DemonStatue_B_01_GetUp (Bargainer Statue)
-		0x5ad5be95, //Revive_TreasureShop (Lucky Treasure Shop)
-		0xc1d11035, //Revive_Inn (Inn)
+		//0x1a95a2c3, //Revive_Restaurant (Restaurant) - breaks Lurelin Village recovery quest
+		//0x5ad5be95, //Revive_TreasureShop (Lucky Treasure Shop) - breaks Lurelin Village recovery quest
+		//0xc1d11035, //Revive_Inn (Inn) - breaks Lurelin Village recovery quest
 		0xae38be8e, //IsAccessed_BatteryExchangeObj_FirstSkyIsland (Crystal Refinery)
 		0x7669aaf8, //IsAccessed_BatteryExchangeObj_BaseCamp (Crystal Refinery)
 		0x271d7767, //HaveTalked.Npc_Zonau_Golem_Servant_FirstIsland_21 (Forge Construct)
