@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-08-02)
+	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-08-10)
 
 	by Marc Robledo 2023
 */
@@ -9,7 +9,7 @@ var currentEditingItem;
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
 	Filename:['progress.sav','caption.sav'],
-	Version:20230802,
+	Version:20230810,
 
 	/* Settings */
 	Settings:{
@@ -623,8 +623,8 @@ SavegameEditor={
 
 	clearAllMapPins:function(onlyIcon){
 		var count=0;
-		for(var i=0; i<this.currentItems.mapPins.length; i++){
-			if(this.currentItems.mapPins[i].clear(onlyIcon))
+		for(var i=0; i<this.mapPins.length; i++){
+			if(this.mapPins[i].clear(onlyIcon))
 				count++;
 		}
 
@@ -633,13 +633,13 @@ SavegameEditor={
 		return count;
 	},
 	addMapPin:function(icon, x, y, z){
-		for(var i=0; i<this.currentItems.mapPins.length; i++){
-			if(this.currentItems.mapPins[i].isFree() && !MapPin.find(this.currentItems.mapPins, x, y, z)){
-				this.currentItems.mapPins[i].icon=icon;
-				this.currentItems.mapPins[i].coordinates={x:MapPin.formatFloat(x), y:MapPin.formatFloat(y)};
+		for(var i=0; i<this.mapPins.length; i++){
+			if(this.mapPins[i].isFree() && !MapPin.find(this.mapPins, x, y, z)){
+				this.mapPins[i].icon=icon;
+				this.mapPins[i].coordinates={x:MapPin.formatFloat(x), y:MapPin.formatFloat(y)};
 				//console.log(z);
 				//console.log(hashReverse(MapPin.getMapByZ(z)));
-				this.currentItems.mapPins[i].map=MapPin.getMapByZ(z);
+				this.mapPins[i].map=MapPin.getMapByZ(z);
 				return true;
 			}
 		}
@@ -772,7 +772,7 @@ SavegameEditor={
 		getField(container+'-counter').appendChild(progressBar);
 	},
 	refreshCounterMapPins:function(){
-		SavegameEditor._refreshCounter('pin', MapPin.count(SavegameEditor.currentItems.mapPins), MapPin.MAX);
+		SavegameEditor._refreshCounter('pin', MapPin.count(SavegameEditor.mapPins), MapPin.MAX);
 	},
 	refreshCounterTowersFound:function(){
 		this._refreshCounter('towers-found', Completism.countTowersFound(), CompletismHashes.TOWERS_FOUND.length);
@@ -1103,21 +1103,6 @@ SavegameEditor={
 		setNumericRange('pouch-size-swords', 9, 20);
 		setNumericRange('pouch-size-bows', 5, 14);
 		setNumericRange('pouch-size-shields', 4, 20);
-		getField('pouch-size-swords').addEventListener('change', function(evt){
-			var newVal=parseInt(this.value);
-			if(!isNaN(newVal) && newVal>=9)
-				SavegameEditor.currentItems.pouchSword=newVal;
-		});
-		getField('pouch-size-bows').addEventListener('change', function(evt){
-			var newVal=parseInt(this.value);
-			if(!isNaN(newVal) && newVal>=5)
-				SavegameEditor.currentItems.pouchBow=newVal;
-		});
-		getField('pouch-size-shields').addEventListener('change', function(evt){
-			var newVal=parseInt(this.value);
-			if(!isNaN(newVal) && newVal>=4)
-				SavegameEditor.currentItems.pouchShield=newVal;
-		});
 
 
 
@@ -1199,7 +1184,10 @@ SavegameEditor={
 				]),
 				null,
 				_('Map pins editor'),
-				SavegameEditor.refreshCounterMapPins
+				function(){
+					SavegameEditor.mapPins=MapPin.readAll();
+					SavegameEditor.refreshCounterMapPins();
+				}
 			);
 		});
 		get('pristine-weapons-edit').addEventListener('click', function(){
@@ -1355,10 +1343,9 @@ SavegameEditor={
 
 
 
-		/* read items */
-		this.currentItems={
-			'mapPins':MapPin.readAll()
-		};
+		/* map pins */
+		this.mapPins=MapPin.readAll();
+		this.refreshCounterMapPins();
 
 
 
@@ -1367,9 +1354,6 @@ SavegameEditor={
 		setValue('pos-x', playerPos.x);
 		setValue('pos-y', -playerPos.z);
 		setValue('pos-z', playerPos.y-105);
-
-		/* map pins */
-		this.refreshCounterMapPins();
 
 		/* completionism */
 		this.refreshCounterAll();
@@ -1448,9 +1432,9 @@ SavegameEditor={
 		};
 
 
-		/* MAP PINS */
-		for(var i=0; i<SavegameEditor.currentItems.mapPins.length; i++){
-			SavegameEditor.currentItems.mapPins[i].save();
+		/* map pins */
+		for(var i=0; i<SavegameEditor.mapPins.length; i++){
+			SavegameEditor.mapPins[i].save();
 		}
 	}
 }
