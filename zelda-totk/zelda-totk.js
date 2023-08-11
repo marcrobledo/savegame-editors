@@ -1181,6 +1181,7 @@ SavegameEditor={
           break;
         case 38:
           // up
+          event.preventDefault();
           if(activeEl){
             if(activeEl.previousElementSibling){
               activeEl.classList.remove("active");
@@ -1190,11 +1191,15 @@ SavegameEditor={
               this.searchFilter.querySelector(".option:last-child").classList.add("active");
             }
           } else {
-            this.searchFilter.querySelector(".option:first-child").classList.add("active");
+            var firstEl = this.searchFilter.querySelector(".option:first-child")
+            if(firstEl){
+              firstEl.classList.add("active");
+            }
           }
           break;
         case 40:
           // down
+          event.preventDefault();
           if(activeEl){
             if(activeEl.nextElementSibling){
               activeEl.classList.remove("active");
@@ -1204,7 +1209,10 @@ SavegameEditor={
               this.searchFilter.querySelector(".option:first-child").classList.add("active");
             }
           } else {
-            this.searchFilter.querySelector(".option:first-child").classList.add("active");
+            var firstEl = this.searchFilter.querySelector(".option:first-child")
+            if(firstEl){
+              firstEl.classList.add("active");
+            }
           }
           break;
         }
