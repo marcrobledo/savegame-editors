@@ -234,7 +234,7 @@ tr:last-child{border-bottom:none}
 .border-white{border-color:white}
 .border-light-gray{border-color:#d8d8d8}
 .border-mid-gray{border-color:#909090}
-.border-dark-gray{border-color:#48484}
+.border-dark-gray{border-color:#484848}
 .border-red{border-color:#e74c3c}
 .border-orange{border-color:#f39c12}
 .border-blue{border-color:#3498db}
@@ -930,12 +930,13 @@ label.clickable:has(> input[type=radio]:checked){
 .tooltip.position-horizontal.align-center .arrow{top:50%;margin-top:-5px}
 .tooltip.position-horizontal.align-bottom .arrow{bottom:3px}
 
-body.all-disabled *{
+.disable-pointer{
   pointer-events: none;
 }
 .editItem{
   display: inline-block;
   position: relative;
+  z-index: 90;
 }
 .editItem,
 .editItem .search-input,
@@ -946,19 +947,18 @@ body.all-disabled *{
 .editItem .search-filter{
   padding: 8px 0 8px 8px;
   width: 225px;
-  max-height: 400px;
+  max-height: 412px;
   min-height: 62px;
   position: absolute;
   top: 46px;
   left: 0px;
-  backdrop-filter: blur(24px);
-  z-index: 90;
-  background-color: rgba(100, 100, 100, 0.15);
+  background-color: #121e1a;
   border-radius: 4px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
   overflow: auto;
   box-sizing: border-box;
 }
+
 .editItem .search-filter:empty::before{
   content: "no data";
   display: block;
@@ -970,6 +970,7 @@ body.all-disabled *{
   font-size: 16px;
   font-style: italic;
 }
+
 .editItem .search-filter::-webkit-scrollbar{
   width:8px;
   height:8px;
@@ -998,7 +999,10 @@ body.all-disabled *{
 .editItem .search-filter .option:last-child{
   margin-bottom: 0;
 }
-.editItem .search-filter .option:hover{
+/* .editItem .search-filter .option:hover{
+  background-color: rgba(255, 255, 255, .15);
+} */
+.editItem .search-filter .option.active{
   background-color: rgba(255, 255, 255, .15);
 }
 .editItem .search-filter .option .item-icon{
@@ -1039,4 +1043,19 @@ body.all-disabled *{
 }
 .editItem .search-input:hover{
   border: solid 1px #666666;
+}
+.edit-item-mask{
+  position: fixed;
+  z-index: 80;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+  opacity: 0;
+  pointer-events: none;
+}
+.edit-item-mask.show-mask{
+  pointer-events: auto;
+  opacity: 1;
 }

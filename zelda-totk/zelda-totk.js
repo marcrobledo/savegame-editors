@@ -516,9 +516,9 @@ SavegameEditor={
 
 	editItem:function(item){
 
-    
-    document.body.classList.add("all-disabled");
-
+    document.querySelector("#header").classList.add("disable-pointer");
+    document.querySelector(".edit-item-mask").classList.add("show-mask");
+    this.searchFilter.style.paddingRight = "0px"
 
 		currentEditingItem=item;
 		/* prepare edit item selector */		
@@ -565,7 +565,10 @@ SavegameEditor={
         var itemId = event.target.getAttribute("itemid")
         if(itemId){
           currentEditingItem.id = itemId;
-          document.body.classList.remove("all-disabled");
+          document.querySelector(".edit-item-mask").classList.remove("show-mask");
+          document.querySelectorAll(".disable-pointer").forEach(el => {
+            el.classList.remove("disable-pointer");
+          })
           var endEvent = new Event("editItemEnd");
           this.searchInput.dispatchEvent(endEvent);
           this.searchInput.value = "";
@@ -1122,17 +1125,24 @@ SavegameEditor={
 
 
 
-
-    document.body.addEventListener("click",(event)=>{
-      if(event.target === document.body && document.body.className.includes("all-disabled")){
-        document.body.classList.remove("all-disabled");
-        var endEvent = new Event("editItemEnd");
-        this.searchInput.dispatchEvent(endEvent);
-        this.searchInput.value = "";
-        inputFilter = "";
-      }
-    })
 		
+    var editMask = document.createElement("div");
+    editMask.classList.add("edit-item-mask");
+    document.body.appendChild(editMask);
+
+    editMask.addEventListener("click", (event) => {
+      var endEvent = new Event("editItemEnd");
+      this.searchInput.dispatchEvent(endEvent);
+      this.searchInput.value = "";
+      inputFilter = "";
+      document.querySelectorAll(".disable-pointer").forEach(el => {
+        el.classList.remove("disable-pointer");
+      })
+      editMask.classList.remove("show-mask");
+    })
+
+
+
 		this.selectItem = document.createElement('div');
     this.selectItem.classList.add("editItem")
 
@@ -1143,6 +1153,84 @@ SavegameEditor={
     this.searchFilter = document.createElement("div");
     this.searchFilter.classList.add("search-filter");
     this.selectItem.appendChild(this.searchFilter);
+    var keyList = new Set([13,27,38,40])
+    this.selectItem.addEventListener("mousemove", (event)=>{
+      if(event.target.className.includes("option") && !event.target.className.includes("active")){
+        var activeEl = this.selectItem.querySelector(".active")
+        if(activeEl){
+          activeEl.classList.remove("active");
+        }
+        event.target.classList.add("active");
+      }
+    })
+    this.selectItem.addEventListener("keydown", (event)=>{
+      var activeEl = this.searchFilter.querySelector(".active");
+      if(keyList.has(event.keyCode)){
+        switch(event.keyCode){
+        case 13:
+          // enter
+          if(activeEl){
+            activeEl.click();
+          } else {
+            document.querySelector(".edit-item-mask").click();
+          }
+          break;
+        case 27:
+          // esc
+          document.querySelector(".edit-item-mask").click();
+          break;
+        case 38:
+          // up
+          if(activeEl){
+            if(activeEl.previousElementSibling){
+              activeEl.classList.remove("active");
+              activeEl.previousElementSibling.classList.add("active");
+            } else {
+              activeEl.classList.remove("active");
+              this.searchFilter.querySelector(".option:last-child").classList.add("active");
+            }
+          } else {
+            this.searchFilter.querySelector(".option:first-child").classList.add("active");
+          }
+          break;
+        case 40:
+          // down
+          if(activeEl){
+            if(activeEl.nextElementSibling){
+              activeEl.classList.remove("active");
+              activeEl.nextElementSibling.classList.add("active");
+            } else {
+              activeEl.classList.remove("active");
+              this.searchFilter.querySelector(".option:first-child").classList.add("active");
+            }
+          } else {
+            this.searchFilter.querySelector(".option:first-child").classList.add("active");
+          }
+          break;
+        }
+        activeEl = this.searchFilter.querySelector(".active");
+        // scrollOffset
+        if(activeEl){
+          var optionOffsetTop = activeEl.offsetTop;
+          var optionHeight = activeEl.offsetHeight;
+          var optionOffsetBottom = optionOffsetTop + optionHeight;
+          var filterScrollTop = this.searchFilter.scrollTop;
+          var filterHeight = this.searchFilter.offsetHeight
+          var filterScrollBottom = filterScrollTop + filterHeight;
+          if(optionOffsetBottom > filterScrollBottom){
+            this.searchFilter.scrollTo({
+              top: optionOffsetBottom - filterHeight + 8,
+              behavior: event.repeat ? "instant" : "smooth",
+            })
+          } else if(optionOffsetTop < filterScrollTop){
+            this.searchFilter.scrollTo({
+              top: optionOffsetTop - 8,
+              behavior: event.repeat ? "instant" : "smooth",
+            })
+          }
+        }
+      }
+    })
 
     this.searchInput.addEventListener("input",(event)=>{
       inputFilter = event.target.value;
