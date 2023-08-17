@@ -1,8 +1,9 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Pouch class (last update 2023-08-02)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Pouch class (last update 2023-08-17)
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
+	filterable item dropdown by xiyuesaves
 */
 
 
@@ -184,44 +185,29 @@ Pouch._onChangeInputTextFix=function(evt){
 
 
 const ICON_PATH='./assets/item_icons/';
-Pouch.updateItemIcon=function(item){
-	if(item.id==='Parasail'){
-		var parasailPattern=typeof SavegameEditor.parasailPattern.value==='string'? SavegameEditor.parasailPattern.value : hashReverse(SavegameEditor.parasailPattern.value);
-		if(parasailPattern!=='Default'){
-			item._htmlIcon.src=ICON_PATH+item.category+'/'+item.id+'_'+parasailPattern+'.png';
-		}else{
-			item._htmlIcon.src=ICON_PATH+item.category+'/'+item.id+'.png';
-		}
-	}else if(item.category==='armors')
-		if(item.dyeColor===hash('None'))
-			item._htmlIcon.src=ICON_PATH+item.category+'/'+item.getBaseId()+'.png';
-		else
-			item._htmlIcon.src=ICON_PATH+item.category+'/dye/'+item.getBaseId()+'_'+hashReverse(item.dyeColor)+'.png';
-	else if(item.category==='food' && item.id==='Item_Cook_C_17' && Item.VALID_ELIXIR_EFFECTS.indexOf(hashReverse(item.effect))!==-1)
-		item._htmlIcon.src=ICON_PATH+item.category+'/Item_Cook_C_17_'+hashReverse(item.effect)+'.png';
-	else
-		item._htmlIcon.src=ICON_PATH+item.category+'/'+item.id+'.png';
-};
 Pouch.getItemIcon = function (item) {
-  if (item.id === "Parasail") {
-    var parasailPattern = typeof SavegameEditor.parasailPattern.value === "string" ? SavegameEditor.parasailPattern.value : hashReverse(SavegameEditor.parasailPattern.value);
-    if (parasailPattern !== "Default") {
-      return ICON_PATH + item.category + "/" + item.id + "_" + parasailPattern + ".png";
-    } else {
-      return ICON_PATH + item.category + "/" + item.id + ".png";
-    }
-  } else if (item.category === "armors") {
-    if (item.dyeColor === hash("None")) {
-      return ICON_PATH + item.category + "/" + item.getBaseId() + ".png";
-    } else {
-      return ICON_PATH + item.category + "/dye/" + item.getBaseId() + "_" + hashReverse(item.dyeColor) + ".png";
-    }
-  } else if (item.category === "food" && item.id === "Item_Cook_C_17" && Item.VALID_ELIXIR_EFFECTS.indexOf(hashReverse(item.effect)) !== -1) {
-    return ICON_PATH + item.category + "/Item_Cook_C_17_" + hashReverse(item.effect) + ".png";
-  } else {
-    return ICON_PATH + item.category + "/" + item.id + ".png";
-  }
-},
+	if (item.id === 'Parasail') {
+		var parasailPattern = typeof SavegameEditor.parasailPattern.value === 'string' ? SavegameEditor.parasailPattern.value : hashReverse(SavegameEditor.parasailPattern.value);
+		if (parasailPattern !== 'Default') {
+			return ICON_PATH + item.category + '/' + item.id + '_' + parasailPattern + '.png';
+		} else {
+			return ICON_PATH + item.category + '/' + item.id + '.png';
+		}
+	} else if (item.category === 'armors') {
+		if (item.dyeColor === hash('None')) {
+			return ICON_PATH + item.category + '/' + item.getBaseId() + '.png';
+		} else {
+			return ICON_PATH + item.category + '/dye/' + item.getBaseId() + '_' + hashReverse(item.dyeColor) + '.png';
+		}
+	} else if (item.category === 'food' && item.id === 'Item_Cook_C_17' && Item.VALID_ELIXIR_EFFECTS.indexOf(hashReverse(item.effect)) !== -1) {
+		return ICON_PATH + item.category + '/Item_Cook_C_17_' + hashReverse(item.effect) + '.png';
+	} else {
+		return ICON_PATH + item.category + '/' + item.id + '.png';
+	}
+};
+Pouch.updateItemIcon=function(item){
+	item._htmlIcon.src=Pouch.getItemIcon(item);
+};
 Pouch.updateItemRow=function(item){
 	if(!item._htmlRow){
 		//create if item row does not exist
