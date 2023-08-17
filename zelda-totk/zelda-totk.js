@@ -5,6 +5,7 @@
 */
 
 var currentEditingItem;
+var inputFilter = "";
 
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
@@ -512,40 +513,88 @@ SavegameEditor={
 	},
 
 	editItem:function(item){
+
+    document.querySelector("#header").classList.add("disable-pointer");
+    document.querySelector(".edit-item-mask").classList.add("show-mask");
+    this.searchFilter.style.paddingRight = "0px"
+
 		currentEditingItem=item;
-
 		/* prepare edit item selector */		
-		if(this.selectItem.lastCategory !== item.category){
-			this.selectItem.innerHTML='';
-			var itemList=this.getAvailableItems(item.category);
-			for(var i=0; i<itemList.length; i++){
-				var opt=document.createElement('option');
-				opt.value=itemList[i];
-				opt.innerHTML=_(itemList[i]);
-				this.selectItem.appendChild(opt);
-			}
-
+    this.updateFilterList();
+    if(this.selectItem.lastCategory !== item.category){
 			this.selectItem.lastCategory=item.category;
-		}
-		this.selectItem.value=item.id;
-		if(!this.selectItem.value){
-			var opt=document.createElement('option');
-			opt.value=item.id;
-			opt.innerHTML='Unknown: '+item.id;
-			this.selectItem.appendChild(opt);
-			this.selectItem.value=item.id;
 		}
 
 		item._htmlItemId.style.display='none';
 		item._htmlRow.children[0].appendChild(this.selectItem);
-		this.selectItem.focus();
-		this.selectItem.click();
+		this.selectItem.querySelector(".search-input").setAttribute("placeholder",_(item.id));
+		this.selectItem.querySelector(".search-input").focus();
+		this.selectItem.querySelector(".search-input").click();
 
 		item.lastInputChanged='id';
 		for(var prop in item._htmlInputs){
 			item._htmlInputs[prop].disabled=true;
 		}
 	},
+
+  getName: function(el){
+    if(!this.nameMap){
+      this.nameMap = new Map();
+    }
+    let name = this.nameMap.get(el);
+    if(name){
+      return name;
+    } else {
+      name = _(el);
+      this.nameMap.set(el, name);
+      return name;
+    }
+  },
+
+  updateFilterList: function(){
+    this.searchFilter.innerHTML = "";
+		var itemList=this.getAvailableItems(currentEditingItem.category);
+    var filterList = itemList.filter(el => this.getName(el).toLowerCase().includes(inputFilter));
+    filterList.forEach(el => {
+      var option = document.createElement("div");
+      option.classList.add("option");
+      option.setAttribute("itemId",el);
+      option.addEventListener("click", (event) => {
+        var itemId = event.target.getAttribute("itemid")
+        if(itemId){
+          currentEditingItem.id = itemId;
+          document.querySelector(".edit-item-mask").classList.remove("show-mask");
+          document.querySelectorAll(".disable-pointer").forEach(el => {
+            el.classList.remove("disable-pointer");
+          })
+          var endEvent = new Event("editItemEnd");
+          this.searchInput.dispatchEvent(endEvent);
+          this.searchInput.value = "";
+          inputFilter = "";
+        }
+      })
+
+      var pic = new Image();
+      pic.className='item-icon';
+      pic.loading='lazy';
+      pic.onerror=function(){
+        this.src=ICON_PATH+'unknown.png';
+      }
+      if(currentEditingItem instanceof Armor){
+        pic.src = Pouch.getItemIcon(new Armor(Object.assign({...currentEditingItem},{id:el})));
+      } else {
+        pic.src = Pouch.getItemIcon(Object.assign({...currentEditingItem},{id:el}));
+      }
+      option.appendChild(pic);
+
+      var name = document.createElement("span");
+      name.classList.add("item-name");
+      name.innerText = this.getName(el);
+      option.appendChild(name);
+
+      this.searchFilter.appendChild(option);
+    })
+  },
 
 	restoreDurability:function(equipment){
 		if(equipment.restoreDurability()){
@@ -570,7 +619,6 @@ SavegameEditor={
 			Pouch.updateItemIcon(equipment);
 			return true;
 		}
-
 		return false;
 	},
 	restoreDecayAll:function(){
@@ -1075,24 +1123,140 @@ SavegameEditor={
 
 
 
-
-
 		
-		this.selectItem=document.createElement('select');
-		this.selectItem.addEventListener('change', function(){
-			//console.log('change');
-			currentEditingItem.id=this.value;
-			Pouch.updateItemIcon(currentEditingItem);
-		}, false);
-		this.selectItem.addEventListener('blur', function(){
-			//console.log('blur');
+    var editMask = document.createElement("div");
+    editMask.classList.add("edit-item-mask");
+    document.body.appendChild(editMask);
+
+    editMask.addEventListener("click", (event) => {
+      var endEvent = new Event("editItemEnd");
+      this.searchInput.dispatchEvent(endEvent);
+      this.searchInput.value = "";
+      inputFilter = "";
+      document.querySelectorAll(".disable-pointer").forEach(el => {
+        el.classList.remove("disable-pointer");
+      })
+      editMask.classList.remove("show-mask");
+    })
+
+
+
+		this.selectItem = document.createElement('div');
+    this.selectItem.classList.add("editItem")
+
+    this.searchInput = document.createElement("input");
+    this.searchInput.classList.add("search-input");
+    this.selectItem.appendChild(this.searchInput);
+
+    this.searchFilter = document.createElement("div");
+    this.searchFilter.classList.add("search-filter");
+    this.selectItem.appendChild(this.searchFilter);
+    var keyList = new Set([13,27,38,40])
+    this.selectItem.addEventListener("mousemove", (event)=>{
+      if(event.target.className.includes("option") && !event.target.className.includes("active")){
+        var activeEl = this.selectItem.querySelector(".active")
+        if(activeEl){
+          activeEl.classList.remove("active");
+        }
+        event.target.classList.add("active");
+      }
+    })
+    this.selectItem.addEventListener("keydown", (event)=>{
+      var activeEl = this.searchFilter.querySelector(".active");
+      if(keyList.has(event.keyCode)){
+        switch(event.keyCode){
+        case 13:
+          // enter
+          if(activeEl){
+            activeEl.click();
+          } else {
+            document.querySelector(".edit-item-mask").click();
+          }
+          break;
+        case 27:
+          // esc
+          document.querySelector(".edit-item-mask").click();
+          break;
+        case 38:
+          // up
+          event.preventDefault();
+          if(activeEl){
+            if(activeEl.previousElementSibling){
+              activeEl.classList.remove("active");
+              activeEl.previousElementSibling.classList.add("active");
+            } else {
+              activeEl.classList.remove("active");
+              this.searchFilter.querySelector(".option:last-child").classList.add("active");
+            }
+          } else {
+            var firstEl = this.searchFilter.querySelector(".option:first-child")
+            if(firstEl){
+              firstEl.classList.add("active");
+            }
+          }
+          break;
+        case 40:
+          // down
+          event.preventDefault();
+          if(activeEl){
+            if(activeEl.nextElementSibling){
+              activeEl.classList.remove("active");
+              activeEl.nextElementSibling.classList.add("active");
+            } else {
+              activeEl.classList.remove("active");
+              this.searchFilter.querySelector(".option:first-child").classList.add("active");
+            }
+          } else {
+            var firstEl = this.searchFilter.querySelector(".option:first-child")
+            if(firstEl){
+              firstEl.classList.add("active");
+            }
+          }
+          break;
+        }
+        activeEl = this.searchFilter.querySelector(".active");
+        // scrollOffset
+        if(activeEl){
+          var optionOffsetTop = activeEl.offsetTop;
+          var optionHeight = activeEl.offsetHeight;
+          var optionOffsetBottom = optionOffsetTop + optionHeight;
+          var filterScrollTop = this.searchFilter.scrollTop;
+          var filterHeight = this.searchFilter.offsetHeight
+          var filterScrollBottom = filterScrollTop + filterHeight;
+          if(optionOffsetBottom > filterScrollBottom){
+            this.searchFilter.scrollTo({
+              top: optionOffsetBottom - filterHeight + 8,
+              behavior: event.repeat ? "instant" : "smooth",
+            })
+          } else if(optionOffsetTop < filterScrollTop){
+            this.searchFilter.scrollTo({
+              top: optionOffsetTop - 8,
+              behavior: event.repeat ? "instant" : "smooth",
+            })
+          }
+        }
+      }
+    })
+
+    this.searchInput.addEventListener("input",(event)=>{
+      inputFilter = event.target.value;
+      this.updateFilterList();
+      if(this.searchFilter.clientHeight >= this.searchFilter.scrollHeight){
+        this.searchFilter.style.paddingRight = "8px"
+      } else {
+        this.searchFilter.style.paddingRight = "0px"
+      }
+    })
+
+    this.searchInput.addEventListener('editItemEnd', function(){
+      Pouch.updateItemIcon(currentEditingItem);
 			for(var prop in currentEditingItem._htmlInputs){
 				currentEditingItem._htmlInputs[prop].disabled=false;
 			}
 			Pouch.updateItemRow(currentEditingItem);
 			SavegameEditor.fixItemAvailabilityFlag(currentEditingItem);
 			currentEditingItem._htmlItemId.style.display='inline';
-			this.parentElement.removeChild(this);
+			this.parentElement.parentElement.removeChild(this.parentElement);
 
 			currentEditingItem=null;
 		}, false);
