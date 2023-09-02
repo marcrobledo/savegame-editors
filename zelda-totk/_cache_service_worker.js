@@ -30,35 +30,58 @@ caches.keys().then(function(cacheNames){
 });
 
 var PRECACHE_ID='zelda-totk-editor';
-var PRECACHE_VERSION='v0';
+var PRECACHE_VERSION='v1';
 var PRECACHE_URLS=[
-	//is hashes file too big for cacheing?
 	'/savegame-editors/zelda-totk/','/savegame-editors/zelda-totk/index.html',
 	'/savegame-editors/zelda-totk/zelda-totk.css',
 	'/savegame-editors/zelda-totk/zelda-totk.js',
 
-	'/savegame-editors/zelda-totk/zelda-totk.class.equipment.js',
 	'/savegame-editors/zelda-totk/zelda-totk.class.armor.js',
-	'/savegame-editors/zelda-totk/zelda-totk.class.item.js',
-	'/savegame-editors/zelda-totk/zelda-totk.class.horse.js',
-	'/savegame-editors/zelda-totk/zelda-totk.variables.js',
-	'/savegame-editors/zelda-totk/zelda-totk.class.pouch.js',
 	'/savegame-editors/zelda-totk/zelda-totk.class.autobuilder.js',
-	'/savegame-editors/zelda-totk/zelda-totk.exp-calculator.js',
+	'/savegame-editors/zelda-totk/zelda-totk.class.equipment.js',
+	'/savegame-editors/zelda-totk/zelda-totk.class.horse.js',
+	'/savegame-editors/zelda-totk/zelda-totk.class.item.js',
+	'/savegame-editors/zelda-totk/zelda-totk.class.pouch.js',
+
 	'/savegame-editors/zelda-totk/zelda-totk.completism.js',
 	'/savegame-editors/zelda-totk/zelda-totk.coordinates.js',
+	'/savegame-editors/zelda-totk/zelda-totk.exp-calculator.js',
 	'/savegame-editors/zelda-totk/zelda-totk.locale.js',
 	'/savegame-editors/zelda-totk/zelda-totk.master.js',
+	'/savegame-editors/zelda-totk/zelda-totk.variables.js',
+
 	'/savegame-editors/zelda-totk/lib/cash.min.js',
 	'/savegame-editors/zelda-totk/lib/murmurhash3js.min.js',
-	'/savegame-editors/zelda-totk/zelda-totk.hashes.csv',
+
+	'/savegame-editors/zelda-totk/locale/zelda-totk.locale.en',
 
 	'/savegame-editors/zelda-totk/favicon.png',
+
 	'/savegame-editors/zelda-totk/assets/item_icons/unknown.png',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_check.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_copy.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_download.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_eye.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_github.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_heart.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_infinity.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_kebab_vertical.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_link_external.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_pin.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_pin_slash.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_plus_circle.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_sparkle_fill.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_star_fill.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_tools.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_trash.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_upload.svg',
+	'/savegame-editors/zelda-totk/assets/octicons/octicon_x.svg',
+
 	'/savegame-editors/zelda-totk/assets/logo.png',
 	'/savegame-editors/zelda-totk/assets/tabs.png',
 	'/savegame-editors/zelda-totk/assets/bg_black.jpg',
 	'/savegame-editors/zelda-totk/assets/bg_white.jpg',
+
 	'/savegame-editors/savegame-editor.js'
 ];
 
