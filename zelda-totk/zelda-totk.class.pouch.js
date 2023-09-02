@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Pouch class (last update 2023-08-17)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Pouch class (last update 2023-09-02)
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -222,7 +222,6 @@ Pouch.updateItemRow=function(item){
 
 		item._htmlItemId=document.createElement('span');
 		item._htmlItemId.className='item-name clickable';
-		item._htmlItemId.id='item-name-'+item.category+'-'+item.index;
 		item._htmlItemId.innerHTML=item.getItemTranslation();
 		if(item.getItemTranslation()===item.id)
 			item._htmlItemId.style.color='red';

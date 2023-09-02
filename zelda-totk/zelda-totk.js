@@ -1,16 +1,15 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-08-10)
+	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-09-02)
 
 	by Marc Robledo 2023
 */
 
 var currentEditingItem;
-var inputFilter = "";
 
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
 	Filename:['progress.sav','caption.sav'],
-	Version:20230810,
+	Version:20230902,
 
 	/* Settings */
 	Settings:{
@@ -478,8 +477,7 @@ SavegameEditor={
 
 		return true;
 	},
-
-
+	
 	fixItemAvailabilityFlag:function(item){
 		if(item.category==='key'){
 			var fixed=false;
@@ -499,102 +497,147 @@ SavegameEditor={
 			}
 		}
 	},
-
-	getAvailableItems:function(catId){
+	
+	
+	
+	getAvailableItems:function(catId, query){
+		var allItems;
 		if(catId==='weapons' || catId==='bows' || catId==='shields')
-			return Equipment.AVAILABILITY[catId];
+			allItems=Equipment.AVAILABILITY[catId];
 		else if(catId==='armors')
-			return Armor.AVAILABILITY;
+			allItems=Armor.AVAILABILITY;
 		else if(catId==='arrows' || catId==='materials' || catId==='food' || catId==='devices' || catId==='key')
-			return Item.AVAILABILITY[catId];
+			allItems=Item.AVAILABILITY[catId];
 		else if(catId==='horses')
-			return Horse.AVAILABILITY;
-		return null;
-	},
+			allItems=Horse.AVAILABILITY;
+		else
+			return null;
 
-	editItem:function(item){
+		if(query){
+			query = query.slug();
 
-    document.querySelector("#header").classList.add("disable-pointer");
-    document.querySelector(".edit-item-mask").classList.add("show-mask");
-    this.searchFilter.style.paddingRight = "0px"
+			return allItems.filter(function(itemName){
+				let nameSlug = SavegameEditor.nameMap.get(itemName);
+				if(!nameSlug){
+					nameSlug = _(itemName).slug();
+					SavegameEditor.nameMap.set(itemName, nameSlug);
+				}
 
-		currentEditingItem=item;
-		/* prepare edit item selector */		
-    this.updateFilterList();
-    if(this.selectItem.lastCategory !== item.category){
-			this.selectItem.lastCategory=item.category;
+				return nameSlug.includes(query)
+			});
+		}else{
+			return allItems;
 		}
+	},
+	editItem:function(item){
+		currentEditingItem=item;
 
+		/* prepare edit item selector */
 		item._htmlItemId.style.display='none';
-		item._htmlRow.children[0].appendChild(this.selectItem);
-		this.selectItem.querySelector(".search-input").setAttribute("placeholder",_(item.id));
-		this.selectItem.querySelector(".search-input").focus();
-		this.selectItem.querySelector(".search-input").click();
+		item._htmlRow.children[0].appendChild(this.itemChangeDropdown);
+
+		this.filterDropdownItems('');
+		if(SavegameEditor.customItemDropdown){
+			this.itemFilterInput.setAttribute('placeholder', _(item.id));
+			this.itemFilterInput.value='';
+			this.itemFilterInput.focus();
+		}else{
+			this.itemChangeDropdown.value=item.id;
+			this.itemChangeDropdown.click();
+			this.itemChangeDropdown.focus();
+		}
 
 		item.lastInputChanged='id';
 		for(var prop in item._htmlInputs){
 			item._htmlInputs[prop].disabled=true;
 		}
 	},
+	editItemEnd:function(newId){
+		if(currentEditingItem){
+			for(var prop in currentEditingItem._htmlInputs){
+				currentEditingItem._htmlInputs[prop].disabled=false;
+			}
 
-  getName: function(el){
-    if(!this.nameMap){
-      this.nameMap = new Map();
-    }
-    let name = this.nameMap.get(el);
-    if(name){
-      return name;
-    } else {
-      name = _(el);
-      this.nameMap.set(el, name);
-      return name;
-    }
-  },
+			if(newId && currentEditingItem.id!==newId){
+				currentEditingItem.id=newId;
+				Pouch.updateItemIcon(currentEditingItem);
+				Pouch.updateItemRow(currentEditingItem);
+				SavegameEditor.fixItemAvailabilityFlag(currentEditingItem);
+			}
 
-  updateFilterList: function(){
-    this.searchFilter.innerHTML = "";
-		var itemList=this.getAvailableItems(currentEditingItem.category);
-    var filterList = itemList.filter(el => this.getName(el).toLowerCase().includes(inputFilter));
-    filterList.forEach(el => {
-      var option = document.createElement("div");
-      option.classList.add("option");
-      option.setAttribute("itemId",el);
-      option.addEventListener("click", (event) => {
-        var itemId = event.target.getAttribute("itemid")
-        if(itemId){
-          currentEditingItem.id = itemId;
-          document.querySelector(".edit-item-mask").classList.remove("show-mask");
-          document.querySelectorAll(".disable-pointer").forEach(el => {
-            el.classList.remove("disable-pointer");
-          })
-          var endEvent = new Event("editItemEnd");
-          this.searchInput.dispatchEvent(endEvent);
-          this.searchInput.value = "";
-          inputFilter = "";
-        }
-      })
+			currentEditingItem._htmlItemId.style.display='inline';
+		}
 
-      var pic = new Image();
-      pic.className='item-icon';
-      pic.loading='lazy';
-      pic.onerror=function(){
-        this.src=ICON_PATH+'unknown.png';
-      }
-      if(currentEditingItem instanceof Armor){
-        pic.src = Pouch.getItemIcon(new Armor(Object.assign({...currentEditingItem},{id:el})));
-      } else {
-        pic.src = Pouch.getItemIcon(Object.assign({...currentEditingItem},{id:el}));
-      }
-      option.appendChild(pic);
+		this.itemFilterInput.parentElement.parentElement.removeChild(this.itemFilterInput.parentElement);
 
-      var name = document.createElement("span");
-      name.classList.add("item-name");
-      name.innerText = this.getName(el);
-      option.appendChild(name);
+		currentEditingItem=null;
+	},
+	filterDropdownItems: function(query){
+		var itemList=this.getAvailableItems(currentEditingItem.category, query);
+		
+		if(SavegameEditor.customItemDropdown){
+			this.itemFilterResults.innerHTML='';
+			var activeEl;
 
-      this.searchFilter.appendChild(option);
-    })
-  },
+			itemList.forEach(el => {
+				var option = document.createElement('div');
+				option.className = 'option';
+				option.setAttribute('itemId',el);
+				option.addEventListener('mousedown', function(event){
+					event.preventDefault();
+					event.stopPropagation();
+					SavegameEditor.editItemEnd(this.getAttribute('itemId'));
+				});
+				if(el===currentEditingItem.id)
+					activeEl=option;
+
+				var itemIcon = new Image();
+				itemIcon.className='item-icon';
+				itemIcon.loading='lazy';
+				itemIcon.onerror=function(){
+					this.src=ICON_PATH+'unknown.png';
+				}
+				if(currentEditingItem instanceof Armor){
+					itemIcon.src = Pouch.getItemIcon(new Armor(Object.assign({...currentEditingItem},{id:el})));
+				} else {
+					itemIcon.src = Pouch.getItemIcon(Object.assign({...currentEditingItem},{id:el}));
+				}
+				option.appendChild(itemIcon);
+
+				var name = document.createElement('span');
+				name.className='item-name';
+				name.innerText = _(el);
+				option.appendChild(name);
+
+				this.itemFilterResults.appendChild(option);
+			});
+
+			if(!activeEl && this.itemFilterResults.children.length){
+				activeEl=this.itemFilterResults.children[0];
+			}
+
+			if(activeEl){
+				activeEl.className+=' active';
+				var optionOffsetTop = activeEl.offsetTop;
+
+				this.itemFilterResults.scrollTo(0, optionOffsetTop - 8);
+			}
+		}else{ //prefer classic dropdown in devices with touch events for UX purposes
+			if(this.itemChangeDropdown.lastCategory !== currentEditingItem.category){
+				this.itemChangeDropdown.lastCategory=currentEditingItem.category;
+				this.itemChangeDropdown.innerHTML='';
+
+				for(var i=0; i<itemList.length; i++){
+					var opt=document.createElement('option');
+					opt.value=itemList[i];
+					opt.innerHTML=_(itemList[i]);
+					this.itemChangeDropdown.appendChild(opt);
+				}
+			}
+		}
+	},
+
+
 
 	restoreDurability:function(equipment){
 		if(equipment.restoreDurability()){
@@ -1021,7 +1064,23 @@ SavegameEditor={
 	},
 
 
-	preload:function(){		
+	preload:function(){
+		/* implement String.slug for item searching purposes */
+		String.prototype.slug=function(){
+			return this.toLowerCase().trim()
+				.replace(/[\xc0\xc1\xc2\xc4\xe0\xe1\xe2\xe4]/g, 'a')
+				.replace(/[\xc8\xc9\xca\xcb\xe8\xe9\xea\xeb]/g, 'e')
+				.replace(/[\xcc\xcd\xce\xcf\xec\xed\xee\xef]/g, 'i')
+				.replace(/[\xd2\xd3\xd4\xd6\xf2\xf3\xf4\xf6]/g, 'o')
+				.replace(/[\xd9\xda\xdb\xdc\xf9\xfa\xfb\xfc]/g, 'u')
+
+				.replace(/[\xd1\xf1]/g, 'n')
+				.replace(/[\xc7\xe7]/g, 'c')
+
+				.replace(/[\(\)\*]/g, '')
+				.replace(/[ _\-]+/g, ' ')
+		}
+
 		/* completiosnim mode */
 		$('#input-radio-completionism-map, #input-radio-completionism-unlock').on('change', function(evt){
 			if(this.value==='unlock'){
@@ -1122,144 +1181,138 @@ SavegameEditor={
 
 
 
+		/* filter item dropdown */
+		SavegameEditor.nameMap=new Map();
+		SavegameEditor.customItemDropdown='onmousedown' in window; //browser has mouse events
 
-		
-    var editMask = document.createElement("div");
-    editMask.classList.add("edit-item-mask");
-    document.body.appendChild(editMask);
+		if(SavegameEditor.customItemDropdown){
+			this.itemChangeDropdown = document.createElement('div');
+			this.itemChangeDropdown.className='dropdown-item-container';
 
-    editMask.addEventListener("click", (event) => {
-      var endEvent = new Event("editItemEnd");
-      this.searchInput.dispatchEvent(endEvent);
-      this.searchInput.value = "";
-      inputFilter = "";
-      document.querySelectorAll(".disable-pointer").forEach(el => {
-        el.classList.remove("disable-pointer");
-      })
-      editMask.classList.remove("show-mask");
-    })
+			this.itemFilterInput = document.createElement('input');
+			this.itemFilterInput.className='search-input';
+			this.itemChangeDropdown.appendChild(this.itemFilterInput);
 
+			this.itemFilterResults = document.createElement('div');
+			this.itemFilterResults.className='search-filter';
+			this.itemChangeDropdown.appendChild(this.itemFilterResults);
 
+			this.itemChangeDropdown.addEventListener('keydown', (event)=>{
+				var activeEl = this.itemFilterResults.querySelector('.active');
 
-		this.selectItem = document.createElement('div');
-    this.selectItem.classList.add("editItem")
+				if(activeEl){
+					var changedEl;
 
-    this.searchInput = document.createElement("input");
-    this.searchInput.classList.add("search-input");
-    this.selectItem.appendChild(this.searchInput);
+					switch(event.keyCode){
+						case 13:
+							// enter
+							if(activeEl){
+								activeEl.dispatchEvent(new Event('mousedown'));
+							}
+							break;
+						case 38:
+							// up
+							event.preventDefault();
+							if(activeEl.previousElementSibling){
+								changedEl=activeEl.previousElementSibling;
+							} else {
+								changedEl=this.itemFilterResults.querySelector('.option:last-child');
+							}
+							break;
+						case 40:
+							// down
+							event.preventDefault();
+							if(activeEl.nextElementSibling){
+								changedEl=activeEl.nextElementSibling;
+							} else {
+								changedEl=this.itemFilterResults.querySelector('.option:first-child');
+							}
+							break;
+						case 33:
+							// prevpage
+							event.preventDefault();
+							var allOptions=this.itemFilterResults.querySelectorAll('.option');
+							var indexOf=[].indexOf.call(allOptions, activeEl);
+							indexOf-=8;
+							if(indexOf<0)
+								indexOf=0;
+							changedEl=allOptions[indexOf];
+							break;
+						case 34:
+							// nextpage
+							event.preventDefault();
+							var allOptions=this.itemFilterResults.querySelectorAll('.option');
+							var indexOf=[].indexOf.call(allOptions, activeEl);
+							indexOf+=8;
+							if(indexOf>=allOptions.length)
+								indexOf=allOptions.length-1;
+							changedEl=allOptions[indexOf];
+							break;
+						case 36:
+							// start
+							event.preventDefault();
+							changedEl=this.itemFilterResults.querySelector('.option:first-child');
+							break;
+						case 35:
+							// end
+							event.preventDefault();
+							changedEl=this.itemFilterResults.querySelector('.option:last-child');
+							break;
+					}
 
-    this.searchFilter = document.createElement("div");
-    this.searchFilter.classList.add("search-filter");
-    this.selectItem.appendChild(this.searchFilter);
-    var keyList = new Set([13,27,38,40])
-    this.selectItem.addEventListener("mousemove", (event)=>{
-      if(event.target.className.includes("option") && !event.target.className.includes("active")){
-        var activeEl = this.selectItem.querySelector(".active")
-        if(activeEl){
-          activeEl.classList.remove("active");
-        }
-        event.target.classList.add("active");
-      }
-    })
-    this.selectItem.addEventListener("keydown", (event)=>{
-      var activeEl = this.searchFilter.querySelector(".active");
-      if(keyList.has(event.keyCode)){
-        switch(event.keyCode){
-        case 13:
-          // enter
-          if(activeEl){
-            activeEl.click();
-          } else {
-            document.querySelector(".edit-item-mask").click();
-          }
-          break;
-        case 27:
-          // esc
-          document.querySelector(".edit-item-mask").click();
-          break;
-        case 38:
-          // up
-          event.preventDefault();
-          if(activeEl){
-            if(activeEl.previousElementSibling){
-              activeEl.classList.remove("active");
-              activeEl.previousElementSibling.classList.add("active");
-            } else {
-              activeEl.classList.remove("active");
-              this.searchFilter.querySelector(".option:last-child").classList.add("active");
-            }
-          } else {
-            var firstEl = this.searchFilter.querySelector(".option:first-child")
-            if(firstEl){
-              firstEl.classList.add("active");
-            }
-          }
-          break;
-        case 40:
-          // down
-          event.preventDefault();
-          if(activeEl){
-            if(activeEl.nextElementSibling){
-              activeEl.classList.remove("active");
-              activeEl.nextElementSibling.classList.add("active");
-            } else {
-              activeEl.classList.remove("active");
-              this.searchFilter.querySelector(".option:first-child").classList.add("active");
-            }
-          } else {
-            var firstEl = this.searchFilter.querySelector(".option:first-child")
-            if(firstEl){
-              firstEl.classList.add("active");
-            }
-          }
-          break;
-        }
-        activeEl = this.searchFilter.querySelector(".active");
-        // scrollOffset
-        if(activeEl){
-          var optionOffsetTop = activeEl.offsetTop;
-          var optionHeight = activeEl.offsetHeight;
-          var optionOffsetBottom = optionOffsetTop + optionHeight;
-          var filterScrollTop = this.searchFilter.scrollTop;
-          var filterHeight = this.searchFilter.offsetHeight
-          var filterScrollBottom = filterScrollTop + filterHeight;
-          if(optionOffsetBottom > filterScrollBottom){
-            this.searchFilter.scrollTo({
-              top: optionOffsetBottom - filterHeight + 8,
-              behavior: event.repeat ? "instant" : "smooth",
-            })
-          } else if(optionOffsetTop < filterScrollTop){
-            this.searchFilter.scrollTo({
-              top: optionOffsetTop - 8,
-              behavior: event.repeat ? "instant" : "smooth",
-            })
-          }
-        }
-      }
-    })
+					if(changedEl && changedEl !== activeEl){
+						activeEl.classList.remove('active');
+						changedEl.classList.add('active');
 
-    this.searchInput.addEventListener("input",(event)=>{
-      inputFilter = event.target.value;
-      this.updateFilterList();
-      if(this.searchFilter.clientHeight >= this.searchFilter.scrollHeight){
-        this.searchFilter.style.paddingRight = "8px"
-      } else {
-        this.searchFilter.style.paddingRight = "0px"
-      }
-    })
+						// scrollOffset
+						var optionOffsetTop = changedEl.offsetTop;
+						var optionHeight = changedEl.offsetHeight;
+						var optionOffsetBottom = optionOffsetTop + optionHeight;
+						var filterScrollTop = this.itemFilterResults.scrollTop;
+						var filterHeight = this.itemFilterResults.offsetHeight
+						var filterScrollBottom = filterScrollTop + filterHeight;
+						if(optionOffsetBottom > filterScrollBottom){
+							this.itemFilterResults.scrollTo({
+								top: optionOffsetBottom - filterHeight + 8,
+								behavior: event.repeat ? 'instant' : 'smooth'
+							})
+						} else if(optionOffsetTop < filterScrollTop){
+							this.itemFilterResults.scrollTo({
+								top: optionOffsetTop - 8,
+								behavior: event.repeat ? 'instant' : 'smooth'
+							})
+						}
+					}
+				}
+			});
 
-    this.searchInput.addEventListener('editItemEnd', function(){
-      Pouch.updateItemIcon(currentEditingItem);
-			for(var prop in currentEditingItem._htmlInputs){
-				currentEditingItem._htmlInputs[prop].disabled=false;
-			}
-			Pouch.updateItemRow(currentEditingItem);
-			SavegameEditor.fixItemAvailabilityFlag(currentEditingItem);
-			currentEditingItem._htmlItemId.style.display='inline';
-			this.parentElement.parentElement.removeChild(this.parentElement);
+			this.itemFilterInput.addEventListener('blur', function(evt){
+				SavegameEditor.editItemEnd(null);
+			});
 
-			currentEditingItem=null;
-		}, false);
+			this.itemFilterInput.addEventListener('input', function(evt){
+				SavegameEditor.filterDropdownItems(this.value);
+			});
+		}else{
+			this.itemChangeDropdown=document.createElement('select');
+			this.itemChangeDropdown.addEventListener('change', function(){
+				//console.log('change');
+				currentEditingItem.id=this.value;
+				Pouch.updateItemIcon(currentEditingItem);
+			}, false);
+			this.itemChangeDropdown.addEventListener('blur', function(){
+				//console.log('blur');
+				for(var prop in currentEditingItem._htmlInputs){
+					currentEditingItem._htmlInputs[prop].disabled=false;
+				}
+				Pouch.updateItemRow(currentEditingItem);
+				SavegameEditor.fixItemAvailabilityFlag(currentEditingItem);
+				currentEditingItem._htmlItemId.style.display='inline';
+				this.parentElement.removeChild(this);
+
+				currentEditingItem=null;
+			}, false);
+		}
 
 		setNumericRange('rupees', 0, 999999);
 		setNumericRange('pony-points', 0, 999999);
@@ -1301,7 +1354,7 @@ SavegameEditor={
 						if(err){
 							console.error('fflate error: '+err);
 						}else{
-							var charData = data.reduce((value, char) => value + String.fromCharCode(char), "");
+							var charData = data.reduce((value, char) => value + String.fromCharCode(char), '');
 							var base64String = btoa(charData);
 							console.log(base64String);
 							window.open('https://blehditor.ssmvc.org/?view=true&cai='+encodeURIComponent(base64String), '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
@@ -1458,7 +1511,7 @@ SavegameEditor={
 		this.retranslateSelectOptions(Horse.SADDLES);
 		this.retranslateSelectOptions(Horse.REINS);
 
-		this.selectItem.lastCategory=null;
+		this.itemChangeDropdown.lastCategory=null;
 
 
 		/* prepare editor */
