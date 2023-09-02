@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Breath of the wild v20200218
+	The legend of Zelda: Breath of the wild v20230902
 	by Marc Robledo 2017-2020
 */
 var currentEditingItem=0;
@@ -7,7 +7,7 @@ var currentEditingItem=0;
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
 	Filename:'game_data.sav',
-	Version:20200218,
+	Version:20230902,
 
 	/* Constants */
 	Constants:{
@@ -617,11 +617,10 @@ SavegameEditor={
 		}
 
 
-
-
-
-
 		showTab('home');
+
+		/* scale score */
+		setValue('scale-score', BOTWScoreCalculator.calculate());
 	},
 
 	/* save function */
@@ -1038,12 +1037,12 @@ function onScroll(){
 }
 window.addEventListener('scroll', onScroll, false);
 
-if(typeof String.endsWith==='undefined'){
+if(typeof String.prototype.endsWith==='undefined'){
 	String.prototype.endsWith=function(search){
         return (new RegExp(search+'$')).test(this)
     };
 }
-if(typeof String.startsWith==='undefined'){
+if(typeof String.prototype.startsWith==='undefined'){
 	String.prototype.startsWith=function(search){
         return (new RegExp('^'+search)).test(this)
     };

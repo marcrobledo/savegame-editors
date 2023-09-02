@@ -1,4 +1,4 @@
-/* Zelda BOTW Savegame editor by Marc Robledo v20200215 */
+/* Zelda BOTW Savegame editor by Marc Robledo v20230902 */
 /* minify at https://cssminifier.com/ + https://www.base64-image.de/ (sprites */
 
 /* @FONT-FACES */
@@ -474,6 +474,22 @@ button.no-text.with-icon:before{margin-right:0px}
 	max-width:920px;
 	margin:0 auto
 }
+
+
+.external-link-help{
+	background-color:#f9f5da;
+	color:black;
+	padding: 0px 8px;
+	font-size:80%;
+	font-weight:bold;
+	border-radius:3px;
+	text-decoration:none;
+}
+.external-link-help:hover{
+	background-color:white;
+}
+
+
 
 
 

@@ -30,7 +30,7 @@ caches.keys().then(function(cacheNames){
 });
 
 var PRECACHE_ID='zelda-botw-editor';
-var PRECACHE_VERSION='v5c';
+var PRECACHE_VERSION='v6';
 var PRECACHE_URLS=[
 	//is hashes file too big for cacheing?
 	'/savegame-editors/zelda-botw/','/savegame-editors/zelda-botw/index.html',
@@ -39,6 +39,7 @@ var PRECACHE_URLS=[
 	'/savegame-editors/zelda-botw/zelda-botw.data.js',
 	'/savegame-editors/zelda-botw/zelda-botw.icons.js',
 	'/savegame-editors/zelda-botw/zelda-botw.locations.js',
+	'/savegame-editors/zelda-botw/zelda-botw.score.js',
 	'/savegame-editors/zelda-botw/zelda-botw.master.js',
 	'/savegame-editors/zelda-botw/favicon.png',
 	'/savegame-editors/zelda-botw/assets/_blank.png',
