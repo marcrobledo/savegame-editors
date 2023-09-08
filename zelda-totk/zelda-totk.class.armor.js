@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Armor class (last update 2023-07-09)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Armor class (last update 2023-09-08)
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -9,7 +9,7 @@ function Armor(itemData, overrideId){
 	this.category='armors';
 
 	this.id=overrideId || itemData.id;
-	this.dyeColor=this.canBeDyed()? Variable.enumToInt(itemData.dyeColor) : hash('None');
+	this.dyeColor=Variable.enumToInt(itemData.dyeColor);
 }
 Armor.prototype.getBaseId=function(){
 	return Armor.INFO[this.id]?.base;
@@ -38,11 +38,6 @@ Armor.prototype.export=function(){
 	}
 }
 Armor.prototype.refreshHtmlInputs=function(fixValues){
-	if(fixValues){
-		if(!this.canBeDyed())
-			this.dyeColor=hash('None');
-	}
-
 	this._htmlInputs.dyeColor.disabled=!this.canBeDyed();
 	Pouch.updateItemIcon(this);
 }
