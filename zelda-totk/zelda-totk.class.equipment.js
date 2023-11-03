@@ -951,67 +951,67 @@ Equipment.KNOWN_FUSABLE_OBJECTS=[
 	'SkyObj_Pot_A_S_Act_01',
 	'SkyObj_Remains_Block_Fall_A_01',
 	'SkyObj_Rito_Block_Fall_A_01',
-	'SpObj_BalloonEnvelope_A_01',
+	// 'SpObj_BalloonEnvelope_A_01',
 	'SpObj_BalloonEnvelope_A_05',
 	'SpObj_BalloonEnvelope_A_06',
-	'SpObj_BalloonEnvelope_Capsule_A_01',
-	'SpObj_Beamos_A_01',
-	'SpObj_Beamos_Capsule_A_01',
-	'SpObj_Cannon_A_01',
-	'SpObj_Cannon_Capsule_A_01',
-	'SpObj_Cart_A_01',
-	'SpObj_Cart_Capsule_A_01',
-	'SpObj_Chaser_A_01',
-	'SpObj_Chaser_Capsule_A_01',
-	'SpObj_ControlStick_A_01',
+	// 'SpObj_BalloonEnvelope_Capsule_A_01',
+	// 'SpObj_Beamos_A_01',
+	// 'SpObj_Beamos_Capsule_A_01',
+	// 'SpObj_Cannon_A_01',
+	// 'SpObj_Cannon_Capsule_A_01',
+	// 'SpObj_Cart_A_01',
+	// 'SpObj_Cart_Capsule_A_01',
+	// 'SpObj_Chaser_A_01',
+	// 'SpObj_Chaser_Capsule_A_01',
+	// 'SpObj_ControlStick_A_01',
 	'SpObj_ControlStick_A_02',
 	'SpObj_ControlStick_A_03',
-	'SpObj_ControlStick_Capsule_A_01',
-	'SpObj_CookSetOnFire_A_01',
-	'SpObj_CookSet_Capsule_A_01',
-	'SpObj_ElectricBoxGenerator',
-	'SpObj_ElectricBoxGenerator_Capsule_A_01',
-	'SpObj_EnergyBank_A_01',
-	'SpObj_EnergyBank_A_02',
-	'SpObj_EnergyBank_Capsule_A_01',
-	'SpObj_EnergyBank_Capsule_A_02',
-	'SpObj_FastWheel_A_01',
-	'SpObj_FastWheel_Capsule_A_01',
-	'SpObj_FastWheel_Capsule_B_01',
-	'SpObj_FlameThrower_A_01',
-	'SpObj_FlameThrower_Capsule_A_01',
-	'SpObj_FlashLight_A_01',
+	// 'SpObj_ControlStick_Capsule_A_01',
+	// 'SpObj_CookSetOnFire_A_01',
+	// 'SpObj_CookSet_Capsule_A_01',
+	// 'SpObj_ElectricBoxGenerator',
+	// 'SpObj_ElectricBoxGenerator_Capsule_A_01',
+	// 'SpObj_EnergyBank_A_01',
+	// 'SpObj_EnergyBank_A_02',
+	// 'SpObj_EnergyBank_Capsule_A_01',
+	// 'SpObj_EnergyBank_Capsule_A_02',
+	// 'SpObj_FastWheel_A_01',
+	// 'SpObj_FastWheel_Capsule_A_01',
+	// 'SpObj_FastWheel_Capsule_B_01',
+	// 'SpObj_FlameThrower_A_01',
+	// 'SpObj_FlameThrower_Capsule_A_01',
+	// 'SpObj_FlashLight_A_01',
 	'SpObj_FlashLight_A_02',
-	'SpObj_FlashLight_Capsule_A_01',
-	'SpObj_FloatingStone_A_01',
-	'SpObj_FloatingStone_Capsule_A_01',
-	'SpObj_GolemHead_A_01',
-	'SpObj_GolemHead_Capsule_A_01',
-	'SpObj_LiftableWaterPump_Capsule_A_01',
-	'SpObj_LiftGeneratorWing_A_01',
+	// 'SpObj_FlashLight_Capsule_A_01',
+	// 'SpObj_FloatingStone_A_01',
+	// 'SpObj_FloatingStone_Capsule_A_01',
+	// 'SpObj_GolemHead_A_01',
+	// 'SpObj_GolemHead_Capsule_A_01',
+	// 'SpObj_LiftableWaterPump_Capsule_A_01',
+	// 'SpObj_LiftGeneratorWing_A_01',
 	'SpObj_LiftGeneratorWing_A_01_MiniGame',
-	'SpObj_LiftGeneratorWing_Capsule_A_01',
-	'SpObj_LightMirror_A_01',
-	'SpObj_LightMirror_Capsule_A_01',
-	'SpObj_Pile_A_01',
-	'SpObj_Pile_Capsule_A_01',
-	'SpObj_Rocket_A_01',
-	'SpObj_Rocket_Capsule_A_01',
-	'SpObj_SlipBoard_A_01',
-	'SpObj_SlipBoard_Capsule_A_01',
-	'SpObj_SnowMachine_A_01',
-	'SpObj_SnowMachine_Capsule_A_01',
-	'SpObj_SpringPiston_A_01',
-	'SpObj_SpringPiston_Capsule_A_01',
-	'SpObj_SwitchWheel_B_01',
-	'SpObj_TiltingDoll_A_01',
-	'SpObj_TiltingDoll_Capsule_A_01',
-	'SpObj_TimerBomb_A_01',
-	'SpObj_TimerBomb_Capsule_A_01',
-	'SpObj_WaterPump_A_01',
-	'SpObj_WindGenerator_A_01',
+	// 'SpObj_LiftGeneratorWing_Capsule_A_01',
+	// 'SpObj_LightMirror_A_01',
+	// 'SpObj_LightMirror_Capsule_A_01',
+	// 'SpObj_Pile_A_01',
+	// 'SpObj_Pile_Capsule_A_01',
+	// 'SpObj_Rocket_A_01',
+	// 'SpObj_Rocket_Capsule_A_01',
+	// 'SpObj_SlipBoard_A_01',
+	// 'SpObj_SlipBoard_Capsule_A_01',
+	// 'SpObj_SnowMachine_A_01',
+	// 'SpObj_SnowMachine_Capsule_A_01',
+	// 'SpObj_SpringPiston_A_01',
+	// 'SpObj_SpringPiston_Capsule_A_01',
+	// 'SpObj_SwitchWheel_B_01',
+	// 'SpObj_TiltingDoll_A_01',
+	// 'SpObj_TiltingDoll_Capsule_A_01',
+	// 'SpObj_TimerBomb_A_01',
+	// 'SpObj_TimerBomb_Capsule_A_01',
+	// 'SpObj_WaterPump_A_01',
+	// 'SpObj_WindGenerator_A_01',
 	'SpObj_WindGenerator_A_03',
-	'SpObj_WindGenerator_Capsule_A_01',
+	// 'SpObj_WindGenerator_Capsule_A_01',
 	'StoneBall',
 	'TimerBarrelBomb',
 	'TwnObj_City_GerudoPot_A_LL_Act_02',
@@ -1056,6 +1056,20 @@ Equipment.KNOWN_FUSABLE_OBJECTS=[
 	'Zonau_BlockMaster_Block_Senior_ForAttachment'
 ];
 
+Equipment.ZONAI_CAPSULE_MAP=(function(){
+	var devices = {
+		'SpObj_LiftableWaterPump_Capsule_A_01':'SpObj_WaterPump_A_01',
+		'SpObj_FastWheel_Capsule_B_01':'SpObj_SwitchWheel_B_01',
+		'SpObj_CookSet_Capsule_A_01':'SpObj_CookSetOnFire_A_01',
+	};
+	Item.AVAILABILITY.devices.forEach(function(itemId){
+		if(!devices[itemId]){
+			devices[itemId] = itemId.replace('_Capsule','');
+		}
+	});
+	return devices;
+}());
+
 Equipment.FUSABLE_ITEMS=(function(){
 	var options=[
 		{value:'', originalName:'No fusion'}
@@ -1079,8 +1093,13 @@ Equipment.FUSABLE_ITEMS=(function(){
 	Item.AVAILABILITY.materials.forEach(function(itemId){
 		options.push({value:itemId, originalName:itemId, originalNamePrefix:'Material'})
 	});
+	Item.AVAILABILITY.food.forEach(function(itemId){
+		if(/_Chilled/.test(itemId) || /_Roast/.test(itemId)){
+			options.push({value:itemId, originalName:itemId, originalNamePrefix:'Food'});
+		}
+	})
 	Item.AVAILABILITY.devices.forEach(function(itemId){
-		options.push({value:itemId.replace('_Capsule',''), originalName:itemId, originalNamePrefix:'Zonai device'})
+		options.push({value:Equipment.ZONAI_CAPSULE_MAP[itemId], originalName:itemId, originalNamePrefix:'Zonai device'})
 	});
 
 	return options;
