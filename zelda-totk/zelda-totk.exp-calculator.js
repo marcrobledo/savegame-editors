@@ -58,7 +58,7 @@ const ExperienceCalculator={
 			var data=SavegameEditor._readStruct(hashTexts.map(function(hashText){
 				return {hash:hashText, type:'Int'}
 			}));
-			var DefeatedEnemyNum = data[hashTexts[0]];
+			var DefeatedEnemyNum = Math.min(data[hashTexts[0]],10);
 			var DefeatedNoDamageCount = data[hashTexts[1]];
 			var HeadShotCount = data[hashTexts[2]];
 			var GuardJustCount = data[hashTexts[3]];
