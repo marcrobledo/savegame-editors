@@ -79,7 +79,7 @@ const ExperienceCalculator={
 
 			var PointSum = DefeatPoints + DefeatedNoDamagePoints + HeadshotPoints + GuardJustPoints + JustAvoidPoints;
 
-			totalExperience += Math.min(2*MaxNum*Points, PointSum);
+			totalExperience += Math.min(2*DefeatPoints, PointSum);
 		}
 		return totalExperience;
 	},
