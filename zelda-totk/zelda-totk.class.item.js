@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Item class (last update 2023-07-11)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Item class (last update 2024-01-02)
 
 	by Marc Robledo 2023
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -137,6 +137,7 @@ Item.MAXIMUM_QUANTITY={
 	Item_Ore_M:999999, //Large Zonaite
 	Energy_Material_01:999999, //Crystallized Charge
 	Obj_WarpDLC:3, //Travel Medallion
+	Obj_KorokNuts:1000, //Travel Medallion
 	MinusRupee_00:999999
 };
 Item.KEY_COUNTABLE=[
