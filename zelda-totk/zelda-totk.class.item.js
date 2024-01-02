@@ -1,7 +1,7 @@
 /*
 	The legend of Zelda: Tears of the Kingdom savegame editor - Item class (last update 2024-01-02)
 
-	by Marc Robledo 2023
+	by Marc Robledo 2023-2024
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
 */
 

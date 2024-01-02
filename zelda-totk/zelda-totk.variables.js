@@ -1,6 +1,6 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - variable reader/writer (last update 2023-08-02)
-	by Marc Robledo 2023
+	The legend of Zelda: Tears of the Kingdom savegame editor - variable reader/writer (last update 2024-01-02)
+	by Marc Robledo 2023-2024
 */
 
 
@@ -704,12 +704,9 @@ Variable._getHashOffset=function(hashInt){
 	if(Variable.cachedOffsets[hashInt])
 		return Variable.cachedOffsets[hashInt];
 
-	for(var i=0x000028; i<0x03c800; i+=8){
-		var currentHash=tempFile.readU32(i);
-		if(currentHash===hashInt){
+	for(var i=0x000028; i<Variable.hashTableEnd; i+=8){
+		if(tempFile.readU32(i)===hashInt){
 			return i+4;
-		}else if(hashInt===0xa3db7114){ //found MetaData.SaveTypeHash
-			break;
 		}
 	}
 	throw new Error('Hash '+Variable.toHexString(hashInt)+' not found');
@@ -753,8 +750,30 @@ Variable.joinUInt64=function(lower, upper){
 
 
 Variable.cachedOffsets={};
+Variable.hashTableEnd=0x03c800;
 Variable.resetCache=function(){
 	Variable.cachedOffsets={};
+};
+Variable.findHashTableEnd=function(){
+	/*
+		MetaData.SaveTypeHash defines the end of the hash table for simple data and the start
+		of complex data (arrays, etc)
+		in official TOTK savegames, its at 0x03c800 (or before, if v1.0)
+		but we cannot rely on that offset because of game mods or even future game versions,
+		which might push it further if they add new variables to the game
+
+		so, in order to make the editor compatible with both official game and mods, we ensure
+		we will always find the exact offset for MetaData.SaveTypeHash
+		this offset is just used when looking for a variable in the savegame, because we only
+		need to search up to that offset
+	*/
+	for(var i=0x000028; i<tempFile.fileSize; i+=8){
+		if(tempFile.readU32(i)===0xa3db7114){ //found MetaData.SaveTypeHash
+			Variable.hashTableEnd=i+4;
+			return Variable.hashTableEnd;
+		}
+	}
+	return null;
 };
 
 

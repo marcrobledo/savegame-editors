@@ -1,7 +1,7 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2023-09-02)
+	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2024-01-02)
 
-	by Marc Robledo 2023
+	by Marc Robledo 2023-2024
 */
 
 var currentEditingItem;
@@ -9,7 +9,7 @@ var currentEditingItem;
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
 	Filename:['progress.sav','caption.sav'],
-	Version:20230902,
+	Version:20240102,
 
 	/* Settings */
 	Settings:{
@@ -260,7 +260,7 @@ SavegameEditor={
 	_getOffsets:function(){
 		var ret=true;
 		this.Offsets={};
-		for(var i=0x000028; i<0x03c800; i+=8){
+		for(var i=0x000028; i<Variable.hashTableEnd; i+=8){
 			var hash=tempFile.readU32(i);
 			var foundHashIndex=this.Hashes.indexOf(hash);
 			if(hash===0xa3db7114){ //guidsArray
@@ -294,7 +294,7 @@ SavegameEditor={
 	},
 	_getOffsetsByHashes:function(hashes, single){
 		var offsets={};
-		for(var i=0x000028; i<0x03c800; i+=8){
+		for(var i=0x000028; i<Variable.hashTableEnd; i+=8){
 			var hash=tempFile.readU32(i);
 			var foundHashIndex=hashes.indexOf(hash);
 			if(hash===0xa3db7114){ //found MetaData.SaveTypeHash
@@ -1044,6 +1044,7 @@ SavegameEditor={
 				}
 			}
 		}else if(tempFile.readU32(0)===0x01020304 && tempFile.fileSize>=2307552 && tempFile.fileSize<4194304){
+			Variable.findHashTableEnd();
 			var foundAllHashes=this._getOffsets();
 			if(foundAllHashes){
 				var header=tempFile.readU32(4);
@@ -1055,7 +1056,7 @@ SavegameEditor={
 						break;
 					}
 				}
-				setValue('version', knownSavegameVersion || 'Unknown');
+				setValue('version', knownSavegameVersion || '*Game mod*');
 				return true;
 			}
 		}
