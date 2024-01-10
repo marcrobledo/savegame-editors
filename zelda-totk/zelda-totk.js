@@ -1288,7 +1288,8 @@ SavegameEditor={
 			});
 
 			this.itemFilterInput.addEventListener('blur', function(evt){
-				SavegameEditor.editItemEnd(null);
+				if(currentEditingItem)
+					SavegameEditor.editItemEnd(null);
 			});
 
 			this.itemFilterInput.addEventListener('input', function(evt){

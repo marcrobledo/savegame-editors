@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Item class (last update 2024-01-02)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Item class (last update 2024-01-10)
 
 	by Marc Robledo 2023-2024
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -90,6 +90,13 @@ Item.prototype.refreshHtmlInputs=function(fixValues){
 
 	this._htmlInputs.quantity.disabled=!isCountable;
 	//this._htmlInputs.quantity.style.visibility=this._htmlInputs.quantity.disabled? 'hidden':'visible';
+	if(this.category==='key'){
+		var maxValue=Item.getMaximumQuantity(this.id);
+		this._htmlInputs.quantity.maxValue=maxValue;
+		if(fixValues && this.quantity>maxValue){
+			this.quantity=maxValue;
+		}
+	}
 
 	if(this.category==='food' && (!fixValues || this.lastInputChanged==='effect')){
 		var effectText;
@@ -111,8 +118,11 @@ Item.prototype.refreshHtmlInputs=function(fixValues){
 
 
 
+Item.getMaximumQuantity=function(itemId){
+	return Item.MAXIMUM_QUANTITY[itemId] || 999;
+}
 Item.buildHtmlElements=function(item){
-	var maxQuantity=Item.MAXIMUM_QUANTITY[item.id] || 999;
+	var maxQuantity=Item.getMaximumQuantity(item.id);
 
 	if(item.category==='food'){
 		item._htmlInputs={
