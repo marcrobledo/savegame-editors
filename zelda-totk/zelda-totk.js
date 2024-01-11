@@ -1056,6 +1056,7 @@ SavegameEditor={
 						break;
 					}
 				}
+				TOTKMasterEditor.gameMod=!knownSavegameVersion;
 				setValue('version', knownSavegameVersion || '*Game mod*');
 				return true;
 			}
@@ -1715,6 +1716,7 @@ var UI=(function(sge){
 			tabCache[newTab]=true;
 		}else if(newTab==='master'){
 			if(TOTKMasterEditor.isLoaded()){
+				TOTKMasterEditor.toggleImportButton();
 				if(TOTKMasterEditor.forceFindOffsets)
 					TOTKMasterEditor.findOffsets();
 				TOTKMasterEditor.focus();

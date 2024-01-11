@@ -309,7 +309,12 @@ var TOTKMasterEditor=(function(){
 			this.refreshResults();
 			get('input-custom-filter').focus();
 		},
+		toggleImportButton:function(){
+			document.getElementById('row-hashes-import').className=this.gameMod? '' : 'hide';
+		},
 		initialize:function(){
+			TOTKMasterEditor.toggleImportButton();
+
 			if(this.isLoaded()){
 				this.focus();
 			}else if(typeof window.fetch==='function'){
@@ -328,9 +333,19 @@ var TOTKMasterEditor=(function(){
 							this.value=this.value.replace(/[^A-Za-z0-9_\.\*]/g,'').trim();
 							TOTKMasterEditor.refreshResults();
 						});
-						
-						
-						
+
+						get('button-hashes-import').addEventListener('click', function(){
+							document.getElementById('input-file-hashes-import').click();
+						});
+						get('input-file-hashes-import').addEventListener('change', function(){
+							var fr=new FileReader();
+							fr.addEventListener('load', function(evt){
+								_parseHashFile(fr.result);
+								TOTKMasterEditor.findOffsets();
+							});
+							fr.readAsText(this.files[0]);
+						});
+
 						TOTKMasterEditor.focus();
 					})
 					.catch(function(){

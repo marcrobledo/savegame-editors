@@ -920,7 +920,14 @@
 		<h3 data-translate="Master editor">Master editor</h3>
 		<div id="master-editor-loading" class="text-center">Master editor is loading...</div>
 		<div id="master-editor-hidden" class="hide">
-			<div class="mb-10">
+			<div id="row-hashes-import" style="float:right">
+				<span class="text-mute">
+					<img src="assets/octicons/octicon_link_external.svg" loading="lazy" class="octicon" /> <a href="https://github.com/marcrobledo/savegame-editors/wiki/TOTK-mods-additional-variables-for-Master-Editor" target="_blank" class="external-link" data-translate="Help">Help</a>
+				</span>
+				<button class="btn" id="button-hashes-import"><img src="assets/octicons/octicon_upload.svg" loading="lazy" class="octicon" /> <span data-translate="Import mod variables">Import mod variables</span></button>
+				<input id="input-file-hashes-import" type="file" accept=".csv" class="hide" />
+			</div>
+			<div class="mb-20">
 				<label><span data-translate="Search">Search</span> <input id="input-custom-filter" type="text" list="knownHashes" placeholder="Search variables" style="width:400px" /></label>
 				<datalist id="knownHashes">
 					<option value="DefeatedEnemyNum.* OR EnemyBattleData.*">Experience</option>
