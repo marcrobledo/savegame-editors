@@ -1065,6 +1065,10 @@ SavegameEditor={
 		return false
 	},
 
+	showSavegameIndex:function(droppedFiles) {
+		// TODO show slot picker with caption.sav metadata
+		console.log(droppedFiles);
+	},
 
 	preload:function(){
 		/* implement String.slug for item searching purposes */

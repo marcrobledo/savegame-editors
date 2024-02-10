@@ -45,6 +45,58 @@ MarcDragAndDrop=(function(){
 		return false
 	}
 
+	// Drop handler function to get all files. Thanks xieliming https://stackoverflow.com/a/53058574
+	async function getAllFiles(dataTransferItemList) {
+		let fileEntries = [];
+		// Use BFS to traverse entire directory/file structure
+		let queue = [];
+		// Unfortunately dataTransferItemList is not iterable i.e. no forEach
+		for (let i = 0; i < dataTransferItemList.length; i++) {
+			// Note webkitGetAsEntry a non-standard feature and may change
+			// Usage is necessary for handling directories
+			queue.push(dataTransferItemList[i].webkitGetAsEntry());
+		}
+		while (queue.length > 0) {
+			let entry = queue.shift();
+			if (entry.isFile) {
+				fileEntries.push(entry);
+			} else if (entry.isDirectory) {
+				let reader = entry.createReader();
+				queue.push(...await readAllDirectoryEntries(reader));
+			}
+		}
+		return await Promise.all(fileEntries.map(entry => toFilePromise(entry)));
+	}
+	// Get all the entries (files or sub-directories) in a directory by calling readEntries until it returns empty array
+	async function readAllDirectoryEntries(directoryReader) {
+		let entries = [];
+		let readEntries = await readEntriesPromise(directoryReader);
+		while (readEntries.length > 0) {
+			entries.push(...readEntries);
+			readEntries = await readEntriesPromise(directoryReader);
+		}
+		return entries;
+	}
+	// Wrap readEntries in a promise to make working with readEntries easier
+	async function readEntriesPromise(directoryReader) {
+		try {
+			return await new Promise((resolve, reject) => {
+				directoryReader.readEntries(resolve, reject);
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	}
+	async function toFilePromise(fileEntry) {
+		try {
+			return await new Promise((resolve, reject) => {
+				fileEntry.file(resolve, reject);
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
 	function removeClass(){document.body.className=document.body.className.replace(' dragging-files','')}
 	addEvent(document,'dragenter',function(e){
 		if(checkIfHasFiles(e)){
@@ -77,12 +129,15 @@ MarcDragAndDrop=(function(){
 			if(!dropOutside){
 				enableDropOutside();
 			}
-			addEvent(document.getElementById(z),'drop',function(e){
-				if(!checkIfHasFiles(e))
+
+			addEvent(document.getElementById(z),'drop',async function (e) {
+				var files = await getAllFiles(e.dataTransfer.items);
+				if(files.length==0) {
 					return false;
+				}
 				no(e);
 				removeClass();
-				f(e.dataTransfer.files)
+				f(files);
 			});
 		},
 		addGlobalZone:function(f,t){
@@ -251,7 +306,13 @@ window.addEventListener('load', function(){
 
 
 	MarcDragAndDrop.add('dragzone', function(droppedFiles){
-		tempFile=new MarcFile(droppedFiles[0], _tempFileLoadFunction);
+		if(droppedFiles.length == 1 || typeof SavegameEditor.showSavegameIndex === 'undefined') {
+			// Load savegame from file
+			tempFile=new MarcFile(droppedFiles[0], _tempFileLoadFunction);
+		} else {
+			// Some games have a complex structure of multiple savegames, so we provide a custom picker+overview
+			SavegameEditor.showSavegameIndex(droppedFiles);
+		}
 	});
 
 
