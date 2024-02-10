@@ -24,6 +24,18 @@ MarcFile.prototype.writeU16String=function(pos,maxLength,str){
 	for(;i<maxLength;i++)
 		this.writeU16(pos+i*2,0)
 }
+MarcFile.newFromPromise=async function(file){
+	var ret = await new Promise((resolve, reject) => {
+		try {
+			var marcFile = new MarcFile(file, function() {
+				resolve(marcFile);
+			});
+		} catch (err) {
+			reject(err);
+		}
+	});
+	return ret;
+}
 
 
 
@@ -305,13 +317,13 @@ window.addEventListener('load', function(){
 	}
 
 
-	MarcDragAndDrop.add('dragzone', function(droppedFiles){
+	MarcDragAndDrop.add('dragzone', async function(droppedFiles){
 		if(droppedFiles.length == 1 || typeof SavegameEditor.showSavegameIndex === 'undefined') {
 			// Load savegame from file
 			tempFile=new MarcFile(droppedFiles[0], _tempFileLoadFunction);
 		} else {
 			// Some games have a complex structure of multiple savegames, so we provide a custom picker+overview
-			SavegameEditor.showSavegameIndex(droppedFiles);
+			await SavegameEditor.showSavegameIndex(droppedFiles);
 		}
 	});
 

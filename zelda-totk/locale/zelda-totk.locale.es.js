@@ -13,6 +13,9 @@ Locale.add('es', {
 'Import':'Importar',
 'Duplicate':'Duplicar',
 'Delete':'Borrar',
+'Open':'Abrir',
+'Select save slot to edit': 'Selecciona guardar ranura para editar',
+'Autosave':'Guardado automático',
 
 
 /* navbar */
