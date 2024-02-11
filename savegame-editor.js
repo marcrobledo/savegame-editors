@@ -102,7 +102,22 @@ MarcDragAndDrop=(function(){
 	async function toFilePromise(fileEntry) {
 		try {
 			return await new Promise((resolve, reject) => {
-				fileEntry.file(resolve, reject);
+				fileEntry.file(function(file){
+					// Patch webkitRelativePath for Chrome which doesn't always set it? https://github.com/ant-design/ant-design/issues/16426
+					// TODO could we just pass fileEntry.fullpath out instead of patching this?
+					Object.defineProperties(file, {
+						webkitRelativePath: {
+						writable: true,
+						},
+					});
+					file.webkitRelativePath = file.webkitRelativePath || fileEntry.fullPath.replace(/^\//, '');
+					Object.defineProperties(file, {
+						webkitRelativePath: {
+						writable: false,
+						},
+					});
+					resolve(file);
+				}, reject);
 			});
 		} catch (err) {
 			console.log(err);
@@ -196,10 +211,6 @@ function _tempFileLoadFunction(){
 	}
 }
 
-function loadSavegameFromInput(input){
-	tempFile=new MarcFile(input.files[0], _tempFileLoadFunction);
-}
-
 function saveChanges(){
 	if(decodeURIComponent(document.cookie).indexOf('hideWarningMessage=1')>=0 || location.protocol==='file:'){ /* chrome does not write cookies in local, so skip warning message in that case */
 		SavegameEditor.save();
@@ -259,8 +270,17 @@ window.addEventListener('load', function(){
 	inputFile.type='file';
 	inputFile.className='hidden';
 	inputFile.id='file-load';
-	inputFile.addEventListener('change', function(){
-		loadSavegameFromInput(this);
+	// Requires a folder for "browse window" picking, but this works when running webpage from filesystem on Chrome, where dropping folders does not work.
+	// `webkitGetAsEntry` may be a better workaround https://github.com/danialfarid/ng-file-upload/issues/236#issuecomment-45053629
+	// inputFile.webkitdirectory = true;
+	inputFile.addEventListener('change', async function(evt){
+		if(this.files.length == 1 || typeof SavegameEditor.showSavegameIndex === 'undefined') {
+			// Load savegame from file
+			tempFile=new MarcFile(this.files[0], _tempFileLoadFunction);
+		} else {
+			// Some games have a complex structure of multiple savegames, so we provide a custom picker+overview
+			await SavegameEditor.showSavegameIndex(this.files);
+		}
 	}, false);
 
 	dragZone.appendChild(dragMessage);

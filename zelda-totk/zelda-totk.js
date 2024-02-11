@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2024-01-02)
+	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2024-02-11)
 
 	by Marc Robledo 2023-2024
 */
