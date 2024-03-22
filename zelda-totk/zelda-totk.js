@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2024-01-02)
+	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2024-02-11)
 
 	by Marc Robledo 2023-2024
 */
@@ -1018,30 +1018,49 @@ SavegameEditor={
 		MarcTooltips.add('#container-'+catId+' input',{position:'left',align:'center'});
 	},
 
+	captionReadBoolByHash:function(marcFile, targetHash) {
+		for(var i=0x000028; i<0x000001c0; i+=8){
+			var hash=marcFile.readU32(i);
+			if(hash===targetHash){
+				return marcFile.readBytes(i+4, 1)[0] == 1;
+			}
+		}
+		return false;
+	},
+
+	captionReadU32ByHash:function(marcFile, targetHash) {
+		for(var i=0x000028; i<0x000001c0; i+=8){
+			var hash=marcFile.readU32(i);
+			if(hash===targetHash){
+				return marcFile.readU32(i+4);
+			}
+		}
+	},
+
+	makeImgFromCaption:function(marcFile){
+		var jpgOffset = this.captionReadU32ByHash(marcFile, 0x63696a32);
+		var jpgSize=marcFile.readU32(jpgOffset);
+
+		var arrayBuffer=marcFile._u8array.buffer.slice(jpgOffset+4, jpgOffset+4+jpgSize);
+		var blob=new Blob([arrayBuffer], {type:'image/jpeg'});
+		var imageUrl=(window.URL || window.webkitURL).createObjectURL(blob);
+		var img=new Image();
+		img.src=imageUrl;
+		return img;
+	},
+
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
 		tempFile.littleEndian=true;
 		//if(tempFile.fileName==='caption.sav'){
 		if(/caption/.test(tempFile.fileName)){
-			for(var i=0x000028; i<0x000001c0; i+=8){
-				var hash=tempFile.readU32(i);
-				if(hash===0x63696a32){ //found JPG hash
-					var jpgOffset=tempFile.readU32(i+4);
-					var jpgSize=tempFile.readU32(jpgOffset);
-
-					var arrayBuffer=tempFile._u8array.buffer.slice(jpgOffset+4, jpgOffset+4+jpgSize);
-					var blob=new Blob([arrayBuffer], {type:'image/jpeg'});
-					var imageUrl=(window.URL || window.webkitURL).createObjectURL(blob);
-					var img=new Image();
-					img.src=imageUrl;
-					document.getElementById('dialog-caption').innerHTML='';
-					document.getElementById('dialog-caption').appendChild(img);
-					window.setTimeout(function(){
-						MarcDialogs.open('caption')
-					}, 100);
-
-					break;
-				}
+			var img = this.makeImgFromCaption(tempFile);
+			if(img){
+				document.getElementById('dialog-caption').innerHTML='';
+				document.getElementById('dialog-caption').appendChild(img);
+				window.setTimeout(function(){
+					MarcDialogs.open('caption')
+				}, 100);
 			}
 		}else if(tempFile.readU32(0)===0x01020304 && tempFile.fileSize>=2307552 && tempFile.fileSize<4194304){
 			Variable.findHashTableEnd();
@@ -1065,6 +1084,93 @@ SavegameEditor={
 		return false
 	},
 
+	showSavegameIndex:async function(droppedFiles) {
+		// Parse savegames into their respective slots
+		var slotCaptionDate = [];
+		var slotCaptionImg = [];
+		var slotCaptionIsAutosave = [];
+		var slotProgressMarcFile = [];
+		for(var i=0; i<droppedFiles.length; i++) {
+			var file = droppedFiles[i];
+			var filePath = file.webkitRelativePath || ''; // non standard but supported everywhere
+			var slotMatch = filePath.match(/slot_0([012345])/);
+			if(!slotMatch || slotMatch.length != 2) {
+				continue;
+			}
+			var slot_i = parseInt(slotMatch[1]);
+
+			if(file.name == "caption.sav") {
+				var marcFile = await MarcFile.newFromPromise(file);
+				marcFile.littleEndian = true; // this gets hardcoded in checkValidSavegame too
+
+				var year = this.captionReadU32ByHash(marcFile, 0x9811A3F7);
+				var minute = this.captionReadU32ByHash(marcFile, 0x27853BF7);
+				var hour = this.captionReadU32ByHash(marcFile, 0x23F3D75E);
+				var month = this.captionReadU32ByHash(marcFile, 0xDFD840D3);
+				var day = this.captionReadU32ByHash(marcFile, 0xBD46F485);
+				var slotDate = new Date(year, month-1, day, hour, minute);
+				slotCaptionDate[slot_i] = slotDate;
+
+				var isAutosave = this.captionReadBoolByHash(marcFile, 0x25F03CAA);
+				slotCaptionIsAutosave[slot_i] = isAutosave;
+				//console.log(slot_i, slotDate, isAutosave);
+
+				var img = this.makeImgFromCaption(marcFile);
+				slotCaptionImg[slot_i] = img;
+			} else if(file.name == "progress.sav") {
+				var marcFile = await MarcFile.newFromPromise(file);
+				marcFile.littleEndian = true; // this gets hardcoded in checkValidSavegame too
+				slotProgressMarcFile[slot_i] = marcFile;
+			}
+		}
+		// Sort slot indexes by date descending, ranking hardsaves higher on tie
+		var sortedSlots = slotCaptionDate.map((x,i) => [x,i]).sort((a,b) => {
+			var cmp = b[0]-a[0];
+			if (cmp) { return cmp; }
+			return slotCaptionIsAutosave[a[1]]-slotCaptionIsAutosave[b[1]];
+		}).map(pair => pair[1]);
+
+		// Show slot picker with caption.sav metadata
+		$('#container-savegameslots').html('');
+		for(let i=0; i<6; i++) {
+			let slot_i = sortedSlots[i];
+			var img = slotCaptionImg[slot_i];
+			var progressMarcFile = slotProgressMarcFile[slot_i];
+
+			var row = $('<div></div>').addClass('row row-item');
+			var columnLeft = $('<div></div>').addClass('row-item-left');
+			var columnRight = $('<div></div>').addClass('row-item-right');
+			row.append(columnLeft, columnRight);
+
+			if(img){
+				columnLeft.append(img);
+				var button = $('<button></button>').addClass('btn').text(_('Open') + ' slot_0' + slot_i).on('click', (evt)=>{
+					MarcDialogs.close();
+					tempFile = slotProgressMarcFile[slot_i];
+					_tempFileLoadFunction();
+				});
+
+				var slotDate = new Intl.DateTimeFormat(undefined, {
+					dateStyle: 'short',
+					timeStyle: 'short',
+				}).format(slotCaptionDate[slot_i]);
+				slotDate = $("<div></div>").text(slotDate);
+
+				columnRight.append(slotDate, button);
+
+				if(slotCaptionIsAutosave[slot_i]) {
+					var autosaveTag = $("<div></div>").text(_("Autosave"));
+					columnRight.append(autosaveTag);
+				}
+			}
+
+			$('#container-savegameslots').append(row);
+		}
+
+		window.setTimeout(function(){
+			MarcDialogs.open('savegameindex')
+		}, 100);
+	},
 
 	preload:function(){
 		/* implement String.slug for item searching purposes */

@@ -41,6 +41,17 @@ body{
 }
 
 
+/* pick savegame slot screen */
+#container-savegameslots .row-item{
+	background-color: rgba(0,0,0,0.2);
+	padding:0;
+	margin:16px 0;
+	align-items:normal;
+	min-height:144px; /* caption 256x144 */
+	max-height:144px;
+}
+
+
 
 
 
