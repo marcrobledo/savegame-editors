@@ -416,130 +416,130 @@ SavegameEditor={
 		],
 		WEAPON_TYPES:[
 			{name:'Blades', weapons:[
-				{id:0xfa2000,name:'First Blade'},
-				{id:0xf9a880,name:'Burst Blade'},
-				{id:0x5b2100,name:'Viper Blade'},
-				{id:0x7a6180,name:'Crusader Blade'},
-				{id:0x79e200,name:'Royal Blade'},
-				{id:0x84e280,name:'Optical Blade'},
-				{id:0x66e300,name:'Samurai Blade'},
-				{id:0x926380,name:'Bullet Blade'},
-				{id:0x9cec00,name:'Aquarius Blade'},
-				{id:0x88ec80,name:'Aurum Blade'},
-				{id:0x876500,name:'Palutena Blade'},
-				{id:0x94ed80,name:'Gaol Blade'}
+				{bitmap:0x0000,name:'First Blade'},
+				{bitmap:0x8000,name:'Burst Blade'},
+				{bitmap:0x0001,name:'Viper Blade'},
+				{bitmap:0x8001,name:'Crusader Blade'},
+				{bitmap:0x0002,name:'Royal Blade'},
+				{bitmap:0x8002,name:'Optical Blade'},
+				{bitmap:0x0003,name:'Samurai Blade'},
+				{bitmap:0x8003,name:'Bullet Blade'},
+				{bitmap:0x0004,name:'Aquarius Blade'},
+				{bitmap:0x8004,name:'Aurum Blade'},
+				{bitmap:0x0005,name:'Palutena Blade'},
+				{bitmap:0x8005,name:'Gaol Blade'}
 			]},
 			{name:'Staves', weapons:[
-				{id:0x49c804,name:'Insight Staff'},
-				{id:0x7c4084,name:'Orb Staff'},
-				{id:0x4d4904,name:'Rose Staff'},
-				{id:0x684184,name:'Knuckle Staff'},
-				{id:0x944204,name:'Ancient Staff'},
-				{id:0x934284,name:'Lancer Staff'},
-				{id:0x93c304,name:'Flintlock Staff'},
-				{id:0x9bcb84,name:'Somewhat Staff'},
-				{id:0xf98c04,name:'Scorpio Staff'},
-				{id:0xbd8c84,name:'Laser Staff'},
-				{id:0x5a0504,name:'Dark Pit Staff'},
-				{id:0xfa0d84,name:'Thanatos Staff'}
+				{bitmap:0x0400,name:'Insight Staff'},
+				{bitmap:0x8400,name:'Orb Staff'},
+				{bitmap:0x0401,name:'Rose Staff'},
+				{bitmap:0x8401,name:'Knuckle Staff'},
+				{bitmap:0x0402,name:'Ancient Staff'},
+				{bitmap:0x8402,name:'Lancer Staff'},
+				{bitmap:0x0403,name:'Flintlock Staff'},
+				{bitmap:0x8403,name:'Somewhat Staff'},
+				{bitmap:0x0404,name:'Scorpio Staff'},
+				{bitmap:0x8404,name:'Laser Staff'},
+				{bitmap:0x0405,name:'Dark Pit Staff'},
+				{bitmap:0x8405,name:'Thanatos Staff'}
 			]},
 			{name:'Claws', weapons:[
-				{id:0x9f0888,name:'Tiger Claws'},
-				{id:0x9f0888,name:'Wolf Claws'},
-				{id:0xa30908,name:'Bear Claws'},
-				{id:0xa2c988,name:'Brawler Claws'},
-				{id:0x9e8a08,name:'Stealth Claws'},
-				{id:0x9e0a88,name:'Hedgehog Claws'},
-				{id:0x8d4b08,name:'Raptor Claws'},
-				{id:0x7f0388,name:'Artillery Claws'},
-				{id:0xf9cc08,name:'Cancer Claws'},
-				{id:0xd50c88,name:'Beam Claws'},
-				{id:0xa3cd08,name:'Viridi Claws'},
-				{id:0xa38c88,name:'Pandora Claws'}
+				{bitmap:0x8800,name:'Tiger Claws'},
+				{bitmap:0x8800,name:'Wolf Claws'},
+				{bitmap:0x0801,name:'Bear Claws'},
+				{bitmap:0x8801,name:'Brawler Claws'},
+				{bitmap:0x0802,name:'Stealth Claws'},
+				{bitmap:0x8802,name:'Hedgehog Claws'},
+				{bitmap:0x0803,name:'Raptor Claws'},
+				{bitmap:0x8803,name:'Artillery Claws'},
+				{bitmap:0x0804,name:'Cancer Claws'},
+				{bitmap:0x8804,name:'Beam Claws'},
+				{bitmap:0x0805,name:'Viridi Claws'},
+				{bitmap:0x8805,name:'Pandora Claws'}
 			]},
 			{name:'Bows', weapons:[
-				{id:0xaf080c,name:'Fortune Bow'},
-				{id:0x81c08c,name:'Silver Bow'},
-				{id:0xf9c90c,name:'Meteor Bow'},
-				{id:0x96498c,name:'Divine Bow'},
-				{id:0x89ca0c,name:'Darkness Bow'},
-				{id:0xacca8c,name:'Crystal Bow'},
-				{id:0x95cb0c,name:'Angel Bow'},
-				{id:0xabcb8c,name:'Hawkeye Bow'},
-				{id:0xaf4c0c,name:'Sagittarius Bow'},
-				{id:0x4ccc8c,name:'Aurum Bow'},
-				{id:0x67c50c,name:'Palutena Bow'},
-				{id:0x50cd8c,name:'Phrosphora Bow'}
+				{bitmap:0x0c00,name:'Fortune Bow'},
+				{bitmap:0x8c00,name:'Silver Bow'},
+				{bitmap:0x0c01,name:'Meteor Bow'},
+				{bitmap:0x8c01,name:'Divine Bow'},
+				{bitmap:0x0c02,name:'Darkness Bow'},
+				{bitmap:0x8c02,name:'Crystal Bow'},
+				{bitmap:0x0c03,name:'Angel Bow'},
+				{bitmap:0x8c03,name:'Hawkeye Bow'},
+				{bitmap:0x0c04,name:'Sagittarius Bow'},
+				{bitmap:0x8c04,name:'Aurum Bow'},
+				{bitmap:0x0c05,name:'Palutena Bow'},
+				{bitmap:0x8c05,name:'Phrosphora Bow'}
 			]},
 			{name:'Palms', weapons:[
-				{id:0xfa0810,name:'Violet Palm'},
-				{id:0xf98890,name:'Burning Palm'},
-				{id:0x87c910,name:'Needle Palm'},
-				{id:0x914190,name:'Midnight Palm'},
-				{id:0xa9ca10,name:'Cursed Palm'},
-				{id:0xaf4a90,name:'Cutter Palm'},
-				{id:0x514310,name:'Pudgy Palm'},
-				{id:0xaa4b90,name:'Ninja Palm (Weeaboo Palm)'},
-				{id:0x674410,name:'Virgo Palm'},
-				{id:0x924490,name:'Aurum Palm'},
-				{id:0x99c510,name:'Viridi Palm'},
-				{id:0xaecd90,name:'Great Reaper Palm'}
+				{bitmap:0x1000,name:'Violet Palm'},
+				{bitmap:0x9000,name:'Burning Palm'},
+				{bitmap:0x1001,name:'Needle Palm'},
+				{bitmap:0x9001,name:'Midnight Palm'},
+				{bitmap:0x1002,name:'Cursed Palm'},
+				{bitmap:0x9002,name:'Cutter Palm'},
+				{bitmap:0x1003,name:'Pudgy Palm'},
+				{bitmap:0x9003,name:'Ninja Palm (Weeaboo Palm)'},
+				{bitmap:0x1004,name:'Virgo Palm'},
+				{bitmap:0x9004,name:'Aurum Palm'},
+				{bitmap:0x1005,name:'Viridi Palm'},
+				{bitmap:0x9005,name:'Great Reaper Palm'}
 			]},
 			{name:'Clubs', weapons:[
-				{id:0xa60814,name:'Ore Club'},
-				{id:0x9d8894,name:'Babel Club'},
-				{id:0x9e0914,name:'Skyscraper Club'},
-				{id:0x65c994,name:'Atlas Club'},
-				{id:0xf9c214,name:'Earthmaul Club'},
-				{id:0xa48A94,name:'Ogre Club'},
-				{id:0x884b14,name:'Halo Club'},
-				{id:0xa58b94,name:'Black Club'},
-				{id:0xa68c14,name:'Capricorn Club'},
-				{id:0x834494,name:'Aurum Club'},
-				{id:0x874514,name:'Hewdraw Club'},
-				{id:0xa50d94,name:'Magnus Club'}
+				{bitmap:0x1400,name:'Ore Club'},
+				{bitmap:0x9400,name:'Babel Club'},
+				{bitmap:0x1401,name:'Skyscraper Club'},
+				{bitmap:0x9401,name:'Atlas Club'},
+				{bitmap:0x1402,name:'Earthmaul Club'},
+				{bitmap:0x9402,name:'Ogre Club'},
+				{bitmap:0x1403,name:'Halo Club'},
+				{bitmap:0x9403,name:'Black Club'},
+				{bitmap:0x1404,name:'Capricorn Club'},
+				{bitmap:0x9404,name:'Aurum Club'},
+				{bitmap:0x1405,name:'Hewdraw Club'},
+				{bitmap:0x9405,name:'Magnus Club'}
 			]},
 			{name:'Cannons', weapons:[
-				{id:0xaa4818,name:'EZ Cannon'},
-				{id:0xa1c098,name:'Ball Cannon'},
-				{id:0xf9c918,name:'Predator Cannon'},
-				{id:0x51c198,name:'Poseidon Cannon'},
-				{id:0xae8a18,name:'Fireworks Cannon'},
-				{id:0x4aca98,name:'Rail Cannon'},
-				{id:0xaecb18,name:'Dynamo Cannon'},
-				{id:0x634b98,name:'Doom Cannon'},
-				{id:0x9bc418,name:'Leo Cannon'},
-				{id:0x5b0498,name:'Sonic Cannon'},
-				{id:0x864518,name:'Twinbellows Cannon'},
-				{id:0x84c598,name:'Cragalanche Cannon'}
+				{bitmap:0x1800,name:'EZ Cannon'},
+				{bitmap:0x9800,name:'Ball Cannon'},
+				{bitmap:0x1801,name:'Predator Cannon'},
+				{bitmap:0x9801,name:'Poseidon Cannon'},
+				{bitmap:0x1802,name:'Fireworks Cannon'},
+				{bitmap:0x9802,name:'Rail Cannon'},
+				{bitmap:0x1803,name:'Dynamo Cannon'},
+				{bitmap:0x9803,name:'Doom Cannon'},
+				{bitmap:0x1804,name:'Leo Cannon'},
+				{bitmap:0x9804,name:'Sonic Cannon'},
+				{bitmap:0x1805,name:'Twinbellows Cannon'},
+				{bitmap:0x9805,name:'Cragalanche Cannon'}
 			]},
 			{name:'Orbitars', weapons:[
-				{id:0xfa081c,name:'Standard Orbitars'},
-				{id:0x85809c,name:'Guardian Orbitars'},
-				{id:0x53a91c,name:'Shock Orbitars'},
-				{id:0x4d899c,name:'Eyetrack Orbitars'},
-				{id:0x534a1c,name:'Fairy Orbitars'},
-				{id:0x68829c,name:'Paw Pad Orbitars'},
-				{id:0x7f831c,name:'Jetstream Orbitars'},
-				{id:0x69039c,name:'Boom Orbitars'},
-				{id:0x898c1c,name:'Gemini Orbitars'},
-				{id:0x7e049c,name:'Aurum Orbitars'},
-				{id:0x7e851c,name:'Centurion Orbitars'},
-				{id:0xf98d9c,name:'Arlon Orbitars'}
+				{bitmap:0x1c00,name:'Standard Orbitars'},
+				{bitmap:0x9c00,name:'Guardian Orbitars'},
+				{bitmap:0x1c01,name:'Shock Orbitars'},
+				{bitmap:0x9c01,name:'Eyetrack Orbitars'},
+				{bitmap:0x1c02,name:'Fairy Orbitars'},
+				{bitmap:0x9c02,name:'Paw Pad Orbitars'},
+				{bitmap:0x1c03,name:'Jetstream Orbitars'},
+				{bitmap:0x9c03,name:'Boom Orbitars'},
+				{bitmap:0x1c04,name:'Gemini Orbitars'},
+				{bitmap:0x9c04,name:'Aurum Orbitars'},
+				{bitmap:0x1c05,name:'Centurion Orbitars'},
+				{bitmap:0x9c05,name:'Arlon Orbitars'}
 			]},
 			{name:'Arms', weapons:[
-				{id:0x9a4020,name:'Crusher Arm'},
-				{id:0x8b48a0,name:'Compact Arm'},
-				{id:0xf9c920,name:'Electroshock Arm'},
-				{id:0xa949a0,name:'Volcano Arm'},
-				{id:0x484a20,name:'Drill Arm'},
-				{id:0x914aa0,name:'Bomber Arm'},
-				{id:0x478b20,name:'Bowl Arm'},
-				{id:0xa98ba0,name:'End-All Arm'},
-				{id:0x79c420,name:'Taurus Arm'},
-				{id:0x8044a0,name:'Upperdash Arm'},
-				{id:0x844520,name:'Kraken Arm'},
-				{id:0x83c5a0,name:'Phoenix Arm'}
+				{bitmap:0x2000,name:'Crusher Arm'},
+				{bitmap:0xa000,name:'Compact Arm'},
+				{bitmap:0x2001,name:'Electroshock Arm'},
+				{bitmap:0xa001,name:'Volcano Arm'},
+				{bitmap:0x2002,name:'Drill Arm'},
+				{bitmap:0xa002,name:'Bomber Arm'},
+				{bitmap:0x2003,name:'Bowl Arm'},
+				{bitmap:0xa003,name:'End-All Arm'},
+				{bitmap:0x2004,name:'Taurus Arm'},
+				{bitmap:0xa004,name:'Upperdash Arm'},
+				{bitmap:0x2005,name:'Kraken Arm'},
+				{bitmap:0xa005,name:'Phoenix Arm'}
 			]}
 		]
 	},
@@ -560,6 +560,9 @@ SavegameEditor={
 		STATS:						0x0101b8,
 	},
 
+	// Define a variable to store currentWeaponID.
+	_currWeaponID: null,
+
 	/* private functions */
 	_checkIfMissingAnyUnreleasedTrophy:function(){
 		var missing=false;
@@ -577,12 +580,37 @@ SavegameEditor={
 	_getWeaponOffset:function(){
 		return this.Offsets.WEAPONS+currentWeapon*this.Constants.WEAPON_SIZE
 	},
+
+	_fetchWeaponName:function() {
+		// Interested in bits 1011 1100 = 0xBC
+		var classBitMap = 0xBC;
+
+		// Interested in bits 0000 0111 - 0x07
+		var weaponBitMap = 0x07;
+
+		// Get weapon signature
+		var signature = ((this._currWeaponID[0] & classBitMap) << 8) + (this._currWeaponID[1] & weaponBitMap);
+
+		// Loop through weapons until signature matches bitmap
+		for(var i = 0; i < this.Constants.WEAPON_TYPES.length; i++){
+			var GROUP = this.Constants.WEAPON_TYPES[i];
+			for(var j = 0; j<GROUP.weapons.length; j++){
+				var WEAPON=GROUP.weapons[j];
+				if (WEAPON.bitmap === signature) {
+					return WEAPON.name
+				}
+			}
+		}
+	},
+
 	_readWeapon:function(i){
 		currentWeapon=i;
 		var offset=this._getWeaponOffset();
 
 		var weaponType=(tempFile.readU8(offset+0x05)<<16)+(tempFile.readU8(offset+0x06)<<8)+tempFile.readU8(offset+0x07);
-		get('weapon-unknown').innerHTML='0x'+weaponType.toString(16);
+		this._currWeaponID = new Uint8Array([tempFile.readU8(offset+0x05), tempFile.readU8(offset+0x06)]);
+		var weaponName = this._fetchWeaponName();
+		get('weapon-unknown').innerHTML=weaponName;
 		get('weapon-unknown').value=weaponType;
 
 		get('select-weapon-type').value=weaponType;
@@ -609,9 +637,19 @@ SavegameEditor={
 		var offset=SavegameEditor._getWeaponOffset();
 
 		var weaponType=parseInt(getValue('weapon-type'));
-		tempFile.writeU8(offset+0x05, (weaponType & 0xff0000) >> 16);
-		tempFile.writeU8(offset+0x06, (weaponType & 0x00ff00) >> 8);
-		tempFile.writeU8(offset+0x07, (weaponType & 0x0000ff) >> 0);
+		
+		// Only write weapon to file slot has been changed.
+		if (this._currWeaponID) {
+			// Add back original information (when weapon was retrieved) to the data
+			// To do this we need this bitmap: 0100 0011 1111 1000
+			var retrievedData = ((this._currWeaponID[0] << 8) | (this._currWeaponID[1])) & 0x43F8;
+
+			// Combine weaponType and original arbitrary data.
+			var result = weaponType | retrievedData;
+
+			tempFile.writeU8(offset+0x05, (result & 0xff00) >> 8);
+			tempFile.writeU8(offset+0x06, (result & 0x00ff) >> 0);
+		}
 
 		tempFile.writeU16(offset+0x08, getValue('weapon-stars-ranged'));
 		tempFile.writeU16(offset+0x0a, getValue('weapon-stars-melee'));
@@ -697,7 +735,7 @@ SavegameEditor={
 			for(var j=0; j<GROUP.weapons.length; j++){
 				var WEAPON=GROUP.weapons[j];
 				var option=document.createElement('option');
-				option.value=WEAPON.id;
+				option.value=WEAPON.bitmap;
 				option.innerHTML=(j+1)+'. '+WEAPON.name;
 				optGroup.appendChild(option);
 			}
