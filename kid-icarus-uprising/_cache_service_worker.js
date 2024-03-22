@@ -30,7 +30,7 @@ caches.keys().then(function(cacheNames){
 });
 
 var PRECACHE_ID='kid-icarus-uprising-editor';
-var PRECACHE_VERSION='v1';
+var PRECACHE_VERSION='v2';
 var PRECACHE_URLS=[
 	'/savegame-editors/kid-icarus-uprising/','/savegame-editors/kid-icarus-uprising/index.html',
 	'/savegame-editors/kid-icarus-uprising/favicon.png',
