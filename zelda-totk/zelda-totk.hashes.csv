@@ -20844,8 +20844,8 @@ df82b2a9;Bool;WhichIsStronger_GoodsRestocked
 4920b48d;Bool;WhichIsStronger_NPC_Remove
 daba5433;Bool;WhichIsStronger_NPC_Remove_Ready
 bb58e692;Bool;WhichIsStronger_ReGive
-35d3afbe;Bool;Unknown
-ddd57c55;Bool;Unknown
+35d3afbe;Bool;World_IsBloodyMoonDay
+ddd57c55;Bool;World_IsZonauRespawnDay
 8d85b587;Bool;Yarakashita2_NpcGerudoDesert004
 bf822943;Bool;Yunbo_First
 52c4fada;Bool;Zonau_RockRelief_07_Combine
@@ -28852,9 +28852,9 @@ c9f96667;Int;WellDiscoverNumCurrent
 3623b5c0;Int;WellReportNum
 e56fa9f3;Int;WellReportNumMinusOne
 11178294;Int;WellReportNumThisTime
-d8d100fa;Int;Unknown
-449b3ba6;Int;Unknown
-2106fa19;Int;Unknown
+d8d100fa;Int;World_CurrentDays
+449b3ba6;Int;World_CurrentHour
+2106fa19;Int;World_CurrentMinute
 65e1fbdd;Int;Zonau_GeniusWeapon_Requires
 41c30c71;IntArray;AlbumData.Photograph.FigureHash
 7f0969c9;IntArray;AlbumData.Photograph.Index
@@ -30985,10 +30985,10 @@ f78a5054;UInt;RandomPlacedItemCreateActor_SouthernVillageGamblerShopTBox.Elapsed
 b8ef33e4;UInt;Unknown
 3f8d9d86;UInt;Unknown
 5ce8221a;UInt64;LastWildHorse.UidHash
-1aeff61b;UInt64;Unknown
-ef10b80f;UInt64;Unknown
+1aeff61b;UInt64;World_BloodyMoonTimer
+ef10b80f;UInt64;TempName.CurrentTimer
 e8d2aecd;UInt64;Unknown
-eee00df9;UInt64;Unknown
+eee00df9;UInt64;World_ZonauRespawnTimer
 9152eef8;UInt64Array;AmiiboData.TouchLog.UIDHash
 3ae85fe6;UInt64Array;DongoLocatorList.LocatorID
 797f5c2c;UInt64Array;Horse_UsedAmiiboUidHash
@@ -31026,7 +31026,7 @@ dc9a941c;Vector3;Dragon_Light_Dir
 6e95abbd;Vector3;PlayerStatus.Companion.Water.CurrentPos
 9ed2f50f;Vector3;PlayerStatus.Companion.Wind.CurrentPos
 c884818d;Vector3;PlayerStatus.SavePos
-8773f02d;Vector3;Unknown
+8773f02d;Vector3;World_PlayerPos
 6ac2686b;Vector3;Unknown
 0337ce96;Vector3;Unknown
 ef74dca7;Vector3Array;AutoBuilder.Draft.Content.CameraAt
