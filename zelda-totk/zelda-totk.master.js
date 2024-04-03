@@ -1,6 +1,6 @@
 /*
-	The legend of Zelda: Tears of the Kingdom - Master editor v20230802
-	by Marc Robledo 2023	
+	The legend of Zelda: Tears of the Kingdom - Master editor v20240403
+	by Marc Robledo 2023-2024
 	
 	thanks to the immeasurable work, hash crack and research of MacSpazzy, MrCheeze and Karlos007
 */
@@ -115,7 +115,7 @@ var TOTKMasterEditor=(function(){
 			return;
 
 		var hashType=hashInfo.type;
-		if(/String|Vector|Array/.test(hashType)){
+		if(/UInt64|String|Vector|Array/.test(hashType)){
 			offset=tempFile.readU32(hashInfo.offset);
 			
 			if(/Array$/.test(hashType)){
@@ -123,7 +123,7 @@ var TOTKMasterEditor=(function(){
 					offset+=0x04;
 					if(/Bool/.test(hashType)){
 						//if boolArray, calculate bit offset during checkbox change
-					}else if(/Vector2/.test(hashType)){
+					}else if(/UInt64|Vector2/.test(hashType)){
 						offset+=arrayIndex*0x08;
 					}else if(/Vector3/.test(hashType)){
 						offset+=arrayIndex*0x0c;
@@ -204,6 +204,33 @@ var TOTKMasterEditor=(function(){
 			field.addEventListener('change', _setF32);
 
 			tr.children[1].appendChild(field);
+		}else if(hashType==='UInt64'){
+			if(/Timer/.test(hashInfo.hashText)){
+				var input1=inputFloat(fieldId, -2147483648, 2147483647, tempFile.readF32(offset));
+				input1.addEventListener('change', _setF32);
+			}else{
+				var input1=inputNumber(fieldId, 0, 4294967295, tempFile.readU32(offset));
+				input1.addEventListener('change', _setU32);
+			}
+			input1.className='text-right';
+			input1.style='width:160px';
+			input1.offset=offset;
+			input1.arrayIndex=arrayIndex;
+
+			var input2=inputNumber(fieldId, 0, 4294967295, tempFile.readU32(offset+4));
+			input2.className='text-right';
+			input2.style='width:160px';
+			input2.offset=offset + 4;
+			input2.arrayIndex=arrayIndex;
+			input2.addEventListener('change', _setU32);
+
+			if(/Timer/.test(hashInfo.hashText)){
+				input1.title='seconds';
+				input2.title='days';
+			}
+
+			tr.children[1].appendChild(input1);
+			tr.children[1].appendChild(input2);
 		}else if(hashType==='Vector2'){
 			var inputX=inputFloat(fieldId, -2147483648, 2147483647, tempFile.readF32(offset));
 			inputX.className='text-right';
@@ -213,10 +240,10 @@ var TOTKMasterEditor=(function(){
 			inputX.addEventListener('change', _setF32);
 			inputX.title='X';
 
-			var inputY=inputFloat(fieldId+'y', -2147483648, 2147483647, tempFile.readF32(offset+8));
+			var inputY=inputFloat(fieldId+'y', -2147483648, 2147483647, tempFile.readF32(offset+4));
 			inputY.className='text-right';
 			inputY.style='width:160px';
-			inputY.offset=offset+8;
+			inputY.offset=offset+4;
 			inputY.arrayIndex=arrayIndex;
 			inputY.addEventListener('change', _setF32);
 			inputY.title='Y';
