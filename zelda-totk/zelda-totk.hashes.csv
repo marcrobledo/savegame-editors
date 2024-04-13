@@ -30986,7 +30986,7 @@ b8ef33e4;UInt;Unknown
 3f8d9d86;UInt;Unknown
 5ce8221a;UInt64;LastWildHorse.UidHash
 1aeff61b;UInt64;World_BloodyMoonTimer
-ef10b80f;UInt64;TempName.CurrentTimer
+ef10b80f;UInt64;World_CurrentDateTime
 e8d2aecd;UInt64;Unknown
 eee00df9;UInt64;World_ZonauRespawnTimer
 9152eef8;UInt64Array;AmiiboData.TouchLog.UIDHash
