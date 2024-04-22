@@ -29435,7 +29435,7 @@ b13560b3;String64;RaumiGolemAttachment.SubTool.Name
 1f8e3ed5;String64;RaumiGolemAttachment.SubWeapon.Name
 8d1f1cf7;String64;RaumiGolemAttachment.Tool.Name
 7b2b5333;String64;RaumiGolemAttachment.Weapon.Name
-c10af0d8;String64;Unknown
+c10af0d8;String64;RecipeCard.LatestDisplayFood
 ecdef5f9;String64;RecipeCard.LatestMakeFood
 1b39e32f;String64;Unknown
 1d6189da;String64;Sequence_CurrentBanc
@@ -29714,7 +29714,7 @@ fb077db6;String64Array;RecipeCard.Content.Item_RoastFish_09_F.RecipeLog.Material
 824564c2;String64Array;RecipeCard.Content.Item_RoastFish_15_O.RecipeLog.Materials
 634c78cf;String64Array;RecipeCard.Content.Item_RoastFish_16.RecipeLog.Materials
 a1c6eec9;String64Array;RecipeCard.Content.Item_RoastFish_18.RecipeLog.Materials
-df0798c3;String64Array;Unknown
+df0798c3;String64Array;RecipeCard.LatestDisplayFoodMaterials
 4e742cf4;String64Array;RecipeCard.LatestMakeFoodMaterials
 53cbf91a;String64Array;ShieldStand.EquipInfo.Content.Combined.Name
 d26f0a3d;String64Array;ShieldStand.EquipInfo.Content.Name
