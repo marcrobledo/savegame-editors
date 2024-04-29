@@ -305,10 +305,11 @@ Equipment.DEFAULT_DURABILITY={
 	Weapon_Sword_077:40,
 	Weapon_Sword_070_Broken:6,
 	Npc_Zelda_Torch:8,
-	Weapon_Sword_152_Main:28,
-	Weapon_Sword_152_Sub:28,
+	Weapon_Sword_152_Main:60,
+	Weapon_Sword_152_Sub:60,
 	Demo910_Torch: 8,
 	Weapon_Sword_043_SetFire: 8,
+	Weapon_Sword_071_Broken: 6,
 
 	Weapon_Lsword_001:20,
 	Weapon_Lsword_002:25,
@@ -377,7 +378,7 @@ Equipment.DEFAULT_DURABILITY={
 	Weapon_Spear_129:15,
 	Weapon_Spear_132:25,
 	Weapon_Spear_147:14,
-	Weapon_Spear_150:40,
+	Weapon_Spear_150:70,
 	Weapon_Spear_161:14,
 	Weapon_Spear_163:24,
 	Weapon_Spear_164:27,
@@ -414,14 +415,16 @@ Equipment.DEFAULT_DURABILITY={
 	Weapon_Bow_105:26,
 	Weapon_Bow_106:34,
 	Weapon_Bow_107:20,
-	Weapon_Bow_116:20,
+	Weapon_Bow_116:30,
 	Weapon_Bow_128:60,
 	Weapon_Bow_129:60,
 	Weapon_Bow_166:42,
 	Weapon_Bow_166_For_Ganondorf:42,
 
 	Weapon_Shield_001:12,
+	Weapon_Shield_001_NoBurned:12,
 	Weapon_Shield_002:16,
+	Weapon_Shield_002_NoBurned:16,
 	Weapon_Shield_003:23,
 	Weapon_Shield_004:5,
 	Weapon_Shield_005:7,
@@ -439,26 +442,31 @@ Equipment.DEFAULT_DURABILITY={
 	Weapon_Shield_026:20,
 	Weapon_Shield_030:800,
 	Weapon_Shield_031:10,
+	Weapon_Shield_031_NoBurned:10,
 	Weapon_Shield_032:10,
+	Weapon_Shield_032_NoBurned:10,
 	Weapon_Shield_033:14,
 	Weapon_Shield_034:12,
+	Weapon_Shield_034_NoBurned:12,
 	Weapon_Shield_035:12,
+	Weapon_Shield_035_NoBurned:12,
 	Weapon_Shield_036:26,
 	Weapon_Shield_037:60,
 	Weapon_Shield_040:10,
 	Weapon_Shield_041:16,
 	Weapon_Shield_042:16,
+	Weapon_Shield_042_NoBurned:16,
 	Weapon_Shield_057:90,
 	Weapon_Shield_101:15,
 	Weapon_Shield_102:15,
 	Weapon_Shield_103:20,
 	Weapon_Shield_107:12,
-	Weapon_DungeonBossZonau_Front:15,
-
-	Weapon_RaumiGolem_Left:15,
-	Weapon_RaumiGolem_Right:15,
-	Weapon_DungeonBossZonau:15,
-	Weapon_Goron_Knuckle:15
+	Weapon_DungeonBossZonau_Front:12,
+	Weapon_RaumiGolem_Back: 12,
+	Weapon_RaumiGolem_Left:20,
+	Weapon_RaumiGolem_Right:20,
+	Weapon_DungeonBossZonau:20,
+	Weapon_Goron_Knuckle:20
 };
 
 Equipment.FUSE_DURABILITY={
@@ -476,6 +484,7 @@ Equipment.FUSE_DURABILITY={
 	Weapon_Sword_031:25,
 	Weapon_Sword_041:25,
 	Weapon_Sword_043:10,
+	Weapon_Sword_043_SetFire: 25,
 	Weapon_Sword_044:10,
 	Weapon_Sword_047:10,
 	Weapon_Sword_051:25,
@@ -565,7 +574,7 @@ Equipment.FUSE_DURABILITY={
 	Weapon_Spear_030:25,
 	Weapon_Spear_032:25,
 	Weapon_Spear_036:10,
-	Weapon_Spear_036_MercenarySoldier:10,
+	Weapon_Spear_036_MercenarySoldier:25,
 	Weapon_Spear_038:10,
 	Weapon_Spear_047:10,
 	Weapon_Spear_050:25,
@@ -590,6 +599,10 @@ Equipment.FUSE_DURABILITY={
 	Weapon_Spear_168:25,
 	Weapon_Spear_173:25,
 
+	Weapon_RaumiGolem_Left: 25,
+	Weapon_RaumiGolem_Right: 25,
+	Weapon_Goron_Knuckle: 25,
+	Weapon_DungeonBossZonau: 25,
 };
 
 Equipment.AVAILABILITY={
@@ -640,6 +653,7 @@ Equipment.AVAILABILITY={
 		'Weapon_Sword_043', //Torch
 		'Weapon_Sword_077', //Master Sword (glitched)
 		'Weapon_Sword_071', //Master Sword (cutscenes)
+		'Weapon_Sword_071_Broken', // Broken Master Sword (cutscenes)
 		'Weapon_Sword_152_Main', // Riju's Scimitar of the Seven
 		'Weapon_Sword_152_Sub', //  Riju's Scimitar of the Seven
 
@@ -772,16 +786,23 @@ Equipment.AVAILABILITY={
 		'Weapon_Shield_030', //Hylian Shield
 		'Weapon_Shield_107', //Old Wooden Shield
 		'Weapon_Shield_001', //Wooden Shield
+		'Weapon_Shield_001_NoBurned', //Wooden Shield (Selmie's Spot)
 		'Weapon_Shield_034', //Emblazoned Shield
+		'Weapon_Shield_034_NoBurned', //Emblazoned Shield (Selmie's Spot)
 		'Weapon_Shield_031', //Hunter's Shield
+		'Weapon_Shield_031_NoBurned', //Hunter's Shield (Selmie's Spot)
 		'Weapon_Shield_032', //Fisherman's Shield
+		'Weapon_Shield_032_NoBurned', //Fisherman's Shield (Selmie's Spot)
 		'Weapon_Shield_035', //Traveler's Shield
+		'Weapon_Shield_035_NoBurned', //Traveler's Shield (Selmie's Spot)
 		'Weapon_Shield_002', //Soldier's Shield
+		'Weapon_Shield_002_NoBurned', //Soldier's Shield (Selmie's Spot)
 		'Weapon_Shield_003', //Knight's Shield
 		'Weapon_Shield_022', //Royal Shield
 		'Weapon_Shield_023', //Forest Dweller's Shield
 		'Weapon_Shield_025', //Zora Shield
 		'Weapon_Shield_042', //Kite Shield
+		'Weapon_Shield_042_NoBurned', // Kite Shield (Selmie's Spot)
 		'Weapon_Shield_026', //Gerudo Shield
 		'Weapon_Shield_036', //Radiant Shield
 		'Weapon_Shield_037', //Daybreaker
