@@ -174,7 +174,7 @@ Item.FOOD_EFFECTS_RAW=[
 'SnowMoveUp', 'DefenseUp', 'AllSpeed', 'MiasmaGuard', 'LifeMaxUp', 'StaminaRecover', 'ExStaminaMaxUp', 'LifeRepair',
 'DivingMobilityUp', 'NotSlippy', 'LightEmission', 'RupeeGuard', 'SwordBeamUp', 'NightMoveSpeedUp', 'DecreaseWallJumpStamina', 'DecreaseChargeAttackStamina',
 'NoBurning', 'NoFallDamage', 'NoSlip', 'DecreaseZonauEnergy', 'ZonauEnergyHealUp', 'MiasmaDefenseUp', 'ChargePowerUpCold', 'ChargePowerUpHot',
-'ChargePowerUpThunderstorm', 'LightFootprint'
+'ChargePowerUpThunderstorm', 'LightFootprint','TwiceJump','EmergencyAvoid'
 //unusable in food?
 //ResistFreeze, ResitLightning, RupeeGuard
 //ResistAncient, SpinAttack, ClimbWaterfall, ClimbSpeedUpOnlyHorizontaly, AttackUpDark, AttackUpBone, WakeWind, TwiceJump
@@ -206,7 +206,9 @@ Item.FOOD_EFFECTS=[
 {originalName:'Gloom Recovery', value:hash('LifeRepair')},
 {originalName:'Skydive Mobility Up', value:hash('DivingMobilityUp')},
 {originalName:'Slip Resistance', value:hash('NotSlippy')},
-{originalName:'Glow', value:hash('LightEmission')}
+{originalName:'Glow', value:hash('LightEmission')},
+{originalName:'Twice Jump', value:hash('TwiceJump')},
+{originalName:'Emergency Avoid', value:hash('EmergencyAvoid')},
 ];
 
 /*
@@ -503,6 +505,7 @@ Item.AVAILABILITY={
 		'Item_Ore_J', //Star Fragment
 		'Item_Ore_L', //Zonaite
 		'Item_Ore_M', //Large Zonaite
+		'Item_Ore_N', //Unused Zonaite
 
 		'Item_PlantGet_A', //Hyrule Herb
 		'Item_PlantGet_B', //Hearty Radish
@@ -537,6 +540,54 @@ Item.AVAILABILITY={
 		'Item_KingScale', //King's Scale
 		'Item_Weapon_01', //Ancient Blade
 		'Obj_FireWoodBundle', //Wood
+
+		'DgnObj_BeamDevice_Static', // Shrine Beam Emitter
+		'DgnObj_IRBeamDevice_Static_Beam', // Shrine Sensor Beam
+		'AssassinRockBall', // Master Kohga's Ball
+		'OctObj_Stone_TBox', // Fake Treasure Chest
+		'Obj_Cushion', // Starlight Memories Cushion
+
+		'Obj_LinkHouse_A_01', // Furnished Square Room
+		'Obj_LinkHouse_B_01', // Blessing Room
+		'Obj_LinkHouse_C_01', // Bedroom
+		'Obj_LinkHouse_D_01', // Weapon Stand Room
+		'Obj_LinkHouse_E_01', // Bow Stand Room
+		'Obj_LinkHouse_F_01', // Shield Stand Room
+		'Obj_LinkHouse_G_01', // Kitchen
+		'Obj_LinkHouse_H_01', // Gallery
+		'Obj_LinkHouse_I_01', // Outdoor Stairs
+		'Obj_LinkHouse_J_01', // Indoor Stairs
+		'Obj_LinkHouse_K_01', // Garden Pond
+		'Obj_LinkHouse_L_01', // Flower Bed
+		'Obj_LinkHouse_M_01', // Paddock
+		'Obj_LinkHouse_N_01', // Foyer
+		'Obj_LinkHouse_O_01', // Angled Room
+		'Obj_LinkHouse_P_01', // Furnished Angled Room
+		'Obj_LinkHouse_Q_01', // Study
+		'Obj_LinkHouse_R_01', // Square Room
+
+		'Npc_Assassin_Junior', //Yiga Footsoldier (default)
+		'Npc_Assassin_Junior_001',
+		'Npc_Assassin_Junior_002',
+		'Npc_Assassin_Junior_003',
+		'Npc_Assassin_Junior_Azito001',
+		'Npc_Assassin_Junior_Azito002', // Yiga Footsoldier Shopkeeper
+		'Npc_Assassin_Junior_Azito003', // Yiga Footsoldier Shopkeeper
+		'Npc_Assassin_Junior_Azito004', // Yiga Footsoldier Shopkeeper
+		'Npc_Assassin_Junior_Azito005',
+		'Npc_Assassin_Junior_Azito006',
+		'Npc_Assassin_Junior_Azito007',
+		'Npc_Assassin_Junior_Azito008',
+		'Npc_Assassin_Junior_Azito009',
+		'Npc_Assassin_Middle', //Yiga Blademaster (default)
+		'Npc_Assassin_Middle_001',
+		'Npc_Assassin_Middle_002',
+		'Npc_Assassin_Middle_003',
+		'Npc_Assassin_Middle_004',
+		'Npc_Assassin_Middle_Azito001', // Yiga Blademaster (mini game host)
+		'Npc_Assassin_Middle_Azito002',
+		'Npc_Assassin_Middle_Azito003',
+
 	],
 
 		'food':[
