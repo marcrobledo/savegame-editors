@@ -211,64 +211,6 @@ Item.FOOD_EFFECTS=[
 {originalName:'Emergency Avoid', value:hash('EmergencyAvoid')},
 ];
 
-/*
-Item.PARASAIL_FABRICS=[
-{value:hash('Default'), originalName:'Obj_SubstituteCloth_Default'},
-{value:hash('Pattern00'), originalName:'Obj_SubstituteCloth_00'},
-{value:hash('Pattern01'), originalName:'Obj_SubstituteCloth_01'},
-{value:hash('Pattern02'), originalName:'Obj_SubstituteCloth_02'},
-{value:hash('Pattern03'), originalName:'Obj_SubstituteCloth_03'},
-{value:hash('Pattern04'), originalName:'Obj_SubstituteCloth_04'},
-{value:hash('Pattern05'), originalName:'Obj_SubstituteCloth_05'},
-{value:hash('Pattern06'), originalName:'Obj_SubstituteCloth_06'},
-{value:hash('Pattern07'), originalName:'Obj_SubstituteCloth_07'},
-{value:hash('Pattern08'), originalName:'Obj_SubstituteCloth_08'},
-{value:hash('Pattern09'), originalName:'Obj_SubstituteCloth_09'},
-{value:hash('Pattern10'), originalName:'Obj_SubstituteCloth_10'},
-{value:hash('Pattern11'), originalName:'Obj_SubstituteCloth_11'},
-{value:hash('Pattern12'), originalName:'Obj_SubstituteCloth_12'},
-{value:hash('Pattern13'), originalName:'Obj_SubstituteCloth_13'},
-{value:hash('Pattern14'), originalName:'Obj_SubstituteCloth_14'},
-{value:hash('Pattern15'), originalName:'Obj_SubstituteCloth_15'},
-{value:hash('Pattern16'), originalName:'Obj_SubstituteCloth_16'},
-{value:hash('Pattern17'), originalName:'Obj_SubstituteCloth_17'},
-{value:hash('Pattern18'), originalName:'Obj_SubstituteCloth_18'},
-{value:hash('Pattern19'), originalName:'Obj_SubstituteCloth_19'},
-{value:hash('Pattern20'), originalName:'Obj_SubstituteCloth_20'},
-{value:hash('Pattern21'), originalName:'Obj_SubstituteCloth_21'},
-{value:hash('Pattern22'), originalName:'Obj_SubstituteCloth_22'},
-{value:hash('Pattern23'), originalName:'Obj_SubstituteCloth_23'},
-{value:hash('Pattern24'), originalName:'Obj_SubstituteCloth_24'},
-{value:hash('Pattern25'), originalName:'Obj_SubstituteCloth_25'},
-{value:hash('Pattern26'), originalName:'Obj_SubstituteCloth_26'},
-{value:hash('Pattern27'), originalName:'Obj_SubstituteCloth_27'},
-{value:hash('Pattern28'), originalName:'Obj_SubstituteCloth_28'},
-{value:hash('Pattern29'), originalName:'Obj_SubstituteCloth_29'},
-{value:hash('Pattern30'), originalName:'Obj_SubstituteCloth_30'},
-{value:hash('Pattern31'), originalName:'Obj_SubstituteCloth_31'},
-{value:hash('Pattern32'), originalName:'Obj_SubstituteCloth_32'},
-{value:hash('Pattern33'), originalName:'Obj_SubstituteCloth_33'},
-{value:hash('Pattern34'), originalName:'Obj_SubstituteCloth_34'},
-{value:hash('Pattern35'), originalName:'Obj_SubstituteCloth_35'},
-{value:hash('Pattern36'), originalName:'Obj_SubstituteCloth_36'},
-{value:hash('Pattern37'), originalName:'Obj_SubstituteCloth_37'},
-{value:hash('Pattern38'), originalName:'Obj_SubstituteCloth_38'},
-{value:hash('Pattern39'), originalName:'Obj_SubstituteCloth_39'},
-{value:hash('Pattern40'), originalName:'Obj_SubstituteCloth_40'},
-{value:hash('Pattern41'), originalName:'Obj_SubstituteCloth_41'},
-{value:hash('Pattern43'), originalName:'Obj_SubstituteCloth_43'},
-{value:hash('Pattern45'), originalName:'Obj_SubstituteCloth_45'},
-{value:hash('Pattern46'), originalName:'Obj_SubstituteCloth_46'},
-{value:hash('Pattern48'), originalName:'Obj_SubstituteCloth_48'},
-{value:hash('Pattern49'), originalName:'Obj_SubstituteCloth_49'},
-{value:hash('Pattern51'), originalName:'Obj_SubstituteCloth_51'},
-{value:hash('Pattern52'), originalName:'Obj_SubstituteCloth_52'},
-{value:hash('Pattern53'), originalName:'Obj_SubstituteCloth_53'},
-{value:hash('Pattern55'), originalName:'Obj_SubstituteCloth_55'},
-{value:hash('Pattern56'), originalName:'Obj_SubstituteCloth_56'}
-];
-*/
-
 Item.AVAILABILITY={
 	'arrows':[
 		'NormalArrow'
@@ -591,6 +533,7 @@ Item.AVAILABILITY={
 	],
 
 		'food':[
+		'BoarMeat', //Enemy Camp Meat
 		'Item_Boiled_01', //Hard-Boiled Egg
 
 		'Item_ChilledFish_01', //Frozen Bass
@@ -894,7 +837,9 @@ Item.AVAILABILITY={
 		'GameRomHorseSaddle_05', //Extravagant Saddle
 		'GameRomHorseSaddle_07', //Towing Harness
 
+		'Obj_AmiiboItem', //Amiibo
 		'Obj_Camera', //Camera
+		'Obj_Warp', //Purah Pad Warp Functionality
 		'Obj_WarpDLC', //Travel Medallion
 		'Obj_WarpDLC_Prototype', //Travel Medallion prototype
 		//'Obj_AutoBuilder', //Autobuild
@@ -906,6 +851,10 @@ Item.AVAILABILITY={
 		'Obj_AutoBuilderDraft_00', //Schema Stone
 		'Obj_AutoBuilderDraftAssassin_00', //Yiga Schematic
 		'Obj_HiddenScroll_00', //Earthwake Manual
+		'Obj_PictureBook', //Hyrule Compendium
+		'Obj_Album', //Album
+		'Obj_SheikSensor', //Sheikah Sensor
+		'Obj_SheikSensorLv2', //Sheikah Sensor (Level 2)
 
 		'Obj_SubstituteCloth_Default', //Ordinary Fabric
 		'Obj_SubstituteCloth_00', //Goron Fabric
@@ -959,7 +908,14 @@ Item.AVAILABILITY={
 		'Obj_SubstituteCloth_52', //Princess Zelda Fabric
 		'Obj_SubstituteCloth_53', //Gerudo-King Fabric
 		'Obj_SubstituteCloth_55', //Nostalgic Fabric
-		'Obj_SubstituteCloth_56' //Addison's Fabric
+		'Obj_SubstituteCloth_56', //Addison's Fabric
+
+		'Obj_Photo_Animal', //Animal Photo
+		'Obj_Photo_BossEnemy', //Boss Photo
+		'Obj_Photo_Enemy', //Enemy Photo
+		'Obj_Photo_Material', //Material Photo
+		'Obj_Photo_Other', //Misc Photo
+		'Obj_Photo_Weapon' //Weapon Photo
 	]
 };
 

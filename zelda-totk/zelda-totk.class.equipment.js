@@ -397,6 +397,7 @@ Equipment.DEFAULT_DURABILITY={
 	Weapon_Bow_014:40,
 	Weapon_Bow_015:40,
 	Weapon_Bow_016:30,
+	Weapon_Bow_016_Event: 30,
 	Weapon_Bow_017:35,
 	Weapon_Bow_026:35,
 	Weapon_Bow_027:30,
@@ -755,6 +756,7 @@ Equipment.AVAILABILITY={
 		'Weapon_Bow_013', //Forest Dweller's Bow
 		'Weapon_Bow_014', //Zora Bow
 		'Weapon_Bow_016', //Swallow Bow
+		'Weapon_Bow_016_Event', //Tulin's Swallow Bow
 		'Weapon_Bow_017', //Falcon Bow
 		'Weapon_Bow_028', //Great Eagle Bow
 		'Weapon_Bow_015', //Gerudo Bow
