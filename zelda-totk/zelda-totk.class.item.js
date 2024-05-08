@@ -219,17 +219,25 @@ Item.AVAILABILITY={
 	'materials':[
 		'Item_Fruit_A', //Apple
 		'Item_Fruit_B', //Wildberry
+		'Item_Fruit_B_TemporaryOwnedByNpc', //Wildberry (Link's Farm)
 		'Item_Fruit_C', //Voltfruit
 		'Item_Fruit_E', //Fleet-Lotus Seeds
 		'Item_Fruit_F', //Hydromelon
+		'Item_Fruit_F_TemporaryOwnedByNpc', //Hydromelon (Link's Farm)
 		'Item_Fruit_G', //Palm Fruit
 		'Item_Fruit_H', //Mighty Bananas
 		'Item_Fruit_I', //Spicy Pepper
 		'Item_Fruit_J', //Fortified Pumpkin
+		'Item_Fruit_J_OwnedByNpc', //Fortified Pumpkin (Kakariko Farm)
+		'Item_Fruit_J_TemporaryOwnedByNpc', //Fortified Pumpkin (Link's Farm)
 		'Item_Fruit_K', //Acorn
 		'Item_Fruit_L', //Chickaloo Tree Nut
 		'Item_Fruit_M', //Hylian Tomato
+		'Item_Fruit_M_OwnedByNpc', //Hylian Tomato (Hateno Farm)
+		'Item_Fruit_M_TemporaryOwnedByNpc', //Hylian Tomato (Link's Farm)
 		'Item_Fruit_N', //Sun Pumpkin
+		'Item_Fruit_N_OwnedByNpc', // Sun Pumpkin (Hateno Farm)
+		'Item_Fruit_N_TemporaryOwnedByNpc', //Sun Pumpkin (Link's Farm)
 		'Item_Fruit_P', //Golden Apple
 
 		'Item_Mushroom_A', //Stamella Shroom
@@ -437,6 +445,7 @@ Item.AVAILABILITY={
 
 		'Item_Ore_A', //Diamond
 		'Item_Ore_B', //Ruby
+		'Item_Ore_B_GoronDisplay', //Ruby (shop display)
 		'Item_Ore_C', //Sapphire
 		'Item_Ore_D', //Topaz
 		'Item_Ore_E', //Opal
@@ -451,18 +460,26 @@ Item.AVAILABILITY={
 
 		'Item_PlantGet_A', //Hyrule Herb
 		'Item_PlantGet_B', //Hearty Radish
+		'Item_Plant_B_TemporaryOwnedByNpc', //Hearty Radish (Link's Farm)
 		'Item_PlantGet_C', //Big Hearty Radish
+		'Item_Plant_C_TemporaryOwnedByNpc', //Big Hearty Radish (Link's Farm)
 		'Item_PlantGet_E', //Cool Safflina
 		'Item_PlantGet_F', //Warm Safflina
 		'Item_PlantGet_G', //Mighty Thistle
 		'Item_PlantGet_H', //Armoranth
 		'Item_PlantGet_I', //Blue Nightshade
+		'Item_Plant_I_OwnedByNpc', //Blue Nightshade (Korok Forest Secret Room)
 		'Item_PlantGet_J', //Silent Princess
+		'Item_Plant_J_OwnedByNpc', //Silent Princess (Korok Forest Secret Room)
 		'Item_PlantGet_L', //Electric Safflina
 		'Item_PlantGet_M', //Swift Carrot
+		'Item_Plant_M_OwnedByNpc', //Swift Carrot (Kakariko Farm)
+		'Item_Plant_M_TemporaryOwnedByNpc', // Swift Carrot (Link's Farm)
 		'Item_PlantGet_O', //Swift Violet
 		'Item_PlantGet_Q', //Endura Carrot
+		'Item_Plant_Q_TemporaryOwnedByNpc', //Endura Carrot (Link's Farm)
 		'Item_PlantGet_R', //Sundelion
+		'Item_Plant_R_Kakariko008', //Sundelion (Kakariko Garden)
 		'Item_PlantGet_S', //Stambulb
 		'Item_PlantGet_U', //Korok Frond
 
@@ -475,7 +492,9 @@ Item.AVAILABILITY={
 		'Item_Meat_12', //Raw Whole Bird
 
 		'LightBall_Small', //Brightbloom Seed
+		'LightBall_Small_NoReaction', //Brightbloom Seed (Lookout Landing Lab)
 		'LightBall_Large', //Giant Brightbloom Seed
+		'LightBall_Large_NoReaction', //Giant Brightbloom Seed (Lookout Landing Lab)
 
 		'BeeHome', //Courser Bee Honey
 		'FldObj_Pinecone_A_01', //Hylian Pine Cone
