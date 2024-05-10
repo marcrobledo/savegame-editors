@@ -270,6 +270,7 @@ Item.AVAILABILITY={
 		'Animal_Insect_I', //Electric Darner
 		'Animal_Insect_M', //Hearty Lizard
 		'Animal_Insect_N', //Winterwing Butterfly
+		'Animal_Insect_NA', //Winterwing Butterfly (unused)
 		'Animal_Insect_P', //Rugged Rhino Beetle
 		'Animal_Insect_Q', //Summerwing Butterfly
 		'Animal_Insect_R', //Thunderwing Butterfly
