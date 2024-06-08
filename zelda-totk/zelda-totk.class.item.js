@@ -219,25 +219,17 @@ Item.AVAILABILITY={
 	'materials':[
 		'Item_Fruit_A', //Apple
 		'Item_Fruit_B', //Wildberry
-		'Item_Fruit_B_TemporaryOwnedByNpc', //Wildberry (Link's Farm)
 		'Item_Fruit_C', //Voltfruit
 		'Item_Fruit_E', //Fleet-Lotus Seeds
 		'Item_Fruit_F', //Hydromelon
-		'Item_Fruit_F_TemporaryOwnedByNpc', //Hydromelon (Link's Farm)
 		'Item_Fruit_G', //Palm Fruit
 		'Item_Fruit_H', //Mighty Bananas
 		'Item_Fruit_I', //Spicy Pepper
 		'Item_Fruit_J', //Fortified Pumpkin
-		'Item_Fruit_J_OwnedByNpc', //Fortified Pumpkin (Kakariko Farm)
-		'Item_Fruit_J_TemporaryOwnedByNpc', //Fortified Pumpkin (Link's Farm)
 		'Item_Fruit_K', //Acorn
 		'Item_Fruit_L', //Chickaloo Tree Nut
 		'Item_Fruit_M', //Hylian Tomato
-		'Item_Fruit_M_OwnedByNpc', //Hylian Tomato (Hateno Farm)
-		'Item_Fruit_M_TemporaryOwnedByNpc', //Hylian Tomato (Link's Farm)
 		'Item_Fruit_N', //Sun Pumpkin
-		'Item_Fruit_N_OwnedByNpc', // Sun Pumpkin (Hateno Farm)
-		'Item_Fruit_N_TemporaryOwnedByNpc', //Sun Pumpkin (Link's Farm)
 		'Item_Fruit_P', //Golden Apple
 
 		'Item_Mushroom_A', //Stamella Shroom
@@ -270,7 +262,6 @@ Item.AVAILABILITY={
 		'Animal_Insect_I', //Electric Darner
 		'Animal_Insect_M', //Hearty Lizard
 		'Animal_Insect_N', //Winterwing Butterfly
-		'Animal_Insect_NA', //Winterwing Butterfly (unused)
 		'Animal_Insect_P', //Rugged Rhino Beetle
 		'Animal_Insect_Q', //Summerwing Butterfly
 		'Animal_Insect_R', //Thunderwing Butterfly
@@ -446,7 +437,6 @@ Item.AVAILABILITY={
 
 		'Item_Ore_A', //Diamond
 		'Item_Ore_B', //Ruby
-		'Item_Ore_B_GoronDisplay', //Ruby (shop display)
 		'Item_Ore_C', //Sapphire
 		'Item_Ore_D', //Topaz
 		'Item_Ore_E', //Opal
@@ -457,33 +447,23 @@ Item.AVAILABILITY={
 		'Item_Ore_J', //Star Fragment
 		'Item_Ore_L', //Zonaite
 		'Item_Ore_M', //Large Zonaite
-		'Item_Ore_N', //Unused Zonaite
 
 		'Item_PlantGet_A', //Hyrule Herb
 		'Item_PlantGet_B', //Hearty Radish
-		'Item_Plant_B_TemporaryOwnedByNpc', //Hearty Radish (Link's Farm)
 		'Item_PlantGet_C', //Big Hearty Radish
-		'Item_Plant_C_TemporaryOwnedByNpc', //Big Hearty Radish (Link's Farm)
 		'Item_PlantGet_E', //Cool Safflina
 		'Item_PlantGet_F', //Warm Safflina
 		'Item_PlantGet_G', //Mighty Thistle
 		'Item_PlantGet_H', //Armoranth
 		'Item_PlantGet_I', //Blue Nightshade
-		'Item_Plant_I_OwnedByNpc', //Blue Nightshade (Korok Forest Secret Room)
 		'Item_PlantGet_J', //Silent Princess
-		'Item_Plant_J_OwnedByNpc', //Silent Princess (Korok Forest Secret Room)
 		'Item_PlantGet_L', //Electric Safflina
 		'Item_PlantGet_M', //Swift Carrot
-		'Item_Plant_M_OwnedByNpc', //Swift Carrot (Kakariko Farm)
-		'Item_Plant_M_TemporaryOwnedByNpc', // Swift Carrot (Link's Farm)
 		'Item_PlantGet_O', //Swift Violet
 		'Item_PlantGet_Q', //Endura Carrot
-		'Item_Plant_Q_TemporaryOwnedByNpc', //Endura Carrot (Link's Farm)
 		'Item_PlantGet_R', //Sundelion
-		'Item_Plant_R_Kakariko008', //Sundelion (Kakariko Garden)
 		'Item_PlantGet_S', //Stambulb
 		'Item_PlantGet_U', //Korok Frond
-
 
 		'Item_Meat_01', //Raw Meat
 		'Item_Meat_02', //Raw Prime Meat
@@ -493,9 +473,7 @@ Item.AVAILABILITY={
 		'Item_Meat_12', //Raw Whole Bird
 
 		'LightBall_Small', //Brightbloom Seed
-		'LightBall_Small_NoReaction', //Brightbloom Seed (Lookout Landing Lab)
 		'LightBall_Large', //Giant Brightbloom Seed
-		'LightBall_Large_NoReaction', //Giant Brightbloom Seed (Lookout Landing Lab)
 
 		'BeeHome', //Courser Bee Honey
 		'FldObj_Pinecone_A_01', //Hylian Pine Cone
@@ -550,10 +528,31 @@ Item.AVAILABILITY={
 		'Npc_Assassin_Middle_Azito002',
 		'Npc_Assassin_Middle_Azito003',
 
+		'Item_Fruit_B_TemporaryOwnedByNpc', //Wildberry (Link's Farm)
+		'Item_Fruit_F_TemporaryOwnedByNpc', //Hydromelon (Link's Farm)
+		'Item_Fruit_J_OwnedByNpc', //Fortified Pumpkin (Kakariko Farm)
+		'Item_Fruit_J_TemporaryOwnedByNpc', //Fortified Pumpkin (Link's Farm)
+		'Item_Fruit_M_OwnedByNpc', //Hylian Tomato (Hateno Farm)
+		'Item_Fruit_M_TemporaryOwnedByNpc', //Hylian Tomato (Link's Farm)
+		'Item_Fruit_N_OwnedByNpc', // Sun Pumpkin (Hateno Farm)
+		'Item_Fruit_N_TemporaryOwnedByNpc', //Sun Pumpkin (Link's Farm)
+		'Animal_Insect_NA', //Winterwing Butterfly (unused)
+		'Item_Ore_B_GoronDisplay', //Ruby (shop display)
+		'Item_Ore_N', //Unused Zonaite
+		'Item_Plant_B_TemporaryOwnedByNpc', //Hearty Radish (Link's Farm)
+		'Item_Plant_C_TemporaryOwnedByNpc', //Big Hearty Radish (Link's Farm)
+		'Item_Plant_I_OwnedByNpc', //Blue Nightshade (Korok Forest Secret Room)
+		'Item_Plant_J_OwnedByNpc', //Silent Princess (Korok Forest Secret Room)
+		'Item_Plant_M_OwnedByNpc', //Swift Carrot (Kakariko Farm)
+		'Item_Plant_M_TemporaryOwnedByNpc', // Swift Carrot (Link's Farm)
+		'Item_Plant_Q_TemporaryOwnedByNpc', //Endura Carrot (Link's Farm)
+		'Item_Plant_R_Kakariko008', //Sundelion (Kakariko Garden)
+		'LightBall_Small_NoReaction', //Brightbloom Seed (Lookout Landing Lab)
+		'LightBall_Large_NoReaction', //Giant Brightbloom Seed (Lookout Landing Lab)
+
 	],
 
 		'food':[
-		'BoarMeat', //Enemy Camp Meat
 		'Item_Boiled_01', //Hard-Boiled Egg
 
 		'Item_ChilledFish_01', //Frozen Bass
@@ -626,8 +625,6 @@ Item.AVAILABILITY={
 		'Item_Roast_56', //Toasty Skyshroom
 		'Item_Roast_58', //Toasty Brightcap
 		'Item_Roast_59', //Baked Golden Apple
-
-
 
 		'Item_Cook_A_01', //Mushroom Skewer
 		'Item_Cook_A_02', //Steamed Mushrooms
@@ -777,7 +774,9 @@ Item.AVAILABILITY={
 		'Item_Cook_S_07', //Dark Soup
 		'Item_Cook_S_08', //Dark Curry
 		'Item_Cook_S_09', //Dark Cake
-		'Item_Cook_S_10' //Cheesy Tomat
+		'Item_Cook_S_10', //Cheesy Tomat
+
+		'BoarMeat', //Enemy Camp Meat
 	],
 
 	'devices':[
@@ -857,26 +856,6 @@ Item.AVAILABILITY={
 		'GameRomHorseSaddle_05', //Extravagant Saddle
 		'GameRomHorseSaddle_07', //Towing Harness
 
-		'Obj_AmiiboItem', //Amiibo
-		'Obj_Camera', //Camera
-		'Obj_Warp', //Purah Pad Warp Functionality
-		'Obj_WarpDLC', //Travel Medallion
-		'Obj_WarpDLC_Prototype', //Travel Medallion prototype
-		//'Obj_AutoBuilder', //Autobuild
-		//'Obj_Tooreroof', //Ascend
-		'Obj_TreasureMap_00', //Old Map
-		'Item_StableHostelAccommodationCoupon_A', //Sleepover Ticket
-		'Obj_CaveWellHonor_00', //All's Well
-		'Obj_CheckPointHonor_00', //Dispelling Darkness Medal
-		'Obj_AutoBuilderDraft_00', //Schema Stone
-		'Obj_AutoBuilderDraftAssassin_00', //Yiga Schematic
-		'Obj_HiddenScroll_00', //Earthwake Manual
-		'Obj_PictureBook', //Hyrule Compendium
-		'Obj_Album', //Album
-		'Obj_SheikSensor', //Sheikah Sensor
-		'Obj_SheikSensorLv2', //Sheikah Sensor (Level 2)
-
-		'Obj_SubstituteCloth_Default', //Ordinary Fabric
 		'Obj_SubstituteCloth_00', //Goron Fabric
 		'Obj_SubstituteCloth_01', //Zora Fabric
 		'Obj_SubstituteCloth_02', //Gerudo Fabric
@@ -930,12 +909,20 @@ Item.AVAILABILITY={
 		'Obj_SubstituteCloth_55', //Nostalgic Fabric
 		'Obj_SubstituteCloth_56', //Addison's Fabric
 
+		'Obj_SubstituteCloth_Default', //Ordinary Fabric
+		'Obj_Album', //Album
+		'Obj_AmiiboItem', //Amiibo
+		'Obj_Camera', //Camera
+		'Obj_PictureBook', //Hyrule Compendium
 		'Obj_Photo_Animal', //Animal Photo
 		'Obj_Photo_BossEnemy', //Boss Photo
 		'Obj_Photo_Enemy', //Enemy Photo
 		'Obj_Photo_Material', //Material Photo
 		'Obj_Photo_Other', //Misc Photo
-		'Obj_Photo_Weapon' //Weapon Photo
+		'Obj_Photo_Weapon', //Weapon Photo
+		'Obj_SheikSensor', //Sheikah Sensor
+		'Obj_SheikSensorLv2', //Sheikah Sensor (Level 2)
+		'Obj_Warp', //Purah Pad Warp Functionality
 	]
 };
 
