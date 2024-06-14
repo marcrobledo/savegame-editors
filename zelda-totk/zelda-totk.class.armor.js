@@ -269,12 +269,6 @@ Armor.AVAILABILITY=[
 	'Armor_1036_Lower','Armor_1036_Upper', //Unused Ancient Hero's Aspect piece
 
 	'Armor_1501_Upper','Armor_999_Head',
-
-	'PlayerRaulHand', // Link's Zonai Arm
-
-	'Armor_Default_Lower', 'Armor_Default_Upper', // Armorless Defaults
-
-	'Obj_Head_024', 'Obj_Head_025', 'Obj_Head_026', 'Obj_Head_027', 'Obj_Head_028', 'Obj_Head_029' // Starlight Memories Display Pieces
 ];
 
 Armor.INFO=(function(upgrades, dyeables){

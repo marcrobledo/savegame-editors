@@ -174,7 +174,7 @@ Item.FOOD_EFFECTS_RAW=[
 'SnowMoveUp', 'DefenseUp', 'AllSpeed', 'MiasmaGuard', 'LifeMaxUp', 'StaminaRecover', 'ExStaminaMaxUp', 'LifeRepair',
 'DivingMobilityUp', 'NotSlippy', 'LightEmission', 'RupeeGuard', 'SwordBeamUp', 'NightMoveSpeedUp', 'DecreaseWallJumpStamina', 'DecreaseChargeAttackStamina',
 'NoBurning', 'NoFallDamage', 'NoSlip', 'DecreaseZonauEnergy', 'ZonauEnergyHealUp', 'MiasmaDefenseUp', 'ChargePowerUpCold', 'ChargePowerUpHot',
-'ChargePowerUpThunderstorm', 'LightFootprint','TwiceJump','EmergencyAvoid'
+'ChargePowerUpThunderstorm', 'LightFootprint'
 //unusable in food?
 //ResistFreeze, ResitLightning, RupeeGuard
 //ResistAncient, SpinAttack, ClimbWaterfall, ClimbSpeedUpOnlyHorizontaly, AttackUpDark, AttackUpBone, WakeWind, TwiceJump
@@ -207,8 +207,6 @@ Item.FOOD_EFFECTS=[
 {originalName:'Skydive Mobility Up', value:hash('DivingMobilityUp')},
 {originalName:'Slip Resistance', value:hash('NotSlippy')},
 {originalName:'Glow', value:hash('LightEmission')},
-{originalName:'Twice Jump', value:hash('TwiceJump')},
-{originalName:'Emergency Avoid', value:hash('EmergencyAvoid')},
 ];
 
 Item.AVAILABILITY={
@@ -506,6 +504,27 @@ Item.AVAILABILITY={
 		'Obj_LinkHouse_Q_01', // Study
 		'Obj_LinkHouse_R_01', // Square Room
 
+		'Item_Fruit_B_TemporaryOwnedByNpc', //Wildberry (Link's Farm)
+		'Item_Fruit_F_TemporaryOwnedByNpc', //Hydromelon (Link's Farm)
+		'Item_Fruit_J_OwnedByNpc', //Fortified Pumpkin (Kakariko Farm)
+		'Item_Fruit_J_TemporaryOwnedByNpc', //Fortified Pumpkin (Link's Farm)
+		'Item_Fruit_M_OwnedByNpc', //Hylian Tomato (Hateno Farm)
+		'Item_Fruit_M_TemporaryOwnedByNpc', //Hylian Tomato (Link's Farm)
+		'Item_Fruit_N_OwnedByNpc', // Sun Pumpkin (Hateno Farm)
+		'Item_Fruit_N_TemporaryOwnedByNpc', //Sun Pumpkin (Link's Farm)
+		'Animal_Insect_NA', //Winterwing Butterfly (unused)
+		'Item_Ore_B_GoronDisplay', //Ruby (shop display)
+		'Item_Plant_B_TemporaryOwnedByNpc', //Hearty Radish (Link's Farm)
+		'Item_Plant_C_TemporaryOwnedByNpc', //Big Hearty Radish (Link's Farm)
+		'Item_Plant_I_OwnedByNpc', //Blue Nightshade (Korok Forest Secret Room)
+		'Item_Plant_J_OwnedByNpc', //Silent Princess (Korok Forest Secret Room)
+		'Item_Plant_M_OwnedByNpc', //Swift Carrot (Kakariko Farm)
+		'Item_Plant_M_TemporaryOwnedByNpc', // Swift Carrot (Link's Farm)
+		'Item_Plant_Q_TemporaryOwnedByNpc', //Endura Carrot (Link's Farm)
+		'Item_Plant_R_Kakariko008', //Sundelion (Kakariko Garden)
+		'LightBall_Small_NoReaction', //Brightbloom Seed (Lookout Landing Lab)
+		'LightBall_Large_NoReaction', //Giant Brightbloom Seed (Lookout Landing Lab)
+
 		'Npc_Assassin_Junior', //Yiga Footsoldier (default)
 		'Npc_Assassin_Junior_001',
 		'Npc_Assassin_Junior_002',
@@ -527,28 +546,6 @@ Item.AVAILABILITY={
 		'Npc_Assassin_Middle_Azito001', // Yiga Blademaster (mini game host)
 		'Npc_Assassin_Middle_Azito002',
 		'Npc_Assassin_Middle_Azito003',
-
-		'Item_Fruit_B_TemporaryOwnedByNpc', //Wildberry (Link's Farm)
-		'Item_Fruit_F_TemporaryOwnedByNpc', //Hydromelon (Link's Farm)
-		'Item_Fruit_J_OwnedByNpc', //Fortified Pumpkin (Kakariko Farm)
-		'Item_Fruit_J_TemporaryOwnedByNpc', //Fortified Pumpkin (Link's Farm)
-		'Item_Fruit_M_OwnedByNpc', //Hylian Tomato (Hateno Farm)
-		'Item_Fruit_M_TemporaryOwnedByNpc', //Hylian Tomato (Link's Farm)
-		'Item_Fruit_N_OwnedByNpc', // Sun Pumpkin (Hateno Farm)
-		'Item_Fruit_N_TemporaryOwnedByNpc', //Sun Pumpkin (Link's Farm)
-		'Animal_Insect_NA', //Winterwing Butterfly (unused)
-		'Item_Ore_B_GoronDisplay', //Ruby (shop display)
-		'Item_Ore_N', //Unused Zonaite
-		'Item_Plant_B_TemporaryOwnedByNpc', //Hearty Radish (Link's Farm)
-		'Item_Plant_C_TemporaryOwnedByNpc', //Big Hearty Radish (Link's Farm)
-		'Item_Plant_I_OwnedByNpc', //Blue Nightshade (Korok Forest Secret Room)
-		'Item_Plant_J_OwnedByNpc', //Silent Princess (Korok Forest Secret Room)
-		'Item_Plant_M_OwnedByNpc', //Swift Carrot (Kakariko Farm)
-		'Item_Plant_M_TemporaryOwnedByNpc', // Swift Carrot (Link's Farm)
-		'Item_Plant_Q_TemporaryOwnedByNpc', //Endura Carrot (Link's Farm)
-		'Item_Plant_R_Kakariko008', //Sundelion (Kakariko Garden)
-		'LightBall_Small_NoReaction', //Brightbloom Seed (Lookout Landing Lab)
-		'LightBall_Large_NoReaction', //Giant Brightbloom Seed (Lookout Landing Lab)
 
 	],
 
