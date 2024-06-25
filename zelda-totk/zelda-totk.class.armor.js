@@ -264,7 +264,11 @@ Armor.AVAILABILITY=[
 	'Armor_1300_Upper','Armor_1301_Upper','Armor_1302_Upper','Armor_1303_Upper','Armor_1304_Upper', //Yiga Armor
 	'Armor_1300_Lower','Armor_1301_Lower','Armor_1302_Lower','Armor_1303_Lower','Armor_1304_Lower', //Yiga Tight
 
-	'Armor_1150_Upper' //*Tunic of memories (intro, unused)
+	'Armor_1150_Upper', //*Tunic of memories (intro, unused)
+
+	'Armor_1036_Lower','Armor_1036_Upper', //Unused Ancient Hero's Aspect piece
+
+	'Armor_1501_Upper','Armor_999_Head',
 ];
 
 Armor.INFO=(function(upgrades, dyeables){

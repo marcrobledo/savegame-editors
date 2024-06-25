@@ -47,8 +47,14 @@ Weapon_Sword_167:'Tree Branch (sky)',
 Weapon_Sword_168:'Wooden Stick (decayed)',
 
 Weapon_Sword_077:'*Master Sword (glitched)',
+Weapon_Sword_071:'*Master Sword (cutscenes)',
+Weapon_Sword_071_Broken: '*Decayed Master Sword (cutscenes)',
+Weapon_Sword_152_Main:'*Riju\'s Scimitar of the Seven',
+Weapon_Sword_152_Sub:'*Riju\'s Scimitar of the Seven',
 Weapon_Sword_070_Broken:'*Decayed Master Sword (unobtainable)',
 Npc_Zelda_Torch:'*Zelda\'s intro torch (unobtainable)',
+Demo910_Torch:'*Zelda\'s into torch (unobtainable, alternate)',
+Weapon_Sword_043_SetFire: '*Self Lighting Torch (unobtainable)',
 
 Weapon_Lsword_001:'Traveler\'s Claymore',
 Weapon_Lsword_002:'Soldier\'s Claymore',
@@ -88,6 +94,8 @@ Weapon_Lsword_166:'Gloom Club',
 Weapon_Lsword_168:'Thick Stick (decayed)',
 Weapon_Lsword_174:'Giant Boomerang (decayed)',
 
+Weapon_Lsword_154: '*Yunobo\'s Boulder Breaker',
+
 Weapon_Spear_001:'Traveler\'s Spear',
 Weapon_Spear_002:'Soldier\'s Spear',
 Weapon_Spear_003:'Knight\'s Halberd',
@@ -123,6 +131,14 @@ Weapon_Spear_166:'Gloom Spear',
 Weapon_Spear_168:'Long Stick (decayed)',
 Weapon_Spear_173:'Throwing Spear (decayed)',
 
+Weapon_Spear_036_MercenarySoldier: '*Wooden Mop (Monster Control Crew)',
+Weapon_Spear_150:'*Sidon\'s Lightscale Trident',
+
+Weapon_RaumiGolem_Left: '*Left Arm (Mineru\'s Construct)',
+Weapon_RaumiGolem_Right: '*Right Arm (Mineru\'s Construct)',
+Weapon_DungeonBossZonau: '*Seized Construct Arms',
+Weapon_Goron_Knuckle: '*Goron Punch Attack',
+
 Weapon_Bow_001:'Traveler\'s Bow',
 Weapon_Bow_002:'Soldier\'s Bow',
 Weapon_Bow_003:'Spiked Boko Bow',
@@ -153,6 +169,11 @@ Weapon_Bow_105:'Strong Construct Bow',
 Weapon_Bow_106:'Mighty Construct Bow',
 Weapon_Bow_107:'Old Wooden Bow',
 Weapon_Bow_166:'Demon King\'s Bow',
+Weapon_Bow_016_Event: '*Swallow Bow (event version)',
+Weapon_Bow_116:'*Tulin\'s Swallow Bow',
+Weapon_Bow_128:'*Tulin\'s Great Eagle Bow (single shot)',
+Weapon_Bow_129:'*Tulin\'s Great Eagle Bow (multi shot)',
+Weapon_Bow_166_For_Ganondorf: '*Demon King\'s Bow (Ganondorf version)',
 
 Weapon_Shield_001:'Wooden Shield',
 Weapon_Shield_002:'Soldier\'s Shield',
@@ -188,10 +209,16 @@ Weapon_Shield_102:'Strong Zonaite Shield',
 Weapon_Shield_103:'Mighty Zonaite Shield',
 Weapon_Shield_107:'Old Wooden Shield',
 
+Weapon_Shield_001_NoBurned: '*Wooden Shield (Selmie\'s Spot)',
+Weapon_Shield_002_NoBurned: '*Soldier\'s Shield (Selmie\'s Spot)',
+Weapon_Shield_031_NoBurned: '*Hunter\'s Shield (Selmie\'s Spot)',
+Weapon_Shield_032_NoBurned: '*Fisherman\'s Shield (Selmie\'s Spot)',
+Weapon_Shield_034_NoBurned: '*Emblazoned Shield (Selmie\'s Spot)',
+Weapon_Shield_035_NoBurned: '*Traveler\'s Shield (Selmie\'s Spot)',
+Weapon_Shield_042_NoBurned: '*Kite Shield (Selmie\'s Spot)',
 
-
-
-
+Weapon_RaumiGolem_Back: '*Mineru\'s Construct\'s Backplate',
+Weapon_DungeonBossZonau_Front: '*Seized Construct Back Arms',
 
 Armor_001_Head:'Hylian Hood',
 Armor_002_Head:'Hylian Hood ★',
@@ -806,12 +833,24 @@ Armor_1304_Lower:'Yiga Tights ★★★★',
 
 Armor_1150_Upper:'*Tunic of memories (unobtainable)',
 
+Armor_1036_Lower: '*Ancient Hero\'s Aspect Trousers (unobtainable)',
+Armor_1036_Upper: '*Ancient Hero\'s Aspect Chest Piece (unobtainable)',
 
+Armor_1501_Upper: '*Restored Arm (ending)',
+Armor_999_Head: '*Breath of the Wild Hairstyle (unused)',
+PlayerRaulHand: '*Zonai Arm',
 
+Armor_Default_Upper: '*Armorless Chestpiece',
+Armor_Default_Lower: '*Armorless Legs',
 
+Obj_Head_024: '*Diamond Circlet (Starlight Memories)',
+Obj_Head_025: '*Ruby Circlet (Starlight Memories)',
+Obj_Head_026: '*Sapphire Circlet (Starlight Memories)',
+Obj_Head_027: '*Topaz Earrings (Starlight Memories)',
+Obj_Head_028: '*Opal Earrings (Starlight Memories)',
+Obj_Head_029: '*Amber Earrings (Starlight Memories)',
 
 NormalArrow:'Arrow',
-
 
 Item_Fruit_A:'Apple',
 Item_Fruit_B:'Wildberry',
@@ -1073,7 +1112,6 @@ Item_PlantGet_R:'Sundelion',
 Item_PlantGet_S:'Stambulb',
 Item_PlantGet_U:'Korok Frond',
 
-
 Item_Meat_01:'Raw Meat',
 Item_Meat_02:'Raw Prime Meat',
 Item_Meat_06:'Raw Bird Drumstick',
@@ -1090,8 +1128,74 @@ Item_KingScale:'King\'s Scale',
 Item_Weapon_01:'Ancient Blade',
 Obj_FireWoodBundle:'Wood',
 
+DgnObj_BeamDevice_Static: '*Shrine Beam Emitter',
+DgnObj_IRBeamDevice_Static_Beam: '*Tripwire Laser Beam',
+AssassinRockBall: '*Master Kohga\'s Boulder',
+OctObj_Stone_TBox: '*Fake Treasure Chest',
+Obj_Cushion: '*Starlight Memories Cushion',
 
+Obj_LinkHouse_A_01: '*Furnished Square Room',
+Obj_LinkHouse_B_01: '*Blessing Room',
+Obj_LinkHouse_C_01: '*Bedroom',
+Obj_LinkHouse_D_01: '*Weapon Stand Room',
+Obj_LinkHouse_E_01: '*Bow Stand Room',
+Obj_LinkHouse_F_01: '*Shield Stand Room',
+Obj_LinkHouse_G_01: '*Kitchen',
+Obj_LinkHouse_H_01: '*Gallery',
+Obj_LinkHouse_I_01: '*Outdoor Stairs',
+Obj_LinkHouse_J_01: '*Indoor Stairs',
+Obj_LinkHouse_K_01: '*Garden Pond',
+Obj_LinkHouse_L_01: '*Flower Bed',
+Obj_LinkHouse_M_01: '*Paddock',
+Obj_LinkHouse_N_01: '*Foyer',
+Obj_LinkHouse_O_01: '*Angled Room',
+Obj_LinkHouse_P_01: '*Furnished Angled Room',
+Obj_LinkHouse_Q_01: '*Study',
+Obj_LinkHouse_R_01: '*Square Room',
 
+Npc_Assassin_Junior: '**Yiga Footsoldier',
+Npc_Assassin_Junior_001: '**Yiga Footsoldier',
+Npc_Assassin_Junior_002: '**Yiga Footsoldier',
+Npc_Assassin_Junior_003: '**Yiga Footsoldier',
+Npc_Assassin_Junior_Azito001: '**Yiga Footsoldier',
+Npc_Assassin_Junior_Azito002: '**Yiga Footsoldier (shopkeeper)',
+Npc_Assassin_Junior_Azito003: '**Yiga Footsoldier (shopkeeper)',
+Npc_Assassin_Junior_Azito004: '**Yiga Footsoldier (shopkeeper)',
+Npc_Assassin_Junior_Azito005: '**Yiga Footsoldier',
+Npc_Assassin_Junior_Azito006: '**Yiga Footsoldier',
+Npc_Assassin_Junior_Azito007: '**Yiga Footsoldier',
+Npc_Assassin_Junior_Azito008: '**Yiga Footsoldier',
+Npc_Assassin_Junior_Azito009: '**Yiga Footsoldier',
+Npc_Assassin_Junior_Tribune: '**Yiga Footsoldier',
+Npc_Assassin_Middle: '**Yiga Blademaster',
+Npc_Assassin_Middle_001: '**Yiga Blademaster',
+Npc_Assassin_Middle_002: '**Yiga Blademaster',
+Npc_Assassin_Middle_003: '**Yiga Blademaster',
+Npc_Assassin_Middle_004: '**Yiga Blademaster',
+Npc_Assassin_Middle_Azito001: '**Yiga Blademaster (mini game)',
+Npc_Assassin_Middle_Azito002: '**Yiga Blademaster',
+Npc_Assassin_Middle_Azito003: '**Yiga Blademaster',
+
+Item_Fruit_B_TemporaryOwnedByNpc: '*Wildberry (Link\'s Farm)',
+Item_Fruit_F_TemporaryOwnedByNpc: '*Hydromelon (Link\'s Farm)',
+Item_Fruit_J_OwnedByNpc: '*Fortified Pumpkin (Kakariko Farm)',
+Item_Fruit_J_TemporaryOwnedByNpc: '*Fortified Pumpkin (Link\'s Farm)',
+Item_Fruit_M_OwnedByNpc: '*Hylian Tomato (Hateno Farm)',
+Item_Fruit_M_TemporaryOwnedByNpc: '*Hylian Tomato (Link\'s Farm)',
+Item_Fruit_N_OwnedByNpc: '*Sun Pumpkin (Hateno Farm)',
+Item_Fruit_N_TemporaryOwnedByNpc: '*Sun Pumpkin (Link\'s Farm)',
+Animal_Insect_NA:'*Winterwing Butterfly (Unused)',
+Item_Ore_B_GoronDisplay: '*Ruby (display version)',
+Item_Plant_B_TemporaryOwnedByNpc: '*Hearty Radish (Link\'s Farm)',
+Item_Plant_C_TemporaryOwnedByNpc: '*Big Hearty Radish (Link\'s Farm)',
+Item_Plant_I_OwnedByNpc: '*Blue Nightshade (Korok Forest Secret Room)',
+Item_Plant_J_OwnedByNpc: '*Silent Princess (Korok Forest Secret Room)',
+Item_Plant_M_OwnedByNpc: '*Swift Carrot (NPC owned)',
+Item_Plant_M_TemporaryOwnedByNpc: '*Swift Carrot (Link\'s Farm)',
+Item_Plant_Q_TemporaryOwnedByNpc: '*Endura Carrot (Link\'s Farm)',
+Item_Plant_R_Kakariko008: '*Sundelion (Kakariko Village Garden)',
+LightBall_Small_NoReaction: '*Brightbloom Seed (Lookout Landing Lab)',
+LightBall_Large_NoReaction: '*Giant Brightbloom Seed (Lookout Landing Lab)',
 
 Item_Boiled_01:'Hard-Boiled Egg',
 
@@ -1165,8 +1269,6 @@ Item_Roast_55:'Baked Sun Pumpkin',
 Item_Roast_56:'Toasty Skyshroom',
 Item_Roast_58:'Toasty Brightcap',
 Item_Roast_59:'Baked Golden Apple',
-
-
 
 Item_Cook_A_01:'Mushroom Skewer',
 Item_Cook_A_02:'Steamed Mushrooms',
@@ -1318,6 +1420,8 @@ Item_Cook_S_08:'Dark Curry',
 Item_Cook_S_09:'Dark Cake',
 Item_Cook_S_10:'Cheesy Tomato',
 
+BoarMeat: '*Enemy Camp Meat',
+
 
 
 
@@ -1416,13 +1520,6 @@ Obj_CheckPointHonor_00:'Dispelling Darkness Medal',
 Obj_EnergyUtuwa_A_01:'Energy Well',
 Obj_HiddenScroll_00:'Earthwake Manual',
 
-
-
-
-
-
-
-
 Obj_SubstituteCloth_Default:'Ordinary Fabric',
 Obj_SubstituteCloth_00:'Goron Fabric',
 Obj_SubstituteCloth_01:'Zora Fabric',
@@ -1477,8 +1574,10 @@ Obj_SubstituteCloth_53:'Gerudo-King Fabric',
 Obj_SubstituteCloth_55:'Nostalgic Fabric',
 Obj_SubstituteCloth_56:'Addison\'s Fabric',
 
+Obj_HeartUtuwa_A_01: 'Heart Container',
+Obj_StaminaUtuwa_A_01: 'Stamina Vessel',
 
-
+KeySmall: 'Small Key',
 
 GameRomHorse00:'Horse 00',
 GameRomHorse01:'Horse 01',

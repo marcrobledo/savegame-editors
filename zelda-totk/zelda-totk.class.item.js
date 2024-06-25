@@ -206,66 +206,8 @@ Item.FOOD_EFFECTS=[
 {originalName:'Gloom Recovery', value:hash('LifeRepair')},
 {originalName:'Skydive Mobility Up', value:hash('DivingMobilityUp')},
 {originalName:'Slip Resistance', value:hash('NotSlippy')},
-{originalName:'Glow', value:hash('LightEmission')}
+{originalName:'Glow', value:hash('LightEmission')},
 ];
-
-/*
-Item.PARASAIL_FABRICS=[
-{value:hash('Default'), originalName:'Obj_SubstituteCloth_Default'},
-{value:hash('Pattern00'), originalName:'Obj_SubstituteCloth_00'},
-{value:hash('Pattern01'), originalName:'Obj_SubstituteCloth_01'},
-{value:hash('Pattern02'), originalName:'Obj_SubstituteCloth_02'},
-{value:hash('Pattern03'), originalName:'Obj_SubstituteCloth_03'},
-{value:hash('Pattern04'), originalName:'Obj_SubstituteCloth_04'},
-{value:hash('Pattern05'), originalName:'Obj_SubstituteCloth_05'},
-{value:hash('Pattern06'), originalName:'Obj_SubstituteCloth_06'},
-{value:hash('Pattern07'), originalName:'Obj_SubstituteCloth_07'},
-{value:hash('Pattern08'), originalName:'Obj_SubstituteCloth_08'},
-{value:hash('Pattern09'), originalName:'Obj_SubstituteCloth_09'},
-{value:hash('Pattern10'), originalName:'Obj_SubstituteCloth_10'},
-{value:hash('Pattern11'), originalName:'Obj_SubstituteCloth_11'},
-{value:hash('Pattern12'), originalName:'Obj_SubstituteCloth_12'},
-{value:hash('Pattern13'), originalName:'Obj_SubstituteCloth_13'},
-{value:hash('Pattern14'), originalName:'Obj_SubstituteCloth_14'},
-{value:hash('Pattern15'), originalName:'Obj_SubstituteCloth_15'},
-{value:hash('Pattern16'), originalName:'Obj_SubstituteCloth_16'},
-{value:hash('Pattern17'), originalName:'Obj_SubstituteCloth_17'},
-{value:hash('Pattern18'), originalName:'Obj_SubstituteCloth_18'},
-{value:hash('Pattern19'), originalName:'Obj_SubstituteCloth_19'},
-{value:hash('Pattern20'), originalName:'Obj_SubstituteCloth_20'},
-{value:hash('Pattern21'), originalName:'Obj_SubstituteCloth_21'},
-{value:hash('Pattern22'), originalName:'Obj_SubstituteCloth_22'},
-{value:hash('Pattern23'), originalName:'Obj_SubstituteCloth_23'},
-{value:hash('Pattern24'), originalName:'Obj_SubstituteCloth_24'},
-{value:hash('Pattern25'), originalName:'Obj_SubstituteCloth_25'},
-{value:hash('Pattern26'), originalName:'Obj_SubstituteCloth_26'},
-{value:hash('Pattern27'), originalName:'Obj_SubstituteCloth_27'},
-{value:hash('Pattern28'), originalName:'Obj_SubstituteCloth_28'},
-{value:hash('Pattern29'), originalName:'Obj_SubstituteCloth_29'},
-{value:hash('Pattern30'), originalName:'Obj_SubstituteCloth_30'},
-{value:hash('Pattern31'), originalName:'Obj_SubstituteCloth_31'},
-{value:hash('Pattern32'), originalName:'Obj_SubstituteCloth_32'},
-{value:hash('Pattern33'), originalName:'Obj_SubstituteCloth_33'},
-{value:hash('Pattern34'), originalName:'Obj_SubstituteCloth_34'},
-{value:hash('Pattern35'), originalName:'Obj_SubstituteCloth_35'},
-{value:hash('Pattern36'), originalName:'Obj_SubstituteCloth_36'},
-{value:hash('Pattern37'), originalName:'Obj_SubstituteCloth_37'},
-{value:hash('Pattern38'), originalName:'Obj_SubstituteCloth_38'},
-{value:hash('Pattern39'), originalName:'Obj_SubstituteCloth_39'},
-{value:hash('Pattern40'), originalName:'Obj_SubstituteCloth_40'},
-{value:hash('Pattern41'), originalName:'Obj_SubstituteCloth_41'},
-{value:hash('Pattern43'), originalName:'Obj_SubstituteCloth_43'},
-{value:hash('Pattern45'), originalName:'Obj_SubstituteCloth_45'},
-{value:hash('Pattern46'), originalName:'Obj_SubstituteCloth_46'},
-{value:hash('Pattern48'), originalName:'Obj_SubstituteCloth_48'},
-{value:hash('Pattern49'), originalName:'Obj_SubstituteCloth_49'},
-{value:hash('Pattern51'), originalName:'Obj_SubstituteCloth_51'},
-{value:hash('Pattern52'), originalName:'Obj_SubstituteCloth_52'},
-{value:hash('Pattern53'), originalName:'Obj_SubstituteCloth_53'},
-{value:hash('Pattern55'), originalName:'Obj_SubstituteCloth_55'},
-{value:hash('Pattern56'), originalName:'Obj_SubstituteCloth_56'}
-];
-*/
 
 Item.AVAILABILITY={
 	'arrows':[
@@ -521,7 +463,6 @@ Item.AVAILABILITY={
 		'Item_PlantGet_S', //Stambulb
 		'Item_PlantGet_U', //Korok Frond
 
-
 		'Item_Meat_01', //Raw Meat
 		'Item_Meat_02', //Raw Prime Meat
 		'Item_Meat_06', //Raw Bird Drumstick
@@ -537,6 +478,75 @@ Item.AVAILABILITY={
 		'Item_KingScale', //King's Scale
 		'Item_Weapon_01', //Ancient Blade
 		'Obj_FireWoodBundle', //Wood
+
+		'DgnObj_BeamDevice_Static', // Shrine Beam Emitter
+		'DgnObj_IRBeamDevice_Static_Beam', // Shrine Sensor Beam
+		'AssassinRockBall', // Master Kohga's Ball
+		'OctObj_Stone_TBox', // Fake Treasure Chest
+		'Obj_Cushion', // Starlight Memories Cushion
+
+		'Obj_LinkHouse_A_01', // Furnished Square Room
+		'Obj_LinkHouse_B_01', // Blessing Room
+		'Obj_LinkHouse_C_01', // Bedroom
+		'Obj_LinkHouse_D_01', // Weapon Stand Room
+		'Obj_LinkHouse_E_01', // Bow Stand Room
+		'Obj_LinkHouse_F_01', // Shield Stand Room
+		'Obj_LinkHouse_G_01', // Kitchen
+		'Obj_LinkHouse_H_01', // Gallery
+		'Obj_LinkHouse_I_01', // Outdoor Stairs
+		'Obj_LinkHouse_J_01', // Indoor Stairs
+		'Obj_LinkHouse_K_01', // Garden Pond
+		'Obj_LinkHouse_L_01', // Flower Bed
+		'Obj_LinkHouse_M_01', // Paddock
+		'Obj_LinkHouse_N_01', // Foyer
+		'Obj_LinkHouse_O_01', // Angled Room
+		'Obj_LinkHouse_P_01', // Furnished Angled Room
+		'Obj_LinkHouse_Q_01', // Study
+		'Obj_LinkHouse_R_01', // Square Room
+
+		'Item_Fruit_B_TemporaryOwnedByNpc', //Wildberry (Link's Farm)
+		'Item_Fruit_F_TemporaryOwnedByNpc', //Hydromelon (Link's Farm)
+		'Item_Fruit_J_OwnedByNpc', //Fortified Pumpkin (Kakariko Farm)
+		'Item_Fruit_J_TemporaryOwnedByNpc', //Fortified Pumpkin (Link's Farm)
+		'Item_Fruit_M_OwnedByNpc', //Hylian Tomato (Hateno Farm)
+		'Item_Fruit_M_TemporaryOwnedByNpc', //Hylian Tomato (Link's Farm)
+		'Item_Fruit_N_OwnedByNpc', // Sun Pumpkin (Hateno Farm)
+		'Item_Fruit_N_TemporaryOwnedByNpc', //Sun Pumpkin (Link's Farm)
+		'Animal_Insect_NA', //Winterwing Butterfly (unused)
+		'Item_Ore_B_GoronDisplay', //Ruby (shop display)
+		'Item_Plant_B_TemporaryOwnedByNpc', //Hearty Radish (Link's Farm)
+		'Item_Plant_C_TemporaryOwnedByNpc', //Big Hearty Radish (Link's Farm)
+		'Item_Plant_I_OwnedByNpc', //Blue Nightshade (Korok Forest Secret Room)
+		'Item_Plant_J_OwnedByNpc', //Silent Princess (Korok Forest Secret Room)
+		'Item_Plant_M_OwnedByNpc', //Swift Carrot (Kakariko Farm)
+		'Item_Plant_M_TemporaryOwnedByNpc', // Swift Carrot (Link's Farm)
+		'Item_Plant_Q_TemporaryOwnedByNpc', //Endura Carrot (Link's Farm)
+		'Item_Plant_R_Kakariko008', //Sundelion (Kakariko Garden)
+		'LightBall_Small_NoReaction', //Brightbloom Seed (Lookout Landing Lab)
+		'LightBall_Large_NoReaction', //Giant Brightbloom Seed (Lookout Landing Lab)
+
+		'Npc_Assassin_Junior', //Yiga Footsoldier (default)
+		'Npc_Assassin_Junior_001',
+		'Npc_Assassin_Junior_002',
+		'Npc_Assassin_Junior_003',
+		'Npc_Assassin_Junior_Azito001',
+		'Npc_Assassin_Junior_Azito002', // Yiga Footsoldier Shopkeeper
+		'Npc_Assassin_Junior_Azito003', // Yiga Footsoldier Shopkeeper
+		'Npc_Assassin_Junior_Azito004', // Yiga Footsoldier Shopkeeper
+		'Npc_Assassin_Junior_Azito005',
+		'Npc_Assassin_Junior_Azito006',
+		'Npc_Assassin_Junior_Azito007',
+		'Npc_Assassin_Junior_Azito008',
+		'Npc_Assassin_Junior_Azito009',
+		'Npc_Assassin_Middle', //Yiga Blademaster (default)
+		'Npc_Assassin_Middle_001',
+		'Npc_Assassin_Middle_002',
+		'Npc_Assassin_Middle_003',
+		'Npc_Assassin_Middle_004',
+		'Npc_Assassin_Middle_Azito001', // Yiga Blademaster (mini game host)
+		'Npc_Assassin_Middle_Azito002',
+		'Npc_Assassin_Middle_Azito003',
+
 	],
 
 		'food':[
@@ -612,8 +622,6 @@ Item.AVAILABILITY={
 		'Item_Roast_56', //Toasty Skyshroom
 		'Item_Roast_58', //Toasty Brightcap
 		'Item_Roast_59', //Baked Golden Apple
-
-
 
 		'Item_Cook_A_01', //Mushroom Skewer
 		'Item_Cook_A_02', //Steamed Mushrooms
@@ -763,7 +771,9 @@ Item.AVAILABILITY={
 		'Item_Cook_S_07', //Dark Soup
 		'Item_Cook_S_08', //Dark Curry
 		'Item_Cook_S_09', //Dark Cake
-		'Item_Cook_S_10' //Cheesy Tomat
+		'Item_Cook_S_10', //Cheesy Tomat
+
+		'BoarMeat', //Enemy Camp Meat
 	],
 
 	'devices':[
@@ -843,20 +853,6 @@ Item.AVAILABILITY={
 		'GameRomHorseSaddle_05', //Extravagant Saddle
 		'GameRomHorseSaddle_07', //Towing Harness
 
-		'Obj_Camera', //Camera
-		'Obj_WarpDLC', //Travel Medallion
-		'Obj_WarpDLC_Prototype', //Travel Medallion prototype
-		//'Obj_AutoBuilder', //Autobuild
-		//'Obj_Tooreroof', //Ascend
-		'Obj_TreasureMap_00', //Old Map
-		'Item_StableHostelAccommodationCoupon_A', //Sleepover Ticket
-		'Obj_CaveWellHonor_00', //All's Well
-		'Obj_CheckPointHonor_00', //Dispelling Darkness Medal
-		'Obj_AutoBuilderDraft_00', //Schema Stone
-		'Obj_AutoBuilderDraftAssassin_00', //Yiga Schematic
-		'Obj_HiddenScroll_00', //Earthwake Manual
-
-		'Obj_SubstituteCloth_Default', //Ordinary Fabric
 		'Obj_SubstituteCloth_00', //Goron Fabric
 		'Obj_SubstituteCloth_01', //Zora Fabric
 		'Obj_SubstituteCloth_02', //Gerudo Fabric
@@ -908,7 +904,22 @@ Item.AVAILABILITY={
 		'Obj_SubstituteCloth_52', //Princess Zelda Fabric
 		'Obj_SubstituteCloth_53', //Gerudo-King Fabric
 		'Obj_SubstituteCloth_55', //Nostalgic Fabric
-		'Obj_SubstituteCloth_56' //Addison's Fabric
+		'Obj_SubstituteCloth_56', //Addison's Fabric
+
+		'Obj_SubstituteCloth_Default', //Ordinary Fabric
+		'Obj_Album', //Album
+		'Obj_AmiiboItem', //Amiibo
+		'Obj_Camera', //Camera
+		'Obj_PictureBook', //Hyrule Compendium
+		'Obj_Photo_Animal', //Animal Photo
+		'Obj_Photo_BossEnemy', //Boss Photo
+		'Obj_Photo_Enemy', //Enemy Photo
+		'Obj_Photo_Material', //Material Photo
+		'Obj_Photo_Other', //Misc Photo
+		'Obj_Photo_Weapon', //Weapon Photo
+		'Obj_SheikSensor', //Sheikah Sensor
+		'Obj_SheikSensorLv2', //Sheikah Sensor (Level 2)
+		'Obj_Warp', //Purah Pad Warp Functionality
 	]
 };
 
