@@ -13,8 +13,8 @@ SavegameEditor={
 
 	/* Constants */
 	Constants:{
-		BACKGROUND_MUSIC_OFFSET:0x2232,
-		BACKGROUND_MUSIC:[
+		BACKGROUND_OFFSET:0x2232,
+		BACKGROUND:[
 			{value:0, name:'Argyle'},
 			{value:1, name:'Clovers'},
 			{value:2, name:'Flowers'},
@@ -50,8 +50,8 @@ SavegameEditor={
 			{value:2, name:'Profile 2', offset: 0x3B84}, // 15236
 			{value:3, name:'Profile 3', offset: 0x76FC}, // 30460
 		],
-		SFX_OFFSET:0x2243,
-		SFX_MUSIC:[
+		BGM_MUSIC_OFFSET:0x2243,
+		BGM_MUSIC:[
 			{value:0, name:'Café'},
 			{value:1, name:'Jazz'},
 			{value:2, name:'Latin'},
@@ -79,9 +79,9 @@ SavegameEditor={
 	_getProfileOffset:function(){
 		return this.Constants.PROFILES[Number(getValue('profile-selector')) - 1].offset;
 	},
-	_write_background_music:function(){
+	_write_background:function(){
 		tempFile.writeU8(
-			this._getProfileOffset()+this.Constants.BACKGROUND_MUSIC_OFFSET,
+			this._getProfileOffset()+this.Constants.BACKGROUND_OFFSET,
 			getValue('background')
 		);
 	},
@@ -91,9 +91,9 @@ SavegameEditor={
 			getValue('difficulty')
 		);
 	},
-	_write_sfx_music:function(){
+	_write_bgm_music:function(){
 		tempFile.writeU8(
-			this._getProfileOffset()+this.Constants.SFX_OFFSET(),
+			this._getProfileOffset()+this.Constants.BGM_MUSIC_OFFSET(),
 			getValue('bgm-music')
 		);
 	},
@@ -117,8 +117,8 @@ SavegameEditor={
 		get('container-profile-name').innerHTML = '';
 		get('container-profile-name').appendChild(span(SavegameEditor._readU8String(profileStartOffset, 20)));
 		
-		setValue('background', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.BACKGROUND_MUSIC_OFFSET));
-		setValue('bgm-music', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.SFX_OFFSET));
+		setValue('background', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.BACKGROUND_OFFSET));
+		setValue('bgm-music', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.BGM_MUSIC_OFFSET));
 		setValue('difficulty', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.DIFFICULTY_OFFSET));
 		var tmp = tempFile.readU8(profileStartOffset + 0x2231);
 		setValue('checkbox-help', tmp > 1 ? 'checked' : '');
@@ -188,11 +188,11 @@ SavegameEditor={
 			}
 		}
 		setValue('amiibocount', unlockedAmiibos);
-		get('container-background').appendChild(select('background', SavegameEditor.Constants.BACKGROUND_MUSIC, SavegameEditor._write_background_music));
+		get('container-background').appendChild(select('background', SavegameEditor.Constants.BACKGROUND, SavegameEditor._write_background));
 		get('container-bomb').appendChild(checkbox('checkbox-bomb'));
 		get('container-difficulty').appendChild(select('difficulty', SavegameEditor.Constants.DIFFICULTIES, SavegameEditor._write_difficulty));
 		get('container-help').appendChild(checkbox('checkbox-help'));
-		get('container-bgm-music').appendChild(select('bgm-music', SavegameEditor.Constants.SFX_MUSIC, SavegameEditor._write_sfx_music));
+		get('container-bgm-music').appendChild(select('bgm-music', SavegameEditor.Constants.BGM_MUSIC, SavegameEditor._write_bgm_music));
 		this._load_profile();
 	},
 
