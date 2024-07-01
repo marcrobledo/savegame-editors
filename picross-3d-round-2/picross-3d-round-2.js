@@ -39,6 +39,16 @@ SavegameEditor={
 			{value:254, name:'Random'},
 			{value:255, name:'Default'}
 		],
+		CONTROLS:[
+			{value:0, name:'Pink Hammer'},
+			{value:1, name:'Blue Bucket'},
+			{value:2, name:'Orange Bucket'},
+			{value:3, name:'Orange Pencil'},
+			{value:4, name:'Blue Pencil'}
+		],
+		CONTROLS_CROSS_OFFSET:0x5DAC,
+		CONTROLS_CROSS_ABXY_OFFSET:0x5DB0,
+		CONTROLS_LR_OFFSET:0x5DB4,
 		DIFFICULTIES:[
 			{value: 0, name: 'Easy'},
 			{value: 1, name: 'Medium'},
@@ -81,8 +91,72 @@ SavegameEditor={
 	},
 	_write_background:function(){
 		tempFile.writeU8(
-			this._getProfileOffset()+this.Constants.BACKGROUND_OFFSET,
+			this._getProfileOffset()+this.Constants.BACKGROUND_MUSIC_OFFSET,
 			getValue('background')
+		);
+	},
+	_write_controls_circle:function(){
+		tempFile.writeU8(
+			this._getProfileOffset()+this.Constants.CONTROLS_CIRCLE_OFFSET,
+			getValue('circle-up')
+		);
+		tempFile.writeU8(
+			this._getProfileOffset()+this.Constants.CONTROLS_CIRCLE_OFFSET+3,
+			getValue('circle-left')
+		);
+		tempFile.writeU8(
+			this._getProfileOffset()+this.Constants.CONTROLS_CIRCLE_OFFSET+4,
+			getValue('circle-right')
+		);
+		tempFile.writeU8(
+			this._getProfileOffset()+this.Constants.CONTROLS_CIRCLE_OFFSET+1,
+			getValue('circle-bottom-left')
+		);
+		tempFile.writeU8(
+			this._getProfileOffset()+this.Constants.CONTROLS_CIRCLE_OFFSET+2,
+			getValue('circle-bottom-right')
+		);
+	},
+	_write_controls_cross:function(){
+		tempFile.writeU8(
+			this._getProfileOffset()+this.Constants.CONTROLS_CROSS_OFFSET,
+			getValue('cross-up')
+		);
+		tempFile.writeU8(
+			this._getProfileOffset()+this.Constants.CONTROLS_CROSS_OFFSET+1,
+			getValue('cross-down')
+		);
+		tempFile.writeU8(
+			this._getProfileOffset()+this.Constants.CONTROLS_CROSS_OFFSET+2,
+			getValue('cross-left')
+		);
+		tempFile.writeU8(
+			this._getProfileOffset()+this.Constants.CONTROLS_CROSS_OFFSET+3,
+			getValue('cross-right')
+		);
+		tempFile.writeU8(
+			this._getProfileOffset()+this.Constants.CONTROLS_LR_OFFSET,
+			getValue('cross-lr')
+		);
+		tempFile.writeU8(
+			this._getProfileOffset()+this.Constants.CONTROLS_LR_OFFSET+1,
+			getValue('cross-lr')
+		);
+		tempFile.writeU8(
+			this._getProfileOffset()+this.Constants.CONTROLS_CROSS_ABXY_OFFSET+2,
+			getValue('cross-up')
+		);
+		tempFile.writeU8(
+			this._getProfileOffset()+this.Constants.CONTROLS_CROSS_ABXY_OFFSET+3,
+			getValue('cross-left')
+		);
+		tempFile.writeU8(
+			this._getProfileOffset()+this.Constants.CONTROLS_CROSS_ABXY_OFFSET,
+			getValue('cross-right')
+		);
+		tempFile.writeU8(
+			this._getProfileOffset()+this.Constants.CONTROLS_CROSS_ABXY_OFFSET+1,
+			getValue('cross-bottom')
 		);
 	},
 	_write_difficulty:function(){
@@ -93,7 +167,7 @@ SavegameEditor={
 	},
 	_write_bgm_music:function(){
 		tempFile.writeU8(
-			this._getProfileOffset()+this.Constants.BGM_MUSIC_OFFSET(),
+			this._getProfileOffset()+this.Constants.SFX_OFFSET(),
 			getValue('bgm-music')
 		);
 	},
@@ -102,7 +176,7 @@ SavegameEditor={
 		var entry;
 		for (entry of puzzles) {
 			setValue('levels_' + entry[0] + '_errors', tempFile.readU8(profileStartOffset + entry[2] + 8));
-			setValue('levels_' + entry[0] + '_time', tempFile.readU16(profileStartOffset + entry[2] + 12)); // ToDo: Read second byte first, then the first.
+			setValue('levels_' + entry[0] + '_time', tempFile.readU16(profileStartOffset + entry[2] + 12));
 			setValue('levels_' + entry[0] + '_points', tempFile.readU8(profileStartOffset + entry[2] + 4));
 		}
 		for (entry of tutorials) {
@@ -120,6 +194,20 @@ SavegameEditor={
 		setValue('background', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.BACKGROUND_OFFSET));
 		setValue('bgm-music', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.BGM_MUSIC_OFFSET));
 		setValue('difficulty', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.DIFFICULTY_OFFSET));
+
+		setValue('cross-up', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.CONTROLS_CROSS_OFFSET));
+		setValue('cross-left', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.CONTROLS_CROSS_OFFSET+2));
+		setValue('cross-right', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.CONTROLS_CROSS_OFFSET+3));
+		setValue('cross-bottom', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.CONTROLS_CROSS_OFFSET+1));
+		setValue('cross-lr', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.CONTROLS_LR_OFFSET));
+
+		setValue('circle-up', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.CONTROLS_CIRCLE_OFFSET));
+		setValue('circle-left', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.CONTROLS_CIRCLE_OFFSET+3));
+		setValue('circle-right', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.CONTROLS_CIRCLE_OFFSET+4));
+		setValue('circle-bottom-left', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.CONTROLS_CIRCLE_OFFSET+1));
+		setValue('circle-bottom-right', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.CONTROLS_CIRCLE_OFFSET+2));
+
+
 		var tmp = tempFile.readU8(profileStartOffset + 0x2231);
 		setValue('checkbox-help', tmp > 1 ? 'checked' : '');
 		setValue('checkbox-bomb', (tmp+1)%2===0 > 1 ? 'checked' : '');
@@ -193,6 +281,18 @@ SavegameEditor={
 		get('container-difficulty').appendChild(select('difficulty', SavegameEditor.Constants.DIFFICULTIES, SavegameEditor._write_difficulty));
 		get('container-help').appendChild(checkbox('checkbox-help'));
 		get('container-bgm-music').appendChild(select('bgm-music', SavegameEditor.Constants.BGM_MUSIC, SavegameEditor._write_bgm_music));
+
+		get('container-cross-up').appendChild(select('cross-up', SavegameEditor.Constants.CONTROLS, SavegameEditor._write_controls_cross));
+		get('container-cross-left').appendChild(select('cross-left', SavegameEditor.Constants.CONTROLS, SavegameEditor._write_controls_cross));
+		get('container-cross-right').appendChild(select('cross-right', SavegameEditor.Constants.CONTROLS, SavegameEditor._write_controls_cross));
+		get('container-cross-bottom').appendChild(select('cross-bottom', SavegameEditor.Constants.CONTROLS, SavegameEditor._write_controls_cross));
+		get('container-cross-lr').appendChild(select('cross-lr', SavegameEditor.Constants.CONTROLS, SavegameEditor._write_controls_cross));
+
+		get('container-circle-up').appendChild(select('circle-up', SavegameEditor.Constants.CONTROLS, SavegameEditor._write_controls_circle));
+		get('container-circle-left').appendChild(select('circle-left', SavegameEditor.Constants.CONTROLS, SavegameEditor._write_controls_circle));
+		get('container-circle-right').appendChild(select('circle-right', SavegameEditor.Constants.CONTROLS, SavegameEditor._write_controls_circle));
+		get('container-circle-bottom-left').appendChild(select('circle-bottom-left', SavegameEditor.Constants.CONTROLS, SavegameEditor._write_controls_circle));
+		get('container-circle-bottom-right').appendChild(select('circle-bottom-right', SavegameEditor.Constants.CONTROLS, SavegameEditor._write_controls_circle));
 		this._load_profile();
 	},
 
