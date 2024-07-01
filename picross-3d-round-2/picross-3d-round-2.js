@@ -80,13 +80,6 @@ SavegameEditor={
 			{value:255, name:'Default'}
 		]
 	},
-	_readU8String:function(pos,maxLength){
-		var cs=new Array(maxLength);
-		var str='';
-		for(var i=0;i<maxLength && tempFile.readU8(pos+i*2)!=0;i++)
-			str+=String.fromCharCode(tempFile.readU8(pos+i*2));
-		return str
-	},
 	_getProfileOffset:function(){
 		return this.Constants.PROFILES[Number(getValue('profile-selector')) - 1].offset;
 	},
