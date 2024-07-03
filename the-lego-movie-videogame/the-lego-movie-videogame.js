@@ -268,14 +268,14 @@ SavegameEditor={
 		var tmp1 = get('character-list');
 		for (var j = 0; j < SavegameEditor.Constants.CHARACTERS.length; j++) {
 			tmp1.appendChild(col(2,label('checkbox-character-'+j, SavegameEditor.Constants.CHARACTERS[j].name)));
-			get('checkbox-character-'+j).className+=' text-right';
 			tmp1.appendChild(col(1,checkbox('character-'+j,'')));
+			get('checkbox-character-'+j).className+=' text-right';
 		}
 		var tmp2 = get('upgrades-list');
 		for (var k = 0; k < SavegameEditor.Constants.UPGRADES.length; k++) {
 			tmp2.appendChild(col(4,label('checkbox-upgrades-'+k, SavegameEditor.Constants.UPGRADES[k].name)));
-			get('checkbox-upgrades-'+k).className+=' text-right';
 			tmp2.appendChild(col(2,checkbox('upgrades-'+k,'')));
+			get('checkbox-upgrades-'+k).className+=' text-right';
 		}
 	},
 
