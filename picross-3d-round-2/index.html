@@ -46,13 +46,6 @@
 
 <!-- THE EDITOR -->
 <div id="the-editor" class="wrapper hidden">
-	<!-- AMIIBO -->
-	<h3 class="orange">Amiibo puzzles</h3>
-	<div class="container">
-		You have unlocked <span id="span-amiibocount"></span><small>/9</small> amiibo puzzles.
-		<button onclick="SavegameEditor.unlockAmiiboPuzzles()">Unlock missing amiibo puzzles</button>
-	</div>
-
 	<!-- Settings -->
 	<h3 class="orange">Settings</h3>
 	<div class="container">
@@ -90,10 +83,11 @@
 	<h3 class="orange">Levels</h3>
 	<div class="container">
 		<div class="row" id="row-levels">
-			<div class="two columns">ID</div>
+			<div class="one columns">ID</div>
 			<div class="two columns">Name</div>
-			<div class="two columns">Completed</div>
-			<div class="two columns">Mistakes</div>
+			<div class="two columns">Status</div>
+			<div class="two columns">Difficulty</div>
+			<div class="one columns">Mistakes</div>
 			<div class="two columns">Time</div>
 			<div class="two columns">Points</div>
 		</div>
@@ -103,9 +97,10 @@
 	<h3 class="orange">Tutorials</h3>
 	<div class="container">
 		<div class="row" id="row-tutorials">
-			<div class="four columns">ID</div>
+			<div class="one columns">ID</div>
 			<div class="four columns">Name</div>
-			<div class="four columns">Completed</div>
+			<div class="four columns">Status</div>
+			<div class="three columns">Difficulty</div>
 		</div>
 	</div>
 

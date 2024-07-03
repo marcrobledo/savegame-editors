@@ -4,12 +4,11 @@
 */
 var puzzles = [];
 var tutorials = [];
+var reg = /\d+/;
 
 SavegameEditor={
 	Name:'Picross 3D: round 2',
 	Filename:'SAVEDATA',
-
-	AmiiboOffset:0x1a4c,
 
 	/* Constants */
 	Constants:{
@@ -78,6 +77,12 @@ SavegameEditor={
 			{value:12, name:'Challenge'},
 			{value:254, name:'Random'},
 			{value:255, name:'Default'}
+		],
+		LEVEL_STATUS:[
+			{value:8, name:'Locked'},
+			{value:9, name:'Unlocked'},
+			{value:13, name:'Solved'},
+			{value:29, name:'Solved (Read)'}
 		]
 	},
 	_getProfileOffset:function(){
@@ -169,15 +174,58 @@ SavegameEditor={
 		var profileStartOffset = SavegameEditor._getProfileOffset();
 		var entry;
 		for (entry of puzzles) {
+			setValue('levels_' + entry[0] + '_status', tempFile.readU8(profileStartOffset + entry[2]));
+			setValue('levels_' + entry[0] + '_difficulty', tempFile.readU8(profileStartOffset + entry[2]+7));
 			setValue('levels_' + entry[0] + '_errors', tempFile.readU8(profileStartOffset + entry[2] + 8));
 			setValue('levels_' + entry[0] + '_time', tempFile.readU16(profileStartOffset + entry[2] + 12));
 			setValue('levels_' + entry[0] + '_points', tempFile.readU8(profileStartOffset + entry[2] + 4));
 		}
 		for (entry of tutorials) {
-			setValue('tutorials_' + entry[0] + '_errors', tempFile.readU8(profileStartOffset + entry[2] + 8));
-			setValue('tutorials_' + entry[0] + '_time', tempFile.readU16(profileStartOffset + entry[2] + 12));
-			setValue('tutorials_' + entry[0] + '_points', tempFile.readU8(profileStartOffset + entry[2] + 4));
+			setValue('tutorials_' + entry[0] + '_status', tempFile.readU8(profileStartOffset + entry[2]));
+			setValue('tutorials_' + entry[0] + '_difficulty', tempFile.readU8(profileStartOffset + entry[2]+7));
 		}
+	},
+	_write_level_errors:function(e){
+		var index = Number((e.target.id).match(reg)[0]);
+		var offset = SavegameEditor._getProfileOffset()+0x220+index*16+8;
+		tempFile.writeU8(
+			offset,
+			getValue(e.target.id)
+		);
+	},
+	_write_level_time:function(e){
+		var index = Number((e.target.id).match(reg)[0]);
+		var offset = SavegameEditor._getProfileOffset()+0x220+index*16+12;
+		tempFile.writeU16(
+			offset,
+			getValue(e.target.id)
+		);
+	},
+	_write_level_points:function(e){
+		var index = Number((e.target.id).match(reg)[0]);
+		var offset = SavegameEditor._getProfileOffset()+0x220+index*16+4;
+		tempFile.writeU8(
+			offset,
+			getValue(e.target.id)
+		);
+	},
+	_write_level_status:function(e){
+		console.log(e);
+		console.log(e.target);
+		var index = Number((e.target.id).match(reg)[0]);
+		var offset = SavegameEditor._getProfileOffset()+0x220+index*16;
+		tempFile.writeU8(
+			offset,
+			getValue(e.target.id)
+		);
+	},
+	_write_level_difficulty:function(){
+		var index = Number((e.target.id).match(reg)[0]);
+		var offset = SavegameEditor._getProfileOffset()+0x220+index*16+7;
+		tempFile.writeU8(
+			offset,
+			getValue(e.target.id)
+		);
 	},
 	_load_profile:function(){
 		var profileStartOffset = SavegameEditor._getProfileOffset();
@@ -203,17 +251,6 @@ SavegameEditor={
 		setValue('checkbox-help', tmp > 1 ? 'checked' : '');
 		setValue('checkbox-bomb', (tmp+1)%2===0 > 1 ? 'checked' : '');
 		SavegameEditor._update_list_values();
-	},
-
-	unlockAmiiboPuzzles:function(){
-		for(var i=0; i<9; i++){
-			var offset=this.AmiiboOffset+i*16;
-			var b=tempFile.readU8(offset);
-			if(!(b & 0x09)){
-				tempFile.writeU8(offset, b+0x09);
-			}
-		}
-		setValue('amiibocount', 9);
 	},
 
 	/* check if savegame is valid */
@@ -266,19 +303,24 @@ SavegameEditor={
 					if (entry.ID.startsWith('No.')) {
 						puzzles.push([counter, entry, 0x220 + counter * 16]);
 						rl.append(
-							col(2, span(entry.ID)),
+							col(1, span(entry.ID)),
 							col(2, span(entry.NAME)),
-							col(2, checkbox('levels_'+counter+'_unlocked'), ''),
-							col(2, inputNumber('levels_'+counter+'_errors', 0, 255, 0)),
+							col(2, select('levels_'+counter+'_status', SavegameEditor.Constants.LEVEL_STATUS, SavegameEditor._write_level_status)),
+							col(2, select('levels_'+counter+'_difficulty', SavegameEditor.Constants.DIFFICULTIES, SavegameEditor._write_level_difficulty)),
+							col(1, inputNumber('levels_'+counter+'_errors', 0, 255, 0)),
 							col(2, inputNumber('levels_'+counter+'_time', 0, 65535, 0)),
 							col(2, inputNumber('levels_'+counter+'_points', 0, 255, 0))
 						);
+						getField('number-levels_'+counter+'_errors').addEventListener('change', SavegameEditor._write_level_errors);
+						getField('number-levels_'+counter+'_time').addEventListener('change', SavegameEditor._write_level_time);
+						getField('number-levels_'+counter+'_points').addEventListener('change', SavegameEditor._write_level_points);
 					} else {
-						tutorials.push([entry, 0x220 + counter * 16]);
+						tutorials.push([counter, entry, 0x220 + counter * 16]);
 						rt.append(
-							col(4, span(entry.ID)),
+							col(1, span(entry.ID)),
 							col(4, span(entry.NAME)),
-							col(4, checkbox('tutorials_'+counter+'_completed'), '')
+							col(4, select('tutorials_'+counter+'_status', SavegameEditor.Constants.LEVEL_STATUS, SavegameEditor._write_level_status)),
+							col(3, select('tutorials_'+counter+'_difficulty', SavegameEditor.Constants.DIFFICULTIES, SavegameEditor._write_level_difficulty))
 						);
 					}
 					counter++;
@@ -289,14 +331,6 @@ SavegameEditor={
 			});
 
 		get('toolbar').children[0].appendChild(select('profile-selector', this.Constants.PROFILES, this._load_profile));
-
-		var unlockedAmiibos=0;
-		for(var i=0; i<9; i++){
-			if(tempFile.readU8(this.AmiiboOffset+i*16) & 0x09){
-				unlockedAmiibos++;
-			}
-		}
-		setValue('amiibocount', unlockedAmiibos);
 		this._load_profile();
 	},
 
