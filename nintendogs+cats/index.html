@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Savegame Editor &ndash; Nintendogs + Cats</title>
+	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content="A savegame editor for Nintendogs + Cats."/>
+	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, 3ds, nintendogs+cats, unlock, amiibo, puzzles"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="shortcut icon" href="favicon.png"/>
+	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
+	<script type="text/javascript" src="../savegame-editor.js"></script>
+	<script type="text/javascript" src="./nintendogs+cats.js"></script>
+	<script type="text/javascript"><!--
+		/* service worker */
+		var FORCE_HTTPS=true;
+		window.addEventListener('load',function(){
+			if(location.protocol==='http:' && FORCE_HTTPS)
+				location.replace(window.location.href.replace('http:','https:'));
+			else if(location.protocol==='https:' && 'serviceWorker' in navigator)
+				navigator.serviceWorker.register('/savegame-editors/nintendogs+cats/_cache_service_worker.js', {scope: '/savegame-editors/nintendogs+cat/'});
+		}, false);
+	--></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+	<div id="header-top">
+		<div class="row wrapper">
+			<h1 class="six columns text-left"><img src="favicon.png" /> Savegame Editor <small>for Nintendogs+Cats</small></h1>
+			<div class="six columns header-buttons text-right">
+				by <a href="/">Marc Robledo</a>
+				<i class="icon github"></i> <a href="https://github.com/marcrobledo/savegame-editors/tree/master/nintendogs+cats" target="_blank">See on GitHub</a>
+				<i class="icon heart"></i> <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
+			</div>
+		</div>
+		<div class="hidden row wrapper" id="toolbar">
+			<div class="twelve columns text-center">
+				<button class="close" onclick="closeFile()"><i class="icon close"></i> Close file</button>
+				<button class="colored" onclick="saveChanges()"><i class="icon accept"></i> Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- THE EDITOR -->
+<div id="the-editor" class="wrapper hidden">
+	<!-- Money -->
+	<h3 class="orange">Account</h3>
+	<div class="container">
+		<div class="row" id="row-money">
+			<div class="columns c8"><label for="number-money">Money</label></div>
+			<div class="columns c4"><input id="number-money" type="text" class="fw text-right" /></div>
+		</div>
+	</div>
+	<!-- Supplies -->
+	<h3 class="orange">Food & Drink</h3>
+	<div class="container">
+		<div class="row" id="row-fooddrink">
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+		</div>
+	</div>
+	<h3 class="orange">Toys</h3>
+	<div class="container">
+		<div class="row" id="row-toys">
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+		</div>
+	</div>
+	<h3 class="orange">Accessories</h3>
+	<div class="container">
+		<div class="row" id="row-accessories">
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+		</div>
+	</div>
+	<h3 class="orange">Furniture</h3>
+	<div class="container">
+		<div class="row" id="row-furniture">
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+		</div>
+	</div>
+	<h3 class="orange">Leashes</h3>
+	<div class="container">
+		<div class="row" id="row-leashes">
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+		</div>
+	</div>
+	<h3 class="orange">Skins</h3>
+	<div class="container">
+		<div class="row" id="row-skins">
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+			<div class="columns c3">Name</div>
+			<div class="columns c1">Amount</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
