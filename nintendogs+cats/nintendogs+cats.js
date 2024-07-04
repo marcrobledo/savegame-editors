@@ -50,7 +50,7 @@ SavegameEditor={
 					counter = 0;
 					for (var entry of data[rowtype[1]]) {
 						rt.append(
-							col(3, span(entry[1]+' ('+entry[0]+')')),
+							col(3, span(entry[1])),
 							col(1, inputNumber('supplies_' + rowtype[0] + '_'+counter+'_amount', 0, 99, tempFile.readU8(Number(entry[0]))))
 						);
 						get('number-supplies_' + rowtype[0] + '_'+counter+'_amount').dataset.offset = entry[0];
