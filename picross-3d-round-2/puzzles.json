@@ -148,6 +148,46 @@
         "NAME": "Solar System"
     },
     {
+        "ID": "Skill 1",
+        "NAME": "Continuity Search"
+    },
+    {
+        "ID": "Skill 2",
+        "NAME": "Starting at the Ends"
+    },
+    {
+        "ID": "Skill 3",
+        "NAME": "Out of Reach"
+    },
+    {
+        "ID": "Skill 4",
+        "NAME": "Dual Continuity Search"
+    },
+    {
+        "ID": "Skill 5",
+        "NAME": "Lonely Cube"
+    },
+    {
+        "ID": "Skill 6",
+        "NAME": "Lonely Cube 2"
+    },
+    {
+        "ID": "Skill 7",
+        "NAME": "Circles of the Ends"
+    },
+    {
+        "ID": "Skill 8",
+        "NAME": "Triplets Divided"
+    },
+    {
+        "ID": "Skill 9",
+        "NAME": "Squares on the Ends"
+    },
+    {
+        "ID": "Skill 10",
+        "NAME": "Alternating"
+    },
+    {
         "ID": "No. 031",
         "NAME": "Skull"
     },
@@ -236,6 +276,46 @@
         "NAME": "The Statue of Liberty"
     },
     {
+        "ID": "Skill 11",
+        "NAME": "Continuity Search 2"
+    },
+    {
+        "ID": "Skill 12",
+        "NAME": "Starting at the Ends 2"
+    },
+    {
+        "ID": "Skill 13",
+        "NAME": "Dual Dilemma"
+    },
+    {
+        "ID": "Skill 14",
+        "NAME": "Dual Continuity Search 2"
+    },
+    {
+        "ID": "Skill 15",
+        "NAME": "Starting at the Ends 3"
+    },
+    {
+        "ID": "Skill 16",
+        "NAME": "Colorful Crossing"
+    },
+    {
+        "ID": "Skill 17",
+        "NAME": "Positive Painting"
+    },
+    {
+        "ID": "Skill 18",
+        "NAME": "The Process of Elimination"
+    },
+    {
+        "ID": "Skill 19",
+        "NAME": "Logical Leap"
+    },
+    {
+        "ID": "Skill 20",
+        "NAME": "Lonely Cube 3"
+    },
+    {
         "ID": "No. 053",
         "NAME": "Pliers"
     },
@@ -294,10 +374,6 @@
     {
         "ID": "No. 067",
         "NAME": "Loading Dock"
-    },
-    {
-        "ID": "No. 068",
-        "NAME": "Royal Carriage"
     },
     {
         "ID": "No. 069",
@@ -536,10 +612,6 @@
         "NAME": "Marlin"
     },
     {
-        "ID": "No. 128",
-        "NAME": "Japanese Castle"
-    },
-    {
         "ID": "No. 129",
         "NAME": "Part A"
     },
@@ -754,10 +826,6 @@
     {
         "ID": "No. 182",
         "NAME": "Horse"
-    },
-    {
-        "ID": "No. 183",
-        "NAME": "Gulliver"
     },
     {
         "ID": "No. 184",
@@ -982,10 +1050,6 @@
     {
         "ID": "No. 239",
         "NAME": "Totem Pole"
-    },
-    {
-        "ID": "No. 240",
-        "NAME": "Pit Stop"
     },
     {
         "ID": "No. 241",
@@ -1334,10 +1398,6 @@
     {
         "ID": "No. 327",
         "NAME": "Fox"
-    },
-    {
-        "ID": "No. 328",
-        "NAME": "Circus Train"
     },
     {
         "ID": "No. 329",

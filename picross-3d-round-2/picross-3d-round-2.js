@@ -4,6 +4,7 @@
 */
 var puzzles = [];
 var tutorials = [];
+var skills = [];
 var reg = /\d+/;
 
 SavegameEditor={
@@ -178,11 +179,15 @@ SavegameEditor={
 			setValue('levels_' + entry[0] + '_difficulty', tempFile.readU8(profileStartOffset + entry[2]+7));
 			setValue('levels_' + entry[0] + '_errors', tempFile.readU8(profileStartOffset + entry[2] + 8));
 			setValue('levels_' + entry[0] + '_time', tempFile.readU16(profileStartOffset + entry[2] + 12));
-			setValue('levels_' + entry[0] + '_points', tempFile.readU8(profileStartOffset + entry[2] + 4));
+			setValue('levels_' + entry[0] + '_points', tempFile.readU16(profileStartOffset + entry[2] + 4));
 		}
 		for (entry of tutorials) {
 			setValue('tutorials_' + entry[0] + '_status', tempFile.readU8(profileStartOffset + entry[2]));
 			setValue('tutorials_' + entry[0] + '_difficulty', tempFile.readU8(profileStartOffset + entry[2]+7));
+		}
+		for (entry of skills) {
+			setValue('skills_' + entry[0] + '_status', tempFile.readU8(profileStartOffset + entry[2]));
+			setValue('skills_' + entry[0] + '_difficulty', tempFile.readU8(profileStartOffset + entry[2]+7));
 		}
 	},
 	_write_level_errors:function(e){
@@ -204,7 +209,7 @@ SavegameEditor={
 	_write_level_points:function(e){
 		var index = Number((e.target.id).match(reg)[0]);
 		var offset = SavegameEditor._getProfileOffset()+0x220+index*16+4;
-		tempFile.writeU8(
+		tempFile.writeU16(
 			offset,
 			getValue(e.target.id)
 		);
@@ -299,6 +304,7 @@ SavegameEditor={
 				var counter = 0;
 				var rt = get('row-tutorials');
 				var rl = get('row-levels');
+				var rs = get('row-skills');
 				for (var entry of data) {
 					if (entry.ID.startsWith('No.')) {
 						puzzles.push([counter, entry, 0x220 + counter * 16]);
@@ -314,13 +320,21 @@ SavegameEditor={
 						getField('number-levels_'+counter+'_errors').addEventListener('change', SavegameEditor._write_level_errors);
 						getField('number-levels_'+counter+'_time').addEventListener('change', SavegameEditor._write_level_time);
 						getField('number-levels_'+counter+'_points').addEventListener('change', SavegameEditor._write_level_points);
-					} else {
+					} else if (entry.ID.startsWith('Tutorial')) {
 						tutorials.push([counter, entry, 0x220 + counter * 16]);
 						rt.append(
 							col(1, span(entry.ID)),
 							col(4, span(entry.NAME)),
 							col(4, select('tutorials_'+counter+'_status', SavegameEditor.Constants.LEVEL_STATUS, SavegameEditor._write_level_status)),
 							col(3, select('tutorials_'+counter+'_difficulty', SavegameEditor.Constants.DIFFICULTIES, SavegameEditor._write_level_difficulty))
+						);
+					} else if (entry.ID.startsWith('Skill')) {
+						skills.push([counter, entry, 0x220 + counter * 16]);
+						rs.append(
+							col(1, span(entry.ID)),
+							col(4, span(entry.NAME)),
+							col(4, select('skills_'+counter+'_status', SavegameEditor.Constants.LEVEL_STATUS, SavegameEditor._write_level_status)),
+							col(3, select('skills_'+counter+'_difficulty', SavegameEditor.Constants.DIFFICULTIES, SavegameEditor._write_level_difficulty))
 						);
 					}
 					counter++;

@@ -27,15 +27,15 @@
 <div id="header">
 	<div id="header-top">
 		<div class="row wrapper">
-			<h1 class="six columns text-left"><img src="favicon.png" /> Savegame Editor <small>for Picross 3D: Round 2</small></h1>
-			<div class="six columns header-buttons text-right">
+			<h1 class="columns c6 text-left"><img src="favicon.png" /> Savegame Editor <small>for Picross 3D: Round 2</small></h1>
+			<div class="columns c6 header-buttons text-right">
 				by <a href="/">Marc Robledo</a>
 				<i class="icon github"></i> <a href="https://github.com/marcrobledo/savegame-editors/tree/master/picross-3d-round-2" target="_blank">See on GitHub</a>
 				<i class="icon heart"></i> <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
 			</div>
 		</div>
 		<div class="hidden row wrapper" id="toolbar">
-			<div class="twelve columns text-center">
+			<div class="columns c12 text-center">
 				<button class="close" onclick="closeFile()"><i class="icon close"></i> Close file</button>
 				<button class="colored" onclick="saveChanges()"><i class="icon accept"></i> Save changes</button>
 			</div>
@@ -50,32 +50,32 @@
 	<h3 class="orange">Settings</h3>
 	<div class="container">
 		<div class="row">
-			<div class="five columns">Name</div><div class="five columns" id="container-profile-name"></div>
-			<div class="five columns">Background</div><div class="five columns" id="container-background"></div>
-			<div class="five columns">BGM</div><div class="five columns" id="container-bgm-music"></div>
-			<div class="five columns">Difficulty</div><div class="five columns" id="container-difficulty"></div>
-			<div class="five columns">Help</div><div class="five columns" id="container-help"></div>
-			<div class="five columns">Bomb</div><div class="five columns" id="container-bomb"></div>
+			<div class="columns c5">Name</div><div class="columns c5" id="container-profile-name"></div>
+			<div class="columns c5">Background</div><div class="columns c5" id="container-background"></div>
+			<div class="columns c5">BGM</div><div class="columns c5" id="container-bgm-music"></div>
+			<div class="columns c5">Difficulty</div><div class="columns c5" id="container-difficulty"></div>
+			<div class="columns c5">Help</div><div class="columns c5" id="container-help"></div>
+			<div class="columns c5">Bomb</div><div class="columns c5" id="container-bomb"></div>
 		</div>
 	</div>
 	<h3 class="orange">Controls - Cross</h3>
 	<div class="container">
 		<div class="row">
-			<div class="five columns">Up / Y</div><div class="five columns" id="container-cross-up"></div>
-			<div class="five columns">Left / A</div><div class="five columns" id="container-cross-left"></div>
-			<div class="five columns">Right / X</div><div class="five columns" id="container-cross-right"></div>
-			<div class="five columns">Bottom / B</div><div class="five columns" id="container-cross-bottom"></div>
-			<div class="five columns">L / R</div><div class="five columns" id="container-cross-lr"></div>
+			<div class="columns c5">Up / Y</div><div class="columns c5" id="container-cross-up"></div>
+			<div class="columns c5">Left / A</div><div class="columns c5" id="container-cross-left"></div>
+			<div class="columns c5">Right / X</div><div class="columns c5" id="container-cross-right"></div>
+			<div class="columns c5">Bottom / B</div><div class="columns c5" id="container-cross-bottom"></div>
+			<div class="columns c5">L / R</div><div class="columns c5" id="container-cross-lr"></div>
 		</div>
 	</div>
 	<h3 class="orange">Controls - Circle</h3>
 	<div class="container">
 		<div class="row">
-			<div class="five columns">Up</div><div class="five columns" id="container-circle-up"></div>
-			<div class="five columns">Left</div><div class="five columns" id="container-circle-left"></div>
-			<div class="five columns">Right</div><div class="five columns" id="container-circle-right"></div>
-			<div class="five columns">Bottom left</div><div class="five columns" id="container-circle-bottom-left"></div>
-			<div class="five columns">Bottom right</div><div class="five columns" id="container-circle-bottom-right"></div>
+			<div class="columns c5">Up</div><div class="columns c5" id="container-circle-up"></div>
+			<div class="columns c5">Left</div><div class="columns c5" id="container-circle-left"></div>
+			<div class="columns c5">Right</div><div class="columns c5" id="container-circle-right"></div>
+			<div class="columns c5">Bottom left</div><div class="columns c5" id="container-circle-bottom-left"></div>
+			<div class="columns c5">Bottom right</div><div class="columns c5" id="container-circle-bottom-right"></div>
 		</div>
 	</div>
 
@@ -83,24 +83,35 @@
 	<h3 class="orange">Levels</h3>
 	<div class="container">
 		<div class="row" id="row-levels">
-			<div class="one columns">ID</div>
-			<div class="two columns">Name</div>
-			<div class="two columns">Status</div>
-			<div class="two columns">Difficulty</div>
-			<div class="one columns">Mistakes</div>
-			<div class="two columns">Time</div>
-			<div class="two columns">Points</div>
+			<div class="columns c1">ID</div>
+			<div class="columns c2">Name</div>
+			<div class="columns c2">Status</div>
+			<div class="columns c2">Difficulty</div>
+			<div class="columns c1">Mistakes</div>
+			<div class="columns c2">Time</div>
+			<div class="columns c2">Points</div>
 		</div>
 	</div>
 
-	<!-- Tips -->
+	<!-- Tutorials -->
 	<h3 class="orange">Tutorials</h3>
 	<div class="container">
 		<div class="row" id="row-tutorials">
-			<div class="one columns">ID</div>
-			<div class="four columns">Name</div>
-			<div class="four columns">Status</div>
-			<div class="three columns">Difficulty</div>
+			<div class="columns c1">ID</div>
+			<div class="columns c4">Name</div>
+			<div class="columns c4">Status</div>
+			<div class="columns c3">Difficulty</div>
+		</div>
+	</div>
+
+	<!-- Skills -->
+	<h3 class="orange">Skills</h3>
+	<div class="container">
+		<div class="row" id="row-skills">
+			<div class="columns c1">ID</div>
+			<div class="columns c4">Name</div>
+			<div class="columns c4">Status</div>
+			<div class="columns c3">Difficulty</div>
 		</div>
 	</div>
 
