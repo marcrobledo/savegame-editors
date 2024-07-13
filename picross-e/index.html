@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Savegame Editor &ndash; PICROSS e</title>
+	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content="A savegame editor for PICROSS e."/>
+	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, 3ds, PICROSS e, unlock, puzzles"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="shortcut icon" href="favicon.png"/>
+	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
+	<script type="text/javascript" src="../savegame-editor.js"></script>
+	<script type="text/javascript" src="./picross-e.js"></script>
+	<script type="text/javascript"><!--
+		/* service worker */
+		var FORCE_HTTPS=true;
+		window.addEventListener('load',function(){
+			if(location.protocol==='http:' && FORCE_HTTPS)
+				location.replace(window.location.href.replace('http:','https:'));
+			else if(location.protocol==='https:' && 'serviceWorker' in navigator)
+				navigator.serviceWorker.register('/savegame-editors/picross-e/_cache_service_worker.js', {scope: '/savegame-editors/picross-e/'});
+		}, false);
+	--></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+	<div id="header-top">
+		<div class="row wrapper">
+			<h1 class="six columns text-left"><img src="favicon.png" /> Savegame Editor <small>for Picross 3D: Round 2</small></h1>
+			<div class="six columns header-buttons text-right">
+				by <a href="/">Marc Robledo</a>
+				<i class="icon github"></i> <a href="https://github.com/marcrobledo/savegame-editors/tree/master/picross-e" target="_blank">See on GitHub</a>
+				<i class="icon heart"></i> <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
+			</div>
+		</div>
+		<div class="hidden row wrapper" id="toolbar">
+			<div class="twelve columns text-center">
+				<button class="close" onclick="closeFile()"><i class="icon close"></i> Close file</button>
+				<button class="colored" onclick="saveChanges()"><i class="icon accept"></i> Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- THE EDITOR -->
+<div id="the-editor" class="wrapper hidden">
+	<!-- Easy -->
+	<h3 class="orange">Easy Mode</h3>
+	<div class="container">
+		<div class="row" id="puzzles-easy">
+			<div class="columns c1">Puzzle</div>
+			<div class="columns c3">Seconds</div>
+			<div class="columns c1">Puzzle</div>
+			<div class="columns c3">Seconds</div>
+			<div class="columns c1">Puzzle</div>
+			<div class="columns c3">Seconds</div>
+		</div>
+	</div>
+	<!-- Normal -->
+	<h3 class="orange">Normal Mode</h3>
+	<div class="container">
+		<div class="row" id="puzzles-normal">
+			<div class="columns c1">Puzzle</div>
+			<div class="columns c3">Seconds</div>
+			<div class="columns c1">Puzzle</div>
+			<div class="columns c3">Seconds</div>
+			<div class="columns c1">Puzzle</div>
+			<div class="columns c3">Seconds</div>
+		</div>
+	</div>
+	<!-- Free -->
+	<h3 class="orange">Free Mode</h3>
+	<div class="container">
+		<div class="row" id="puzzles-free">
+			<div class="columns c1">Puzzle</div>
+			<div class="columns c3">Seconds</div>
+			<div class="columns c1">Puzzle</div>
+			<div class="columns c3">Seconds</div>
+			<div class="columns c1">Puzzle</div>
+			<div class="columns c3">Seconds</div>
+		</div>
+	</div>
+	<!-- Extra -->
+	<h3 class="orange">EXTRA</h3>
+	<div class="container">
+		<div class="row" id="puzzles-extra">
+			<div class="columns c1">Puzzle</div>
+			<div class="columns c3">Seconds</div>
+			<div class="columns c1">Puzzle</div>
+			<div class="columns c3">Seconds</div>
+			<div class="columns c1">Puzzle</div>
+			<div class="columns c3">Seconds</div>
+		</div>
+	</div>
+	<!-- Setting -->
+	<h3 class="orange">Settings</h3>
+	<div class="container">
+		<div class="row" id="settings">
+			<div class="columns c8">Control Method</div><div class="columns c4" id="container-settings-control-method"></div>
+			<div class="columns c8"><label for="checkbox-settings-hint-number-auto-check">Hint Number Auto-Check</label></div>
+			<div class="columns c4"><input id="checkbox-settings-hint-number-auto-check" type="checkbox" class="fw" /></div>
+			<div class="columns c8"><label for="checkbox-settings-navigation">Navigation</label></div>
+			<div class="columns c4"><input id="checkbox-settings-navigation" type="checkbox" class="fw" /></div>
+			<div class="columns c8">BGM</div><div class="columns c4" id="container-settings-bgm"></div>
+			<div class="columns c8">Effects</div><div class="columns c4" id="container-settings-effects"></div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
