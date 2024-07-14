@@ -57,9 +57,9 @@ SavegameEditor={
 		],
 		DIFFICULTY_OFFSET:0x2230,
 		PROFILES:[
-			{value:1, name:'Profile 1', offset: 0x0C}, // 12
-			{value:2, name:'Profile 2', offset: 0x3B84}, // 15236
-			{value:3, name:'Profile 3', offset: 0x76FC}, // 30460
+			{value:1, name:'Membership Card 1', offset: 0x0C}, // 12
+			{value:2, name:'Membership Card 2', offset: 0x3B84}, // 15236
+			{value:3, name:'Membership Card 3', offset: 0x76FC}, // 30460
 		],
 		BGM_MUSIC_OFFSET:0x2243,
 		BGM_MUSIC:[
