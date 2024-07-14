@@ -2,59 +2,37 @@
 	PICROSS e for HTML5 Save Editor v20160704
 	by Marc Robledo 2016
 */
-
+var picrossData = [];
+var version = 0;
+var pl;
+var pt;
+function convert_to_bit(d) {
+	return ('00000000' + (d >>> 0).toString(2)).slice(-8).split('').reverse()
+}
 SavegameEditor={
 	Name:'PICROSS e',
 	Filename:'all.dat',
-	Constants:{
-		SETTINGS_CONTROL_METHOD_OFFSET: 0x258, // 0=Button, 1=Stylus
-		SETTINGS_HINT_NUMBER_OFFSET: 0x259, // 0=OFF, 1=ON
-		SETTINGS_NAVIGATION_OFFSET: 0x25A, //0=OFF, 1=ON
-		SETTINGS_BGM_OFFSET: 0x25D, // 0=OFF, 1-5
-		SETTINGS_EFFECTS_OFFSET: 0x25E, // 0=OFF, 1-5
-		BGM_EFFECTS:[
-			{value:0, name:'OFF'},
-			{value:1, name:'1'},
-			{value:2, name:'2'},
-			{value:3, name:'3'},
-			{value:4, name:'4'},
-			{value:5, name:'5'},
-		],
-		CONTROL_METHOD:[
-			{value:0, name:'Stylus Controls'},
-			{value:1, name:'Button Controls'}
-		]
-	},
-
-	_write_settings_control_method:function(){
+	Constants:{},
+	_write_medal:function(e){
+		var current = convert_to_bit(tempFile.readU8(Number(e.target.dataset.offset)));
+		current[e.target.dataset.offset_] = e.target.checked ? '1': '0';
 		tempFile.writeU8(
-			SavegameEditor.Constants.SETTINGS_CONTROL_METHOD_OFFSET,
-			getValue('settings-control-method')
+			Number(e.target.dataset.offset),
+			parseInt(current.reverse().join(''), 2)
 		);
 	},
-	_write_hint_number:function(){
-		tempFile.writeU8(
-			SavegameEditor.Constants.SETTINGS_HINT_NUMBER_OFFSET,
-			getValue('settings-hint-number-auto-check')
-		);
-	},
-	_write_navigation:function(){
-		tempFile.writeU8(
-			SavegameEditor.Constants.SETTINGS_NAVIGATION_OFFSET,
-			getValue('settings-navigation')
-		);
-	},
-	_write_settings_bgm:function(){
-		tempFile.writeU8(
-			SavegameEditor.Constants.SETTINGS_BGM_OFFSET,
-			getValue('settings-bgm')
-		);
-	},
-	_write_settings_effects:function(){
-		tempFile.writeU8(
-			SavegameEditor.Constants.SETTINGS_EFFECTS_OFFSET,
-			getValue('settings-effects')
-		);
+	_write_settings:function(e){
+		if (e.target.type === 'checkbox') {
+			tempFile.writeU8(
+				Number(e.target.dataset.offset),
+				getField(e.target.dataset.id).checked ? 1 : 0
+			);
+		} else {
+			tempFile.writeU8(
+				Number(e.target.dataset.offset),
+				getValue(e.target.dataset.id)
+			);
+		}
 	},
 	_write_puzzle_time:function(e){
 		if (e.target.valueAsNumber > 86399000) {return;} // Filter invalid values
@@ -66,30 +44,39 @@ SavegameEditor={
 
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
-		return (tempFile.fileSize==740)
+		if (tempFile.fileSize==740) { // Picross e
+			version = 0;
+			return true;
+		} else if (tempFile.fileSize==1880) { // Picross e2
+			version = 1;
+			return true;
+		} else if (tempFile.fileSize==828) { // Picross e3
+			version = 2;
+			return true;
+		} else if (tempFile.fileSize==1436) { // Picross e4
+			version = 3;
+			return true;
+		} else if (tempFile.fileSize==1688) { // Picross e5
+			version = 4;
+			return true;
+		} else if (tempFile.fileSize==2228) { // Picross e6
+			version = 5;
+			return true;
+		} else if (tempFile.fileSize==2328) { // Picross e7 - e9
+			version = 6;
+			return true;
+		}
+		return false;
 	},
-
-	preload:function(){
-		get('container-settings-control-method').appendChild(select('settings-control-method', SavegameEditor.Constants.CONTROL_METHOD, SavegameEditor._write_settings_control_method));
-		get('checkbox-settings-hint-number-auto-check').addEventListener('change', SavegameEditor._write_hint_number);
-		get('checkbox-settings-navigation').addEventListener('change', SavegameEditor._write_navigation);
-		get('container-settings-bgm').appendChild(select('settings-bgm', SavegameEditor.Constants.BGM_EFFECTS, SavegameEditor._write_settings_bgm));
-		get('container-settings-effects').appendChild(select('settings-effects', SavegameEditor.Constants.BGM_EFFECTS, SavegameEditor._write_settings_effects));
-	},
-
-	/* load function */
-	load:function(){
-		tempFile.fileName='all.dat';
-		tempFile.littleEndian=true;
-
-		for (var difficulty of [
-			['E', 'easy', 0, 15],
-			['N', 'normal', 15, 75],
-			['F', 'free', 75, 135],
-			['X', 'extra', 135, 150],
-		]) {
+	_generateList:function(){
+		for (var difficulty of picrossData[version].modes) {
+			var c = pt.content.cloneNode(true);
+			c.getElementById('puzzles-header').innerText = difficulty[2];
+			c.getElementById('puzzles-header').id='';
+			c.getElementById('puzzles-placeholder').id='puzzles-'+difficulty[1];
+			pl.append(c);
 			var ce = get('puzzles-' + difficulty[1]);
-			for (var i = difficulty[2]; i < difficulty[3]; i++) {
+			for (var i = difficulty[3]; i < difficulty[4]; i++) {
 				var date = new Date(0);
 				date.setSeconds(Math.floor(tempFile.readU32(4*i)/60));
 				var timeString = date.toISOString().substring(11, 19);
@@ -101,17 +88,88 @@ SavegameEditor={
 				time_ele.value=timeString;
 				time_ele.dataset.offset=4*i;
 				time_ele.addEventListener('change', SavegameEditor._write_puzzle_time);
+				var name = difficulty[0] + ('0' + String(i-difficulty[3]+1)).slice(-2);
 				ce.append(
-					col(1, span(difficulty[0] + ('0' + String(i-difficulty[2]+1)).slice(-2))),
-					col(3, time_ele)
-				);
+					col(1, span(name)),
+					col(2, time_ele)
+				)
+				if (picrossData[version].medals_offset) {
+					var tmp = Math.floor(i / 8);
+					var box = checkbox('medal_'+name, '');
+					box.dataset.offset=Number(picrossData[version].medals_offset) + tmp;
+					box.dataset.offset_ = i-tmp*8;
+					box.addEventListener('change', SavegameEditor._write_medal);
+					box.checked = convert_to_bit(tempFile.readU8(box.dataset.offset))[box.dataset.offset_]==='1' ? 'checked' : '';
+					ce.append(col(1, box));
+				} else {
+					ce.append(col(1, span('')));
+				}
+				if (i%3===2){
+					ce.append(col(1, span('')));
+				}
 			}
 		}
-		setValue('settings-control-method', tempFile.readU8(SavegameEditor.Constants.SETTINGS_CONTROL_METHOD_OFFSET));
-		getField('checkbox-settings-hint-number-auto-check').checked = tempFile.readU8(SavegameEditor.Constants.SETTINGS_HINT_NUMBER_OFFSET)>0;
-		getField('checkbox-settings-navigation').checked = tempFile.readU8(SavegameEditor.Constants.SETTINGS_NAVIGATION_OFFSET)>0;
-		setValue('settings-bgm', tempFile.readU8(SavegameEditor.Constants.SETTINGS_BGM_OFFSET));
-		setValue('settings-effects', tempFile.readU8(SavegameEditor.Constants.SETTINGS_EFFECTS_OFFSET));
+		var settings_ele = document.getElementById('settings');
+		var s_offset = picrossData[version].settings_offset;
+		for (var setting in s_offset) {
+			var setting_data = s_offset[setting];
+			if (setting_data[0]==='checkbox') {
+				var checkbox_ele=checkbox('settings-'+setting, 'checked');
+				checkbox_ele.dataset.offset=setting_data[3];
+				checkbox_ele.dataset.id='settings-'+setting;
+				var label_ele=label('checkbox-settings-'+setting, setting_data[1]);
+				settings_ele.append(
+					col(8, label_ele),
+					col(4, checkbox_ele)
+				);
+				checkbox_ele.addEventListener('change', SavegameEditor._write_settings);
+				getField('checkbox-settings-'+setting).checked = tempFile.readU8(Number(setting_data[3]))>0;
+			} else if (setting_data[0]==='select'){
+				var select_ele=select('settings-'+setting, picrossData[version][setting_data[2]], SavegameEditor._write_settings);
+				select_ele.dataset.offset=setting_data[3];
+				select_ele.dataset.id='settings-'+setting;
+				settings_ele.append(
+					col(8, span(setting_data[1])),
+					col(4, select_ele)
+				);
+				setValue('settings-'+setting, tempFile.readU8(Number(setting_data[3])));
+			}
+		}
+		
+		var unlockables_ele = document.getElementById('unlockables');
+		var unlockable_content = picrossData[version].unlockables || [];
+		for (var index=0; index<unlockable_content.length; index++) {
+			var checkbox_ele_=checkbox('unlockable-'+index, '');
+			unlockables_ele.append(
+				col(8, label('checkbox-unlockable-'+index, unlockable_content[index][0])),
+				col(4, checkbox_ele_)
+			);
+			checkbox_ele_.dataset.offset=unlockable_content[index][1];
+			checkbox_ele_.dataset.id='unlockable-'+index;
+			checkbox_ele_.addEventListener('change', SavegameEditor._write_settings);
+			checkbox_ele_.checked = tempFile.readU8(Number(unlockable_content[index][1])) === 1 ? 'checked' : '';
+		}
+	},
+	preload:function(){
+		pl = get('puzzle-list');
+		pt = get('picross-template');
+		pl.innerHTML = '';
+		fetch('/savegame-editors/picross-ekombiniert/versions.json')
+		.then(function(response) {
+			return response.json();
+		}).then(function(data) {
+			picrossData = data;
+		}).catch(function(error) {
+			console.log('[Picross Save Editor]', error);
+		});
+	},
+	
+	/* load function */
+	load:function(){
+		tempFile.fileName='all.dat';
+		tempFile.littleEndian=true;
+
+		setTimeout(SavegameEditor._generateList, 300);
 	},
 
 
