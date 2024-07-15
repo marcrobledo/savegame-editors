@@ -189,6 +189,34 @@ SavegameEditor={
 		YELLOW_STONE_OFFSET_UNEVEN:0x238, // 568
 		YELLOW_STONE_OFFSET_EVEN:0x240 // 576
 	},
+	/* CRC32 - from Alex - https://stackoverflow.com/a/18639999 */
+	/* Combined with CRC32-Version by Slattz (https://github.com/Slattz/POTC3D_Rehash) */
+	CRC32_TABLE:(function(){
+		var c,crcTable=[];
+		for(var n=0;n<256;n++){
+			c=n;
+			for(var k=0;k<8;k++)
+				c=((c&1)?(0xedb88320^(c>>>1)):(c>>>1));
+			crcTable[n]=(c>>>0);
+		}
+		return crcTable;
+	}()),
+	crc32:function(file, len, offset){
+		var data=file.readBytes(offset, len-offset);
+		var checksum=0xFF;
+		var byte= 0b0;
+		for (var i = 0; i < data.length; i++) {
+			[byte]=new Int8Array([data[i]]);
+			var [cs_] = new Int8Array([checksum]);
+			byte^=cs_;
+			byte&=0xff;
+			var cs___ = (i===0 ? cs_ : checksum);
+			var a = SavegameEditor.CRC32_TABLE[byte];
+			checksum = a ^ (cs___>>>8);
+		}
+		console.log(checksum);
+		return ((checksum>>>0)<<0)
+	},
 	_getProfileOffset:function(){
 		return this.Constants.PROFILES[Number(getValue('profile-selector')) - 1].offset;
 	},
@@ -244,7 +272,7 @@ SavegameEditor={
 	
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
-		return (tempFile.fileSize==2524);
+		return (tempFile.fileSize==2524)
 	},
 	
 	preload:function() {
@@ -281,8 +309,11 @@ SavegameEditor={
 
 	/* load function */
 	load:function(){
-		tempFile.fileName='SAVEGAME';
+		tempFile.fileName='savegame.dat';
 		tempFile.littleEndian=true;
+		console.log("Old CRC32 ",  tempFile.readU32(0));
+		console.log("Calced CRC32 ", SavegameEditor.crc32(tempFile, tempFile.fileSize, 24));
+
 		setValue('language', tempFile.readU8(SavegameEditor.Constants.LANGUAGE_OFFSET));
 		setValue('savegame', 'Save game #' + (tempFile.readU8(SavegameEditor.Constants.PROFILE_SELECTION_OFFSET) + 1));
 		getField('checkbox-microphone').checked = tempFile.readU8(SavegameEditor.Constants.SETTINGS_MUSIC_MICROPHONE_OFFSET)>0;
@@ -293,5 +324,10 @@ SavegameEditor={
 
 	/* save function */
 	save:function(){
+		console.log("New CRC32 ", SavegameEditor.crc32(tempFile, tempFile.fileSize, 24));
+		tempFile.writeU32(
+			0,
+			SavegameEditor.crc32(tempFile, tempFile.fileSize, 24)
+		)
 	}
 };
