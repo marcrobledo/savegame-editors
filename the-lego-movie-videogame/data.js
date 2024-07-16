@@ -114,3 +114,20 @@ window.SavegameEditor.Constants.CHARACTERS=[
     'Wyldstyle (Space)',
     'Wyldstyle (Old West)'
 ];
+window.SavegameEditor.Constants.UPGRADES=[
+    'Always Charged',
+    'Fast Use',
+    'Collectable Detector',
+    'Fast Builder',
+    'Mini Game Master',
+    'Invicibility',
+    'Health Regeneration',
+    'Stud Magnet',
+    'Confetti Effects',
+    'Bubble Effects',
+    'Extra Heart',
+    'X8 Stud Multiplier',
+    'X6 Stud Multiplier',
+    'X4 Stud Multiplier',
+    'X2 Stud Multiplier'
+];

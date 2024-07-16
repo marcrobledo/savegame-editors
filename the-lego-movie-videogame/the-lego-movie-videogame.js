@@ -2,8 +2,8 @@
 	Picross 3D round 2 for HTML5 Save Editor v20160704
 	by Marc Robledo 2016
 */
-function convert_to_bit(d){
-	return ('00000000' + (d >>> 0).toString(2)).slice(-8).split('');
+function convert_to_bit(d, l){
+	return ('0000000000000000' + (d >>> 0).toString(2)).slice(0-l).split('');
 }
 SavegameEditor={
 	Name:'The Lego Movie Videogame',
@@ -30,76 +30,60 @@ SavegameEditor={
 			{value:6, name:'Dutch'},
 			{value:7, name:'Danish'}
 		],
+		LEVEL_LAST_PLAYED_OFFSET: 0x6, // 6
 		LEVELS:[
-			{value:1, name:'Prologue - The Prophecy'},
-			{value:2, name:'Prologue - Building Site'},
-			{value:3, name:'Prologue - The Piece'},
-			{value:4, name:'Police Station - Melting Chamber'},
-			{value:5, name:'Police Station - Alley Escape'},
-			{value:6, name:'Police Station - Bike Chase'},
-			{value:7, name:'Flatbush Gulch - The Portal'},
-			{value:8, name:'Flatbush Gulch - Hillside Slide'},
-			{value:9, name:'Flatbush Gulch - Desert Path'},
-			{value:10, name:'Flatbush Town - Town Outskirts'},
-			{value:11, name:'Flatbush Town - Town Entrance'},
-			{value:12, name:'Flatbush Town - Saloon Showdown'},
-			{value:13, name:'Flatbush Rooftops - Rooftop Ambush'},
-			{value:14, name:'Flatbush Rooftops - Rooftop Escape'},
-			{value:15, name:'Flatbush Rooftops - Rooftop Brawl'},
-			{value:16, name:'Flatbush Chase - Flatbush Canyon'},
-			{value:17, name:'Flatbush Chase - Train Escape'},
-			{value:18, name:'Flatbush Chase - Train Engine'},
-			{value:19, name:'Cloud Cuckoo Land - Middle Zealand'},
-			{value:20, name:'Cloud Cuckoo Land - Cloud Entrance'},
-			{value:21, name:'Cloud Cuckoo Land - Dance Street'},
-			{value:22, name:'Cloud Under Attack - Cloud Escape'},
-			{value:23, name:'Cloud Under Attack - Cuckoo Castle'},
-			{value:24, name:'Cloud Under Attack - Dropship Chase'},
-			{value:25, name:'Submarine - Submarine Attack'},
-			{value:26, name:'Submarine - Submarine Interior'},
-			{value:27, name:'Submarine - MetalBeard\'s Ship'},
-			{value:28, name:'Business HQ - Octan Airlock'},
-			{value:29, name:'Business HQ - Octan Hangar'},
-			{value:30, name:'Business HQ - The Relic Room'},
-			{value:31, name:'The Kragle - Assembly Room'},
-			{value:32, name:'The Kragle - Kragle Shutdown'},
-			{value:33, name:'The Kragle - Think Tank'},
-			{value:34, name:'TV Station - Office Corridors'},
-			{value:35, name:'TV Station - Server Room'},
-			{value:36, name:'TV Station - TV Broadcast'},
-			{value:37, name:'Spaceship Escape - TV Prop Room'},
-			{value:38, name:'Spaceship Escape - Middle Zealand Canyons'},
-			{value:39, name:'Spaceship Escape - Bricksburg Skies'},
-			{value:40, name:'Attack on Bricksburg - Return to Bricksburg'},
-			{value:41, name:'Attack on Bricksburg - Bricksburg Streets'},
-			{value:42, name:'Attack on Bricksburg - Bricksburg Assault'},
-			{value:43, name:'The Cube Ship - Battle for Bricksburg'},
-			{value:44, name:'The Cube Ship - Cube Ship Approach'},
-			{value:45, name:'The Cube Ship - Business Time'}
+			{value:0, name:'Prologue - The Prophecy'},
+			{value:1, name:'Prologue - Building Site'},
+			{value:2, name:'Prologue - The Piece'},
+			{value:3, name:'Police Station - Melting Chamber'},
+			{value:4, name:'Police Station - Alley Escape'},
+			{value:5, name:'Police Station - Bike Chase'},
+			{value:6, name:'Flatbush Gulch - The Portal'},
+			{value:7, name:'Flatbush Gulch - Hillside Slide'},
+			{value:8, name:'Flatbush Gulch - Desert Path'},
+			{value:9, name:'Flatbush Town - Town Outskirts'},
+			{value:10, name:'Flatbush Town - Town Entrance'},
+			{value:11, name:'Flatbush Town - Saloon Showdown'},
+			{value:12, name:'Flatbush Rooftops - Rooftop Ambush'},
+			{value:13, name:'Flatbush Rooftops - Rooftop Escape'},
+			{value:14, name:'Flatbush Rooftops - Rooftop Brawl'},
+			{value:15, name:'Flatbush Chase - Flatbush Canyon'},
+			{value:16, name:'Flatbush Chase - Train Escape'},
+			{value:17, name:'Flatbush Chase - Train Engine'},
+			{value:18, name:'Cloud Cuckoo Land - Middle Zealand'},
+			{value:19, name:'Cloud Cuckoo Land - Cloud Entrance'},
+			{value:20, name:'Cloud Cuckoo Land - Dance Street'},
+			{value:21, name:'Cloud Under Attack - Cloud Escape'},
+			{value:22, name:'Cloud Under Attack - Cuckoo Castle'},
+			{value:23, name:'Cloud Under Attack - Dropship Chase'},
+			{value:24, name:'Submarine - Submarine Attack'},
+			{value:25, name:'Submarine - Submarine Interior'},
+			{value:26, name:'Submarine - MetalBeard\'s Ship'},
+			{value:27, name:'Business HQ - Octan Airlock'},
+			{value:28, name:'Business HQ - Octan Hangar'},
+			{value:29, name:'Business HQ - The Relic Room'},
+			{value:30, name:'The Kragle - Assembly Room'},
+			{value:31, name:'The Kragle - Kragle Shutdown'},
+			{value:32, name:'The Kragle - Think Tank'},
+			{value:33, name:'TV Station - Office Corridors'},
+			{value:34, name:'TV Station - Server Room'},
+			{value:35, name:'TV Station - TV Broadcast'},
+			{value:36, name:'Spaceship Escape - TV Prop Room'},
+			{value:37, name:'Spaceship Escape - Middle Zealand Canyons'},
+			{value:38, name:'Spaceship Escape - Bricksburg Skies'},
+			{value:39, name:'Attack on Bricksburg - Return to Bricksburg'},
+			{value:40, name:'Attack on Bricksburg - Bricksburg Streets'},
+			{value:41, name:'Attack on Bricksburg - Bricksburg Assault'},
+			{value:42, name:'The Cube Ship - Battle for Bricksburg'},
+			{value:43, name:'The Cube Ship - Cube Ship Approach'},
+			{value:44, name:'The Cube Ship - Business Time'}
 		],
 		PROFILES:[
 			{value:1, name:'Save slot 1', offset:0x1c}, // 28
 			{value:2, name:'Save slot 2', offset:0x4fc} // 1276
 		],
 		PROFILE_SELECTION_OFFSET:0x1A,
-		UPGRADES:[
-			{value: 1, name:'X2 Stud Multiplier'},
-			{value: 2, name:'X4 Stud Multiplier'},
-			{value: 3, name:'X6 Stud Multiplier'},
-			{value: 4, name:'X8 Stud Multiplier'},
-			{value: 5, name:'Extra Heart'},
-			{value: 6, name:'Bubble Effects'},
-			{value: 7, name:'Confetti Effects'},
-			{value: 8, name:'Stud Magnet'},
-			{value: 9, name:'Health Regeneration'},
-			{value: 10, name:'Invicibility'},
-			{value: 11, name:'Mini Game Master'},
-			{value: 12, name:'Fast Builder'},
-			{value: 13, name:'Collectable Detector'},
-			{value: 14, name:'Fast Use'},
-			{value: 15, name:'Always Charged'}
-			
-		],
+		UPGRADES_OFFSET:0x475, // 1141
 		YELLOW_STONE_OFFSET_UNEVEN:0x238, // 568
 		YELLOW_STONE_OFFSET_EVEN:0x240 // 576
 	},
@@ -143,10 +127,10 @@ SavegameEditor={
 	_get_level_stone_offset:function(){
 		var profileStartOffset = SavegameEditor._getProfileOffset();
 		var lvl = Number(getValue('levels'));
-		if (lvl % 2 == 1) {
-			return profileStartOffset + SavegameEditor.Constants.YELLOW_STONE_OFFSET_UNEVEN + ((lvl - 1) * 0.5) * 16;
+		if (lvl % 2 == 0) {
+			return profileStartOffset + SavegameEditor.Constants.YELLOW_STONE_OFFSET_UNEVEN + lvl * 0.5 * 16;
 		} else {
-			return profileStartOffset + SavegameEditor.Constants.YELLOW_STONE_OFFSET_EVEN + lvl * 0.5 * 16 - 16;
+			return profileStartOffset + SavegameEditor.Constants.YELLOW_STONE_OFFSET_EVEN + (lvl-1) * 0.5 * 16;
 		}
 	},
 	_write_level_stones:function(){
@@ -171,13 +155,30 @@ SavegameEditor={
 	_write_character:function(e){
 		var profileStartOffset = SavegameEditor._getProfileOffset();
 		var offset = profileStartOffset + SavegameEditor.Constants.CHARACTER_OFFSET + Number(e.target.dataset.offset);
-		var bits = convert_to_bit(tempFile.readU8(offset));
+		var bits = convert_to_bit(tempFile.readU8(offset), 8);
 		var val = getValue(e.target.id);
 		bits[e.target.dataset.offset_*2]=(val==='2' ? '1' : '0');
 		bits[e.target.dataset.offset_*2+1]=(val!=='0' ? '1' : '0');
 		tempFile.writeU8(
 			offset,
 			parseInt(bits.join(''), 2)
+		);
+	},
+	_write_upgrade:function(e){
+		var profileStartOffset = SavegameEditor._getProfileOffset();
+		var offset = profileStartOffset + SavegameEditor.Constants.UPGRADES_OFFSET;
+		var bitsUnlocked = convert_to_bit(tempFile.readU16(offset), 16);
+		var bitsBought = convert_to_bit(tempFile.readU16(offset+2), 16);
+		var val = getValue(e.target.id);
+		bitsBought[e.target.dataset.offset]=(val==='2' ? '1' : '0');
+		bitsUnlocked[e.target.dataset.offset]=(val!=='0' ? '1' : '0');
+		tempFile.writeU16(
+			offset,
+			parseInt(bitsUnlocked.join(''), 2)
+		);
+		tempFile.writeU16(
+			offset+2,
+			parseInt(bitsBought.join(''), 2)
 		);
 	},
 	_load_level:function(){
@@ -194,12 +195,25 @@ SavegameEditor={
 		setValue('blue-stones', tempFile.readU24(profileStartOffset + SavegameEditor.Constants.BLUE_STONES_OFFSET));
 		setValue('levels', '1');
 		var profileStartOffset = SavegameEditor._getProfileOffset();
-		for (var c = 0; c < SavegameEditor.Constants.CHARACTERS.length; c++) {
-			var field = getField('select-character-'+c);
-			var a = convert_to_bit(tempFile.readU8(profileStartOffset + SavegameEditor.Constants.CHARACTER_OFFSET + Number(field.dataset.offset)));
-			var b = (a[field.dataset.offset_*2]==='1') ? '2' : ((a[field.dataset.offset_*2+1]==='1') ? '1' : '0');
+		var field, a, b, c;
+		for (c = 0; c < SavegameEditor.Constants.CHARACTERS.length; c++) {
+			field = getField('select-character-'+c);
+			a = convert_to_bit(tempFile.readU8(profileStartOffset + SavegameEditor.Constants.CHARACTER_OFFSET + Number(field.dataset.offset)), 8);
+			b = (a[field.dataset.offset_*2]==='1') ? '2' : ((a[field.dataset.offset_*2+1]==='1') ? '1' : '0');
 			setValue('character-'+c, Number(b));
 		}
+		console.log("------");
+		console.log(profileStartOffset + SavegameEditor.Constants.UPGRADES_OFFSET);
+		var unlocked = convert_to_bit(tempFile.readU16(profileStartOffset + SavegameEditor.Constants.UPGRADES_OFFSET), 16);
+		var bought = convert_to_bit(tempFile.readU16(profileStartOffset + SavegameEditor.Constants.UPGRADES_OFFSET+2), 16);
+		console.log(unlocked);
+		console.log(bought);
+		for (c = 0; c < SavegameEditor.Constants.UPGRADES.length; c++) {
+			field = getField('select-upgrade-'+c);
+			b = (bought[field.dataset.offset]==='1') ? '2' : ((unlocked[field.dataset.offset]==='1') ? '1' : '0');
+			setValue('upgrade-'+c, Number(b));
+		}
+		setValue('last-played', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.LEVEL_LAST_PLAYED_OFFSET));
 		SavegameEditor._load_level();
 	},
 	
@@ -216,11 +230,12 @@ SavegameEditor={
 			getField('challenge-' + (i + 1) + '-unlocked').addEventListener('change', function(e){
 				var lvl = Number(getValue('levels'));
 				tempFile.writeU8(
-					SavegameEditor._getProfileOffset()+SavegameEditor.Constants.CHALLENGE_OFFSET+(lvl-1)*10+Number(e.target.dataset.challenge)-1,
+					SavegameEditor._getProfileOffset()+SavegameEditor.Constants.CHALLENGE_OFFSET+(lvl)*10+Number(e.target.dataset.challenge)-1,
 					e.target.checked === true ? '1' : '0'
 				);
 			});
 		}
+		get('container-last-played').appendChild(select('last-played', SavegameEditor.Constants.LEVELS));
 		get('input-level-stones').addEventListener('change', SavegameEditor._write_level_stones);
 		get('input-blue-stones').addEventListener('change', SavegameEditor._write_blue_stones);
 		getField('checkbox-microphone').addEventListener('change', SavegameEditor._write_sound_settings);
@@ -236,9 +251,10 @@ SavegameEditor={
 		}
 		var tmp2 = get('upgrades-list');
 		for (var k = 0; k < SavegameEditor.Constants.UPGRADES.length; k++) {
-			tmp2.appendChild(col(4,label('checkbox-upgrades-'+k, SavegameEditor.Constants.UPGRADES[k].name)));
-			tmp2.appendChild(col(2,checkbox('upgrades-'+k,'')));
-			get('checkbox-upgrades-'+k).className+=' text-right';
+			tmp2.appendChild(col(2,span(SavegameEditor.Constants.UPGRADES[k])));
+			var sel_=select('upgrade-'+k,SavegameEditor.Constants.CHARACTER_OPTIONS, SavegameEditor._write_upgrade);
+			sel_.dataset.offset=k;
+			tmp2.appendChild(col(4,sel_));
 		}
 	},
 
