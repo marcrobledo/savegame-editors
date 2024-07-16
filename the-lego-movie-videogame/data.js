@@ -21,6 +21,7 @@ window.SavegameEditor.Constants.CHARACTERS=[
 
     'Emmet (Clown)',
     'Emmet (Construction)',
+    'Emmet (Lizard)',
     'Emmet (Magician)',
 
     'Emmet (Master Builder)',
