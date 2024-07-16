@@ -84,8 +84,7 @@ SavegameEditor={
 		],
 		PROFILE_SELECTION_OFFSET:0x1A,
 		UPGRADES_OFFSET:0x475, // 1141
-		YELLOW_STONE_OFFSET_UNEVEN:0x238, // 568
-		YELLOW_STONE_OFFSET_EVEN:0x240 // 576
+		YELLOW_STONE_OFFSET:0x238, // 568
 	},
 	/* CRC32 - from Alex - https://stackoverflow.com/a/18639999 */
 	/* Combined with CRC32-Version by Slattz (https://github.com/Slattz/POTC3D_Rehash) */
@@ -126,12 +125,7 @@ SavegameEditor={
 	},
 	_get_level_stone_offset:function(){
 		var profileStartOffset = SavegameEditor._getProfileOffset();
-		var lvl = Number(getValue('levels'));
-		if (lvl % 2 == 0) {
-			return profileStartOffset + SavegameEditor.Constants.YELLOW_STONE_OFFSET_UNEVEN + lvl * 0.5 * 16;
-		} else {
-			return profileStartOffset + SavegameEditor.Constants.YELLOW_STONE_OFFSET_EVEN + (lvl-1) * 0.5 * 16;
-		}
+		return profileStartOffset + SavegameEditor.Constants.YELLOW_STONE_OFFSET + Number(getValue('levels')) * 8;
 	},
 	_write_level_stones:function(){
 		tempFile.writeU24(
