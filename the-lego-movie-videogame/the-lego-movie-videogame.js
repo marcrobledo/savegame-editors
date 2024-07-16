@@ -2,7 +2,9 @@
 	Picross 3D round 2 for HTML5 Save Editor v20160704
 	by Marc Robledo 2016
 */
-
+function convert_to_bit(d){
+	return ('00000000' + (d >>> 0).toString(2)).slice(-8).split('');
+}
 SavegameEditor={
 	Name:'The Lego Movie Videogame',
 	Filename:'savegame.dat',
@@ -11,99 +13,11 @@ SavegameEditor={
 	Constants:{
 		BLUE_STONES_OFFSET:0x228, // 552
 		CHALLENGE_OFFSET:0x8,
-		CHARACTERS:[
-			{value:1, name:'Abraham Lincoln'},
-			{value:2, name:'Bad Cop'},
-			{value:3, name:'Bandit'},
-			{value:4, name:'Batman'},
-			{value:5, name:'Benny'},
-			{value:6, name:'Blaze Firefighter'},
-			{value:7, name:'Bruce Wayne'},
-			{value:8, name:'Calamity Drone'},
-			{value:9, name:'Cardio Carrie'},
-			{value:10, name:'Cavalry'},
-			{value:11, name:'Caveman'},
-			{value:12, name:'Cleopatra'},
-			{value:13, name:'Deputron'},
-			{value:14, name:'Dr McScrubs'},
-			{value:15, name:'El Macho Wrestler'},
-			{value:16, name:'Emmet (Piece of Resistance)'},
-			{value:17, name:'Emmet (Clown)'},
-			{value:18, name:'Emmet (Construction)'},
-			{value:19, name:'Emmet (Lizard)'},
-			{value:20, name:'Emmet (Magician)'},
-			{value:21, name:'Emmet (Master Builder)'},
-			{value:22, name:'Emmet (PJs)'},
-			{value:23, name:'Emmet (Robin Hood)'},
-			{value:24, name:'Emmet (Robot)'},
-			{value:25, name:'Emmet (Shower)'},
-			{value:26, name:'Emmet (Surgeon)'},
-			{value:27, name:'Emmet (Old West)'},
-			{value:28, name:'Foreman Frank'},
-			{value:29, name:'Gail'},
-			{value:30, name:'Gallanz Guard'},
-			{value:31, name:'Gandalf'},
-			{value:32, name:'Garbage Man Dan'},
-			{value:33, name:'Good Cop'},
-			{value:34, name:'Good Cop (Scribble Face)'},
-			{value:35, name:'Gordon Zola'},
-			{value:36, name:'Green Lantern'},
-			{value:37, name:'Green Ninja'},
-			{value:38, name:'Hank Haystack'},
-			{value:39, name:'Ice Cream Jo'},
-			{value:40, name:'Johnny Thunder'},
-			{value:41, name:'Kabob Bob'},
-			{value:42, name:'Lady Liberty'},
-			{value:43, name:'Larry the Barrista'},
-			{value:44, name:'Swamp Creature'},
-			{value:45, name:'Lord Business'},
-			{value:46, name:'Lord Vampyre'},
-			{value:47, name:'Ma Cop'},
-			{value:48, name:'Michelangelo'},
-			{value:49, name:'Mrs Scratchen-Post'},
-			{value:50, name:'Mummy'},
-			{value:51, name:'Native Chief'},
-			{value:52, name:'Native Warrior'},
-			{value:53, name:'Outlaw'},
-			{value:54, name:'Pa Cop'},
-			{value:55, name:'Panda Guy'},
-			{value:56, name:'Plumber Joe'},
-			{value:57, name:'President Business'},
-			{value:58, name:'Prospector'},
-			{value:59, name:'Robo Construction'},
-			{value:60, name:'Robo Cowboy'},
-			{value:61, name:'Robo Demolition'},
-			{value:62, name:'?????'},
-			{value:63, name:'Robo Pilot'},
-			{value:64, name:'Robo Receptionist'},
-			{value:65, name:'Rootbeer Belle'},
-			{value:66, name:'S.S.P Officer'},
-			{value:67, name:'S.S.P Officer (Beanie)'},
-			{value:68, name:'S.S.P Officer (Heavy)'},
-			{value:69, name:'S.S.P Officer (SWAT)'},
-			{value:70, name:'Sharon Shoehorn'},
-			{value:71, name:'Sheriff Not-A-Robot'},
-			{value:72, name:'Sir Stackabrick'},
-			{value:73, name:'Sudds Backwash'},
-			{value:74, name:'Superman'},
-			{value:75, name:'Taco Tuesday Guy'},
-			{value:76, name:'Test Dummy'},
-			{value:77, name:'Unikitty'},
-			{value:78, name:'Unikitty (Business)'},
-			{value:79, name:'Unikitty (Queasy)'},
-			{value:80, name:'Unikitty (Space)'},
-			{value:81, name:'Velma Staplebot'},
-			{value:82, name:'Vitruvius'},
-			{value:83, name:'Vitruvius (Young)'},
-			{value:84, name:'"Where Are My Pants?" Guy'},
-			{value:85, name:'Wiley Fusebot'},
-			{value:86, name:'William Shakespeare'},
-			{value:87, name:'Wonder Woman'},
-			{value:88, name:'Wyldstyle'},
-			{value:89, name:'Wyldstyle (Hooded)'},
-			{value:90, name:'Wyldstyle (Robot)'},
-			{value:91, name:'Wyldstyle (Space)'},
-			{value:92, name:'Wyldtyle (Old West)'}
+		CHARACTER_OFFSET:0x47C, // 1148
+		CHARACTER_OPTIONS:[
+			{value:0, name:'Locked'},
+			{value:1, name:'Unlocked'},
+			{value:2, name:'Unlocked+Bought'}
 		],
 		SETTINGS_MUSIC_MICROPHONE_OFFSET:0x18, // 00=All OFF, A0=Music ON, 0A=Microphone ON, AA=All ON
 		LANGUAGE_OFFSET:0x19,
@@ -254,6 +168,18 @@ SavegameEditor={
 			(getField('checkbox-microphone').checked ? 10 : 0) + (getField('checkbox-music').checked ? 160 : 0)
 		);
 	},
+	_write_character:function(e){
+		var profileStartOffset = SavegameEditor._getProfileOffset();
+		var offset = profileStartOffset + SavegameEditor.Constants.CHARACTER_OFFSET + Number(e.target.dataset.offset);
+		var bits = convert_to_bit(tempFile.readU8(offset));
+		var val = getValue(e.target.id);
+		bits[e.target.dataset.offset_*2]=(val==='2' ? '1' : '0');
+		bits[e.target.dataset.offset_*2+1]=(val!=='0' ? '1' : '0');
+		tempFile.writeU8(
+			offset,
+			parseInt(bits.join(''), 2)
+		);
+	},
 	_load_level:function(){
 		var profileStartOffset = SavegameEditor._getProfileOffset();
 		var lvl = Number(getValue('levels'));
@@ -267,6 +193,13 @@ SavegameEditor={
 		
 		setValue('blue-stones', tempFile.readU24(profileStartOffset + SavegameEditor.Constants.BLUE_STONES_OFFSET));
 		setValue('levels', '1');
+		var profileStartOffset = SavegameEditor._getProfileOffset();
+		for (var c = 0; c < SavegameEditor.Constants.CHARACTERS.length; c++) {
+			var field = getField('select-character-'+c);
+			var a = convert_to_bit(tempFile.readU8(profileStartOffset + SavegameEditor.Constants.CHARACTER_OFFSET + Number(field.dataset.offset)));
+			var b = (a[field.dataset.offset_*2]==='1') ? '2' : ((a[field.dataset.offset_*2+1]==='1') ? '1' : '0');
+			setValue('character-'+c, Number(b));
+		}
 		SavegameEditor._load_level();
 	},
 	
@@ -295,9 +228,11 @@ SavegameEditor={
 		setNumericRange('blue-stones', 0, 16777215);
 		var tmp1 = get('character-list');
 		for (var j = 0; j < SavegameEditor.Constants.CHARACTERS.length; j++) {
-			tmp1.appendChild(col(2,label('checkbox-character-'+j, SavegameEditor.Constants.CHARACTERS[j].name)));
-			tmp1.appendChild(col(1,checkbox('character-'+j,'')));
-			get('checkbox-character-'+j).className+=' text-right';
+			tmp1.appendChild(col(2,span(SavegameEditor.Constants.CHARACTERS[j])));
+			var sel=select('character-'+j,SavegameEditor.Constants.CHARACTER_OPTIONS, SavegameEditor._write_character);
+			sel.dataset.offset=Math.floor(j*0.25);
+			sel.dataset.offset_=3-(j-sel.dataset.offset*4);
+			tmp1.appendChild(col(4,sel));
 		}
 		var tmp2 = get('upgrades-list');
 		for (var k = 0; k < SavegameEditor.Constants.UPGRADES.length; k++) {
