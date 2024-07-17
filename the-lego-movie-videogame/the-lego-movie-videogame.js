@@ -73,7 +73,7 @@ SavegameEditor={
 			var a = SavegameEditor.CRC32_TABLE[byte];
 			checksum = a ^ (cs___>>>8);
 		}
-		return ((checksum>>>0)<<0)
+		return ((checksum>>>0)<<0);
 	},
 	_getProfileOffset:function(){
 		return this.Constants.PROFILES[Number(getValue('profile-selector')) - 1].offset;
@@ -96,7 +96,7 @@ SavegameEditor={
 		var amount = Math.ceil(1.5*s);
 		var result = '';
 		for (var i = 0; i < amount; i++) {
-			result = convert_to_bit(tempFile.readU8(offset +  + i), 8).join('') + result;
+			result = convert_to_bit(tempFile.readU8(offset + i), 8).join('') + result;
 		}
 		result = result.substring(0, result.length-12*(s)) + convert_to_bit(status, 12).join('') + result.substring(result.length-12*(s-1), result.length);
 		for (var j = 0; j < result.length; j+=8){
@@ -197,7 +197,6 @@ SavegameEditor={
 		
 		setValue('blue-stones', tempFile.readU24(profileStartOffset + SavegameEditor.Constants.BLUE_STONES_OFFSET));
 		setValue('levels', '1');
-		var profileStartOffset = SavegameEditor._getProfileOffset();
 		var field, a, b, c;
 		for (c = 0; c < SavegameEditor.Constants.CHARACTERS.length; c++) {
 			field = getField('select-character-'+c);
@@ -221,7 +220,7 @@ SavegameEditor={
 	
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
-		return (tempFile.fileSize==2524)
+		return (tempFile.fileSize==2524);
 	},
 	
 	preload:function() {
@@ -254,11 +253,11 @@ SavegameEditor={
 		}
 		var tmp3 = get('sections-list');
 		for (var l = 1; l < 16; l++) {
-			var sel = select('section-status-' + l, SavegameEditor.Constants.SECTION_UNLOCK_STATUS, SavegameEditor._write_section_status);
-			sel.dataset.section = l;
+			var sel__ = select('section-status-' + l, SavegameEditor.Constants.SECTION_UNLOCK_STATUS, SavegameEditor._write_section_status);
+			sel__.dataset.section = l;
 			tmp3.append(
 				col(2, span('S' + l + ' (Level ' + ((l-1)*3+1) + '-' + (l*3) + ')')),
-				col(4, sel)
+				col(4, sel__)
 			);
 		}
 	},
@@ -284,6 +283,6 @@ SavegameEditor={
 		tempFile.writeU32(
 			0,
 			SavegameEditor.crc32(tempFile, tempFile.fileSize, 24)
-		)
+		);
 	}
 };
