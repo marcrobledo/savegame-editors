@@ -59,11 +59,11 @@
 		</div>
 		<div class="row">
 			<div class="columns c4"><label for="checkbox-music">Music</label></div>
-			<div class="columns c2 text-right"><input id="checkbox-music" type="checkbox" class="fw" data-challenge="1" /></div>
+			<div class="columns c2 text-right"><input id="checkbox-music" type="checkbox" class="fw" /></div>
 		</div>
 		<div class="row">
 			<div class="columns c4"><label for="checkbox-microphone">Microphone</label></div>
-			<div class="columns c2 text-right"><input id="checkbox-microphone" type="checkbox" class="fw" data-challenge="1" /></div>
+			<div class="columns c2 text-right"><input id="checkbox-microphone" type="checkbox" class="fw" /></div>
 		</div>
 	</div>
 	<!-- Player Info -->
@@ -72,6 +72,8 @@
 		<div class="row">
 			<div class="columns c8"><label for="input-blue-stones">Blue Stones</label></div>
 			<div class="columns c4"><input id="input-blue-stones" type="text" class="fw" /></div>
+			<div class="columns c8"><span>Last Played</span></div>
+			<div class="columns c4" id="container-last-played"></div>
 		</div>
 	</div>
 	<h3 class="orange">Characters</h3>
@@ -93,33 +95,39 @@
 		<h3 class="orange">Challenges</h3>
 		<div class="row">
 			<div class="columns c4"><label for="checkbox-challenge-1-unlocked">Challenge 1</label></div>
-			<div class="columns c2 text-right"><input id="checkbox-challenge-1-unlocked" type="checkbox" class="fw" data-challenge="1" /></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-1-unlocked" type="checkbox" class="fw" data-challenge="0" /></div>
 			<div class="columns c4"><label for="checkbox-challenge-6-unlocked">Challenge 6</label></div>
-			<div class="columns c2 text-right"><input id="checkbox-challenge-6-unlocked" type="checkbox" class="fw" data-challenge="6"  /></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-6-unlocked" type="checkbox" class="fw" data-challenge="5"  /></div>
 		</div>
 		<div class="row">
 			<div class="columns c4"><label for="checkbox-challenge-2-unlocked">Challenge 2</label></div>
-			<div class="columns c2 text-right"><input id="checkbox-challenge-2-unlocked" type="checkbox" class="fw" data-challenge="2"  /></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-2-unlocked" type="checkbox" class="fw" data-challenge="1"  /></div>
 			<div class="columns c4"><label for="checkbox-challenge-7-unlocked">Challenge 7</label></div>
-			<div class="columns c2 text-right"><input id="checkbox-challenge-7-unlocked" type="checkbox" class="fw" data-challenge="7"  /></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-7-unlocked" type="checkbox" class="fw" data-challenge="6"  /></div>
 		</div>
 		<div class="row">
 			<div class="columns c4"><label for="checkbox-challenge-3-unlocked">Challenge 3</label></div>
-			<div class="columns c2 text-right"><input id="checkbox-challenge-3-unlocked" type="checkbox" class="fw" data-challenge="3"  /></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-3-unlocked" type="checkbox" class="fw" data-challenge="2"  /></div>
 			<div class="columns c4"><label for="checkbox-challenge-8-unlocked">Challenge 8</label></div>
-			<div class="columns c2 text-right"><input id="checkbox-challenge-8-unlocked" type="checkbox" class="fw" data-challenge="8"  /></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-8-unlocked" type="checkbox" class="fw" data-challenge="7"  /></div>
 		</div>
 		<div class="row">
 			<div class="columns c4"><label for="checkbox-challenge-4-unlocked">Challenge 4</label></div>
-			<div class="columns c2 text-right"><input id="checkbox-challenge-4-unlocked" type="checkbox" class="fw" data-challenge="4"  /></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-4-unlocked" type="checkbox" class="fw" data-challenge="3"  /></div>
 			<div class="columns c4"><label for="checkbox-challenge-9-unlocked">Challenge 9</label></div>
-			<div class="columns c2 text-right"><input id="checkbox-challenge-9-unlocked" type="checkbox" class="fw" data-challenge="9"  /></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-9-unlocked" type="checkbox" class="fw" data-challenge="8"  /></div>
 		</div>
 		<div class="row">
 			<div class="columns c4"><label for="checkbox-challenge-5-unlocked">Challenge 5</label></div>
-			<div class="columns c2 text-right"><input id="checkbox-challenge-5-unlocked" type="checkbox" class="fw" data-challenge="5"  /></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-5-unlocked" type="checkbox" class="fw" data-challenge="4"  /></div>
 			<div class="columns c4"><label for="checkbox-challenge-10-unlocked">Challenge 10</label></div>
-			<div class="columns c2 text-right"><input id="checkbox-challenge-10-unlocked" type="checkbox" class="fw" data-challenge="10"  /></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-10-unlocked" type="checkbox" class="fw" data-challenge="9"  /></div>
+		</div>
+	</div>
+	<h3 class="orange">Sections</h3>
+	<div class="container">
+		<div class="row" id="sections-list">
+			<!-- Content is generated with the-lego-movie-videogame.js -->
 		</div>
 	</div>
 	<h3 class="orange">Upgrades</h3>

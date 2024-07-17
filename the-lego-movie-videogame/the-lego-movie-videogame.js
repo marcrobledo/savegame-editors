@@ -31,58 +31,20 @@ SavegameEditor={
 			{value:7, name:'Danish'}
 		],
 		LEVEL_LAST_PLAYED_OFFSET: 0x6, // 6
-		LEVELS:[
-			{value:0, name:'Prologue - The Prophecy'},
-			{value:1, name:'Prologue - Building Site'},
-			{value:2, name:'Prologue - The Piece'},
-			{value:3, name:'Police Station - Melting Chamber'},
-			{value:4, name:'Police Station - Alley Escape'},
-			{value:5, name:'Police Station - Bike Chase'},
-			{value:6, name:'Flatbush Gulch - The Portal'},
-			{value:7, name:'Flatbush Gulch - Hillside Slide'},
-			{value:8, name:'Flatbush Gulch - Desert Path'},
-			{value:9, name:'Flatbush Town - Town Outskirts'},
-			{value:10, name:'Flatbush Town - Town Entrance'},
-			{value:11, name:'Flatbush Town - Saloon Showdown'},
-			{value:12, name:'Flatbush Rooftops - Rooftop Ambush'},
-			{value:13, name:'Flatbush Rooftops - Rooftop Escape'},
-			{value:14, name:'Flatbush Rooftops - Rooftop Brawl'},
-			{value:15, name:'Flatbush Chase - Flatbush Canyon'},
-			{value:16, name:'Flatbush Chase - Train Escape'},
-			{value:17, name:'Flatbush Chase - Train Engine'},
-			{value:18, name:'Cloud Cuckoo Land - Middle Zealand'},
-			{value:19, name:'Cloud Cuckoo Land - Cloud Entrance'},
-			{value:20, name:'Cloud Cuckoo Land - Dance Street'},
-			{value:21, name:'Cloud Under Attack - Cloud Escape'},
-			{value:22, name:'Cloud Under Attack - Cuckoo Castle'},
-			{value:23, name:'Cloud Under Attack - Dropship Chase'},
-			{value:24, name:'Submarine - Submarine Attack'},
-			{value:25, name:'Submarine - Submarine Interior'},
-			{value:26, name:'Submarine - MetalBeard\'s Ship'},
-			{value:27, name:'Business HQ - Octan Airlock'},
-			{value:28, name:'Business HQ - Octan Hangar'},
-			{value:29, name:'Business HQ - The Relic Room'},
-			{value:30, name:'The Kragle - Assembly Room'},
-			{value:31, name:'The Kragle - Kragle Shutdown'},
-			{value:32, name:'The Kragle - Think Tank'},
-			{value:33, name:'TV Station - Office Corridors'},
-			{value:34, name:'TV Station - Server Room'},
-			{value:35, name:'TV Station - TV Broadcast'},
-			{value:36, name:'Spaceship Escape - TV Prop Room'},
-			{value:37, name:'Spaceship Escape - Middle Zealand Canyons'},
-			{value:38, name:'Spaceship Escape - Bricksburg Skies'},
-			{value:39, name:'Attack on Bricksburg - Return to Bricksburg'},
-			{value:40, name:'Attack on Bricksburg - Bricksburg Streets'},
-			{value:41, name:'Attack on Bricksburg - Bricksburg Assault'},
-			{value:42, name:'The Cube Ship - Battle for Bricksburg'},
-			{value:43, name:'The Cube Ship - Cube Ship Approach'},
-			{value:44, name:'The Cube Ship - Business Time'}
-		],
+		LEVEL_LAST_PLAYED_OFFSET2: 0x454, // 1108
 		PROFILES:[
 			{value:1, name:'Save slot 1', offset:0x1c}, // 28
 			{value:2, name:'Save slot 2', offset:0x4fc} // 1276
 		],
 		PROFILE_SELECTION_OFFSET:0x1A,
+		SECTION_UNLOCK_OFFSET:0x4A4, // 1188
+		SECTION_UNLOCK_STATUS:[
+			{value:0, name:'Locked, Locked, Locked'},
+			{value:1, name:'Unlocked - Locked - Locked'},
+			{value:21, name:'Played - Unlocked - Locked'},
+			{value:341, name:'Player - Played - Unlocked'},
+			{value:1911, name:'Player - Played - Played'}
+		],
 		UPGRADES_OFFSET:0x475, // 1141
 		YELLOW_STONE_OFFSET:0x238, // 568
 	},
@@ -111,11 +73,41 @@ SavegameEditor={
 			var a = SavegameEditor.CRC32_TABLE[byte];
 			checksum = a ^ (cs___>>>8);
 		}
-		console.log(checksum);
 		return ((checksum>>>0)<<0)
 	},
 	_getProfileOffset:function(){
 		return this.Constants.PROFILES[Number(getValue('profile-selector')) - 1].offset;
+	},
+	_get_section_status:function(s) {
+		var offset = SavegameEditor._getProfileOffset() + SavegameEditor.Constants.SECTION_UNLOCK_OFFSET;
+		var amount = Math.ceil(1.5*s);
+		var result = '';
+		for (var i = 0; i < amount; i++) {
+			result = convert_to_bit(tempFile.readU8(offset + i), 8).join('') + result;
+		}
+		result = result.substring(0, result.length-12*(s-1)).slice(-12);
+		return parseInt(result, 2);
+	},
+	_write_section_status:function(e) {
+		var s = e.target.dataset.section;
+		var status = getValue('section-status-'+s);
+		var offset = SavegameEditor._getProfileOffset() + SavegameEditor.Constants.SECTION_UNLOCK_OFFSET;
+		var to_write = [];
+		var amount = Math.ceil(1.5*s);
+		var result = '';
+		for (var i = 0; i < amount; i++) {
+			result = convert_to_bit(tempFile.readU8(offset +  + i), 8).join('') + result;
+		}
+		result = result.substring(0, result.length-12*(s)) + convert_to_bit(status, 12).join('') + result.substring(result.length-12*(s-1), result.length);
+		for (var j = 0; j < result.length; j+=8){
+			to_write.unshift(result.substring(j, j+8));
+		}
+		for (var k = 0; k < to_write.length; k++) {
+			tempFile.writeU8(
+				offset + k,
+				parseInt(to_write[k], 2)
+			);
+		}
 	},
 	_write_language:function(){
 		tempFile.writeU8(
@@ -146,6 +138,16 @@ SavegameEditor={
 			(getField('checkbox-microphone').checked ? 10 : 0) + (getField('checkbox-music').checked ? 160 : 0)
 		);
 	},
+	_write_last_played:function(){
+		tempFile.writeU8(
+			SavegameEditor.Constants.LEVEL_LAST_PLAYED_OFFSET,
+			getValue('last-played')
+		);
+		tempFile.writeU8(
+			SavegameEditor.Constants.LEVEL_LAST_PLAYED_OFFSET2,
+			getValue('last-played')
+		);
+	},
 	_write_character:function(e){
 		var profileStartOffset = SavegameEditor._getProfileOffset();
 		var offset = profileStartOffset + SavegameEditor.Constants.CHARACTER_OFFSET + Number(e.target.dataset.offset);
@@ -156,6 +158,13 @@ SavegameEditor={
 		tempFile.writeU8(
 			offset,
 			parseInt(bits.join(''), 2)
+		);
+	},
+	_write_challenge:function(e){
+		var lvl = Number(getValue('levels'));
+		tempFile.writeU8(
+			SavegameEditor._getProfileOffset()+SavegameEditor.Constants.CHALLENGE_OFFSET+(lvl)*10+Number(e.target.dataset.challenge),
+			e.target.checked === true ? '1' : '0'
 		);
 	},
 	_write_upgrade:function(e){
@@ -196,12 +205,8 @@ SavegameEditor={
 			b = (a[field.dataset.offset_*2]==='1') ? '2' : ((a[field.dataset.offset_*2+1]==='1') ? '1' : '0');
 			setValue('character-'+c, Number(b));
 		}
-		console.log("------");
-		console.log(profileStartOffset + SavegameEditor.Constants.UPGRADES_OFFSET);
 		var unlocked = convert_to_bit(tempFile.readU16(profileStartOffset + SavegameEditor.Constants.UPGRADES_OFFSET), 16);
 		var bought = convert_to_bit(tempFile.readU16(profileStartOffset + SavegameEditor.Constants.UPGRADES_OFFSET+2), 16);
-		console.log(unlocked);
-		console.log(bought);
 		for (c = 0; c < SavegameEditor.Constants.UPGRADES.length; c++) {
 			field = getField('select-upgrade-'+c);
 			b = (bought[field.dataset.offset]==='1') ? '2' : ((unlocked[field.dataset.offset]==='1') ? '1' : '0');
@@ -209,6 +214,9 @@ SavegameEditor={
 		}
 		setValue('last-played', tempFile.readU8(profileStartOffset + SavegameEditor.Constants.LEVEL_LAST_PLAYED_OFFSET));
 		SavegameEditor._load_level();
+		for (var l = 1; l < 16; l++) {
+			setValue('section-status-'+l, SavegameEditor._get_section_status(l));
+		}
 	},
 	
 	/* check if savegame is valid */
@@ -221,15 +229,9 @@ SavegameEditor={
 		get('container-language').appendChild(select('language', SavegameEditor.Constants.LANGUAGES, SavegameEditor._write_language));
 		get('container-levelselection').appendChild(select('levels', SavegameEditor.Constants.LEVELS, SavegameEditor._load_level));
 		for (var i = 0; i < 10; i++) {
-			getField('challenge-' + (i + 1) + '-unlocked').addEventListener('change', function(e){
-				var lvl = Number(getValue('levels'));
-				tempFile.writeU8(
-					SavegameEditor._getProfileOffset()+SavegameEditor.Constants.CHALLENGE_OFFSET+(lvl)*10+Number(e.target.dataset.challenge)-1,
-					e.target.checked === true ? '1' : '0'
-				);
-			});
+			getField('challenge-' + (i + 1) + '-unlocked').addEventListener('change', SavegameEditor._write_challenge);
 		}
-		get('container-last-played').appendChild(select('last-played', SavegameEditor.Constants.LEVELS));
+		get('container-last-played').appendChild(select('last-played', SavegameEditor.Constants.LEVELS, SavegameEditor._write_last_played));
 		get('input-level-stones').addEventListener('change', SavegameEditor._write_level_stones);
 		get('input-blue-stones').addEventListener('change', SavegameEditor._write_blue_stones);
 		getField('checkbox-microphone').addEventListener('change', SavegameEditor._write_sound_settings);
@@ -249,6 +251,15 @@ SavegameEditor={
 			var sel_=select('upgrade-'+k,SavegameEditor.Constants.CHARACTER_OPTIONS, SavegameEditor._write_upgrade);
 			sel_.dataset.offset=k;
 			tmp2.appendChild(col(4,sel_));
+		}
+		var tmp3 = get('sections-list');
+		for (var l = 1; l < 16; l++) {
+			var sel = select('section-status-' + l, SavegameEditor.Constants.SECTION_UNLOCK_STATUS, SavegameEditor._write_section_status);
+			sel.dataset.section = l;
+			tmp3.append(
+				col(2, span('S' + l + ' (Level ' + ((l-1)*3+1) + '-' + (l*3) + ')')),
+				col(4, sel)
+			);
 		}
 	},
 
