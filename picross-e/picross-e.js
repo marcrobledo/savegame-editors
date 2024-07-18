@@ -7,7 +7,7 @@ var version = 0;
 var pl;
 var pt;
 function convert_to_bit(d) {
-	return ('00000000' + (d >>> 0).toString(2)).slice(-8).split('').reverse()
+	return ('00000000' + (d >>> 0).toString(2)).slice(-8).split('').reverse();
 }
 SavegameEditor={
 	Name:'PICROSS e',
@@ -92,7 +92,7 @@ SavegameEditor={
 				ce.append(
 					col(1, span(name)),
 					col(2, time_ele)
-				)
+				);
 				if (picrossData[version].medals_offset) {
 					var tmp = Math.floor(i / 8);
 					var box = checkbox('medal_'+name, '');
@@ -176,4 +176,4 @@ SavegameEditor={
 	/* save function */
 	save:function(){
 	}
-}
+};
