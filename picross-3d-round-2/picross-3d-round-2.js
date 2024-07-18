@@ -260,7 +260,7 @@ SavegameEditor={
 
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
-		return (tempFile.fileSize==45688)
+		return (tempFile.fileSize==45688);
 	},
 	
 	preload:function() {
@@ -352,4 +352,4 @@ SavegameEditor={
 	/* save function */
 	save:function(){
 	}
-}
+};
