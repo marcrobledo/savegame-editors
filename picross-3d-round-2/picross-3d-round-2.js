@@ -40,9 +40,9 @@ SavegameEditor={
 			{value:255, name:'Default'}
 		],
 		CONTROLS:[
-			{value:0, name:'Pink Hammer'},
-			{value:1, name:'Blue Bucket'},
-			{value:2, name:'Orange Bucket'},
+			{value:0, name:'Hammer'},
+			{value:1, name:'Blue Paint'},
+			{value:2, name:'Orange Paint'},
 			{value:3, name:'Orange Pencil'},
 			{value:4, name:'Blue Pencil'}
 		],
