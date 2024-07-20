@@ -65,6 +65,9 @@ SavegameEditor={
 		} else if (tempFile.fileSize==2328) { // Picross e7 - e9
 			version = 6;
 			return true;
+		} else if (tempFile.fileSize==988) { // Club Nintendo Picross
+			version = 7;
+			return true;
 		}
 		return false;
 	},
@@ -154,7 +157,7 @@ SavegameEditor={
 		pl = get('puzzle-list');
 		pt = get('picross-template');
 		pl.innerHTML = '';
-		fetch('/savegame-editors/picross-ekombiniert/versions.json')
+		fetch('/savegame-editors/picross-e/versions.json')
 		.then(function(response) {
 			return response.json();
 		}).then(function(data) {
