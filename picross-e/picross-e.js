@@ -68,10 +68,14 @@ SavegameEditor={
 		} else if (tempFile.fileSize==988) { // Club Nintendo Picross
 			version = 7;
 			return true;
+		} else if (tempFile.fileSize==920) { // My Nintendo PICROSS
+			version = 8;
+			return true;
 		}
 		return false;
 	},
 	_generateList:function(){
+		var offset = picrossData[version].modes_start || 0;
 		for (var difficulty of picrossData[version].modes) {
 			var c = pt.content.cloneNode(true);
 			c.getElementById('puzzles-header').innerText = difficulty[2];
@@ -81,7 +85,7 @@ SavegameEditor={
 			var ce = get('puzzles-' + difficulty[1]);
 			for (var i = difficulty[3]; i < difficulty[4]; i++) {
 				var date = new Date(0);
-				date.setSeconds(Math.floor(tempFile.readU32(4*i)/60));
+				date.setSeconds(Math.floor(tempFile.readU32(4*i+offset)/60));
 				var timeString = date.toISOString().substring(11, 19);
 				var time_ele = document.createElement('input');
 				time_ele.type='time';
@@ -89,7 +93,7 @@ SavegameEditor={
 				time_ele.max='23:59:59';
 				time_ele.step='1';
 				time_ele.value=timeString;
-				time_ele.dataset.offset=4*i;
+				time_ele.dataset.offset=4*i+offset;
 				time_ele.addEventListener('change', SavegameEditor._write_puzzle_time);
 				var name = difficulty[0] + ('0' + String(i-difficulty[3]+1)).slice(-2);
 				ce.append(

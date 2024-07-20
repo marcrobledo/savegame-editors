@@ -285,5 +285,34 @@
 			"bgm": ["select", "BGM", "bgm_effects", "0x166"],
 			"effects": ["select", "SE", "bgm_effects", "0x167"]
 		}
+	},
+	{
+		"bgm_effects": [
+			{"value":0, "name":"OFF"},
+			{"value":1, "name":"1"},
+			{"value":2, "name":"2"},
+			{"value":3, "name":"3"},
+			{"value":4, "name":"4"},
+			{"value":5, "name":"5"}
+		],
+		"controls": [
+			{"value":0, "name":"Stylus Controls"},
+			{"value":1, "name":"Button Controls"}
+		],
+		"modes":[
+			["", "picross", "Picross", 0, 45],
+			["", "mega", "Mega Picross", 46, 91],
+			["", "micross", "Micross", 45, 46]
+		],
+		"modes_start":16,
+		"settings_offset": {
+			"control_method": ["select", "Control Method", "controls", "0x194"],
+			"answer_autocheck": ["checkbox", "Answer Auto-Check", "", "0x197"],
+			"hint_number": ["checkbox", "Hint Number Auto-Check", "", "0x195"],
+			"hint_roulette": ["checkbox", "Hint Roulette", "", "0x196"],
+			"navigation": ["checkbox", "Navigation", "", "0x198"],
+			"bgm": ["select", "BGM", "bgm_effects", "0x19B"],
+			"effects": ["select", "Effects", "bgm_effects", "0x19C"]
+		}
 	}
 ]
