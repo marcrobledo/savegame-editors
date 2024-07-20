@@ -258,6 +258,7 @@
 		]
 	},
 	{
+		"_comment": "Club Nintendo Picross",
 		"bgm_effects": [
 			{"value":0, "name":"OFF"},
 			{"value":1, "name":"1"},
@@ -287,6 +288,7 @@
 		}
 	},
 	{
+		"_comment": "My Nintendo PICROSS",
 		"bgm_effects": [
 			{"value":0, "name":"OFF"},
 			{"value":1, "name":"1"},
