@@ -810,6 +810,8 @@ Item.AVAILABILITY={
 		'Energy_Material_01', //Crystallized Charge
 		'MinusRupee_00', //Poe
 		'Obj_StableHostlePointCard', //Pony Points Card
+		'Obj_WarpDLC', //Travel Medallion'
+		'Obj_WarpDLC_Prototype', //Travel Medallion (prototype)
 
 		'Obj_DefeatHonor_00', //Stone Talus Monster Medal
 		'Obj_DefeatHonor_01', //Hinox Monster Medal
