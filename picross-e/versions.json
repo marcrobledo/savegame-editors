@@ -1,0 +1,320 @@
+[
+	{
+		"_comment": "PICROSS e",
+		"bgm_effects": [
+			{"value":0, "name":"OFF"},
+			{"value":1, "name":"1"},
+			{"value":2, "name":"2"},
+			{"value":3, "name":"3"},
+			{"value":4, "name":"4"},
+			{"value":5, "name":"5"}
+		],
+		"controls": [
+			{"value":0, "name":"Stylus Controls"},
+			{"value":1, "name":"Button Controls"}
+		],
+		"modes":[
+			["E", "easy", "Easy Mode", 0, 15],
+			["N", "normal", "Normal Mode", 15, 75],
+			["F", "free", "Free Mode", 75, 135],
+			["X", "extra", "Extra", 135, 150]
+		],
+		"settings_offset": {
+			"control_method": ["select", "Control Method", "controls", "0x258"],
+			"hint_number": ["checkbox", "Hint Number Auto-Check", "", "0x259"],
+			"navigation": ["checkbox", "Navigation", "", "0x25A"],
+			"bgm": ["select", "BGM", "bgm_effects", "0x25D"],
+			"effects": ["select", "Effects", "bgm_effects", "0x25E"]
+		}
+	},
+	{
+		"_comment": "PICROSS e2",
+		"bgm_effects": [
+			{"value":0, "name":"OFF"},
+			{"value":1, "name":"1"},
+			{"value":2, "name":"2"},
+			{"value":3, "name":"3"},
+			{"value":4, "name":"4"},
+			{"value":5, "name":"5"}
+		],
+		"controls": [
+			{"value":0, "name":"Stylus Controls"},
+			{"value":1, "name":"Button Controls"}
+		],
+		"modes":[
+			["E", "easy", "Easy Mode", 0, 15],
+			["N", "normal", "Normal Mode", 15, 75],
+			["F", "free", "Free Mode", 75, 135],
+			["X", "extra", "EXTRA", 135, 150],
+			["M", "micross", "Micross", 150, 155]
+		],
+		"settings_offset": {
+			"control_method": ["select", "Control Method", "controls", "0x26C"],
+			"hint_number": ["checkbox", "Hint Number Auto-Check", "", "0x26D"],
+			"navigation": ["checkbox", "Navigation", "", "0x26E"],
+			"bgm": ["select", "BGM", "bgm_effects", "0x271"],
+			"effects": ["select", "Effects", "bgm_effects", "0x272"]
+		}
+	},
+	{
+		"_comment": "PICROSS e3",
+		"bgm_effects": [
+			{"value":0, "name":"OFF"},
+			{"value":1, "name":"1"},
+			{"value":2, "name":"2"},
+			{"value":3, "name":"3"},
+			{"value":4, "name":"4"},
+			{"value":5, "name":"5"}
+		],
+		"controls": [
+			{"value":0, "name":"Stylus Controls"},
+			{"value":1, "name":"Button Controls"}
+		],
+		"modes":[
+			["E", "easy", "Easy Mode", 0, 15],
+			["N", "normal", "Normal Mode", 15, 45],
+			["F", "free-mode", "Free Mode", 60, 105],
+			["X", "extra", "EXTRA", 45, 60],
+			["M", "mega-picross", "Mega Picross", 105, 135]
+		],
+		"settings_offset": {
+			"control_method": ["select", "Control Method", "controls", "0x258"],
+			"hint_number": ["checkbox", "Hint Number Auto-Check", "", "0x259"],
+			"hint_roulette": ["checkbox", "Hint Roulete", "", "0x25A"],
+			"normal": ["checkbox", "Normal", "", "0x25B"],
+			"navigation": ["checkbox", "Navigation", "", "0x25C"],
+			"bgm": ["select", "BGM", "bgm_effects", "0x25F"],
+			"effects": ["select", "Effects", "bgm_effects", "0x260"]
+		}
+	},
+	{
+		"_comment": "PICROSS e4",
+		"bgm_effects": [
+			{"value":0, "name":"OFF"},
+			{"value":1, "name":"1"},
+			{"value":2, "name":"2"},
+			{"value":3, "name":"3"},
+			{"value":4, "name":"4"},
+			{"value":5, "name":"5"}
+		],
+		"controls": [
+			{"value":0, "name":"Stylus Controls"},
+			{"value":1, "name":"Button Controls"}
+		],
+		"modes":[
+			["P", "picross", "Picross", 0, 105],
+			["µ", "micross", "Micross", 105, 107],
+			["M", "mega-picross", "Mega Picross", 107, 152],
+			["S", "special-puzzle", "Special Puzzles", 152, 167]
+		],
+		"rules": [
+			{"value":0, "name":"Free"},
+			{"value":1, "name":"Normal"}
+		],
+		"settings_offset": {
+			"control_method": ["select", "Control Method", "controls", "0x29C"],
+			"hint_number": ["checkbox", "Hint Number Auto-Check", "", "0x29D"],
+			"hint_roulette": ["checkbox", "Hint Roulette", "", "0x29E"],
+			"rules": ["select", "Rules", "rules", "0x29F"],
+			"navigation": ["checkbox", "Navigation", "", "0x2A0"],
+			"bgm": ["select", "BGM", "bgm_effects", "0x2A3"],
+			"effects": ["select", "Effects", "bgm_effects", "0x2A4"]
+		},
+		"unlockables":[
+			["S001 - S005 (PICROSS e)", "0x597"],
+			["S006 - S010 (PICROSS e2)", "0x598"],
+			["S011 - S015 (PICROSS e3)", "0x599"]
+		]
+	},
+	{
+		"_comment": "PICROSS e5",
+		"bgm_effects": [
+			{"value":0, "name":"OFF"},
+			{"value":1, "name":"1"},
+			{"value":2, "name":"2"},
+			{"value":3, "name":"3"},
+			{"value":4, "name":"4"},
+			{"value":5, "name":"5"}
+		],
+		"controls": [
+			{"value":0, "name":"Stylus Controls"},
+			{"value":1, "name":"Button Controls"}
+		],
+		"modes":[
+			["P", "picross", "Picross", 0, 120],
+			["µ", "micross", "Micross", 120, 123],
+			["M", "mega-picross", "Mega Picross", 123, 153],
+			["S", "special-puzzle", "Special Puzzles", 153, 168]
+		],
+		"rules": [
+			{"value":0, "name":"Free"},
+			{"value":1, "name":"Normal"}
+		],
+		"settings_offset": {
+			"control_method": ["select", "Control Method", "controls", "0x2A0"],
+			"hint_number": ["checkbox", "Hint Number Auto-Check", "", "0x2A1"],
+			"hint_roulette": ["checkbox", "Hint Roulette", "", "0x2A2"],
+			"rules": ["select", "Rules", "rules", "0x2A3"],
+			"navigation": ["checkbox", "Navigation", "", "0x2A4"],
+			"bgm": ["select", "BGM", "bgm_effects", "0x2A7"],
+			"effects": ["select", "Effects", "bgm_effects", "0x2A8"]
+		},
+		"unlockables":[
+			["S001 - S005 (PICROSS e)", "0x693"],
+			["S006 - S010 (PICROSS e2)", "0x694"],
+			["S011 - S015 (PICROSS e3)", "0x695"]
+		]
+	},
+	{
+		"_comment": "PICROSS e6",
+		"animations": [
+			{"value":0, "name":"Plain"},
+			{"value":1, "name":"Turn"},
+			{"value":2, "name":"Break"}
+		],
+		"bgm_effects": [
+			{"value":0, "name":"OFF"},
+			{"value":1, "name":"1"},
+			{"value":2, "name":"2"},
+			{"value":3, "name":"3"},
+			{"value":4, "name":"4"},
+			{"value":5, "name":"5"}
+		],
+		"controls": [
+			{"value":0, "name":"Stylus Controls"},
+			{"value":1, "name":"Button Controls"}
+		],
+		"modes":[
+			["P", "picross", "Picross", 0, 150],
+			["M", "mega-picross", "Mega Picross", 150, 285],
+			["µ", "micross", "Micross", 285, 288],
+			["S", "special-puzzle", "Special Puzzles", 288, 303]
+		],
+		"rules": [
+			{"value":0, "name":"Free"},
+			{"value":1, "name":"Normal"}
+		],
+		"settings_offset": {
+			"control_method": ["select", "Control Method", "controls", "0x4BC"],
+			"hint_number": ["checkbox", "Hint Number Auto-Check", "", "0x4BD"],
+			"hint_roulette": ["checkbox", "Hint Roulette", "", "0x4BE"],
+			"rules": ["select", "Rules", "rules", "0x4BF"],
+			"navigation": ["checkbox", "Navigation", "", "0x4C0"],
+			"bgm": ["select", "BGM", "bgm_effects", "0x4C3"],
+			"effects": ["select", "Effects", "bgm_effects", "0x4C4"],
+			"animations": ["select", "Animations", "animations", "0x4C5"]
+		},
+		"unlockables":[
+			["S001 - S005 (PICROSS e)", "0x8AF"],
+			["S006 - S010 (PICROSS e2)", "0x8B0"],
+			["S011 - S015 (PICROSS e3)", "0x8B1"]
+		]
+	},
+	{
+		"_comment": "PICROSS e7 - e9",
+		"animations": [
+			{"value":0, "name":"Plain"},
+			{"value":1, "name":"Turn"},
+			{"value":2, "name":"Break"}
+		],
+		"bgm_effects": [
+			{"value":0, "name":"OFF"},
+			{"value":1, "name":"1"},
+			{"value":2, "name":"2"},
+			{"value":3, "name":"3"},
+			{"value":4, "name":"4"},
+			{"value":5, "name":"5"}
+		],
+		"controls": [
+			{"value":0, "name":"Stylus Controls 1"},
+			{"value":1, "name":"Stylus Controls 2"},
+			{"value":2, "name":"Button Controls"}
+		],
+		"medals_offset": "0x4F8",
+		"modes":[
+			["P", "picross", "Picross", 0, 150],
+			["M", "mega-picross", "Mega Picross", 153, 303],
+			["µ", "micross", "Micross", 150, 153],
+			["S", "special-puzzle", "Special Puzzles", 303, 318]
+		],
+		"rules": [
+			{"value":0, "name":"Free"},
+			{"value":1, "name":"Normal"}
+		],
+		"settings_offset": {
+			"control_method": ["select", "Control Method", "controls", "0x520"],
+			"hint_number": ["checkbox", "Hint Number Auto-Check", "", "0x521"],
+			"hint_roulette": ["checkbox", "Hint Roulette", "", "0x522"],
+			"rules": ["select", "Rules", "rules", "0x523"],
+			"navigation": ["checkbox", "Navigation", "", "0x524"],
+			"bgm": ["select", "BGM", "bgm_effects", "0x527"],
+			"effects": ["select", "Effects", "bgm_effects", "0x528"],
+			"animations": ["select", "Animations", "animations", "0x529"]
+		},
+		"unlockables":[
+			["S001 - S005 (PICROSS e)", "0x913"],
+			["S006 - S010 (PICROSS e2)", "0x914"],
+			["S011 - S015 (PICROSS e3)", "0x915"]
+		]
+	},
+	{
+		"_comment": "Club Nintendo Picross",
+		"bgm_effects": [
+			{"value":0, "name":"OFF"},
+			{"value":1, "name":"1"},
+			{"value":2, "name":"2"},
+			{"value":3, "name":"3"},
+			{"value":4, "name":"4"},
+			{"value":5, "name":"5"}
+		],
+		"controls": [
+			{"value":0, "name":"Stylus Controls"},
+			{"value":1, "name":"Button Controls"}
+		],
+		"modes":[
+			["E", "easy", "Easy Mode", 0, 11],
+			["N", "normal", "Normal Mode", 11, 41],
+			["F", "free", "Free Mode", 41, 71],
+			["X", "extra", "EXTRA", 71, 85],
+			["M", "micross", "Micross", 86, 88]
+		],
+		"settings_offset": {
+			"control_method": ["select", "Control Method", "controls", "0x160"],
+			"hint_number": ["checkbox", "Hint Number Auto-Check", "", "0x161"],
+			"hint_roulette": ["checkbox", "Hint Roulette", "", "0x162"],
+			"navigation": ["checkbox", "Navigation", "", "0x163"],
+			"bgm": ["select", "BGM", "bgm_effects", "0x166"],
+			"effects": ["select", "SE", "bgm_effects", "0x167"]
+		}
+	},
+	{
+		"_comment": "My Nintendo PICROSS",
+		"bgm_effects": [
+			{"value":0, "name":"OFF"},
+			{"value":1, "name":"1"},
+			{"value":2, "name":"2"},
+			{"value":3, "name":"3"},
+			{"value":4, "name":"4"},
+			{"value":5, "name":"5"}
+		],
+		"controls": [
+			{"value":0, "name":"Stylus Controls"},
+			{"value":1, "name":"Button Controls"}
+		],
+		"modes":[
+			["", "picross", "Picross", 0, 45],
+			["", "mega", "Mega Picross", 46, 91],
+			["", "micross", "Micross", 45, 46]
+		],
+		"modes_start":16,
+		"settings_offset": {
+			"control_method": ["select", "Control Method", "controls", "0x194"],
+			"answer_autocheck": ["checkbox", "Answer Auto-Check", "", "0x197"],
+			"hint_number": ["checkbox", "Hint Number Auto-Check", "", "0x195"],
+			"hint_roulette": ["checkbox", "Hint Roulette", "", "0x196"],
+			"navigation": ["checkbox", "Navigation", "", "0x198"],
+			"bgm": ["select", "BGM", "bgm_effects", "0x19B"],
+			"effects": ["select", "Effects", "bgm_effects", "0x19C"]
+		}
+	}
+]

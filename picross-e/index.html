@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Savegame Editor &ndash; PICROSS e</title>
+	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content="A savegame editor for PICROSS e."/>
+	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, 3ds, PICROSS e, unlock, puzzles"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="shortcut icon" href="favicon.png"/>
+	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
+	<script type="text/javascript" src="../savegame-editor.js"></script>
+	<script type="text/javascript" src="./picross-e.js"></script>
+	<script type="text/javascript"><!--
+		/* service worker */
+		var FORCE_HTTPS=true;
+		window.addEventListener('load',function(){
+			if(location.protocol==='http:' && FORCE_HTTPS)
+				location.replace(window.location.href.replace('http:','https:'));
+			else if(location.protocol==='https:' && 'serviceWorker' in navigator)
+				navigator.serviceWorker.register('/savegame-editors/picross-e/_cache_service_worker.js', {scope: '/savegame-editors/picross-e/'});
+		}, false);
+	--></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+	<div id="header-top">
+		<div class="row wrapper">
+			<h1 class="six columns text-left"><img src="favicon.png" /> Savegame Editor <small>for Picross e</small></h1>
+			<div class="six columns header-buttons text-right">
+				by <a href="/">Marc Robledo</a>
+				<i class="icon github"></i> <a href="https://github.com/marcrobledo/savegame-editors/tree/master/picross-e" target="_blank">See on GitHub</a>
+				<i class="icon heart"></i> <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
+			</div>
+		</div>
+		<div class="hidden row wrapper" id="toolbar">
+			<div class="twelve columns text-center">
+				<button class="close" onclick="closeFile()"><i class="icon close"></i> Close file</button>
+				<button class="colored" onclick="saveChanges()"><i class="icon accept"></i> Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<template id="picross-template">
+	<h3 class="orange" id="puzzles-header">Placeholder</h3>
+	<div class="container">
+		<div class="row" id="puzzles-placeholder">
+			<div class="columns c1">Puzzle</div>
+			<div class="columns c2">Seconds</div>
+			<div class="columns c1">Medal</div>
+
+			<div class="columns c1">Puzzle</div>
+			<div class="columns c2">Seconds</div>
+			<div class="columns c1">Medal</div>
+			
+			<div class="columns c1">Puzzle</div>
+			<div class="columns c2">Seconds</div>
+			<div class="columns c1">Medal</div>
+
+			<div class="columns c1"></div>
+		</div>
+	</div>
+</template>
+
+<!-- THE EDITOR -->
+<div id="the-editor" class="wrapper hidden">
+	<div id="puzzle-list">
+		<!-- Content will be generated with JavaScript -->
+	</div>
+	<!-- Unlockable content -->
+	<h3 class="orange">Unlockable content</h3>
+	<div class="container">
+		<div class="row" id="unlockables">
+			<!-- Content will be generated with JavaScript -->
+		</div>
+	</div>
+	<!-- Setting -->
+	<h3 class="orange">Settings</h3>
+	<div class="container">
+		<div class="row" id="settings">
+			<!-- Content will be generated with JavaScript -->
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
