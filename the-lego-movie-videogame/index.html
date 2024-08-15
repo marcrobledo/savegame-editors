@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Savegame Editor &ndash; The Lego Movie Videogame</title>
+	<meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content="A savegame editor for The Lego Movie Videogame."/>
+	<meta name="keywords" content="html5, savegame, save, editor, hack, exploit, 3ds, the lego movie videogame"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+	<link rel="shortcut icon" href="favicon.png"/>
+	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
+	<script type="text/javascript" src="../savegame-editor.js"></script>
+	<script type="text/javascript" src="./the-lego-movie-videogame.js"></script>
+	<script type="text/javascript" src="./data.js"></script>
+	<script type="text/javascript"><!--
+		/* service worker */
+		var FORCE_HTTPS=true;
+		window.addEventListener('load',function(){
+			if(location.protocol==='http:' && FORCE_HTTPS)
+				location.replace(window.location.href.replace('http:','https:'));
+			else if(location.protocol==='https:' && 'serviceWorker' in navigator)
+				navigator.serviceWorker.register('/savegame-editors/the-lego-movie-videogame/_cache_service_worker.js', {scope: '/savegame-editors/the-lego-movie-videogame/'});
+		}, false);
+	--></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+	<div id="header-top">
+		<div class="row wrapper">
+			<h1 class="six columns text-left"><img src="favicon.png" /> Savegame Editor <small>for The Lego Movie Videogame</small></h1>
+			<div class="six columns header-buttons text-right">
+				by <a href="/">Marc Robledo</a>
+				<i class="icon github"></i> <a href="https://github.com/marcrobledo/savegame-editors/tree/master/the-lego-movie-videogame" target="_blank">See on GitHub</a>
+				<i class="icon heart"></i> <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
+			</div>
+		</div>
+		<div class="hidden row wrapper" id="toolbar">
+			<div class="twelve columns text-center">
+				<button class="close" onclick="closeFile()"><i class="icon close"></i> Close file</button>
+				<button class="colored" onclick="saveChanges()"><i class="icon accept"></i> Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- THE EDITOR -->
+<div id="the-editor" class="wrapper hidden">
+	<!-- Global Settings -->
+	<h3 class="orange">Global settings</h3>
+	<div class="container">
+		<div class="row">
+			<div class="columns c8">Language</div><div class="columns c4" id="container-language"></div>
+		</div>
+		<div class="row">
+			<div class="columns c8"><label for="input-savegame">Last used save game</label></div>
+			<div class="columns c4"><input id="input-savegame" type="text" class="fw" disabled/></div>
+		</div>
+		<div class="row">
+			<div class="columns c4"><label for="checkbox-music">Music</label></div>
+			<div class="columns c2 text-right"><input id="checkbox-music" type="checkbox" class="fw" /></div>
+		</div>
+		<div class="row">
+			<div class="columns c4"><label for="checkbox-microphone">Microphone</label></div>
+			<div class="columns c2 text-right"><input id="checkbox-microphone" type="checkbox" class="fw" /></div>
+		</div>
+	</div>
+	<!-- Player Info -->
+	<h3 class="orange">Account</h3>
+	<div class="container">
+		<div class="row">
+			<div class="columns c8"><label for="input-blue-stones">Blue Stones</label></div>
+			<div class="columns c4"><input id="input-blue-stones" type="text" class="fw" /></div>
+			<div class="columns c8"><span>Last Played</span></div>
+			<div class="columns c4" id="container-last-played"></div>
+		</div>
+	</div>
+	<h3 class="orange">Characters</h3>
+	<div class="container">
+		<div class="row" id="character-list">
+			<!-- Content is generated with the-lego-movie-videogame.js -->
+		</div>
+	</div>
+	<h3 class="orange">Levels</h3>
+	<div class="container">
+		<div class="row">
+			<div class="columns c8">Select level</div>
+			<div class="columns c4" id="container-levelselection"></div>
+		</div>
+		<div class="row">
+			<div class="columns c8"><label for="input-level-stones">Collected Stones</label></div>
+			<div class="columns c4"><input id="input-level-stones" type="text" class="fw" /></div>
+		</div>
+		<h3 class="orange">Challenges</h3>
+		<div class="row">
+			<div class="columns c4"><label for="checkbox-challenge-1-unlocked">Challenge 1</label></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-1-unlocked" type="checkbox" class="fw" data-challenge="0" /></div>
+			<div class="columns c4"><label for="checkbox-challenge-6-unlocked">Challenge 6</label></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-6-unlocked" type="checkbox" class="fw" data-challenge="5"  /></div>
+		</div>
+		<div class="row">
+			<div class="columns c4"><label for="checkbox-challenge-2-unlocked">Challenge 2</label></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-2-unlocked" type="checkbox" class="fw" data-challenge="1"  /></div>
+			<div class="columns c4"><label for="checkbox-challenge-7-unlocked">Challenge 7</label></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-7-unlocked" type="checkbox" class="fw" data-challenge="6"  /></div>
+		</div>
+		<div class="row">
+			<div class="columns c4"><label for="checkbox-challenge-3-unlocked">Challenge 3</label></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-3-unlocked" type="checkbox" class="fw" data-challenge="2"  /></div>
+			<div class="columns c4"><label for="checkbox-challenge-8-unlocked">Challenge 8</label></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-8-unlocked" type="checkbox" class="fw" data-challenge="7"  /></div>
+		</div>
+		<div class="row">
+			<div class="columns c4"><label for="checkbox-challenge-4-unlocked">Challenge 4</label></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-4-unlocked" type="checkbox" class="fw" data-challenge="3"  /></div>
+			<div class="columns c4"><label for="checkbox-challenge-9-unlocked">Challenge 9</label></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-9-unlocked" type="checkbox" class="fw" data-challenge="8"  /></div>
+		</div>
+		<div class="row">
+			<div class="columns c4"><label for="checkbox-challenge-5-unlocked">Challenge 5</label></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-5-unlocked" type="checkbox" class="fw" data-challenge="4"  /></div>
+			<div class="columns c4"><label for="checkbox-challenge-10-unlocked">Challenge 10</label></div>
+			<div class="columns c2 text-right"><input id="checkbox-challenge-10-unlocked" type="checkbox" class="fw" data-challenge="9"  /></div>
+		</div>
+	</div>
+	<h3 class="orange">Sections</h3>
+	<div class="container">
+		<div class="row" id="sections-list">
+			<!-- Content is generated with the-lego-movie-videogame.js -->
+		</div>
+	</div>
+	<h3 class="orange">Upgrades</h3>
+	<div class="container">
+		<div class="row" id="upgrades-list">
+			<!-- Content is generated with the-lego-movie-videogame.js -->
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
