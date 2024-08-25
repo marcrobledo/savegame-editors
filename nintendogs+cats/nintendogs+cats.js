@@ -60,7 +60,9 @@ SavegameEditor={
 		PET_THIRST_OFFSET: 0x88,       // 136
 		PET_COAT_OFFSET: 0x8C,         // 140
 		PET_BREED_OFFSET: 0x32,        //  50
-		PET_BREED_COLOR_OFFSET: 0x33   //  51
+		PET_BREED_VARIANT_OFFSET: 0x33,//  51 = Variant (e.g. Spaniel = 0:Blentheim, 1:Tricolour, 2:Ruby)
+		PET_BREED_STYLE_OFFSET: 0x34,  //  52 = Hairstyle
+		PET_BREED_COLOR_OFFSET: 0x36   //  53 = Fur Color
 	},
 	
 	_write_money:function(){
@@ -112,6 +114,12 @@ SavegameEditor={
 	},
 	_write_pet_breed_color:function(e){
 		SavegameEditor._write_u_number(e, 8, 'PET_BREED_COLOR_OFFSET');
+	},
+	_write_pet_breed_style:function(e){
+		SavegameEditor._write_u_number(e, 8, 'PET_BREED_STYLE_OFFSET');
+	},
+	_write_pet_breed_variant:function(e){
+		SavegameEditor._write_u_number(e, 8, 'PET_BREED_VARIANT_OFFSET');
 	},
 	
 	/* check if savegame is valid */
@@ -201,6 +209,10 @@ SavegameEditor={
 			get('number-pet' + (i+1) + '-coat').addEventListener('change', SavegameEditor._write_pet_coat);
 			*/
 		}
+		
+		get('number-pet1-breed-color').addEventListener('change', SavegameEditor._write_pet_breed_color);
+		get('number-pet1-breed-style').addEventListener('change', SavegameEditor._write_pet_breed_style);
+		get('number-pet1-breed-variant').addEventListener('change', SavegameEditor._write_pet_breed_variant);
 	},
 
 	/* save function */
