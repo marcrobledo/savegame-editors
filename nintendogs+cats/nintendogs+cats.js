@@ -14,36 +14,37 @@ SavegameEditor={
 			{value:0, name:'Male'},
 			{value:1, name:'Female'}
 		],
-		PET_BREEDS:[
-			{value:0, name:'Beagle'},
-			{value:1, name:'Golden Retriever'},
-			{value:2, name:'Yorkshire Terrier'},
-			{value:3, name:'Miniature Dachshund'},
-			{value:4, name:'Chihuahua'},
-			{value:5, name:'Chihuahua'},
-			{value:6, name:'Toy Poodle #1'},
-			{value:7, name:'Toy Poodle #2'},
-			{value:8, name:'Shiba'},
-			{value:9, name:'Labrador Retriever'},
-			{value:10, name:'Spaniel'},
-			{value:11, name:'Pug'},
-			{value:12, name:'Shih Tzu'},
-			{value:13, name:'Shetland Sheepdog'},
-			{value:14, name:'Miniature Schnauzer'},
-			{value:15, name:'Pembroke Welsh Corgi'},
-			{value:16, name:'Miniature Pinscher'},
-			{value:17, name:'German Shepherd Dog'},
-			{value:18, name:'Jack Russell Terrier'},
-			{value:19, name:'Siberian Husky'},
-			{value:20, name:'Boxer'},
-			{value:21, name:'Dalmatiner'},
-			{value:22, name:'Pomeranian'},
-			{value:23, name:'French Bulldog'},
-			{value:25, name:'Cocker Spaniel'},
-			{value:26, name:'Great Dane'},
-			{value:27, name:'Bull Terrier'},
-			{value:28, name:'Basset Hound'},
-			{value:32, name:'RoboPup'}
+		PET_BREEDS:[ // variant is used inside variant_dog.js
+			{value:0, name:'Beagle', variant:'beagle'},
+			{value:1, name:'Golden Retriever', variant:'golden_retriever'},
+			{value:2, name:'Yorkshire Terrier', variant:'yorkshire_terrier'},
+			{value:3, name:'Miniature Dachshund', variant:'miniature_dachshund'},
+			{value:4, name:'Chihuahua #1', variant:'chihuahua1'},
+			{value:5, name:'Chihuahua #2', variant:'chihuahua2'},
+			{value:6, name:'Toy Poodle #1', variant:'toy_poodle1'},
+			{value:7, name:'Toy Poodle #2', variant:'toy_poodle2'},
+			{value:8, name:'Shiba', variant:'shiba'},
+			{value:9, name:'Labrador Retriever', variant:'labrador_retriever'},
+			{value:10, name:'Spaniel', variant:'spaniel'},
+			{value:11, name:'Pug', variant:'pug'},
+			{value:12, name:'Shih Tzu', variant:'shih_tzu'},
+			{value:13, name:'Shetland Sheepdog', variant:'shetland_sheepdog'},
+			{value:14, name:'Miniature Schnauzer', variant:'miniature_schnauzer'},
+			{value:15, name:'Pembroke Welsh Corgi', variant:'pembroke_welsh_corgi'},
+			{value:16, name:'Miniature Pinscher', variant:'miniature_pinscher'},
+			{value:17, name:'German Shepherd Dog', variant:'german_shepherd_dog'},
+			{value:18, name:'Jack Russell Terrier', variant:'jack_russell_terrier'},
+			{value:19, name:'Siberian Husky', variant:'siberian_husky'},
+			{value:20, name:'Boxer', variant:'boxer'},
+			{value:21, name:'Dalmatian', variant:'dalmatian'},
+			{value:22, name:'Pomeranian', variant:'pomeranian'},
+			{value:23, name:'French Bulldog', variant:'french_bulldog'},
+			{value:24, name:'Maltese', variant:'maltese'},
+			{value:25, name:'Cocker Spaniel', variant:'cocker_spaniel'},
+			{value:26, name:'Great Dane', variant:'great_dane'},
+			{value:27, name:'Bull Terrier', variant:'bull_terrier'},
+			{value:28, name:'Basset Hound', variant:'basset_hound'},
+			{value:32, name:'RoboPup', variant:'robo_pup'}
 		],
 		PET_OFFSET:[
 			0x026A, //    618
@@ -91,7 +92,7 @@ SavegameEditor={
 		var offset = SavegameEditor.Constants.PET_OFFSET[index-1]+SavegameEditor.Constants[o];
 		tempFile['writeU' + n](
 			offset,
-			getValue(e.target.id)
+			Number(getValue(e.target.id))
 		);
 	},
 	_write_pet_gender:function(e){
@@ -188,6 +189,18 @@ SavegameEditor={
 				getField('select-pet' + (i+1) + '-gender').setAttribute('disabled', '');
 				getField('select-pet' + (i+1) + '-breed').setAttribute('disabled', '');
 			}
+			get('container-pet' + (i+1) + '-breed').addEventListener('change', function() {
+				var reset_dummy = {
+					target: {
+						id: 'select-pet1-breed-variant'
+					}
+				}
+				var cpbv = get('container-pet1-breed-variant')
+				cpbv.innerText = '';
+				cpbv.appendChild(select('pet1'+'-breed-variant', window.variants.dog[SavegameEditor.Constants.PET_BREEDS[getField('pet1-breed').selectedIndex].variant], SavegameEditor._write_pet_breed_variant));
+				SavegameEditor._write_pet_breed_variant(reset_dummy);
+			});
+
 			setValue('pet' + (i+1) + '-name', tempFile.readU16String(SavegameEditor.Constants.PET_OFFSET[i]+SavegameEditor.Constants.PET_NAME_OFFSET, 10));
 			setValue('pet' + (i+1) + '-gender', tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i]+SavegameEditor.Constants.PET_GENDER_OFFSET));
 			setValue('pet' + (i+1) + '-breed', tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i]+SavegameEditor.Constants.PET_BREED_OFFSET));
@@ -212,7 +225,6 @@ SavegameEditor={
 		
 		get('number-pet1-breed-color').addEventListener('change', SavegameEditor._write_pet_breed_color);
 		get('number-pet1-breed-style').addEventListener('change', SavegameEditor._write_pet_breed_style);
-		get('number-pet1-breed-variant').addEventListener('change', SavegameEditor._write_pet_breed_variant);
 	},
 
 	/* save function */
