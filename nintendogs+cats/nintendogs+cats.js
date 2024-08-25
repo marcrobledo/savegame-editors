@@ -62,7 +62,7 @@ SavegameEditor={
 		PET_BREED_OFFSET: 0x32,        //  50
 		PET_BREED_VARIANT_OFFSET: 0x33,//  51 = Variant (e.g. Spaniel = 0:Blentheim, 1:Tricolour, 2:Ruby)
 		PET_BREED_STYLE_OFFSET: 0x34,  //  52 = Hairstyle
-		PET_BREED_COLOR_OFFSET: 0x36   //  53 = Fur Color
+		PET_BREED_COLOR_OFFSET: 0x36   //  54 = Fur Color
 	},
 	
 	_write_money:function(){
