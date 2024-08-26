@@ -10,6 +10,7 @@ SavegameEditor={
 	/* Constants */
 	Constants:{
 		MONEY_OFFSET:0xA0,
+		LASTPLAYED_OFFSET:0x10,
 		GENDERS:[
 			{value:0, name:'Male'},
 			{value:1, name:'Female'}
@@ -172,6 +173,10 @@ SavegameEditor={
 
 		setValue('money', tempFile.readU32(SavegameEditor.Constants.MONEY_OFFSET));
 		setNumericRange('money', 0, 9999999);
+
+		var a = new Date (Number(tempFile.readU32(SavegameEditor.Constants.LASTPLAYED_OFFSET)) * 1000)
+		setValue('lastplayed', a.toString());
+		
 		
 		for (var i=0; i<6; i++){
 			var pet_present = tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i]) > 0;
@@ -197,7 +202,7 @@ SavegameEditor={
 				}
 				var cpbv = get('container-pet1-breed-variant')
 				cpbv.innerText = '';
-				cpbv.appendChild(select('pet1'+'-breed-variant', window.variants.dog[SavegameEditor.Constants.PET_BREEDS[getField('pet1-breed').selectedIndex].variant], SavegameEditor._write_pet_breed_variant));
+				cpbv.appendChild(select('pet1'+'-breed-variant', window.variants.dog.breeds[SavegameEditor.Constants.PET_BREEDS[getField('pet1-breed').selectedIndex].variant], SavegameEditor._write_pet_breed_variant));
 				SavegameEditor._write_pet_breed_variant(reset_dummy);
 			});
 
