@@ -10,7 +10,7 @@ SavegameEditor={
 	/* Constants */
 	Constants:{
 		MONEY_OFFSET:0xA0,
-		LASTPLAYED_OFFSET:0x10,
+		LASTSAVED_OFFSET:0x10,
 		GENDERS:[
 			{value:0, name:'Male'},
 			{value:1, name:'Female'}
@@ -130,6 +130,22 @@ SavegameEditor={
 	},
 	
 	preload:function() {
+		var btn_last_saved = document.getElementById('update-lastsaved');
+		btn_last_saved.addEventListener('click', function(e) {
+			tempFile.writeU32(
+				SavegameEditor.Constants.LASTSAVED_OFFSET,
+				Math.floor(Date.now() * 0.001)
+			)
+			var a = new Date (Number(tempFile.readU32(SavegameEditor.Constants.LASTSAVED_OFFSET)) * 1000)
+			setValue('lastsaved', a.toLocaleString("en-GB", {
+				day: "numeric",
+				month: "short",
+				year: "numeric",
+				hour: "2-digit",
+				minute: "2-digit",
+				second: "2-digit"
+			  }));
+		}, false);
 		get('number-money').addEventListener('change', SavegameEditor._write_money);
 		
 		fetch('/savegame-editors/nintendogs+cats/supplies.json')
@@ -174,57 +190,68 @@ SavegameEditor={
 		setValue('money', tempFile.readU32(SavegameEditor.Constants.MONEY_OFFSET));
 		setNumericRange('money', 0, 9999999);
 
-		var a = new Date (Number(tempFile.readU32(SavegameEditor.Constants.LASTPLAYED_OFFSET)) * 1000)
-		setValue('lastplayed', a.toString());
-		
-		
-		for (var i=0; i<6; i++){
-			var pet_present = tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i]) > 0;
-			getField('checkbox-pet' + (i+1) + '-active').checked = pet_present;
-			
-			get('container-pet' + (i+1) + '-breed').appendChild(select('pet'+(i+1)+'-breed', SavegameEditor.Constants.PET_BREEDS, SavegameEditor._write_pet_breed));
-			get('container-pet' + (i+1) + '-gender').appendChild(select('pet' + (i+1) + '-gender', SavegameEditor.Constants.GENDERS, SavegameEditor._write_pet_gender));
-			
-			getField('checkbox-pet' + (i+1) + '-active').setAttribute('disabled', '');
-			getField('input-pet' + (i+1) + '-name').readOnly = !pet_present;
-			if (pet_present) {
-				getField('select-pet' + (i+1) + '-gender').removeAttribute('disabled');
-				getField('select-pet' + (i+1) + '-breed').removeAttribute('disabled');
-			} else {
-				getField('select-pet' + (i+1) + '-gender').setAttribute('disabled', '');
-				getField('select-pet' + (i+1) + '-breed').setAttribute('disabled', '');
+		var a = new Date (Number(tempFile.readU32(SavegameEditor.Constants.LASTSAVED_OFFSET)) * 1000)
+		setValue('lastsaved', a.toLocaleString("en-GB", {
+			day: "numeric",
+			month: "short",
+			year: "numeric",
+			hour: "2-digit",
+			minute: "2-digit",
+			second: "2-digit"
+		  }));
+		var template = document.getElementById("template-row-pet");
+		var outer_ele = document.getElementById('row-pet-outer');
+		outer_ele.innerText = '';
+		for (var i=1; i<7; i++){
+			var pet_present = tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]) > 0;
+			if (!pet_present) {continue;}
+			console.log(template);
+			var templateClone = template.content.cloneNode(true);
+			console.log(templateClone);
+			templateClone.querySelector('.orange').innerText = 'Pet ' + i;
+			templateClone.querySelector('.row').id="row-pet"+i;
+			for (var ele of templateClone.querySelectorAll('.update-name')) {
+				if ((ele.id || '').includes('petX')) {
+					ele.id = ele.id.replaceAll('petX', 'pet' + i);
+				} else if (ele.getAttribute('for')) {
+					ele.setAttribute('for', ele.getAttribute('for').replaceAll('petX', 'pet' + i));
+				}
 			}
-			get('container-pet' + (i+1) + '-breed').addEventListener('change', function() {
+			outer_ele.appendChild(templateClone);
+			
+			get('container-pet' + i + '-breed').appendChild(select('pet' + i + '-breed', SavegameEditor.Constants.PET_BREEDS, SavegameEditor._write_pet_breed));
+			get('container-pet' + i + '-gender').appendChild(select('pet' + i + '-gender', SavegameEditor.Constants.GENDERS, SavegameEditor._write_pet_gender));
+			
+			getField('select-pet' + i + '-gender').removeAttribute('disabled');
+			getField('select-pet' + i + '-breed').removeAttribute('disabled');
+			get('container-pet' + i + '-breed').addEventListener('change', function() {
 				var reset_dummy = {
 					target: {
-						id: 'select-pet1-breed-variant'
+						id: 'select-pet'+i+'-breed-variant'
 					}
 				}
-				var cpbv = get('container-pet1-breed-variant')
+				var cpbv = get('container-pet'+i+'-breed-variant')
 				cpbv.innerText = '';
-				cpbv.appendChild(select('pet1'+'-breed-variant', window.variants.dog.breeds[SavegameEditor.Constants.PET_BREEDS[getField('pet1-breed').selectedIndex].variant], SavegameEditor._write_pet_breed_variant));
+				cpbv.appendChild(select('pet'+i+'-breed-variant', window.variants.dog.breeds[SavegameEditor.Constants.PET_BREEDS[getField('pet1-breed').selectedIndex].variant], SavegameEditor._write_pet_breed_variant));
 				SavegameEditor._write_pet_breed_variant(reset_dummy);
 			});
 
-			setValue('pet' + (i+1) + '-name', tempFile.readU16String(SavegameEditor.Constants.PET_OFFSET[i]+SavegameEditor.Constants.PET_NAME_OFFSET, 10));
-			setValue('pet' + (i+1) + '-gender', tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i]+SavegameEditor.Constants.PET_GENDER_OFFSET));
-			setValue('pet' + (i+1) + '-breed', tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i]+SavegameEditor.Constants.PET_BREED_OFFSET));
-			get('input-pet' + (i+1) + '-name').addEventListener('change', SavegameEditor._write_pet_name);
+			setValue('pet' + i + '-name', tempFile.readU16String(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_NAME_OFFSET, 10));
+			setValue('pet' + i + '-gender', tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_GENDER_OFFSET));
+			setValue('pet' + i + '-breed', tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_OFFSET));
+			get('input-pet' + i + '-name').addEventListener('change', SavegameEditor._write_pet_name);
 			
 			// Experimental
 			/*
-			getField('number-pet' + (i+1) + '-hunger').readOnly = !pet_present;
-			getField('number-pet' + (i+1) + '-thirst').readOnly = !pet_present;
-			getField('number-pet' + (i+1) + '-coat').readOnly = !pet_present;
-			setNumericRange('pet' + (i+1) + '-hunger', 0, 17529);
-			setNumericRange('pet' + (i+1) + '-thirst', 0, 17529);
-			setNumericRange('pet' + (i+1) + '-coat', 0, 17529);
-			setValue('pet' + (i+1) + '-hunger', tempFile.readU16(SavegameEditor.Constants.PET_OFFSET[i]+SavegameEditor.Constants.PET_HUNGER_OFFSET));
-			setValue('pet' + (i+1) + '-thirst', tempFile.readU16(SavegameEditor.Constants.PET_OFFSET[i]+SavegameEditor.Constants.PET_THIRST_OFFSET));
-			setValue('pet' + (i+1) + '-coat', tempFile.readU16(SavegameEditor.Constants.PET_OFFSET[i]+SavegameEditor.Constants.PET_COAT_OFFSET));
-			get('number-pet' + (i+1) + '-hunger').addEventListener('change', SavegameEditor._write_pet_hunger);
-			get('number-pet' + (i+1) + '-thirst').addEventListener('change', SavegameEditor._write_pet_thirst);
-			get('number-pet' + (i+1) + '-coat').addEventListener('change', SavegameEditor._write_pet_coat);
+			setNumericRange('pet' + i + '-hunger', 0, 17529);
+			setNumericRange('pet' + i + '-thirst', 0, 17529);
+			setNumericRange('pet' + i + '-coat', 0, 17529);
+			setValue('pet' + i + '-hunger', tempFile.readU16(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_HUNGER_OFFSET));
+			setValue('pet' + i + '-thirst', tempFile.readU16(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_THIRST_OFFSET));
+			setValue('pet' + i + '-coat', tempFile.readU16(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_COAT_OFFSET));
+			get('number-pet' + i + '-hunger').addEventListener('change', SavegameEditor._write_pet_hunger);
+			get('number-pet' + i + '-thirst').addEventListener('change', SavegameEditor._write_pet_thirst);
+			get('number-pet' + i + '-coat').addEventListener('change', SavegameEditor._write_pet_coat);
 			*/
 		}
 		
