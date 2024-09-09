@@ -1,0 +1,35 @@
+// Row 1
+1 Black & Tan (German Shepher Dog)
+2 Sable (German Shepher Dog)
+3 Black & Tan (Yorkshire Terrier)
+4 Cream (Chihuahua)
+5 Red & White (Chihuahua)
+6 Tricolour (Chihuahua)
+7 Blenheim (Cavalier King Charles Spaniel)
+8 Tricolour (Cavalier King Charles Spaniel)
+9 Ruby (Cavalier King Charles Spaniel)
+10 Stable & White (Shetland Sheepdog)
+
+// Row 2
+1 Bicolour (Shetland Sheepdog)
+2 Tricolour (Shetland Sheepdog)
+3 Pointed (Longhaired Cat)
+4 Bicolour (Longhaired Cat)
+5 Pointed (Oriental Cat)
+6 Smoke (Oriental Cat)
+7 Solid (Standard Cat)
+8 Tabby (Standard Cat)
+9 Spotted Tabby (Standard Cat)
+10 Calico (Standard Cat)
+
+// Row 3
+1 Tricolour (Basset Hound)
+2 Lemon & White (Basset Hound)
+3 With Spots (Dalmatian)
+4 Black & White (Siberian Husky)
+5 Brow & White (Siberian Husky)
+6 Agouti & White (Siberian Husky)
+7 Black & White (French Bulldog)
+8 Brindle (French Bulldog)
+9 Fawn (French Bulldog)
+10 

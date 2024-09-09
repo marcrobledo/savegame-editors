@@ -111,18 +111,6 @@ SavegameEditor={
 	_write_pet_coat:function(e){
 		SavegameEditor._write_u_number(e, 16, 'PET_COAT_OFFSET');
 	},
-	_write_pet_breed:function(e){
-		SavegameEditor._write_u_number(e, 8, 'PET_BREED_OFFSET');
-	},
-	_write_pet_breed_color:function(e){
-		SavegameEditor._write_u_number(e, 8, 'PET_BREED_COLOR_OFFSET');
-	},
-	_write_pet_breed_style:function(e){
-		SavegameEditor._write_u_number(e, 8, 'PET_BREED_STYLE_OFFSET');
-	},
-	_write_pet_breed_variant:function(e){
-		SavegameEditor._write_u_number(e, 8, 'PET_BREED_VARIANT_OFFSET');
-	},
 	
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
@@ -137,6 +125,7 @@ SavegameEditor={
 				Math.floor(Date.now() * 0.001)
 			)
 			var a = new Date (Number(tempFile.readU32(SavegameEditor.Constants.LASTSAVED_OFFSET)) * 1000)
+			a.setHours(a.getHours() - a.getTimezoneOffset()/60);
 			setValue('lastsaved', a.toLocaleString("en-GB", {
 				day: "numeric",
 				month: "short",
@@ -189,7 +178,6 @@ SavegameEditor={
 
 		setValue('money', tempFile.readU32(SavegameEditor.Constants.MONEY_OFFSET));
 		setNumericRange('money', 0, 9999999);
-
 		var a = new Date (Number(tempFile.readU32(SavegameEditor.Constants.LASTSAVED_OFFSET)) * 1000)
 		setValue('lastsaved', a.toLocaleString("en-GB", {
 			day: "numeric",
@@ -197,7 +185,8 @@ SavegameEditor={
 			year: "numeric",
 			hour: "2-digit",
 			minute: "2-digit",
-			second: "2-digit"
+			second: "2-digit",
+			timezone: "Europe/London"
 		  }));
 		var template = document.getElementById("template-row-pet");
 		var outer_ele = document.getElementById('row-pet-outer');
@@ -218,27 +207,43 @@ SavegameEditor={
 				}
 			}
 			outer_ele.appendChild(templateClone);
+
+			var dialogClassName = 'page-' + 
+				tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_OFFSET) +
+				'-' +
+				tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_VARIANT_OFFSET);
+			const dialogEle = document.getElementsByClassName(
+				dialogClassName
+			)[0];
+
+			window._sidebar_event({
+				target: dialogEle
+			});
+			var breedImg = document
+				.getElementById('menu-content')
+				.getElementsByClassName(dialogClassName)[0]
+				.querySelector('div[data-color="' + tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_COLOR_OFFSET) + '"][data-style="' + tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_STYLE_OFFSET) + '"]')
+				.cloneNode();
+			breedImg.id='petimage'+i;
+			get('container-pet' + i + '-breed').appendChild(breedImg);
+
+			var dialogbtn = document.createElement('button');
+			dialogbtn.dataset.pet = i - 1;
+			dialogbtn.onclick = function(e) {
+				e.preventDefault()
+				get('menu').dataset.pet = e.target.dataset.pet;
+				get('menu').showModal();
+				window._sidebar_event({
+					target: dialogEle
+				});
+			};
+			dialogbtn.innerText = 'Change';
+			get('container-pet' + i + '-breed').appendChild(dialogbtn);
 			
-			get('container-pet' + i + '-breed').appendChild(select('pet' + i + '-breed', SavegameEditor.Constants.PET_BREEDS, SavegameEditor._write_pet_breed));
 			get('container-pet' + i + '-gender').appendChild(select('pet' + i + '-gender', SavegameEditor.Constants.GENDERS, SavegameEditor._write_pet_gender));
 			
-			getField('select-pet' + i + '-gender').removeAttribute('disabled');
-			getField('select-pet' + i + '-breed').removeAttribute('disabled');
-			get('container-pet' + i + '-breed').addEventListener('change', function() {
-				var reset_dummy = {
-					target: {
-						id: 'select-pet'+i+'-breed-variant'
-					}
-				}
-				var cpbv = get('container-pet'+i+'-breed-variant')
-				cpbv.innerText = '';
-				cpbv.appendChild(select('pet'+i+'-breed-variant', window.variants.dog.breeds[SavegameEditor.Constants.PET_BREEDS[getField('pet1-breed').selectedIndex].variant], SavegameEditor._write_pet_breed_variant));
-				SavegameEditor._write_pet_breed_variant(reset_dummy);
-			});
-
 			setValue('pet' + i + '-name', tempFile.readU16String(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_NAME_OFFSET, 10));
 			setValue('pet' + i + '-gender', tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_GENDER_OFFSET));
-			setValue('pet' + i + '-breed', tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_OFFSET));
 			get('input-pet' + i + '-name').addEventListener('change', SavegameEditor._write_pet_name);
 			
 			// Experimental
@@ -254,9 +259,6 @@ SavegameEditor={
 			get('number-pet' + i + '-coat').addEventListener('change', SavegameEditor._write_pet_coat);
 			*/
 		}
-		
-		get('number-pet1-breed-color').addEventListener('change', SavegameEditor._write_pet_breed_color);
-		get('number-pet1-breed-style').addEventListener('change', SavegameEditor._write_pet_breed_style);
 	},
 
 	/* save function */
