@@ -1,38 +1,39 @@
+var spriteBaseURL = 'https://www.spriters-resource.com/resources/sheets/112/%0.png';
 var spriteData = {
-	beagle: {path: './dogs/beagle.png', row: 6},
-	golden_retriever: {path: './dogs/golden_retriever.png', row: 6},
-	yorkshire_terrier: {path: './dogs/yorkshire_terrier.png', row: 6},
-	miniature_dachshund: {path: './dogs/miniature_dachshund.png', row: 5},
-	miniature_dachshund1: {path: './dogs/miniature_dachshund.png', row: 1},
-	chihuahua: {path: './dogs/chihuahua.png', row: 6},
-	chihuahua1: {path: './dogs/chihuahua.png', row: 2},
-	toy_poodle: {path: './dogs/toy_poodle.png', row: 5},
-	toy_poodle1: {path: './dogs/toy_poodle.png', row: 1},
-	shiba: {path: './dogs/shiba.png', row: 5},
-	labrador_retriever: {path: './dogs/labrador_retriever.png', row: 5},
-	labrador_retriever1: {path: './dogs/labrador_retriever.png', row: 1},
-	spaniel: {path: './dogs/spaniel.png', row: 5},
-	pug: {path: './dogs/pug.png', row: 5},
-	shih_tzu: {path: './dogs/shih_tzu.png', row: 5},
-	shetland_sheepdog: {path: './dogs/shetland_sheepdog.png', row: 6},
-	miniature_schnauzer: {path: './dogs/miniature_schnauzer.png', row: 5},
-	miniature_schnauzer1: {path: './dogs/miniature_schnauzer.png', row: 1},
-	pembroke_welsh_corgi: {path: './dogs/pembroke_welsh_corgi.png', row: 6},
-	miniature_pinscher: {path: './dogs/miniature_pinscher.png', row: 5},
-	german_shepherd_dog: {path: './dogs/german_shepherd_dog.png', row: 6},
-	jack_russell_terrier: {path: './dogs/jack_russell_terrier.png', row: 6},
-	siberian_husky: {path: './dogs/siberian_husky.png', row: 6},
-	boxer: {path: './dogs/boxer.png', row: 6},
-	dalmatian: {path: './dogs/dalmatian.png', row: 6},
-	pomeranian: {path: './dogs/pomeranian.png', row: 6},
-	pomeranian1: {path: './dogs/pomeranian.png', row: 1},
-	french_bulldog: {path: './dogs/french_bulldog.png', row: 5},
-	cocker_spaniel: {path: './dogs/cocker_spaniel.png', row: 5},
-	maltese: {path: './dogs/maltese.png', row: 6},
-	great_dane: {path: './dogs/great_dane.png', row: 6},
-	bull_terrier: {path: './dogs/bull_terrier.png', row: 6},
-	basset_hound: {path: './dogs/basset_hound.png', row: 6},
-	robo_pup: {path: './dogs/robo_pup.png', row: 5}
+	beagle: {sprite_id: '114732', row: 6},
+	golden_retriever: {sprite_id: '114737', row: 6},
+	yorkshire_terrier: {sprite_id: '114736', row: 6},
+	miniature_dachshund: {sprite_id: '114902', row: 5},
+	miniature_dachshund1: {sprite_id: '114902', row: 1},
+	chihuahua: {sprite_id: '114890', row: 6},
+	chihuahua1: {sprite_id: '114890', row: 2},
+	toy_poodle: {sprite_id: '114905', row: 5},
+	toy_poodle1: {sprite_id: '114905', row: 1},
+	shiba: {sprite_id: '114908', row: 5},
+	labrador_retriever: {sprite_id: '114900', row: 5},
+	labrador_retriever1: {sprite_id: '114900', row: 1},
+	spaniel: {sprite_id: '114901', row: 5},
+	pug: {sprite_id: '114906', row: 5},
+	shih_tzu: {sprite_id: '114909', row: 5},
+	shetland_sheepdog: {sprite_id: '114912', row: 6},
+	miniature_schnauzer: {sprite_id: '114904', row: 5},
+	miniature_schnauzer1: {sprite_id: '114904', row: 1},
+	pembroke_welsh_corgi: {sprite_id: '114899', row: 6},
+	miniature_pinscher: {sprite_id: '114903', row: 5},
+	german_shepherd_dog: {sprite_id: '114896', row: 6},
+	jack_russell_terrier: {sprite_id: '114898', row: 6},
+	siberian_husky: {sprite_id: '114897', row: 6},
+	boxer: {sprite_id: '114888', row: 6},
+	dalmatian: {sprite_id: '114891', row: 6},
+	pomeranian: {sprite_id: '114907', row: 6},
+	pomeranian1: {sprite_id: '114907', row: 1},
+	french_bulldog: {sprite_id: '114892', row: 5},
+	cocker_spaniel: {sprite_id: '114893', row: 5},
+	maltese: {sprite_id: '114734', row: 6},
+	great_dane: {sprite_id: '114895', row: 6},
+	bull_terrier: {sprite_id: '114889', row: 6},
+	basset_hound: {sprite_id: '114733', row: 6},
+	robo_pup: {sprite_id: '114735', row: 5}
 }
 window.spriteData = spriteData;
 
@@ -70,7 +71,7 @@ window.addEventListener('load', function() {
 			var style = 0;
 			for (var i = offset; i<offset+Number(e.target.getAttribute('image-items')); i++) {
 				var ele = document.createElement('div');
-				ele.style.backgroundImage = 'url(' + sD.path + ')';
+				ele.style.backgroundImage = 'url(' + spriteBaseURL.replaceAll('%0', sD.sprite_id) + ')';
 				ele.className = 'sprite';
 				ele.dataset.color = color;
 				ele.dataset.style = style;

@@ -15,38 +15,6 @@ SavegameEditor={
 			{value:0, name:'Male'},
 			{value:1, name:'Female'}
 		],
-		PET_BREEDS:[ // variant is used inside variant_dog.js
-			{value:0, name:'Beagle', variant:'beagle'},
-			{value:1, name:'Golden Retriever', variant:'golden_retriever'},
-			{value:2, name:'Yorkshire Terrier', variant:'yorkshire_terrier'},
-			{value:3, name:'Miniature Dachshund', variant:'miniature_dachshund'},
-			{value:4, name:'Chihuahua #1', variant:'chihuahua1'},
-			{value:5, name:'Chihuahua #2', variant:'chihuahua2'},
-			{value:6, name:'Toy Poodle #1', variant:'toy_poodle1'},
-			{value:7, name:'Toy Poodle #2', variant:'toy_poodle2'},
-			{value:8, name:'Shiba', variant:'shiba'},
-			{value:9, name:'Labrador Retriever', variant:'labrador_retriever'},
-			{value:10, name:'Spaniel', variant:'spaniel'},
-			{value:11, name:'Pug', variant:'pug'},
-			{value:12, name:'Shih Tzu', variant:'shih_tzu'},
-			{value:13, name:'Shetland Sheepdog', variant:'shetland_sheepdog'},
-			{value:14, name:'Miniature Schnauzer', variant:'miniature_schnauzer'},
-			{value:15, name:'Pembroke Welsh Corgi', variant:'pembroke_welsh_corgi'},
-			{value:16, name:'Miniature Pinscher', variant:'miniature_pinscher'},
-			{value:17, name:'German Shepherd Dog', variant:'german_shepherd_dog'},
-			{value:18, name:'Jack Russell Terrier', variant:'jack_russell_terrier'},
-			{value:19, name:'Siberian Husky', variant:'siberian_husky'},
-			{value:20, name:'Boxer', variant:'boxer'},
-			{value:21, name:'Dalmatian', variant:'dalmatian'},
-			{value:22, name:'Pomeranian', variant:'pomeranian'},
-			{value:23, name:'French Bulldog', variant:'french_bulldog'},
-			{value:24, name:'Maltese', variant:'maltese'},
-			{value:25, name:'Cocker Spaniel', variant:'cocker_spaniel'},
-			{value:26, name:'Great Dane', variant:'great_dane'},
-			{value:27, name:'Bull Terrier', variant:'bull_terrier'},
-			{value:28, name:'Basset Hound', variant:'basset_hound'},
-			{value:32, name:'RoboPup', variant:'robo_pup'}
-		],
 		PET_OFFSET:[
 			0x026A, //    618
 			0x1E6A, //  7,786
