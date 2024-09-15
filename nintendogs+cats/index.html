@@ -44,12 +44,12 @@
 		</div>
 	</div>
 </template>
-<dialog id="menu">
-	<div id="menu-sidebar">
+<dialog id="menu" data-type="dog">
+	<div class="menu-sidebar" id="menu-sidebar-dog">
 		<div class="header">Beagle</div>
 		<div breed='beagle' image-offset="0" image-items="30" class="page-0-0">Tricolour</div>
 		<div breed='beagle' image-offset="30" image-items="30" class="page-0-1">Lemon & White</div>
-		<div breed='beagle' image-offset="60" image-items="31" class="page-0-2">Surprise me!</div>
+		<div breed='beagle' image-offset="60" image-items="31" class="page-0-12">Surprise me!</div>
 		<div class="header">Golden Retriever</div>
 		<div breed="golden_retriever" image-offset="0" image-items="10" class="page-1-0">Golden</div>
 		<div breed="golden_retriever" image-offset="12" image-items="31" class="page-1-12">Surprise me!</div>
@@ -70,24 +70,24 @@
 		<div breed='toy_poodle1' image-offset="6" image-items="5" class="page-7-0">Clipped Muzzle</div>
 		<div breed='toy_poodle' image-offset="55" image-items="31" class="page-7-12">Surprise me!</div>
 		<div class="header">Shiba</div>
-		<div breed='shiba' image-offset="0" image-items="30" class="page-8-0">Red & White</div>
-		<div breed='shiba' image-offset="30" image-items="30" class="page-8-1">Black & Tan</div>
-		<div breed='shiba' image-offset="60" image-items="61" class="page-8-12">Surprise me!</div>
+		<div breed='shiba' image-offset="0" image-items="30" class="page-8-0" data-percolor="6">Red & White</div>
+		<div breed='shiba' image-offset="30" image-items="30" class="page-8-1" data-percolor="6">Black & Tan</div>
+		<div breed='shiba' image-offset="60" image-items="61" class="page-8-12" data-percolor="6">Surprise me!</div>
 		<div class="header">Labrador Retriever</div>
 		<div breed='labrador_retriever1' image-offset="0" image-items="5" class="page-9-0">Yellow</div>
 		<div breed='labrador_retriever1' image-offset="5" image-items="6" class="page-9-1">Black</div>
 		<div breed='labrador_retriever1' image-offset="11" image-items="5" class="page-9-2">Chocolate</div>
-		<div breed='labrador_retriever' image-offset="80" image-items="31" class="page-9-12">Surprise me!</div>
+		<div breed='labrador_retriever' image-offset="80" image-items="31" class="page-9-12" data-percolor="6">Surprise me!</div>
 		<div class="header">Spaniel</div>
-		<div breed='spaniel' image-offset="0" image-items="30" class="page-10-0">Blentheim</div>
-		<div breed='spaniel' image-offset="0" image-items="30" class="page-10-1">Tricolour</div>
-		<div breed='spaniel' image-offset="0" image-items="30" class="page-10-2">Ruby</div>
-		<div breed='spaniel' image-offset="0" image-items="30" class="page-10-12">Surprise me!</div>
+		<div breed='spaniel' image-offset="0" image-items="30" class="page-10-0" data-percolor="6">Blentheim</div>
+		<div breed='spaniel' image-offset="30" image-items="30" class="page-10-1" data-percolor="6">Tricolour</div>
+		<div breed='spaniel' image-offset="60" image-items="5" class="page-10-2" data-percolor="6">Ruby</div>
+		<div breed='spaniel' image-offset="65" image-items="31" class="page-10-12" data-percolor="6">Surprise me!</div>
 		<div class="header">Pug</div>
-		<div breed='pug' image-offset="0" image-items="30" class="page-11-0">Silver</div>
-		<div breed='pug' image-offset="30" image-items="5" class="page-11-1">Black</div>
-		<div breed='pug' image-offset="35" image-items="30" class="page-11-2">Apricot</div>
-		<div breed='pug' image-offset="65" image-items="31" class="page-11-12">Surprise me!</div>
+		<div breed='pug' image-offset="0" image-items="30" class="page-11-0" data-percolor="6">Silver</div>
+		<div breed='pug' image-offset="30" image-items="5" class="page-11-1" data-percolor="6">Black</div>
+		<div breed='pug' image-offset="35" image-items="30" class="page-11-2" data-percolor="6">Apricot</div>
+		<div breed='pug' image-offset="65" image-items="31" class="page-11-12" data-percolor="6">Surprise me!</div>
 		<div class="header">Shih Tzu</div>
 		<div breed='shih_tzu' image-offset="0" image-items="30" class="page-12-0">Brown & White</div>
 		<div breed='shih_tzu' image-offset="30" image-items="30" class="page-12-1">Brindle & White</div>
@@ -160,6 +160,21 @@
 		<div breed='basset_hound' image-offset="60" image-items="31" class="page-28-12">Surprise me!</div>
 		<div class="header">Robo Pup</div>
 		<div breed='robo_pup' image-offset="0" image-items="21" class="page-32-0">Untitled</div>
+	</div>
+	<div class="menu-sidebar" id="menu-sidebar-cat">
+		<div class="header">Standard Cat</div>
+		<div breed='standard' image-offset="390" image-items="180" class="page-29-2" data-percolor="18">Solid</div>
+		<div breed='standard' image-offset="0" image-items="180" class="page-29-0" data-percolor="18">Tabby</div>
+		<div breed='standard' image-offset="570" image-items="201" class="page-29-12" data-percolor="18">Spotted Tabby</div>
+		<div breed='standard' image-offset="180" image-items="210" class="page-29-1" data-percolor="21">Calico</div>
+		<div class="header">Oriental Cat</div>
+		<div breed='oriental' image-offset="0" image-items="180" class="page-30-0" data-percolor="18">Pointed</div>
+		<div breed='oriental' image-offset="180" image-items="180" class="page-30-1" data-percolor="18">Smoke</div>
+		<div breed='oriental' image-offset="360" image-items="33" class="page-30-12" data-percolor="3">Surprise me!</div>
+		<div class="header">Longhaired Cat</div>
+		<div breed='longhair' image-offset="0" image-items="180" class="page-31-0" data-percolor="18">Pointed</div>
+		<div breed='longhair' image-offset="180" image-items="363" class="page-31-1" data-percolor="18">Bicolour</div>
+		<!--<div breed='longhair' image-offset="540" image-items="200" class="page-31-12">Surprise me!</div>-->
 	</div>
 	<div id="menu-content">
 	</div>
