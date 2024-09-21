@@ -187,13 +187,15 @@ SavegameEditor={
 			window._sidebar_event({
 				target: dialogEle
 			});
-			var breedImg = document
-				.getElementById('menu-content')
-				.getElementsByClassName(dialogClassName)[0]
-				.querySelector('div[data-color="' + tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_COLOR_OFFSET) + '"][data-style="' + tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_STYLE_OFFSET) + '"]')
-				.cloneNode();
-			breedImg.id='petimage'+i;
-			get('container-pet' + i + '-breed').appendChild(breedImg);
+						var breedImg = document
+							.getElementById('menu-content')
+							.getElementsByClassName(dialogClassName)[0]
+							.querySelector('div[data-color="' + tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_COLOR_OFFSET) + '"]\
+[data-style="' + tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_STYLE_OFFSET) + '"]'
+											)
+							.cloneNode();
+						breedImg.id='petimage'+i;
+						get('container-pet' + i + '-breed').appendChild(breedImg);
 
 			var dialogbtn = document.createElement('button');
 			dialogbtn.dataset.pet = i - 1;
@@ -201,8 +203,15 @@ SavegameEditor={
 				e.preventDefault()
 				get('menu').dataset.pet = e.target.dataset.pet;
 				get('menu').showModal();
+				var dialogClassName_ = 'page-' + 
+					tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[e.target.dataset.pet]+SavegameEditor.Constants.PET_BREED_OFFSET) +
+					'-' +
+					tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[e.target.dataset.pet]+SavegameEditor.Constants.PET_BREED_VARIANT_OFFSET);
+				var dialogEle_ = document.getElementsByClassName(
+					dialogClassName_
+				)[0];
 				window._sidebar_event({
-					target: dialogEle
+					target: dialogEle_
 				});
 			};
 			dialogbtn.innerText = 'Change';
