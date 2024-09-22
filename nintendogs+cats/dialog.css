@@ -32,6 +32,7 @@
 #menu-content {
 	grid-area: b;
 	height: 100%;
+	min-width: 454px;
 	position: relative;
 	width: 100%;
 }
