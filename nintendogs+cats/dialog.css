@@ -71,6 +71,9 @@
 	border-radius: 5px;
 	cursor: pointer;
 }
+.menu-sidebar > div[class$="-22"] {
+    text-indent: 2em;
+}
 
 .menu-sidebar > div[open] {
 	background: #cececf;
@@ -81,6 +84,7 @@
 	background-repeat: no-repeat;
 	display: inline-block;
 	height: 64px;
+	image-rendering: pixelated;
 	margin: 5px;
 	vertical-align: text-top;
 	width: 64px;
