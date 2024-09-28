@@ -23,16 +23,17 @@ SavegameEditor={
 			0x726A, // 29,290
 			0x8E6A  // 36,458
 		],
-		PET_NAME_OFFSET: 0x42,         //  66
-		PET_POINTS_OFFSET: 0x3E,       //  62
-		PET_GENDER_OFFSET: 0x56,       //  86
-		PET_HUNGER_OFFSET: 0x84,       // 132
-		PET_THIRST_OFFSET: 0x88,       // 136
-		PET_COAT_OFFSET: 0x8C,         // 140
-		PET_BREED_OFFSET: 0x32,        //  50
-		PET_BREED_VARIANT_OFFSET: 0x33,//  51 = Variant (e.g. Spaniel = 0:Blentheim, 1:Tricolour, 2:Ruby)
-		PET_BREED_STYLE_OFFSET: 0x34,  //  52 = Hairstyle
-		PET_BREED_COLOR_OFFSET: 0x36   //  54 = Fur Color
+		PET_NAME_OFFSET: 0x42,            //  66
+		PET_POINTS_OFFSET: 0x3E,          //  62
+		PET_GENDER_OFFSET: 0x56,          //  86
+		PET_HUNGER_OFFSET: 0x84,          // 132
+		PET_THIRST_OFFSET: 0x88,          // 136
+		PET_COAT_OFFSET: 0x8C,            // 140
+		PET_BREED_OFFSET: 0x32,           //  50
+		PET_BREED_VARIANT_OFFSET: 0x33,   //  51 = Variant (e.g. Spaniel = 0:Blentheim, 1:Tricolour, 2:Ruby)
+		PET_BREED_STYLE_OFFSET: 0x34,     //  52 = Hairstyle
+		PET_BREED_EYE_COLOR_OFFSET: 0x35, //  53 = Eye Color (Cats only) (0=gray, 1=yellow, 2=blue)
+		PET_BREED_COLOR_OFFSET: 0x36     //  54 = Fur Color
 	},
 	
 	_write_money:function(){
