@@ -489,7 +489,24 @@ SavegameEditor={
 				variable=new Variable('OwnedCustomizableHorseTack_Reins.'+item.id, 'Bool');
 			}else if(/^GameRomHorseSaddle_/.test(item.id)){
 				variable=new Variable('OwnedCustomizableHorseTack_Saddle.'+item.id, 'Bool');
+			}else if(item.id==='Obj_Camera'){
+				variable=new Variable('IsGet.Obj_Camera', 'Bool');
+				var variable2=new Variable('IsGetAnyway.Obj_Camera', 'Bool');
+				variable2.value=true;
+				variable2.save();
+			}else if(item.id==='Obj_WarpDLC'){
+				variable=new Variable('IsGet.Obj_WarpDLC', 'Bool');
+				var variable2=new Variable('IsGetAnyway.Obj_WarpDLC', 'Bool');
+				variable2.value=true;
+				variable2.save();
+				variable2=new Variable('IsGet.Obj_Warp', 'Bool');
+				variable2.value=true;
+				variable2.save();
+				variable2=new Variable('IsGetAnyway.Obj_Warp', 'Bool');
+				variable2.value=true;
+				variable2.save();
 			}
+
 			if(variable && !variable.value){
 				variable.value=true;
 				variable.save();
@@ -1557,6 +1574,18 @@ SavegameEditor={
 			);
 		});
 
+		/* abilities */
+		Item.ABILITIES.forEach(function(abilityId){
+			document.getElementById('key-abilities-'+abilityId).addEventListener('change', function(){
+				var variable1=new Variable('IsGet.Obj_'+abilityId, 'Bool');
+				var variable2=new Variable('IsGetAnyway.Obj_'+abilityId, 'Bool');
+				variable1.value=this.checked;
+				variable2.value=this.checked;
+				variable1.save();
+				variable2.save();
+			});
+		});
+
 		/* master editor mini */
 		$('#button-hash-editor-export').on('click', TOTKMasterEditor.miniExport);
 		$('#button-hash-editor-import').on('click', function(evt){
@@ -1650,6 +1679,13 @@ SavegameEditor={
 			var item=SavegameEditor.pouches.key.findItemById('Parasail');
 			if(item)
 				Pouch.updateItemIcon(item);
+		});
+
+		/* abilities */
+		Item.ABILITIES.forEach(function(abilityId){
+			var variable1=new Variable('IsGet.Obj_'+abilityId, 'Bool');
+			var variable2=new Variable('IsGetAnyway.Obj_'+abilityId, 'Bool');
+			document.getElementById('key-abilities-'+abilityId).checked=variable1.value && variable2.value;
 		});
 
 		/* read pouches */

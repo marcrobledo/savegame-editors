@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Item class (last update 2024-01-10)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Item class (last update 2024-09-29)
 
 	by Marc Robledo 2023-2024
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
@@ -164,6 +164,14 @@ Item.KEY_COUNTABLE=[
 	'Obj_AutoBuilderDraft_00',
 	'Obj_AutoBuilderDraftAssassin_00',
 	'Item_StableHostelAccommodationCoupon_A'
+];
+Item.ABILITIES=[
+	'UltraHand',
+	'OneTouchBond', /* fusion */
+	'Tooreroof', /* ascent */
+	'ReverseRecorder', /* recall */
+	'AutoBuilder',
+	'AmiiboItem'
 ];
 
 
@@ -921,7 +929,6 @@ Item.AVAILABILITY={
 		'Obj_Photo_Weapon', //Weapon Photo
 		'Obj_SheikSensor', //Sheikah Sensor
 		'Obj_SheikSensorLv2', //Sheikah Sensor (Level 2)
-		'Obj_Warp', //Purah Pad Warp Functionality
 	]
 };
 
