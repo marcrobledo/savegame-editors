@@ -33,7 +33,7 @@ SavegameEditor={
 		PET_BREED_VARIANT_OFFSET: 0x33,   //  51 = Variant (e.g. Spaniel = 0:Blentheim, 1:Tricolour, 2:Ruby)
 		PET_BREED_STYLE_OFFSET: 0x34,     //  52 = Hairstyle
 		PET_BREED_EYE_COLOR_OFFSET: 0x35, //  53 = Eye Color (Cats only) (0=gray, 1=yellow, 2=blue)
-		PET_BREED_COLOR_OFFSET: 0x36     //  54 = Fur Color
+		PET_BREED_COLOR_OFFSET: 0x36      //  54 = Fur Color
 	},
 	
 	_write_money:function(){
@@ -175,16 +175,18 @@ SavegameEditor={
 					ele.setAttribute('for', ele.getAttribute('for').replaceAll('petX', 'pet' + i));
 				}
 			}
+			var breed = tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_OFFSET);
 			outer_ele.appendChild(templateClone);
-
 			var dialogClassName = 'page-' + 
-				tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_OFFSET) +
+				breed +
 				'-' +
 				tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_VARIANT_OFFSET);
 			const dialogEle = document.getElementsByClassName(
 				dialogClassName
 			)[0];
-
+			if (breed > 28 && breed < 32) {
+				document.getElementById('eyecolor').querySelector('[data-offset="' + tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_EYE_COLOR_OFFSET) + '"]').checked=true;
+			}
 			window._sidebar_event({
 				target: dialogEle
 			});
@@ -204,13 +206,17 @@ SavegameEditor={
 				e.preventDefault()
 				get('menu').dataset.pet = e.target.dataset.pet;
 				get('menu').showModal();
+				var breed = tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[e.target.dataset.pet]+SavegameEditor.Constants.PET_BREED_OFFSET);
 				var dialogClassName_ = 'page-' + 
-					tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[e.target.dataset.pet]+SavegameEditor.Constants.PET_BREED_OFFSET) +
+					breed +
 					'-' +
 					tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[e.target.dataset.pet]+SavegameEditor.Constants.PET_BREED_VARIANT_OFFSET);
 				var dialogEle_ = document.getElementsByClassName(
 					dialogClassName_
 				)[0];
+				if (breed > 28 && breed < 32) {
+					document.getElementById('eyecolor').querySelector('[data-offset="' + tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[e.target.dataset.pet]+SavegameEditor.Constants.PET_BREED_EYE_COLOR_OFFSET) + '"]').checked=true;
+				}
 				window._sidebar_event({
 					target: dialogEle_
 				});

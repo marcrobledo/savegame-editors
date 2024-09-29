@@ -55,10 +55,11 @@ window.addEventListener('load', function() {
 		menu = document.getElementById('menu'),
 		sidebar_dog = document.getElementById('menu-sidebar-dog'),
 		sidebar_cat = document.getElementById('menu-sidebar-cat'),
-		content = document.getElementById('menu-content');
+		content = document.getElementById('menu-content'),
+		eyecolor = document.getElementById('eyecolor');
 
 	var sidebar_event = function(e) {
-		if (!e.target.className.startsWith('page-')) {return;}
+		if (!e.target || !e.target.className || !e.target.className.startsWith('page-')) {return;}
 		var old = sidebar_dog.querySelector('div[open]');
 		if (old) {
 			old.removeAttribute('open');
@@ -76,7 +77,12 @@ window.addEventListener('load', function() {
 			menu.dataset.type = 'dog';
 		}
 		e.target.setAttribute('open', true);
+		var eye_color_offset = menu.dataset.type === 'cat' && Number(document.getElementById('eyecolor').querySelector(':checked').dataset.offset) || 0;
 		var newContent = content.querySelector('.' + e.target.className);
+		if (newContent && menu.dataset.type === 'cat') {
+			newContent.parentElement.removeChild(newContent);
+			newContent = undefined;
+		}
 		if (!newContent) {
 			newContent = document.createElement('div');
 			newContent.className = e.target.className;
@@ -86,23 +92,27 @@ window.addEventListener('load', function() {
 			var offY = -4 - 68 * Math.ceil(offset / sD.row);
 			var color = 0;
 			var style = 0;
-			for (var i = offset; i<offset+Number(e.target.getAttribute('image-items')); i++) {
-				var ele = document.createElement('div');
-				ele.style.backgroundImage = 'url(' + spriteBaseURL.replaceAll('%0', sD.sprite_id) + ')';
-				ele.className = 'sprite';
-				ele.dataset.color = color;
-				ele.dataset.style = style;
-				ele.style.backgroundPosition = offX + 'px ' + offY + 'px';
-				newContent.appendChild(ele);
-				offX -= 68;
-				style++;
-				if (style >= (e.target.dataset.percolor || sD.row)) {
-					color++;
-					style=0;
+			var i_max = offset+Number(e.target.getAttribute('image-items'));
+			for (var i = offset; i<i_max; i++) {
+				if (menu.dataset.type === 'dog' || (i-offset) % 3 === eye_color_offset) {
+					var ele = document.createElement('div');
+					ele.style.backgroundImage = 'url(' + spriteBaseURL.replaceAll('%0', sD.sprite_id) + ')';
+					ele.className = 'sprite';
+					ele.dataset.color = color;
+					ele.dataset.eye_color = eye_color_offset;
+					ele.dataset.style = style;
+					ele.style.backgroundPosition = offX + 'px ' + offY + 'px';
+					newContent.appendChild(ele);
+					style++;
 				}
+				offX -= 68;
 				if (((i-offset) > 0 || sD.row === 1) && (i-offset) % sD.row == sD.row-1) {
 					offX = -4;
 					offY -= 68;
+				}
+				if (style >= (e.target.dataset.percolor || sD.row)) {
+					color++;
+					style=0;
 				}
 			}
 			newContent.style.width = 74 * (e.target.dataset.percolor || sD.row) + 'px';
@@ -116,12 +126,17 @@ window.addEventListener('load', function() {
 	window._sidebar_event = sidebar_event;
 	sidebar_dog.addEventListener('click', sidebar_event, false);
 	sidebar_cat.addEventListener('click', sidebar_event, false);
+	eyecolor.addEventListener('change', function(e) {
+		sidebar_cat.querySelector('[open]').click();
+	}, false);
+
 	content.addEventListener('click', function(e) {
 		if (!e.target.className.includes('sprite')) {return;}
 		var tmp = e.target.parentElement.className.match(/\d+/g);
 		_writeU8('PET_BREED_OFFSET', tmp[0]);
 		_writeU8('PET_BREED_VARIANT_OFFSET', tmp[1]);
 		_writeU8('PET_BREED_COLOR_OFFSET', e.target.dataset.color);
+		_writeU8('PET_BREED_EYE_COLOR_OFFSET', e.target.dataset.eye_color);
 		_writeU8('PET_BREED_STYLE_OFFSET',e.target.dataset.style);
 		var newImage = e.target.cloneNode();
 		newImage.id = 'petimage' + (Number(get('menu').dataset.pet)+1);

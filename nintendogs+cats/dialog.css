@@ -89,3 +89,37 @@
 	vertical-align: text-top;
 	width: 64px;
 }
+
+#eyecolor {
+    width: 100%;
+    display: none;
+}
+
+#menu[data-type="cat"] #eyecolor {
+	display: flex;
+}
+
+#eyecolor input {
+    display: none;
+}
+
+#eyecolor label {
+    background: #cececf;
+    width: 30%;
+    text-align: center;
+}
+
+#eyecolor input:checked + label {
+    background: gray;
+    color: white;
+}
+
+input#eye_gray + label {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+input#eye_blue + label {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
