@@ -32,7 +32,7 @@ SavegameEditor={
 		PET_BREED_OFFSET: 0x32,           //  50
 		PET_BREED_VARIANT_OFFSET: 0x33,   //  51 = Variant (e.g. Spaniel = 0:Blentheim, 1:Tricolour, 2:Ruby)
 		PET_BREED_STYLE_OFFSET: 0x34,     //  52 = Hairstyle
-		PET_BREED_EYE_COLOR_OFFSET: 0x35, //  53 = Eye Color (Cats only) (0=gray, 1=yellow, 2=blue)
+		PET_BREED_EYE_COLOR_OFFSET: 0x35, //  53 = Eye Color (Cats: 0=gray, 1=yellow, 2=blue; Dogs: 255)
 		PET_BREED_COLOR_OFFSET: 0x36      //  54 = Fur Color
 	},
 	
@@ -80,7 +80,9 @@ SavegameEditor={
 	_write_pet_coat:function(e){
 		SavegameEditor._write_u_number(e, 16, 'PET_COAT_OFFSET');
 	},
-	
+	_getPetData(petOffset, value) {
+		return tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[petOffset]+SavegameEditor.Constants[value]);
+	},
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
 		return (tempFile.fileSize==60936);
@@ -175,30 +177,33 @@ SavegameEditor={
 					ele.setAttribute('for', ele.getAttribute('for').replaceAll('petX', 'pet' + i));
 				}
 			}
-			var breed = tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_OFFSET);
+			var breed = SavegameEditor._getPetData(i-1, 'PET_BREED_OFFSET');
 			outer_ele.appendChild(templateClone);
 			var dialogClassName = 'page-' + 
 				breed +
 				'-' +
-				tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_VARIANT_OFFSET);
+				SavegameEditor._getPetData(i-1, 'PET_BREED_VARIANT_OFFSET');
 			const dialogEle = document.getElementsByClassName(
 				dialogClassName
 			)[0];
 			if (breed > 28 && breed < 32) {
-				document.getElementById('eyecolor').querySelector('[data-offset="' + tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_EYE_COLOR_OFFSET) + '"]').checked=true;
+				document.getElementById('eyecolor').querySelector('[data-offset="' + SavegameEditor._getPetData(i-1, 'PET_BREED_EYE_COLOR_OFFSET') + '"]').checked=true;
 			}
 			window._sidebar_event({
 				target: dialogEle
 			});
-						var breedImg = document
-							.getElementById('menu-content')
-							.getElementsByClassName(dialogClassName)[0]
-							.querySelector('div[data-color="' + tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_COLOR_OFFSET) + '"]\
-[data-style="' + tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_BREED_STYLE_OFFSET) + '"]'
-											)
-							.cloneNode();
-						breedImg.id='petimage'+i;
-						get('container-pet' + i + '-breed').appendChild(breedImg);
+			var breedImg = document.createElement('img');
+			var breedImgTmp = document
+				.getElementById('menu-content')
+				.getElementsByClassName(dialogClassName)[0]
+				.querySelector('div[data-color="' + SavegameEditor._getPetData(i-1, 'PET_BREED_COLOR_OFFSET') + '"]\
+[data-style="' + SavegameEditor._getPetData(i-1, 'PET_BREED_STYLE_OFFSET') + '"]'
+				)
+			if (breedImgTmp) {
+				breedImg = breedImgTmp.cloneNode();
+				breedImg.id='petimage'+i;
+			}
+			get('container-pet' + i + '-breed').appendChild(breedImg);
 
 			var dialogbtn = document.createElement('button');
 			dialogbtn.dataset.pet = i - 1;
@@ -206,16 +211,16 @@ SavegameEditor={
 				e.preventDefault()
 				get('menu').dataset.pet = e.target.dataset.pet;
 				get('menu').showModal();
-				var breed = tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[e.target.dataset.pet]+SavegameEditor.Constants.PET_BREED_OFFSET);
+				var breed = SavegameEditor._getPetData(e.target.dataset.pet, 'PET_BREED_OFFSET');
 				var dialogClassName_ = 'page-' + 
 					breed +
 					'-' +
-					tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[e.target.dataset.pet]+SavegameEditor.Constants.PET_BREED_VARIANT_OFFSET);
+					SavegameEditor._getPetData(e.target.dataset.pet, 'PET_BREED_VARIANT_OFFSET');
 				var dialogEle_ = document.getElementsByClassName(
 					dialogClassName_
 				)[0];
 				if (breed > 28 && breed < 32) {
-					document.getElementById('eyecolor').querySelector('[data-offset="' + tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[e.target.dataset.pet]+SavegameEditor.Constants.PET_BREED_EYE_COLOR_OFFSET) + '"]').checked=true;
+					document.getElementById('eyecolor').querySelector('[data-offset="' + SavegameEditor._getPetData(e.target.dataset.pet, 'PET_BREED_EYE_COLOR_OFFSET') + '"]').checked=true;
 				}
 				window._sidebar_event({
 					target: dialogEle_
@@ -227,7 +232,7 @@ SavegameEditor={
 			get('container-pet' + i + '-gender').appendChild(select('pet' + i + '-gender', SavegameEditor.Constants.GENDERS, SavegameEditor._write_pet_gender));
 			
 			setValue('pet' + i + '-name', tempFile.readU16String(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_NAME_OFFSET, 10));
-			setValue('pet' + i + '-gender', tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_GENDER_OFFSET));
+			setValue('pet' + i + '-gender', SavegameEditor._getPetData(i-1, 'PET_GENDER_OFFSET'));
 			get('input-pet' + i + '-name').addEventListener('change', SavegameEditor._write_pet_name);
 			
 			// Experimental
