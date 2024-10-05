@@ -94,8 +94,8 @@ SavegameEditor={
 			tempFile.writeU32(
 				SavegameEditor.Constants.LASTSAVED_OFFSET,
 				Math.floor(Date.now() * 0.001)
-			)
-			var a = new Date (Number(tempFile.readU32(SavegameEditor.Constants.LASTSAVED_OFFSET)) * 1000)
+			);
+			var a = new Date (Number(tempFile.readU32(SavegameEditor.Constants.LASTSAVED_OFFSET)) * 1000);
 			a.setHours(a.getHours() - a.getTimezoneOffset()/60);
 			setValue('lastsaved', a.toLocaleString("en-GB", {
 				day: "numeric",
@@ -149,7 +149,7 @@ SavegameEditor={
 
 		setValue('money', tempFile.readU32(SavegameEditor.Constants.MONEY_OFFSET));
 		setNumericRange('money', 0, 9999999);
-		var a = new Date (Number(tempFile.readU32(SavegameEditor.Constants.LASTSAVED_OFFSET)) * 1000)
+		var a = new Date (Number(tempFile.readU32(SavegameEditor.Constants.LASTSAVED_OFFSET)) * 1000);
 		setValue('lastsaved', a.toLocaleString("en-GB", {
 			day: "numeric",
 			month: "short",
@@ -196,9 +196,8 @@ SavegameEditor={
 			var breedImgTmp = document
 				.getElementById('menu-content')
 				.getElementsByClassName(dialogClassName)[0]
-				.querySelector('div[data-color="' + SavegameEditor._getPetData(i-1, 'PET_BREED_COLOR_OFFSET') + '"]\
-[data-style="' + SavegameEditor._getPetData(i-1, 'PET_BREED_STYLE_OFFSET') + '"]'
-				)
+				.querySelector('div[data-color="' + SavegameEditor._getPetData(i-1, 'PET_BREED_COLOR_OFFSET') + '"][data-style="' + SavegameEditor._getPetData(i-1, 'PET_BREED_STYLE_OFFSET') + '"]'
+				);
 			if (breedImgTmp) {
 				breedImg = breedImgTmp.cloneNode();
 				breedImg.id='petimage'+i;
@@ -208,7 +207,7 @@ SavegameEditor={
 			var dialogbtn = document.createElement('button');
 			dialogbtn.dataset.pet = i - 1;
 			dialogbtn.onclick = function(e) {
-				e.preventDefault()
+				e.preventDefault();
 				get('menu').dataset.pet = e.target.dataset.pet;
 				get('menu').showModal();
 				var breed = SavegameEditor._getPetData(e.target.dataset.pet, 'PET_BREED_OFFSET');

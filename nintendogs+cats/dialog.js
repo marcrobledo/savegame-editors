@@ -1,4 +1,6 @@
 var spriteBaseURL = 'https://www.spriters-resource.com/resources/sheets/112/%0.png';
+var spriteBaseURLLocal = 'sprites/%0.png';
+var useLocal = true;
 var spriteData = {
 	// Dogs
 	basset_hound: {sprite_id: '114733', row: 6},
@@ -39,7 +41,7 @@ var spriteData = {
 	standard: {sprite_id: '114911', row: 6},
 	oriental: {sprite_id: '114910', row: 6},
 	longhair: {sprite_id: '114894', row: 18}
-}
+};
 window.spriteData = spriteData;
 
 var _writeU8 = function(variable, value) {
@@ -77,7 +79,7 @@ window.addEventListener('load', function() {
 			menu.dataset.type = 'dog';
 		}
 		e.target.setAttribute('open', true);
-		var eye_color_offset = menu.dataset.type === 'cat' && Number(document.getElementById('eyecolor').querySelector(':checked').dataset.offset) || 0;
+		var eye_color_offset = menu.dataset.type === 'cat' && Number(document.getElementById('eyecolor').querySelector(':checked').dataset.offset) || 255;
 		var newContent = content.querySelector('.' + e.target.className);
 		if (newContent && menu.dataset.type === 'cat') {
 			newContent.parentElement.removeChild(newContent);
@@ -93,15 +95,23 @@ window.addEventListener('load', function() {
 			var color = 0;
 			var style = 0;
 			var i_max = offset+Number(e.target.getAttribute('image-items'));
+			var correctionXOffset = 0;
+			var correctionYOffset = 0;
 			for (var i = offset; i<i_max; i++) {
+				if (newContent.className === 'page-9-1' && color === 2) { // Fix for Labrador Retriever - Black
+					correctionYOffset = 68;
+				} else if (newContent.className === 'page-17-22') { // Fix for German Shepherd Dog - White
+					correctionXOffset = 340;
+				}
 				if (menu.dataset.type === 'dog' || (i-offset) % 3 === eye_color_offset) {
 					var ele = document.createElement('div');
-					ele.style.backgroundImage = 'url(' + spriteBaseURL.replaceAll('%0', sD.sprite_id) + ')';
+					var baseURL = useLocal && spriteBaseURLLocal || spriteBaseURL;
+					ele.style.backgroundImage = 'url(' + baseURL.replaceAll('%0', sD.sprite_id) + ')';
 					ele.className = 'sprite';
 					ele.dataset.color = color;
 					ele.dataset.eye_color = eye_color_offset;
 					ele.dataset.style = style;
-					ele.style.backgroundPosition = offX + 'px ' + offY + 'px';
+					ele.style.backgroundPosition = (offX - correctionXOffset) + 'px ' + (offY - correctionYOffset) + 'px';
 					newContent.appendChild(ele);
 					style++;
 				}
@@ -110,12 +120,12 @@ window.addEventListener('load', function() {
 					offX = -4;
 					offY -= 68;
 				}
-				if (style >= (e.target.dataset.percolor || sD.row)) {
+				if (style >= (e.target.dataset.percolor || 6)) {
 					color++;
 					style=0;
 				}
 			}
-			newContent.style.width = 74 * (e.target.dataset.percolor || sD.row) + 'px';
+			newContent.style.width = 74 * (e.target.dataset.percolor || 6) + 'px';
 			content.appendChild(newContent);
 		} else {
 			newContent.style.removeProperty('display');
