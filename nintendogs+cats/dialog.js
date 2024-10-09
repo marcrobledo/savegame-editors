@@ -1,6 +1,6 @@
 var spriteBaseURL = 'https://www.spriters-resource.com/resources/sheets/112/%0.png';
 var spriteBaseURLLocal = 'sprites/%0.png';
-var useLocal = true;
+var useLocal = false;
 var spriteData = {
 	// Dogs
 	basset_hound: {sprite_id: '114733', row: 6},

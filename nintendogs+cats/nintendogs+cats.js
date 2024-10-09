@@ -33,7 +33,24 @@ SavegameEditor={
 		PET_BREED_VARIANT_OFFSET: 0x33,   //  51 = Variant (e.g. Spaniel = 0:Blentheim, 1:Tricolour, 2:Ruby)
 		PET_BREED_STYLE_OFFSET: 0x34,     //  52 = Hairstyle
 		PET_BREED_EYE_COLOR_OFFSET: 0x35, //  53 = Eye Color (Cats: 0=gray, 1=yellow, 2=blue; Dogs: 255)
-		PET_BREED_COLOR_OFFSET: 0x36      //  54 = Fur Color
+		PET_BREED_COLOR_OFFSET: 0x36,     //  54 = Fur Color
+		PET_COMP_CURL_OFFSET3: 0x59,      //  89 = Curling Competition
+		PET_COMP_CURL_OFFSET2: 0x5A,      //  90 = Curling Competition
+		PET_COMP_CURL_OFFSET: 0x5B,       //  91 = Curling Competition
+		PET_COMP_HIGHEST_PLAYED1: 0x5C,   //  92 = Highest played difficulty at 'Disc Competition'
+		PET_COMP_HIGHEST_PLAYED2: 0x5D,   //  93 = Highest played difficulty at 'Obedience Competition'
+		PET_COMP_HIGHEST_PLAYED3: 0x5E,   //  94 = Highest played difficulty at 'Lure Competition'
+		PET_COMP_RANKS:[
+			{value:0, name:'Nothing'},
+			{value:1, name:'Junior Cup'},
+			{value:3, name:'Amateur Cup'},
+			{value:7, name:'Pro Cup'},
+			{value:15, name:'Nintendogs Cup'}
+		],
+		PET_PERSONALITIES_OFFSET_DOG1: 0x1F6,
+		PET_PERSONALITIES_OFFSET_DOG2: 0x1FA,
+		PET_PERSONALITIES_OFFSET_CAT1: 0x1EE,
+		PET_PERSONALITIES_OFFSET_CAT2: 0x1F2,
 	},
 	
 	_write_money:function(){
@@ -65,23 +82,11 @@ SavegameEditor={
 			Number(getValue(e.target.id))
 		);
 	},
-	_write_pet_gender:function(e){
-		SavegameEditor._write_u_number(e, 8, 'PET_GENDER_OFFSET');
+	_write_pet_value:function(e){
+		SavegameEditor._write_u_number(e, Number(e.target.parentElement.dataset.size), e.target.parentElement.dataset.var);
 	},
-	_write_pet_points:function(e){
-		SavegameEditor._write_u_number(e, 24, 'PET_POINTS_OFFSET');
-	},
-	_write_pet_hunger:function(e){
-		SavegameEditor._write_u_number(e, 16, 'PET_HUNGER_OFFSET');
-	},
-	_write_pet_thirst:function(e){
-		SavegameEditor._write_u_number(e, 16, 'PET_THIRST_OFFSET');
-	},
-	_write_pet_coat:function(e){
-		SavegameEditor._write_u_number(e, 16, 'PET_COAT_OFFSET');
-	},
-	_getPetData(petOffset, value) {
-		return tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[petOffset]+SavegameEditor.Constants[value]);
+	_getPetData(petOffset, value, size) {
+		return tempFile['readU' + (size || 8)](SavegameEditor.Constants.PET_OFFSET[petOffset]+SavegameEditor.Constants[value]);
 	},
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
@@ -165,9 +170,7 @@ SavegameEditor={
 		for (var i=1; i<7; i++){
 			var pet_present = tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]) > 0;
 			if (!pet_present) {continue;}
-			console.log(template);
 			var templateClone = template.content.cloneNode(true);
-			console.log(templateClone);
 			templateClone.querySelector('.orange').innerText = 'Pet ' + i;
 			templateClone.querySelector('.row').id="row-pet"+i;
 			for (var ele of templateClone.querySelectorAll('.update-name')) {
@@ -178,6 +181,9 @@ SavegameEditor={
 				}
 			}
 			var breed = SavegameEditor._getPetData(i-1, 'PET_BREED_OFFSET');
+			var isDog = true;
+			if (breed > 28 && breed < 32)
+				isDog = false;
 			outer_ele.appendChild(templateClone);
 			var dialogClassName = 'page-' + 
 				breed +
@@ -186,7 +192,7 @@ SavegameEditor={
 			const dialogEle = document.getElementsByClassName(
 				dialogClassName
 			)[0];
-			if (breed > 28 && breed < 32) {
+			if (!isDog) {
 				document.getElementById('eyecolor').querySelector('[data-offset="' + SavegameEditor._getPetData(i-1, 'PET_BREED_EYE_COLOR_OFFSET') + '"]').checked=true;
 			}
 			window._sidebar_event({
@@ -228,24 +234,33 @@ SavegameEditor={
 			dialogbtn.innerText = 'Change';
 			get('container-pet' + i + '-breed').appendChild(dialogbtn);
 			
-			get('container-pet' + i + '-gender').appendChild(select('pet' + i + '-gender', SavegameEditor.Constants.GENDERS, SavegameEditor._write_pet_gender));
-			
+			get('container-pet' + i + '-gender').appendChild(select('pet' + i + '-gender', SavegameEditor.Constants.GENDERS, SavegameEditor._write_pet_value));
+
 			setValue('pet' + i + '-name', tempFile.readU16String(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_NAME_OFFSET, 10));
 			setValue('pet' + i + '-gender', SavegameEditor._getPetData(i-1, 'PET_GENDER_OFFSET'));
 			get('input-pet' + i + '-name').addEventListener('change', SavegameEditor._write_pet_name);
-			
+			if (isDog) {
+				get('container-pet' + i + '-disc').appendChild(select('pet' + i + '-disc', SavegameEditor.Constants.PET_COMP_RANKS, SavegameEditor._write_pet_value));
+				setValue('pet' + i + '-disc', SavegameEditor._getPetData(i-1, 'PET_COMP_HIGHEST_PLAYED1'));
+				get('container-pet' + i + '-lure').appendChild(select('pet' + i + '-lure', SavegameEditor.Constants.PET_COMP_RANKS, SavegameEditor._write_pet_value));
+				setValue('pet' + i + '-lure', SavegameEditor._getPetData(i-1, 'PET_COMP_HIGHEST_PLAYED3'));
+				get('container-pet' + i + '-obedience').appendChild(select('pet' + i + '-obedience', SavegameEditor.Constants.PET_COMP_RANKS, SavegameEditor._write_pet_value));
+				setValue('pet' + i + '-obedience', SavegameEditor._getPetData(i-1, 'PET_COMP_HIGHEST_PLAYED2'));
+			} else {
+				get('pet' + i + '_comp_outer').style.display='none';
+			}
+			var personality = window.personalities[SavegameEditor._getPetData(i-1, 'PET_PERSONALITIES_OFFSET_' + (isDog ? 'DOG' : 'CAT') + '1', 8)][SavegameEditor._getPetData(i-1, 'PET_PERSONALITIES_OFFSET_' + (isDog ? 'DOG' : 'CAT') + '2', 8)]
+			setValue('pet' + i + '-personality', personality[Number(SavegameEditor._getPetData(i-1, 'PET_GENDER_OFFSET'))]);
 			// Experimental
-			/*
 			setNumericRange('pet' + i + '-hunger', 0, 17529);
 			setNumericRange('pet' + i + '-thirst', 0, 17529);
 			setNumericRange('pet' + i + '-coat', 0, 17529);
-			setValue('pet' + i + '-hunger', tempFile.readU16(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_HUNGER_OFFSET));
-			setValue('pet' + i + '-thirst', tempFile.readU16(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_THIRST_OFFSET));
-			setValue('pet' + i + '-coat', tempFile.readU16(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_COAT_OFFSET));
-			get('number-pet' + i + '-hunger').addEventListener('change', SavegameEditor._write_pet_hunger);
-			get('number-pet' + i + '-thirst').addEventListener('change', SavegameEditor._write_pet_thirst);
-			get('number-pet' + i + '-coat').addEventListener('change', SavegameEditor._write_pet_coat);
-			*/
+			setValue('pet' + i + '-hunger', SavegameEditor._getPetData(i-1, 'PET_HUNGER_OFFSET', 16));
+			setValue('pet' + i + '-thirst', SavegameEditor._getPetData(i-1, 'PET_THIRST_OFFSET', 16));
+			setValue('pet' + i + '-coat', SavegameEditor._getPetData(i-1, 'PET_COAT_OFFSET', 16));
+			get('number-pet' + i + '-hunger').addEventListener('change', SavegameEditor._write_pet_value);
+			get('number-pet' + i + '-thirst').addEventListener('change', SavegameEditor._write_pet_value);
+			get('number-pet' + i + '-coat').addEventListener('change', SavegameEditor._write_pet_value);
 		}
 	},
 
