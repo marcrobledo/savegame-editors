@@ -3,6 +3,31 @@
 	by Marc Robledo 2016
 */
 var reg = /\d+/;
+
+var diffs = [1056964607, 12582913, 6291456, 4194304];
+for (var i = 0; i < 30; i++) {
+    diffs.push(diffs[diffs.length-2]*0.5);
+}
+var value = 0;
+var level_borders = [];
+for (var j = 0; j < 34; j++) {
+    var amount = 1;
+    if (j > 3 && j%2==1) {
+        amount = Math.pow(2, (j-1)*0.5)-1;
+    }
+    for (var k = 0; k < amount; k++) {
+        level_borders.push([value, value + diffs[j] - 1]);
+		
+		value += diffs[j];
+    }
+	if (level_borders.length > 99999) {
+		level_borders.length = 100000;
+		break;
+	}
+}
+level_borders[99999][1] = 1203982336;
+
+
 SavegameEditor={
 	Name:'Nintendogs + Cats',
 	Filename:'sysdata.dat',
@@ -24,11 +49,12 @@ SavegameEditor={
 			0x8E6A  // 36,458
 		],
 		PET_NAME_OFFSET: 0x42,            //  66
-		PET_POINTS_OFFSET: 0x3E,          //  62
 		PET_GENDER_OFFSET: 0x56,          //  86
-		PET_HUNGER_OFFSET: 0x84,          // 132
-		PET_THIRST_OFFSET: 0x88,          // 136
-		PET_COAT_OFFSET: 0x8C,            // 140
+		PET_POINTS_OFFSET_CAT: 0x5A,      //  90
+		PET_POINTS_OFFSET_DOG: 0x62,      //  98
+		PET_HUNGER_OFFSET: 0x82,          // 130
+		PET_THIRST_OFFSET: 0x86,          // 134
+		PET_COAT_OFFSET: 0x8A,            // 138
 		PET_BREED_OFFSET: 0x32,           //  50
 		PET_BREED_VARIANT_OFFSET: 0x33,   //  51 = Variant (e.g. Spaniel = 0:Blentheim, 1:Tricolour, 2:Ruby)
 		PET_BREED_STYLE_OFFSET: 0x34,     //  52 = Hairstyle
@@ -87,6 +113,9 @@ SavegameEditor={
 	},
 	_getPetData(petOffset, value, size) {
 		return tempFile['readU' + (size || 8)](SavegameEditor.Constants.PET_OFFSET[petOffset]+SavegameEditor.Constants[value]);
+	},
+	_mark_as_changed(e) {
+		e.target.dataset.data_changed=true;
 	},
 	/* check if savegame is valid */
 	checkValidSavegame:function(){
@@ -235,7 +264,7 @@ SavegameEditor={
 			get('container-pet' + i + '-breed').appendChild(dialogbtn);
 			
 			get('container-pet' + i + '-gender').appendChild(select('pet' + i + '-gender', SavegameEditor.Constants.GENDERS, SavegameEditor._write_pet_value));
-
+			
 			setValue('pet' + i + '-name', tempFile.readU16String(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_NAME_OFFSET, 10));
 			setValue('pet' + i + '-gender', SavegameEditor._getPetData(i-1, 'PET_GENDER_OFFSET'));
 			get('input-pet' + i + '-name').addEventListener('change', SavegameEditor._write_pet_name);
@@ -249,7 +278,7 @@ SavegameEditor={
 			} else {
 				get('pet' + i + '_comp_outer').style.display='none';
 			}
-			var personality = window.personalities[SavegameEditor._getPetData(i-1, 'PET_PERSONALITIES_OFFSET_' + (isDog ? 'DOG' : 'CAT') + '1', 8)][SavegameEditor._getPetData(i-1, 'PET_PERSONALITIES_OFFSET_' + (isDog ? 'DOG' : 'CAT') + '2', 8)]
+			var personality = window.personalities[SavegameEditor._getPetData(i-1, 'PET_PERSONALITIES_OFFSET_' + (isDog ? 'DOG' : 'CAT') + '1', 8)][SavegameEditor._getPetData(i-1, 'PET_PERSONALITIES_OFFSET_' + (isDog ? 'DOG' : 'CAT') + '2', 8)];
 			setValue('pet' + i + '-personality', personality[Number(SavegameEditor._getPetData(i-1, 'PET_GENDER_OFFSET'))]);
 			// Experimental
 			setNumericRange('pet' + i + '-hunger', 0, 17529);
@@ -261,10 +290,36 @@ SavegameEditor={
 			get('number-pet' + i + '-hunger').addEventListener('change', SavegameEditor._write_pet_value);
 			get('number-pet' + i + '-thirst').addEventListener('change', SavegameEditor._write_pet_value);
 			get('number-pet' + i + '-coat').addEventListener('change', SavegameEditor._write_pet_value);
+
+			setNumericRange('pet' + i + '-level', 0, 99999);
+			var points = SavegameEditor._getPetData(i-1, (isDog ? 'PET_POINTS_OFFSET_DOG' : 'PET_POINTS_OFFSET_CAT'), 32);
+			for (var j = 0; j < level_borders.length; j++) {
+				if (points >= level_borders[j][0] && points <= level_borders[j][1]) {
+					setValue('pet' + i + '-level', j);
+					break;
+				}
+			}
+			var level_ele = get('number-pet' + i + '-level');
+			level_ele.dataset.is_dog = isDog;
+			level_ele.addEventListener('change', SavegameEditor._mark_as_changed);
 		}
 	},
 
 	/* save function */
 	save:function(){
+		var changed_levels = document.querySelectorAll('[data-data_changed]');
+		for (var i = 0; i < changed_levels.length; i++) {
+			var value_old = changed_levels[i].value;
+			setNumericRange(changed_levels[i].id.substring(7));
+			changed_levels[i].value = level_borders[changed_levels[i].value][0];
+			SavegameEditor._write_u_number(
+				{target: {id: changed_levels[i].id}},
+				32,
+				changed_levels[i].dataset.is_dog ? 'PET_POINTS_OFFSET_DOG' : 'PET_POINTS_OFFSET_CAT'
+			);
+			changed_levels[i].value = value_old;
+			delete changed_levels[i].dataset.data_changed;
+			setNumericRange(changed_levels[i].id.substring(0, 99999));
+		}
 	}
 };
