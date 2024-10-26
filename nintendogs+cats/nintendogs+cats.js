@@ -40,6 +40,9 @@ SavegameEditor={
 			{value:0, name:'Male'},
 			{value:1, name:'Female'}
 		],
+		STREETPASS_MET_OFFSET: 0x98,
+		OWNER_POINTS_OFFSET: 0x9C,
+		PEDOMETER_OFFSET: 0x218,
 		PET_OFFSET:[
 			0x026A, //    618
 			0x1E6A, //  7,786
@@ -83,6 +86,18 @@ SavegameEditor={
 		tempFile.writeU32(
 			SavegameEditor.Constants.MONEY_OFFSET,
 			getValue('money')
+		);
+	},
+	_write_streetpass_met:function(){
+		tempFile.writeU32(
+			SavegameEditor.Constants.STREETPASS_MET_OFFSET,
+			getValue('streetpass-met')
+		);
+	},
+	_write_pedometer:function(){
+		tempFile.writeU32(
+			SavegameEditor.Constants.PEDOMETER_OFFSET,
+			getValue('pedometer')
 		);
 	},
 	_write_supply_amount:function(e){
@@ -141,7 +156,8 @@ SavegameEditor={
 			  }));
 		}, false);
 		get('number-money').addEventListener('change', SavegameEditor._write_money);
-		
+		get('number-streetpass-met').addEventListener('change', SavegameEditor._write_streetpass_met);
+		get('number-pedometer').addEventListener('change', SavegameEditor._write_pedometer);
 		fetch('/savegame-editors/nintendogs+cats/supplies.json')
 			.then(function(response) {
 				return response.json();
@@ -183,6 +199,24 @@ SavegameEditor={
 
 		setValue('money', tempFile.readU32(SavegameEditor.Constants.MONEY_OFFSET));
 		setNumericRange('money', 0, 9999999);
+
+		setValue('streetpass-met', tempFile.readU32(SavegameEditor.Constants.STREETPASS_MET_OFFSET));
+		setNumericRange('streetpass-met', 0, 9999999);
+
+		setValue('pedometer', tempFile.readU32(SavegameEditor.Constants.PEDOMETER_OFFSET));
+		setNumericRange('pedometer', 0, 9999999);
+
+		setNumericRange('owner-points', 0, 99999);
+		var points = tempFile.readU32(SavegameEditor.Constants.OWNER_POINTS_OFFSET);
+		for (var j = 0; j < level_borders.length; j++) {
+			if (points >= level_borders[j][0] && points <= level_borders[j][1]) {
+				setValue('owner-points', j);
+				break;
+			}
+		}
+		var level_ele = get('number-owner-points');
+		level_ele.addEventListener('change', SavegameEditor._mark_as_changed);
+
 		var a = new Date (Number(tempFile.readU32(SavegameEditor.Constants.LASTSAVED_OFFSET)) * 1000);
 		setValue('lastsaved', a.toLocaleString("en-GB", {
 			day: "numeric",
@@ -264,7 +298,7 @@ SavegameEditor={
 			get('container-pet' + i + '-breed').appendChild(dialogbtn);
 			
 			get('container-pet' + i + '-gender').appendChild(select('pet' + i + '-gender', SavegameEditor.Constants.GENDERS, SavegameEditor._write_pet_value));
-			
+
 			setValue('pet' + i + '-name', tempFile.readU16String(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_NAME_OFFSET, 10));
 			setValue('pet' + i + '-gender', SavegameEditor._getPetData(i-1, 'PET_GENDER_OFFSET'));
 			get('input-pet' + i + '-name').addEventListener('change', SavegameEditor._write_pet_name);
@@ -312,11 +346,18 @@ SavegameEditor={
 			var value_old = changed_levels[i].value;
 			setNumericRange(changed_levels[i].id.substring(7));
 			changed_levels[i].value = level_borders[changed_levels[i].value][0];
-			SavegameEditor._write_u_number(
-				{target: {id: changed_levels[i].id}},
-				32,
-				changed_levels[i].dataset.is_dog ? 'PET_POINTS_OFFSET_DOG' : 'PET_POINTS_OFFSET_CAT'
-			);
+			if (changed_levels[i].id === 'number-owner-points') {
+				tempFile.writeU32(
+					SavegameEditor.Constants.OWNER_POINTS_OFFSET,
+					getValue('owner-points')
+				);
+			} else {
+				SavegameEditor._write_u_number(
+					{target: {id: changed_levels[i].id}},
+					32,
+					changed_levels[i].dataset.is_dog ? 'PET_POINTS_OFFSET_DOG' : 'PET_POINTS_OFFSET_CAT'
+				);
+			}
 			changed_levels[i].value = value_old;
 			delete changed_levels[i].dataset.data_changed;
 			setNumericRange(changed_levels[i].id.substring(0, 99999));
