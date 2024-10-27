@@ -36,7 +36,17 @@
 			<div class="columns c6"><label class="update-name" for="input-petX-personality">Personality</label></div>
 			<div class="columns c6"><input class="update-name" id="input-petX-personality" type="text" class="fw" style="width:90%;" readonly/></div>
 			<div class="columns c8"><label class="update-name" for="number-petX-level">Level</label></div>
-			<div class="columns c4"><input class="update-name fw text-right" id="number-petX-level" type="text" /></div>			
+			<div class="columns c4"><input class="update-name fw text-right" id="number-petX-level" type="text" /></div>
+
+			<div class="row container update-name" id="petX_comp_outer" style="width:100%;padding-left:0;padding-right:0">
+				<h3 class="orange" style="width:100%;">Times played (max 2 per day)</h3>
+				<div class="columns c8"><label class="update-name" for="number-petX-disc-played">Disc Competition</label></div>
+				<div class="update-name columns c4" data-global="1" data-var="PETX_COMP_DISC_PLAYED", data-size="8"><input class="update-name fw text-right" id="number-petX-disc-played" type="text" /></div>
+				<div class="columns c8"><label class="update-name" for="number-petX-lure-played">Lure Coursing</label></div>
+				<div class="update-name columns c4" data-global="1" data-var="PETX_COMP_LURE_PLAYED", data-size="8"><input class="update-name fw text-right" id="number-petX-lure-played" type="text" /></div>
+				<div class="columns c8"><label class="update-name" for="number-petX-obedience-played">Obedience Trial</label></div>
+				<div class="update-name columns c4" data-global="1" data-var="PETX_COMP_OBED_PLAYED", data-size="8"><input class="update-name fw text-right" id="number-petX-obed-played" type="text" /></div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -274,6 +284,10 @@
 		<div class="row" id="row-streetpass-met">
 			<div class="columns c8"><label for="number-streetpass-met">People Met</label></div>
 			<div class="columns c4"><input id="number-streetpass-met" type="text" class="fw text-right" /></div>
+		</div>
+		<div class="row" id="row-walking-counter">
+			<div class="columns c7"><label for="input-walking-counter">Walking Counter</label></div>
+			<div class="columns c4"><input id="number-walking-counter" type="text" class="fw text-right" /></div>
 		</div>
 	</div>
 	<h3 class="orange">Pets</h3>
