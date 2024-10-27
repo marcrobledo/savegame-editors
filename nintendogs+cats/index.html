@@ -8,7 +8,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 	<link rel="shortcut icon" href="favicon.png"/>
 	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
-	<link rel="stylesheet" href="./dialog.css">
+	<link type="text/css" rel="stylesheet" href="./dialog.css">
+	<link type="text/css" rel="stylesheet" href="./nintendogs+cats.css" media="all"/>
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./dialog.js"></script>
 	<script type="text/javascript" src="./personalities.js"></script>
@@ -26,11 +27,10 @@
 </head>
 <body>
 <template id="template-row-pet">
-	<h3 class="orange">Pet X</h3>
-	<div class="container">
+	<div class="pet_tab_content container">
 		<div class="row" id="row-petX">
 			<div class="columns c8"><label class="update-name" for="input-petX-name">Name</label></div>
-			<div class="columns c4"><input class="update-name" id="input-petX-name" type="text" class="fw" /></div>
+			<div class="columns c4"><input class="update-name" id="input-petX-name" type="text" class="fw" maxlength="10" /></div>
 			<div class="columns c8">Gender</div><div class="update-name columns c4" id="container-petX-gender" data-var="PET_GENDER_OFFSET" data-size="8"></div>
 			<div class="columns c8">Breed</div><div class="update-name columns c4" id="container-petX-breed"></div>
 			<div class="columns c6"><label class="update-name" for="input-petX-personality">Personality</label></div>
@@ -269,13 +269,14 @@
 	<!-- Money -->
 	<h3 class="orange">Account</h3>
 	<div class="container">
+		<div class="row" id="row-lastsaved">
+			<div class="columns c7"><label for="input-lastsaved">Last Saved</label></div>
+			<div class="columns c3"><input id="input-lastsaved" type="text" class="fw text-right" readonly /></div>
+			<button class="columns c2" style="margin-left:0;margin-right:0" id="update-lastsaved">Now</button>
+		</div>
 		<div class="row" id="row-money">
 			<div class="columns c8"><label for="number-money">Money</label></div>
 			<div class="columns c4"><input id="number-money" type="text" class="fw text-right" /></div>
-		</div>
-		<div class="row" id="row-streetpass-met">
-			<div class="columns c8"><label for="number-streetpass-met">People Met</label></div>
-			<div class="columns c4"><input id="number-streetpass-met" type="text" class="fw text-right" /></div>
 		</div>
 		<div class="row" id="row-owner-points">
 			<div class="columns c8"><label for="number-owner-points">Owner Points</label></div>
@@ -285,13 +286,13 @@
 			<div class="columns c8"><label for="number-pedometer">Pedometer</label></div>
 			<div class="columns c4"><input id="number-pedometer" type="text" class="fw text-right" /></div>
 		</div>
-		<div class="row" id="row-lastsaved">
-			<div class="columns c7"><label for="input-lastsaved">Last Saved</label></div>
-			<div class="columns c3"><input id="input-lastsaved" type="text" class="fw text-right" readonly /></div>
-			<button class="columns c2" style="margin-left:0;margin-right:0" id="update-lastsaved">Now</button>
+		<div class="row" id="row-streetpass-met">
+			<div class="columns c8"><label for="number-streetpass-met">People Met</label></div>
+			<div class="columns c4"><input id="number-streetpass-met" type="text" class="fw text-right" /></div>
 		</div>
 	</div>
-	<div id="row-pet-outer"></div>
+	<h3 class="orange">Pets</h3>
+	<div id="pet_tabs"></div>
 	<!-- Supplies -->
 	<h3 class="orange">Food & Drink</h3>
 	<div class="container">

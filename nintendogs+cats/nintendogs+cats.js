@@ -114,6 +114,8 @@ SavegameEditor={
 			10,
 			getValue(e.target.id)
 		);
+
+		document.getElementsByClassName('pet' + index + '_name')[0].innerText = getValue(e.target.id);
 	},
 	_write_u_number:function(e, n, o){
 		var index = Number((e.target.id).match(reg)[0]);
@@ -228,13 +230,26 @@ SavegameEditor={
 			timezone: "Europe/London"
 		  }));
 		var template = document.getElementById("template-row-pet");
-		var outer_ele = document.getElementById('row-pet-outer');
-		outer_ele.innerText = '';
+		var pet_tabs = document.getElementById('pet_tabs');
+		pet_tabs.innerText = '';
+		var pet_tabs_content_seperator = document.createElement('div');
+		pet_tabs.appendChild(pet_tabs_content_seperator);
 		for (var i=1; i<7; i++){
 			var pet_present = tempFile.readU8(SavegameEditor.Constants.PET_OFFSET[i-1]) > 0;
 			if (!pet_present) {continue;}
+			var pet_tab_input = document.createElement('input');
+			pet_tab_input.name = 'pet_tabgroup';
+			pet_tab_input.type = 'radio';
+			pet_tab_input.id = 'pet_tab' + i;
+			pet_tab_input.checked = i === 1;
+			pet_tab_input.className = 'pet_tab';
+			pet_tabs.insertBefore(pet_tab_input, pet_tabs_content_seperator);
+			var pet_tab_label = document.createElement('label');
+			pet_tab_label.className = 'pet_label';
+			pet_tab_label.setAttribute('for', 'pet_tab' + i);
+			pet_tabs.insertBefore(pet_tab_label, pet_tabs_content_seperator);
+
 			var templateClone = template.content.cloneNode(true);
-			templateClone.querySelector('.orange').innerText = 'Pet ' + i;
 			templateClone.querySelector('.row').id="row-pet"+i;
 			for (var ele of templateClone.querySelectorAll('.update-name')) {
 				if ((ele.id || '').includes('petX')) {
@@ -247,7 +262,7 @@ SavegameEditor={
 			var isDog = true;
 			if (breed > 28 && breed < 32)
 				isDog = false;
-			outer_ele.appendChild(templateClone);
+			pet_tabs.appendChild(templateClone);
 			var dialogClassName = 'page-' + 
 				breed +
 				'-' +
@@ -272,6 +287,9 @@ SavegameEditor={
 				breedImg.id='petimage'+i;
 			}
 			get('container-pet' + i + '-breed').appendChild(breedImg);
+			var breedImg2 = breedImg.cloneNode();
+			breedImg2.id = '';
+			pet_tab_label.appendChild(breedImg2);
 
 			var dialogbtn = document.createElement('button');
 			dialogbtn.dataset.pet = i - 1;
@@ -300,6 +318,10 @@ SavegameEditor={
 			get('container-pet' + i + '-gender').appendChild(select('pet' + i + '-gender', SavegameEditor.Constants.GENDERS, SavegameEditor._write_pet_value));
 
 			setValue('pet' + i + '-name', tempFile.readU16String(SavegameEditor.Constants.PET_OFFSET[i-1]+SavegameEditor.Constants.PET_NAME_OFFSET, 10));
+			var pet_tab_label_name = document.createElement('span');
+			pet_tab_label_name.innerText = getValue('pet' + i + '-name');
+			pet_tab_label_name.className = 'pet' + i + '_name';
+			pet_tab_label.appendChild(pet_tab_label_name);
 			setValue('pet' + i + '-gender', SavegameEditor._getPetData(i-1, 'PET_GENDER_OFFSET'));
 			get('input-pet' + i + '-name').addEventListener('change', SavegameEditor._write_pet_name);
 			if (isDog) {
@@ -337,6 +359,7 @@ SavegameEditor={
 			level_ele.dataset.is_dog = isDog;
 			level_ele.addEventListener('change', SavegameEditor._mark_as_changed);
 		}
+		pet_tabs.removeChild(pet_tabs_content_seperator)
 	},
 
 	/* save function */

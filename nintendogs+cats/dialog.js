@@ -79,7 +79,9 @@ window.addEventListener('load', function() {
 			menu.dataset.type = 'dog';
 		}
 		e.target.setAttribute('open', true);
-		var eye_color_offset = menu.dataset.type === 'cat' && Number(document.getElementById('eyecolor').querySelector(':checked').dataset.offset) || 255;
+		var eye_color_offset = 255;
+		if (menu.dataset.type === 'cat')
+			eye_color_offset = Number(document.getElementById('eyecolor').querySelector(':checked').dataset.offset);
 		var newContent = content.querySelector('.' + e.target.className);
 		if (newContent && menu.dataset.type === 'cat') {
 			newContent.parentElement.removeChild(newContent);
@@ -149,8 +151,10 @@ window.addEventListener('load', function() {
 		_writeU8('PET_BREED_EYE_COLOR_OFFSET', e.target.dataset.eye_color);
 		_writeU8('PET_BREED_STYLE_OFFSET',e.target.dataset.style);
 		var newImage = e.target.cloneNode();
+		var newImage2 = e.target.cloneNode();
 		newImage.id = 'petimage' + (Number(get('menu').dataset.pet)+1);
 		document.getElementById(newImage.id).replaceWith(newImage);
+		document.querySelector('label[for="pet_tab' + (Number(get('menu').dataset.pet)+1) + '"] .sprite').replaceWith(newImage2);
 		btnClose.click();
 	}, false);
 	btnClose.addEventListener('click', function(e) {
