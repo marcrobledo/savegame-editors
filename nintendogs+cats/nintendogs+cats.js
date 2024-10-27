@@ -173,6 +173,7 @@ SavegameEditor={
 		get('number-money').addEventListener('change', SavegameEditor._write_money);
 		get('number-streetpass-met').addEventListener('change', SavegameEditor._write_streetpass_met);
 		get('number-pedometer').addEventListener('change', SavegameEditor._write_pedometer);
+		get('number-walking-counter').addEventListener('change', SavegameEditor._write_walking_counter);
 		fetch('/savegame-editors/nintendogs+cats/supplies.json')
 			.then(function(response) {
 				return response.json();
