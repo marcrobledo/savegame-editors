@@ -104,6 +104,20 @@ window.addEventListener('load', function() {
 					correctionYOffset = 68;
 				} else if (newContent.className === 'page-17-22') { // Fix for German Shepherd Dog - White
 					correctionXOffset = 340;
+				} else if (newContent.className === 'page-14-2') { // Fix for Miniature Schnauzer - Surprise Me #1
+					if (i === 12) { // Correct image 1
+						correctionYOffset = 68 * 3;
+					} else if (i === 13) { // Correct image 2
+						correctionYOffset = 68 * 7;
+					} else if (i === 14 || i === 15 || i === 16) { // Correct images 3, 4 and 5
+						correctionYOffset = -(68 * 2);
+					}
+				} else if (newContent.className === 'page-14-12') { // Fix for Miniature Schnauzer - Surprise Me #2
+					if (i === 21) { // Correct image 5
+						correctionYOffset = 0;
+					} else {
+						correctionYOffset = -68;
+					}
 				}
 				if (menu.dataset.type === 'dog' || (i-offset) % 3 === eye_color_offset) {
 					var ele = document.createElement('div');
