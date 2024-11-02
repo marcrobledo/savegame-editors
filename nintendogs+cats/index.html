@@ -8,10 +8,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 	<link rel="shortcut icon" href="favicon.png"/>
 	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
+	<link type="text/css" rel="stylesheet" href="./dialog.css">
+	<link type="text/css" rel="stylesheet" href="./nintendogs+cats.css" media="all"/>
 	<script type="text/javascript" src="../savegame-editor.js"></script>
+	<script type="text/javascript" src="./dialog.js"></script>
+	<script type="text/javascript" src="./personalities.js"></script>
 	<script type="text/javascript" src="./nintendogs+cats.js"></script>
 	<script type="text/javascript"><!--
-		/* service worker */
+			/* service worker */
 		var FORCE_HTTPS=true;
 		window.addEventListener('load',function(){
 			if(location.protocol==='http:' && FORCE_HTTPS)
@@ -22,7 +26,218 @@
 	--></script>
 </head>
 <body>
+<template id="template-row-pet">
+	<div class="pet_tab_content container">
+		<div class="row" id="row-petX">
+			<div class="columns c8"><label class="update-name" for="input-petX-name">Name</label></div>
+			<div class="columns c4"><input class="update-name" id="input-petX-name" type="text" class="fw" maxlength="10" /></div>
+			<div class="columns c8">Gender</div><div class="update-name columns c4" id="container-petX-gender" data-var="PET_GENDER_OFFSET" data-size="8"></div>
+			<div class="columns c8">Breed</div><div class="update-name columns c4" id="container-petX-breed"></div>
+			<div class="columns c6"><label class="update-name" for="input-petX-personality">Personality</label></div>
+			<div class="columns c6"><input class="update-name" id="input-petX-personality" type="text" class="fw" style="width:90%;" readonly/></div>
+			<div class="columns c8"><label class="update-name" for="number-petX-level">Level</label></div>
+			<div class="columns c4"><input class="update-name fw text-right" id="number-petX-level" type="text" /></div>
 
+			<div class="row container update-name" id="petX_comp_outer" style="width:100%;padding-left:0;padding-right:0">
+				<h3 class="orange" style="width:100%;">Times played (max 2 per day)</h3>
+				<div class="columns c8"><label class="update-name" for="number-petX-disc-played">Disc Competition</label></div>
+				<div class="update-name columns c4" data-global="1" data-var="PETX_COMP_DISC_PLAYED", data-size="8"><input class="update-name fw text-right" id="number-petX-disc-played" type="text" /></div>
+				<div class="columns c8"><label class="update-name" for="number-petX-lure-played">Lure Coursing</label></div>
+				<div class="update-name columns c4" data-global="1" data-var="PETX_COMP_LURE_PLAYED", data-size="8"><input class="update-name fw text-right" id="number-petX-lure-played" type="text" /></div>
+				<div class="columns c8"><label class="update-name" for="number-petX-obedience-played">Obedience Trial</label></div>
+				<div class="update-name columns c4" data-global="1" data-var="PETX_COMP_OBED_PLAYED", data-size="8"><input class="update-name fw text-right" id="number-petX-obed-played" type="text" /></div>
+			</div>
+		</div>
+	</div>
+</template>
+<dialog id="menu" data-type="dog">
+	<div class="menu-sidebar" id="menu-sidebar-dog">
+		<div class="header">Beagle</div>
+		<div breed='beagle' image-offset="0" image-items="30" class="page-0-0">Tricolour</div>
+		<div breed='beagle' image-offset="30" image-items="30" class="page-0-1">Lemon & White</div>
+		<div breed='beagle' image-offset="60" image-items="30" class="page-0-12">Surprise me!</div>
+		<div breed='beagle' image-offset="90" image-items="1" class="page-0-22">White</div>
+		<div class="header">Golden Retriever</div>
+		<div breed="golden_retriever" image-offset="0" image-items="10" class="page-1-0" data-percolor="2">Golden</div>
+		<div breed="golden_retriever" image-offset="12" image-items="30" class="page-1-12">Surprise me!</div>
+		<div breed='golden_retriever' image-offset="40" image-items="1" class="page-1-22">White</div>
+		<div class="header">Yorkshire Terrier</div>
+		<div breed="yorkshire_terrier" image-offset="0" image-items="30" class="page-2-0">Black & Tan</div>
+		<div breed="yorkshire_terrier" image-offset="30" image-items="30" class="page-2-12">Surprise me!</div>
+		<div breed='yorkshire_terrier' image-offset="60" image-items="1" class="page-2-22">White</div>
+		<div class="header">Miniature Dachshund</div>
+		<div breed="miniature_dachshund1" image-offset="0" image-items="5" class="page-3-0" data-percolor="1">Red</div>
+		<div breed="miniature_dachshund" image-offset="25" image-items="30" class="page-3-1">Black & Tan</div>
+		<div breed="miniature_dachshund" image-offset="55" image-items="30" class="page-3-12">Surprise me!</div>
+		<div breed='miniature_dachshund' image-offset="85" image-items="1" class="page-3-22">White</div>
+		<div class="header">Chihuahua #1</div>
+		<div breed="chihuahua1" image-offset="21" image-items="10" class="page-4-0" data-percolor="2">Cream</div>
+		<div breed="chihuahua" image-offset="96" image-items="30" class="page-4-12">Surprise me!</div>
+		<div breed="chihuahua" image-offset="126" image-items="1" class="page-4-22">White</div>
+		<div class="header">Chihuahua #2</div>
+		<div breed="chihuahua" image-offset="0" image-items="30" class="page-5-0">Red & White</div>
+		<div breed="chihuahua" image-offset="30" image-items="30" class="page-5-1">Tricolour</div>
+		<div breed='chihuahua' image-offset="60" image-items="1" class="page-5-22">White</div>
+		<div class="header">Toy Poodle #1</div>
+		<div breed='toy_poodle1' image-offset="0" image-items="5" class="page-6-0" data-percolor="1">Fluffy Muzzle</div>
+		<div breed='toy_poodle1' image-offset="5" image-items="1" class="page-6-22">White</div>
+		<div class="header">Toy Poodle #2</div>
+		<div breed='toy_poodle1' image-offset="6" image-items="5" class="page-7-0" data-percolor="1">Clipped Muzzle</div>
+		<div breed='toy_poodle' image-offset="55" image-items="30" class="page-7-12">Surprise me!</div>
+		<div breed='toy_poodle' image-offset="85" image-items="1" class="page-7-22">White</div>
+		<div class="header">Shiba</div>
+		<div breed='shiba' image-offset="0" image-items="30" class="page-8-0">Red & White</div>
+		<div breed='shiba' image-offset="30" image-items="30" class="page-8-1">Black & Tan #1</div>
+		<div breed='shiba' image-offset="60" image-items="30" class="page-8-2">Black & Tan #2</div>
+		<div breed='shiba' image-offset="90" image-items="30" class="page-8-12">Surprise me!</div>
+		<div breed='shiba' image-offset="120" image-items="1" class="page-8-22">White</div>
+		<div class="header">Labrador Retriever</div>
+		<div breed='labrador_retriever1' image-offset="0" image-items="5" class="page-9-0" data-percolor="1">Yellow</div>
+		<div breed='labrador_retriever1' image-offset="5" image-items="5" class="page-9-1" data-percolor="1">Black</div>
+		<div breed='labrador_retriever1' image-offset="11" image-items="5" class="page-9-2" data-percolor="1">Chocolate</div>
+		<div breed='labrador_retriever' image-offset="80" image-items="30" class="page-9-12">Surprise me!</div>
+		<div breed='labrador_retriever' image-offset="110" image-items="1" class="page-9-22">White</div>
+		<div class="header">Spaniel</div>
+		<div breed='spaniel' image-offset="0" image-items="30" class="page-10-0">Blentheim</div>
+		<div breed='spaniel' image-offset="30" image-items="30" class="page-10-1">Tricolour</div>
+		<div breed='spaniel' image-offset="60" image-items="5" class="page-10-2" data-percolor="1">Ruby</div>
+		<div breed='spaniel' image-offset="65" image-items="30" class="page-10-12">Surprise me!</div>
+		<div breed='spaniel' image-offset="95" image-items="1" class="page-10-22">White</div>
+		<div class="header">Pug</div>
+		<div breed='pug' image-offset="0" image-items="30" class="page-11-0">Silver</div>
+		<div breed='pug' image-offset="30" image-items="5" class="page-11-1" data-percolor="1">Black</div>
+		<div breed='pug' image-offset="35" image-items="30" class="page-11-2">Apricot</div>
+		<div breed='pug' image-offset="65" image-items="30" class="page-11-12">Surprise me!</div>
+		<div breed='pug' image-offset="95" image-items="1" class="page-11-22">White</div>
+		<div class="header">Shih Tzu</div>
+		<div breed='shih_tzu' image-offset="0" image-items="30" class="page-12-0">Brown & White</div>
+		<div breed='shih_tzu' image-offset="30" image-items="30" class="page-12-1">Brindle & White</div>
+		<div breed='shih_tzu' image-offset="60" image-items="30" class="page-12-12">Surprise me!</div>
+		<div breed='shih_tzu' image-offset="90" image-items="1" class="page-12-22">White</div>
+		<div class="header">Shetland Sheepdog</div>
+		<div breed='shetland_sheepdog' image-offset="0" image-items="30" class="page-13-0">Sable & White</div>
+		<div breed='shetland_sheepdog' image-offset="30" image-items="30" class="page-13-1">Bicolour</div>
+		<div breed='shetland_sheepdog' image-offset="60" image-items="30" class="page-13-2">Tricolour</div>
+		<div breed='shetland_sheepdog' image-offset="90" image-items="30" class="page-13-12">Surprise me!</div>
+		<div breed='shetland_sheepdog' image-offset="120" image-items="1" class="page-13-22">White</div>
+		<div class="header">Miniature Schnauzer</div>
+		<div breed='miniature_schnauzer' image-offset="0" image-items="30" class="page-14-0" >Pepper & Salt #1</div>
+		<div breed='miniature_schnauzer' image-offset="30" image-items="30" class="page-14-1">Pepper & Salt #2</div>
+		<div breed='miniature_schnauzer1' image-offset="12" image-items="5" class="page-14-2" data-percolor="1">Surprise me! #1</div>
+		<div breed='miniature_schnauzer1' image-offset="17" image-items="5" class="page-14-12" data-percolor="1">Surprise me! #2</div>
+		<div breed='miniature_schnauzer1' image-offset="22" image-items="1" class="page-14-22" data-percolor="1">White</div>
+		<div class="header">Pembroke Welsh Corgi</div>
+		<div breed='pembroke_welsh_corgi' image-offset="0" image-items="30" class="page-15-0">Sable & White</div>
+		<div breed='pembroke_welsh_corgi' image-offset="30" image-items="30" class="page-15-1">Tricolour</div>
+		<div breed='pembroke_welsh_corgi' image-offset="60" image-items="30" class="page-15-12">Surprise me!</div>
+		<div breed='pembroke_welsh_corgi' image-offset="90" image-items="1" class="page-15-22">White</div>
+		<div class="header">Miniature Pinscher</div>
+		<div breed='miniature_pinscher' image-offset="0" image-items="30" class="page-16-0">Black & Tan</div>
+		<div breed='miniature_pinscher' image-offset="30" image-items="30" class="page-16-1">Red #1</div>
+		<div breed='miniature_pinscher' image-offset="60" image-items="5" class="page-16-2" data-percolor="1">Red #2</div>
+		<div breed='miniature_pinscher' image-offset="65" image-items="30" class="page-16-12">Surprise me!</div>
+		<div breed='miniature_pinscher' image-offset="95" image-items="1" class="page-16-22">White</div>
+		<div class="header">German Shepherd Dog</div>
+		<div breed='german_shepherd_dog' image-offset="0" image-items="30" class="page-17-0">Black & Tan</div>
+		<div breed='german_shepherd_dog' image-offset="30" image-items="30" class="page-17-1">Sable #1</div>
+		<div breed='german_shepherd_dog' image-offset="60" image-items="30" class="page-17-2">Sable #2</div>
+		<div breed='german_shepherd_dog' image-offset="90" image-items="5" class="page-17-12" data-percolor="1">Surprise me!</div>
+		<div breed='german_shepherd_dog' image-offset="90" image-items="1" class="page-17-22" data-percolor="1">White</div>
+		<div class="header">Jack Russell Terrier</div>
+		<div breed='jack_russell_terrier' image-offset="0" image-items="30" class="page-18-0">Lemon & White</div>
+		<div breed='jack_russell_terrier' image-offset="30" image-items="30" class="page-18-1">Black & White</div>
+		<div breed='jack_russell_terrier' image-offset="60" image-items="30" class="page-18-12">Surprise me!</div>
+		<div breed='jack_russell_terrier' image-offset="90" image-items="1" class="page-18-22">White</div>
+		<div class="header">Siberian Husky</div>
+		<div breed='siberian_husky' image-offset="0" image-items="30" class="page-19-0">Black & White</div>
+		<div breed='siberian_husky' image-offset="30" image-items="30" class="page-19-1">Brown / White</div>
+		<div breed='siberian_husky' image-offset="60" image-items="30" class="page-19-2">Agouti & White</div>
+		<div breed='siberian_husky' image-offset="90" image-items="30" class="page-19-12">Surprise me!</div>
+		<div breed='siberian_husky' image-offset="120" image-items="1" class="page-19-22">White</div>
+		<div class="header">Boxer</div>
+		<div breed='boxer' image-offset="0" image-items="30" class="page-20-0">Fawn & White</div>
+		<div breed='boxer' image-offset="30" image-items="30" class="page-20-1">Brindle & White #1</div>
+		<div breed='boxer' image-offset="60" image-items="30" class="page-20-2">Brindle & White #2</div>
+		<div breed='boxer' image-offset="90" image-items="30" class="page-20-12">Surprise me!</div>
+		<div breed='boxer' image-offset="120" image-items="1" class="page-20-22">White</div>
+		<div class="header">Dalmatian</div>
+		<div breed='dalmatian' image-offset="0" image-items="30" class="page-21-0">With Spots #1</div>
+		<div breed='dalmatian' image-offset="30" image-items="30" class="page-21-1">With Spots #2</div>
+		<div breed='dalmatian' image-offset="60" image-items="30" class="page-21-12">Surprise me!</div>
+		<div breed='dalmatian' image-offset="90" image-items="1" class="page-21-22">White</div>
+		<div class="header">Pomeranian</div>
+		<div breed='pomeranian1' image-offset="0" image-items="5" class="page-22-0" data-percolor="1">Orange</div>
+		<div breed='pomeranian' image-offset="30" image-items="30" class="page-22-1">Black & Tan</div>
+		<div breed='pomeranian' image-offset="60" image-items="30" class="page-22-2">Parti-Coloured</div>
+		<div breed='pomeranian' image-offset="90" image-items="30" class="page-22-12">Surprise me!</div>
+		<div breed='pomeranian' image-offset="120" image-items="1" class="page-22-22">White</div>
+		<div class="header">French Bulldog</div>
+		<div breed='french_bulldog' image-offset="0" image-items="30" class="page-23-0">Black & White</div>
+		<div breed='french_bulldog' image-offset="30" image-items="30" class="page-23-1">Brindle</div>
+		<div breed='french_bulldog' image-offset="60" image-items="30" class="page-23-2">Fawn</div>
+		<div breed='french_bulldog' image-offset="90" image-items="30" class="page-23-12">Surprise me!</div>
+		<div breed='french_bulldog' image-offset="120" image-items="1" class="page-23-22">White</div>
+		<div class="header">Maltese</div>
+		<div breed='maltese' image-offset="0" image-items="30" class="page-24-12">White</div>
+		<div breed='maltese' image-offset="30" image-items="1" class="page-24-22">White</div>
+		<div class="header">Cocker Spaniel</div>
+		<div breed='cocker_spaniel' image-offset="0" image-items="30" class="page-25-0">Parti-Coloured #1</div>
+		<div breed='cocker_spaniel' image-offset="30" image-items="30" class="page-25-1">Parti-Coloured #2</div>
+		<div breed='cocker_spaniel' image-offset="60" image-items="5" class="page-25-2" data-percolor="1">Red</div>
+		<div breed='cocker_spaniel' image-offset="65" image-items="30" class="page-25-12">Surprise me!</div>
+		<div breed='cocker_spaniel' image-offset="95" image-items="1" class="page-25-22">White</div>
+		<div class="header">Great Dane</div>
+		<div breed='great_dane' image-offset="0" image-items="30" class="page-26-0">Mantle</div>
+		<div breed='great_dane' image-offset="30" image-items="30" class="page-26-1">Harlequin</div>
+		<div breed='great_dane' image-offset="60" image-items="30" class="page-26-2">Fawn</div>
+		<div breed='great_dane' image-offset="90" image-items="30" class="page-26-12">Surprise me!</div>
+		<div breed='great_dane' image-offset="120" image-items="1" class="page-26-22">White</div>
+		<div class="header">Bull Terrier</div>
+		<div breed='bull_terrier' image-offset="0" image-items="30" class="page-27-0">Black & White</div>
+		<div breed='bull_terrier' image-offset="30" image-items="30" class="page-27-1">Brindle & White</div>
+		<div breed='bull_terrier' image-offset="60" image-items="30" class="page-27-2">Red & White</div>
+		<div breed='bull_terrier' image-offset="90" image-items="30" class="page-27-12">Surprise me!</div>
+		<div breed='bull_terrier' image-offset="120" image-items="1" class="page-27-22">White</div>
+		<div class="header">Basset Hound</div>
+		<div breed='basset_hound' image-offset="0" image-items="30" class="page-28-0">Tricolour</div>
+		<div breed='basset_hound' image-offset="30" image-items="30" class="page-28-1">Lemon & White</div>
+		<div breed='basset_hound' image-offset="60" image-items="30" class="page-28-12">Surprise me!</div>
+		<div breed='basset_hound' image-offset="90" image-items="1" class="page-28-22">White</div>
+		<div class="header">Robo Pup</div>
+		<div breed='robo_pup' image-offset="0" image-items="10" class="page-32-0" data-percolor="1">Untitled #1</div>
+		<div breed='robo_pup' image-offset="10" image-items="10" class="page-32-1" data-percolor="1">Untitled #2</div>
+		<div breed='robo_pup' image-offset="20" image-items="1" class="page-32-22">White</div>
+	</div>
+	<div class="menu-sidebar" id="menu-sidebar-cat">
+		<div class="header">Standard Cat</div>
+		<div breed='standard' image-offset="390" image-items="180" class="page-29-2" data-percolor="6">Solid Richtig</div>
+		<div breed='standard' image-offset="0" image-items="180" class="page-29-0" data-percolor="6">Tabby Richtig</div>
+		<div breed='standard' image-offset="570" image-items="180" class="page-29-3" data-percolor="6">Spotted Tabby #1</div>
+		<div breed='standard' image-offset="750" image-items="18" class="page-29-4" data-percolor="6">Spotted Tabby #2</div>
+		<div breed='standard' image-offset="180" image-items="210" class="page-29-1" data-percolor="7">Calico</div>
+		<div breed='standard' image-offset="767" image-items="3" class="page-29-22" data-percolor="1">White</div>
+		<div class="header">Oriental Cat</div>
+		<div breed='oriental' image-offset="0" image-items="180" class="page-30-0" data-percolor="6">Pointed</div>
+		<div breed='oriental' image-offset="180" image-items="180" class="page-30-1" data-percolor="6">Smoke</div>
+		<div breed='oriental' image-offset="360" image-items="33" class="page-30-12" data-percolor="1">Surprise me!</div>
+		<div class="header">Longhaired Cat</div>
+		<div breed='longhair' image-offset="0" image-items="180" class="page-31-0" data-percolor="6">Pointed</div>
+		<div breed='longhair' image-offset="180" image-items="180" class="page-31-1" data-percolor="6">Bicolour #1</div>
+		<div breed='longhair' image-offset="360" image-items="180" class="page-31-2" data-percolor="6">Bicolour #2</div>
+		<div breed='longhair' image-offset="540" image-items="3" class="page-31-22" data-percolor="1">White</div>
+	</div>
+	<div id="menu-content">
+		<div id="eyecolor">
+			<input type="radio" name="eyecolor" id="eye_gray" data-offset="0" checked>
+			<label for="eye_gray">Gray</label>
+			<input type="radio" name="eyecolor" id="eye_yellow" data-offset="1">
+			<label for="eye_yellow">Yellow</label>
+			<input type="radio" name="eyecolor" id="eye_blue" data-offset="2">
+			<label for="eye_blue">Blue</label>
+		</div>
+	</div>
+	<button id="menu-close">OK</button>
+</dialog>
 <!-- HEADER -->
 <div id="header">
 	<div id="header-top">
@@ -49,149 +264,34 @@
 	<!-- Money -->
 	<h3 class="orange">Account</h3>
 	<div class="container">
+		<div class="row" id="row-lastsaved">
+			<div class="columns c7"><label for="input-lastsaved">Last Saved</label></div>
+			<div class="columns c3"><input id="input-lastsaved" type="text" class="fw text-right" readonly /></div>
+			<button class="columns c2" style="margin-left:0;margin-right:0" id="update-lastsaved">Now</button>
+		</div>
 		<div class="row" id="row-money">
 			<div class="columns c8"><label for="number-money">Money</label></div>
 			<div class="columns c4"><input id="number-money" type="text" class="fw text-right" /></div>
 		</div>
-	</div>
-	<h3 class="orange">Pet 1</h3>
-	<div class="container">
-		<div class="row" id="row-pet1">
-			<div class="columns c8"><label for="checkbox-pet1-active">Pet Present</label></div>
-			<div class="columns c4"><input id="checkbox-pet1-active" type="checkbox" class="fw" /></div>
-			<div class="columns c8"><label for="input-pet1-name">Name</label></div>
-			<div class="columns c4"><input id="input-pet1-name" type="text" class="fw" /></div>
-			<div class="columns c8">Gender</div><div class="columns c4" id="container-pet1-gender"></div>
-			<div class="columns c8">Breed</div><div class="columns c4" id="container-pet1-breed"></div>
-			<!-- Broken
-			<div class="columns c8"><label for="number-pet1-breed-color">Breed Color</label></div>
-			<div class="columns c4"><input id="number-pet1-breed-color" type="text" class="fw text-right" /></div>
-			-->
-			<!-- Experimental
-			<div class="columns c8"><label for="number-pet1-hunger">Hunger Status</label></div>
-			<div class="columns c4"><input id="number-pet1-hunger" type="text" class="fw text-right" /></div>
-			<div class="columns c8"><label for="number-pet1-thirst">Thirst Status</label></div>
-			<div class="columns c4"><input id="number-pet1-thirst" type="text" class="fw text-right" /></div>
-			<div class="columns c8"><label for="number-pet1-coat">Coat Status</label></div>
-			<div class="columns c4"><input id="number-pet1-coat" type="text" class="fw text-right" /></div>
-			-->
+		<div class="row" id="row-owner-points">
+			<div class="columns c8"><label for="number-owner-points">Owner Points</label></div>
+			<div class="columns c4"><input class="fw text-right" id="number-owner-points" type="text" /></div>
+		</div>
+		<div class="row" id="row-pedometer">
+			<div class="columns c8"><label for="number-pedometer">Pedometer</label></div>
+			<div class="columns c4"><input id="number-pedometer" type="text" class="fw text-right" /></div>
+		</div>
+		<div class="row" id="row-streetpass-met">
+			<div class="columns c8"><label for="number-streetpass-met">People Met</label></div>
+			<div class="columns c4"><input id="number-streetpass-met" type="text" class="fw text-right" /></div>
+		</div>
+		<div class="row" id="row-walking-counter">
+			<div class="columns c7"><label for="input-walking-counter">Walking Counter</label></div>
+			<div class="columns c4"><input id="number-walking-counter" type="text" class="fw text-right" /></div>
 		</div>
 	</div>
-	<h3 class="orange">Pet 2</h3>
-	<div class="container">
-		<div class="row" id="row-pet2">
-			<div class="columns c8"><label for="checkbox-pet2-active">Pet Present</label></div>
-			<div class="columns c4"><input id="checkbox-pet2-active" type="checkbox" class="fw" /></div>
-			<div class="columns c8"><label for="checkbox-pet2-name">Name</label></div>
-			<div class="columns c4"><input id="input-pet2-name" type="text" class="fw" /></div>
-			<div class="columns c8">Gender</div><div class="columns c4" id="container-pet2-gender"></div>
-			<div class="columns c8">Breed</div><div class="columns c4" id="container-pet2-breed"></div>
-			<!-- Broken
-			<div class="columns c8"><label for="number-pet2-breed-color">Breed Color</label></div>
-			<div class="columns c4"><input id="number-pet2-breed-color" type="text" class="fw text-right" /></div>
-			-->
-			<!-- Experimental
-			<div class="columns c8"><label for="number-pet2-hunger">Hunger Status</label></div>
-			<div class="columns c4"><input id="number-pet2-hunger" type="text" class="fw text-right" /></div>
-			<div class="columns c8"><label for="number-pet2-thirst">Thirst Status</label></div>
-			<div class="columns c4"><input id="number-pet2-thirst" type="text" class="fw text-right" /></div>
-			<div class="columns c8"><label for="number-pet2-coat">Coat Status</label></div>
-			<div class="columns c4"><input id="number-pet2-coat" type="text" class="fw text-right" /></div>
-			-->
-		</div>
-	</div>
-	<h3 class="orange">Pet 3</h3>
-	<div class="container">
-		<div class="row" id="row-pet3">
-			<div class="columns c8"><label for="checkbox-pet3-active">Pet Present</label></div>
-			<div class="columns c4"><input id="checkbox-pet3-active" type="checkbox" class="fw" /></div>
-			<div class="columns c8"><label for="input-pet3-name">Name</label></div>
-			<div class="columns c4"><input id="input-pet3-name" type="text" class="fw" /></div>
-			<div class="columns c8">Gender</div><div class="columns c4" id="container-pet3-gender"></div>
-			<div class="columns c8">Breed</div><div class="columns c4" id="container-pet3-breed"></div>
-			<!-- Broken
-			<div class="columns c8"><label for="number-pet3-breed-color">Breed Color</label></div>
-			<div class="columns c4"><input id="number-pet3-breed-color" type="text" class="fw text-right" /></div>
-			-->
-			<!-- Experimental
-			<div class="columns c8"><label for="number-pet3-hunger">Hunger Status</label></div>
-			<div class="columns c4"><input id="number-pet3-hunger" type="text" class="fw text-right" /></div>
-			<div class="columns c8"><label for="number-pet3-thirst">Thirst Status</label></div>
-			<div class="columns c4"><input id="number-pet3-thirst" type="text" class="fw text-right" /></div>
-			<div class="columns c8"><label for="number-pet3-coat">Coat Status</label></div>
-			<div class="columns c4"><input id="number-pet3-coat" type="text" class="fw text-right" /></div>
-			-->
-		</div>
-	</div>
-	<h3 class="orange">Pet 4</h3>
-	<div class="container">
-		<div class="row" id="row-pet4">
-			<div class="columns c8"><label for="checkbox-pet4-active">Pet Present</label></div>
-			<div class="columns c4"><input id="checkbox-pet4-active" type="checkbox" class="fw" /></div>
-			<div class="columns c8"><label for="input-pet4-name">Name</label></div>
-			<div class="columns c4"><input id="input-pet4-name" type="text" class="fw" /></div>
-			<div class="columns c8">Gender</div><div class="columns c4" id="container-pet4-gender"></div>
-			<div class="columns c8">Breed</div><div class="columns c4" id="container-pet4-breed"></div>
-			<!-- Broken
-			<div class="columns c8"><label for="number-pet4-breed-color">Breed Color</label></div>
-			<div class="columns c4"><input id="number-pet4-breed-color" type="text" class="fw text-right" /></div>
-			-->
-			<!-- Experimental
-			<div class="columns c8"><label for="number-pet4-hunger">Hunger Status</label></div>
-			<div class="columns c4"><input id="number-pet4-hunger" type="text" class="fw text-right" /></div>
-			<div class="columns c8"><label for="number-pet4-thirst">Thirst Status</label></div>
-			<div class="columns c4"><input id="number-pet4-thirst" type="text" class="fw text-right" /></div>
-			<div class="columns c8"><label for="number-pet4-coat">Coat Status</label></div>
-			<div class="columns c4"><input id="number-pet4-coat" type="text" class="fw text-right" /></div>
-			-->
-		</div>
-	</div>
-	<h3 class="orange">Pet 5</h3>
-	<div class="container">
-		<div class="row" id="row-pet5">
-			<div class="columns c8"><label for="checkbox-pet5-active">Pet Present</label></div>
-			<div class="columns c4"><input id="checkbox-pet5-active" type="checkbox" class="fw" /></div>
-			<div class="columns c8"><label for="input-pet5-name">Name</label></div>
-			<div class="columns c4"><input id="input-pet5-name" type="text" class="fw" /></div>
-			<div class="columns c8">Gender</div><div class="columns c4" id="container-pet5-gender"></div>
-			<div class="columns c8">Breed</div><div class="columns c4" id="container-pet5-breed"></div>
-			<!-- Broken
-			<div class="columns c8"><label for="number-pet5-breed-color">Breed Color</label></div>
-			<div class="columns c4"><input id="number-pet5-breed-color" type="text" class="fw text-right" /></div>
-			-->
-			<!-- Experimental
-			<div class="columns c8"><label for="number-pet5-hunger">Hunger Status</label></div>
-			<div class="columns c4"><input id="number-pet5-hunger" type="text" class="fw text-right" /></div>
-			<div class="columns c8"><label for="number-pet5-thirst">Thirst Status</label></div>
-			<div class="columns c4"><input id="number-pet5-thirst" type="text" class="fw text-right" /></div>
-			<div class="columns c8"><label for="number-pet5-coat">Coat Status</label></div>
-			<div class="columns c4"><input id="number-pet5-coat" type="text" class="fw text-right" /></div>
-			-->
-		</div>
-	</div>
-	<h3 class="orange">Pet 6</h3>
-	<div class="container">
-		<div class="row" id="row-pet6">
-			<div class="columns c8"><label for="checkbox-pet6-active">Pet Present</label></div>
-			<div class="columns c4"><input id="checkbox-pet6-active" type="checkbox" class="fw" /></div>
-			<div class="columns c8"><label for="input-pet6-name">Name</label></div>
-			<div class="columns c4"><input id="input-pet6-name" type="text" class="fw" /></div>
-			<div class="columns c8">Gender</div><div class="columns c4" id="container-pet6-gender"></div>
-			<div class="columns c8">Breed</div><div class="columns c4" id="container-pet6-breed"></div>
-			<!-- Broken
-			<div class="columns c8"><label for="number-pet6-breed-color">Breed Color</label></div>
-			<div class="columns c4"><input id="number-pet6-breed-color" type="text" class="fw text-right" /></div>
-			-->
-			<!-- Experimental
-			<div class="columns c8"><label for="number-pet6-hunger">Hunger Status</label></div>
-			<div class="columns c4"><input id="number-pet6-hunger" type="text" class="fw text-right" /></div>
-			<div class="columns c8"><label for="number-pet6-thirst">Thirst Status</label></div>
-			<div class="columns c4"><input id="number-pet6-thirst" type="text" class="fw text-right" /></div>
-			<div class="columns c8"><label for="number-pet6-coat">Coat Status</label></div>
-			<div class="columns c4"><input id="number-pet6-coat" type="text" class="fw text-right" /></div>
-			-->
-		</div>
-	</div>
+	<h3 class="orange">Pets</h3>
+	<div id="pet_tabs"></div>
 	<!-- Supplies -->
 	<h3 class="orange">Food & Drink</h3>
 	<div class="container">

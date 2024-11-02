@@ -1,0 +1,125 @@
+#menu[open] {
+	border: 0px solid gray;
+	border-radius: 5px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	display: grid;
+	grid-template-areas:
+		'a b';
+	grid-template-columns: auto 1fr;
+	height: 100%;
+	padding: unset;
+	user-select: none;
+	width: max-content;
+}
+
+#menu .menu-sidebar {
+	display: none;
+}
+
+#menu[data-type="dog"] #menu-sidebar-dog {
+	display: unset;
+}
+#menu[data-type="cat"] #menu-sidebar-cat {
+	display: unset;
+}
+
+#menu-close {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+#menu-content {
+	grid-area: b;
+	height: 100%;
+	min-width: 454px;
+	position: relative;
+	width: 100%;
+}
+
+#menu-content > div {
+	margin: 5px;
+}
+
+.menu-sidebar {
+	background: #e6e6e7;
+	font-family: 'Open Sans',sans-serif;
+	grid-area: a;
+	overflow-y: scroll;
+	padding-left: 5px;
+	padding-right: 5px;
+	scrollbar-width: none;
+	text-align: left;
+	white-space: nowrap;
+}
+.menu-sidebar div {
+	padding: 5px;
+}
+.menu-sidebar .header {
+	color: gray;
+	font-size:small;
+	font-weight: bold;
+}
+.menu-sidebar .header:not(:first-of-type) {
+	padding-top: 10px;
+}
+.menu-sidebar > div[class^="page-"] {
+	text-indent: 1em;
+}
+.menu-sidebar > div[class^="page-"]:hover {
+	background: #cececf;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.menu-sidebar > div[class$="-22"] {
+    text-indent: 2em;
+}
+
+.menu-sidebar > div[open] {
+	background: #cececf;
+	border-radius: 5px;
+}
+
+.sprite {
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 64px;
+	image-rendering: pixelated;
+	margin: 5px;
+	vertical-align: text-top;
+	width: 64px;
+}
+
+#eyecolor {
+    width: 100%;
+    display: none;
+}
+
+#menu[data-type="cat"] #eyecolor {
+	display: flex;
+}
+
+#eyecolor input {
+    display: none;
+}
+
+#eyecolor label {
+    background: #cececf;
+    width: 30%;
+    text-align: center;
+}
+
+#eyecolor input:checked + label {
+    background: gray;
+    color: white;
+}
+
+input#eye_gray + label {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+input#eye_blue + label {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
