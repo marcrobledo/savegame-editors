@@ -29418,7 +29418,7 @@ e16bb54b;IntArray;WeaponStand.EquipInfo.Content.Effect.Value
 8ed131e0;IntArray;WeaponStand.EquipInfo.Content.ExtraLife
 6b4f749f;IntArray;WeaponStand.EquipInfo.Content.Life
 54824e22;IntArray;WeaponStand.EquipInfo.Content.RecordExtraLife
-0744746a;IntArray;Unknown
+0744746a;IntArray;World_WeatherForecast
 5cd322a7;String32;TempName.Mane
 a0e854ea;String64;LastWildHorse.ActorName
 558901d7;String64;NpcGardenInfo.GrowActorName
@@ -30983,7 +30983,7 @@ f78a5054;UInt;RandomPlacedItemCreateActor_SouthernVillageGamblerShopTBox.Elapsed
 07a98af6;UInt;RandomPlacedItemCreateActor_SouthernVillageGamblerShopTBox.OpenElapsedTime
 2029d3d8;UInt;Unknown
 b8ef33e4;UInt;Unknown
-3f8d9d86;UInt;Unknown
+3f8d9d86;UInt;TimeDayLookWorld
 5ce8221a;UInt64;LastWildHorse.UidHash
 1aeff61b;UInt64;World_BloodyMoonTimer
 ef10b80f;UInt64;World_CurrentDateTime
