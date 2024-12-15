@@ -1,5 +1,5 @@
 /*
-	Picross 3D round 2 for HTML5 Save Editor v20160704
+	The Lego Movie Videogame for HTML5 Save Editor v20160704
 	by Marc Robledo 2016
 */
 function convert_to_bit(d, l){
@@ -42,8 +42,8 @@ SavegameEditor={
 			{value:0, name:'Locked, Locked, Locked'},
 			{value:1, name:'Unlocked - Locked - Locked'},
 			{value:21, name:'Played - Unlocked - Locked'},
-			{value:341, name:'Player - Played - Unlocked'},
-			{value:1911, name:'Player - Played - Played'}
+			{value:341, name:'Played - Played - Unlocked'},
+			{value:1911, name:'Played - Played - Played'}
 		],
 		UPGRADES_OFFSET:0x475, // 1141
 		YELLOW_STONE_OFFSET:0x238, // 568
