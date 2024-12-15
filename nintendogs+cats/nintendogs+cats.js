@@ -1,5 +1,5 @@
 /*
-	Nintendogs + Cats for HTML5 Save Editor v?
+	Nintendogs + Cats for HTML5 Save Editor v20160704
 	by Marc Robledo 2016
 */
 var reg = /\d+/;
