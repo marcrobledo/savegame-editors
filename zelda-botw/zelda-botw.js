@@ -1,13 +1,13 @@
 /*
-	The legend of Zelda: Breath of the wild v20230902
-	by Marc Robledo 2017-2020
+	The legend of Zelda: Breath of the wild v20250607
+	by Marc Robledo 2017-2025
 */
 var currentEditingItem=0;
 
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
 	Filename:'game_data.sav',
-	Version:20230902,
+	Version:20250607,
 
 	/* Constants */
 	Constants:{
@@ -16,9 +16,9 @@ SavegameEditor={
 		STRING64_SIZE:0x80,
 
 		//missing versions: 1.1.1, 1.1.2 and 1.4.1
-		VERSION:				['v1.0', 'v1.1', 'v1.2', 'v1.3', 'v1.3.1', 'Kiosk', 'v1.3.3','v1.3.4', 'v1.4',  'v1.5',  'v1.5*',  'v1.6',  'v1.6*', 'v1.6**','v1.6***'],
-		FILESIZE:				[896976, 897160, 897112, 907824, 907824,  916576,  1020648, 1020648,   1027208, 1027208, 1027248, 1027216, 1027216, 1027216, 1027216],
-		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x2a46,  0x2f8e,  0x3ef8,  0x3ef9,    0x471a,  0x471b, 0x471b,  0x471e, 0x0f423d, 0x0f423e,0x0f423f],
+		VERSION:				['v1.0', 'v1.1', 'v1.2', 'v1.3', 'v1.3.1', 'Kiosk', 'v1.3.3','v1.3.4', 'v1.4',  'v1.5',  'v1.5*',  'v1.6',  'v1.6*', 'v1.6**','v1.6***','v1.8'],
+		FILESIZE:				[896976, 897160, 897112, 907824, 907824,  916576,  1020648, 1020648,   1027208, 1027208, 1027248, 1027216, 1027216, 1027216, 1027216, 1027248],
+		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x2a46,  0x2f8e,  0x3ef8,  0x3ef9,    0x471a,  0x471b, 0x471b,  0x471e, 0x0f423d, 0x0f423e,0x0f423f, 0x4730],
 
 		ICON_TYPES:{SWORD: 27, BOW:28, SHIELD:29, POT:30, STAR:31, CHEST:32,SKULL:33,LEAF:34,TOWER:35}
 	},
