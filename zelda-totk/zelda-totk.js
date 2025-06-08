@@ -1,7 +1,7 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2024-02-11)
+	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2025-06-08)
 
-	by Marc Robledo 2023-2024
+	by Marc Robledo 2023-2025
 */
 
 var currentEditingItem;
@@ -21,6 +21,7 @@ SavegameEditor={
 		GAME_VERSIONS:[
 			{version:'v1.0', fileSize:2307552, header:0x0046c3c8, metaDataStart:0x0003c050},
 			{version:'v1.1.x/v1.2.0', fileSize:2307656, header:0x0047e0f4, metaDataStart:0x0003c088}
+			//{version:'v1.4.0', fileSize:2307856 /*, header:0xdeadbeef, metaDataStart:0xdeadbeef */}
 		]
 	},
 
@@ -480,8 +481,6 @@ SavegameEditor={
 	
 	fixItemAvailabilityFlag:function(item){
 		if(item.category==='key'){
-			var fixed=false;
-
 			var variable;
 			if(/^Obj_SubstituteCloth_/.test(item.id)){
 				variable=new Variable('OwnedParasailPattern.'+item.id.replace('Obj_SubstituteCloth_','Pattern').replace('PatternDefault','Default'), 'Bool');
@@ -511,8 +510,10 @@ SavegameEditor={
 				variable.value=true;
 				variable.save();
 				UI.toast(_('Fixed necessary usability flags for %s').replace('%s', '<strong>'+_(item.getItemTranslation())+'</strong>'), 'flags-fixed');
+				return true;
 			}
 		}
+		return false;
 	},
 	
 	

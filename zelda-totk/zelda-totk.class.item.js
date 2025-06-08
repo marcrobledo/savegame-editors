@@ -1,7 +1,7 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor - Item class (last update 2024-09-29)
+	The legend of Zelda: Tears of the Kingdom savegame editor - Item class (last update 2025-06-08)
 
-	by Marc Robledo 2023-2024
+	by Marc Robledo 2023-2025
 	item names compiled by Echocolat, Exincracci, HylianLZ and Karlos007
 */
 
@@ -915,6 +915,11 @@ Item.AVAILABILITY={
 		'Obj_SubstituteCloth_53', //Gerudo-King Fabric
 		'Obj_SubstituteCloth_55', //Nostalgic Fabric
 		'Obj_SubstituteCloth_56', //Addison's Fabric
+		'Obj_SubstituteCloth_57', //v1.4 fabric
+		'Obj_SubstituteCloth_58', //v1.4 fabric
+		'Obj_SubstituteCloth_59', //v1.4 fabric
+		'Obj_SubstituteCloth_60', //v1.4 fabric
+		'Obj_SubstituteCloth_61', //v1.4 fabric
 
 		'Obj_SubstituteCloth_Default', //Ordinary Fabric
 		'Obj_Album', //Album

@@ -31040,3 +31040,35 @@ edd67603;Vector3Array;FigureCreateInfo.Rot
 5f93e70f;Vector3Array;MapData.IconData.MapPinData.Pos
 636b4637;Vector3Array;MapData.IconData.WarpMarkerData.Pos
 91df205d;Vector3Array;MapData.IconData.WarpMarkerData.Rot
+
+
+#v1.4 hashes
+9f119a87;Bool;IsGet.Obj_SubstituteCloth_57
+c033f4d1;Bool;IsGet.Obj_SubstituteCloth_58
+88f63656;Bool;IsGet.Obj_SubstituteCloth_59
+1debe051;Bool;IsGet.Obj_SubstituteCloth_60
+ea96b6c6;Bool;IsGet.Obj_SubstituteCloth_61
+99fea331;Bool;IsGetAnyway.Obj_SubstituteCloth_57
+d954c9a7;Bool;IsGetAnyway.Obj_SubstituteCloth_58
+110192f4;Bool;IsGetAnyway.Obj_SubstituteCloth_59
+7f588407;Bool;IsGetAnyway.Obj_SubstituteCloth_60
+8f71c191;Bool;IsGetAnyway.Obj_SubstituteCloth_61
+d719817a;Bool;OwnedParasailPattern.Pattern57
+dd18bac2;Bool;OwnedParasailPattern.Pattern58
+55baedec;Bool;OwnedParasailPattern.Pattern59
+5fbe303e;Bool;OwnedParasailPattern.Pattern60
+8d696023;Bool;OwnedParasailPattern.Pattern61
+# 073a8127;BoolArray;AutoBuilder.Draft.Content.IsFromApp
+# e3cfa2ab;IntArray;TempName.NumberingID
+# 4d100147;Bool;Unknown
+# 0538d67a;Bool;Unknown
+# b75bfc0f;Bool;Unknown
+# 9d3aec10;Bool;Unknown
+# a9dc3920;Bool;Unknown
+# 0de0127c;Bool;Unknown
+# f5405ef1;Bool;Unknown
+# 82c839b9;Bool;Unknown
+# 83627d10;Bool;Unknown
+# 7914fbae;Enum;Unknown
+# e316d85c;Int;Unknown
+# caf464f9;UInt64;Unknown
