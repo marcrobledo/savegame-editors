@@ -1,5 +1,5 @@
 /*
-	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2025-06-08)
+	The legend of Zelda: Tears of the Kingdom savegame editor (last update 2025-06-13)
 
 	by Marc Robledo 2023-2025
 */
@@ -9,7 +9,7 @@ var currentEditingItem;
 SavegameEditor={
 	Name:'The legend of Zelda: Tears of the Kingdom',
 	Filename:['progress.sav','caption.sav'],
-	Version:20240102,
+	Version:20250613,
 
 	/* Settings */
 	Settings:{
@@ -20,8 +20,8 @@ SavegameEditor={
 	Constants:{
 		GAME_VERSIONS:[
 			{version:'v1.0', fileSize:2307552, header:0x0046c3c8, metaDataStart:0x0003c050},
-			{version:'v1.1.x/v1.2.0', fileSize:2307656, header:0x0047e0f4, metaDataStart:0x0003c088}
-			//{version:'v1.4.0', fileSize:2307856 /*, header:0xdeadbeef, metaDataStart:0xdeadbeef */}
+			{version:'v1.1.x/v1.2.x', fileSize:2307656, header:0x0047e0f4, metaDataStart:0x0003c088},
+			{version:'v1.4.x', fileSize:2307856 , header:0x0049e946, metaDataStart:0x0003c138}
 		]
 	},
 
