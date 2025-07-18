@@ -7,7 +7,7 @@ var currentEditingItem=0;
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
 	Filename:'game_data.sav',
-	Version:20250607,
+	Version:20250718,
 
 	/* Constants */
 	Constants:{
@@ -481,7 +481,7 @@ SavegameEditor={
 		var seconds=timeVal%60;
 		if(seconds<10)seconds='0'+seconds;
 		var minutes=parseInt(timeVal/60)%60;
-		if(minutes<10)seconds='0'+seconds;
+		if(minutes<10)minutes='0'+minutes;
 		return parseInt(timeVal/3600)+':'+minutes+':'+seconds;
 	},
 
