@@ -331,19 +331,6 @@ SavegameEditor={
 		return arr2;
 	},
 
-
-	changeEndianess:function(){
-		var tempFileByteSwapped=new MarcFile(tempFile.fileSize);
-		tempFileByteSwapped.fileType=tempFile.fileType;
-		tempFileByteSwapped.fileName=tempFile.fileName;
-		tempFileByteSwapped.littleEndian=!tempFile.littleEndian;
-		for(var i=0; i<tempFile.fileSize; i+=4){
-			tempFileByteSwapped.writeU32(i, tempFile.readU32(i));
-		}
-		tempFile=tempFileByteSwapped;
-		this.checkValidSavegame();
-	},
-
 	/* check if savegame is valid */
 	_checkValidSavegameByConsole:function(switchMode){
 		var CONSOLE=switchMode?'Switch':'Wii U';
