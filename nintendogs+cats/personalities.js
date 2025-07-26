@@ -1,32 +1,32 @@
-var personalities = [
+const personalities = [
 	[ // 0
 		null,
 		null,
-		[
+		[ // 0_2
 			'This mischievous male is curious about everything.',
 			'This inquisitive little female is curious about everything.'
 		],
-		[
+		[ // 0_3
 			'This lively male is full of energy for running around.',
 			'This lively female is full of energy for running around.'
 		],
-		[
+		[ // 0_4
 			'This boisterous little male loves playing with everyone.',
 			'This boisterous young female loves playing with everyone.'
 		],
-		[
+		[ // 0_5
 			'This male is quite calm, but enjoys plenty of exercise',
 			'This female is quite calm, but enjoys plenty of exercise'
 		],
-		[
+		[ // 0_6
 			'This cheeky little tyke has a sharp mind about him.',
 			'This cheeky little lass has a sharp mind about her.'
 		],
-		[
+		[ // 0_7
 			'This bumbling male just loves running and jumping around.',
 			'This dizzy female just loves running and jumping around.'
 		],
-		[
+		[ // 0_8
 			'This fiery male can be a bit possessive with his owner.',
 			'This spirited little female loves having her owner all to herself.'
 		]
@@ -34,11 +34,11 @@ var personalities = [
 	[ // 1
 		null,
 		null,
-		[
+		[ // 1_2
 			'This lad is curious, but likes to take things at his own pace.',
 			'This girl is curious but likes to take things at her own pace.'
 		],
-		[
+		[ // 1_3
 			'This laid-back male is happiest when playing with his toys.',
 			'This gentle female is happies when playing with her toys.'
 		],
@@ -191,41 +191,41 @@ var personalities = [
 	],
 	[] // 8
 ];
-personalities[1][0] = personalities[0][1];
-personalities[2][0] = personalities[0][2];
-personalities[2][1] = personalities[1][2];
-personalities[3][0] = personalities[0][3];
-personalities[3][1] = personalities[1][3];
-personalities[3][2] = personalities[2][3];
-personalities[4][0] = personalities[0][4];
-personalities[4][1] = personalities[1][4];
-personalities[4][2] = personalities[2][4];
-personalities[4][3] = personalities[3][4];
-personalities[5][0] = personalities[0][5];
-personalities[5][1] = personalities[1][5];
-personalities[5][2] = personalities[2][5];
-personalities[5][3] = personalities[3][5];
-personalities[5][4] = personalities[4][5];
-personalities[6][0] = personalities[0][6];
-personalities[6][1] = personalities[1][6];
-personalities[6][2] = personalities[2][6];
-personalities[6][3] = personalities[3][6];
-personalities[6][4] = personalities[4][6];
-personalities[6][5] = personalities[5][6];
-personalities[7][0] = personalities[0][7];
-personalities[7][1] = personalities[1][7];
-personalities[7][2] = personalities[2][7];
-personalities[7][3] = personalities[3][7];
-personalities[7][4] = personalities[4][7];
-personalities[7][5] = personalities[5][7];
-personalities[7][6] = personalities[6][7];
-personalities[8][0] = personalities[0][8];
-personalities[8][1] = personalities[1][8];
-personalities[8][2] = personalities[2][8];
-personalities[8][3] = personalities[3][8];
-personalities[8][4] = personalities[4][8];
-personalities[8][5] = personalities[5][8];
-personalities[8][6] = personalities[6][8];
-personalities[8][7] = personalities[7][8];
+personalities[ 1 ][ 0 ] = personalities[ 0 ][ 1 ];
+personalities[ 2 ][ 0 ] = personalities[ 0 ][ 2 ];
+personalities[ 2 ][ 1 ] = personalities[ 1 ][ 2 ];
+personalities[ 3 ][ 0 ] = personalities[ 0 ][ 3 ];
+personalities[ 3 ][ 1 ] = personalities[ 1 ][ 3 ];
+personalities[ 3 ][ 2 ] = personalities[ 2 ][ 3 ];
+personalities[ 4 ][ 0 ] = personalities[ 0 ][ 4 ];
+personalities[ 4 ][ 1 ] = personalities[ 1 ][ 4 ];
+personalities[ 4 ][ 2 ] = personalities[ 2 ][ 4 ];
+personalities[ 4 ][ 3 ] = personalities[ 3 ][ 4 ];
+personalities[ 5 ][ 0 ] = personalities[ 0 ][ 5 ];
+personalities[ 5 ][ 1 ] = personalities[ 1 ][ 5 ];
+personalities[ 5 ][ 2 ] = personalities[ 2 ][ 5 ];
+personalities[ 5 ][ 3 ] = personalities[ 3 ][ 5 ];
+personalities[ 5 ][ 4 ] = personalities[ 4 ][ 5 ];
+personalities[ 6 ][ 0 ] = personalities[ 0 ][ 6 ];
+personalities[ 6 ][ 1 ] = personalities[ 1 ][ 6 ];
+personalities[ 6 ][ 2 ] = personalities[ 2 ][ 6 ];
+personalities[ 6 ][ 3 ] = personalities[ 3 ][ 6 ];
+personalities[ 6 ][ 4 ] = personalities[ 4 ][ 6 ];
+personalities[ 6 ][ 5 ] = personalities[ 5 ][ 6 ];
+personalities[ 7 ][ 0 ] = personalities[ 0 ][ 7 ];
+personalities[ 7 ][ 1 ] = personalities[ 1 ][ 7 ];
+personalities[ 7 ][ 2 ] = personalities[ 2 ][ 7 ];
+personalities[ 7 ][ 3 ] = personalities[ 3 ][ 7 ];
+personalities[ 7 ][ 4 ] = personalities[ 4 ][ 7 ];
+personalities[ 7 ][ 5 ] = personalities[ 5 ][ 7 ];
+personalities[ 7 ][ 6 ] = personalities[ 6 ][ 7 ];
+personalities[ 8 ][ 0 ] = personalities[ 0 ][ 8 ];
+personalities[ 8 ][ 1 ] = personalities[ 1 ][ 8 ];
+personalities[ 8 ][ 2 ] = personalities[ 2 ][ 8 ];
+personalities[ 8 ][ 3 ] = personalities[ 3 ][ 8 ];
+personalities[ 8 ][ 4 ] = personalities[ 4 ][ 8 ];
+personalities[ 8 ][ 5 ] = personalities[ 5 ][ 8 ];
+personalities[ 8 ][ 6 ] = personalities[ 6 ][ 8 ];
+personalities[ 8 ][ 7 ] = personalities[ 7 ][ 8 ];
 
-window.personalities = personalities;
+SavegameEditor.Constants.personalities = personalities;
