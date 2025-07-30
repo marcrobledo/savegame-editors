@@ -12,9 +12,10 @@
 	<link type="text/css" rel="stylesheet" href="./nintendogs+cats.css" media="all"/>
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./dialog.js"></script>
-	<script type="text/javascript" src="./personalities.js"></script>
 	<script type="text/javascript" src="./nintendogs+cats.js"></script>
-	<script type="text/javascript"><!--
+	<script type="text/javascript" src="./personalities.js"></script>
+	<script type="text/javascript" src="./items.js"></script>
+	<script type="text/javascript">
 			/* service worker */
 		var FORCE_HTTPS=true;
 		window.addEventListener('load',function(){
@@ -23,7 +24,7 @@
 			else if(location.protocol==='https:' && 'serviceWorker' in navigator)
 				navigator.serviceWorker.register('/savegame-editors/nintendogs+cats/_cache_service_worker.js', {scope: '/savegame-editors/nintendogs+cat/'});
 		}, false);
-	--></script>
+	</script>
 </head>
 <body>
 <template id="template-row-pet">
@@ -38,6 +39,7 @@
 			<div class="columns c8"><label class="update-name" for="number-petX-level">Level</label></div>
 			<div class="columns c4"><input class="update-name fw text-right" id="number-petX-level" type="text" /></div>
 
+			<!-- Experimental -->
 			<div class="row container update-name" id="petX_comp_outer" style="width:100%;padding-left:0;padding-right:0">
 				<h3 class="orange" style="width:100%;">Times played (max 2 per day)</h3>
 				<div class="columns c8"><label class="update-name" for="number-petX-disc-played">Disc Competition</label></div>
@@ -46,7 +48,18 @@
 				<div class="update-name columns c4" data-global="1" data-var="PETX_COMP_LURE_PLAYED", data-size="8"><input class="update-name fw text-right" id="number-petX-lure-played" type="text" /></div>
 				<div class="columns c8"><label class="update-name" for="number-petX-obedience-played">Obedience Trial</label></div>
 				<div class="update-name columns c4" data-global="1" data-var="PETX_COMP_OBED_PLAYED", data-size="8"><input class="update-name fw text-right" id="number-petX-obed-played" type="text" /></div>
+				<h3 class="orange" style="width:100%;">Highest Rank</h3>
+				<div class="columns c8">Disc Competition</div><div class="update-name columns c4" id="container-petX-disc" data-var="PET_COMP_HIGHEST_PLAYED1" data-size="8"></div>
+				<div class="columns c8">Lure Coursing</div><div class="update-name columns c4" id="container-petX-lure" data-var="PET_COMP_HIGHEST_PLAYED3" data-size="8"></div>
+				<div class="columns c8">Obedience Trial</div><div class="update-name columns c4" id="container-petX-obedience" data-var="PET_COMP_HIGHEST_PLAYED2" data-size="8"></div>
 			</div>
+			<div class="columns c8"><label class="update-name" for="number-petX-hunger">Hunger Status</label></div>
+			<div class="columns c4" data-var="PET_HUNGER_OFFSET", data-size="16"><input class="update-name fw text-right" id="number-petX-hunger" type="text" /></div>
+			<div class="columns c8"><label class="update-name" for="number-petX-thirst">Thirst Status</label></div>
+			<div class="columns c4" data-var="PET_THIRST_OFFSET", data-size="16"><input class="update-name fw text-right" id="number-petX-thirst" type="text" /></div>
+			<div class="columns c8"><label class="update-name" for="number-petX-coat">Coat Status</label></div>
+			<div class="columns c4" data-var="PET_COAT_OFFSET", data-size="16"><input class="update-name fw text-right" id="number-petX-coat" type="text" /></div>
+			
 		</div>
 	</div>
 </template>
@@ -244,7 +257,7 @@
 		<div class="row wrapper">
 			<h1 class="six columns text-left"><img src="favicon.png" /> Savegame Editor <small>for Nintendogs+Cats</small></h1>
 			<div class="six columns header-buttons text-right">
-				by <a href="/">Marc Robledo</a>
+				by <a href="/">Magiczocker</a>
 				<i class="icon github"></i> <a href="https://github.com/marcrobledo/savegame-editors/tree/master/nintendogs+cats" target="_blank">See on GitHub</a>
 				<i class="icon heart"></i> <a href="https://www.paypal.me/marcrobledo/5" target="_blank" rel="nofollow">Donate</a>
 			</div>
@@ -293,71 +306,37 @@
 	<h3 class="orange">Pets</h3>
 	<div id="pet_tabs"></div>
 	<!-- Supplies -->
-	<h3 class="orange">Food & Drink</h3>
+	<h3 class="orange">Food & Drinks</h3>
 	<div class="container">
-		<div class="row" id="row-fooddrink">
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-		</div>
+		<div class="row" id="row-fooddrink"></div>
 	</div>
 	<h3 class="orange">Toys</h3>
 	<div class="container">
-		<div class="row" id="row-toys">
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-		</div>
+		<div class="row" id="row-toys"></div>
 	</div>
 	<h3 class="orange">Accessories</h3>
 	<div class="container">
-		<div class="row" id="row-accessories">
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-		</div>
+		<div class="row" id="row-accessories"></div>
 	</div>
-	<h3 class="orange">Furniture</h3>
+	<h3 class="orange">Furnitures</h3>
 	<div class="container">
-		<div class="row" id="row-furniture">
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-		</div>
+		<div class="row" id="row-furnitures"></div>
 	</div>
 	<h3 class="orange">Leashes</h3>
 	<div class="container">
-		<div class="row" id="row-leashes">
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-		</div>
+		<div class="row" id="row-leashes"></div>
 	</div>
-	<h3 class="orange">Skins</h3>
+	<h3 class="orange">Water Bowls</h3>
 	<div class="container">
-		<div class="row" id="row-skins">
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-			<div class="columns c3">Name</div>
-			<div class="columns c1">Amount</div>
-		</div>
+		<div class="row" id="row-bowlsdrink"></div>
+	</div>
+	<h3 class="orange">Food Bowls</h3>
+	<div class="container">
+		<div class="row" id="row-bowlsfood"></div>
+	</div>
+	<h3 class="orange">Interiors</h3>
+	<div class="container">
+		<div class="row" id="row-interiors"></div>
 	</div>
 </div>
 
