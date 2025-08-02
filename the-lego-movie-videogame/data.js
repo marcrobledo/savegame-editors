@@ -116,20 +116,20 @@ window.SavegameEditor.Constants.CHARACTERS = [
 ];
 window.SavegameEditor.Constants.UPGRADES = [
 	'Always Charged',
-	'Bubble Effects',
-	'Collectable Detector',
-	'Confetti Effects',
-	'Extra Heart',
-	'Fast Build',
 	'Fast Use',
-	'Health Regeneration',
-	'Invincibility',
+	'Collectable Detector',
+	'Fast Build',
 	'Mini Game Master',
+	'Invicibility',
+	'Health Regeneration',
 	'Stud Magnet',
-	'X2 Stud Multiplier',
-	'X4 Stud Multiplier',
+	'Confetti Effects',
+	'Bubble Effects',
+	'Extra Heart',
+	'X8 Stud Multiplier',
 	'X6 Stud Multiplier',
-	'X8 Stud Multiplier'
+	'X4 Stud Multiplier',
+	'X2 Stud Multiplier'
 ];
 window.SavegameEditor.Constants.CHAPTERS = [
 	'Prologue',
