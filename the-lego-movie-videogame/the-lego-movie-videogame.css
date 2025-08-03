@@ -1,0 +1,95 @@
+.character-name,
+.upgrade-name {
+	display: inline-block;
+	vertical-align: middle;
+	width: 80%;
+}
+
+.challenge-icon {
+	background-image: url( ./challenges.webp );
+	background-size: 384px;
+}
+
+.character-icon {
+	background-image: url( ./characters.webp );
+	background-size: 320px;
+}
+
+.upgrade-icon {
+	background-image: url( ./upgrades.webp );
+	background-size: 128px;
+}
+
+.challenge-icon,
+.character-icon,
+.upgrade-icon {
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 32px;
+	margin-right: 6px;
+	pointer-events: none;
+	user-select: none;
+	vertical-align: middle;
+	width: 32px;
+}
+
+/* Fix */
+.columns.c1,
+.columns.one {
+	width: calc( 100% / 12 * 1 );
+}
+
+.columns.c2,
+.columns.two {
+	width: calc( 100% / 12 * 2 );
+}
+
+.columns.c3,
+.columns.three {
+	width: calc( 100% / 12 * 3 );
+}
+
+.columns.c4,
+.columns.four {
+	width: calc( 100% / 12 * 4 );
+}
+
+.columns.c5,
+.columns.five {
+	width: calc( 100% / 12 * 5 );
+}
+
+.columns.c6,
+.columns.six {
+	width: calc( 100% / 12 * 6 );
+}
+
+.columns.c7,
+.columns.seven {
+	width: calc( 100% / 12 * 7 );
+}
+
+.columns.c8,
+.columns.eight {
+	width: calc( 100% / 12 * 8 );
+}
+
+.columns.c9,
+.columns.nine {
+	width: calc( 100% / 12 * 9 );
+}
+
+.columns.c10,
+.columns.ten {
+	width: calc( 100% / 12 * 10 );
+}
+
+.columns.c11,
+.columns.eleven {
+	width: calc( 100% / 12 * 11 );
+}
+
+.columns.c12,
+.columns.twelve {
+	width: 100%;
+}
