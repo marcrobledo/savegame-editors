@@ -217,6 +217,7 @@ struct furnitures_t {
 	u8 item0x1F0 @ 0x1F0 [[name("Comfy Couch")]];
 	u8 item0x1FB @ 0x1FB [[name("Designer Chair")]];
 	u8 item0x1F2 @ 0x1F2 [[name("Dining Table Set")]];
+	u8 item0x206 @ 0x206 [[name("Display Case")]];
 	u8 item0x1E7 @ 0x1E7 [[name("Display Shelves")]];
 	u8 item0x1ED @ 0x1ED [[name("Dresser")]];
 	u8 item0x205 @ 0x205 [[name("Electronic Fan")]];
