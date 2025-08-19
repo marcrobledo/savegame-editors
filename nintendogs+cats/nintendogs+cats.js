@@ -98,7 +98,18 @@ SavegameEditor = {
 		PET_PERSONALITIES_OFFSET_DOG2: 0x1FA,
 		PET_PERSONALITIES_OFFSET_CAT1: 0x1EE,
 		PET_PERSONALITIES_OFFSET_CAT2: 0x1F2,
-		WALKING_COUNTER_OFFSET: 0x215
+		WALKING_COUNTER_OFFSET: 0x215,
+		interiors: [
+			[ '0x208', 'Scandinavian' ],
+			[ '0x209', 'Japanese' ],
+			[ '0x20A', 'Asian' ],
+			[ '0x20B', 'Modern' ],
+			[ '0x20C', 'Country' ],
+			[ '0x20D', 'Luxerious House' ],
+			[ '0x20E', 'Fairy Tale' ],
+			[ '0x20F', 'Mario House' ],
+			[ '0x210', 'Futuristic' ]
+		]
 	},
 
 	_write_money: function () {
@@ -141,7 +152,7 @@ SavegameEditor = {
 			getValue( e.target.id )
 		);
 
-		document.getElementsByClassName( 'pet' + index + '_name' )[ 0 ].innerText = getValue( e.target.id );
+		document.getElementsByClassName( `pet${ index }_name` )[ 0 ].innerText = getValue( e.target.id );
 	},
 	_write_u_number: function ( e, n, o, g ) {
 		const index = Number( ( e.target.id ).match( reg )[ 0 ] );
@@ -150,7 +161,7 @@ SavegameEditor = {
 			pet_offset = 0;
 		}
 		const offset = pet_offset + SavegameEditor.Constants[ o ];
-		tempFile[ 'writeU' + n ](
+		tempFile[ `writeU${ n }` ](
 			offset,
 			Number( getValue( e.target.id ) )
 		);
@@ -159,7 +170,7 @@ SavegameEditor = {
 		SavegameEditor._write_u_number( e, Number( e.target.parentElement.dataset.size ), e.target.parentElement.dataset.var, e.target.parentElement.dataset.global );
 	},
 	_getPetData( petOffset, val, size ) {
-		return tempFile[ 'readU' + ( size || 8 ) ]( SavegameEditor.Constants.PET_OFFSET[ petOffset ] + SavegameEditor.Constants[ val ] );
+		return tempFile[ `readU${ size || 8 }` ]( SavegameEditor.Constants.PET_OFFSET[ petOffset ] + SavegameEditor.Constants[ val ] );
 	},
 	_mark_as_changed( e ) {
 		e.target.dataset.data_changed = true;
@@ -174,47 +185,71 @@ SavegameEditor = {
 			getValue( 'interiors' )
 		);
 	},
-	appendItem: function ( rowtype ) {
-		const items = SavegameEditor.Constants.items,
-			rowname = rowtype[ 0 ],
-			rt = get( 'row-' + rowname ),
-			min = [ 'bowlsfood', 'bowlsdrink' ].includes( rowname ) ? 1 : 0,
-			options = [];
-		if ( rowname === 'interiors' ) {
-			items[ rowname ].forEach( ( item ) => {
-				options.push( item[ 1 ] );
-			} );
-			rt.append(
-				col( 8, span( 'Active interior' ) ),
-				col( 4, select( 'interiors', options, SavegameEditor.updateInterior ) )
-			);
-		}
-		items[ rowname ].forEach( ( item, index ) => {
-			if ( item[ 2 ] === undefined ) {
-				rt.append( col( 3, span( item[ 1 ] ) ) );
-			} else {
-				const itemIcon = document.createElement( 'span' ),
-					itemCol = col( 3, itemIcon ),
-					itemName = itemCol.appendChild( document.createElement( 'span' ) );
-				itemIcon.className = 'item-icon';
-				itemIcon.style.backgroundPosition = `${ item[ 2 ] / 2 }px ${ item[ 3 ] / 2 }px`;
-				itemName.className = 'item-name';
-				itemName.textContent = item[ 1 ];
-				if ( item[ 4 ] ) {
-					itemName.dataset.icon = item[ 4 ];
-				}
-				rt.append( itemCol );
+	setPos: function ( node, pos ) {
+		const size = 64, // Sprite height
+			scale = 0.5, // height scaled down to 32px
+			tiles = 18,
+			left = pos % tiles * size * scale,
+			top = Math.floor( pos / tiles ) * size * scale;
+		node.style.backgroundPosition = `-${ left }px -${ top }px`;
+	},
+	appendItems: function () {
+		const itemTypes = [
+			[ 'fooddrink', 99 ],
+			[ 'toys', 99 ],
+			[ 'accessories', 99 ],
+			[ 'furnitures', 99 ],
+			[ 'leashes', 99 ],
+			[ 'bowlsdrink', 1 ],
+			[ 'bowlsfood', 1 ]
+		];
+		SavegameEditor.Constants.items.forEach( ( item, index ) => {
+			const type = itemTypes[ item[ 0 ] ],
+				rowname = type[ 0 ],
+				min = [ 'bowlsfood', 'bowlsdrink' ].includes( rowname ) ? 1 : 0,
+				row = get( `row-${ rowname }` ),
+				itemIcon = document.createElement( 'span' ),
+				itemCol = col( 3, itemIcon ),
+				itemName = itemCol.appendChild( document.createElement( 'span' ) ),
+				itemInput = inputNumber( `supplies_${ index }`, index === 0 ? min : 0, type[ 1 ], tempFile.readU8( Number( item[ 2 ] ) ) );
+			itemIcon.className = 'item-icon';
+			itemName.className = 'item-name';
+			itemName.textContent = item[ 1 ];
+			SavegameEditor.setPos( itemIcon, index );
+			if ( item[ 3 ] ) {
+				itemName.dataset.icon = item[ 3 ];
 			}
-			rt.append(
-				col( 1, inputNumber( 'supplies_' + rowname + '_' + index + '_amount', index === 0 ? min : 0, rowtype[ 1 ], tempFile.readU8( Number( item[ 0 ] ) ) ) )
+			row.append( itemCol );
+			row.append(
+				col( 1, itemInput )
 			);
-			get( 'number-supplies_' + rowname + '_' + index + '_amount' ).dataset.offset = item[ 0 ];
-			get( 'number-supplies_' + rowname + '_' + index + '_amount' ).addEventListener( 'change', SavegameEditor._write_supply_amount );
+			itemInput.dataset.offset = item[ 0 ];
+			itemInput.addEventListener( 'change', SavegameEditor._write_supply_amount );
 		} );
-		const lastRow = SavegameEditor.Constants.items[ rowname ].length % 3;
-		if ( lastRow !== 0 ) {
-			rt.append( col( ( 3 - lastRow ) * 4, span( '' ) ) );
-		}
+		itemTypes.forEach( ( type ) => {
+			const rowname = type[ 0 ],
+				row = get( `row-${ rowname }` ),
+				lastRow = row.childElementCount % 6;
+			if ( lastRow !== 0 ) {
+				row.append( col( ( 6 - lastRow ) * 2, span( '' ) ) );
+			}
+		} );
+	},
+	appendInteriors: function () {
+		const options = [],
+			row = get( 'row-interiors' );
+		SavegameEditor.Constants.interiors.forEach( ( interior, index ) => {
+			const input = inputNumber( `interiors_${ index }`, 0, interior[ 1 ], tempFile.readU8( Number( interior[ 0 ] ) ) );
+			row.append(
+				col( 3, span( interior[ 1 ] ) ),
+				col( 1, input )
+			);
+			input.dataset.offset = interior[ 0 ];
+			input.addEventListener( 'change', SavegameEditor._write_supply_amount );
+			options.push( interior[ 1 ] );
+		} );
+		row.prepend( col( 4, select( 'interiors', options, SavegameEditor.updateInterior ) ) );
+		row.prepend( col( 8, span( 'Active interior' ) ) );
 	},
 	preload: function () {
 		setNumericRange( 'money', 0, 9999999 );
@@ -247,16 +282,8 @@ SavegameEditor = {
 		get( 'number-pedometer' ).addEventListener( 'change', SavegameEditor._write_pedometer );
 		get( 'number-walking-counter' ).addEventListener( 'change', SavegameEditor._write_walking_counter );
 
-		[
-			[ 'fooddrink', 99 ],
-			[ 'toys', 99 ],
-			[ 'accessories', 99 ],
-			[ 'furnitures', 99 ],
-			[ 'leashes', 99 ],
-			[ 'bowlsdrink', 1 ],
-			[ 'bowlsfood', 1 ],
-			[ 'interiors', 1 ]
-		].forEach( SavegameEditor.appendItem );
+		SavegameEditor.appendItems();
+		SavegameEditor.appendInteriors();
 	},
 
 	/* load function */
@@ -300,7 +327,7 @@ SavegameEditor = {
 			const pet_tab_input = document.createElement( 'input' );
 			pet_tab_input.name = 'pet_tabgroup';
 			pet_tab_input.type = 'radio';
-			pet_tab_input.id = 'pet_tab' + i;
+			pet_tab_input.id = `pet_tab${ i }`;
 			pet_tab_input.className = 'pet_tab';
 			if ( first_pet ) {
 				pet_tab_input.checked = true;
@@ -309,20 +336,20 @@ SavegameEditor = {
 			pet_tabs.insertBefore( pet_tab_input, pet_tabs_content_seperator );
 			const pet_tab_label = document.createElement( 'label' );
 			pet_tab_label.className = 'pet_label';
-			pet_tab_label.setAttribute( 'for', 'pet_tab' + i );
+			pet_tab_label.setAttribute( 'for', `pet_tab${ i }` );
 			pet_tabs.insertBefore( pet_tab_label, pet_tabs_content_seperator );
 
 			const templateClone = template.content.cloneNode( true );
-			templateClone.querySelector( '.row' ).id = 'row-pet' + i;
+			templateClone.querySelector( '.row' ).id = `row-pet${ i }`;
 			for ( const ele of templateClone.querySelectorAll( '.update-name' ) ) {
 				if ( ( ele.id || '' ).includes( 'petX' ) ) {
-					ele.id = ele.id.replace( /petX/g, 'pet' + i );
+					ele.id = ele.id.replace( /petX/g, `pet${ i }` );
 				}
 				if ( ele.getAttribute( 'for' ) ) {
-					ele.setAttribute( 'for', ele.getAttribute( 'for' ).replace( /petX/g, 'pet' + i ) );
+					ele.setAttribute( 'for', ele.getAttribute( 'for' ).replace( /petX/g, `pet${ i }` ) );
 				}
 				if ( ( ele.dataset && ele.dataset.var || '' ).includes( 'PETX' ) ) {
-					ele.dataset.var = ele.dataset.var.replace( /PETX/g, 'PET' + i );
+					ele.dataset.var = ele.dataset.var.replace( /PETX/g, `PET${ i }` );
 				}
 			}
 			const breed = SavegameEditor._getPetData( i - 1, 'PET_BREED_OFFSET' );
@@ -352,9 +379,9 @@ SavegameEditor = {
 				);
 			if ( breedImgTmp ) {
 				breedImg = breedImgTmp.cloneNode();
-				breedImg.id = 'petimage' + i;
+				breedImg.id = `petimage${ i }`;
 			}
-			get( 'container-pet' + i + '-breed' ).appendChild( breedImg );
+			get( `container-pet${ i }-breed` ).appendChild( breedImg );
 			const breedImg2 = breedImg.cloneNode();
 			breedImg2.id = '';
 			pet_tab_label.appendChild( breedImg2 );
@@ -382,59 +409,59 @@ SavegameEditor = {
 				} );
 			};
 			dialogbtn.innerText = 'Change';
-			get( 'container-pet' + i + '-breed' ).appendChild( dialogbtn );
+			get( `container-pet${ i }-breed` ).appendChild( dialogbtn );
 
-			get( 'container-pet' + i + '-gender' ).appendChild( select( 'pet' + i + '-gender', SavegameEditor.Constants.GENDERS, SavegameEditor._write_pet_value ) );
-			setValue( 'pet' + i + '-name', tempFile.readU16String( SavegameEditor.Constants.PET_OFFSET[ i - 1 ] + SavegameEditor.Constants.PET_NAME_OFFSET, 10 ) );
+			get( `container-pet${ i }-gender` ).appendChild( select( `pet${ i }-gender`, SavegameEditor.Constants.GENDERS, SavegameEditor._write_pet_value ) );
+			setValue( `pet${ i }-name`, tempFile.readU16String( SavegameEditor.Constants.PET_OFFSET[ i - 1 ] + SavegameEditor.Constants.PET_NAME_OFFSET, 10 ) );
 			const pet_tab_label_name = document.createElement( 'span' );
-			pet_tab_label_name.innerText = getValue( 'pet' + i + '-name' );
-			pet_tab_label_name.className = 'pet' + i + '_name';
+			pet_tab_label_name.innerText = getValue( `pet${ i }-name` );
+			pet_tab_label_name.className = `pet${ i }_name`;
 			pet_tab_label.appendChild( pet_tab_label_name );
-			setValue( 'pet' + i + '-gender', SavegameEditor._getPetData( i - 1, 'PET_GENDER_OFFSET' ) );
-			get( 'input-pet' + i + '-name' ).addEventListener( 'change', SavegameEditor._write_pet_name );
+			setValue( `pet${ i }-gender`, SavegameEditor._getPetData( i - 1, 'PET_GENDER_OFFSET' ) );
+			get( `input-pet${ i }-name` ).addEventListener( 'change', SavegameEditor._write_pet_name );
 
-			setNumericRange( 'pet' + i + '-disc-played', 0, 2 );
-			setValue( 'pet' + i + '-disc-played', tempFile.readU8( SavegameEditor.Constants[ 'PET' + i + '_COMP_DISC_PLAYED' ] ) );
-			get( 'number-pet' + i + '-disc-played' ).addEventListener( 'change', SavegameEditor._write_pet_value );
-			setNumericRange( 'pet' + i + '-lure-played', 0, 2 );
-			setValue( 'pet' + i + '-lure-played', tempFile.readU8( SavegameEditor.Constants[ 'PET' + i + '_COMP_LURE_PLAYED' ] ) );
-			get( 'number-pet' + i + '-lure-played' ).addEventListener( 'change', SavegameEditor._write_pet_value );
-			setNumericRange( 'pet' + i + '-obed-played', 0, 2 );
-			setValue( 'pet' + i + '-obed-played', tempFile.readU8( SavegameEditor.Constants[ 'PET' + i + '_COMP_OBED_PLAYED' ] ) );
-			get( 'number-pet' + i + '-obed-played' ).addEventListener( 'change', SavegameEditor._write_pet_value );
+			setNumericRange( `pet${ i }-disc-played`, 0, 2 );
+			setValue( `pet${ i }-disc-played`, tempFile.readU8( SavegameEditor.Constants[ `PET${ i }_COMP_DISC_PLAYED` ] ) );
+			get( `number-pet${ i }-disc-played` ).addEventListener( 'change', SavegameEditor._write_pet_value );
+			setNumericRange( `pet${ i }-lure-played`, 0, 2 );
+			setValue( `pet${ i }-lure-played`, tempFile.readU8( SavegameEditor.Constants[ `PET${ i }_COMP_LURE_PLAYED` ] ) );
+			get( `number-pet${ i }-lure-played` ).addEventListener( 'change', SavegameEditor._write_pet_value );
+			setNumericRange( `pet${ i }-obed-played`, 0, 2 );
+			setValue( `pet${ i }-obed-played`, tempFile.readU8( SavegameEditor.Constants[ `PET${ i }_COMP_OBED_PLAYED` ] ) );
+			get( `number-pet${ i }-obed-played` ).addEventListener( 'change', SavegameEditor._write_pet_value );
 
 			if ( isDog ) {
-				get( 'container-pet' + i + '-disc' ).appendChild( select( 'pet' + i + '-disc', SavegameEditor.Constants.PET_COMP_RANKS, SavegameEditor._write_pet_value ) );
-				setValue( 'pet' + i + '-disc', SavegameEditor._getPetData( i - 1, 'PET_COMP_HIGHEST_PLAYED1' ) );
-				get( 'container-pet' + i + '-lure' ).appendChild( select( 'pet' + i + '-lure', SavegameEditor.Constants.PET_COMP_RANKS, SavegameEditor._write_pet_value ) );
-				setValue( 'pet' + i + '-lure', SavegameEditor._getPetData( i - 1, 'PET_COMP_HIGHEST_PLAYED3' ) );
-				get( 'container-pet' + i + '-obedience' ).appendChild( select( 'pet' + i + '-obedience', SavegameEditor.Constants.PET_COMP_RANKS, SavegameEditor._write_pet_value ) );
-				setValue( 'pet' + i + '-obedience', SavegameEditor._getPetData( i - 1, 'PET_COMP_HIGHEST_PLAYED2' ) );
+				get( `container-pet${ i }-disc` ).appendChild( select( `pet${ i }-disc`, SavegameEditor.Constants.PET_COMP_RANKS, SavegameEditor._write_pet_value ) );
+				setValue( `pet${ i }-disc`, SavegameEditor._getPetData( i - 1, 'PET_COMP_HIGHEST_PLAYED1' ) );
+				get( `container-pet${ i }-lure` ).appendChild( select( `pet${ i }-lure`, SavegameEditor.Constants.PET_COMP_RANKS, SavegameEditor._write_pet_value ) );
+				setValue( `pet${ i }-lure`, SavegameEditor._getPetData( i - 1, 'PET_COMP_HIGHEST_PLAYED3' ) );
+				get( `container-pet${ i }-obedience` ).appendChild( select( `pet${ i }-obedience`, SavegameEditor.Constants.PET_COMP_RANKS, SavegameEditor._write_pet_value ) );
+				setValue( `pet${ i }-obedience`, SavegameEditor._getPetData( i - 1, 'PET_COMP_HIGHEST_PLAYED2' ) );
 			} else {
-				get( 'pet' + i + '_comp_outer' ).style.display = 'none';
+				get( `pet${ i }_comp_outer` ).style.display = 'none';
 			}
 			const personality = SavegameEditor.Constants.personalities[ SavegameEditor._getPetData( i - 1, 'PET_PERSONALITIES_OFFSET_' + ( isDog ? 'DOG' : 'CAT' ) + '1', 8 ) ][ SavegameEditor._getPetData( i - 1, 'PET_PERSONALITIES_OFFSET_' + ( isDog ? 'DOG' : 'CAT' ) + '2', 8 ) ];
-			setValue( 'pet' + i + '-personality', personality[ Number( SavegameEditor._getPetData( i - 1, 'PET_GENDER_OFFSET' ) ) ] );
+			setValue( `pet${ i }-personality`, personality[ Number( SavegameEditor._getPetData( i - 1, 'PET_GENDER_OFFSET' ) ) ] );
 			// Experimental
-			setNumericRange( 'pet' + i + '-hunger', 0, 17529 );
-			setNumericRange( 'pet' + i + '-thirst', 0, 17529 );
-			setNumericRange( 'pet' + i + '-coat', 0, 17529 );
-			setValue( 'pet' + i + '-hunger', SavegameEditor._getPetData( i - 1, 'PET_HUNGER_OFFSET', 16 ) );
-			setValue( 'pet' + i + '-thirst', SavegameEditor._getPetData( i - 1, 'PET_THIRST_OFFSET', 16 ) );
-			setValue( 'pet' + i + '-coat', SavegameEditor._getPetData( i - 1, 'PET_COAT_OFFSET', 16 ) );
-			get( 'number-pet' + i + '-hunger' ).addEventListener( 'change', SavegameEditor._write_pet_value );
-			get( 'number-pet' + i + '-thirst' ).addEventListener( 'change', SavegameEditor._write_pet_value );
-			get( 'number-pet' + i + '-coat' ).addEventListener( 'change', SavegameEditor._write_pet_value );
+			setNumericRange( `pet${ i }-hunger`, 0, 17529 );
+			setNumericRange( `pet${ i }-thirst`, 0, 17529 );
+			setNumericRange( `pet${ i }-coat`, 0, 17529 );
+			setValue( `pet${ i }-hunger`, SavegameEditor._getPetData( i - 1, 'PET_HUNGER_OFFSET', 16 ) );
+			setValue( `pet${ i }-thirst`, SavegameEditor._getPetData( i - 1, 'PET_THIRST_OFFSET', 16 ) );
+			setValue( `pet${ i }-coat`, SavegameEditor._getPetData( i - 1, 'PET_COAT_OFFSET', 16 ) );
+			get( `number-pet${ i }-hunger` ).addEventListener( 'change', SavegameEditor._write_pet_value );
+			get( `number-pet${ i }-thirst` ).addEventListener( 'change', SavegameEditor._write_pet_value );
+			get( `number-pet${ i }-coat` ).addEventListener( 'change', SavegameEditor._write_pet_value );
 
-			setNumericRange( 'pet' + i + '-level', 0, 99999 );
+			setNumericRange( `pet${ i }-level`, 0, 99999 );
 			const points = SavegameEditor._getPetData( i - 1, ( isDog ? 'PET_POINTS_OFFSET_DOG' : 'PET_POINTS_OFFSET_CAT' ), 32 );
 			for ( let j = 0; j < level_borders.length; j++ ) {
 				if ( points >= level_borders[ j ][ 0 ] && points <= level_borders[ j ][ 1 ] ) {
-					setValue( 'pet' + i + '-level', j );
+					setValue( `pet${ i }-level`, j );
 					break;
 				}
 			}
-			const level_ele = get( 'number-pet' + i + '-level' );
+			const level_ele = get( `number-pet${ i }-level` );
 			level_ele.dataset.is_dog = isDog;
 			level_ele.addEventListener( 'change', SavegameEditor._mark_as_changed );
 		}

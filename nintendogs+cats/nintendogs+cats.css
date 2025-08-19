@@ -53,20 +53,6 @@
 	display: block;
 }
 
-.item-icon {
-	background-image: url( ./items.png );
-	background-repeat: no-repeat;
-	background-size: 576px;
-	display: inline-block;
-	height: 32px;
-	image-rendering: pixelated;
-	margin-right: 6px;
-	pointer-events: none;
-	user-select: none;
-	vertical-align: middle;
-	width: 32px;
-}
-
 .item-name {
 	display: inline-block;
 	vertical-align: middle;
@@ -74,7 +60,7 @@
 }
 
 .item-name[ data-icon ]::before {
-	background-image: url( ./icons.png );
+	background-image: url( ./icons.webp );
 	background-repeat: no-repeat;
 	background-size: 68px;
 	content: '';
@@ -104,6 +90,19 @@
 	background-position-x: -51px;
 }
 
+.item-icon {
+	background-image: url( ./items.webp );
+	background-size: 576px;
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 32px;
+	margin-right: 6px;
+	pointer-events: none;
+	user-select: none;
+	vertical-align: middle;
+	width: 32px;
+}
+
 /* Fix */
 .columns.c1,
 .columns.one {
@@ -117,7 +116,7 @@
 
 .columns.c3,
 .columns.three {
-	width: calc( 100% / 12 * 3 );
+	width: 25%;
 }
 
 .columns.c4,
@@ -132,7 +131,7 @@
 
 .columns.c6,
 .columns.six {
-	width: calc( 100% / 12 * 6 );
+	width: 50%;
 }
 
 .columns.c7,
@@ -147,7 +146,7 @@
 
 .columns.c9,
 .columns.nine {
-	width: calc( 100% / 12 * 9 );
+	width: 75%;
 }
 
 .columns.c10,
