@@ -223,7 +223,7 @@ SavegameEditor = {
 			row.append(
 				col( 1, itemInput )
 			);
-			itemInput.dataset.offset = item[ 0 ];
+			itemInput.dataset.offset = item[ 2 ];
 			itemInput.addEventListener( 'change', SavegameEditor._write_supply_amount );
 		} );
 		itemTypes.forEach( ( type ) => {
