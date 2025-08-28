@@ -10,6 +10,15 @@
 	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./picross-3d-round-2.js"></script>
+	<script type="text/javascript" src="./locale/en.js"></script>
+	<script type="text/javascript" src="./locale/de.js"></script>
+	<script type="text/javascript" src="./locale/es.js"></script>
+	<script type="text/javascript" src="./locale/es_alt.js"></script>
+	<script type="text/javascript" src="./locale/fr.js"></script>
+	<script type="text/javascript" src="./locale/fr_alt.js"></script>
+	<script type="text/javascript" src="./locale/it.js"></script>
+	<script type="text/javascript" src="./locale/ja.js"></script>
+	<script type="text/javascript" src="./puzzles.js"></script>
 	<script type="text/javascript"><!--
 		/* service worker */
 		var FORCE_HTTPS=true;
@@ -45,6 +54,22 @@
 
 
 <!-- THE EDITOR -->
+<div id="container-startup" class="wrapper">
+	<div id="container-language" class="text-center">
+		<label for="select-language">Select your language</label>
+		<select id="select-language">
+			<option value="en">English</option>
+			<option value="de">Deutsch</option>
+			<option value="es">Español (EUR)</option>
+			<option value="es2">Español (USA)</option>
+			<option value="fr">Français (EUR)</option>
+			<option value="fr2">Français (USA)</option>
+			<option value="it">Italiano</option>
+			<option value="ja">日本語</option>
+			<option value="qqx">System messages</option>
+		</select>
+	</div>
+</div>
 <div id="the-editor" class="wrapper hidden">
 	<!-- Settings -->
 	<h3 class="orange">Settings</h3>

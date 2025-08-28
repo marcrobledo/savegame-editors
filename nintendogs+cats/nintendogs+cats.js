@@ -4,7 +4,6 @@
 	by Magiczocker 2025
 */
 const reg = /\d+/;
-
 const diffs = [ 1056964607, 12582913, 6291456, 4194304 ];
 for ( let i = 0; i < 30; i++ ) {
 	diffs.push( diffs[ diffs.length - 2 ] * 0.5 );
@@ -28,6 +27,7 @@ for ( let j = 0; j < 34; j++ ) {
 }
 level_borders[ 99999 ][ 1 ] = 1203982336;
 
+const allTexts = []; // Element, qqx name
 SavegameEditor = {
 	Name: 'Nintendogs + Cats',
 	Filename: 'sysdata.dat',
@@ -109,7 +109,8 @@ SavegameEditor = {
 			[ '0x20E', 'Fairy Tale' ],
 			[ '0x20F', 'Mario House' ],
 			[ '0x210', 'Futuristic' ]
-		]
+		],
+		locale: {}
 	},
 
 	_write_money: function () {
@@ -185,6 +186,10 @@ SavegameEditor = {
 			getValue( 'interiors' )
 		);
 	},
+	getI18n: function ( loc, name ) {
+		const all = SavegameEditor.Constants.locale[ loc ] || SavegameEditor.Constants.locale.en;
+		return loc === 'qqx' ? name : all[ name ];
+	},
 	setPos: function ( node, pos ) {
 		const size = 64, // Sprite height
 			scale = 0.5, // height scaled down to 32px
@@ -214,7 +219,8 @@ SavegameEditor = {
 				itemInput = inputNumber( `supplies_${ index }`, index === 0 ? min : 0, type[ 1 ], tempFile.readU8( Number( item[ 2 ] ) ) );
 			itemIcon.className = 'item-icon';
 			itemName.className = 'item-name';
-			itemName.textContent = item[ 1 ];
+			// itemName.textContent = SavegameEditor.getI18n( item[ 1 ] );
+			allTexts.push( [ itemName, item[ 1 ] ] );
 			SavegameEditor.setPos( itemIcon, index );
 			if ( item[ 3 ] ) {
 				itemName.dataset.icon = item[ 3 ];
@@ -286,8 +292,13 @@ SavegameEditor = {
 		SavegameEditor.appendInteriors();
 	},
 
+	unload: function () {
+		document.getElementById( 'container-startup' ).style.removeProperty( 'display' );
+	},
+
 	/* load function */
 	load: function () {
+		document.getElementById( 'container-startup' ).style.display = 'none';
 		tempFile.fileName = 'sysdata.dat';
 		tempFile.littleEndian = true;
 		setValue( 'money', tempFile.readU32( SavegameEditor.Constants.MONEY_OFFSET ) );
@@ -302,6 +313,12 @@ SavegameEditor = {
 				break;
 			}
 		}
+
+		// Update item names
+		const loc = document.getElementById( 'select-language' ).value;
+		allTexts.forEach( ( t ) => {
+			t[ 0 ].textContent = SavegameEditor.getI18n( loc, t[ 1 ] );
+		} );
 
 		const a = new Date( Number( tempFile.readU32( SavegameEditor.Constants.LASTSAVED_OFFSET ) ) * 1000 );
 		setValue( 'lastsaved', a.toLocaleString( 'en-GB', {
