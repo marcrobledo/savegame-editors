@@ -320,6 +320,18 @@ SavegameEditor = {
 			t[ 0 ].textContent = SavegameEditor.getI18n( loc, t[ 1 ] );
 		} );
 
+		// Update supply-values
+		const supply_values = document.querySelectorAll( '[id^=number-supplies_]' );
+		supply_values.forEach( ( t ) => {
+			t.value = tempFile.readU8( Number( t.dataset.offset ) );
+		} );
+
+		// Update interior-values
+		SavegameEditor.Constants.interiors.forEach( ( interior, index ) => {
+			const input = get( `number-interiors_${ index }` );
+			input.value = tempFile.readU8( Number( input.dataset.offset ) );
+		} );
+
 		const a = new Date( Number( tempFile.readU32( SavegameEditor.Constants.LASTSAVED_OFFSET ) ) * 1000 );
 		setValue( 'lastsaved', a.toLocaleString( 'en-GB', {
 			day: 'numeric',
