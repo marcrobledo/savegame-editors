@@ -1,5 +1,5 @@
 const Locale = ( function () {
-	const VALID_LOCALES = [ 'de', 'en' ];
+	const VALID_LOCALES = [ 'de', 'en', 'en_alt', 'es', 'es_alt', 'fr', 'fr_alt', 'it', 'jp', 'ko', 'nl', 'pt', 'ru', 'zh', 'zh_alt' ];
 	let _currentLocale = null;
 	let _currentLocaleAlt = null;
 	const _cachedLocales = {};
@@ -23,7 +23,7 @@ const Locale = ( function () {
 		} );
 
 		document.querySelectorAll( '*[data-translate]' ).forEach( ( elem ) => {
-			elem.textContent = Locale._( elem.getAttribute( 'data-translate' ) );
+			elem.innerHTML = Locale._( elem.getAttribute( 'data-translate' ) );
 		} );
 	};
 

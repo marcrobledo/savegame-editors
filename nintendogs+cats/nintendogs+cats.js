@@ -104,15 +104,15 @@ SavegameEditor = {
 		PET_PERSONALITIES_OFFSET_CAT2: 0x1F2,
 		WALKING_COUNTER_OFFSET: 0x215,
 		interiors: [
-			[ '0x208', 'Scandinavian' ],
-			[ '0x209', 'Japanese' ],
-			[ '0x20A', 'Asian' ],
-			[ '0x20B', 'Modern' ],
-			[ '0x20C', 'Country' ],
-			[ '0x20D', 'Luxerious House' ],
-			[ '0x20E', 'Fairy Tale' ],
-			[ '0x20F', 'Mario House' ],
-			[ '0x210', 'Futuristic' ]
+			[ '0x208', 'Room_Norse' ],
+			[ '0x209', 'Room_Japanese' ],
+			[ '0x20A', 'Room_Asia' ],
+			[ '0x20B', 'Room_Modern' ],
+			[ '0x20C', 'Room_Country' ],
+			[ '0x20D', 'Room_Luxury' ],
+			[ '0x20E', 'Room_Fairy' ],
+			[ '0x20F', 'Room_Mario' ],
+			[ '0x210', 'Room_Future' ]
 		]
 	},
 
@@ -220,9 +220,6 @@ SavegameEditor = {
 			itemName.className = 'item-name';
 			itemName.dataset.translate = item[ 1 ];
 			SavegameEditor.setPos( itemIcon, index );
-			if ( item[ 3 ] ) {
-				itemName.dataset.icon = item[ 3 ];
-			}
 			row.append( itemCol );
 			row.append(
 				col( 1, itemInput )
@@ -244,16 +241,24 @@ SavegameEditor = {
 			row = get( 'row-interiors' );
 		SavegameEditor.Constants.interiors.forEach( ( interior, index ) => {
 			const input = inputNumber( `interiors_${ index }`, 0, interior[ 1 ], tempFile.readU8( Number( interior[ 0 ] ) ) );
+			const textEle = span( '' );
+			textEle.dataset.translate = interior[ 1 ];
 			row.append(
-				col( 3, span( interior[ 1 ] ) ),
+				col( 3, textEle ),
 				col( 1, input )
 			);
 			input.dataset.offset = interior[ 0 ];
 			input.addEventListener( 'change', SavegameEditor._write_supply_amount );
 			options.push( interior[ 1 ] );
 		} );
-		row.prepend( col( 4, select( 'interiors', options, SavegameEditor.updateInterior ) ) );
+		const opt = select( 'interiors', options, SavegameEditor.updateInterior );
+		row.prepend( col( 4, opt ) );
 		row.prepend( col( 8, span( 'Active interior' ) ) );
+		for ( let i = 0; i < opt.length; i++ ) {
+			if ( opt[ i ].nodeName === 'OPTION' ) {
+				opt[ i ].dataset.translate = opt[ i ].textContent;
+			}
+		}
 	},
 
 	/* settings */

@@ -59,34 +59,35 @@
 	width: 80%;
 }
 
-.item-name[ data-icon ]::before {
+.icon-dog,
+.icon-cat,
+.icon-note,
+.icon-recycle {
 	background-image: url( ./assets/icons.webp );
 	background-repeat: no-repeat;
 	background-size: 68px;
-	content: '';
 	display: inline-block;
 	filter: invert( 1 );
 	height: 21px;
-	margin-right: 3px;
 	pointer-events: none;
 	user-select: none;
 	vertical-align: text-bottom;
 	width: 17px;
 }
 
-.item-name[ data-icon='1' ]::before {
+.icon-dog {
 	background-position-x: 0;
 }
 
-.item-name[ data-icon='2' ]::before {
+.icon-cat {
 	background-position-x: -17px;
 }
 
-.item-name[ data-icon='3' ]::before {
+.icon-note {
 	background-position-x: -34px;
 }
 
-.item-name[ data-icon='4' ]::before {
+.icon-recycle {
 	background-position-x: -51px;
 }
 
