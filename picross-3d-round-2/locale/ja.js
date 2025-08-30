@@ -1,5 +1,5 @@
 ﻿// Translations found in JPN
-SavegameEditor.Constants.locale.ja = {
+Locale.add( 'ja', {
 	prefix_puzzle: 'No.',
 	prefix_skill: 'テクニック',
 	prefix_tutorial: 'チュートリアル',
@@ -406,4 +406,4 @@ SavegameEditor.Constants.locale.ja = {
 	tutorial_5: '四角数字って？',
 	tutorial_6: 'マークの使い方',
 	tutorial_7: '大きなパズルを解くには？'
-};
+} );

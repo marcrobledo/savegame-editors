@@ -1,5 +1,5 @@
 ﻿// Translations found in EUR
-SavegameEditor.Constants.locale.it = {
+Locale.add( 'it', {
 	prefix_puzzle: 'N. ',
 	prefix_skill: 'Tecnica ',
 	prefix_tutorial: 'Tutorial ',
@@ -406,4 +406,4 @@ SavegameEditor.Constants.locale.it = {
 	tutorial_5: 'I numeri inquadrati',
 	tutorial_6: 'Evidenziare i cubi',
 	tutorial_7: 'Risolvere puzzle grandi'
-};
+} );

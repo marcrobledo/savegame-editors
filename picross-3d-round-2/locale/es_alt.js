@@ -1,5 +1,5 @@
 ﻿// Translations found in USA
-SavegameEditor.Constants.locale.es2 = {
+Locale.add( 'es_alt', {
 	prefix_puzzle: 'N.º ',
 	prefix_skill: 'Técnica ',
 	prefix_tutorial: 'Tutorial ',
@@ -14,7 +14,7 @@ SavegameEditor.Constants.locale.es2 = {
 	puzzle_006: 'El número 2',
 	puzzle_007: 'Papas fritas',
 	puzzle_008: 'Cámara de cine',
-	puzzle_009: 'Rana ',
+	puzzle_009: 'Rana',
 	puzzle_010: 'Poni de juguete',
 	puzzle_011: 'La letra A',
 	puzzle_012: 'Hacha',
@@ -406,4 +406,4 @@ SavegameEditor.Constants.locale.es2 = {
 	tutorial_5: 'Números cuadrados',
 	tutorial_6: 'Señalar cubos',
 	tutorial_7: 'Rompecabezas grandes'
-};
+} );

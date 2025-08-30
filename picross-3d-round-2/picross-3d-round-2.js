@@ -3,12 +3,16 @@
 	by Marc Robledo 2016
 */
 const hexPos = [];
-const textEle = [];
 const reg = /\d+/;
 
 SavegameEditor = {
 	Name: 'Picross 3D: round 2',
 	Filename: 'SAVEDATA',
+
+	/* Settings */
+	Settings: {
+		lang: 'en'
+	},
 
 	/* Constants */
 	Constants: {
@@ -83,8 +87,7 @@ SavegameEditor = {
 			{ value: 9, name: 'Unlocked' },
 			{ value: 13, name: 'Solved' },
 			{ value: 29, name: 'Solved (Read)' }
-		],
-		locale: {}
+		]
 	},
 	_getProfileOffset: function () {
 		return this.Constants.PROFILES[ Number( getValue( 'profile-selector' ) ) - 1 ].offset;
@@ -257,15 +260,24 @@ SavegameEditor = {
 		SavegameEditor._update_list_values();
 	},
 
+	/* settings */
+	loadSettings: function () {
+		if ( typeof localStorage === 'object' && localStorage.getItem( 'picross-3d-round-2-settings' ) ) {
+			const loadedSettings = JSON.parse( localStorage.getItem( 'picross-3d-round-2-settings' ) );
+			if ( typeof loadedSettings.lang === 'string' ) {
+				this.Settings.lang = loadedSettings.lang.toLowerCase().trim();
+			}
+		}
+	},
+	saveSettings: function () {
+		if ( typeof localStorage === 'object' ) {
+			localStorage.setItem( 'picross-3d-round-2-settings', JSON.stringify( this.Settings ) );
+		}
+	},
+
 	/* check if savegame is valid */
 	checkValidSavegame: function () {
 		return ( tempFile.fileSize === 45688 );
-	},
-
-	getI18n: function ( loc, name ) {
-		const all = SavegameEditor.Constants.locale[ loc ] || SavegameEditor.Constants.locale.en,
-			tmp = all[ name ];
-		return loc === 'qqx' ? name : ( typeof tmp === 'string' ? tmp : tmp[ 0 ] );
 	},
 
 	preload: function () {
@@ -300,11 +312,13 @@ SavegameEditor = {
 			rl = get( 'row-levels' ),
 			rs = get( 'row-skills' );
 		SavegameEditor.Constants.puzzles.forEach( ( puzzle, index ) => {
-			const idEle = span( '' );
-			const nameEle = span( '' );
+			const idEle = span( '' ),
+				idEle2 = span( '' ),
+				nameEle = span( '' );
+			nameEle.dataset.translate = puzzle;
 			if ( puzzle.startsWith( 'puzzle' ) ) {
-				const id = puzzle.replace( 'puzzle_', '' );
-				textEle.push( [ 'p', id, idEle, nameEle ] );
+				idEle.innerText = puzzle.replace( 'puzzle_', '' );
+				idEle2.dataset.translate = 'prefix_puzzle';
 				hexPos.push( [ 'puzzle', 0x220 + index * 16 ] );
 				rl.append(
 					col( 1, idEle ),
@@ -319,8 +333,8 @@ SavegameEditor = {
 				getField( `number-levels_${ index }_time` ).addEventListener( 'change', SavegameEditor._write_level_time );
 				getField( `number-levels_${ index }_points` ).addEventListener( 'change', SavegameEditor._write_level_points );
 			} else if ( puzzle.startsWith( 'tutorial' ) ) {
-				const id = puzzle.replace( 'tutorial_', '' ).replace( /^0/g, ' ' );
-				textEle.push( [ 't', id, idEle, nameEle ] );
+				idEle.textContent = puzzle.replace( 'tutorial_', '' ).replace( /^0/g, ' ' );
+				idEle2.dataset.translate = 'prefix_tutorial';
 				hexPos.push( [ 'tutorial', 0x220 + index * 16 ] );
 				rt.append(
 					col( 1, idEle ),
@@ -329,8 +343,8 @@ SavegameEditor = {
 					col( 3, select( `tutorials_${ index }_difficulty`, SavegameEditor.Constants.DIFFICULTIES, SavegameEditor._write_level_difficulty ) )
 				);
 			} else if ( puzzle.startsWith( 'skill' ) ) {
-				const id = puzzle.replace( 'skill_', '' ).replace( /^0/g, ' ' );
-				textEle.push( [ 's', id, idEle, nameEle ] );
+				idEle.textContent = puzzle.replace( 'skill_', '' ).replace( /^0/g, ' ' );
+				idEle2.dataset.translate = 'prefix_skill';
 				hexPos.push( [ 'skill', 0x220 + index * 16 ] );
 				rs.append(
 					col( 1, idEle ),
@@ -339,8 +353,10 @@ SavegameEditor = {
 					col( 3, select( `skills_${ index }_difficulty`, SavegameEditor.Constants.DIFFICULTIES, SavegameEditor._write_level_difficulty ) )
 				);
 			}
+			idEle.prepend( idEle2 );
 		} );
 		get( 'toolbar' ).children[ 0 ].appendChild( select( 'profile-selector', this.Constants.PROFILES, this._load_profile ) );
+		Locale.set( SavegameEditor.Settings.lang );
 	},
 
 	unload: function () {
@@ -353,21 +369,6 @@ SavegameEditor = {
 		tempFile.fileName = 'SAVEDATA';
 		tempFile.littleEndian = true;
 
-		const loc = document.getElementById( 'select-language' ).value,
-			i18n = {
-				p: SavegameEditor.getI18n( loc, 'prefix_puzzle' ),
-				s: SavegameEditor.getI18n( loc, 'prefix_skill' ),
-				t: SavegameEditor.getI18n( loc, 'prefix_tutorial' ),
-				easy: SavegameEditor.getI18n( loc, 'style_001' ),
-				medium: SavegameEditor.getI18n( loc, 'style_002' ),
-				hard: SavegameEditor.getI18n( loc, 'style_003' )
-			};
-		SavegameEditor.Constants.puzzles.forEach( ( puzzle, index ) => {
-			const tmp = textEle[ index ];
-			tmp[ 2 ].textContent = `${ i18n[ tmp[ 0 ] ] }${ tmp[ 1 ] }`;
-			tmp[ 3 ].textContent = SavegameEditor.getI18n( loc, puzzle );
-		} );
-
 		this._load_profile();
 	},
 
@@ -375,3 +376,14 @@ SavegameEditor = {
 	save: function () {
 	}
 };
+
+window.addEventListener( 'DOMContentLoaded', () => {
+	SavegameEditor.loadSettings();
+	document.getElementById( 'select-language' ).value = SavegameEditor.Settings.lang;
+
+	document.getElementById( 'select-language' ).addEventListener( 'change', ( e ) => {
+		SavegameEditor.Settings.lang = e.target.value;
+		Locale.set( e.target.value );
+		SavegameEditor.saveSettings();
+	} );
+} );

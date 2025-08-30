@@ -1,5 +1,5 @@
 // Translations found in EUR
-SavegameEditor.Constants.locale.en = {
+Locale.add( 'en', {
 	// Food & Drinks
 	Item_Foods_Water: 'Water',
 	Item_Foods_Milk: 'Milk',
@@ -332,4 +332,4 @@ SavegameEditor.Constants.locale.en = {
 	Room_Fairy: 'Fairy Tale',
 	Room_Mario: 'Mario House',
 	Room_Future: 'Futuristic'
-};
+} );

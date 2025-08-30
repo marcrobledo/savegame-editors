@@ -27,10 +27,14 @@ for ( let j = 0; j < 34; j++ ) {
 }
 level_borders[ 99999 ][ 1 ] = 1203982336;
 
-const allTexts = []; // Element, qqx name
 SavegameEditor = {
 	Name: 'Nintendogs + Cats',
 	Filename: 'sysdata.dat',
+
+	/* Settings */
+	Settings: {
+		lang: 'en'
+	},
 
 	/* Constants */
 	Constants: {
@@ -109,8 +113,7 @@ SavegameEditor = {
 			[ '0x20E', 'Fairy Tale' ],
 			[ '0x20F', 'Mario House' ],
 			[ '0x210', 'Futuristic' ]
-		],
-		locale: {}
+		]
 	},
 
 	_write_money: function () {
@@ -186,10 +189,6 @@ SavegameEditor = {
 			getValue( 'interiors' )
 		);
 	},
-	getI18n: function ( loc, name ) {
-		const all = SavegameEditor.Constants.locale[ loc ] || SavegameEditor.Constants.locale.en;
-		return loc === 'qqx' ? name : all[ name ];
-	},
 	setPos: function ( node, pos ) {
 		const size = 64, // Sprite height
 			scale = 0.5, // height scaled down to 32px
@@ -219,8 +218,7 @@ SavegameEditor = {
 				itemInput = inputNumber( `supplies_${ index }`, index === 0 ? min : 0, type[ 1 ], tempFile.readU8( Number( item[ 2 ] ) ) );
 			itemIcon.className = 'item-icon';
 			itemName.className = 'item-name';
-			// itemName.textContent = SavegameEditor.getI18n( item[ 1 ] );
-			allTexts.push( [ itemName, item[ 1 ] ] );
+			itemName.dataset.translate = item[ 1 ];
 			SavegameEditor.setPos( itemIcon, index );
 			if ( item[ 3 ] ) {
 				itemName.dataset.icon = item[ 3 ];
@@ -257,6 +255,22 @@ SavegameEditor = {
 		row.prepend( col( 4, select( 'interiors', options, SavegameEditor.updateInterior ) ) );
 		row.prepend( col( 8, span( 'Active interior' ) ) );
 	},
+
+	/* settings */
+	loadSettings: function () {
+		if ( typeof localStorage === 'object' && localStorage.getItem( 'nintendogs-cats-settings' ) ) {
+			const loadedSettings = JSON.parse( localStorage.getItem( 'nintendogs-cats-settings' ) );
+			if ( typeof loadedSettings.lang === 'string' ) {
+				this.Settings.lang = loadedSettings.lang.toLowerCase().trim();
+			}
+		}
+	},
+	saveSettings: function () {
+		if ( typeof localStorage === 'object' ) {
+			localStorage.setItem( 'nintendogs-cats-settings', JSON.stringify( this.Settings ) );
+		}
+	},
+
 	preload: function () {
 		setNumericRange( 'money', 0, 9999999 );
 		setNumericRange( 'streetpass-met', 0, 9999999 );
@@ -290,6 +304,7 @@ SavegameEditor = {
 
 		SavegameEditor.appendItems();
 		SavegameEditor.appendInteriors();
+		Locale.set( SavegameEditor.Settings.lang );
 	},
 
 	unload: function () {
@@ -313,12 +328,6 @@ SavegameEditor = {
 				break;
 			}
 		}
-
-		// Update item names
-		const loc = document.getElementById( 'select-language' ).value;
-		allTexts.forEach( ( t ) => {
-			t[ 0 ].textContent = SavegameEditor.getI18n( loc, t[ 1 ] );
-		} );
 
 		// Update supply-values
 		const supply_values = document.querySelectorAll( '[id^=number-supplies_]' );
@@ -523,3 +532,14 @@ SavegameEditor = {
 		}
 	}
 };
+
+window.addEventListener( 'DOMContentLoaded', () => {
+	SavegameEditor.loadSettings();
+	document.getElementById( 'select-language' ).value = SavegameEditor.Settings.lang;
+
+	document.getElementById( 'select-language' ).addEventListener( 'change', ( e ) => {
+		SavegameEditor.Settings.lang = e.target.value;
+		Locale.set( e.target.value );
+		SavegameEditor.saveSettings();
+	} );
+} );

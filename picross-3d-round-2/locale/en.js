@@ -1,5 +1,5 @@
 ﻿// Translations found in EUR and USA
-SavegameEditor.Constants.locale.en = {
+Locale.add( 'en', {
 	prefix_puzzle: 'No. ',
 	prefix_skill: 'Skill ',
 	prefix_tutorial: 'Tutorial ',
@@ -406,4 +406,4 @@ SavegameEditor.Constants.locale.en = {
 	tutorial_5: 'Intro to Square Numbers',
 	tutorial_6: 'Flagging Cubes',
 	tutorial_7: 'Solving Big Puzzles'
-};
+} );

@@ -1,5 +1,5 @@
 ﻿// Translations found in USA
-SavegameEditor.Constants.locale.fr2 = {
+Locale.add( 'fr_alt', {
 	prefix_puzzle: 'N° ',
 	prefix_skill: 'Habileté ',
 	prefix_tutorial: 'Tutoriel ',
@@ -406,4 +406,4 @@ SavegameEditor.Constants.locale.fr2 = {
 	tutorial_5: 'Intro aux chiffres carrés',
 	tutorial_6: 'Identifier les cubes',
 	tutorial_7: 'Résolution de gros casse-tête'
-};
+} );

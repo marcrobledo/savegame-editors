@@ -1,5 +1,5 @@
 // Translations found in EUR
-SavegameEditor.Constants.locale.de = {
+Locale.add( 'de', {
 	// Food & Drinks
 	Item_Foods_Water: 'Wasser',
 	Item_Foods_Milk: 'Spezialmilch',
@@ -302,25 +302,25 @@ SavegameEditor.Constants.locale.de = {
 	Item_Lead_Brown: 'Braune Leine',
 	Item_Lead_Black: 'Schwarze Leine',
 
-	// Water Bowls
-	// Item_Dish_W_Stainless_1: '',
-	// Item_Dish_W_Bowl_Green_2: '',
-	// Item_Dish_W_Bowl_Yellow_3: '',
-	// Item_Dish_W_Bowl_Red_4: '',
-	// Item_Dish_W_Classic_5: '',
-	// Item_Dish_W_Pattern_6: '',
-	// Item_Dish_W_Western_7: '',
-	// Item_Dish_W_Wood_8: '',
+	// Water Bowls (currently untranslated)
+	Item_Dish_W_Stainless_1: 'Stainless Steel Bowl',
+	Item_Dish_W_Bowl_Green_2: 'Green Bowl',
+	Item_Dish_W_Bowl_Yellow_3: 'Yellow Bowl',
+	Item_Dish_W_Bowl_Red_4: 'Red Bowl',
+	Item_Dish_W_Classic_5: 'Urushi Bowl',
+	Item_Dish_W_Pattern_6: 'White Polka-Dot Bowl',
+	Item_Dish_W_Western_7: 'High-Class Bowl',
+	Item_Dish_W_Wood_8: 'Wooden Bowl',
 
-	// Food Bowls
-	// Item_Dish_White_1: '',
-	// Item_Dish_Bowl_Green_2: '',
-	// Item_Dish_Bowl_Yellow_3: '',
-	// Item_Dish_Bowl_Red_4: '',
-	// Item_Dish_Classic_5: '',
-	// Item_Dish_Pattern_6: '',
-	// Item_Dish_Western_7: '',
-	// Item_Dish_Wood_8: '',
+	// Food Bowls (currently untranslated)
+	Item_Dish_White_1: 'White Bowl',
+	Item_Dish_Bowl_Green_2: 'Green Bowl',
+	Item_Dish_Bowl_Yellow_3: 'Yellow Bowl',
+	Item_Dish_Bowl_Red_4: 'Red Bowl',
+	Item_Dish_Classic_5: 'Pottery Bowl',
+	Item_Dish_Pattern_6: 'Pink Polka-Dot Bowl',
+	Item_Dish_Western_7: 'Japanese-Style Bowl',
+	Item_Dish_Wood_8: 'Wooden Bowl',
 
 	// Interiors
 	Room_Norse: 'Nordeuropäisch',
@@ -332,4 +332,4 @@ SavegameEditor.Constants.locale.de = {
 	Room_Fairy: 'Märchen',
 	Room_Mario: 'Mario',
 	Room_Future: 'Futuristisch'
-};
+} );
