@@ -4,7 +4,6 @@
 	by Magiczocker 2025
 */
 const reg = /\d+/;
-
 const diffs = [ 1056964607, 12582913, 6291456, 4194304 ];
 for ( let i = 0; i < 30; i++ ) {
 	diffs.push( diffs[ diffs.length - 2 ] * 0.5 );
@@ -31,6 +30,11 @@ level_borders[ 99999 ][ 1 ] = 1203982336;
 SavegameEditor = {
 	Name: 'Nintendogs + Cats',
 	Filename: 'sysdata.dat',
+
+	/* Settings */
+	Settings: {
+		lang: 'en'
+	},
 
 	/* Constants */
 	Constants: {
@@ -214,7 +218,7 @@ SavegameEditor = {
 				itemInput = inputNumber( `supplies_${ index }`, index === 0 ? min : 0, type[ 1 ], tempFile.readU8( Number( item[ 2 ] ) ) );
 			itemIcon.className = 'item-icon';
 			itemName.className = 'item-name';
-			itemName.textContent = item[ 1 ];
+			itemName.dataset.translate = item[ 1 ];
 			SavegameEditor.setPos( itemIcon, index );
 			if ( item[ 3 ] ) {
 				itemName.dataset.icon = item[ 3 ];
@@ -251,6 +255,22 @@ SavegameEditor = {
 		row.prepend( col( 4, select( 'interiors', options, SavegameEditor.updateInterior ) ) );
 		row.prepend( col( 8, span( 'Active interior' ) ) );
 	},
+
+	/* settings */
+	loadSettings: function () {
+		if ( typeof localStorage === 'object' && localStorage.getItem( 'nintendogs-cats-settings' ) ) {
+			const loadedSettings = JSON.parse( localStorage.getItem( 'nintendogs-cats-settings' ) );
+			if ( typeof loadedSettings.lang === 'string' ) {
+				this.Settings.lang = loadedSettings.lang.toLowerCase().trim();
+			}
+		}
+	},
+	saveSettings: function () {
+		if ( typeof localStorage === 'object' ) {
+			localStorage.setItem( 'nintendogs-cats-settings', JSON.stringify( this.Settings ) );
+		}
+	},
+
 	preload: function () {
 		setNumericRange( 'money', 0, 9999999 );
 		setNumericRange( 'streetpass-met', 0, 9999999 );
@@ -284,10 +304,16 @@ SavegameEditor = {
 
 		SavegameEditor.appendItems();
 		SavegameEditor.appendInteriors();
+		Locale.set( SavegameEditor.Settings.lang );
+	},
+
+	unload: function () {
+		document.getElementById( 'container-startup' ).style.removeProperty( 'display' );
 	},
 
 	/* load function */
 	load: function () {
+		document.getElementById( 'container-startup' ).style.display = 'none';
 		tempFile.fileName = 'sysdata.dat';
 		tempFile.littleEndian = true;
 		setValue( 'money', tempFile.readU32( SavegameEditor.Constants.MONEY_OFFSET ) );
@@ -302,6 +328,18 @@ SavegameEditor = {
 				break;
 			}
 		}
+
+		// Update supply-values
+		const supply_values = document.querySelectorAll( '[id^=number-supplies_]' );
+		supply_values.forEach( ( t ) => {
+			t.value = tempFile.readU8( Number( t.dataset.offset ) );
+		} );
+
+		// Update interior-values
+		SavegameEditor.Constants.interiors.forEach( ( interior, index ) => {
+			const input = get( `number-interiors_${ index }` );
+			input.value = tempFile.readU8( Number( input.dataset.offset ) );
+		} );
 
 		const a = new Date( Number( tempFile.readU32( SavegameEditor.Constants.LASTSAVED_OFFSET ) ) * 1000 );
 		setValue( 'lastsaved', a.toLocaleString( 'en-GB', {
@@ -494,3 +532,14 @@ SavegameEditor = {
 		}
 	}
 };
+
+window.addEventListener( 'DOMContentLoaded', () => {
+	SavegameEditor.loadSettings();
+	document.getElementById( 'select-language' ).value = SavegameEditor.Settings.lang;
+
+	document.getElementById( 'select-language' ).addEventListener( 'change', ( e ) => {
+		SavegameEditor.Settings.lang = e.target.value;
+		Locale.set( e.target.value );
+		SavegameEditor.saveSettings();
+	} );
+} );

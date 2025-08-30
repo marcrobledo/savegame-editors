@@ -60,7 +60,7 @@
 }
 
 .item-name[ data-icon ]::before {
-	background-image: url( ./icons.webp );
+	background-image: url( ./assets/icons.webp );
 	background-repeat: no-repeat;
 	background-size: 68px;
 	content: '';
@@ -91,7 +91,7 @@
 }
 
 .item-icon {
-	background-image: url( ./items.webp );
+	background-image: url( ./assets/items.webp );
 	background-size: 576px;
 	background-repeat: no-repeat;
 	display: inline-block;

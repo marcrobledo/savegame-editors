@@ -1,4 +1,4 @@
-const spriteBaseURL = 'https://www.spriters-resource.com/resources/sheets/112/%0.png';
+const spriteBaseURL = 'https://www.spriters-resource.com/media/assets/112/%0.png';
 const spriteBaseURLLocal = 'sprites/%0.png';
 const useLocal = false;
 const spriteData = {

@@ -10,6 +10,8 @@
 	<link type="text/css" rel="stylesheet" href="../savegame-editor.css" media="all"/>
 	<script type="text/javascript" src="../savegame-editor.js"></script>
 	<script type="text/javascript" src="./picross-3d-round-2.js"></script>
+	<script type="text/javascript" src="./locale.js"></script>
+	<script type="text/javascript" src="./puzzles.js"></script>
 	<script type="text/javascript"><!--
 		/* service worker */
 		var FORCE_HTTPS=true;
@@ -45,6 +47,22 @@
 
 
 <!-- THE EDITOR -->
+<div id="container-startup" class="wrapper">
+	<div id="container-language" class="text-center">
+		<label for="select-language">Select your language</label>
+		<select id="select-language">
+			<option value="en">English</option>
+			<option value="de">Deutsch</option>
+			<option value="es">Español</option>
+			<option value="es_alt">Español latino</option>
+			<option value="fr">Français</option>
+			<option value="fr_alt">Français (Canada)</option>
+			<option value="it">Italiano</option>
+			<option value="ja">日本語</option>
+			<option value="qqx">System messages</option>
+		</select>
+	</div>
+</div>
 <div id="the-editor" class="wrapper hidden">
 	<!-- Settings -->
 	<h3 class="orange">Settings</h3>

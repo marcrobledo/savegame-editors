@@ -15,7 +15,8 @@
 	<script type="text/javascript" src="./nintendogs+cats.js"></script>
 	<script type="text/javascript" src="./personalities.js"></script>
 	<script type="text/javascript" src="./items.js"></script>
-	<script type="text/javascript">
+	<script type="text/javascript" src="./locale.js"></script>
+	<script type="text/javascript"><!--
 			/* service worker */
 		var FORCE_HTTPS=true;
 		window.addEventListener('load',function(){
@@ -24,7 +25,7 @@
 			else if(location.protocol==='https:' && 'serviceWorker' in navigator)
 				navigator.serviceWorker.register('/savegame-editors/nintendogs+cats/_cache_service_worker.js', {scope: '/savegame-editors/nintendogs+cat/'});
 		}, false);
-	</script>
+	--></script>
 </head>
 <body>
 <template id="template-row-pet">
@@ -273,6 +274,16 @@
 
 
 <!-- THE EDITOR -->
+ <div id="container-startup" class="wrapper">
+	<div id="container-language" class="text-center">
+		<label for="select-language">Select your language</label>
+		<select id="select-language">
+			<option value="en">English</option>
+			<option value="de">Deutsch</option>
+			<option value="qqx">System messages</option>
+		</select>
+	</div>
+</div>
 <div id="the-editor" class="wrapper hidden">
 	<!-- Money -->
 	<h3 class="orange">Account</h3>
