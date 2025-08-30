@@ -1,4 +1,4 @@
-const Locale = ( function ( ui ) {
+const Locale = ( function () {
 	const VALID_LOCALES = [ 'de', 'en' ];
 	let _currentLocale = null;
 	let _currentLocaleAlt = null;
@@ -64,4 +64,4 @@ const Locale = ( function ( ui ) {
 			_cachedLocales[ langCode ] = strings;
 		}
 	};
-}( UI ) );
+}() );
