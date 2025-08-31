@@ -331,5 +331,17 @@ Locale.add( 'pt', {
 	Room_Luxury: 'Luxuosa',
 	Room_Fairy: 'Conto de Fadas',
 	Room_Mario: 'Mario',
-	Room_Future: 'Futurista'
+	Room_Future: 'Futurista',
+
+	// Competitions
+	GP_Disc: 'Concurso de Disco',
+	GP_Lure: 'Corrida com Caça',
+	GP_Contest: 'Prova de Obediência',
+
+	// Ranks
+	GP_Rank1: 'Taça Principiante',
+	GP_Rank2: 'Taça Amador',
+	GP_Rank3: 'Taça Profissional',
+	GP_Rank4: 'Taça Mestre',
+	GP_Rank5: 'Taça Nintendogs'
 } );

@@ -331,5 +331,17 @@ Locale.add( 'en', {
 	Room_Luxury: 'Luxurious',
 	Room_Fairy: 'Fairy Tale',
 	Room_Mario: 'Mario',
-	Room_Future: 'Futuristic'
+	Room_Future: 'Futuristic',
+
+	// Competitions
+	GP_Disc: 'Disc Competition',
+	GP_Lure: 'Lure Coursing',
+	GP_Contest: 'Obedience Trial',
+
+	// Ranks
+	GP_Rank1: 'Junior Cup',
+	GP_Rank2: 'Amateur Cup',
+	GP_Rank3: 'Pro Cup',
+	GP_Rank4: 'Master Cup',
+	GP_Rank5: 'Nintendogs Cup'
 } );

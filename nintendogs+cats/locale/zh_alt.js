@@ -331,5 +331,17 @@ Locale.add( 'zh_alt', {
 	Room_Luxury: '華麗風格',
 	Room_Fairy: '童話風格',
 	Room_Mario: '瑪利歐風格',
-	Room_Future: '宇宙風格'
+	Room_Future: '宇宙風格',
+
+	// Competitions
+	GP_Disc: '飛盤賽',
+	GP_Lure: '假餌追逐賽',
+	GP_Contest: '才藝比賽',
+
+	// Ranks
+	GP_Rank1: '新人盃',
+	GP_Rank2: '業餘盃',
+	GP_Rank3: '專業盃',
+	GP_Rank4: '大師盃',
+	GP_Rank5: 'nintendogs盃'
 } );

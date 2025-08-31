@@ -331,5 +331,17 @@ Locale.add( 'nl', {
 	Room_Luxury: 'Luxe',
 	Room_Fairy: 'Sprookjesachtig',
 	Room_Mario: 'Mario',
-	Room_Future: 'Futuristisch'
+	Room_Future: 'Futuristisch',
+
+	// Competitions
+	GP_Disc: 'Discuswedstrijd',
+	GP_Lure: 'Lure coursing',
+	GP_Contest: 'Gehoorzaamheidstest',
+
+	// Ranks
+	GP_Rank1: 'Beginnersbeker',
+	GP_Rank2: 'Amateurbeker',
+	GP_Rank3: 'Profbeker',
+	GP_Rank4: 'Kampioensbeker',
+	GP_Rank5: 'Nintendogs-beker'
 } );

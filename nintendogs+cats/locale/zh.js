@@ -331,5 +331,17 @@ Locale.add( 'zh', {
 	Room_Luxury: '奢华风格',
 	Room_Fairy: '童话风格',
 	Room_Mario: '马力欧风格',
-	Room_Future: '宇宙风格'
+	Room_Future: '宇宙风格',
+
+	// Competitions
+	GP_Disc: '飞盘赛',
+	GP_Lure: '诱饵猎捕赛',
+	GP_Contest: '表演赛',
+
+	// Ranks
+	GP_Rank1: '新手杯',
+	GP_Rank2: '业余杯',
+	GP_Rank3: '专业杯',
+	GP_Rank4: '大师杯',
+	GP_Rank5: 'nintendogs杯'
 } );

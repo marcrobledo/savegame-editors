@@ -331,5 +331,17 @@ Locale.add( 'ru', {
 	Room_Luxury: 'Роскошный стиль',
 	Room_Fairy: 'Сказочный стиль',
 	Room_Mario: 'Стиль Марио',
-	Room_Future: 'Космический стиль'
+	Room_Future: 'Космический стиль',
+
+	// Competitions
+	GP_Disc: 'Летающий диск',
+	GP_Lure: 'Собачьи бега',
+	GP_Contest: 'Выставка собак',
+
+	// Ranks
+	GP_Rank1: 'Кубок новичков',
+	GP_Rank2: 'Кубок любителей',
+	GP_Rank3: 'Кубок профи',
+	GP_Rank4: 'Кубок мастеров',
+	GP_Rank5: 'Кубок Nintendogs'
 } );

@@ -331,5 +331,17 @@ Locale.add( 'jp', {
 	Room_Luxury: 'ラグジュアリースタイル',
 	Room_Fairy: 'メルヘンスタイル',
 	Room_Mario: 'マリオスタイル',
-	Room_Future: 'コスモスタイル'
+	Room_Future: 'コスモスタイル',
+
+	// Competitions
+	GP_Disc: 'ディスクドッグ大会',
+	GP_Lure: 'ルアーコーシング大会',
+	GP_Contest: 'ドッグコンテスト',
+
+	// Ranks
+	GP_Rank1: 'ジュニアカップ',
+	GP_Rank2: 'アマチュアカップ',
+	GP_Rank3: 'プロカップ',
+	GP_Rank4: 'マスターズカップ',
+	GP_Rank5: 'nintendogsカップ'
 } );

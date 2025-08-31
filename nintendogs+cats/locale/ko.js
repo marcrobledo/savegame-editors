@@ -331,5 +331,17 @@ Locale.add( 'ko', {
 	Room_Luxury: '럭셔리 스타일',
 	Room_Fairy: '메르헨 스타일',
 	Room_Mario: '마리오 스타일',
-	Room_Future: '코스모 스타일'
+	Room_Future: '코스모 스타일',
+
+	// Competitions
+	GP_Disc: '원반 던지기 대회',
+	GP_Lure: '루어 코싱 대회',
+	GP_Contest: '애견 대회',
+
+	// Ranks
+	GP_Rank1: '주니어 컵',
+	GP_Rank2: '아마추어 컵',
+	GP_Rank3: '프로 컵',
+	GP_Rank4: '마스터 컵',
+	GP_Rank5: 'nintendogs 컵'
 } );

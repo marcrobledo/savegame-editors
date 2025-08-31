@@ -331,5 +331,17 @@ Locale.add( 'es_alt', {
 	Room_Luxury: 'Estilo lujoso',
 	Room_Fairy: 'Estilo fantasía',
 	Room_Mario: 'Estilo Mario',
-	Room_Future: 'Estilo futurista'
+	Room_Future: 'Estilo futurista',
+
+	// Competitions
+	GP_Disc: 'Concurso de disco',
+	GP_Lure: 'Carrera canina',
+	GP_Contest: 'Prueba de obediencia',
+
+	// Ranks
+	GP_Rank1: 'Copa principiante',
+	GP_Rank2: 'Copa aficionado',
+	GP_Rank3: 'Copa profesional',
+	GP_Rank4: 'Copa maestro',
+	GP_Rank5: 'Copa Nintendogs'
 } );
