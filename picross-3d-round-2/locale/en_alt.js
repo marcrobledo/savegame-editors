@@ -1,5 +1,5 @@
-﻿// Translations found in EUR
-Locale.add( 'en', {
+﻿// Translations found in USA
+Locale.add( 'en_alt', {
 	prefix_puzzle: 'No. ',
 	prefix_skill: 'Skill ',
 	prefix_tutorial: 'Tutorial ',

@@ -1,4 +1,4 @@
-// Translations found in USA
+// Translations found in USA (Q)
 Locale.add( 'fr_alt', {
 	// Food & Drinks
 	Item_Foods_Water: 'Eau',

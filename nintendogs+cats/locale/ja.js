@@ -1,4 +1,4 @@
-// Translations found in JPN
+// Translations found in JPN (J)
 Locale.add( 'jp', {
 	// Food & Drinks
 	Item_Foods_Water: 'お水',

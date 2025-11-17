@@ -1,4 +1,4 @@
-// Translations found in EUR
+// Translations found in EUR (I)
 Locale.add( 'it', {
 	// Food & Drinks
 	Item_Foods_Water: 'Bottiglia d\'acqua',
