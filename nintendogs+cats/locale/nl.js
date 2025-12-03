@@ -1,4 +1,4 @@
-// Translations found in EUR
+// Translations found in EUR (N)
 Locale.add( 'nl', {
 	// Food & Drinks
 	Item_Foods_Water: 'Water',

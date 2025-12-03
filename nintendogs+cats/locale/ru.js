@@ -1,4 +1,4 @@
-// Translations found in EUR
+// Translations found in EUR (R)
 Locale.add( 'ru', {
 	// Food & Drinks
 	Item_Foods_Water: 'Вода',

@@ -1,5 +1,5 @@
 const Locale = ( function () {
-	const VALID_LOCALES = [ 'de', 'en', 'en_alt', 'es', 'es_alt', 'fr', 'fr_alt', 'it', 'jp', 'ko', 'nl', 'pt', 'ru', 'zh', 'zh_alt' ];
+	const VALID_LOCALES = [ 'de', 'en', 'en_alt', 'es', 'es_alt', 'fr', 'fr_alt', 'it', 'ja', 'ko', 'nl', 'pt', 'ru', 'zh', 'zh_alt' ];
 	let _currentLocale = null;
 	let _currentLocaleAlt = null;
 	const _cachedLocales = {};

@@ -1,4 +1,4 @@
-// Translations found in KOR
+// Translations found in KOR (K)
 Locale.add( 'ko', {
 	// Food & Drinks
 	Item_Foods_Water: '물',

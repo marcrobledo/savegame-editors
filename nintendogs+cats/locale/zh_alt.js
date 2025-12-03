@@ -1,4 +1,4 @@
-// Translations found in CHN
+// Translations found in TWN (T)
 Locale.add( 'zh_alt', {
 	// Food & Drinks
 	Item_Foods_Water: '水',
