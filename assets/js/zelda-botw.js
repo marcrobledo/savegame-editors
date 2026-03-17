@@ -438,7 +438,7 @@ function removeAllWaypoints() {
 		var mapWidth = 6000;
 		var mapHeight = 5000;
 		var viewportWidth = mapViewport.clientWidth || window.innerWidth;
-		var viewportHeight = mapViewport.clientHeight || (window.innerHeight - 180);
+		var viewportHeight = mapViewport.clientHeight || (window.innerHeight);
 		var minZoom = Math.min(viewportWidth / mapWidth, viewportHeight / mapHeight);
 		var maxZoom = mapHeight / viewportHeight;
 
@@ -446,6 +446,12 @@ function removeAllWaypoints() {
 		if (mapContainer.parentElement !== mapViewport) {
 			mapViewport.appendChild(mapContainer);
 		}
+
+		// Start fully zoomed out
+		scale = minZoom;
+		panX = 0;
+		panY = 0;
+		updateTransform();
 
 		// Mouse wheel for zoom
 		mapViewport.addEventListener('wheel', function(e) {
@@ -511,7 +517,7 @@ function removeAllWaypoints() {
 		var mapWidth = 6000;
 		var mapHeight = 5000;
 		var viewportWidth = mapViewport.clientWidth || window.innerWidth;
-		var viewportHeight = mapViewport.clientHeight || (window.innerHeight - 180);
+		var viewportHeight = mapViewport.clientHeight || (window.innerHeight);
 		var scaledMapWidth = mapWidth * scale;
 		var scaledMapHeight = mapHeight * scale;
 
