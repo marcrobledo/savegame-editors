@@ -25,7 +25,19 @@ This application can run as a Docker container that automatically loads the game
 
 ### Setup
 
-1. Edit `server/docker-compose.yml` to update the volume mount path if your Cemu save file is in a different location.
+1. Create a `server/.env` file to configure your Cemu save file path.
+
+   **If running Docker from WSL (Linux-style path):**
+   ```
+   SAVE_PATH=/mnt/c/Users/YourWindowsUsername/AppData/Roaming/Cemu/mlc01/usr/save/00050000/101c9400/user/80000001/0
+   ```
+
+   **If running Docker from Windows (Command Prompt or PowerShell):**
+   ```
+   SAVE_PATH=C:/Users/YourWindowsUsername/AppData/Roaming/Cemu/mlc01/usr/save/00050000/101c9400/user/80000001/0
+   ```
+
+   Replace `YourWindowsUsername` with your Windows username. The save folder ID (`80000001`) may also differ — check your Cemu save directory if unsure.
 
 2. Build and start the container:
    ```bash
