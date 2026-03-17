@@ -174,7 +174,7 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 	padding:8px
 }
 #span-version:hover{text-decoration:underline}
-#header h1{display:none}
+#header h1{display:inline-block;font-size:110%;margin:0;flex:1;color:#333}
 #header h1 img{vertical-align:middle}
 
 
