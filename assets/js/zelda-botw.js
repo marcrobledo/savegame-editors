@@ -256,6 +256,9 @@ function onScroll(){
 
 window.addEventListener('load',function(){
 
+	// Hide drag-and-drop zone immediately — save file is always auto-loaded from server
+	hide('dragzone');
+
 	// Split warps into shrines and towers — must run after map-locations.js is loaded
 	for (var _warpHash in warps) {
 		if (warps[_warpHash].internal_name.indexOf('Location_Dungeon') === 0) {
@@ -267,19 +270,22 @@ window.addEventListener('load',function(){
 
 	window.addEventListener('scroll',onScroll,false);
 
-	// Auto-load save file from server
+	// Fetch the save file from the server and re-render the map
+	var lastMtime = null;
 	function loadSaveFromServer() {
 		fetch('/data/game_data.sav', { cache: 'no-store' })
-			.then(response => {
-				if (!response.ok) {
-					throw new Error('Save file not found');
-				}
-				return response.arrayBuffer();
+			.then(function(response) {
+				if (!response.ok) throw new Error('Save file not found');
+				var mtime = parseFloat(response.headers.get('X-File-Mtime')) || null;
+				return response.arrayBuffer().then(function(buf) { return { buf: buf, mtime: mtime }; });
 			})
-			.then(arrayBuffer => {
-				loadSavegameFromArrayBuffer(arrayBuffer, 'game_data.sav');
+			.then(function(result) {
+				removeAllWaypoints();
+				loadSavegameFromArrayBuffer(result.buf, 'game_data.sav');
+				lastMtime = result.mtime;
+				if (result.mtime) updateSaveTimestamp(result.mtime);
 			})
-			.catch(err => {
+			.catch(function() {
 				console.log('Waiting for save file...');
 			});
 	}
@@ -287,29 +293,23 @@ window.addEventListener('load',function(){
 	// Initial load
 	loadSaveFromServer();
 
-	// Set up Server-Sent Events for file change detection
-	if (typeof EventSource !== 'undefined') {
-		const eventSource = new EventSource('/api/events');
-		eventSource.onmessage = function(event) {
-			var data;
-			try { data = JSON.parse(event.data); } catch(e) { data = { event: event.data }; }
-			if (data.event === 'connected' || data.event === 'changed') {
+	// Poll /api/mtime every 10 seconds; re-render only when the file has changed
+	function pollMtime() {
+		fetch('/api/mtime', { cache: 'no-store' })
+			.then(function(r) { return r.json(); })
+			.then(function(data) {
 				setServerOnline(true);
 				if (data.mtime) updateSaveTimestamp(data.mtime);
-			}
-			if (data.event === 'changed') {
-				loadSaveFromServer();
-			}
-		};
-		eventSource.onerror = function() {
-			setServerOnline(false);
-			// Fall back to polling
-			setInterval(loadSaveFromServer, 10000);
-		};
-	} else {
-		// Fallback for browsers without SSE support - poll every 10 seconds
-		setInterval(loadSaveFromServer, 10000);
+				if (data.mtime && data.mtime !== lastMtime) {
+					loadSaveFromServer();
+				}
+			})
+			.catch(function() {
+				setServerOnline(false);
+			});
 	}
+	pollMtime();
+	setInterval(pollMtime, 10000);
 
 	function setServerOnline(online) {
 		var dot = document.getElementById('server-status-dot');
@@ -323,34 +323,6 @@ window.addEventListener('load',function(){
 		var pad = function(n) { return n < 10 ? '0' + n : n; };
 		el.textContent = pad(d.getMonth()+1) + '/' + pad(d.getDate()) + '/' + d.getFullYear()
 			+ ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
-	}
-
-	// If there is saved data in the browser, load that instead
-	locationValuesTest = window.localStorage.getItem( 'botw-unexplored-viewer' );
-	if ( locationValuesTest ) {
-
-		locationValues = JSON.parse( locationValuesTest );
-
-		setValue( 'span-number-koroks', locationValues.found.koroks );
-		setValue( 'span-number-locations', locationValues.found.locations );
-		setValue( 'span-number-total-locations', 226 );
-		setValue( 'span-number-shrines', locationValues.found.shrines || 0 );
-		setValue( 'span-number-total-shrines', Object.keys( shrines ).length );
-		setValue( 'span-number-towers', locationValues.found.towers || 0 );
-		setValue( 'span-number-total-towers', Object.keys( towers ).length );
-
-		SavegameEditor.drawKorokPaths( locationValues.notFound.koroks );
-
-		SavegameEditor.markMap( locationValues.notFound.locations, 'location' );
-		SavegameEditor.markMap( warps, 'warp' );
-		SavegameEditor.markMap( locationValues.notFound.koroks, 'korok' );
-
-		hide('dragzone');
-		show('the-editor');
-		show('toolbar');
-
-		addWaypointListeners();
-
 	}
 
 	// Empty data for a clear map
