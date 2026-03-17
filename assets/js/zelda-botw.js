@@ -8,6 +8,7 @@ var locationValues = {};
 var shrines = {};
 var towers = {};
 var divineBeasts = {};
+var shrinesCompleted = 0;
 
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
@@ -126,6 +127,7 @@ SavegameEditor={
 		this._notFoundLocations( shrines, 'shrines' );
 		this._notFoundLocations( towers, 'towers' );
 		this._notFoundLocations( divineBeasts, 'divineBeasts' );
+		shrinesCompleted = this._countCompleted( shrineCompletions );
 
 		window.localStorage.setItem( 'botw-unexplored-viewer', JSON.stringify( locationValues ) );
 
@@ -133,6 +135,8 @@ SavegameEditor={
 		setValue( 'span-number-total-locations', 226 );
 		setValue( 'span-number-shrines', locationValues.found.shrines );
 		setValue( 'span-number-total-shrines', Object.keys( shrines ).length );
+		setValue( 'span-number-shrines-completed', shrinesCompleted );
+		setValue( 'span-number-total-shrines-completed', Object.keys( shrineCompletions ).length );
 		setValue( 'span-number-towers', locationValues.found.towers );
 		setValue( 'span-number-total-towers', Object.keys( towers ).length );
 		setValue( 'span-number-divine-beasts', locationValues.found.divineBeasts );
@@ -185,6 +189,21 @@ SavegameEditor={
 
 		}
 
+	},
+
+	// Count how many entries in hashObjects have a non-zero save flag
+	_countCompleted:function( hashObjects ) {
+		var count = 0;
+		var previousHashValue = 0;
+		for ( var offset = 0x0c; offset < tempFile.fileSize - 4; offset += 8 ) {
+			var hashValue = tempFile.readU32( offset );
+			if ( hashValue === previousHashValue ) continue;
+			if ( hashObjects[ hashValue ] ) {
+				if ( tempFile.readU32( offset + 4 ) ) count++;
+			}
+			previousHashValue = hashValue;
+		}
+		return count;
 	},
 
 	// Mark the map with not found Koroks or Locations
@@ -381,6 +400,8 @@ window.addEventListener('load',function(){
 		setValue( 'span-number-total-locations', 226 );
 		setValue( 'span-number-shrines', locationValues.found.shrines );
 		setValue( 'span-number-total-shrines', Object.keys( shrines ).length );
+		setValue( 'span-number-shrines-completed', 0 );
+		setValue( 'span-number-total-shrines-completed', Object.keys( shrineCompletions ).length );
 		setValue( 'span-number-towers', locationValues.found.towers );
 		setValue( 'span-number-total-towers', Object.keys( towers ).length );
 		setValue( 'span-number-divine-beasts', locationValues.found.divineBeasts );
