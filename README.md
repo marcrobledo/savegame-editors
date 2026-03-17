@@ -6,9 +6,15 @@ I was sitting around 600 Koroks found and was having a really difficult time fol
 
 So, I slapped this together to parse a Cemu save file to show only the Koroks and Locations that I have yet to find. As you find them in-game, the map automatically refreshes to reflect your progress.
 
-As you find Koroks/Locations, clicking on them will remove them from the map.
+The toolbar tracks your running totals for:
+- **Korok seeds** (out of 900)
+- **Locations** (out of 226)
+- **Shrines** (out of 120)
+- **Towers** (out of 15)
 
-Thank you @marcrobledo for the [save game editors](https://github.com/marcrobledo/savegame-editors) much of this code is based off of and @MrCheeze for the their [waypoint map](https://github.com/MrCheeze/botw-waypoint-map) which I modified to get the map markers I needed as well as all of their [datamining research](https://github.com/MrCheeze/botw-tools).
+A server status indicator and save file timestamp in the toolbar let you know the server is reachable and when your save was last read.
+
+Thank you @marcrobledo for the [save game editors](https://github.com/marcrobledo/savegame-editors) much of this code is based off of and @MrCheeze for their [waypoint map](https://github.com/MrCheeze/botw-waypoint-map) which I modified to get the map markers I needed as well as all of their [datamining research](https://github.com/MrCheeze/botw-tools).
 
 ## Docker Setup
 
@@ -37,7 +43,7 @@ This application runs as a Docker container that automatically reads your Cemu s
 2. Build and start the container:
    ```bash
    cd server
-   docker compose up -d
+   docker compose up -d --build
    ```
 
 3. Open http://localhost:3000 in your browser.
