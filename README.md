@@ -11,6 +11,7 @@ The toolbar tracks your running totals for:
 - **Locations** (out of 226)
 - **Shrines** (out of 120)
 - **Towers** (out of 15)
+- **Divine Beasts** (out of 4)
 
 A server status indicator and save file timestamp in the toolbar let you know the server is reachable and when your save was last read.
 
