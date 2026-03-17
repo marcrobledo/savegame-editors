@@ -1,0 +1,12 @@
+{
+  "name": "botw-unexplored-viewer",
+  "version": "1.0.0",
+  "description": "BOTW Unexplored Viewer Server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

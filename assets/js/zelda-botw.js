@@ -245,6 +245,44 @@ window.addEventListener('load',function(){
 
 	window.addEventListener('scroll',onScroll,false);
 
+	// Auto-load save file from server
+	function loadSaveFromServer() {
+		fetch('/data/game_data.sav')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Save file not found');
+				}
+				return response.arrayBuffer();
+			})
+			.then(arrayBuffer => {
+				loadSavegameFromArrayBuffer(arrayBuffer, 'game_data.sav');
+			})
+			.catch(err => {
+				console.log('Waiting for save file...');
+			});
+	}
+
+	// Initial load
+	loadSaveFromServer();
+
+	// Set up Server-Sent Events for file change detection
+	if (typeof EventSource !== 'undefined') {
+		const eventSource = new EventSource('/api/events');
+		eventSource.onmessage = function(event) {
+			if (event.data === 'changed') {
+				// Reload the save file
+				loadSaveFromServer();
+			}
+		};
+		eventSource.onerror = function() {
+			// Fall back to polling
+			setInterval(loadSaveFromServer, 10000);
+		};
+	} else {
+		// Fallback for browsers without SSE support - poll every 10 seconds
+		setInterval(loadSaveFromServer, 10000);
+	}
+
 	// If there is saved data in the browser, load that instead
 	locationValuesTest = window.localStorage.getItem( 'botw-unexplored-viewer' );
 	if ( locationValuesTest ) {

@@ -1,0 +1,11 @@
+services:
+  webserver:
+    build:
+      context: ..
+      dockerfile: server/Dockerfile
+    volumes:
+      - /mnt/c/Users/pphil/AppData/Roaming/Cemu/mlc01/usr/save/00050000/101c9400/user/80000001/0:/app/data
+    ports:
+      - "3000:3000"
+    container_name: botw-webserver
+    restart: unless-stopped

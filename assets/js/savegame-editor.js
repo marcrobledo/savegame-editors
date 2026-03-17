@@ -113,6 +113,21 @@ MarcDragAndDrop=(function(){
 
 /* savegame load/save */
 var tempFile,hasBeenLoaded=false;
+
+// Load savegame from arraybuffer (for server-loaded files)
+function loadSavegameFromArrayBuffer(arrayBuffer, fileName) {
+    // Create MarcFile from arraybuffer directly using Object.create to avoid constructor issues
+    var marcFile = Object.create(MarcFile.prototype);
+    marcFile.fileName = 'game_data.sav';
+    marcFile.fileType = 'application/octet-stream';
+    marcFile.fileSize = arrayBuffer.byteLength;
+    marcFile.littleEndian = false;
+    marcFile._u8array = new Uint8Array(arrayBuffer);
+    marcFile._dataView = new DataView(arrayBuffer);
+    tempFile = marcFile;
+    _tempFileLoadFunction();
+}
+
 function _tempFileLoadFunction(){
 	if(SavegameEditor.checkValidSavegame()){
 		hide('dragzone');
