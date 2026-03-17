@@ -34,15 +34,10 @@ app.get('/api/events', (req, res) => {
     res.setHeader('Connection', 'keep-alive');
     res.flushHeaders();
 
-    // Send initial connection message
-    res.write('data: connected\n\n');
-
-    // Store last file modification time
-    let lastMtime = null;
-
     const filePath = path.join(__dirname, DATA_PATH);
 
-    // Check file exists and get initial mtime
+    // Store last file modification time and get initial mtime
+    let lastMtime = null;
     try {
         const stats = fs.statSync(filePath);
         lastMtime = stats.mtimeMs;
@@ -50,13 +45,16 @@ app.get('/api/events', (req, res) => {
         console.error('Initial file check error:', err);
     }
 
+    // Send initial connection message with current mtime
+    res.write('data: ' + JSON.stringify({ event: 'connected', mtime: lastMtime }) + '\n\n');
+
     // Poll for file changes every 10 seconds
     const interval = setInterval(() => {
         try {
             const stats = fs.statSync(filePath);
             if (lastMtime && stats.mtimeMs !== lastMtime) {
                 lastMtime = stats.mtimeMs;
-                res.write('data: changed\n\n');
+                res.write('data: ' + JSON.stringify({ event: 'changed', mtime: stats.mtimeMs }) + '\n\n');
             } else if (!lastMtime) {
                 lastMtime = stats.mtimeMs;
             }

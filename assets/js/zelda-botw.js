@@ -291,18 +291,38 @@ window.addEventListener('load',function(){
 	if (typeof EventSource !== 'undefined') {
 		const eventSource = new EventSource('/api/events');
 		eventSource.onmessage = function(event) {
-			if (event.data === 'changed') {
-				// Reload the save file
+			var data;
+			try { data = JSON.parse(event.data); } catch(e) { data = { event: event.data }; }
+			if (data.event === 'connected' || data.event === 'changed') {
+				setServerOnline(true);
+				if (data.mtime) updateSaveTimestamp(data.mtime);
+			}
+			if (data.event === 'changed') {
 				loadSaveFromServer();
 			}
 		};
 		eventSource.onerror = function() {
+			setServerOnline(false);
 			// Fall back to polling
 			setInterval(loadSaveFromServer, 10000);
 		};
 	} else {
 		// Fallback for browsers without SSE support - poll every 10 seconds
 		setInterval(loadSaveFromServer, 10000);
+	}
+
+	function setServerOnline(online) {
+		var dot = document.getElementById('server-status-dot');
+		if (dot) dot.className = 'server-status-dot ' + (online ? 'online' : 'offline');
+	}
+
+	function updateSaveTimestamp(mtime) {
+		var el = document.getElementById('save-timestamp');
+		if (!el) return;
+		var d = new Date(mtime);
+		var pad = function(n) { return n < 10 ? '0' + n : n; };
+		el.textContent = pad(d.getMonth()+1) + '/' + pad(d.getDate()) + '/' + d.getFullYear()
+			+ ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
 	}
 
 	// If there is saved data in the browser, load that instead

@@ -208,6 +208,7 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 	padding:5px 0;
 	background:rgba(26,58,82,0.4);
 	border-top:1px solid rgba(201,169,89,0.25);
+	position:relative;
 }
 #span-version:hover{text-decoration:underline}
 #header h1{
@@ -276,13 +277,14 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 	color:var(--botw-text-muted);
 	text-transform:uppercase;
 	letter-spacing:1px;
-	font-size:0.7rem;
-	margin:0 14px;
+	font-size:clamp(6px, 0.85vw, 11px);
+	margin:0 clamp(4px, 1vw, 14px);
+	white-space:nowrap;
 }
 #toolbar label span{
 	font-family:'Cinzel',serif;
 	color:var(--botw-gold);
-	font-size:0.95rem;
+	font-size:clamp(7px, 1.1vw, 15px);
 	font-weight:600;
 	text-shadow:0 0 10px rgba(201,169,89,0.4);
 }
@@ -292,12 +294,43 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 	justify-content:center;
 	gap:6px;
 }
+#server-status{
+	position:absolute;
+	right:16px;
+	top:50%;
+	transform:translateY(-50%);
+	display:flex;
+	align-items:center;
+	gap:6px;
+}
+#save-timestamp-label,
+#save-timestamp{
+	font-size:clamp(5px, 0.75vw, 10px);
+	color:var(--botw-text-muted);
+	letter-spacing:0.5px;
+	font-family:'Noto Sans',sans-serif;
+	white-space:nowrap;
+}
+.server-status-dot{
+	width:8px;
+	height:8px;
+	border-radius:50%;
+	display:inline-block;
+	flex-shrink:0;
+}
+.server-status-dot.online{
+	background-color:#4caf50;
+	box-shadow:0 0 6px rgba(76,175,80,0.8);
+}
+.server-status-dot.offline{
+	background-color:#555;
+}
 #toolbar label #span-number-total-locations,
 #toolbar label #span-number-total-shrines,
 #toolbar label #span-number-total-towers{
 	color:var(--botw-text-muted);
 	font-family:'Noto Sans',sans-serif;
-	font-size:0.95rem;
+	font-size:clamp(7px, 1.1vw, 15px);
 	font-weight:400;
 	text-shadow:none;
 }
