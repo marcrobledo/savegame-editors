@@ -269,7 +269,7 @@ window.addEventListener('load',function(){
 
 	// Auto-load save file from server
 	function loadSaveFromServer() {
-		fetch('/data/game_data.sav')
+		fetch('/data/game_data.sav', { cache: 'no-store' })
 			.then(response => {
 				if (!response.ok) {
 					throw new Error('Save file not found');

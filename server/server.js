@@ -23,6 +23,7 @@ app.get('/data/game_data.sav', (req, res) => {
         }
         res.setHeader('Content-Type', 'application/octet-stream');
         res.setHeader('Content-Length', data.length);
+        res.setHeader('Cache-Control', 'no-store');
         res.send(data);
     });
 });
@@ -36,11 +37,13 @@ app.get('/api/events', (req, res) => {
 
     const filePath = path.join(__dirname, DATA_PATH);
 
-    // Store last file modification time and get initial mtime
+    // Store last file modification time and size for change detection
     let lastMtime = null;
+    let lastSize = null;
     try {
         const stats = fs.statSync(filePath);
         lastMtime = stats.mtimeMs;
+        lastSize = stats.size;
     } catch (err) {
         console.error('Initial file check error:', err);
     }
@@ -48,21 +51,25 @@ app.get('/api/events', (req, res) => {
     // Send initial connection message with current mtime
     res.write('data: ' + JSON.stringify({ event: 'connected', mtime: lastMtime }) + '\n\n');
 
-    // Poll for file changes every 10 seconds
+    // Poll for file changes every 3 seconds
     const interval = setInterval(() => {
         try {
             const stats = fs.statSync(filePath);
-            if (lastMtime && stats.mtimeMs !== lastMtime) {
+            const changed = (lastMtime !== null && stats.mtimeMs !== lastMtime)
+                         || (lastSize !== null && stats.size !== lastSize);
+            if (changed) {
                 lastMtime = stats.mtimeMs;
+                lastSize = stats.size;
                 res.write('data: ' + JSON.stringify({ event: 'changed', mtime: stats.mtimeMs }) + '\n\n');
-            } else if (!lastMtime) {
+            } else if (lastMtime === null) {
                 lastMtime = stats.mtimeMs;
+                lastSize = stats.size;
             }
         } catch (err) {
             // File might not exist yet
             console.error('File check error:', err);
         }
-    }, 10000);
+    }, 3000);
 
     // Clean up on close
     req.on('close', () => {
