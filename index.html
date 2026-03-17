@@ -36,9 +36,7 @@
 				<label for="span-number-locations">Locations
 					<span id="span-number-locations"></span>/<span id="span-number-total-locations"></span>
 				</label>
-				|
-				<button class="button with-icon icon3" onclick="closeFileConfirm()">Clear Data</button>
-			</div>
+				</div>
 		</div>
 	</div>
 </div>
@@ -49,16 +47,18 @@
 	<!-- DEBUG -->
 	<div id="debug"></div>
 
-	<div id="map-container">
-		<img src='./assets/images/BotW-Map.png'/>
-		<svg id="path-svg" height="5000" width="6000">
-				<defs>
-				<marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="strokeWidth" viewBox="0 0 20 20">
-					<path d="M0,0 L0,6 L9,3 Z" fill="lime" stroke="green" stroke-width="1" />
-				</marker>
-				</defs>
-			<g id="path-group" fill="none" stroke="#ffffff" stroke-width="3" marker-start="url(#arrow)""></g>
-		</svg>
+	<div id="map-viewport">
+		<div id="map-container">
+			<img src='./assets/images/BotW-Map.png'/>
+			<svg id="path-svg" height="5000" width="6000">
+					<defs>
+					<marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="strokeWidth" viewBox="0 0 20 20">
+						<path d="M0,0 L0,6 L9,3 Z" fill="lime" stroke="green" stroke-width="1" />
+					</marker>
+					</defs>
+				<g id="path-group" fill="none" stroke="#ffffff" stroke-width="3" marker-start="url(#arrow)""></g>
+			</svg>
+		</div>
 	</div>
 	
 </div>
