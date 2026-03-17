@@ -46,7 +46,9 @@ This application runs as a Docker container that automatically reads your Cemu s
    docker compose up -d --build
    ```
 
-3. Open http://localhost:3000 in your browser.
+3. Open the viewer in your browser:
+   - From the same machine: http://localhost:3000
+   - From another device on your network: `http://<docker-host-ip>:3000` (e.g. `http://192.168.1.100:3000`)
 
 ### How It Works
 
