@@ -14,6 +14,8 @@ The toolbar tracks your running totals for:
 
 A server status indicator and save file timestamp in the toolbar let you know the server is reachable and when your save was last read.
 
+![Unexplored Area Viewer screenshot](Screenshot.jpg)
+
 Thank you @marcrobledo for the [save game editors](https://github.com/marcrobledo/savegame-editors) much of this code is based off of and @MrCheeze for their [waypoint map](https://github.com/MrCheeze/botw-waypoint-map) which I modified to get the map markers I needed as well as all of their [datamining research](https://github.com/MrCheeze/botw-tools).
 
 ## Docker Setup
