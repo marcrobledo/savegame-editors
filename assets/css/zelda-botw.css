@@ -696,6 +696,19 @@ button.no-text.with-icon:before{margin-right:0px}
 	position: relative;
 }
 
+/* Map viewport for pan/zoom */
+#map-viewport {
+	width: 100%;
+	height: calc(100vh - 180px);
+	overflow: hidden;
+	position: relative;
+	background: #0a0606;
+}
+
+#map-viewport #map-container {
+	transform-origin: 0 0;
+}
+
 #path-svg {
 	width: 6000px !important;
 	height: 5000px !important;
