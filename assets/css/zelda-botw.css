@@ -327,7 +327,8 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 }
 #toolbar label #span-number-total-locations,
 #toolbar label #span-number-total-shrines,
-#toolbar label #span-number-total-towers{
+#toolbar label #span-number-total-towers,
+#toolbar label #span-number-total-divine-beasts{
 	color:var(--botw-text-muted);
 	font-family:'Noto Sans',sans-serif;
 	font-size:clamp(7px, 1.1vw, 15px);

@@ -7,6 +7,7 @@ var locationValues = {};
 
 var shrines = {};
 var towers = {};
+var divineBeasts = {};
 
 SavegameEditor={
 	Name:'The legend of Zelda: Breath of the wild',
@@ -108,6 +109,7 @@ SavegameEditor={
 			'locations': {},
 			'shrines': {},
 			'towers': {},
+			'divineBeasts': {},
 		};
 
 		locationValues.found = {
@@ -115,6 +117,7 @@ SavegameEditor={
 			'locations': 0,
 			'shrines': 0,
 			'towers': 0,
+			'divineBeasts': 0,
 		};
 
 		// All Korok/Location Data filtered down to ones not found
@@ -122,6 +125,7 @@ SavegameEditor={
 		this._notFoundLocations( locations, 'locations' );
 		this._notFoundLocations( shrines, 'shrines' );
 		this._notFoundLocations( towers, 'towers' );
+		this._notFoundLocations( divineBeasts, 'divineBeasts' );
 
 		window.localStorage.setItem( 'botw-unexplored-viewer', JSON.stringify( locationValues ) );
 
@@ -131,6 +135,8 @@ SavegameEditor={
 		setValue( 'span-number-total-shrines', Object.keys( shrines ).length );
 		setValue( 'span-number-towers', locationValues.found.towers );
 		setValue( 'span-number-total-towers', Object.keys( towers ).length );
+		setValue( 'span-number-divine-beasts', locationValues.found.divineBeasts );
+		setValue( 'span-number-total-divine-beasts', Object.keys( divineBeasts ).length );
 
 		this.drawKorokPaths( locationValues.notFound.koroks );
 
@@ -265,6 +271,8 @@ window.addEventListener('load',function(){
 			shrines[_warpHash] = warps[_warpHash];
 		} else if (warps[_warpHash].internal_name.indexOf('Location_MapTower') === 0) {
 			towers[_warpHash] = warps[_warpHash];
+		} else if (warps[_warpHash].internal_name.indexOf('Location_Remains') === 0) {
+			divineBeasts[_warpHash] = warps[_warpHash];
 		}
 	}
 
@@ -333,6 +341,7 @@ window.addEventListener('load',function(){
 			'locations': {},
 			'shrines': {},
 			'towers': {},
+			'divineBeasts': {},
 		};
 
 		locationValues.found = {
@@ -340,6 +349,7 @@ window.addEventListener('load',function(){
 			'locations': 0,
 			'shrines': 0,
 			'towers': 0,
+			'divineBeasts': 0,
 		};
 
 		for ( var hash in koroks ) {
@@ -373,6 +383,8 @@ window.addEventListener('load',function(){
 		setValue( 'span-number-total-shrines', Object.keys( shrines ).length );
 		setValue( 'span-number-towers', locationValues.found.towers );
 		setValue( 'span-number-total-towers', Object.keys( towers ).length );
+		setValue( 'span-number-divine-beasts', locationValues.found.divineBeasts );
+		setValue( 'span-number-total-divine-beasts', Object.keys( divineBeasts ).length );
 
 		SavegameEditor.drawKorokPaths( locationValues.notFound.koroks );
 
