@@ -1,16 +1,39 @@
 /* Zelda BOTW Savegame editor by Marc Robledo v20170521 */
 /* minify at https://cssminifier.com/ + https://www.base64-image.de/ (sprites */
 
-/* @FONT-FACES */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,800');
+/* @CSS VARIABLES */
+:root {
+	--botw-dark: #0a0e14;
+	--botw-darker: #05070a;
+	--botw-blue: #1a3a52;
+	--botw-cyan: #00d4ff;
+	--botw-gold: #c9a959;
+	--botw-gold-light: #e8c87a;
+	--botw-gray: #2a3a4a;
+	--botw-text: #e0e6ed;
+	--botw-text-muted: #8a9ba8;
+	--sheikah-glow: rgba(0, 212, 255, 0.3);
+}
 
-
+html,body{
+	overflow-x:hidden;
+}
 body{
-	font:15px 'Open Sans',sans-serif;
+	font:15px 'Noto Sans',sans-serif;
 	cursor:default;
-	margin:180px 0 80px;
-	background-color:#160c0c;
-	color:#f9f5da;
+	margin:100px 0 0;
+	background: linear-gradient(135deg, var(--botw-darker) 0%, var(--botw-dark) 50%, var(--botw-blue) 100%);
+	background-attachment: fixed;
+	color:var(--botw-text);
+}
+
+/* Override .wrapper constraint so the map fills the full browser width */
+#the-editor{
+	max-width:100%;
+	width:100%;
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
 }
 
 /* flex box */
@@ -151,49 +174,69 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 
 /* header+toolbar+footer */
 #header{
-	color:#333;
+	color:var(--botw-text);
 	position:fixed;
-	top:-144px;
+	top:0;
 	left:0;
 	width:100%;
 	z-index:100;
-	background-color:#faf8f7;
+	background-color:var(--botw-dark);
+	border-bottom:2px solid var(--botw-gold);
+	box-shadow:0 4px 20px var(--sheikah-glow);
+}
+#header::before{
+	content:'';
+	display:block;
+	height:3px;
+	background:linear-gradient(90deg, transparent, var(--botw-cyan), var(--botw-gold), var(--botw-cyan), transparent);
+	animation:sheikahPulse 3s ease-in-out infinite;
+}
+@keyframes sheikahPulse{
+	0%,100%{opacity:0.5}
+	50%{opacity:1}
 }
 #header:after{
-	display:block;
-	position:absolute;
-	bottom:-3px;
-	left:0;
-	width:100%;
-	height:3px;
-	background-image:linear-gradient(to right, #0f0404 0%, #b99f65 40%, #b99f65 40%, #b99f65 65%, #0f0404 100%);
-
-	content:"";
+	display:none;
 }
 #toolbar{
-	padding:8px
+	padding:5px 0;
+	background:rgba(26,58,82,0.4);
+	border-top:1px solid rgba(201,169,89,0.25);
 }
 #span-version:hover{text-decoration:underline}
-#header h1{display:inline-block;font-size:110%;margin:0;flex:1;color:#333}
+#header h1{
+	display:inline-block;
+	font-size:88%;
+	margin:0;
+	flex:1;
+	color:var(--botw-gold);
+	font-family:'Cinzel',serif;
+	text-shadow:0 0 15px rgba(201,169,89,0.4);
+}
 #header h1 img{vertical-align:middle}
+#header-top .padding-vertical{padding:8px 0}
 
 
 
 .header-buttons{
-	font-size:85%
+	font-size:85%;
+	color:var(--botw-text-muted);
 }
 .header-buttons a.author{
-	color:#333;
+	color:var(--botw-gold-light);
 	text-decoration:none;
-	border-bottom:1px solid #d3cec3;
+	border-bottom:1px solid rgba(201,169,89,0.3);
+	transition:color 0.3s,border-color 0.3s,text-shadow 0.3s;
 }
 .header-buttons a.author:hover{
-	border-color:#83d8ff
+	color:var(--botw-cyan);
+	border-color:var(--botw-cyan);
+	text-shadow:0 0 10px var(--sheikah-glow);
 }
 .header-buttons a.button{
 	text-decoration:none;
 	color:white;
-	background-color:#1a415d;
+	background-color:var(--botw-blue);
 	padding:10px 20px;
 	border-radius:3px
 }
@@ -218,18 +261,41 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 
 
 
-hr{border:none;border-top:1px dotted #bbb;margin:15px 0}
+/* toolbar stat labels and values */
+#toolbar label{
+	color:var(--botw-text-muted);
+	text-transform:uppercase;
+	letter-spacing:1px;
+	font-size:0.7rem;
+	margin:0 14px;
+}
+#toolbar label span{
+	font-family:'Cinzel',serif;
+	color:var(--botw-gold);
+	font-size:0.95rem;
+	font-weight:600;
+	text-shadow:0 0 10px rgba(201,169,89,0.4);
+}
+#toolbar .text-center{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	gap:6px;
+}
+
+hr{border:none;border-top:1px dotted rgba(201,169,89,0.3);margin:15px 0}
 h3{
-	border-bottom:2px solid #888;
+	border-bottom:2px solid var(--botw-gold);
 	font-size:135%;
 	padding:10px 0;
 	text-transform:uppercase;
-	color:#b99f65
+	color:var(--botw-gold);
+	font-family:'Cinzel',serif;
 }
 
 table{width:100%}
-tbody tr:nth-child(even){background-color:#f2f2f2}
-th{background-color:#d4d4d4}
+tbody tr:nth-child(even){background-color:rgba(26,58,82,0.3)}
+th{background-color:rgba(201,169,89,0.15);color:var(--botw-gold-light)}
 
 
 
@@ -439,19 +505,19 @@ button.no-text.with-icon:before{margin-right:0px}
 
 /* MarcDragAndDrop */
 #dragzone{
-	border:4px dashed #b99f65;
-	color:#b99f65;
+	border:4px dashed var(--botw-gold);
+	color:var(--botw-gold);
 	text-align:center;
 	border-radius:8px;
 	position:relative;
 	transition:all .2s;
 	padding-bottom:20px;
-	/*font-weight:bold;*/
+	background:rgba(10,14,20,0.6);
 }
 .dragging-files #dragzone{
-	border-color:#3498db;
-	color:#3498db;
-	background-color:white
+	border-color:var(--botw-cyan);
+	color:var(--botw-cyan);
+	background-color:rgba(0,212,255,0.05);
 }
 #dragzone-message{
 	font-size:180%;
@@ -698,10 +764,37 @@ button.no-text.with-icon:before{margin-right:0px}
 /* Map viewport for pan/zoom */
 #map-viewport {
 	width: 100%;
-	height: calc(100vh - 180px);
+	height: calc(100vh - 100px);
 	overflow: hidden;
 	position: relative;
-	background: #0a0606;
+	background: radial-gradient(circle at center, rgba(26,58,82,0.4) 0%, #050a0f 100%);
+	border: 1px solid var(--botw-gray);
+	box-shadow: 0 8px 32px rgba(0,0,0,0.6), inset 0 0 60px rgba(0,0,0,0.4);
+}
+
+/* Decorative Sheikah corners on the map viewport */
+#map-viewport::before,
+#map-viewport::after{
+	content:'';
+	position:absolute;
+	width:50px;
+	height:50px;
+	border:2px solid var(--botw-gold);
+	opacity:0.5;
+	pointer-events:none;
+	z-index:10;
+}
+#map-viewport::before{
+	top:8px;
+	left:8px;
+	border-right:none;
+	border-bottom:none;
+}
+#map-viewport::after{
+	top:8px;
+	right:8px;
+	border-left:none;
+	border-bottom:none;
 }
 
 #map-viewport #map-container {
