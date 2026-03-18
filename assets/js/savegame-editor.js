@@ -138,7 +138,7 @@ function _tempFileLoadFunction(){
 		}
 		SavegameEditor.load();
 		show('the-editor');
-		show('toolbar');
+		show('toolbar', 'flex');
 	}else{
 		MarcDialogs.alert('Invalid savegame file');
 	}

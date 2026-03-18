@@ -6,14 +6,23 @@ I was sitting around 600 Koroks found and was having a really difficult time fol
 
 So, I slapped this together to parse a Cemu save file to show only the Koroks and Locations that I have yet to find. As you find them in-game, the map automatically refreshes to reflect your progress.
 
-The toolbar tracks your running totals for:
+A collapsible sidebar tracks your running totals for:
 - **Korok seeds** (out of 900)
 - **Locations** (out of 226)
-- **Shrines** (out of 120)
+- **Shrines Discovered** — shrines with a warp point unlocked (out of 120)
+- **Shrines Completed** — shrines with a Spirit Orb collected (out of 120)
 - **Towers** (out of 15)
 - **Divine Beasts** (out of 4)
 
-A server status indicator and save file timestamp in the toolbar let you know the server is reachable and when your save was last read.
+Each metric category is color-coded and interactive:
+- **Hover** over a metric to highlight all matching icons on the map with a glowing ring
+- **Click** a metric to show/hide that icon type on the map; hidden categories appear dimmed in the sidebar
+
+Map icons use shape and color to indicate type:
+- **Circles** — Korok seeds (green) and Locations (orange)
+- **Diamonds** — Shrines discovered (cyan), Shrines completed (yellow), Towers (violet), Divine Beasts (red), and other Warp Points
+
+A server status indicator and save file timestamp in the sidebar let you know the server is reachable and when your save was last read.
 
 ![Unexplored Area Viewer screenshot](Screenshot.jpg)
 

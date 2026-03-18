@@ -8,6 +8,7 @@ var locationValues = {};
 var shrines = {};
 var towers = {};
 var divineBeasts = {};
+var remainingWarps = {};
 var shrinesCompleted = 0;
 
 SavegameEditor={
@@ -127,7 +128,8 @@ SavegameEditor={
 		this._notFoundLocations( shrines, 'shrines' );
 		this._notFoundLocations( towers, 'towers' );
 		this._notFoundLocations( divineBeasts, 'divineBeasts' );
-		shrinesCompleted = this._countCompleted( shrineCompletions );
+		var completedIndices = this._getCompletedShrineIndices( shrineCompletions );
+		shrinesCompleted = Object.keys( completedIndices ).length;
 
 		window.localStorage.setItem( 'botw-unexplored-viewer', JSON.stringify( locationValues ) );
 
@@ -144,11 +146,24 @@ SavegameEditor={
 
 		this.drawKorokPaths( locationValues.notFound.koroks );
 
+		// Split shrines: completed (yellow) trumps discovered (cyan)
+		var _discoveredShines = {}, _completedShrinesMap = {};
+		for ( var _sh in shrines ) {
+			var _idx = shrines[ _sh ].internal_name.replace( 'Location_Dungeon', '' );
+			if ( completedIndices[ _idx ] ) { _completedShrinesMap[ _sh ] = shrines[ _sh ]; }
+			else { _discoveredShines[ _sh ] = shrines[ _sh ]; }
+		}
+
 		this.markMap( locationValues.notFound.locations, 'location' );
-		this.markMap( warps, 'warp' );
+		this.markMap( _discoveredShines, 'shrine' );
+		this.markMap( _completedShrinesMap, 'shrine-completed' );
+		this.markMap( towers, 'tower' );
+		this.markMap( divineBeasts, 'divine-beast' );
+		this.markMap( remainingWarps, 'warp' );
 		this.markMap( locationValues.notFound.koroks, 'korok' );
 
 		addWaypointListeners();
+		applyHiddenStates();
 
 	},
 
@@ -204,6 +219,24 @@ SavegameEditor={
 			previousHashValue = hashValue;
 		}
 		return count;
+	},
+
+	// Returns an object mapping NNN → true for each Clear_DungeonNNN flag that is set
+	_getCompletedShrineIndices:function( hashObjects ) {
+		var indices = {};
+		var previousHashValue = 0;
+		for ( var offset = 0x0c; offset < tempFile.fileSize - 4; offset += 8 ) {
+			var hashValue = tempFile.readU32( offset );
+			if ( hashValue === previousHashValue ) continue;
+			if ( hashObjects[ hashValue ] ) {
+				if ( tempFile.readU32( offset + 4 ) ) {
+					var idx = hashObjects[ hashValue ].internal_name.replace( 'Clear_Dungeon', '' );
+					indices[ idx ] = true;
+				}
+			}
+			previousHashValue = hashValue;
+		}
+		return indices;
 	},
 
 	// Mark the map with not found Koroks or Locations
@@ -292,6 +325,8 @@ window.addEventListener('load',function(){
 			towers[_warpHash] = warps[_warpHash];
 		} else if (warps[_warpHash].internal_name.indexOf('Location_Remains') === 0) {
 			divineBeasts[_warpHash] = warps[_warpHash];
+		} else {
+			remainingWarps[_warpHash] = warps[_warpHash];
 		}
 	}
 
@@ -316,6 +351,9 @@ window.addEventListener('load',function(){
 				console.log('Waiting for save file...');
 			});
 	}
+
+	// Set up toolbar hover highlighting — labels are always in DOM
+	setupToolbarHover();
 
 	// Initial load
 	loadSaveFromServer();
@@ -348,8 +386,8 @@ window.addEventListener('load',function(){
 		if (!el) return;
 		var d = new Date(mtime);
 		var pad = function(n) { return n < 10 ? '0' + n : n; };
-		el.textContent = pad(d.getMonth()+1) + '/' + pad(d.getDate()) + '/' + d.getFullYear()
-			+ ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+		el.innerHTML = pad(d.getMonth()+1) + '/' + pad(d.getDate()) + '/' + d.getFullYear()
+			+ '<br>' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
 	}
 
 	// Empty data for a clear map
@@ -410,18 +448,63 @@ window.addEventListener('load',function(){
 		SavegameEditor.drawKorokPaths( locationValues.notFound.koroks );
 
 		SavegameEditor.markMap( locationValues.notFound.locations, 'location' );
-		SavegameEditor.markMap( warps, 'warp' );
+		SavegameEditor.markMap( shrines, 'shrine' );
+		SavegameEditor.markMap( towers, 'tower' );
+		SavegameEditor.markMap( divineBeasts, 'divine-beast' );
+		SavegameEditor.markMap( remainingWarps, 'warp' );
 		SavegameEditor.markMap( locationValues.notFound.koroks, 'korok' );
 
 		hide('dragzone');
 		show('the-editor');
-		show('toolbar');
+		show('toolbar', 'flex');
 
 		addWaypointListeners();
+		applyHiddenStates();
 
 	} );
 
 }, false);
+
+// Toolbar label hover — highlight matching map icons
+function setupToolbarHover() {
+	[].forEach.call( document.querySelectorAll( '#toolbar label[data-type]' ), function( label ) {
+		var type = label.getAttribute( 'data-type' );
+		label.addEventListener( 'mouseenter', function() {
+			[].forEach.call( document.querySelectorAll( '.waypoint.' + type ), function( wp ) {
+				wp.classList.add( 'highlighted' );
+			} );
+		} );
+		label.addEventListener( 'mouseleave', function() {
+			[].forEach.call( document.querySelectorAll( '.waypoint.highlighted' ), function( wp ) {
+				wp.classList.remove( 'highlighted' );
+			} );
+		} );
+		label.addEventListener( 'click', function() {
+			var isHidden = label.getAttribute( 'data-hidden' ) === 'true';
+			if ( isHidden ) {
+				label.removeAttribute( 'data-hidden' );
+				[].forEach.call( document.querySelectorAll( '.waypoint.' + type ), function( wp ) {
+					wp.style.display = '';
+				} );
+			} else {
+				label.setAttribute( 'data-hidden', 'true' );
+				[].forEach.call( document.querySelectorAll( '.waypoint.' + type ), function( wp ) {
+					wp.style.display = 'none';
+				} );
+			}
+		} );
+	} );
+}
+
+// Re-apply hidden states after waypoints are recreated on reload
+function applyHiddenStates() {
+	[].forEach.call( document.querySelectorAll( '#toolbar label[data-hidden="true"]' ), function( label ) {
+		var type = label.getAttribute( 'data-type' );
+		[].forEach.call( document.querySelectorAll( '.waypoint.' + type ), function( wp ) {
+			wp.style.display = 'none';
+		} );
+	} );
+}
 
 // Add event Listeners for Waypoints
 function addWaypointListeners() {

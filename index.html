@@ -28,36 +28,36 @@
 			</div>
 		</div>
 	</div>
-	<div id="toolbar" class="hidden padding-vertical">
-		<div class="row wrapper">
-			<div class="twelve columns text-center">
-				<label for="span-number-koroks">Korok seeds
-					<span id="span-number-koroks"></span>/900
-				</label>
-				|
-				<label for="span-number-locations">Locations
-					<span id="span-number-locations"></span>/<span id="span-number-total-locations"></span>
-				</label>
-				|
-				<label for="span-number-shrines">Shrines discovered
-					<span id="span-number-shrines"></span>/<span id="span-number-total-shrines"></span>
-				</label>
-				|
-				<label for="span-number-shrines-completed">Shrines completed
-					<span id="span-number-shrines-completed"></span>/<span id="span-number-total-shrines-completed"></span>
-				</label>
-				|
-				<label for="span-number-towers">Towers
-					<span id="span-number-towers"></span>/<span id="span-number-total-towers"></span>
-				</label>
-				|
-				<label for="span-number-divine-beasts">Divine Beasts
-					<span id="span-number-divine-beasts"></span>/<span id="span-number-total-divine-beasts"></span>
-				</label>
-			</div>
-		</div>
-		<div id="server-status">
-			<span id="save-timestamp-label">Last Updated:</span>
+</div>
+
+<div id="toolbar" class="hidden">
+	<label for="span-number-koroks" data-type="korok">Korok seeds
+		<span class="legend-bar dot-korok"></span>
+		<span class="stat-value"><span id="span-number-koroks"></span><span id="span-number-total-koroks">/900</span></span>
+	</label>
+	<label for="span-number-locations" data-type="location">Locations
+		<span class="legend-bar dot-location"></span>
+		<span class="stat-value"><span id="span-number-locations"></span>/<span id="span-number-total-locations"></span></span>
+	</label>
+	<label for="span-number-shrines" data-type="shrine">Shrines<br><span class="stat-subtitle">(Discovered)</span>
+		<span class="legend-bar dot-shrine"></span>
+		<span class="stat-value"><span id="span-number-shrines"></span>/<span id="span-number-total-shrines"></span></span>
+	</label>
+	<label for="span-number-shrines-completed" data-type="shrine-completed">Shrines<br><span class="stat-subtitle">(Completed)</span>
+		<span class="legend-bar dot-shrine-completed"></span>
+		<span class="stat-value"><span id="span-number-shrines-completed"></span>/<span id="span-number-total-shrines-completed"></span></span>
+	</label>
+	<label for="span-number-towers" data-type="tower">Towers
+		<span class="legend-bar dot-tower"></span>
+		<span class="stat-value"><span id="span-number-towers"></span>/<span id="span-number-total-towers"></span></span>
+	</label>
+	<label for="span-number-divine-beasts" data-type="divine-beast">Divine Beasts
+		<span class="legend-bar dot-divine-beast"></span>
+		<span class="stat-value"><span id="span-number-divine-beasts"></span>/<span id="span-number-total-divine-beasts"></span></span>
+	</label>
+	<div id="server-status">
+		<span id="save-timestamp-label">Last Updated:</span>
+		<div id="timestamp-row">
 			<span id="save-timestamp"></span>
 			<span id="server-status-dot" class="server-status-dot offline"></span>
 		</div>
