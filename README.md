@@ -17,9 +17,15 @@ Each entry is color-coded, hoverable, and toggleable:
 | Divine Beasts | Red | 4 |
 | Player Position | White | — |
 
+Each metric row shows the stat label on the left and its count on the right, with a color bar below. The sidebar remembers which categories you have toggled off between sessions.
+
 - **Hover** over a metric to highlight all matching icons on the map with a glowing ring
-- **Click** a metric to show/hide that icon type on the map; hidden categories appear dimmed in the sidebar
+- **Click** a metric to show/hide that icon type on the map; hidden categories appear dimmed in the sidebar and the state persists across browser sessions
 - **Player Position** places a glowing white marker on the map at your character's last saved location. When the save was made inside a shrine, the marker appears at the shrine's overworld entrance rather than its local interior coordinates (detected via the MAP save flag)
+
+#### Track Player
+
+A **Track Player** toggle sits below the Player Position row. When enabled (green), the map automatically re-centers on the player's position after each save file refresh. A zoom-level slider beneath the button lets you dial in how far in the map zooms when tracking — the value persists between sessions. When disabled (red), the map stays at whatever pan/zoom you left it at.
 
 #### Player Stats
 Read directly from the save file — no game interaction required:
@@ -40,6 +46,8 @@ Map icons use shape and color to indicate type:
 - **Glowing circle** — Player position (white)
 
 Hovering over any map icon shows a floating label offset to the side of the pin. Labels are zoom-aware — they scale up when zoomed out to stay readable, and maintain a consistent gap from the pin at all zoom levels. Labels use a semi-transparent dark style so the map remains visible behind them. When the player is inside a shrine, the player marker label reads **Player (In Shrine)**.
+
+Hovering over any map icon while zooming shows a brief zoom percentage indicator in the bottom-right corner of the map.
 
 A server status indicator and save file timestamp at the bottom of the sidebar show server reachability and when your save was last read.
 

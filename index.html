@@ -32,33 +32,37 @@
 
 <div id="toolbar" class="hidden">
 	<div class="toolbar-section-title">Map Stats</div>
-	<label for="span-number-koroks" data-type="korok">Korok seeds
+	<label for="span-number-koroks" data-type="korok"><span class="stat-label-text">Korok Seeds</span>
 		<span class="legend-bar dot-korok"></span>
 		<span class="stat-value"><span id="span-number-koroks"></span><span id="span-number-total-koroks">/900</span></span>
 	</label>
-	<label for="span-number-locations" data-type="location">Locations
+	<label for="span-number-locations" data-type="location"><span class="stat-label-text">Locations</span>
 		<span class="legend-bar dot-location"></span>
 		<span class="stat-value"><span id="span-number-locations"></span>/<span id="span-number-total-locations"></span></span>
 	</label>
-	<label for="span-number-shrines" data-type="shrine">Shrines<br><span class="stat-subtitle">(Discovered)</span>
+	<label for="span-number-shrines" data-type="shrine"><span class="stat-label-text">Shrines<br><span class="stat-subtitle">(Discovered)</span></span>
 		<span class="legend-bar dot-shrine"></span>
 		<span class="stat-value"><span id="span-number-shrines"></span>/<span id="span-number-total-shrines"></span></span>
 	</label>
-	<label for="span-number-shrines-completed" data-type="shrine-completed">Shrines<br><span class="stat-subtitle">(Completed)</span>
+	<label for="span-number-shrines-completed" data-type="shrine-completed"><span class="stat-label-text">Shrines<br><span class="stat-subtitle">(Completed)</span></span>
 		<span class="legend-bar dot-shrine-completed"></span>
 		<span class="stat-value"><span id="span-number-shrines-completed"></span>/<span id="span-number-total-shrines-completed"></span></span>
 	</label>
-	<label for="span-number-towers" data-type="tower">Towers
+	<label for="span-number-towers" data-type="tower"><span class="stat-label-text">Towers</span>
 		<span class="legend-bar dot-tower"></span>
 		<span class="stat-value"><span id="span-number-towers"></span>/<span id="span-number-total-towers"></span></span>
 	</label>
-	<label for="span-number-divine-beasts" data-type="divine-beast">Divine Beasts
+	<label for="span-number-divine-beasts" data-type="divine-beast"><span class="stat-label-text">Divine Beasts</span>
 		<span class="legend-bar dot-divine-beast"></span>
 		<span class="stat-value"><span id="span-number-divine-beasts"></span>/<span id="span-number-total-divine-beasts"></span></span>
 	</label>
-	<label data-type="player-position">Player Pos
+	<label data-type="player-position"><span class="stat-label-text">Player Pos</span>
 		<span class="legend-bar dot-player-position"></span>
 	</label>
+	<div id="track-player-row" data-tracking="false">Track Player</div>
+	<div id="track-zoom-row">
+		<input type="range" id="track-zoom-slider" min="5" max="90" value="15" step="1">
+	</div>
 	<div id="player-stats-section">
 		<div class="player-stats-title">Player Stats</div>
 		<div class="player-stat-row">
@@ -109,6 +113,7 @@
 	<div id="debug"></div>
 
 	<div id="map-viewport">
+		<div id="zoom-label"></div>
 		<div id="map-container">
 			<img src='./assets/images/BotW-Map.png'/>
 			<svg id="path-svg" height="5000" width="6000">

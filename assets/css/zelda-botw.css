@@ -26,7 +26,7 @@ body{
 	overflow:hidden;
 	margin:0;
 	padding-top:44px;
-	padding-left:120px;
+	padding-left:160px;
 	box-sizing:border-box;
 	background: linear-gradient(135deg, var(--botw-darker) 0%, var(--botw-dark) 50%, var(--botw-blue) 100%);
 	background-attachment: fixed;
@@ -207,7 +207,7 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 	position:fixed;
 	left:0;
 	top:44px;
-	width:120px;
+	width:160px;
 	height:calc(100vh - 44px);
 	display:flex;
 	flex-direction:column;
@@ -286,9 +286,12 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 
 /* toolbar stat labels and values */
 #toolbar label{
-	display:flex;
-	flex-direction:column;
-	gap:3px;
+	display:grid;
+	grid-template-columns:1fr auto;
+	grid-template-rows:auto auto;
+	column-gap:6px;
+	row-gap:4px;
+	align-items:start;
 	border-bottom:1px solid rgba(201,169,89,0.15);
 	cursor:pointer;
 	color:var(--botw-gold);
@@ -297,18 +300,26 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 	letter-spacing:0.5px;
 	font-size:11px;
 	margin:0;
-	padding:10px 8px 8px;
+	padding:8px 8px 6px;
 	line-height:1.3;
 }
-#toolbar label br{
-	display:none;
+#toolbar label .stat-label-text{
+	grid-column:1;
+	grid-row:1;
+	font-size:11px;
+	font-family:'Cinzel',serif;
+	font-weight:600;
+	color:var(--botw-gold);
+	text-shadow:none;
+	text-align:left;
 }
 #toolbar label .legend-bar{
+	grid-column:1 / -1;
+	grid-row:2;
 	display:block;
 	width:100%;
 	height:4px;
 	border-radius:2px;
-	margin:2px 0;
 	font-size:0;
 }
 .dot-korok            { background:#00ff00; }
@@ -330,11 +341,13 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 	text-transform:none;
 }
 #toolbar label .stat-value{
+	grid-column:2;
+	grid-row:1;
 	display:block;
 	white-space:nowrap;
-	margin-top:0;
 	line-height:1;
 	text-align:right;
+	align-self:start;
 }
 #toolbar label span{
 	display:inline;
@@ -362,6 +375,41 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 	padding-bottom:2px;
 	margin-left:auto;
 	margin-right:auto;
+}
+/* Track Player toggle row — green = tracking on, red = tracking off. Click to toggle. */
+#track-player-row{
+	padding:10px 8px 8px;
+	border-top:3px double rgba(100,120,140,0.55);
+	border-bottom:1px solid rgba(201,169,89,0.15);
+	cursor:pointer;
+	font-family:'Cinzel',serif;
+	font-weight:600;
+	text-transform:uppercase;
+	letter-spacing:0.5px;
+	font-size:11px;
+	text-align:center;
+	/* Off state: red tint, slightly raised */
+	color:rgba(220,80,80,0.9);
+	background:rgba(180,30,30,0.18);
+	box-shadow:0 3px 5px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06), 0 0 10px rgba(200,40,40,0.15);
+	transition:box-shadow 0.25s,color 0.25s,background 0.25s;
+}
+#track-player-row[data-tracking="true"]{
+	/* On state: green tint, depressed */
+	color:#4caf50;
+	background:rgba(30,160,60,0.18);
+	box-shadow:inset 0 3px 6px rgba(0,0,0,0.5), inset 0 1px 3px rgba(0,0,0,0.3), 0 0 10px rgba(40,200,80,0.2);
+}
+#track-zoom-row{
+	padding:3px 10px 5px;
+	border-bottom:1px solid rgba(201,169,89,0.15);
+	background:rgba(0,0,0,0.15);
+}
+#track-zoom-slider{
+	width:100%;
+	accent-color:var(--botw-gold);
+	cursor:pointer;
+	display:block;
 }
 #player-stats-section{
 	padding:10px 8px 8px;
@@ -1038,6 +1086,27 @@ button.no-text.with-icon:before{margin-right:0px}
 	box-shadow:0 calc(2px / var(--map-scale, 1)) calc(8px / var(--map-scale, 1)) rgba(0,0,0,0.6);
 	z-index:1000;
 }
+
+/* Zoom percentage indicator — fades in on zoom, auto-hides after 3s */
+#zoom-label{
+	position:absolute;
+	bottom:16px;
+	right:16px;
+	background:rgba(10,20,30,0.65);
+	color:var(--botw-text-muted);
+	font-family:'Cinzel',serif;
+	font-size:11px;
+	font-weight:600;
+	letter-spacing:0.5px;
+	padding:4px 8px;
+	border-radius:4px;
+	border:1px solid rgba(201,169,89,0.2);
+	pointer-events:none;
+	z-index:50;
+	opacity:0;
+	transition:opacity 0.3s;
+}
+#zoom-label.visible{opacity:1}
 
 /* Map viewport — pan/zoom container */
 #map-viewport{

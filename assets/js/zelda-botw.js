@@ -390,10 +390,38 @@ window.addEventListener('load',function(){
 				loadSavegameFromArrayBuffer(result.buf, 'game_data.sav');
 				lastMtime = result.mtime;
 				if (result.mtime) updateSaveTimestamp(result.mtime);
+				// Track Player: re-center on player after each refresh if enabled
+				var toggle = document.getElementById('track-player-row');
+				if (toggle && toggle.getAttribute('data-tracking') === 'true' && window._playerMapPos && window.MapView) {
+					window.MapView.centerOn(
+						window._playerMapPos.x,
+						window._playerMapPos.y,
+						window.MapView.getTrackZoom()
+					);
+				}
 			})
 			.catch(function() {
 				console.log('Waiting for save file...');
 			});
+	}
+
+	// Track Player toggle — click the row to enable/disable
+	var trackPlayerRow = document.getElementById('track-player-row');
+	if (trackPlayerRow) {
+		trackPlayerRow.addEventListener('click', function() {
+			var isTracking = trackPlayerRow.getAttribute('data-tracking') === 'true';
+			trackPlayerRow.setAttribute('data-tracking', isTracking ? 'false' : 'true');
+		});
+	}
+
+	// Track Player zoom slider — persist value in localStorage
+	var trackZoomSlider = document.getElementById('track-zoom-slider');
+	if (trackZoomSlider) {
+		var savedZoom = localStorage.getItem('botw-track-zoom');
+		if (savedZoom !== null) trackZoomSlider.value = savedZoom;
+		trackZoomSlider.addEventListener('input', function() {
+			localStorage.setItem('botw-track-zoom', trackZoomSlider.value);
+		});
 	}
 
 	// Set up toolbar hover highlighting — labels are always in DOM
@@ -513,6 +541,13 @@ window.addEventListener('load',function(){
 function setupToolbarHover() {
 	[].forEach.call( document.querySelectorAll( '#toolbar label[data-type]' ), function( label ) {
 		var type = label.getAttribute( 'data-type' );
+		var storageKey = 'botw-hidden-' + type;
+
+		// Restore persisted hidden state
+		if ( localStorage.getItem( storageKey ) === 'true' ) {
+			label.setAttribute( 'data-hidden', 'true' );
+		}
+
 		label.addEventListener( 'mouseenter', function() {
 			[].forEach.call( document.querySelectorAll( '.waypoint.' + type ), function( wp ) {
 				wp.classList.add( 'highlighted' );
@@ -527,11 +562,13 @@ function setupToolbarHover() {
 			var isHidden = label.getAttribute( 'data-hidden' ) === 'true';
 			if ( isHidden ) {
 				label.removeAttribute( 'data-hidden' );
+				localStorage.removeItem( storageKey );
 				[].forEach.call( document.querySelectorAll( '.waypoint.' + type ), function( wp ) {
 					wp.style.display = '';
 				} );
 			} else {
 				label.setAttribute( 'data-hidden', 'true' );
+				localStorage.setItem( storageKey, 'true' );
 				[].forEach.call( document.querySelectorAll( '.waypoint.' + type ), function( wp ) {
 					wp.style.display = 'none';
 				} );
@@ -659,6 +696,7 @@ function removeAllWaypoints() {
 
 // Place (or replace) the player position marker on the map.
 // x/z are BotW world coordinates; label defaults to 'Player'.
+// Also stores map coordinates in window._playerMapPos for Track Player.
 function placePlayerMarker(x, z, label) {
 	var map = document.getElementById('map-container');
 	var existing = document.getElementById('player-position-marker');
@@ -670,6 +708,8 @@ function placePlayerMarker(x, z, label) {
 	marker.style.top  = (2500 + z / 2) + 'px';
 	marker.setAttribute('data-display_name', label || 'Player');
 	map.appendChild(marker);
+	// Store for Track Player feature
+	window._playerMapPos = { x: 3000 + x / 2, y: 2500 + z / 2 };
 }
 
 // Search for a hash at stride 4 (used for string-type save entries not at 8-byte stride)
@@ -733,6 +773,23 @@ function setMotorcycleIndicator(owned) {
 	var startY = 0;
 	var mapContainer = null;
 	var mapViewport = null;
+	var minZoom = 1;
+	var maxZoom = 1;
+	var zoomLabelTimer = null;
+
+	// Show the zoom percentage label briefly, then fade it out after 3s.
+	// 0% = fully zoomed out (minZoom), 100% = fully zoomed in (maxZoom).
+	function showZoomLabel() {
+		var label = document.getElementById('zoom-label');
+		if (!label) return;
+		var pct = maxZoom > minZoom ? Math.round((scale - minZoom) / (maxZoom - minZoom) * 100) : 0;
+		label.textContent = pct + '%';
+		label.classList.add('visible');
+		clearTimeout(zoomLabelTimer);
+		zoomLabelTimer = setTimeout(function() {
+			label.classList.remove('visible');
+		}, 3000);
+	}
 
 	function initMapPanZoom() {
 		mapViewport = document.getElementById('map-viewport');
@@ -745,8 +802,8 @@ function setMotorcycleIndicator(owned) {
 		var mapHeight = 5000;
 		var viewportWidth = mapViewport.clientWidth || window.innerWidth;
 		var viewportHeight = mapViewport.clientHeight || (window.innerHeight);
-		var minZoom = Math.min(viewportWidth / mapWidth, viewportHeight / mapHeight);
-		var maxZoom = mapHeight / viewportHeight;
+		minZoom = Math.min(viewportWidth / mapWidth, viewportHeight / mapHeight);
+		maxZoom = mapHeight / viewportHeight;
 
 		// Wrap map-container in viewport if not already
 		if (mapContainer.parentElement !== mapViewport) {
@@ -783,6 +840,7 @@ function setMotorcycleIndicator(owned) {
 
 			scale = newScale;
 			updateTransform();
+			showZoomLabel();
 		}, { passive: false });
 
 		// Middle mouse button for pan
@@ -849,6 +907,28 @@ function setMotorcycleIndicator(owned) {
 		mapContainer.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + scale + ')';
 		document.documentElement.style.setProperty('--map-scale', scale);
 	}
+
+	// Expose map controls for external use (e.g. Track Player)
+	window.MapView = {
+		// Center the map on a given map-coordinate point, optionally setting zoom
+		centerOn: function(mapX, mapY, targetScale) {
+			if (!mapViewport) return;
+			if (targetScale !== undefined)
+				scale = Math.max(minZoom, Math.min(maxZoom, targetScale));
+			var vw = mapViewport.clientWidth || window.innerWidth;
+			var vh = mapViewport.clientHeight || window.innerHeight;
+			panX = vw / 2 - mapX * scale;
+			panY = vh / 2 - mapY * scale;
+			updateTransform();
+		},
+		// Returns the zoom level used by Track Player: 15% into the full zoom range,
+		// ensuring the map is always larger than the viewport so centering works.
+		getTrackZoom: function() {
+			var slider = document.getElementById('track-zoom-slider');
+			var pct = slider ? (parseFloat(slider.value) / 100) : 0.15;
+			return minZoom + pct * (maxZoom - minZoom);
+		},
+	};
 
 	// Initialize when DOM is ready
 	if (document.readyState === 'loading') {
