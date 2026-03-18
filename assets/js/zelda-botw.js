@@ -947,13 +947,13 @@ function setMotorcycleIndicator(owned) {
 			mapContainer.style.willChange = 'transform';
 			_smoothAnimFrame = requestAnimationFrame(function() {
 				_smoothAnimFrame = null;
-				mapContainer.style.transition = 'transform 700ms cubic-bezier(0.215, 0.61, 0.355, 1)';
+				mapContainer.style.transition = 'transform 1200ms cubic-bezier(0.215, 0.61, 0.355, 1)';
 				mapContainer.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + scale + ')';
 				_transitionTimeout = setTimeout(function() {
 					_transitionTimeout = null;
 					mapContainer.style.willChange = 'auto';
 					document.documentElement.style.setProperty('--map-scale', scale);
-				}, 750);
+				}, 1250);
 			});
 		},
 		// Returns the zoom level used by Track Player: 15% into the full zoom range,
