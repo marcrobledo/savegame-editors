@@ -219,12 +219,19 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 	z-index:99;
 }
 #span-version:hover{text-decoration:underline}
+#header-row{
+	display:grid;
+	grid-template-columns:1fr auto;
+	align-items:center;
+	padding:8px 12px 8px 0;
+	width:100%;
+	box-sizing:border-box;
+}
 #header h1{
-	display:inline-block;
+	display:block;
 	font-size:clamp(8px, 1.35vw, 13px);
 	margin:0;
-	flex:1;
-	min-width:0;
+	text-align:center;
 	white-space:nowrap;
 	overflow:hidden;
 	color:var(--botw-gold);
@@ -232,7 +239,6 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 	text-shadow:0 0 15px rgba(201,169,89,0.4);
 }
 #header h1 img{vertical-align:middle}
-#header-top .padding-vertical{padding:8px 0}
 
 
 
@@ -313,6 +319,7 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 .dot-shrine-completed { background:#ffff00; }
 .dot-tower            { background:#cc00ff; }
 .dot-divine-beast     { background:#ff2200; }
+.dot-player-position  { background:#ffffff; }
 
 #toolbar label .stat-subtitle{
 	display:inline;
@@ -339,6 +346,97 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 	font-weight:600;
 	text-shadow:0 0 10px rgba(201,169,89,0.4);
 }
+#player-stats-section{
+	padding:10px 8px 8px;
+	border-top:3px double rgba(100,120,140,0.55);
+	border-bottom:3px double rgba(100,120,140,0.55);
+	display:flex;
+	flex-direction:column;
+	gap:6px;
+}
+.player-stats-title{
+	font-family:'Cinzel',serif;
+	font-size:11px;
+	font-weight:700;
+	color:var(--botw-text-muted);
+	text-transform:uppercase;
+	letter-spacing:0.5px;
+	margin-bottom:2px;
+}
+.player-stat-row{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+}
+.player-stat-label{
+	font-family:'Noto Sans',sans-serif;
+	font-size:10px;
+	color:var(--botw-text-muted);
+}
+.player-stat-value{
+	font-family:'Cinzel',serif;
+	font-size:12px;
+	color:var(--botw-gold);
+	font-weight:600;
+	text-shadow:0 0 8px rgba(201,169,89,0.4);
+}
+.motorcycle-light{
+	width:10px;
+	height:10px;
+	border-radius:50%;
+	display:inline-block;
+	flex-shrink:0;
+}
+.motorcycle-light.owned{
+	background-color:#4caf50;
+	box-shadow:0 0 6px rgba(76,175,80,0.9);
+}
+.motorcycle-light.not-owned{
+	background-color:#c0392b;
+	box-shadow:0 0 4px rgba(192,57,43,0.6);
+}
+#shape-legend{
+	padding:10px 8px 8px;
+	border-top:1px solid rgba(201,169,89,0.15);
+	display:flex;
+	flex-direction:column;
+	gap:5px;
+}
+.shape-legend-title{
+	font-family:'Cinzel',serif;
+	font-size:11px;
+	font-weight:700;
+	color:var(--botw-text-muted);
+	text-transform:uppercase;
+	letter-spacing:0.5px;
+}
+.shape-legend-row{
+	display:flex;
+	align-items:center;
+	gap:8px;
+}
+.shape-legend-icon{
+	flex-shrink:0;
+	width:10px;
+	height:10px;
+	background:var(--botw-text-muted);
+	display:inline-block;
+}
+.shape-legend-icon.shape-circle{
+	border-radius:50%;
+}
+.shape-legend-icon.shape-diamond{
+	border-radius:0;
+	transform:rotate(45deg);
+	width:8px;
+	height:8px;
+}
+.shape-legend-label{
+	font-family:'Noto Sans',sans-serif;
+	font-size:9px;
+	color:var(--botw-text-muted);
+	white-space:nowrap;
+}
 #server-status{
 	margin-top:auto;
 	display:flex;
@@ -346,14 +444,15 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 	align-items:flex-start;
 	gap:4px;
 	padding:10px 10px;
-	border-top:1px solid rgba(201,169,89,0.2);
+	border-top:3px double rgba(100,120,140,0.55);
 }
 #save-timestamp-label{
+	font-family:'Cinzel',serif;
 	font-size:11px;
-	font-weight:600;
+	font-weight:700;
 	color:var(--botw-text-muted);
 	letter-spacing:0.5px;
-	font-family:'Noto Sans',sans-serif;
+	text-transform:uppercase;
 	white-space:nowrap;
 }
 #save-timestamp{
@@ -863,6 +962,18 @@ button.no-text.with-icon:before{margin-right:0px}
 	border-radius: 0;
 	transform: translate(-2px,0px) rotate(45deg);
 	transform-origin: top right;
+}
+
+#map-container .waypoint.player-position {
+	background: #ffffff;
+	border: 2px solid rgba(200,200,200,0.7);
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	transform: translate(-7px,-7px);
+	box-shadow: 0 0 10px 4px rgba(255,255,255,0.7), 0 0 20px 6px rgba(255,255,255,0.3);
+	z-index: 100;
+	cursor: default;
 }
 
 #map-container .waypoint.warp {

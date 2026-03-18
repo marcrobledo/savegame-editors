@@ -22,9 +22,9 @@ SavegameEditor={
 		STRING_SIZE:0x80,
 
 		//missing versions: 1.1.1, 1.1.2 and 1.4.1
-		VERSION:				['v1.0', 'v1.1', 'v1.2', 'v1.3', 'v1.3.1', 'Kiosk', 'v1.3.3','v1.3.4', 'v1.4',  'v1.5',  'v1.6',  'v1.6*', 'v1.6**','v1.6***'],
-		FILESIZE:				[896976, 897160, 897112, 907824, 907824,  916576,  1020648, 1020648,   1027208, 1027208, 1027216, 1027216, 1027216, 1027216],
-		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x2a46,  0x2f8e,  0x3ef8,  0x3ef9,    0x471a,  0x471b,  0x471e, 0x0f423d, 0x0f423e,0x0f423f],
+		VERSION:				['v1.0', 'v1.1', 'v1.2', 'v1.3', 'v1.3.1', 'Kiosk', 'v1.3.3','v1.3.4', 'v1.4',  'v1.5',  'v1.6',  'v1.6*', 'v1.6**','v1.6***', 'v1.5*', 'v1.8'],
+		FILESIZE:				[896976, 897160, 897112, 907824, 907824,  916576,  1020648, 1020648,   1027208, 1027208, 1027216, 1027216, 1027216, 1027216,   1027248, 1027248],
+		HEADER:					[0x24e2, 0x24ee, 0x2588, 0x29c0, 0x2a46,  0x2f8e,  0x3ef8,  0x3ef9,    0x471a,  0x471b,  0x471e, 0x0f423d, 0x0f423e,0x0f423f,   0x471b,  0x4730],
 
 		MAP_ICONS: 0x9383490e,
 		MAP_POS: 0xea9def3f,
@@ -33,7 +33,7 @@ SavegameEditor={
 
 	/* Offsets */
 	Hashes:[
-		0x8a94e07a, 'KOROK_SEED_COUNTER',			
+		0x8a94e07a, 'KOROK_SEED_COUNTER',
 	],
 
 
@@ -84,6 +84,10 @@ SavegameEditor={
 
 			if(tempFile.fileSize===this.Constants.FILESIZE[i] && versionHash===this.Constants.HEADER[i] && tempFile.readU32(4)===0xffffffff){
 				this._getOffsets(i);
+				return true;
+			}else if((tempFile.fileSize>=896976 && tempFile.fileSize<=1500000) && versionHash===this.Constants.HEADER[i] && tempFile.readU32(4)===0xffffffff){
+				this._getOffsets(i);
+				setValue('version', this.Constants.VERSION[i]+'<small>mod</small> ('+CONSOLE+')');
 				return true;
 			}
 		}
@@ -161,6 +165,28 @@ SavegameEditor={
 		this.markMap( divineBeasts, 'divine-beast' );
 		this.markMap( remainingWarps, 'warp' );
 		this.markMap( locationValues.notFound.koroks, 'korok' );
+
+		// Player position — three consecutive identical-hash pairs: [hash,X] [hash,Y] [hash,Z]
+		var _pos = this._searchHash(0xa40ba103);
+		if (_pos !== false) {
+			var playerX = tempFile.readF32(_pos + 4);  // first  pair value = X (east/west)
+			// _pos+8 = second hash, _pos+12 = Y (height) — skip
+			var playerZ = tempFile.readF32(_pos + 20); // third pair value = Z (north/south)
+			if (!isNaN(playerX) && !isNaN(playerZ)) placePlayerMarker(playerX, playerZ);
+		}
+
+		// Player stats — each searched independently
+		var _sh;
+		_sh = this._searchHash(0x2906f327); // MAX_HEARTS — U32 quarter-heart units (÷4 = displayed hearts)
+		if (_sh !== false) setValue('span-stat-hearts', tempFile.readU32(_sh+4) / 4);
+		_sh = this._searchHash(0x3adff047); // MAX_STAMINA — stored as F32, units of 1/1000 wheel
+		if (_sh !== false) { var _sv = tempFile.readF32(_sh+4); setValue('span-stat-stamina', isNaN(_sv) ? '\u2014' : (_sv/1000).toFixed(1)); }
+		_sh = this._searchHash(0x73c29681); // PLAYTIME
+		if (_sh !== false) setValue('span-stat-playtime', formatPlaytime(tempFile.readU32(_sh+4)));
+		_sh = this._searchHash(0x23149bf8); // RUPEES
+		if (_sh !== false) setValue('span-stat-rupees', tempFile.readU32(_sh+4).toLocaleString());
+		_sh = this._searchHash(0xc9328299); // MOTORCYCLE
+		if (_sh !== false) setMotorcycleIndicator(tempFile.readU32(_sh+4) > 0);
 
 		addWaypointListeners();
 		applyHiddenStates();
@@ -557,6 +583,31 @@ function removeAllWaypoints() {
 		element.remove();
 	} );
 
+}
+
+function placePlayerMarker(x, z) {
+	var map = document.getElementById('map-container');
+	var existing = document.getElementById('player-position-marker');
+	if (existing) existing.remove();
+	var marker = document.createElement('div');
+	marker.id = 'player-position-marker';
+	marker.classList.add('waypoint', 'player-position');
+	marker.style.left = (3000 + x / 2) + 'px';
+	marker.style.top  = (2500 + z / 2) + 'px';
+	marker.setAttribute('data-display_name', 'Player');
+	map.appendChild(marker);
+}
+
+function formatPlaytime(seconds) {
+	var h = Math.floor(seconds / 3600);
+	var m = Math.floor((seconds % 3600) / 60);
+	var s = seconds % 60;
+	return h + ':' + (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+}
+
+function setMotorcycleIndicator(owned) {
+	var el = document.getElementById('stat-motorcycle-light');
+	if (el) el.className = 'motorcycle-light ' + (owned ? 'owned' : 'not-owned');
 }
 
 // Map pan and zoom functionality

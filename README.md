@@ -6,23 +6,52 @@ I was sitting around 600 Koroks found and was having a really difficult time fol
 
 So, I slapped this together to parse a Cemu save file to show only the Koroks and Locations that I have yet to find. As you find them in-game, the map automatically refreshes to reflect your progress.
 
-A collapsible sidebar tracks your running totals for:
-- **Korok seeds** (out of 900)
-- **Locations** (out of 226)
-- **Shrines Discovered** — shrines with a warp point unlocked (out of 120)
-- **Shrines Completed** — shrines with a Spirit Orb collected (out of 120)
-- **Towers** (out of 15)
-- **Divine Beasts** (out of 4)
+A fixed sidebar on the left tracks your progress across two sections:
 
-Each metric category is color-coded and interactive:
+#### Location Metrics
+Each entry is color-coded, hoverable, and toggleable:
+
+| Metric | Color | Total |
+|--------|-------|-------|
+| Korok seeds | Green | 900 |
+| Locations | Orange | 226 |
+| Shrines Discovered | Cyan | 120 |
+| Shrines Completed | Yellow | 120 |
+| Towers | Violet | 15 |
+| Divine Beasts | Red | 4 |
+| Player Position | White | — |
+
 - **Hover** over a metric to highlight all matching icons on the map with a glowing ring
 - **Click** a metric to show/hide that icon type on the map; hidden categories appear dimmed in the sidebar
+- **Player Position** places a glowing white marker on the map at your character's last saved location
+
+#### Player Stats
+Read directly from the save file — no game interaction required:
+
+| Stat | Notes |
+|------|-------|
+| Hearts | Max heart containers |
+| Stamina | Max stamina wheels (1.0–3.0 in 0.2 increments) |
+| Playtime | Total time played (H:MM:SS) |
+| Rupees | Current rupee count |
+| Motorcycle | Green = Master Cycle owned, Red = not yet |
 
 Map icons use shape and color to indicate type:
 - **Circles** — Korok seeds (green) and Locations (orange)
 - **Diamonds** — Shrines discovered (cyan), Shrines completed (yellow), Towers (violet), Divine Beasts (red), and other Warp Points
+- **Glowing circle** — Player position (white)
 
-A server status indicator and save file timestamp in the sidebar let you know the server is reachable and when your save was last read.
+A server status indicator and save file timestamp at the bottom of the sidebar show server reachability and when your save was last read.
+
+### Debug API
+
+A JSON endpoint is available for troubleshooting:
+
+```
+GET http://localhost:3000/api
+```
+
+Returns all parsed save file metrics including raw and display values for hearts, stamina, playtime, rupees, motorcycle status, player coordinates (X/Y/Z), and found/total counts for all location categories.
 
 ![Unexplored Area Viewer screenshot](Screenshot.jpg)
 
@@ -67,3 +96,7 @@ This application runs as a Docker container that automatically reads your Cemu s
 - The server reads your Cemu save file from the path defined in `server/.env`
 - The save file is monitored for changes every 10 seconds
 - When the save file is updated after playing, the page automatically refreshes to show your latest progress
+
+### Supported Game Versions
+
+Wii U and Switch saves are both supported. Recognized versions: v1.0, v1.1, v1.2, v1.3, v1.3.1, v1.3.3, v1.3.4, v1.4, v1.5, v1.5*, v1.6, v1.6*, v1.6**, v1.6***, v1.8, Kiosk. Modded saves with non-standard file sizes are also accepted.

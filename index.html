@@ -21,9 +21,9 @@
 <!-- HEADER -->
 <div id="header">
 	<div id="header-top">
-		<div class="row wrapper padding-vertical">
+		<div id="header-row" class="padding-vertical">
 			<h1>Unexplored Area Viewer for The Legend of Zelda: BOTW</h1>
-			<div class="six columns text-right header-buttons">
+			<div class="header-buttons">
 				by <a href="https://github.com/d4mation" target="_blank" class="author">Eric Defore</a> and <a href="https://github.com/Xanderphillips" target="_blank" class="author">Xanderphillips</a>
 			</div>
 		</div>
@@ -55,6 +55,43 @@
 		<span class="legend-bar dot-divine-beast"></span>
 		<span class="stat-value"><span id="span-number-divine-beasts"></span>/<span id="span-number-total-divine-beasts"></span></span>
 	</label>
+	<label data-type="player-position">Player Pos
+		<span class="legend-bar dot-player-position"></span>
+	</label>
+	<div id="player-stats-section">
+		<div class="player-stats-title">Player Stats</div>
+		<div class="player-stat-row">
+			<span class="player-stat-label">Hearts</span>
+			<span class="player-stat-value" id="span-stat-hearts">&mdash;</span>
+		</div>
+		<div class="player-stat-row">
+			<span class="player-stat-label">Stamina</span>
+			<span class="player-stat-value" id="span-stat-stamina">&mdash;</span>
+		</div>
+		<div class="player-stat-row">
+			<span class="player-stat-label">Playtime</span>
+			<span class="player-stat-value" id="span-stat-playtime">&mdash;</span>
+		</div>
+		<div class="player-stat-row">
+			<span class="player-stat-label">Rupees</span>
+			<span class="player-stat-value" id="span-stat-rupees">&mdash;</span>
+		</div>
+		<div class="player-stat-row">
+			<span class="player-stat-label">Motorcycle</span>
+			<span class="motorcycle-light not-owned" id="stat-motorcycle-light"></span>
+		</div>
+	</div>
+	<div id="shape-legend">
+		<div class="shape-legend-title">Icon Shapes</div>
+		<div class="shape-legend-row">
+			<span class="shape-legend-icon shape-circle"></span>
+			<span class="shape-legend-label">Points of Interest</span>
+		</div>
+		<div class="shape-legend-row">
+			<span class="shape-legend-icon shape-diamond"></span>
+			<span class="shape-legend-label">Warp Points</span>
+		</div>
+	</div>
 	<div id="server-status">
 		<span id="save-timestamp-label">Last Updated:</span>
 		<div id="timestamp-row">
