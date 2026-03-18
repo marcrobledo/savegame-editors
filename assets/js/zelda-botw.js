@@ -393,7 +393,7 @@ window.addEventListener('load',function(){
 				// Track Player: re-center on player after each refresh if enabled
 				var toggle = document.getElementById('track-player-row');
 				if (toggle && toggle.getAttribute('data-tracking') === 'true' && window._playerMapPos && window.MapView) {
-					window.MapView.centerOn(
+					window.MapView.smoothCenterOn(
 						window._playerMapPos.x,
 						window._playerMapPos.y,
 						window.MapView.getTrackZoom()
@@ -769,6 +769,10 @@ function setMotorcycleIndicator(owned) {
 	var panX = 0;
 	var panY = 0;
 	var isPanning = false;
+	var _smoothAnimFrame = null;
+	var _smoothAnimStart = null;
+
+	function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
 	var startX = 0;
 	var startY = 0;
 	var mapContainer = null;
@@ -920,6 +924,43 @@ function setMotorcycleIndicator(owned) {
 			panX = vw / 2 - mapX * scale;
 			panY = vh / 2 - mapY * scale;
 			updateTransform();
+		},
+		// Smoothly pan and zoom to center on a map-coordinate point over ~700ms.
+		smoothCenterOn: function(mapX, mapY, targetScale) {
+			if (!mapViewport) return;
+			var ts = targetScale !== undefined ? Math.max(minZoom, Math.min(maxZoom, targetScale)) : scale;
+			var vw = mapViewport.clientWidth || window.innerWidth;
+			var vh = mapViewport.clientHeight || window.innerHeight;
+			var startScale = scale;
+			var startPanX = panX;
+			var startPanY = panY;
+			var targetPanX = vw / 2 - mapX * ts;
+			var targetPanY = vh / 2 - mapY * ts;
+			var duration = 700;
+			if (_smoothAnimFrame) {
+				cancelAnimationFrame(_smoothAnimFrame);
+				_smoothAnimFrame = null;
+			}
+			_smoothAnimStart = null;
+			function step(timestamp) {
+				if (!_smoothAnimStart) _smoothAnimStart = timestamp;
+				var t = Math.min((timestamp - _smoothAnimStart) / duration, 1);
+				var e = easeOutCubic(t);
+				scale = startScale + (ts - startScale) * e;
+				panX = startPanX + (targetPanX - startPanX) * e;
+				panY = startPanY + (targetPanY - startPanY) * e;
+				if (t < 1) {
+					// Lightweight: set transform directly, no layout reads
+					mapContainer.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + scale + ')';
+					_smoothAnimFrame = requestAnimationFrame(step);
+				} else {
+					// Final frame: full updateTransform for clamping + CSS var sync
+					updateTransform();
+					_smoothAnimFrame = null;
+					_smoothAnimStart = null;
+				}
+			}
+			_smoothAnimFrame = requestAnimationFrame(step);
 		},
 		// Returns the zoom level used by Track Player: 15% into the full zoom range,
 		// ensuring the map is always larger than the viewport so centering works.

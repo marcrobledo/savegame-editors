@@ -25,7 +25,7 @@ Each metric row shows the stat label on the left and its count on the right, wit
 
 #### Track Player
 
-A **Track Player** toggle sits below the Player Position row. When enabled (green), the map automatically re-centers and zooms to the player's position after each save file refresh — keeping your character in view as you play. When disabled (red), the map stays at whatever location and zoom level you set. A slider beneath the toggle controls the zoom level used when tracking; the value persists between sessions.
+A **Track Player** toggle sits below the Player Position row. When enabled (green), the map smoothly pans and zooms to the player's position after each save file refresh — keeping your character in view as you play. When disabled (red), the map stays at whatever location and zoom level you set. A slider beneath the toggle controls the zoom level used when tracking; the value persists between sessions.
 
 #### Player Stats
 Read directly from the save file — no game interaction required:
