@@ -615,11 +615,12 @@ function searchHashStride4(hash) {
 }
 
 // If the player is inside a shrine interior, return the shrine's overworld {x, y} coords.
-// MAPTYPE hash (0xd913b769) stores the current map name fragmented across consecutive
-// [hash, 4-byte-chunk] pairs — e.g. "CDun"+"geon"+"/Dun"+"geon"+"068\0" = "CDungeon/Dungeon068".
+// MAP hash (0x0bee9e46) stores the current sublevel name fragmented across consecutive
+// [hash, 4-byte-chunk] pairs — e.g. "Dung"+"eon0"+"22\0" = "Dungeon022" when inside a shrine.
+// In the overworld it stores "MainField" (or similar), which won't match.
 // Returns null if overworld or hash not found.
 function getShrineOverworldCoords() {
-	var HASH = 0xd913b769;
+	var HASH = 0x0bee9e46;
 	var off = searchHashStride4(HASH);
 	if (off < 0) return null;
 	// Collect 4-byte chunks from consecutive [hash, value] pairs
@@ -633,7 +634,7 @@ function getShrineOverworldCoords() {
 		}
 		off += 8;
 	}
-	var m = /^CDungeon\/Dungeon(\d+)/.exec(mapName);
+	var m = /^Dungeon(\d+)/.exec(mapName);
 	if (!m) return null;
 	var target = 'Location_Dungeon' + m[1];
 	for (var warpHash in warps) {
