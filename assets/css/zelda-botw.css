@@ -989,33 +989,23 @@ button.no-text.with-icon:before{margin-right:0px}
 	cursor: pointer;
 }
 
-#map-container .waypoint:hover:after {
-	content: attr(data-display_name);
-	display: block;
+/* JS-positioned tooltip — sibling of waypoints in map-container, no rotation inheritance */
+#waypoint-tooltip {
+	display: none;
 	position: absolute;
-	left: 14px;
-	top: 50%;
+	pointer-events: none;
 	transform: translateY(-50%);
-	background: inherit;
-	border: inherit;
-	width: auto;
-	height: auto;
+	background: rgba(15, 20, 30, 0.62);
+	color: #e8eaf0;
+	border: 1px solid rgba(160, 180, 210, 0.45);
 	font-family: 'Noto Sans', sans-serif;
-	font-size: 11px;
-	font-weight: 500;
-	z-index: 1000;
-	border-radius: 0%;
+	font-size: max(11px, calc(10px / var(--map-scale, 1)));
+	font-weight: 600;
+	border-radius: calc(5px / var(--map-scale, 1));
 	white-space: nowrap;
-	padding: 0px 4px;
-}
-
-#map-container .waypoint.shrine:hover:after,
-#map-container .waypoint.shrine-completed:hover:after,
-#map-container .waypoint.tower:hover:after,
-#map-container .waypoint.divine-beast:hover:after,
-#map-container .waypoint.warp:hover:after {
-	transform: translateY(-50%) rotate(-45deg);
-	transform-origin: left center;
+	padding: calc(3px / var(--map-scale, 1)) calc(8px / var(--map-scale, 1));
+	box-shadow: 0 calc(2px / var(--map-scale, 1)) calc(8px / var(--map-scale, 1)) rgba(0,0,0,0.6);
+	z-index: 1000;
 }
 
 #map-container .waypoint.highlighted {

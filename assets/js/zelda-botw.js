@@ -177,7 +177,7 @@ SavegameEditor={
 				// Detect via MAP string and substitute the shrine's overworld coordinates.
 				var _shrineCoords = getShrineOverworldCoords();
 				if (_shrineCoords) {
-					placePlayerMarker(_shrineCoords.x, _shrineCoords.y);
+					placePlayerMarker(_shrineCoords.x, _shrineCoords.y, 'Player (In Shrine)');
 				} else {
 					placePlayerMarker(playerX, playerZ);
 				}
@@ -544,12 +544,62 @@ function applyHiddenStates() {
 // Add event Listeners for Waypoints
 function addWaypointListeners() {
 
-	[].forEach.call( document.querySelectorAll( '.waypoint:not(.warp)' ), function( element ) {
-		element.addEventListener( 'click', function() {
-			removeWaypoint( element );
-		} );
+	[].forEach.call( document.querySelectorAll( '.waypoint' ), function( element ) {
+		if ( !element.classList.contains( 'warp' ) ) {
+			element.addEventListener( 'click', function() {
+				removeWaypoint( element );
+			} );
+		}
+		element.addEventListener( 'mouseenter', function() { showWaypointTooltip( element ); } );
+		element.addEventListener( 'mouseleave', hideWaypointTooltip );
 	} );
 
+}
+
+var _waypointTooltip = null;
+
+function showWaypointTooltip( waypoint ) {
+	var name = waypoint.getAttribute( 'data-display_name' );
+	if ( !name ) return;
+
+	if ( !_waypointTooltip ) {
+		_waypointTooltip = document.createElement( 'div' );
+		_waypointTooltip.id = 'waypoint-tooltip';
+		document.getElementById( 'map-container' ).appendChild( _waypointTooltip );
+	}
+
+	// Waypoint left/top are the map-coordinate anchor point.
+	// Circles: transform: translate(-5px,-5px) — visual center is at (left, top)
+	// Diamonds: transform: translate(-2px,0) rotate(45deg) around top-right —
+	//   rightmost visual tip is at approx (left+8.6, top-1.4) in map coords.
+	var L = parseFloat( waypoint.style.left ) || 0;
+	var T = parseFloat( waypoint.style.top )  || 0;
+	var isDiamond = waypoint.classList.contains( 'shrine' ) ||
+	                waypoint.classList.contains( 'shrine-completed' ) ||
+	                waypoint.classList.contains( 'tower' ) ||
+	                waypoint.classList.contains( 'divine-beast' ) ||
+	                waypoint.classList.contains( 'warp' );
+
+	var scale = parseFloat( getComputedStyle( document.documentElement ).getPropertyValue( '--map-scale' ) ) || 1;
+	var GAP = 10 / scale; // constant 10px gap in screen space, expressed in map coords
+
+	var tx, ty;
+	if ( isDiamond ) {
+		tx = L + 8.6 + GAP;  // start from right tip of diamond
+		ty = T - 1.4;         // visual center y of diamond
+	} else {
+		tx = L + 5 + GAP;    // start from right edge of circle (radius 5)
+		ty = T;               // visual center y of circle
+	}
+
+	_waypointTooltip.textContent = name;
+	_waypointTooltip.style.left = tx + 'px';
+	_waypointTooltip.style.top  = ty + 'px';
+	_waypointTooltip.style.display = 'block';
+}
+
+function hideWaypointTooltip() {
+	if ( _waypointTooltip ) _waypointTooltip.style.display = 'none';
 }
 
 // Remove an individual Waypoint and save that change in localStorage
@@ -588,13 +638,14 @@ function removeWaypoint( element ) {
 // Remove all Waypoints
 function removeAllWaypoints() {
 
+	hideWaypointTooltip();
 	[].forEach.call( document.querySelectorAll( '.waypoint, .line' ), function( element ) {
 		element.remove();
 	} );
 
 }
 
-function placePlayerMarker(x, z) {
+function placePlayerMarker(x, z, label) {
 	var map = document.getElementById('map-container');
 	var existing = document.getElementById('player-position-marker');
 	if (existing) existing.remove();
@@ -603,7 +654,7 @@ function placePlayerMarker(x, z) {
 	marker.classList.add('waypoint', 'player-position');
 	marker.style.left = (3000 + x / 2) + 'px';
 	marker.style.top  = (2500 + z / 2) + 'px';
-	marker.setAttribute('data-display_name', 'Player');
+	marker.setAttribute('data-display_name', label || 'Player');
 	map.appendChild(marker);
 }
 
@@ -690,6 +741,7 @@ function setMotorcycleIndicator(owned) {
 		scale = minZoom;
 		panX = 0;
 		panY = 0;
+		document.documentElement.style.setProperty('--map-scale', scale);
 		updateTransform();
 
 		// Mouse wheel for zoom
@@ -779,6 +831,7 @@ function setMotorcycleIndicator(owned) {
 		panY = Math.min(maxPanY, Math.max(minPanY, panY));
 
 		mapContainer.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + scale + ')';
+		document.documentElement.style.setProperty('--map-scale', scale);
 	}
 
 	// Initialize when DOM is ready

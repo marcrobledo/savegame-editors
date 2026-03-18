@@ -41,7 +41,7 @@ Map icons use shape and color to indicate type:
 - **Diamonds** — Shrines discovered (cyan), Shrines completed (yellow), Towers (violet), Divine Beasts (red), and other Warp Points
 - **Glowing circle** — Player position (white)
 
-Hovering over any map icon shows its name label offset to the side so the marker itself remains visible.
+Hovering over any map icon shows a floating label offset to the side of the pin. Labels are zoom-aware — they scale up when zoomed out to stay readable, and maintain a consistent gap from the pin at all zoom levels. Labels use a semi-transparent dark style so the map remains visible behind them. When the player is inside a shrine, the player marker label reads **Player (In Shrine)**.
 
 A server status indicator and save file timestamp at the bottom of the sidebar show server reachability and when your save was last read.
 
