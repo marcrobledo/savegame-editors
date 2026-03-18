@@ -177,8 +177,6 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 
 
 
-
-
 /* header+toolbar+footer */
 #header{
 	color:var(--botw-text);
@@ -924,144 +922,137 @@ button.no-text.with-icon:before{margin-right:0px}
 .tooltip.position-horizontal.align-bottom .arrow{bottom:3px}
 
 
-/* Map */
+/* Map — waypoint icons, tooltip, and viewport */
 
-#map-container {
-	position: relative;
+#map-container{
+	position:relative;
+	width:6000px; /* matches map image dimensions */
+	height:5000px;
+}
+#map-container img{position:relative}
+
+/* Base waypoint — circle (Koroks and Locations) */
+#map-container .waypoint{
+	position:absolute;
+	background:orange;
+	border:1px solid red;
+	color:red;
+	width:10px;
+	height:10px;
+	font-size:0;
+	border-radius:50%;
+	transform:translate(-5px,-5px);
+}
+#map-container .waypoint.korok{
+	background:lime;
+	border:1px solid green;
+	color:green;
 }
 
-#map-container .waypoint {
-	position: absolute;
-	background: orange;
-	border: 1px solid red;
-	color: red;
-	width: 10px;
-	height: 10px;
-	font-size: 0;
-	border-radius: 50%;
-	transform: translate(-5px,-5px);
+/* Diamond waypoints — Shrines, Towers, Divine Beasts, Warps */
+#map-container .waypoint.shrine{
+	background:#00ffff;
+	border:1px solid #007799;
+	color:#007799;
+	border-radius:0;
+	transform:translate(-2px,0px) rotate(45deg);
+	transform-origin:top right;
+}
+#map-container .waypoint.shrine-completed{
+	background:#ffff00;
+	border:1px solid #aaaa00;
+	color:#aaaa00;
+	border-radius:0;
+	transform:translate(-2px,0px) rotate(45deg);
+	transform-origin:top right;
+}
+#map-container .waypoint.tower{
+	background:#cc00ff;
+	border:1px solid #7700cc;
+	color:#7700cc;
+	border-radius:0;
+	transform:translate(-2px,0px) rotate(45deg);
+	transform-origin:top right;
+}
+#map-container .waypoint.divine-beast{
+	background:#ff2200;
+	border:1px solid #990000;
+	color:#990000;
+	border-radius:0;
+	transform:translate(-2px,0px) rotate(45deg);
+	transform-origin:top right;
+}
+#map-container .waypoint.warp{
+	background:cyan;
+	border:1px solid blue;
+	color:blue;
+	border-radius:0;
+	transform:translate(-2px,0px) rotate(45deg);
+	transform-origin:top right;
 }
 
-#map-container .waypoint.korok {
-
-	background: lime;
-	border: 1px solid green;
-	color: green;
-
+/* Player position — glowing white circle */
+#map-container .waypoint.player-position{
+	background:#ffffff;
+	border:2px solid rgba(200,200,200,0.7);
+	width:14px;
+	height:14px;
+	border-radius:50%;
+	transform:translate(-7px,-7px);
+	box-shadow:0 0 10px 4px rgba(255,255,255,0.7), 0 0 20px 6px rgba(255,255,255,0.3);
+	z-index:100;
+	cursor:default;
 }
 
-#map-container .waypoint.shrine {
-	background: #00ffff;
-	border: 1px solid #007799;
-	color: #007799;
-	border-radius: 0;
-	transform: translate(-2px,0px) rotate(45deg);
-	transform-origin: top right;
+#map-container .waypoint:hover{cursor:pointer}
+
+/* Hover highlight ring — applied by setupToolbarHover() on mouseenter */
+#map-container .waypoint.highlighted{
+	box-shadow:0 0 0 2px rgba(255,255,255,0.95), 0 0 0 4px currentColor, 0 0 10px 3px currentColor;
+	filter:brightness(1.6);
+	z-index:10;
 }
 
-#map-container .waypoint.shrine-completed {
-	background: #ffff00;
-	border: 1px solid #aaaa00;
-	color: #aaaa00;
-	border-radius: 0;
-	transform: translate(-2px,0px) rotate(45deg);
-	transform-origin: top right;
+/* Dimmed appearance for sidebar labels whose category is hidden */
+#toolbar label[data-hidden="true"]{
+	background:rgba(255,255,255,0.07);
+	opacity:0.5;
 }
 
-#map-container .waypoint.tower {
-	background: #cc00ff;
-	border: 1px solid #7700cc;
-	color: #7700cc;
-	border-radius: 0;
-	transform: translate(-2px,0px) rotate(45deg);
-	transform-origin: top right;
+/* JS-positioned tooltip — sibling of waypoints inside map-container.
+   Scaled inverse to --map-scale so text stays a consistent screen size at all zoom levels. */
+#waypoint-tooltip{
+	display:none;
+	position:absolute;
+	pointer-events:none;
+	transform:translateY(-50%);
+	background:rgba(15,20,30,0.62);
+	color:#e8eaf0;
+	border:1px solid rgba(160,180,210,0.45);
+	font-family:'Noto Sans',sans-serif;
+	font-size:max(11px, calc(10px / var(--map-scale, 1)));
+	font-weight:600;
+	border-radius:calc(5px / var(--map-scale, 1));
+	white-space:nowrap;
+	padding:calc(3px / var(--map-scale, 1)) calc(8px / var(--map-scale, 1));
+	box-shadow:0 calc(2px / var(--map-scale, 1)) calc(8px / var(--map-scale, 1)) rgba(0,0,0,0.6);
+	z-index:1000;
 }
 
-#map-container .waypoint.divine-beast {
-	background: #ff2200;
-	border: 1px solid #990000;
-	color: #990000;
-	border-radius: 0;
-	transform: translate(-2px,0px) rotate(45deg);
-	transform-origin: top right;
+/* Map viewport — pan/zoom container */
+#map-viewport{
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	position:relative;
+	background:radial-gradient(circle at center, rgba(26,58,82,0.4) 0%, #050a0f 100%);
+	border:1px solid var(--botw-gray);
+	box-shadow:0 8px 32px rgba(0,0,0,0.6), inset 0 0 60px rgba(0,0,0,0.4);
+	box-sizing:border-box;
 }
+#map-viewport #map-container{transform-origin:0 0}
 
-#map-container .waypoint.player-position {
-	background: #ffffff;
-	border: 2px solid rgba(200,200,200,0.7);
-	width: 14px;
-	height: 14px;
-	border-radius: 50%;
-	transform: translate(-7px,-7px);
-	box-shadow: 0 0 10px 4px rgba(255,255,255,0.7), 0 0 20px 6px rgba(255,255,255,0.3);
-	z-index: 100;
-	cursor: default;
-}
-
-#map-container .waypoint.warp {
-	background: cyan;
-	border: 1px solid blue;
-	color: blue;
-	border-radius: 0;
-	transform: translate(-2px,0px) rotate(45deg);
-	transform-origin: top right;
-}
-
-#map-container .waypoint:hover {
-	cursor: pointer;
-}
-
-/* JS-positioned tooltip — sibling of waypoints in map-container, no rotation inheritance */
-#waypoint-tooltip {
-	display: none;
-	position: absolute;
-	pointer-events: none;
-	transform: translateY(-50%);
-	background: rgba(15, 20, 30, 0.62);
-	color: #e8eaf0;
-	border: 1px solid rgba(160, 180, 210, 0.45);
-	font-family: 'Noto Sans', sans-serif;
-	font-size: max(11px, calc(10px / var(--map-scale, 1)));
-	font-weight: 600;
-	border-radius: calc(5px / var(--map-scale, 1));
-	white-space: nowrap;
-	padding: calc(3px / var(--map-scale, 1)) calc(8px / var(--map-scale, 1));
-	box-shadow: 0 calc(2px / var(--map-scale, 1)) calc(8px / var(--map-scale, 1)) rgba(0,0,0,0.6);
-	z-index: 1000;
-}
-
-#map-container .waypoint.highlighted {
-	box-shadow: 0 0 0 2px rgba(255,255,255,0.95), 0 0 0 4px currentColor, 0 0 10px 3px currentColor;
-	filter: brightness(1.6);
-	z-index: 10;
-}
-#toolbar label[data-hidden="true"] {
-	background: rgba(255,255,255,0.07);
-	opacity: 0.5;
-}
-
-#map-container {
-	width: 6000px; /* Size of image */
-	height: 5000px;
-}
-
-#map-container img {
-	position: relative;
-}
-
-/* Map viewport for pan/zoom */
-#map-viewport {
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	position: relative;
-	background: radial-gradient(circle at center, rgba(26,58,82,0.4) 0%, #050a0f 100%);
-	border: 1px solid var(--botw-gray);
-	box-shadow: 0 8px 32px rgba(0,0,0,0.6), inset 0 0 60px rgba(0,0,0,0.4);
-	box-sizing: border-box;
-}
-
-/* Decorative Sheikah corners on the map viewport */
+/* Decorative Sheikah corner brackets on the map viewport */
 #map-viewport::before,
 #map-viewport::after{
 	content:'';
@@ -1073,29 +1064,12 @@ button.no-text.with-icon:before{margin-right:0px}
 	pointer-events:none;
 	z-index:10;
 }
-#map-viewport::before{
-	top:8px;
-	left:8px;
-	border-right:none;
-	border-bottom:none;
-}
-#map-viewport::after{
-	top:8px;
-	right:8px;
-	border-left:none;
-	border-bottom:none;
-}
+#map-viewport::before{top:8px;left:8px;border-right:none;border-bottom:none}
+#map-viewport::after{top:8px;right:8px;border-left:none;border-bottom:none}
 
-#map-viewport #map-container {
-	transform-origin: 0 0;
-}
-
-#path-svg {
-	width: 6000px !important;
-	height: 5000px !important;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+#path-svg{
+	width:6000px !important;
+	height:5000px !important;
+	position:absolute;
+	top:0;left:0;right:0;bottom:0;
 }

@@ -1,3 +1,15 @@
+/**
+ * server.js — Express server for the BotW Unexplored Area Viewer
+ *
+ * Responsibilities:
+ *   - Serve static frontend files (HTML, CSS, JS, map image)
+ *   - Proxy the Cemu save file to the browser via /data/game_data.sav
+ *   - Expose /api/mtime so the browser can poll for save file changes
+ *   - Parse save file metrics server-side and expose them via /api (debug)
+ *
+ * Save file path is configured via SAVE_PATH in server/.env, mounted
+ * into the container at /app/data/game_data.sav.
+ */
 const express = require('express');
 const fs = require('fs');
 const path = require('path');

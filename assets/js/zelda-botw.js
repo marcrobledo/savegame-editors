@@ -1,7 +1,16 @@
-/*
-	The legend of Zelda: Breath of the wild v20180520
-	by Marc Robledo 2017-2018
-*/
+/**
+ * zelda-botw.js — Main application logic for the BotW Unexplored Area Viewer
+ *
+ * Built on the save game editor framework by Marc Robledo (2017–2018).
+ * Extended by Eric Defore and Xanderphillips to add:
+ *   - Auto-loading of the save file from the Express server
+ *   - Interactive left sidebar with hover/click map highlighting
+ *   - Player position marker with shrine interior detection
+ *   - Player stats display (hearts, stamina, playtime, rupees, motorcycle)
+ *   - Map pan and zoom with mouse wheel and middle-click drag
+ *   - JS-positioned hover tooltips for all map icons
+ *   - Polling-based auto-refresh when the save file changes (Manual Save only)
+ */
 var currentEditingItem=0;
 var locationValues = {};
 
@@ -558,6 +567,9 @@ function addWaypointListeners() {
 
 var _waypointTooltip = null;
 
+// Show a floating label next to a map icon.
+// Tooltip is a single reused DOM element positioned in map coordinates.
+// Offset accounts for circle vs diamond geometry so the label clears the pin at all zoom levels.
 function showWaypointTooltip( waypoint ) {
 	var name = waypoint.getAttribute( 'data-display_name' );
 	if ( !name ) return;
@@ -645,6 +657,8 @@ function removeAllWaypoints() {
 
 }
 
+// Place (or replace) the player position marker on the map.
+// x/z are BotW world coordinates; label defaults to 'Player'.
 function placePlayerMarker(x, z, label) {
 	var map = document.getElementById('map-container');
 	var existing = document.getElementById('player-position-marker');
@@ -695,6 +709,7 @@ function getShrineOverworldCoords() {
 	return null;
 }
 
+// Format a raw playtime value (seconds) as H:MM:SS.
 function formatPlaytime(seconds) {
 	var h = Math.floor(seconds / 3600);
 	var m = Math.floor((seconds % 3600) / 60);
@@ -702,6 +717,7 @@ function formatPlaytime(seconds) {
 	return h + ':' + (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
 }
 
+// Toggle the motorcycle indicator light green (owned) or red (not yet obtained).
 function setMotorcycleIndicator(owned) {
 	var el = document.getElementById('stat-motorcycle-light');
 	if (el) el.className = 'motorcycle-light ' + (owned ? 'owned' : 'not-owned');
