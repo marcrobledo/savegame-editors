@@ -355,6 +355,16 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 	letter-spacing:0.5px;
 	padding:10px 8px 4px;
 }
+.toolbar-section-title,
+.player-stats-title,
+.shape-legend-title,
+#save-timestamp-label{
+	width:fit-content;
+	border-bottom:1px solid rgba(150,150,150,0.35);
+	padding-bottom:2px;
+	margin-left:auto;
+	margin-right:auto;
+}
 #player-stats-section{
 	padding:10px 8px 8px;
 	border-top:3px double rgba(100,120,140,0.55);
@@ -473,7 +483,9 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 #timestamp-row{
 	display:flex;
 	align-items:center;
+	justify-content:space-between;
 	gap:5px;
+	width:100%;
 }
 .server-status-dot{
 	width:8px;
@@ -481,6 +493,7 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 	border-radius:50%;
 	display:inline-block;
 	flex-shrink:0;
+	margin-right:10px;
 }
 .server-status-dot.online{
 	background-color:#4caf50;

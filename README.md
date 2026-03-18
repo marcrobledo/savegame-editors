@@ -4,7 +4,7 @@
 
 A fixed sidebar on the left tracks your progress:
 
-#### Location Metrics
+#### Map Stats
 Each entry is color-coded, hoverable, and toggleable:
 
 | Metric | Color | Total |
