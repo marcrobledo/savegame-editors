@@ -172,7 +172,16 @@ SavegameEditor={
 			var playerX = tempFile.readF32(_pos + 4);  // first  pair value = X (east/west)
 			// _pos+8 = second hash, _pos+12 = Y (height) — skip
 			var playerZ = tempFile.readF32(_pos + 20); // third pair value = Z (north/south)
-			if (!isNaN(playerX) && !isNaN(playerZ)) placePlayerMarker(playerX, playerZ);
+			if (!isNaN(playerX) && !isNaN(playerZ)) {
+				// When inside a shrine, position values are local interior coords.
+				// Detect via MAP string and substitute the shrine's overworld coordinates.
+				var _shrineCoords = getShrineOverworldCoords();
+				if (_shrineCoords) {
+					placePlayerMarker(_shrineCoords.x, _shrineCoords.y);
+				} else {
+					placePlayerMarker(playerX, playerZ);
+				}
+			}
 		}
 
 		// Player stats — each searched independently
@@ -596,6 +605,42 @@ function placePlayerMarker(x, z) {
 	marker.style.top  = (2500 + z / 2) + 'px';
 	marker.setAttribute('data-display_name', 'Player');
 	map.appendChild(marker);
+}
+
+// Search for a hash at stride 4 (used for string-type save entries not at 8-byte stride)
+function searchHashStride4(hash) {
+	for (var i = 0x0c; i < tempFile.fileSize - 4; i += 4)
+		if (hash === tempFile.readU32(i)) return i;
+	return -1;
+}
+
+// If the player is inside a shrine interior, return the shrine's overworld {x, y} coords.
+// MAPTYPE hash (0xd913b769) stores the current map name fragmented across consecutive
+// [hash, 4-byte-chunk] pairs — e.g. "CDun"+"geon"+"/Dun"+"geon"+"068\0" = "CDungeon/Dungeon068".
+// Returns null if overworld or hash not found.
+function getShrineOverworldCoords() {
+	var HASH = 0xd913b769;
+	var off = searchHashStride4(HASH);
+	if (off < 0) return null;
+	// Collect 4-byte chunks from consecutive [hash, value] pairs
+	var mapName = '';
+	var done = false;
+	while (!done && off + 8 <= tempFile.fileSize && tempFile.readU32(off) === HASH) {
+		for (var b = 0; b < 4; b++) {
+			var c = tempFile.readU8(off + 4 + b);
+			if (c === 0) { done = true; break; }
+			mapName += String.fromCharCode(c);
+		}
+		off += 8;
+	}
+	var m = /^CDungeon\/Dungeon(\d+)/.exec(mapName);
+	if (!m) return null;
+	var target = 'Location_Dungeon' + m[1];
+	for (var warpHash in warps) {
+		if (warps[warpHash].internal_name === target)
+			return { x: warps[warpHash].x, y: warps[warpHash].y };
+	}
+	return null;
 }
 
 function formatPlaytime(seconds) {

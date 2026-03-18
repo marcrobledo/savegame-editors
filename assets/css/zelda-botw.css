@@ -991,8 +991,11 @@ button.no-text.with-icon:before{margin-right:0px}
 
 #map-container .waypoint:hover:after {
 	content: attr(data-display_name);
-	display: inline-block;
-	position: relative;
+	display: block;
+	position: absolute;
+	left: 14px;
+	top: 50%;
+	transform: translateY(-50%);
 	background: inherit;
 	border: inherit;
 	width: auto;
@@ -1011,8 +1014,8 @@ button.no-text.with-icon:before{margin-right:0px}
 #map-container .waypoint.tower:hover:after,
 #map-container .waypoint.divine-beast:hover:after,
 #map-container .waypoint.warp:hover:after {
-	transform: rotate(-45deg);
-	transform-origin: 0;
+	transform: translateY(-50%) rotate(-45deg);
+	transform-origin: left center;
 }
 
 #map-container .waypoint.highlighted {

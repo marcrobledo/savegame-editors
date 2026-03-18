@@ -122,6 +122,8 @@ function parseSaveMetrics(buf) {
         RUPEES:              { hash: 0x23149bf8, type: 'u32' },
         MOTORCYCLE:          { hash: 0xc9328299, type: 'u32' },
         PLAYER_POSITION:     { hash: 0xa40ba103, type: 'f32x3' },
+        MAP:                 { hash: 0x0bee9e46, type: 'u32' },
+        MAPTYPE:             { hash: 0xd913b769, type: 'u32' },
     };
 
     for (var name in targets) {
