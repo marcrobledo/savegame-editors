@@ -51,15 +51,47 @@ Scrolling the mouse wheel shows a brief zoom percentage indicator in the bottom-
 
 A server status indicator and save file timestamp at the bottom of the sidebar show server reachability and when your save was last read.
 
-### Debug API
+### Live Data API
 
-A JSON endpoint is available for troubleshooting:
+The viewer exposes a JSON endpoint that serves as a live data feed of your current save state:
 
 ```
 GET http://localhost:3000/api
 ```
 
-Returns all parsed save file metrics including raw and display values for hearts, stamina, playtime, rupees, motorcycle status, player coordinates (X/Y/Z), and found/total counts for all location categories.
+Since the server polls for save file changes every 10 seconds, this endpoint always reflects your most recent manual save — no game modification or plugin required. External systems can poll `/api` on any interval to react to changes in game state.
+
+```json
+{
+  "console": "XX",
+  "KOROK_SEED_COUNTER": XX,
+  "MAX_HEARTS": XX,
+  "MAX_HEARTS_display": XX,
+  "MAX_STAMINA": XX,
+  "MAX_STAMINA_display": XX,
+  "PLAYTIME": XX,
+  "PLAYTIME_formatted": "XX:XX:XX",
+  "RUPEES": XX,
+  "MOTORCYCLE": XX,
+  "PLAYER_POSITION": { "x": XX, "y": XX, "z": XX, "raw_hex": "XX" },
+  "MAP": XX,
+  "MAPTYPE": XX,
+  "locations":          { "found": XX, "total": 226 },
+  "shrines_discovered": { "found": XX, "total": 120 },
+  "shrines_completed":  { "found": XX, "total": 120 },
+  "towers":             { "found": XX, "total": 15 },
+  "divine_beasts":      { "found": XX, "total": 4 },
+  "koroks_discovered":  { "found": XX, "total": 900 }
+}
+```
+
+This data can serve as a live input feed for a wide range of external systems:
+
+- **Stream overlays** — display live completion stats or player coordinates in OBS or browser-source overlays
+- **Discord bots** — post milestone notifications when a Korok seed count or shrine count crosses a threshold
+- **Home automation** — trigger lighting scenes or alerts based on game progress
+- **Spreadsheets / logging** — poll on a cron schedule and append rows to track progress over a play session
+- **Webhooks and pipelines** — feed into any HTTP-based automation tool (Zapier, n8n, Home Assistant, etc.)
 
 ![Unexplored Area Viewer screenshot](Screenshot.jpg)
 
