@@ -346,6 +346,15 @@ button.with-icon.file-load:before{background-position:-32px -48px;width:20px;hei
 	font-weight:600;
 	text-shadow:0 0 10px rgba(201,169,89,0.4);
 }
+.toolbar-section-title{
+	font-family:'Cinzel',serif;
+	font-size:11px;
+	font-weight:700;
+	color:var(--botw-text-muted);
+	text-transform:uppercase;
+	letter-spacing:0.5px;
+	padding:10px 8px 4px;
+}
 #player-stats-section{
 	padding:10px 8px 8px;
 	border-top:3px double rgba(100,120,140,0.55);

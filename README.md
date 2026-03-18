@@ -2,11 +2,7 @@
 
 ### Because there _really_ needed to be 900 of them, right?
 
-I was sitting around 600 Koroks found and was having a really difficult time following any sort of checklist to find the rest since I would need to check off all 600 that I found before it would be useful for me.
-
-So, I slapped this together to parse a Cemu save file to show only the Koroks and Locations that I have yet to find. As you find them in-game, the map automatically refreshes to reflect your progress.
-
-A fixed sidebar on the left tracks your progress across two sections:
+A fixed sidebar on the left tracks your progress:
 
 #### Location Metrics
 Each entry is color-coded, hoverable, and toggleable:
@@ -36,7 +32,9 @@ Read directly from the save file — no game interaction required:
 | Rupees | Current rupee count |
 | Motorcycle | Green = Master Cycle owned, Red = not yet |
 
+#### Icon Shapes
 Map icons use shape and color to indicate type:
+
 - **Circles** — Korok seeds (green) and Locations (orange)
 - **Diamonds** — Shrines discovered (cyan), Shrines completed (yellow), Towers (violet), Divine Beasts (red), and other Warp Points
 - **Glowing circle** — Player position (white)
@@ -97,7 +95,7 @@ This application runs as a Docker container that automatically reads your Cemu s
 
 - The server reads your Cemu save file from the path defined in `server/.env`
 - The save file is monitored for changes every 10 seconds
-- When the save file is updated after playing, the page automatically refreshes to show your latest progress
+- The map automatically refreshes with each **Manual Save**. Autosave checkpoints do not trigger a refresh.
 
 ### Supported Game Versions
 
