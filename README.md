@@ -23,7 +23,7 @@ Each entry is color-coded, hoverable, and toggleable:
 
 - **Hover** over a metric to highlight all matching icons on the map with a glowing ring
 - **Click** a metric to show/hide that icon type on the map; hidden categories appear dimmed in the sidebar
-- **Player Position** places a glowing white marker on the map at your character's last saved location
+- **Player Position** places a glowing white marker on the map at your character's last saved location. When the save was made inside a shrine, the marker appears at the shrine's overworld entrance rather than its interior coordinates
 
 #### Player Stats
 Read directly from the save file — no game interaction required:
@@ -40,6 +40,8 @@ Map icons use shape and color to indicate type:
 - **Circles** — Korok seeds (green) and Locations (orange)
 - **Diamonds** — Shrines discovered (cyan), Shrines completed (yellow), Towers (violet), Divine Beasts (red), and other Warp Points
 - **Glowing circle** — Player position (white)
+
+Hovering over any map icon shows its name label offset to the side so the marker itself remains visible.
 
 A server status indicator and save file timestamp at the bottom of the sidebar show server reachability and when your save was last read.
 
