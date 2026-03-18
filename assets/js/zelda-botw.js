@@ -770,9 +770,7 @@ function setMotorcycleIndicator(owned) {
 	var panY = 0;
 	var isPanning = false;
 	var _smoothAnimFrame = null;
-	var _smoothAnimStart = null;
-
-	function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+	var _transitionTimeout = null;
 	var startX = 0;
 	var startY = 0;
 	var mapContainer = null;
@@ -882,6 +880,9 @@ function setMotorcycleIndicator(owned) {
 	}
 
 	function updateTransform() {
+		// Cancel any in-progress smooth animation
+		mapContainer.style.transition = '';
+		if (_transitionTimeout) { clearTimeout(_transitionTimeout); _transitionTimeout = null; }
 		// Calculate bounds to prevent showing blank space around map edges
 		var mapWidth = 6000;
 		var mapHeight = 5000;
@@ -926,41 +927,34 @@ function setMotorcycleIndicator(owned) {
 			updateTransform();
 		},
 		// Smoothly pan and zoom to center on a map-coordinate point over ~700ms.
+		// Uses a CSS transition so the browser compositor handles interpolation
+		// entirely on its own thread — no per-frame JS overhead.
 		smoothCenterOn: function(mapX, mapY, targetScale) {
 			if (!mapViewport) return;
+			if (_smoothAnimFrame) { cancelAnimationFrame(_smoothAnimFrame); _smoothAnimFrame = null; }
+			if (_transitionTimeout) { clearTimeout(_transitionTimeout); _transitionTimeout = null; }
+			mapContainer.style.transition = '';
+
 			var ts = targetScale !== undefined ? Math.max(minZoom, Math.min(maxZoom, targetScale)) : scale;
 			var vw = mapViewport.clientWidth || window.innerWidth;
 			var vh = mapViewport.clientHeight || window.innerHeight;
-			var startScale = scale;
-			var startPanX = panX;
-			var startPanY = panY;
-			var targetPanX = vw / 2 - mapX * ts;
-			var targetPanY = vh / 2 - mapY * ts;
-			var duration = 700;
-			if (_smoothAnimFrame) {
-				cancelAnimationFrame(_smoothAnimFrame);
+			scale = ts;
+			panX = vw / 2 - mapX * ts;
+			panY = vh / 2 - mapY * ts;
+
+			// One rAF so the browser registers the current transform as the start
+			// point and finishes any pending DOM work before the transition begins.
+			mapContainer.style.willChange = 'transform';
+			_smoothAnimFrame = requestAnimationFrame(function() {
 				_smoothAnimFrame = null;
-			}
-			_smoothAnimStart = null;
-			function step(timestamp) {
-				if (!_smoothAnimStart) _smoothAnimStart = timestamp;
-				var t = Math.min((timestamp - _smoothAnimStart) / duration, 1);
-				var e = easeOutCubic(t);
-				scale = startScale + (ts - startScale) * e;
-				panX = startPanX + (targetPanX - startPanX) * e;
-				panY = startPanY + (targetPanY - startPanY) * e;
-				if (t < 1) {
-					// Lightweight: set transform directly, no layout reads
-					mapContainer.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + scale + ')';
-					_smoothAnimFrame = requestAnimationFrame(step);
-				} else {
-					// Final frame: full updateTransform for clamping + CSS var sync
-					updateTransform();
-					_smoothAnimFrame = null;
-					_smoothAnimStart = null;
-				}
-			}
-			_smoothAnimFrame = requestAnimationFrame(step);
+				mapContainer.style.transition = 'transform 700ms cubic-bezier(0.215, 0.61, 0.355, 1)';
+				mapContainer.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + scale + ')';
+				_transitionTimeout = setTimeout(function() {
+					_transitionTimeout = null;
+					mapContainer.style.willChange = 'auto';
+					document.documentElement.style.setProperty('--map-scale', scale);
+				}, 750);
+			});
 		},
 		// Returns the zoom level used by Track Player: 15% into the full zoom range,
 		// ensuring the map is always larger than the viewport so centering works.
