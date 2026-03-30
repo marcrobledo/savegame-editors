@@ -3,10 +3,6 @@
 	by Marc Robledo 2026
 */
 
-var currentWeapon=0;
-var weaponFilters=[
-	null
-];
 SavegameEditor={
 	Name:'Hyrule Warriors: Age of Calamity',
 	Filename:'svdt',
@@ -74,19 +70,18 @@ SavegameEditor={
 			'Monster Extract',
 			'Star Fragment',
 
-			//DLC could be also here???
-			'MATERIAL52',
-			'MATERIAL53',
-			'MATERIAL54',
-			'MATERIAL55',
-			'MATERIAL56',
-			'MATERIAL57',
-			'MATERIAL58',
-			'MATERIAL59',
-			'MATERIAL60',
-			'MATERIAL61',
-			'MATERIAL62',
-			'MATERIAL63',
+			'UNUSED52', //unused???
+			'UNUSED53', //unused???
+			'UNUSED54', //unused???
+			'UNUSED55', //unused???
+			'UNUSED56', //unused???
+			'UNUSED57', //unused???
+			'UNUSED58', //unused???
+			'UNUSED59', //unused???
+			'UNUSED60', //unused???
+			'UNUSED61', //unused???
+			'UNUSED62', //unused???
+			'UNUSED63', //unused???
 
 			'Hearty Salmon',
 			'Hearty Blueshell Snail',
@@ -177,7 +172,7 @@ SavegameEditor={
 			'Wood',
 
 			'Korok Seed',
-			'MATERIAL148', //???
+			'UNUSED148', //unused???
 			'Terrako Component',
 			'Ethereal Stone',
 
@@ -197,18 +192,6 @@ SavegameEditor={
 			'Mighty Bananas',
 
 			//DLC starts here???
-			'MATERIAL165',
-			'MATERIAL166',
-			'MATERIAL167',
-			'MATERIAL168',
-			'MATERIAL169',
-			'MATERIAL170',
-			'MATERIAL171',
-			'MATERIAL172',
-			'MATERIAL173',
-			'MATERIAL174',
-			'MATERIAL175'
-/*
 			'Guardian Claw (PotA)',
 			'High-Yield Ancient Furnace (PotA)',
 			'Robbie\'s Maintenance Oil (PotA)',
@@ -219,8 +202,7 @@ SavegameEditor={
 			'Report: Battle Records (PotA)',
 			'Report: Material Properties (PotA)',
 			'Report: Vicious Monsters (PotA)',
-			'Report: Hidden Battles (GoR)'
-*/
+			'Report: Hidden Battles (GoR)' //??? 175
 		]
 	},
 

@@ -30,7 +30,7 @@ caches.keys().then(function(cacheNames){
 });
 
 var PRECACHE_ID='hyrule-warriors-age-of-calamity-editor';
-var PRECACHE_VERSION='v1';
+var PRECACHE_VERSION='v1b';
 var PRECACHE_URLS=[
 	'/savegame-editors/hyrule-warriors-age-of-calamity/','/savegame-editors/hyrule-warriors-age-of-calamity/index.html',
 	'/savegame-editors/hyrule-warriors-age-of-calamity/favicon.png',
