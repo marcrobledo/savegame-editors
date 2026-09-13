@@ -244,8 +244,33 @@ SavegameEditor={
 			
 			(row.previousElementSibling || row).scrollIntoView({block:'start', behavior:'smooth'});
 			this.editItem(i);
+
+        // Add Modifier Select and Input if Weapon, Shield or Bow
+        const itemCat = this._getItemCategory(itemNameId)
+        if(["weapons","shields","bows"].includes(itemCat)) {
+            let cat = itemCat.slice(0, -1) // remove trailing s
+            let item_num = document.getElementById(`container-${itemCat}`).childElementCount - 1
+            this.addModifierFlagsToItem(item_num, cat, row)
+        }
 		}
 	},
+
+    addModifierFlagsToItem: function(i, itemCat, row) {
+        let col = itemCat
+        let cat = col.toUpperCase()
+        // Get Item Modifier by name and index
+				var modifier = tempFile.readU32(this.Offsets[`FLAGS_${cat}`]+i*8);
+				var modifierSelect = select('modifier-'+col+'s-'+i,
+                                    BOTW_Data.MODIFIERS.concat({value:modifier,name:this._toHexInt(modifier)}));
+				modifierSelect.value=modifier;
+        // Grab 2nd child in row and append select and input
+				var additional= row.children[2];
+				additional.appendChild(modifierSelect);
+				additional.appendChild(inputNumber(
+            'modifier-'+col+'s-value-'+i, 0, 0xffffffff,
+            tempFile.readU32(this.Offsets[`FLAGSV_${cat}`]+i*8)
+        ));
+    },
 
 	editItem:function(i){
 		currentEditingItem=i;
@@ -535,6 +560,7 @@ SavegameEditor={
 		empty('container-food');
 		empty('container-other');
 
+    let out_of_order = []
 		var modifiersArray=[0,0,0];
 		var search=0; //0:weapons, 1:bows, 2:shields
 		for(var i=0; i<this.Constants.MAX_ITEMS; i++){
@@ -561,10 +587,13 @@ SavegameEditor={
 				modifiersArray[0]++;
 			}else if(itemCat==='bows' && search===1 && itemNameId.startsWith('Weapon_')){
 				modifiersArray[1]++;
+      }else if(itemCat === "bows" && search == 1 && !itemNameId.startsWith('Weapon_')){
 			}else if(itemCat==='shields' && search===2){
 				modifiersArray[2]++;
-			}
-
+			} else if(["weapons", "bows", "shields"].includes(itemCat )) {
+          const el = document.getElementById(`container-${itemCat}`).lastChild
+          out_of_order.push({itemCat, el})
+      }
 		}
 		MarcTooltips.add('#container-weapons input',{text:'Weapon durability',position:'bottom',align:'right'});
 		MarcTooltips.add('#container-bows input',{text:'Bow durability',position:'bottom',align:'right'});
@@ -585,6 +614,16 @@ SavegameEditor={
 				additional.appendChild(inputNumber('modifier-'+modifierColumn+'s-value-'+i, 0, 0xffffffff, tempFile.readU32(this.Offsets['FLAGSV_'+modifierColumn.toUpperCase()]+i*8)));
 			}
 		}
+
+    for(const item of out_of_order) {
+      let n = ["weapons", "bows","shields"].indexOf(item.itemCat)
+      if(n < 0) { continue }
+      let item_num = modifiersArray[n]
+      modifiersArray[n] += 1
+      let key = `container-${item.itemCat}`
+      let cat = item.itemCat.slice(0, -1) // remove trailing 's'
+      this.addModifierFlagsToItem(item_num, cat, item.el)
+    }
 
 
 		/* horses */
