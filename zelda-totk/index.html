@@ -24,6 +24,8 @@
 	<script defer type="text/javascript" src="./zelda-totk.coordinates.js?version=1"></script>
 	<script defer type="text/javascript" src="./zelda-totk.exp-calculator.js?version=1"></script>
 	<script defer type="text/javascript" src="./zelda-totk.master.js?version=1"></script>
+	<script defer type="text/javascript" src="./zelda-totk.shrines.data.js?version=1"></script>
+	<script defer type="text/javascript" src="./zelda-totk.shrines.js?version=1"></script>
 	<script src="https://unpkg.com/fflate@0.8.0"></script>
 	<script type="text/javascript"><!--
 		/* service worker */
@@ -65,6 +67,7 @@
 					<button class="nav-link" data-translate-title="Zonai devices" title="Zonai devices" data-target="devices"><i class="tab-icon devices"></i></button>
 					<button class="nav-link" data-translate-title="Key items" title="Key items" data-target="key"><i class="tab-icon other"></i></button>
 					<button class="nav-link" data-translate-title="Horses" title="Horses" data-target="horses"><i class="tab-icon horses"></i></button>
+					<button class="nav-link" data-translate-title="Shrines" title="Shrines" data-target="shrines"><i class="tab-icon shrines"></i></button>
 					<button class="nav-link" data-translate-title="Master editor" title="Master editor" data-target="master"><i class="tab-icon master"></i></button>
 				</div>
 				<div>
@@ -920,6 +923,62 @@
 			<div class="col-right"><input id="float-pos-y-horse" class="full-width" type="text" /></div>
 			<div class="col-right"><input id="float-pos-z-horse" class="full-width" type="text" /></div>
 		</div> -->
+	</div>
+
+	<!-- TAB: SHRINES -->
+	<div id="tab-shrines">
+		<!-- Stats Summary Card -->
+		<div class="shrines-header-card">
+			<div class="shrines-stat-box">
+				<div class="shrines-stat-label">Total Completed</div>
+				<div class="shrines-stat-value" id="shrines-stat-total">0 / 152</div>
+			</div>
+			<div class="shrines-stat-box">
+				<div class="shrines-stat-label">Surface Shrines (120)</div>
+				<div class="shrines-stat-value" id="shrines-stat-surface">0 / 120</div>
+			</div>
+			<div class="shrines-stat-box">
+				<div class="shrines-stat-label">Sky Shrines (32)</div>
+				<div class="shrines-stat-value" id="shrines-stat-sky">0 / 32</div>
+			</div>
+			<div class="shrines-stat-box">
+				<div class="shrines-stat-label">Completion</div>
+				<div class="shrines-stat-value" id="shrines-stat-percent">0%</div>
+			</div>
+		</div>
+
+		<!-- Controls Toolbar -->
+		<div class="shrines-controls-row">
+			<div class="shrines-search-wrap">
+				<input type="text" id="shrines-search-input" placeholder="Search shrines by name, region, trial subtitle..." oninput="TOTKShrines.onSearchInput(this.value)" />
+			</div>
+			<div class="shrines-filter-wrap">
+				<select id="shrines-region-select" onchange="TOTKShrines.onRegionSelect(this.value)">
+					<option value="">All Regions</option>
+				</select>
+				<select id="shrines-status-select" onchange="TOTKShrines.onStatusSelect(this.value)">
+					<option value="all">All Shrines</option>
+					<option value="completed">Completed Only</option>
+					<option value="uncompleted">Incomplete Only</option>
+					<option value="surface">Surface Only (120)</option>
+					<option value="sky">Sky Only (32)</option>
+				</select>
+			</div>
+			<div class="shrines-actions-wrap">
+				<button type="button" class="btn btn-primary" onclick="TOTKShrines.setAll(true, 'surface')">Complete Surface (120)</button>
+				<button type="button" class="btn btn-primary" onclick="TOTKShrines.setAll(true, 'sky')">Complete Sky (32)</button>
+				<button type="button" class="btn btn-primary" onclick="TOTKShrines.setAll(true)">Complete All (152)</button>
+				<button type="button" class="btn" onclick="TOTKShrines.setAll(false)">Reset All</button>
+			</div>
+		</div>
+
+		<div class="shrines-meta-bar">
+			<span id="shrines-visible-count">152 shrines shown</span>
+			<span class="shrines-hint">Tip: Check or uncheck a shrine to update your completion status. Changes will be saved when you click "Save changes".</span>
+		</div>
+
+		<!-- Shrines Grid / List -->
+		<div id="shrines-list" class="shrines-grid"></div>
 	</div>
 
 	<!-- TAB: MASTER EDITOR -->

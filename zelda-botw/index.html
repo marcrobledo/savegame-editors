@@ -15,6 +15,8 @@
 	<script type="text/javascript" src="./zelda-botw.icons.js"></script>
 	<script type="text/javascript" src="./zelda-botw.master.js"></script>
 	<script type="text/javascript" src="./zelda-botw.score.js"></script>
+	<script type="text/javascript" src="./zelda-botw.shrines.data.js"></script>
+	<script type="text/javascript" src="./zelda-botw.shrines.js"></script>
 	<script type="text/javascript"><!--
 		/* service worker */
 		var FORCE_HTTPS=true;
@@ -55,6 +57,7 @@
 				<button id="tab-button-food" title="Food" class="tab-button" onclick="showTab('food')"><i class="tab-icon food"></i></button>
 				<button id="tab-button-other" title="Other" class="tab-button" onclick="showTab('other')"><i class="tab-icon other"></i></button>
 				<button id="tab-button-horses" title="Horses" class="tab-button" onclick="showTab('horses')"><i class="tab-icon horses"></i></button>
+				<button id="tab-button-shrines" title="Shrines" class="tab-button" onclick="showTab('shrines')"><i class="tab-icon shrines"></i></button>
 				<button id="tab-button-master" title="Master editor" class="tab-button" onclick="showTab('master')"><i class="tab-icon master"></i></button>
 				| <button class="button with-icon icon3" onclick="closeFile()">Close file</button>
 				<button class="button colored blue with-icon icon9" onclick="saveChanges()">Save changes</button>
@@ -329,6 +332,63 @@
 			<div class="two columns"><input id="float-pos-y-horse" class="full-width" type="text" /></div>
 			<div class="two columns"><input id="float-pos-z-horse" class="full-width" type="text" /></div>
 		</div>
+	</div>
+
+	<!-- TAB: SHRINES TRACKER -->
+	<div id="tab-shrines" class="hidden">
+		<h3 class="border-blue">Ancient Shrines Tracker</h3>
+		
+		<!-- Stats Summary Card -->
+		<div class="shrines-header-card">
+			<div class="shrines-stat-box">
+				<div class="shrines-stat-label">Total Completed</div>
+				<div class="shrines-stat-value" id="shrines-stat-total">0 / 136</div>
+			</div>
+			<div class="shrines-stat-box">
+				<div class="shrines-stat-label">Base Game (120)</div>
+				<div class="shrines-stat-value" id="shrines-stat-base">0 / 120</div>
+			</div>
+			<div class="shrines-stat-box">
+				<div class="shrines-stat-label">DLC Shrines (16)</div>
+				<div class="shrines-stat-value" id="shrines-stat-dlc">0 / 16</div>
+			</div>
+			<div class="shrines-stat-box">
+				<div class="shrines-stat-label">Completion</div>
+				<div class="shrines-stat-value" id="shrines-stat-percent">0%</div>
+			</div>
+		</div>
+
+		<!-- Controls Toolbar -->
+		<div class="shrines-controls-row">
+			<div class="shrines-search-wrap">
+				<input type="text" id="shrines-search-input" placeholder="Search shrines by name, region, quest, trial..." oninput="BOTWShrines.onSearchInput(this.value)" />
+			</div>
+			<div class="shrines-filter-wrap">
+				<select id="shrines-region-select" onchange="BOTWShrines.onRegionSelect(this.value)">
+					<option value="">All Regions</option>
+				</select>
+				<select id="shrines-status-select" onchange="BOTWShrines.onStatusSelect(this.value)">
+					<option value="all">All Shrines</option>
+					<option value="completed">Completed Only</option>
+					<option value="uncompleted">Incomplete Only</option>
+					<option value="base">Base Game Only</option>
+					<option value="dlc">DLC Only</option>
+				</select>
+			</div>
+			<div class="shrines-actions-wrap">
+				<button type="button" class="button colored blue" onclick="BOTWShrines.setAll(true, false)">Complete All Base (120)</button>
+				<button type="button" class="button colored blue" onclick="BOTWShrines.setAll(true)">Complete All (136)</button>
+				<button type="button" class="button" onclick="BOTWShrines.setAll(false)">Reset All</button>
+			</div>
+		</div>
+
+		<div class="shrines-meta-bar">
+			<span id="shrines-visible-count">136 shrines shown</span>
+			<span class="shrines-hint">Tip: Check or uncheck a shrine to update your completion status. Changes will be saved when you click "Save changes".</span>
+		</div>
+
+		<!-- Shrines Grid / List -->
+		<div id="shrines-list" class="shrines-grid"></div>
 	</div>
 
 	<!-- TAB: MASTER EDITOR -->

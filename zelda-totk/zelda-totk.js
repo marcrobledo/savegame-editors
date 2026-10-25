@@ -1750,6 +1750,9 @@ SavegameEditor={
 
 
 
+		if(typeof TOTKShrines !== 'undefined')
+			TOTKShrines.load();
+
 		if(TOTKMasterEditor.isLoaded())
 			TOTKMasterEditor.forceFindOffsets=true;
 
@@ -1764,6 +1767,9 @@ SavegameEditor={
 	save:function(){
 		if(UI.getCurrentTab()==='master')
 			return false;
+
+		if(typeof TOTKShrines !== 'undefined')
+			TOTKShrines.save();
 
 		/* STATS */
 		this.writeU32('PlayerStatus.CurrentRupee', null, getValue('rupees'));
@@ -1828,10 +1834,6 @@ window.addEventListener('DOMContentLoaded', function(){
 
 
 
-
-
-
-
 var UI=(function(sge){
 	var _attachedEvents=false;
 
@@ -1857,6 +1859,11 @@ var UI=(function(sge){
 				SavegameEditor.refreshAddArrowsButton();
 			}
 			tabCache[newTab]=true;
+		}else if(newTab==='shrines'){
+			if(typeof TOTKShrines !== 'undefined' && TOTKShrines.initialized){
+				TOTKShrines.render();
+				TOTKShrines.updateStats();
+			}
 		}else if(newTab==='master'){
 			if(TOTKMasterEditor.isLoaded()){
 				TOTKMasterEditor.toggleImportButton();

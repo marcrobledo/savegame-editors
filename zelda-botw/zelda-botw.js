@@ -643,6 +643,10 @@ SavegameEditor={
 		}
 
 
+		/* shrines tracker */
+		if(typeof BOTWShrines !== 'undefined')
+			BOTWShrines.load();
+
 		showTab('home');
 
 		/* scale score */
@@ -651,6 +655,10 @@ SavegameEditor={
 
 	/* save function */
 	save:function(){
+		/* SHRINES */
+		if(typeof BOTWShrines !== 'undefined')
+			BOTWShrines.save();
+
 		/* STATS */
 		tempFile.writeU32(this.Offsets.RUPEES, getValue('rupees'));
 		tempFile.writeU32(this.Offsets.MONS, getValue('mons'));
@@ -716,7 +724,7 @@ SavegameEditor={
 
 
 /* TABS */
-var availableTabs=['home','weapons','bows','shields','clothes','materials','food','other','horses','master'];
+var availableTabs=['home','weapons','bows','shields','clothes','materials','food','other','horses','shrines','master'];
 
 
 var currentTab;
@@ -727,7 +735,7 @@ function showTab(newTab){
 		document.getElementById('tab-'+availableTabs[i]).style.display=currentTab===availableTabs[i]?'block':'none';
 	}
 	
-	document.getElementById('add-item-button').style.display=(newTab==='home' || newTab==='horses' || newTab==='master')? 'none':'block';
+	document.getElementById('add-item-button').style.display=(newTab==='home' || newTab==='horses' || newTab==='shrines' || newTab==='master')? 'none':'block';
 
 	if(newTab==='master'){
 		if(BOTWMasterEditor.isLoaded())
