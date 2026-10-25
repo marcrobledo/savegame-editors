@@ -175,6 +175,12 @@ i.tab-icon.food{background-position-x:-192px;}
 i.tab-icon.other{background-position-x:-224px;}
 i.tab-icon.horses{background-position-x:-256px;}
 i.tab-icon.master{background-position-x:-288px;}
+i.tab-icon.shrines{
+	background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233498db'%3E%3Cpath d='M12 2L4 7v3c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V7l-8-5zm0 4.18l5 3.12v2.24c0 3.78-2.61 7.34-5 8.4-2.39-1.06-5-4.62-5-8.4V9.3l5-3.12z'/%3E%3C/svg%3E");
+	background-size:24px 24px;
+	background-position:center;
+	background-repeat:no-repeat;
+}
 
 
 
@@ -694,3 +700,281 @@ button.no-text.with-icon:before{margin-right:0px}
 .tooltip.position-horizontal.align-top .arrow{top:3px}
 .tooltip.position-horizontal.align-center .arrow{top:50%;margin-top:-5px}
 .tooltip.position-horizontal.align-bottom .arrow{bottom:3px}
+
+/* SHRINES TRACKER STYLES */
+.shrines-header-card{
+	display:flex;
+	flex-wrap:wrap;
+	gap:12px;
+	margin:15px 0 20px;
+	background:rgba(20, 26, 35, 0.75);
+	border:1px solid rgba(52, 152, 219, 0.35);
+	border-radius:8px;
+	padding:16px 20px;
+	box-shadow:0 4px 15px rgba(0,0,0,0.4);
+}
+.shrines-stat-box{
+	flex:1;
+	min-width:140px;
+	background:rgba(0,0,0,0.35);
+	border-left:3px solid #3498db;
+	padding:10px 14px;
+	border-radius:4px;
+}
+.shrines-stat-label{
+	font-size:12px;
+	text-transform:uppercase;
+	letter-spacing:0.5px;
+	color:#a0afbc;
+	margin-bottom:4px;
+}
+.shrines-stat-value{
+	font-size:22px;
+	font-weight:700;
+	color:#5dade2;
+	font-family:monospace;
+}
+.shrines-controls-row{
+	display:flex;
+	flex-wrap:wrap;
+	align-items:center;
+	gap:10px;
+	margin-bottom:12px;
+	background:rgba(0,0,0,0.4);
+	padding:12px 16px;
+	border-radius:6px;
+	border:1px solid #332828;
+}
+.shrines-search-wrap{
+	flex:2;
+	min-width:220px;
+}
+.shrines-search-wrap input{
+	width:100%;
+	box-sizing:border-box;
+	padding:8px 12px;
+	background:#1e1a1a;
+	border:1px solid #4a3b3b;
+	color:#f9f5da;
+	border-radius:4px;
+	font-size:14px;
+}
+.shrines-search-wrap input:focus{
+	border-color:#3498db;
+	outline:none;
+}
+.shrines-filter-wrap{
+	display:flex;
+	gap:8px;
+	flex:1.5;
+	min-width:220px;
+}
+.shrines-filter-wrap select{
+	flex:1;
+	padding:8px 10px;
+	background:#1e1a1a;
+	border:1px solid #4a3b3b;
+	color:#f9f5da;
+	border-radius:4px;
+	font-size:14px;
+}
+.shrines-actions-wrap{
+	display:flex;
+	gap:8px;
+	flex-wrap:wrap;
+}
+.shrines-actions-wrap button{
+	margin:0 !important;
+	padding:8px 14px !important;
+	font-size:12px !important;
+}
+.shrines-meta-bar{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	margin-bottom:12px;
+	font-size:12px;
+	color:#a79d8d;
+	padding:0 4px;
+}
+.shrines-hint{
+	font-style:italic;
+	color:#778594;
+}
+.shrines-grid{
+	display:grid;
+	grid-template-columns:repeat(auto-fill, minmax(360px, 1fr));
+	gap:10px;
+	max-height:68vh;
+	overflow-y:auto;
+	padding-right:6px;
+}
+.shrines-grid::-webkit-scrollbar{
+	width:8px;
+}
+.shrines-grid::-webkit-scrollbar-track{
+	background:rgba(0,0,0,0.3);
+	border-radius:4px;
+}
+.shrines-grid::-webkit-scrollbar-thumb{
+	background:#3c3333;
+	border-radius:4px;
+}
+.shrines-grid::-webkit-scrollbar-thumb:hover{
+	background:#5dade2;
+}
+
+.shrine-card{
+	display:flex;
+	align-items:center;
+	justify-content:space-between;
+	background:rgba(26, 20, 20, 0.85);
+	border:1px solid #3d2f2f;
+	border-radius:6px;
+	padding:10px 14px;
+	transition:all 0.15s ease-in-out;
+}
+.shrine-card:hover{
+	background:rgba(38, 30, 30, 0.95);
+	border-color:#5c4747;
+	transform:translateY(-1px);
+}
+.shrine-card.completed{
+	border-left:4px solid #27ae60;
+	background:rgba(18, 32, 24, 0.7);
+}
+.shrine-card.completed:hover{
+	background:rgba(22, 42, 30, 0.85);
+	border-left-color:#2ecc71;
+}
+.shrine-card.uncompleted{
+	border-left:4px solid #e67e22;
+}
+.shrine-card.is-dlc{
+	box-shadow:inset 0 0 0 1px rgba(155, 89, 182, 0.25);
+}
+
+.shrine-main-info{
+	display:flex;
+	align-items:center;
+	gap:12px;
+	flex:1;
+	min-width:0;
+}
+.shrine-checkbox-wrapper{
+	position:relative;
+	display:inline-block;
+	width:20px;
+	height:20px;
+	cursor:pointer;
+	flex-shrink:0;
+}
+.shrine-checkbox-wrapper input{
+	opacity:0;
+	width:0;
+	height:0;
+}
+.shrine-checkmark{
+	position:absolute;
+	top:0;
+	left:0;
+	height:20px;
+	width:20px;
+	background-color:#2a2020;
+	border:2px solid #5a4444;
+	border-radius:4px;
+	transition:0.15s;
+}
+.shrine-checkbox-wrapper:hover input ~ .shrine-checkmark{
+	border-color:#3498db;
+}
+.shrine-checkbox-wrapper input:checked ~ .shrine-checkmark{
+	background-color:#27ae60;
+	border-color:#2ecc71;
+}
+.shrine-checkmark:after{
+	content:"";
+	position:absolute;
+	display:none;
+	left:6px;
+	top:2px;
+	width:5px;
+	height:10px;
+	border:solid white;
+	border-width:0 2px 2px 0;
+	transform:rotate(45deg);
+}
+.shrine-checkbox-wrapper input:checked ~ .shrine-checkmark:after{
+	display:block;
+}
+
+.shrine-names{
+	flex:1;
+	min-width:0;
+}
+.shrine-title{
+	font-weight:700;
+	font-size:14px;
+	color:#fff5ea;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	display:flex;
+	align-items:center;
+	gap:6px;
+}
+.shrine-subtitle{
+	font-size:12px;
+	color:#b2a393;
+	margin-top:2px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.shrine-region-name{
+	color:#7fb3d5;
+	font-weight:600;
+}
+.shrine-id-tag{
+	font-family:monospace;
+	font-size:10px;
+	color:#756565;
+}
+
+.shrine-badge{
+	font-size:10px;
+	padding:1px 5px;
+	border-radius:3px;
+	font-weight:600;
+	text-transform:uppercase;
+	letter-spacing:0.5px;
+}
+.shrine-badge.dlc{
+	background:#8e44ad;
+	color:#fff;
+}
+.shrine-badge.quest{
+	background:#d35400;
+	color:#fff;
+}
+
+.shrine-status-tag{
+	font-size:11px;
+	font-weight:700;
+	padding:3px 8px;
+	border-radius:12px;
+	text-transform:uppercase;
+	letter-spacing:0.5px;
+	flex-shrink:0;
+}
+.shrine-status-tag.clear{
+	background:rgba(39, 174, 96, 0.2);
+	color:#2ecc71;
+	border:1px solid rgba(46, 204, 113, 0.4);
+}
+.shrine-status-tag.pending{
+	background:rgba(230, 126, 34, 0.15);
+	color:#e67e22;
+	border:1px solid rgba(230, 126, 34, 0.35);
+}
+
