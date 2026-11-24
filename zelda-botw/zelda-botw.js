@@ -68,11 +68,15 @@ SavegameEditor={
 	_writeFloat32:function(offset,val,arrayIndex){if(arrayIndex)tempFile.writeF32(offset+8*arrayIndex,val);else tempFile.writeF32(offset,val)},
 	_writeString:function(offset,str,len){
 		len=len || 8;
+		var bytes=new TextEncoder().encode(str);
+		var byteLength=Math.min(bytes.length, len*4-1); // leave room for the null terminator
+		// Do not split a UTF-8 character when truncating to the field size.
+		while(byteLength>0 && byteLength<bytes.length && (bytes[byteLength]&0xc0)===0x80)
+			byteLength--;
 		for(var i=0; i<len; i++){
 			tempFile.writeBytes(offset,[0,0,0,0]);
-			var fourBytes=str.substr(i*4, 4);
-			for(j=0; j<fourBytes.length; j++){
-				tempFile.writeU8(offset+j, fourBytes.charCodeAt(j));
+			for(var j=0; j<4 && i*4+j<byteLength; j++){
+				tempFile.writeU8(offset+j, bytes[i*4+j]);
 			}
 			offset+=8;
 		}
@@ -133,12 +137,15 @@ SavegameEditor={
 
 	_readString:function(offset, len){
 		len=len || 8;
-		var txt='';
+		var bytes=new Uint8Array(len*4);
 		for(var j=0; j<len; j++){
-			txt+=tempFile.readString(offset,4);
+			for(var k=0; k<4; k++)
+				bytes[j*4+k]=tempFile.readU8(offset+k);
 			offset+=8;
 		}
-		return txt
+		// Decode after joining the payloads: a UTF-8 character can span two records.
+		var end=bytes.indexOf(0);
+		return new TextDecoder('utf-8').decode(end===-1? bytes : bytes.subarray(0,end));
 	},
 	_readString64:function(offset,arrayIndex){
 		if(typeof arrayIndex==='number')
